@@ -175,7 +175,7 @@ export default function MosaicTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
 
   return (
     <div>
-      <div className="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-950">
+      <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-950">
         <canvas
           ref={viewRef}
           onPointerDown={onDown}
@@ -190,7 +190,7 @@ export default function MosaicTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
         {ui.how}
       </p>
 
-      <div className="mt-4 rounded-2xl border chip-off p-5">
+      <div className="mt-4 rounded-lg border chip-off p-5">
         <div className="grid grid-cols-2 gap-2">
           {([
             { m: 'mosaic' as const },

@@ -1,14 +1,14 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 
 /*
- * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
- * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
- * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
- * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
- * 골라 둔 예시를 그대로 올렸다.
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 빈 칸으로 열면 무엇을
+ * 보여 주는 계산기인지 눌러 보기 전에는 모른다 — 값을 미리 넣어 두면 「계산하기」
+ * 한 번에 한 벌이 통째로 보이고, 사람은 그 위에 자기 숫자를 덮어쓴다.
+ * 값은 내가 지어내지 않고 저자가 이미 골라 둔 예시를 그대로 올렸다.
  */
-import CalcShell, { Card, Label, inputCls, SummaryCard } from '@/components/CalcShell';
+import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
 
 import {
   MARRIAGE_BIRTH_DEDUCTION, RELATION_DEDUCTION, RELATION_LABEL, calcGiftTax,
@@ -22,26 +22,19 @@ export default function GiftTaxPage() {
   const [relation, setRelation] = useState<Relation>('parent-adult');
   const [prior, setPrior] = useState('');
   const [marriageBirth, setMarriageBirth] = useState(false);
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: GiftTaxResult | null = ((): GiftTaxResult | null => {
+  const [result, setResult] = useState<GiftTaxResult | null>(null);
+
+  function calculate() {
     const a = Number(amount);
-    if (a <= 0) return null;
-    return (calcGiftTax({
+    if (a <= 0) return;
+    setResult(calcGiftTax({
       amount: a,
       relation,
       priorAmount: Number(prior || 0),
       marriageBirth,
       selfReport: true,
     }));
-  
-    return null;
-  })();
-
-
+  }
 
   return (
     <CalcShell
@@ -97,8 +90,7 @@ export default function GiftTaxPage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>증여금액 (원)</Label>
-              <input type="number" value={amount} onChange={e => setAmount(e.target.value)}
-                placeholder="예: 100,000,000" className={inputCls} min="0" />
+              <MoneyInput value={amount} onChange={setAmount} placeholder="예: 100,000,000" />
             </div>
             <div>
               <Label>증여자와의 관계</Label>
@@ -113,8 +105,7 @@ export default function GiftTaxPage() {
             </div>
             <div>
               <Label>10년 내 동일인 기증여 합산액 (원)</Label>
-              <input type="number" value={prior} onChange={e => setPrior(e.target.value)}
-                placeholder="0" className={inputCls} min="0" />
+              <MoneyInput value={prior} onChange={setPrior} placeholder="0" />
               <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
                 합산해 세액을 낸 뒤 먼저 낸 세액을 공제합니다 — 두 번 물지 않습니다.
               </p>
@@ -129,6 +120,7 @@ export default function GiftTaxPage() {
                 </span>
               </label>
             )}
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 
@@ -139,7 +131,7 @@ export default function GiftTaxPage() {
               <p className="stat-value">{fmt(result.tax)}원</p>
               <p className="stat-sub">자진신고 시 {fmt(result.payable)}원 (3% 공제)</p>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <SummaryCard label="공제금액" value={`${fmt(result.deduction)}원`} variant="green" />
               <SummaryCard label="과세표준" value={`${fmt(result.taxBase)}원`} />
               {result.priorTaxCredit > 0 && (

@@ -118,7 +118,7 @@ export default function VolatilityBoard() {
 
   if (state === 'loading') {
     return (
-      <div role="status" aria-live="polite" className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
+      <div role="status" aria-live="polite" className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
         <div aria-hidden="true" className="w-8 h-8 border-4 border-slate-200 dark:border-slate-700 border-t-amber-500 rounded-full animate-spin" />
         <span className="text-sm font-bold text-slate-500 dark:text-slate-400">Measuring {UNIVERSE} coins over four windows…</span>
       </div>
@@ -127,7 +127,7 @@ export default function VolatilityBoard() {
 
   if (state === 'error') {
     return (
-      <div role="alert" className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
+      <div role="alert" className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
         <span aria-hidden="true" className="text-3xl">⚠️</span>
         <span className="text-sm font-bold text-rose-600 dark:text-rose-400">Couldn&apos;t load market data</span>
         <button type="button" onClick={load} className="mt-2 text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2 transition-colors">Retry</button>
@@ -137,7 +137,7 @@ export default function VolatilityBoard() {
 
   return (
     <>
-      <div className="rounded-2xl border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
+      <div className="rounded-lg border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
         <h2 className="text-sm font-black text-amber-900 dark:text-amber-200 mb-1.5">Volatility is the one thing here that does predict</h2>
         <p className="text-xs text-amber-900/85 dark:text-amber-200/85 leading-relaxed">
           Direction is not forecastable from price, but volatility is: a coin that has been violent this week is more likely than not to be
@@ -163,7 +163,7 @@ export default function VolatilityBoard() {
         </div>
       </div>
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
         <div className="scroll-x overflow-x-auto max-h-[620px] overflow-y-auto">
           <table className="w-full text-sm whitespace-nowrap">
             <thead className="sticky top-0 bg-white dark:bg-slate-900 z-10">
@@ -231,7 +231,7 @@ export default function VolatilityBoard() {
         </div>
       </div>
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
         <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">Why four windows instead of one</h2>
         <p className="mb-2">
           A single volatility figure conflates two different questions: how wild is this coin, and how wild is it being at the moment. The

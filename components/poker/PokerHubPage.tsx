@@ -72,7 +72,7 @@ export default function PokerHubPage({ lang }: { lang: Lang }) {
       </header>
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
-        <div className="text-center mb-7">
+        <div className="hero-band ">
           <h1 className="page-h1">{fill(ui.hubTitle, { n })}</h1>
           <p className="note-sm">{fill(ui.hubLead, { n })}</p>
         </div>
@@ -85,7 +85,7 @@ export default function PokerHubPage({ lang }: { lang: Lang }) {
 
         <section className="mb-8">
           <h2 className="sec-h2">{ui.byKind}</h2>
-          <dl className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
+          <dl className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
             {(['pair', 'suited', 'offsuit'] as const).map(k => (
               <div key={k} className="px-4 py-3 bg-white dark:bg-slate-900">
                 <div className="flex items-baseline justify-between gap-3">

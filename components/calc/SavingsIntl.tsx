@@ -39,7 +39,7 @@ export default function SavingsIntl({ lang }: { lang: CalcLang }) {
             <Label>{c.monthly}</Label>
             <input type="number" value={monthly} onChange={e => setMonthly(e.target.value)} className={inputCls} />
           </div>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-3 gap-x-4 gap-y-5">
             <div>
               <Label>{c.rate}</Label>
               <input type="number" step="0.01" value={rate} onChange={e => setRate(e.target.value)} className={inputCls} />

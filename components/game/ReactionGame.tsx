@@ -68,7 +68,7 @@ export default function ReactionGame({ lang = 'ko' }: { lang?: GameLang } = {}) 
     <div>
       <button
         onClick={hit}
-        className={`w-full h-64 sm:h-80 rounded-2xl ${face.bg} text-white flex flex-col items-center justify-center transition-colors select-none touch-none`}
+        className={`w-full h-64 sm:h-80 rounded-lg ${face.bg} text-white flex flex-col items-center justify-center transition-colors select-none touch-none`}
       >
         <span className="text-3xl sm:text-4xl font-black mb-2">{face.title}</span>
         {face.sub && <span className="text-sm text-white/70 px-6 text-center">{face.sub}</span>}

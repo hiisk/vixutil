@@ -1,34 +1,34 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, Label, inputCls } from '@/components/CalcShell';
+
+/*
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 빈 칸으로 열면 무엇을
+ * 보여 주는 계산기인지 눌러 보기 전에는 모른다 — 값을 미리 넣어 두면 「계산하기」
+ * 한 번에 한 벌이 통째로 보이고, 사람은 그 위에 자기 숫자를 덮어쓴다.
+ * 값은 내가 지어내지 않고 저자가 이미 골라 둔 예시를 그대로 올렸다.
+ */
+import CalcShell, { Card, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
 export default function BmrPage() {
   const [gender, setGender] = useState<'male' | 'female'>('male');
-  const [age, setAge] = useState('');
-  const [height, setHeight] = useState('');
-  const [weight, setWeight] = useState('');
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | { harris: number; mifflin: number } = ((): null | { harris: number; mifflin: number } => {
+  const [age, setAge] = useState('30');
+  const [height, setHeight] = useState('175');
+  const [weight, setWeight] = useState('70');
+  const [result, setResult] = useState<null | { harris: number; mifflin: number }>(null);
+
+  function calculate() {
     const a = Number(age); const h = Number(height); const w = Number(weight);
-    if (a <= 0 || h <= 0 || w <= 0) return null;
+    if (a <= 0 || h <= 0 || w <= 0) return;
     const harris = gender === 'male'
       ? 88.362 + 13.397 * w + 4.799 * h - 5.677 * a
       : 447.593 + 9.247 * w + 3.098 * h - 4.330 * a;
     const mifflin = gender === 'male'
       ? 10 * w + 6.25 * h - 5 * a + 5
       : 10 * w + 6.25 * h - 5 * a - 161;
-    return ({ harris, mifflin });
-  
-    return null;
-  })();
-
-
+    setResult({ harris, mifflin });
+  }
 
   return (
     <CalcShell
@@ -93,18 +93,19 @@ export default function BmrPage() {
                 <input type="number" value={weight} onChange={e => setWeight(e.target.value)} placeholder="kg" className={inputCls} min="0" />
               </div>
             </div>
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 
         {result && (
           <>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div className="stat-pri">
                 <p className="stat-label">Harris-Benedict</p>
                 <p className="stat-value">{fmt(result.harris)}</p>
                 <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">kcal/일</p>
               </div>
-              <div className="bg-slate-800 rounded-2xl p-5">
+              <div className="bg-slate-800 rounded-lg p-5">
                 <p className="text-slate-400 dark:text-slate-500 text-xs mb-1">Mifflin-St Jeor</p>
                 <p className="stat-value">{fmt(result.mifflin)}</p>
                 <p className="text-slate-400 dark:text-slate-500 text-xs mt-1">kcal/일</p>

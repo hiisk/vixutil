@@ -75,7 +75,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
 
       <main className="relative max-w-3xl mx-auto px-4 py-8">
         <div className="text-center mb-7">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 text-3xl bg-sec-soft shadow-lg">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-lg mb-4 text-3xl bg-sec-soft shadow-sm">
             <span>🃏</span>
           </div>
           <div className="hero-band">
@@ -147,7 +147,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
             {drawn === null ? (
               <button
                 onClick={draw}
-                className="w-full rounded-xl bg-sec font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
+                className="w-full rounded-xl bg-sec font-bold py-3.5 text-sm shadow-sm hover:opacity-90 transition-opacity"
               >
                 {ui.drawBtn(copy.label, shape.count)}
               </button>
@@ -158,7 +158,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
                     const open = shown.includes(i);
                     const reading = TAROT_READINGS[lang][d.card.id];
                     return (
-                      <div key={`${d.card.id}-${i}`} className="rounded-2xl border chip-off p-3.5">
+                      <div key={`${d.card.id}-${i}`} className="rounded-lg border chip-off p-3.5">
                         <p className="text-[10px] font-black text-violet-500 uppercase tracking-wide mb-1.5">{copy.positions[i]}</p>
                         {open ? (
                           <>

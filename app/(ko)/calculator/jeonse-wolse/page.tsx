@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, {
-  Card, CardHeader, Label, inputCls,
+  Card, CardHeader, Label, PrimaryBtn, inputCls,
   SummaryCard, SummaryGrid,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
@@ -14,21 +14,14 @@ export default function JeonseWolsePage() {
   const [wolseDeposit, setWolseDeposit] = useState(30_000_000);
   const [monthlyRent, setMonthlyRent] = useState(1_000_000);
   const [rate, setRate] = useState('4.0');
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: JeonseWolseResult | null = ((): JeonseWolseResult | null => {
-    if (jeonseDeposit <= 0) return null;
-    return (calcJeonseWolse({
+  const [result, setResult] = useState<JeonseWolseResult | null>(null);
+
+  function calculate() {
+    if (jeonseDeposit <= 0) return;
+    setResult(calcJeonseWolse({
       jeonseDeposit, wolseDeposit, monthlyRent, rate: Number(rate) || 0,
     }));
-  
-    return null;
-  })();
-
-
+  }
 
   const cheaperLabel = result
     ? result.cheaper === 'jeonse' ? '전세가 유리' : result.cheaper === 'wolse' ? '월세가 유리' : '거의 같음'
@@ -85,7 +78,7 @@ export default function JeonseWolsePage() {
 
         <Card className="p-5">
           <CardHeader title="월세 조건" />
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div>
               <Label>월세 보증금 (원)</Label>
               <CommaInput value={wolseDeposit} onChange={setWolseDeposit} placeholder="예: 30,000,000" />
@@ -110,6 +103,8 @@ export default function JeonseWolsePage() {
             </p>
           </div>
         </Card>
+
+        <PrimaryBtn onClick={calculate}>유불리 비교</PrimaryBtn>
 
         {result && (
           <>

@@ -67,14 +67,14 @@ export default function LuckyLottoPage() {
         </div>
       </header>
 
-      <div className="max-w-xl mx-auto px-4 py-6">
-        <div className="text-center mb-6">
-          <ToolIcon emoji="🍀" className="w-12 h-12 mx-auto mb-2 text-slate-800 dark:text-slate-100" />
+      <div className="hero-band max-w-xl mx-auto px-4 py-6">
+        <div className="mb-6">
+          <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="🍀" className="h-6 w-6" /></span>
           <h1 className="page-h1">행운의 로또 번호</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">생년월일로 보는 오늘의 행운 번호 — 매일 자정 새로 바뀝니다</p>
         </div>
 
-        <form onSubmit={submit} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-6">
+        <form onSubmit={submit} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-6">
           <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">생년월일</label>
           <div className="grid grid-cols-3 gap-2">
             <input type="number" inputMode="numeric" placeholder="예) 1995" value={form.year}
@@ -88,14 +88,14 @@ export default function LuckyLottoPage() {
               className="fld focus:border-emerald-400" />
           </div>
           {error && <p className="text-xs text-rose-600 dark:text-rose-400 mt-2">{error}</p>}
-          <button type="submit" className="w-full mt-3 rounded-xl bg-sec text-sm font-black py-3.5 transition-all active:scale-[0.99] shadow-md shadow-emerald-200 dark:shadow-none">
+          <button type="submit" className="w-full mt-3 rounded-xl bg-sec text-sm font-black py-3.5 transition-all active:scale-[0.99] shadow-sm shadow-emerald-200 dark:shadow-none">
             행운 번호 뽑기 🍀
           </button>
         </form>
 
         {result && (
           <div id="lotto-result">
-            <div className="ll-pop rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-6 mb-4">
+            <div className="ll-pop rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-6 mb-4">
               <div className="text-center text-xs font-black text-emerald-600 mb-4">오늘의 행운 번호 🍀</div>
               <div className="flex flex-wrap justify-center items-center gap-2 mb-4">
                 {result.numbers.map(n => <Ball key={n} n={n} />)}
@@ -106,17 +106,17 @@ export default function LuckyLottoPage() {
             </div>
 
             <div className="grid grid-cols-3 gap-3 mb-6">
-              <div className="rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 p-3 text-center">
+              <div className="rounded-lg bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 p-3 text-center">
                 <div className="text-[10px] font-bold text-slate-400 mb-1">판매점 방향</div>
                 <ToolIcon emoji="🧭" className="w-7 h-7 mb-0.5 text-slate-800 dark:text-slate-100" />
                 <div className="text-xs font-black text-slate-700 dark:text-slate-200">{result.direction}</div>
               </div>
-              <div className="rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 p-3 text-center">
+              <div className="rounded-lg bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 p-3 text-center">
                 <div className="text-[10px] font-bold text-slate-400 mb-1">행운의 요일</div>
                 <ToolIcon emoji="📅" className="w-7 h-7 mb-0.5 text-slate-800 dark:text-slate-100" />
                 <div className="text-xs font-black text-slate-700 dark:text-slate-200">{result.weekday}</div>
               </div>
-              <div className="rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 p-3 text-center">
+              <div className="rounded-lg bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 p-3 text-center">
                 <div className="text-[10px] font-bold text-slate-400 mb-1">추천 시간대</div>
                 <ToolIcon emoji="⏰" className="w-7 h-7 mb-0.5 text-slate-800 dark:text-slate-100" />
                 <div className="text-[11px] font-black text-slate-700 dark:text-slate-200 leading-tight">{result.timeSlot}</div>
@@ -135,7 +135,7 @@ export default function LuckyLottoPage() {
           </div>
         )}
 
-        <div className="rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 p-4 mt-6">
+        <div className="rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 p-4 mt-6">
           <p className="text-[11px] text-amber-700 dark:text-amber-300 leading-relaxed">
             ⚠️ 이 번호는 재미와 참고를 위한 것으로, <strong>당첨을 보장하지 않습니다.</strong> 복권은 확률 게임이며 지나친 구매는 삼가세요. 로또 구매는 만 19세 이상만 가능합니다.
           </p>

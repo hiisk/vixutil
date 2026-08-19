@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, {
-  Card, CardHeader, Label, inputCls,
+  Card, CardHeader, Label, PrimaryBtn, inputCls,
   SummaryCard, SummaryGrid,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
@@ -19,22 +19,15 @@ export default function RentalYieldPage() {
   const [loan, setLoan] = useState(0);
   const [loanRate, setLoanRate] = useState('4.0');
   const [monthlyCost, setMonthlyCost] = useState(0);
+  const [result, setResult] = useState<RentalResult | null>(null);
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: RentalResult | null = ((): RentalResult | null => {
-    if (price <= 0) return null;
-    return (calcRentalYield({
+  function calculate() {
+    if (price <= 0) return;
+    setResult(calcRentalYield({
       price, deposit, monthlyRent, acquisitionCost,
       loan, loanRate: Number(loanRate) || 0, monthlyCost,
     }));
-  
-    return null;
-  })();
-
+  }
 
   return (
     <CalcShell
@@ -80,7 +73,7 @@ export default function RentalYieldPage() {
               <Label>매매가 (원)</Label>
               <CommaInput value={price} onChange={setPrice} placeholder="예: 300,000,000" />
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>보증금 (원)</Label>
                 <CommaInput value={deposit} onChange={setDeposit} placeholder="예: 30,000,000" />
@@ -102,7 +95,7 @@ export default function RentalYieldPage() {
 
         <Card className="p-5">
           <CardHeader title="대출 · 보유비용 (선택)" />
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div>
               <Label>대출금액 (원)</Label>
               <CommaInput value={loan} onChange={setLoan} placeholder="예: 150,000,000" />
@@ -123,6 +116,8 @@ export default function RentalYieldPage() {
             </div>
           </div>
         </Card>
+
+        <PrimaryBtn onClick={calculate}>수익률 계산</PrimaryBtn>
 
         {result && (
           <>

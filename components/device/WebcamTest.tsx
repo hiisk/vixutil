@@ -128,7 +128,7 @@ export default function WebcamTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) 
 
   return (
     <div>
-      <div className="relative rounded-2xl overflow-hidden bg-slate-900 aspect-video flex items-center justify-center">
+      <div className="relative rounded-lg overflow-hidden bg-slate-900 aspect-video flex items-center justify-center">
         <video
           ref={videoRef}
           playsInline
@@ -144,7 +144,7 @@ export default function WebcamTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) 
             <button
               onClick={() => start()}
               disabled={state === 'starting'}
-              className="rounded-xl bg-sec font-bold px-7 py-3 text-sm shadow-lg hover:opacity-90 disabled:opacity-60 transition-opacity"
+              className="rounded-xl bg-sec font-bold px-7 py-3 text-sm shadow-sm hover:opacity-90 disabled:opacity-60 transition-opacity"
             >
               {state === 'starting' ? ui.opening : ui.startTest}
             </button>

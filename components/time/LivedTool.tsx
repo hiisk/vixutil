@@ -45,7 +45,7 @@ export default function LivedTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
 
       {info ? (
         <>
-          <div className="mt-4 rounded-2xl bg-gradient-to-br from-pink-500 to-rose-600 text-white px-6 py-8 text-center">
+          <div className="mt-4 rounded-lg bg-gradient-to-br from-pink-500 to-rose-600 text-white px-6 py-8 text-center">
             <p className="text-sm text-white/70 mb-1">{ui.livedFor}</p>
             <p className="text-4xl font-black">
               {ui.ymd(info.years, info.months, info.days)}

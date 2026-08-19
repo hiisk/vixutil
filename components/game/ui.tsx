@@ -34,7 +34,7 @@ export const lower = (a: number, b: number) => a < b;
 /** 높을수록 좋은 기록(점수 등) */
 export const higher = (a: number, b: number) => a > b;
 
-export const CARD = 'rounded-2xl border chip-off p-5';
+export const CARD = 'rounded-lg border chip-off p-5';
 
 export function Stat({ label, value, accent }: { label: string; value: string | number; accent?: string }) {
   return (
@@ -60,7 +60,7 @@ export function PlayButton({
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`w-full rounded-xl bg-gradient-to-r ${gradient} text-white font-bold py-3.5 text-sm shadow-lg hover:opacity-90 disabled:opacity-50 transition-opacity`}
+      className={`w-full rounded-xl bg-gradient-to-r ${gradient} text-white font-bold py-3.5 text-sm shadow-sm hover:opacity-90 disabled:opacity-50 transition-opacity`}
     >
       {children}
     </button>

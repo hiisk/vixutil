@@ -7,9 +7,9 @@ import {
   PRICE_SCENARIOS, POOL_FEE_TIERS,
 } from '@/lib/impermanent';
 
-const inputCls =
-  'w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition tabular-nums';
-const labelCls = 'block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5';
+/* 사이트 공용 칸 — 초점 테두리가 갈래 색을 따라간다(globals.css .dial-input) */
+const inputCls = 'dial-input';
+const labelCls = 'dial-k mb-1 block';
 
 const money = (v: number) =>
   `$${v.toLocaleString(undefined, { maximumFractionDigits: v >= 100 ? 0 : 2 })}`;
@@ -57,7 +57,7 @@ export default function IlCalculator() {
 
   return (
     <>
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 mb-4">
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5 mb-4">
         <div className="grid sm:grid-cols-3 gap-4">
           <div>
             <label className={labelCls} htmlFor="il-dep">Deposit</label>
@@ -88,7 +88,7 @@ export default function IlCalculator() {
 
       {pos ? (
         <>
-          <div className="rounded-3xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 mb-4">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 mb-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Impermanent loss</p>
             <p className={`text-5xl font-black tabular-nums ${ilTone(pos.ilPct)}`}>{fmtIl(pos.ilPct)}</p>
             <div className="grid sm:grid-cols-3 gap-3 mt-4">
@@ -114,7 +114,7 @@ export default function IlCalculator() {
           </div>
 
           {/* 손익분기 거래량 — "APR 40%" 광고가 전제하는 것 */}
-          <div className="rounded-2xl border border-cyan-500/30 bg-cyan-50 dark:bg-cyan-500/[0.07] p-5 mb-4">
+          <div className="rounded-lg border border-cyan-500/30 bg-cyan-50 dark:bg-cyan-500/[0.07] p-5 mb-4">
             <h2 className="text-sm font-black text-cyan-900 dark:text-cyan-200 mb-2">How much trading it takes to break even</h2>
             <div className="flex flex-wrap items-center gap-3 mb-3">
               <span className="text-xs font-semibold text-cyan-900/80 dark:text-cyan-200/80">Pool fee tier</span>
@@ -147,7 +147,7 @@ export default function IlCalculator() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
             <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
               <h2 className="text-sm font-black text-slate-900 dark:text-white">Loss at every price move</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
@@ -196,12 +196,12 @@ export default function IlCalculator() {
           </div>
         </>
       ) : (
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-8 mb-4 text-center text-sm text-slate-500 dark:text-slate-400">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-8 mb-4 text-center text-sm text-slate-500 dark:text-slate-400">
           Enter a deposit and a price change as a multiple — 2 for a doubling, 0.5 for a halving.
         </div>
       )}
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
         <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">What this is and is not</h2>
         <p className="mb-2">
           The figure is exact, not an approximation. For a constant-product pool the value ratio against holding is 2√r ÷ (1 + r), where r is

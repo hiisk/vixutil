@@ -79,7 +79,7 @@ export default function ChessHubPage({ lang }: { lang: Lang }) {
       </header>
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
-        <div className="text-center mb-7">
+        <div className="hero-band ">
           <h1 className="page-h1">
             {fill(ui.hubTitle, { n })}
           </h1>
@@ -114,7 +114,7 @@ export default function ChessHubPage({ lang }: { lang: Lang }) {
                   <span className="text-[11px] text-slate-400 dark:text-slate-500">{fill(ui.countLabel, { n: counts[group] })}</span>
                 </div>
                 <p className="text-xs text-slate-400 dark:text-slate-500 mb-2 leading-relaxed">{ui.groupNote[group]}</p>
-                <div className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
+                <div className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
                   {rows.map(x => (
                     <Link prefetch={false}
                       key={x.slug}

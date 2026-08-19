@@ -257,14 +257,14 @@ export default function PhotoMood({ lang }: { lang: SnapIntlLang }) {
     >
       {result => (
         <>
-          <div className="rounded-2xl p-6 text-white text-center" style={{ background: `linear-gradient(135deg, ${result.from}, ${result.to})` }}>
+          <div className="rounded-lg p-6 text-white text-center" style={{ background: `linear-gradient(135deg, ${result.from}, ${result.to})` }}>
             <p className="text-sm font-semibold text-white/80 mb-2">{c.result}</p>
             <p className="text-3xl font-black mb-1">{result.label}</p>
             <p className="text-xs text-white/80 mb-3">{result.vibe}</p>
             <p className="text-sm leading-relaxed">{result.text}</p>
           </div>
 
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5">
             <p className="label-caps mb-3">{c.metrics}</p>
             <div className="flex flex-col gap-3">
               {[
@@ -287,7 +287,7 @@ export default function PhotoMood({ lang }: { lang: SnapIntlLang }) {
           </div>
 
           {result.palette.length > 0 && (
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5">
               <p className="label-caps mb-3">{c.palette}</p>
               <div className="flex gap-2">
                 {result.palette.map(hex => (
@@ -300,7 +300,7 @@ export default function PhotoMood({ lang }: { lang: SnapIntlLang }) {
             </div>
           )}
 
-          <div className="bg-gradient-to-br from-sky-50 to-violet-50 dark:from-sky-950/20 dark:to-violet-950/20 border border-sky-100 dark:border-sky-900/40 rounded-2xl p-5">
+          <div className="bg-sky-50 dark:from-sky-950/20 dark:to-violet-950/20 border border-sky-100 dark:border-sky-900/40 rounded-lg p-5">
             <p className="text-xs font-bold text-sky-600 uppercase tracking-wide mb-2">{c.tip}</p>
             <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.captionTip}</p>
           </div>

@@ -29,7 +29,7 @@ export default function MixerTool({ lang = 'ko' }: { lang?: ColorLang } = {}) {
         <ColorInput value={b} onChange={setB} label={ui.second} />
       </div>
 
-      <div className="mt-4 h-28 rounded-2xl border border-slate-200 dark:border-slate-700" style={{ background: hex }} />
+      <div className="mt-4 h-28 rounded-lg border border-slate-200 dark:border-slate-700" style={{ background: hex }} />
 
       <div className="mt-4">
         <div className="flex items-baseline justify-between mb-1.5">

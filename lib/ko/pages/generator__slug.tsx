@@ -60,12 +60,7 @@ export default async function GeneratorPage({ params }: { params: Promise<{ slug
         ])}
       />
       {/* 스무 개만 번역판이 있다 — 나머지 백여든넷은 한국어뿐이라 버튼을 그리지 않는다 */}
-      {EN_GENERATOR_SLUGS.has(slug) && (
-        <div className="max-w-lg mx-auto px-4 w-full pt-3 flex justify-end">
-          <LangPicker current="ko" route={`/generator/${slug}`} available={GENERATOR_LANGS} />
-        </div>
-      )}
-      <GeneratorEngine gen={gen} />
+      <GeneratorEngine gen={gen} headerRight={EN_GENERATOR_SLUGS.has(slug) ? <LangPicker current="ko" route={`/generator/${slug}`} available={GENERATOR_LANGS} /> : null} />
       <GeneratorContent gen={gen} />
       <div className="bg-white dark:bg-slate-900">
         <div className="max-w-lg mx-auto px-4 pb-10 w-full">

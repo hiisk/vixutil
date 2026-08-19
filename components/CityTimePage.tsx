@@ -93,8 +93,8 @@ export default function CityTimePage({ city, lang }: { city: TimeCity; lang: Lan
       </header>
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
-        <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-3 shadow-lg bg-sec-soft">
+        <div className="hero-band ">
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-lg mb-3 shadow-sm bg-sec-soft">
             <ToolIcon emoji="🕰️" className="w-7 h-7" />
           </div>
           <h1 className="page-h1">{f.city}</h1>
@@ -105,12 +105,12 @@ export default function CityTimePage({ city, lang }: { city: TimeCity; lang: Lan
           <CityClock zone={city.zone} locale={langInfo(lang).htmlLang} />
         </div>
 
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
-          <table className="w-full text-sm">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
+          <table className="kv-table w-full text-sm">
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
               {rows.map(r => (
                 <tr key={r.label}>
-                  <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400 w-3/5 bg-slate-50 dark:bg-slate-900/40">
+                  <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400 w-3/5">
                     {r.label}
                   </th>
                   <td className="px-4 py-3 font-black text-slate-800 dark:text-slate-100 tabular-nums">{r.value}</td>

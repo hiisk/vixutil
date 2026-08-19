@@ -36,7 +36,7 @@ export default function WorkHoursIntl({ lang }: { lang: CalcLang }) {
     <div className="flex flex-col gap-4">
       <Card className="p-5">
         <p className="label-caps mb-3">{c.section}</p>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-5">
           <div>
             <Label>{c.start}</Label>
             <input type="time" value={start} onChange={e2 => setStart(e2.target.value)} className={inputCls} />
@@ -60,7 +60,7 @@ export default function WorkHoursIntl({ lang }: { lang: CalcLang }) {
             <p className="stat-value">{fmt(result.work)}</p>
             {result.overnight && <p className="stat-sub mt-3">{c.overnight}</p>}
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-4 gap-y-5">
             <SummaryCard label={c.atWork} value={fmt(result.span)} />
             <SummaryCard label={c.breakRow} value={`${result.br}${c.m}`} />
             <SummaryCard label={c.weekly} value={fmt(result.work * 5)} />

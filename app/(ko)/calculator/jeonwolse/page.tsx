@@ -1,14 +1,14 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 
 /*
- * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
- * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
- * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
- * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
- * 골라 둔 예시를 그대로 올렸다.
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 빈 칸으로 열면 무엇을
+ * 보여 주는 계산기인지 눌러 보기 전에는 모른다 — 값을 미리 넣어 두면 「계산하기」
+ * 한 번에 한 벌이 통째로 보이고, 사람은 그 위에 자기 숫자를 덮어쓴다.
+ * 값은 내가 지어내지 않고 저자가 이미 골라 둔 예시를 그대로 올렸다.
  */
-import CalcShell, { Card, Label, inputCls, TabBar } from '@/components/CalcShell';
+import CalcShell, { Card, Label, inputCls, PrimaryBtn, TabBar } from '@/components/CalcShell';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 const LEGAL_RATE = 5.5;
@@ -20,32 +20,25 @@ export default function JeonwolsePage() {
   const [monthly, setMonthly] = useState('700000');
   const [depositJ, setDepositJ] = useState('10000000');
   const [rate, setRate] = useState(String(LEGAL_RATE));
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | { value: number; label: string } = ((): null | { value: number; label: string } => {
+  const [result, setResult] = useState<null | { value: number; label: string }>(null);
+
+  function calculate() {
     const r = Number(rate) / 100;
-    if (r <= 0) return null;
+    if (r <= 0) return;
     if (mode === 'toMonthly') {
       const j = Number(jeonse);
       const d = Number(depositM || 0);
-      if (j <= d) return null;
+      if (j <= d) return;
       const monthly = (j - d) * r / 12;
-      return ({ value: monthly, label: '월세' });
+      setResult({ value: monthly, label: '월세' });
     } else {
       const m = Number(monthly);
       const d = Number(depositJ || 0);
-      if (m <= 0) return null;
+      if (m <= 0) return;
       const jeonse = d + m * 12 / r;
-      return ({ value: jeonse, label: '전세 환산액' });
+      setResult({ value: jeonse, label: '전세 환산액' });
     }
-  
-    return null;
-  })();
-
-
+  }
 
   return (
     <CalcShell
@@ -85,7 +78,7 @@ export default function JeonwolsePage() {
             { value: 'toJeon', label: '월세 → 전세' },
           ]}
           value={mode}
-          onChange={v => { setMode(v as 'toMonthly' | 'toJeon'); }}
+          onChange={v => { setMode(v as 'toMonthly' | 'toJeon'); setResult(null); }}
         />
         <Card className="p-5">
           <div className="flex flex-col gap-3">
@@ -93,26 +86,22 @@ export default function JeonwolsePage() {
               <>
                 <div>
                   <Label>전세금 (원)</Label>
-                  <input type="number" value={jeonse} onChange={e => setJeonse(e.target.value)}
-                    placeholder="예: 300,000,000" className={inputCls} min="0" />
+                  <MoneyInput value={jeonse} onChange={setJeonse} placeholder="예: 300,000,000" />
                 </div>
                 <div>
                   <Label>월세 전환 시 보증금 (원)</Label>
-                  <input type="number" value={depositM} onChange={e => setDepositM(e.target.value)}
-                    placeholder="예: 10,000,000" className={inputCls} min="0" />
+                  <MoneyInput value={depositM} onChange={setDepositM} placeholder="예: 10,000,000" />
                 </div>
               </>
             ) : (
               <>
                 <div>
                   <Label>보증금 (원)</Label>
-                  <input type="number" value={depositJ} onChange={e => setDepositJ(e.target.value)}
-                    placeholder="예: 10,000,000" className={inputCls} min="0" />
+                  <MoneyInput value={depositJ} onChange={setDepositJ} placeholder="예: 10,000,000" />
                 </div>
                 <div>
                   <Label>월세 (원)</Label>
-                  <input type="number" value={monthly} onChange={e => setMonthly(e.target.value)}
-                    placeholder="예: 700,000" className={inputCls} min="0" />
+                  <MoneyInput value={monthly} onChange={setMonthly} placeholder="예: 700,000" />
                 </div>
               </>
             )}
@@ -122,6 +111,7 @@ export default function JeonwolsePage() {
                 placeholder="5.5" className={inputCls} min="0" step="0.1" />
               <p className="text-xs text-blue-600 mt-1">법정 전환율 5.5% (2024년 기준)</p>
             </div>
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

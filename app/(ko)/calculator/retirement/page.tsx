@@ -140,7 +140,7 @@ export default function RetirementPage() {
         <Card className="p-5">
           <p className="label-caps mb-3">입력 정보</p>
           <div className="flex flex-col gap-3">
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>현재 나이</Label>
                 <input type="number" value={currentAge} onChange={e => setCurrentAge(e.target.value)} placeholder="35" className={inputCls} />
@@ -172,7 +172,7 @@ export default function RetirementPage() {
         {result && (
           <>
             {/* 은퇴 자산 */}
-            <div className="rounded-2xl border border-blue-200 dark:border-blue-900/50 bg-blue-50 dark:bg-blue-950/30 p-5">
+            <div className="rounded-lg border border-blue-200 dark:border-blue-900/50 bg-blue-50 dark:bg-blue-950/30 p-5">
               <p className="text-xs text-blue-400 mb-1">은퇴 시 예상 자산</p>
               <p className="text-4xl font-black text-blue-700 dark:text-blue-300">{fmtKRW(result.totalAsset)}</p>
               <p className="text-sm text-blue-500 mt-1">{fmtWon(result.totalAsset)}</p>

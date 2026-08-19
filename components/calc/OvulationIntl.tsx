@@ -52,7 +52,7 @@ export default function OvulationIntl({ lang }: { lang: CalcLang }) {
             <Label>{c.lastPeriod}</Label>
             <input type="date" value={lastPeriod} onChange={e => setLastPeriod(e.target.value)} className={inputCls} />
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div>
               <Label>{c.cycle}</Label>
               <input type="number" value={cycle} onChange={e => setCycle(e.target.value)} className={inputCls} />
@@ -73,7 +73,7 @@ export default function OvulationIntl({ lang }: { lang: CalcLang }) {
             <p className="stat-label">{c.ovulation}</p>
             <p className="stat-value">{fmt(result.ovulation)}</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-5">
             <SummaryCard
               label={c.fertile}
               value={`${fmt(result.fertileStart)} ${c.to} ${fmt(result.fertileEnd)}`}

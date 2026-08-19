@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, {
-  Card, CardHeader, Label, inputCls,
+  Card, CardHeader, Label, PrimaryBtn, inputCls,
   SummaryCard, SummaryGrid,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
@@ -15,24 +15,17 @@ const w = (n: number) => Math.round(n).toLocaleString();
 export default function MaintenanceFeePage() {
   const [area, setArea] = useState('84.95');
   const [fees, setFees] = useState<FeeInput>({});
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: MaintenanceResult | null = ((): MaintenanceResult | null => {
-    const a = Number(area);
-    const r = calcMaintenance(fees, Number.isFinite(a) ? a : 0);
-    return (r.total > 0 ? r : null);
-  
-    return null;
-  })();
+  const [result, setResult] = useState<MaintenanceResult | null>(null);
 
   function setFee(key: FeeKey, v: number) {
     setFees(prev => ({ ...prev, [key]: v }));
   }
 
-
+  function calculate() {
+    const a = Number(area);
+    const r = calcMaintenance(fees, Number.isFinite(a) ? a : 0);
+    setResult(r.total > 0 ? r : null);
+  }
 
   return (
     <CalcShell
@@ -92,7 +85,7 @@ export default function MaintenanceFeePage() {
           <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
             단지 전체가 나눠 내는 몫 · 모르는 항목은 비워두세요
           </p>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             {COMMON_KEYS.map(key => (
               <div key={key}>
                 <Label>{FEE_LABELS[key]}</Label>
@@ -107,7 +100,7 @@ export default function MaintenanceFeePage() {
           <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
             우리 집이 쓴 만큼 내는 몫 · 아끼면 바로 줄어듭니다
           </p>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             {INDIVIDUAL_KEYS.map(key => (
               <div key={key}>
                 <Label>{FEE_LABELS[key]}</Label>
@@ -116,6 +109,8 @@ export default function MaintenanceFeePage() {
             ))}
           </div>
         </Card>
+
+        <PrimaryBtn onClick={calculate}>관리비 분석</PrimaryBtn>
 
         {result && (
           <>

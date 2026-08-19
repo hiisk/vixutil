@@ -66,7 +66,7 @@ export default function CaffeineIntl({ lang }: { lang: CalcLang }) {
               <input type="number" value={custom} onChange={e => setCustom(e.target.value)} className={inputCls} />
             </div>
           )}
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div>
               <Label>{c.time}</Label>
               <input type="time" value={time} onChange={e => setTime(e.target.value)} className={inputCls} />
@@ -87,7 +87,7 @@ export default function CaffeineIntl({ lang }: { lang: CalcLang }) {
             <p className="stat-label">{c.remaining} · {result.at} {c.at}</p>
             <p className="stat-value">{fmt(result.mg)} {c.unit}</p>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <SummaryCard label={c.belowThreshold} value={result.below} variant="green" />
             <SummaryCard label={c.halfLifeNote} value={`${HALF_LIFE} h`} />
           </div>

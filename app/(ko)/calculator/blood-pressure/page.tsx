@@ -165,7 +165,7 @@ export default function BloodPressurePage() {
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="label-caps mb-3">혈압 입력</p>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div>
               <Label>수축기 혈압 (최고, mmHg)</Label>
               <input type="number" value={systolic} onChange={e => setSystolic(e.target.value)}
@@ -184,7 +184,7 @@ export default function BloodPressurePage() {
         {result && (
           <>
             {/* 결과 카드 */}
-            <div className={`rounded-2xl border p-5 ${result.level.bg} ${result.level.border}`}>
+            <div className={`rounded-lg border p-5 ${result.level.bg} ${result.level.border}`}>
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">혈압 판정</p>

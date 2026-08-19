@@ -88,22 +88,21 @@ export default function SnapPage() {
         </div>
       </header>
 
-      <div className="max-w-2xl mx-auto px-4 py-10">
-        <div className="text-center mb-10">
-          <ToolIcon emoji="📸" className="w-12 h-12 mx-auto mb-4 text-slate-800 dark:text-slate-100" />
+      <div className="hero-band max-w-2xl mx-auto px-4 py-10">
+        <div className="mb-10">
+          <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="📸" className="h-6 w-6" /></span>
           <h1 className="page-h1">스냅테스트</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">사진 한 장으로 즐기는 참여형 테스트 · 실제 분석 기반</p>
         </div>
 
-        <div className="bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-2xl p-4 mb-6 text-xs text-slate-500 dark:text-slate-400 leading-relaxed text-center">
+        <div className="bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-lg p-4 mb-6 text-xs text-slate-500 dark:text-slate-400 leading-relaxed text-center">
           🔒 모든 분석은 이 브라우저 안에서만 처리돼요. 사진은 서버로 전송되거나 저장되지 않습니다.
         </div>
 
         <div className="grid sm:grid-cols-2 gap-4">
           {TYPES.map(t => (
             <Link key={t.href} href={t.href}
-              className="group relative overflow-hidden rounded-2xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 hover:shadow-md hover:border-fuchsia-200 transition-all">
-              <div className={`absolute -right-6 -top-6 w-24 h-24 rounded-full bg-sec-soft opacity-10 group-hover:opacity-20 transition-opacity`} />
+              className="group relative overflow-hidden rounded-lg border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 hover:border-slate-300 dark:hover:border-slate-700 hover:border-fuchsia-200 transition-all">
               <div className="relative">
                 <div className="flex items-start justify-between mb-4">
                   <ToolIcon emoji={t.icon} className="text-slate-800 dark:text-slate-100 w-8 h-8" />
@@ -124,7 +123,7 @@ export default function SnapPage() {
 
         <Link
           href="/snap/lens"
-          className="group mt-6 flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+          className="group mt-6 flex items-center gap-4 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:border-slate-300 dark:hover:border-slate-700 hover:-translate-y-0.5 transition-all"
         >
           <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-sec-soft">
             <ToolIcon emoji={LENS_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />

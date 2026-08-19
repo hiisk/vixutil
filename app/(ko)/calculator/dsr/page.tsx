@@ -1,14 +1,14 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 
 /*
- * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
- * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
- * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
- * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
- * 골라 둔 예시를 그대로 올렸다.
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 빈 칸으로 열면 무엇을
+ * 보여 주는 계산기인지 눌러 보기 전에는 모른다 — 값을 미리 넣어 두면 「계산하기」
+ * 한 번에 한 벌이 통째로 보이고, 사람은 그 위에 자기 숫자를 덮어쓴다.
+ * 값은 내가 지어내지 않고 저자가 이미 골라 둔 예시를 그대로 올렸다.
  */
-import CalcShell, { Card, Label, inputCls, SummaryCard } from '@/components/CalcShell';
+import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
 import { equalPayment } from '@/lib/loan-schedule';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
@@ -20,20 +20,18 @@ export default function DsrPage() {
   const [loans, setLoans] = useState<LoanRow[]>([
     { amount: '', rate: '', years: '30', type: '주택' }
   ]);
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | {
+  const [result, setResult] = useState<null | {
     dsr: number; annualRepay: number;
     loanDetails: { amount: number; monthly: number; annual: number }[];
-  } = ((): null | {
-    dsr: number; annualRepay: number;
-    loanDetails: { amount: number; monthly: number; annual: number }[];
-  } => {
+  }>(null);
+
+  function updateLoan(i: number, field: keyof LoanRow, val: string) {
+    setLoans(prev => prev.map((l, idx) => idx === i ? { ...l, [field]: val } : l));
+  }
+
+  function calculate() {
     const income = Number(annualIncome);
-    if (income <= 0) return null;
+    if (income <= 0) return;
 
     const loanDetails = loans.map(l => {
       const amount = Number(l.amount);
@@ -47,16 +45,8 @@ export default function DsrPage() {
 
     const annualRepay = loanDetails.reduce((s, l) => s + l.annual, 0);
     const dsr = (annualRepay / income) * 100;
-    return ({ dsr, annualRepay, loanDetails });
-  
-    return null;
-  })();
-
-  function updateLoan(i: number, field: keyof LoanRow, val: string) {
-    setLoans(prev => prev.map((l, idx) => idx === i ? { ...l, [field]: val } : l));
+    setResult({ dsr, annualRepay, loanDetails });
   }
-
-
 
   return (
     <CalcShell
@@ -97,8 +87,7 @@ export default function DsrPage() {
         <Card className="p-5">
           <div className="mb-4">
             <Label>연 소득 (원)</Label>
-            <input type="number" value={annualIncome} onChange={e => setAnnualIncome(e.target.value)}
-              placeholder="예: 60,000,000" className={inputCls} min="0" />
+            <MoneyInput value={annualIncome} onChange={setAnnualIncome} placeholder="예: 60,000,000" />
           </div>
           <p className="label-caps mb-3">대출 목록</p>
           {loans.map((l, i) => (
@@ -140,18 +129,19 @@ export default function DsrPage() {
               + 대출 추가
             </button>
           )}
+          <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
         </Card>
 
         {result && (
           <>
-            <div className={`rounded-2xl p-5 ${result.dsr <= 40 ? 'bg-blue-600' : result.dsr <= 50 ? 'bg-amber-500' : 'bg-rose-500'}`}>
+            <div className={`rounded-lg p-5 ${result.dsr <= 40 ? 'bg-blue-600' : result.dsr <= 50 ? 'bg-amber-500' : 'bg-rose-500'}`}>
               <p className="text-white/70 text-xs mb-1">DSR</p>
               <p className="text-white text-3xl font-black">{result.dsr.toFixed(1)}%</p>
               <p className="text-white/70 text-sm mt-1">
                 {result.dsr <= 40 ? '✓ 규제 기준(40%) 이하' : result.dsr <= 50 ? '⚠ 40% 초과 — 일반 대출 제한' : '✕ 50% 초과 — 대출 어려움'}
               </p>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <SummaryCard label="연간 원리금 상환" value={`${fmt(result.annualRepay)}원`} variant="red" />
               <SummaryCard label="월 상환액 합계" value={`${fmt(result.annualRepay / 12)}원`} />
             </div>

@@ -1,7 +1,8 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, {
-  Card, Label, inputCls, selectCls, SummaryGrid, SummaryCard, TableWrap,
+  Card, Label, inputCls, selectCls, PrimaryBtn,
+  SummaryGrid, SummaryCard, TableWrap,
 } from '@/components/CalcShell';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
@@ -86,18 +87,11 @@ function calcResult(courses: Course[], system: GradeSystem) {
 export default function GpaPage() {
   const [system, setSystem] = useState<GradeSystem>('4.5');
   const [courses, setCourses] = useState<Course[]>(INITIAL_COURSES);
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: ReturnType<typeof calcResult> | null = ((): ReturnType<typeof calcResult> | null => {
-    return (calcResult(courses, system));
-  
-    return null;
-  })();
+  const [result, setResult] = useState<ReturnType<typeof calcResult> | null>(null);
 
-
+  function calculate() {
+    setResult(calcResult(courses, system));
+  }
 
   function addCourse() {
     setCourses(prev => [...prev, {
@@ -304,6 +298,9 @@ export default function GpaPage() {
                 </div>
               </div>
             ))}
+          </div>
+          <div className="mt-4">
+            <PrimaryBtn onClick={calculate}>GPA 계산하기</PrimaryBtn>
           </div>
         </Card>
 

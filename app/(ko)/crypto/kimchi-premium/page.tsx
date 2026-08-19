@@ -58,8 +58,8 @@ export default function KimchiPremiumPage() {
         </div>
       </header>
 
-      <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="text-center mb-6">
+      <div className="hero-band relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mb-6">
           <ToolIcon emoji="🇰🇷" className="w-9 h-9 mx-auto mb-2 text-slate-800 dark:text-slate-100" />
           <h1 className="page-h1">김치 프리미엄 실시간</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">
@@ -73,7 +73,7 @@ export default function KimchiPremiumPage() {
 
         {/* 서버에서 정적으로 렌더된다 — 위 보드는 브라우저에서 시세를 받아 그리므로
             자바스크립트를 실행하지 않는 크롤러에게는 빈 껍데기로 보인다. */}
-        <section className="mt-10 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-900/50 p-5 text-sm text-slate-600 dark:text-slate-300 leading-relaxed [&>p]:max-w-[80ch]">
+        <section className="mt-10 rounded-lg border border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-900/50 p-5 text-sm text-slate-600 dark:text-slate-300 leading-relaxed [&>p]:max-w-[80ch]">
           <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">김치 프리미엄이란</h2>
           <p className="mb-3">
             김치 프리미엄(김프)은 같은 코인이 국내 거래소에서 해외 거래소보다 비싸게 거래되는 현상입니다.
@@ -96,7 +96,7 @@ export default function KimchiPremiumPage() {
 
         <Faq items={SECTION_FAQ['crypto/kimchi-premium'] ?? []} />
 
-        <div className="mt-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-900/50 p-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+        <div className="mt-6 rounded-lg border border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-900/50 p-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
           <p className="mb-1">
             ⚠️ 투자 조언이 아닙니다. 김프가 존재한다고 해서 그만큼 수익이 나는 것은 아닙니다 —
             거래 수수료, 출금 수수료, 송금 시간 동안의 가격 변동, 거래소별 입출금 정책이 모두 실제 수익을 깎습니다.

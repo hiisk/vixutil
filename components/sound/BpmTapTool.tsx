@@ -35,7 +35,7 @@ export default function BpmTapTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
     <div>
       <button
         onClick={tap}
-        className="w-full h-56 rounded-2xl bg-gradient-to-br from-amber-500 to-rose-500 text-white flex flex-col items-center justify-center select-none touch-none active:scale-[0.99] transition-transform"
+        className="w-full h-56 rounded-lg bg-gradient-to-br from-amber-500 to-rose-500 text-white flex flex-col items-center justify-center select-none touch-none active:scale-[0.99] transition-transform"
       >
         <span className="text-7xl font-black tabular-nums">{bpm || '—'}</span>
         <span className="text-sm text-white/80 mt-1">{bpm ? 'BPM' : ui.prompt}</span>

@@ -60,10 +60,8 @@ export default function CubeHubPage({ lang }: { lang: Lang }) {
       </header>
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-3 shadow-lg bg-sec-soft">
-            <ToolIcon emoji={CUBE_ICON} className="w-7 h-7" />
-          </div>
+        <div className="hero-band ">
+          <span className="bg-sec-soft inline-flex h-10 w-10 items-center justify-center rounded-lg"><ToolIcon emoji={CUBE_ICON} className="h-5 w-5" /></span>
           <h1 className="page-h1">{ui.hubTitle}</h1>
           <p className="note-sm">{ui.hubLead}</p>
         </div>
@@ -71,7 +69,7 @@ export default function CubeHubPage({ lang }: { lang: Lang }) {
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.notationTitle}</h2>
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.notationNote}</p>
-          <dl className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
+          <dl className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
             {ui.notation.map(n => (
               <div key={n.token} className="flex items-baseline gap-3 px-4 py-2 bg-white dark:bg-slate-900">
                 <dt className="text-sm font-black text-amber-700 dark:text-amber-400 font-mono shrink-0 w-[92px]">{n.token}</dt>
@@ -96,7 +94,7 @@ export default function CubeHubPage({ lang }: { lang: Lang }) {
                   <Link prefetch={false}
                     key={a.slug}
                     href={`${path}/${a.slug}`}
-                    className="rounded-2xl border chip-off p-3 hover:border-amber-400 hover:shadow-md transition-all"
+                    className="rounded-lg border chip-off p-3 hover:border-amber-400 hover:border-slate-300 dark:hover:border-slate-700 transition-all"
                   >
                     <CubeTop state={diagram(f)} slot={step === 'f2l'} label={a.label} className="w-full max-w-[104px] mx-auto" />
                     <div className="mt-2 text-center">

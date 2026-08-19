@@ -146,7 +146,7 @@ export default function CaloriesBurnPage() {
         {result && (
           <>
             {/* 핵심 결과 */}
-            <div className="rounded-2xl border border-orange-200 dark:border-orange-900/50 bg-orange-50 dark:bg-orange-950/30 p-5">
+            <div className="rounded-lg border border-orange-200 dark:border-orange-900/50 bg-orange-50 dark:bg-orange-950/30 p-5">
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <p className="text-xs text-orange-400 mb-1">소모 칼로리</p>

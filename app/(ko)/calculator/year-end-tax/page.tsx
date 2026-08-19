@@ -1,5 +1,6 @@
 'use client';
 import { useMemo, useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 import Link from 'next/link';
 import CalcShell, { Card, CardHeader, Label, inputCls } from '@/components/CalcShell';
 import { calcYearEnd, estimatePremiums } from '@/lib/year-end-tax';
@@ -108,10 +109,9 @@ export default function YearEndTaxPage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>총급여 (원, 비과세 제외)</Label>
-              <input type="number" value={gross} onChange={e => setGross(e.target.value)}
-                placeholder="예: 40000000" className={inputCls} min="0" />
+              <MoneyInput value={gross} onChange={setGross} placeholder="예: 40000000" />
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>부양가족 수 (본인 제외)</Label>
                 <input type="number" value={dependents} onChange={e => setDependents(e.target.value)}
@@ -141,13 +141,11 @@ export default function YearEndTaxPage() {
           <div className="p-5 pt-4 flex flex-col gap-3">
             <div>
               <Label>국민연금 보험료 (원)</Label>
-              <input type="number" value={pensionPremium} onChange={e => setPensionPremium(e.target.value)}
-                placeholder="예: 1800000" className={inputCls} min="0" />
+              <MoneyInput value={pensionPremium} onChange={setPensionPremium} placeholder="예: 1800000" />
             </div>
             <div>
               <Label>건강·장기요양·고용보험료 (원)</Label>
-              <input type="number" value={insurancePremium} onChange={e => setInsurancePremium(e.target.value)}
-                placeholder="예: 1960000" className={inputCls} min="0" />
+              <MoneyInput value={insurancePremium} onChange={setInsurancePremium} placeholder="예: 1960000" />
             </div>
             <button type="button" onClick={fillPremiums}
               className="text-xs font-bold text-blue-600 dark:text-blue-300 hover:underline text-left">
@@ -161,16 +159,14 @@ export default function YearEndTaxPage() {
           <div className="p-5 pt-4 flex flex-col gap-3">
             <div>
               <Label>소득공제 합계 (원)</Label>
-              <input type="number" value={otherIncomeDeduction} onChange={e => setOtherIncomeDeduction(e.target.value)}
-                placeholder="신용카드 등·주택자금·주택마련저축" className={inputCls} min="0" />
+              <MoneyInput value={otherIncomeDeduction} onChange={setOtherIncomeDeduction} placeholder="신용카드 등·주택자금·주택마련저축" />
               <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
                 과세표준을 줄이는 공제 — 신용카드 등 사용금액, 주택임차차입금 원리금, 장기주택저당차입금 이자, 주택마련저축
               </p>
             </div>
             <div>
               <Label>세액공제 합계 (원)</Label>
-              <input type="number" value={taxCredits} onChange={e => setTaxCredits(e.target.value)}
-                placeholder="보험료·의료비·교육비·기부금·연금계좌" className={inputCls} min="0" />
+              <MoneyInput value={taxCredits} onChange={setTaxCredits} placeholder="보험료·의료비·교육비·기부금·연금계좌" />
               <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
                 세금에서 바로 빼는 공제 — 보장성보험료, 의료비, 교육비, 기부금, 연금계좌, 월세.{' '}
                 근로소득세액공제와 자녀세액공제는 아래에서 자동으로 계산합니다.
@@ -178,15 +174,14 @@ export default function YearEndTaxPage() {
             </div>
             <div>
               <Label>기납부세액 (원, 소득세)</Label>
-              <input type="number" value={prepaid} onChange={e => setPrepaid(e.target.value)}
-                placeholder="원천징수영수증의 기납부세액" className={inputCls} min="0" />
+              <MoneyInput value={prepaid} onChange={setPrepaid} placeholder="원천징수영수증의 기납부세액" />
             </div>
           </div>
         </Card>
 
         {result && (
           <>
-            <div className={`rounded-2xl p-5 ${refunding ? 'bg-blue-600' : 'bg-rose-600'}`}>
+            <div className={`rounded-lg p-5 ${refunding ? 'bg-blue-600' : 'bg-rose-600'}`}>
               <p className={`text-xs mb-1 ${refunding ? 'text-blue-200' : 'text-rose-200'}`}>
                 {refunding ? '예상 환급액' : '예상 추가납부액'}
               </p>

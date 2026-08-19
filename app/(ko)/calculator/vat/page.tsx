@@ -1,7 +1,9 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 import CalcShell, {
-  Card, CardHeader, Label, inputCls, SummaryCard, SummaryGrid, TabBar,
+  Card, CardHeader, Label, inputCls, PrimaryBtn,
+  SummaryCard, SummaryGrid, TabBar,
 } from '@/components/CalcShell';
 
 const w = (n: number) => Math.round(n).toLocaleString();
@@ -18,31 +20,25 @@ interface Result {
 export default function VatPage() {
   const [mode, setMode] = useState<Mode>('from-supply');
   const [input, setInput] = useState('');
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: Result | null = ((): Result | null => {
+  const [result, setResult] = useState<Result | null>(null);
+
+  function calculate() {
     const v = Number(input);
-    if (!v || v <= 0) return null;
+    if (!v || v <= 0) return;
     if (mode === 'from-supply') {
       const vat = v * 0.1;
-      return ({ supply: v, vat, total: v + vat, vatRate: '10%' });
+      setResult({ supply: v, vat, total: v + vat, vatRate: '10%' });
     } else {
       const supply = v / 1.1;
       const vat = v / 11;
-      return ({ supply, vat, total: v, vatRate: '10%' });
+      setResult({ supply, vat, total: v, vatRate: '10%' });
     }
-  
-    return null;
-  })();
-
-
+  }
 
   function handleModeChange(m: Mode) {
     setMode(m);
     setInput('');
+    setResult(null);
   }
 
   return (
@@ -91,14 +87,9 @@ export default function VatPage() {
               <Label>
                 {mode === 'from-supply' ? '공급가액 (원, 부가세 제외)' : '공급대가 (원, 부가세 포함)'}
               </Label>
-              <input
-                type="number"
-                value={input}
-                onChange={e => setInput(e.target.value)}
-                placeholder={mode === 'from-supply' ? '예: 100,000' : '예: 110,000'}
-                className={inputCls}
-              />
+              <MoneyInput value={input} onChange={setInput} />
             </div>
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

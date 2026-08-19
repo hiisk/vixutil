@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 import AreaChart from '@/components/AreaChart';
 import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn, TabBar, TableWrap, ShowMoreBtn } from '@/components/CalcShell';
 import LangPicker from '@/components/LangPicker';
@@ -95,13 +96,11 @@ export default function CompoundGoalPage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>현재 자산 (원금)</Label>
-              <input type="number" value={principal} onChange={e => setPrincipal(e.target.value)}
-                placeholder="예: 10,000,000" className={inputCls} min="0" />
+              <MoneyInput value={principal} onChange={setPrincipal} placeholder="예: 10,000,000" />
             </div>
             <div>
               <Label>목표 금액 (원)</Label>
-              <input type="number" value={goal} onChange={e => setGoal(e.target.value)}
-                placeholder="예: 100,000,000" className={inputCls} min="0" />
+              <MoneyInput value={goal} onChange={setGoal} placeholder="예: 100,000,000" />
             </div>
             <div>
               <Label>연 기대 수익률 (%)</Label>

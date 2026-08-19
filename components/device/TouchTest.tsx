@@ -127,7 +127,7 @@ export default function TouchTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
         onPointerCancel={onUp}
         onPointerLeave={onUp}
         onContextMenu={e => e.preventDefault()}
-        className="relative touch-none select-none h-72 sm:h-80 rounded-2xl border-2 border-dashed border-pink-200 dark:border-pink-900/60 bg-slate-50 dark:bg-slate-950 overflow-hidden"
+        className="relative touch-none select-none h-72 sm:h-80 rounded-lg border-2 border-dashed border-pink-200 dark:border-pink-900/60 bg-slate-50 dark:bg-slate-950 overflow-hidden"
       >
         <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
 

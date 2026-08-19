@@ -69,7 +69,7 @@ export default function SplitTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
 
   return (
     <div>
-      <div className="rounded-2xl border chip-off p-5">
+      <div className="rounded-lg border chip-off p-5">
         <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.grid}</p>
         <div className="grid grid-cols-3 gap-2">
           {GRIDS.map(([c, r]) => (
@@ -92,7 +92,7 @@ export default function SplitTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
       {pieces.length > 0 && (
         <>
           <div
-            className="mt-4 grid gap-1 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-950 p-1"
+            className="mt-4 grid gap-1 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-950 p-1"
             style={{ gridTemplateColumns: `repeat(${grid[0]}, minmax(0, 1fr))` }}
           >
             {pieces.map(p => (

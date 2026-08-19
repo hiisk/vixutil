@@ -1,15 +1,15 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 
 /*
- * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
- * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
- * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
- * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
- * 골라 둔 예시를 그대로 올렸다.
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 빈 칸으로 열면 무엇을
+ * 보여 주는 계산기인지 눌러 보기 전에는 모른다 — 값을 미리 넣어 두면 「계산하기」
+ * 한 번에 한 벌이 통째로 보이고, 사람은 그 위에 자기 숫자를 덮어쓴다.
+ * 값은 내가 지어내지 않고 저자가 이미 골라 둔 예시를 그대로 올렸다.
  */
 import Link from 'next/link';
-import CalcShell, { Card, CardHeader, Label, inputCls } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
 import {
   EMPLOYEE_SHARE, HEALTH_RATE, LONG_CARE_RATE, calcLocalHealth, compareEmployee,
 } from '@/lib/health-insurance-local';
@@ -28,19 +28,12 @@ export default function HealthInsuranceLocalPage() {
   const [carPoints, setCarPoints] = useState('0');
   const [pointValue, setPointValue] = useState('');
   const [maxPremium, setMaxPremium] = useState('');
+  const [result, setResult] = useState<null | {
+    r: ReturnType<typeof calcLocalHealth>;
+    c: ReturnType<typeof compareEmployee>;
+  }>(null);
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | {
-    r: ReturnType<typeof calcLocalHealth>;
-    c: ReturnType<typeof compareEmployee>;
-  } = ((): null | {
-    r: ReturnType<typeof calcLocalHealth>;
-    c: ReturnType<typeof compareEmployee>;
-  } => {
+  function calculate() {
     const input = {
       annualIncome: Number(annualIncome || 0),
       incomeFloorLine: Number(incomeFloorLine || 0),
@@ -53,13 +46,10 @@ export default function HealthInsuranceLocalPage() {
       maxPremium: Number(maxPremium || 0),
     };
     // 소득·재산·자동차·최저보험료가 모두 비어 있으면 낼 답이 없다
-    if (input.annualIncome <= 0 && input.assetPoints <= 0 && input.carPoints <= 0 && input.minPremium <= 0) return null;
+    if (input.annualIncome <= 0 && input.assetPoints <= 0 && input.carPoints <= 0 && input.minPremium <= 0) return;
     const r = calcLocalHealth(input);
-    return ({ r, c: compareEmployee(input, r) });
-  
-    return null;
-  })();
-
+    setResult({ r, c: compareEmployee(input, r) });
+  }
 
   return (
     <CalcShell
@@ -143,45 +133,38 @@ export default function HealthInsuranceLocalPage() {
         <Card className="p-5">
           <div className="flex flex-col gap-3">
             <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">그 해 고시값</p>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>최저보험료 (월, 원)</Label>
-                <input type="number" value={minPremium} onChange={e => setMinPremium(e.target.value)}
-                  placeholder="그 해 고시값" className={inputCls} min="0" />
+                <MoneyInput value={minPremium} onChange={setMinPremium} placeholder="그 해 고시값" />
               </div>
               <div>
                 <Label>최저보험료 연소득 기준 (원)</Label>
-                <input type="number" value={incomeFloorLine} onChange={e => setIncomeFloorLine(e.target.value)}
-                  placeholder="이 소득 이하면 최저보험료" className={inputCls} min="0" />
+                <MoneyInput value={incomeFloorLine} onChange={setIncomeFloorLine} placeholder="이 소득 이하면 최저보험료" />
               </div>
               <div>
                 <Label>부과점수당 금액 (원)</Label>
-                <input type="number" value={pointValue} onChange={e => setPointValue(e.target.value)}
-                  placeholder="그 해 고시값" className={inputCls} min="0" step="0.1" />
+                <MoneyInput value={pointValue} onChange={setPointValue} placeholder="그 해 고시값" />
               </div>
               <div>
                 <Label>재산공제액 (원)</Label>
-                <input type="number" value={assetDeduction} onChange={e => setAssetDeduction(e.target.value)}
-                  placeholder="개편으로 생긴 일괄 공제" className={inputCls} min="0" />
+                <MoneyInput value={assetDeduction} onChange={setAssetDeduction} placeholder="개편으로 생긴 일괄 공제" />
               </div>
               <div>
                 <Label>보험료 상한 (월, 원)</Label>
-                <input type="number" value={maxPremium} onChange={e => setMaxPremium(e.target.value)}
-                  placeholder="비우면 상한 없이" className={inputCls} min="0" />
+                <MoneyInput value={maxPremium} onChange={setMaxPremium} placeholder="비우면 상한 없이" />
               </div>
             </div>
 
             <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">내 세대의 소득과 재산</p>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>세대 연소득 (원)</Label>
-                <input type="number" value={annualIncome} onChange={e => setAnnualIncome(e.target.value)}
-                  placeholder="예: 36000000" className={inputCls} min="0" />
+                <MoneyInput value={annualIncome} onChange={setAnnualIncome} placeholder="예: 36000000" />
               </div>
               <div>
                 <Label>재산 가액 (원)</Label>
-                <input type="number" value={assetValue} onChange={e => setAssetValue(e.target.value)}
-                  placeholder="재산세 과세표준 등" className={inputCls} min="0" />
+                <MoneyInput value={assetValue} onChange={setAssetValue} placeholder="재산세 과세표준 등" />
               </div>
               <div>
                 <Label>재산 부과점수 (점)</Label>
@@ -194,6 +177,7 @@ export default function HealthInsuranceLocalPage() {
                   placeholder="요건에 안 걸리면 0" className={inputCls} min="0" />
               </div>
             </div>
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

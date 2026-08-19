@@ -91,7 +91,7 @@ export default function AimGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
 
       <div
         onPointerDown={() => { if (running) setMisses(m => m + 1); }}
-        className="relative w-full h-72 sm:h-80 rounded-2xl bg-slate-900 overflow-hidden select-none touch-none"
+        className="relative w-full h-72 sm:h-80 rounded-lg bg-slate-900 overflow-hidden select-none touch-none"
       >
         {running ? (
           <button
@@ -101,7 +101,7 @@ export default function AimGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
               move();
             }}
             aria-label={ui.targetAria}
-            className="absolute rounded-full bg-gradient-to-br from-rose-400 to-orange-500 border-4 border-white/80 shadow-lg -translate-x-1/2 -translate-y-1/2 active:scale-90 transition-transform"
+            className="absolute rounded-full bg-gradient-to-br from-rose-400 to-orange-500 border-4 border-white/80 shadow-sm -translate-x-1/2 -translate-y-1/2 active:scale-90 transition-transform"
             style={{ left: `${pos.x}%`, top: `${pos.y}%`, width: size, height: size }}
           />
         ) : (
@@ -130,7 +130,7 @@ export default function AimGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
       <button
         onClick={start}
         disabled={running}
-        className="mt-4 w-full rounded-xl bg-sec font-bold py-3.5 text-sm shadow-lg hover:opacity-90 disabled:opacity-50 transition-opacity"
+        className="mt-4 w-full rounded-xl bg-sec font-bold py-3.5 text-sm shadow-sm hover:opacity-90 disabled:opacity-50 transition-opacity"
       >
         {done ? c.retry : running ? c.running : c.start}
       </button>

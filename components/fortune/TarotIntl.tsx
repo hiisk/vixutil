@@ -167,8 +167,8 @@ export default function TarotIntl({ mode, lang }: { mode: Mode; lang: TarotIntlL
       </header>
 
       <div className="max-w-xl mx-auto px-4 py-8">
-        <div className="text-center mb-6">
-          <ToolIcon emoji="🃏" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+        <div className="mb-6">
+          <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="🃏" className="h-6 w-6" /></span>
           <div className="hero-band">
             <PageHero title={title} desc={lead} />
           </div>
@@ -181,7 +181,7 @@ export default function TarotIntl({ mode, lang }: { mode: Mode; lang: TarotIntlL
           <div className="text-center py-10">
             <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">{ui.question}</p>
             <button type="button" onClick={draw}
-              className="w-full max-w-xs mx-auto block rounded-2xl bg-sec font-black py-4 text-base hover:-translate-y-0.5 hover:shadow-xl transition-all">
+              className="w-full max-w-xs mx-auto block rounded-lg bg-sec font-black py-4 text-base hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all">
               {ui.draw}
             </button>
           </div>
@@ -189,20 +189,20 @@ export default function TarotIntl({ mode, lang }: { mode: Mode; lang: TarotIntlL
 
         {/* 서버는 오늘이 언제인지 모른다 — 붙기 전까지는 자리만 잡아 둔다 */}
         {mode === 'daily' && !daily && (
-          <div className="animate-pulse rounded-2xl bg-slate-100 dark:bg-slate-800 h-80" />
+          <div className="animate-pulse rounded-lg bg-slate-100 dark:bg-slate-800 h-80" />
         )}
 
         {card && shown && reading && (
           <div className="space-y-4">
             {verdict && (
-              <div className={`rounded-2xl bg-gradient-to-br ${VERDICT_STYLE[verdict].gradient} p-6 text-white text-center`}>
+              <div className={`rounded-lg bg-gradient-to-br ${VERDICT_STYLE[verdict].gradient} p-6 text-white text-center`}>
                 <div className="text-5xl mb-2">{VERDICT_STYLE[verdict].emoji}</div>
                 <p className="text-2xl font-black mb-2">{VERDICT_LABEL[lang][verdict]}</p>
                 <p className="text-sm">{VERDICT_NOTE[lang][verdict]}</p>
               </div>
             )}
 
-            <div className="rounded-2xl p-6 text-white text-center" style={{ background: `linear-gradient(135deg, ${card.color}, ${card.color}bb)` }}>
+            <div className="rounded-lg p-6 text-white text-center" style={{ background: `linear-gradient(135deg, ${card.color}, ${card.color}bb)` }}>
               <p className="text-xs font-bold text-white/80 mb-2">{ui.drawn}</p>
               <div className={`text-6xl mb-3 ${shown.reversed ? 'rotate-180' : ''} inline-block transition-transform`}>{card.emoji}</div>
               <p className="text-2xl font-black mb-1">{cardName(shown.id, lang)}</p>
@@ -211,14 +211,14 @@ export default function TarotIntl({ mode, lang }: { mode: Mode; lang: TarotIntlL
               </span>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5">
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">
                 {shown.reversed ? reading.reversed : reading.upright}
               </p>
             </div>
 
             {mode === 'daily' && daily && (
-              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 grid grid-cols-2 gap-4 text-center">
+              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5 grid grid-cols-2 gap-4 text-center">
                 <div>
                   <div className="w-10 h-10 rounded-full mx-auto mb-1 border-2 border-white shadow-sm" style={{ background: daily.color[1] }} />
                   <p className="text-xs text-slate-400 dark:text-slate-500">{t('luckyColor', lang)}</p>
@@ -236,7 +236,7 @@ export default function TarotIntl({ mode, lang }: { mode: Mode; lang: TarotIntlL
 
             {mode === 'yesno' && (
               <button type="button" onClick={draw}
-                className="w-full py-3.5 rounded-2xl font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-amber-300 hover:text-amber-600 transition-colors">
+                className="w-full py-3.5 rounded-lg font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-amber-300 hover:text-amber-600 transition-colors">
                 {ui.again}
               </button>
             )}

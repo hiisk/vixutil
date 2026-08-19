@@ -93,13 +93,13 @@ export default function EmojiPage({ slug, lang }: { slug: string; lang: Lang }) 
 
         <section className="mb-6" aria-label={ui.meaningTitle}>
           <p className="label-caps mb-2">{ui.meaningTitle}</p>
-          <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed rounded-2xl border chip-off px-4 py-4">
+          <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed rounded-lg border chip-off px-4 py-4">
             {desc}
           </p>
         </section>
 
         {f.nameDiffers && (
-          <section className="mb-6 rounded-2xl border border-amber-200 dark:border-amber-900/60 bg-amber-50/60 dark:bg-amber-950/20 px-4 py-4">
+          <section className="mb-6 rounded-lg border border-amber-200 dark:border-amber-900/60 bg-amber-50/60 dark:bg-amber-950/20 px-4 py-4">
             <p className="label-caps mb-2">{ui.nameGapTitle}</p>
             <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-3">{ui.nameGapNote}</p>
             <dl className="text-sm">
@@ -122,22 +122,22 @@ export default function EmojiPage({ slug, lang }: { slug: string; lang: Lang }) 
           </div>
         </dl>
 
-        <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 px-4 py-3">
+        <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-3">
           {ui.cpNote(f.cpCount)}
         </p>
 
         {f.vs16 && (
-          <p className="mt-3 text-xs text-slate-500 dark:text-slate-400 leading-relaxed rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 px-4 py-3">
+          <p className="mt-3 text-xs text-slate-500 dark:text-slate-400 leading-relaxed rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-3">
             {ui.vs16Note}
           </p>
         )}
         {f.zwj && (
-          <p className="mt-3 text-xs text-slate-500 dark:text-slate-400 leading-relaxed rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 px-4 py-3">
+          <p className="mt-3 text-xs text-slate-500 dark:text-slate-400 leading-relaxed rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-3">
             {ui.zwjNote}
           </p>
         )}
 
-        <p className="mt-3 text-xs text-slate-500 dark:text-slate-400 leading-relaxed rounded-2xl border chip-off px-4 py-3">
+        <p className="mt-3 text-xs text-slate-500 dark:text-slate-400 leading-relaxed rounded-lg border chip-off px-4 py-3">
           {ui.groupNote[x.group]}
         </p>
 

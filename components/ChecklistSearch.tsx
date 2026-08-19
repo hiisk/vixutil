@@ -10,7 +10,7 @@ function ChecklistCard({ c }: { c: ChecklistCardItem }) {
   const total = c.itemCount;
   return (
     <Link href={`/checklist/${c.slug}`}
-      className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm p-4 hover:border-sky-300 hover:shadow-md transition-all flex flex-col gap-2">
+      className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm p-4 hover:border-sky-300 hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col gap-2">
       <div className="flex items-start justify-between gap-2">
         <ToolIcon emoji={c.icon} className="text-slate-800 dark:text-slate-100 w-7 h-7" />
         <div className="flex items-center gap-1.5 shrink-0">
@@ -53,7 +53,7 @@ export default function ChecklistSearch({ checklists }: { checklists: ChecklistC
           value={query}
           onChange={e => setQuery(e.target.value)}
           placeholder="체크리스트 검색..."
-          className="w-full border border-slate-200 dark:border-slate-700 rounded-2xl px-4 py-3 pl-10 text-sm text-slate-700 dark:text-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-100 transition-all"
+          className="w-full border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-3 pl-10 text-sm text-slate-700 dark:text-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-100 transition-all"
         />
         {query && (
           <button

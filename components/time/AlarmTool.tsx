@@ -47,7 +47,7 @@ export default function AlarmTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
 
   return (
     <div>
-      <div className={`rounded-2xl px-6 py-12 text-center transition-colors ${ringing ? 'bg-amber-500' : 'bg-slate-900'}`}>
+      <div className={`rounded-lg px-6 py-12 text-center transition-colors ${ringing ? 'bg-amber-500' : 'bg-slate-900'}`}>
         {ringing ? (
           <>
             <p className="text-4xl font-black text-white mb-2">{ui.ringing}</p>
@@ -82,7 +82,7 @@ export default function AlarmTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
       <div className="grid grid-cols-2 gap-2 mt-3">
         <button
           onClick={set}
-          className="rounded-xl bg-sec font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
+          className="rounded-xl bg-sec font-bold py-3.5 text-sm shadow-sm hover:opacity-90 transition-opacity"
         >
           {target !== null ? ui.reset : ui.set}
         </button>

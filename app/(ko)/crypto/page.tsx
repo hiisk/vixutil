@@ -81,37 +81,34 @@ export default function CryptoPage() {
         </div>
       </header>
 
-      <div className="max-w-2xl mx-auto px-4 py-10">
-        <div className="text-center mb-10">
-          <ToolIcon emoji="🪙" className="w-12 h-12 mx-auto mb-4 text-slate-800 dark:text-slate-100" />
+      <div className="max-w-4xl mx-auto px-4 py-10">
+        {/* 머리 — 운세·색·시간과 같은 규격(왼쪽 정렬 + 갈래색 칩) */}
+        <div className="hero-band">
+          <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg">
+            <ToolIcon emoji="🪙" className="h-6 w-6" />
+          </span>
           <h1 className="page-h1">Crypto Trading Tools</h1>
-          <p className="text-slate-500 dark:text-slate-400 text-sm">Volatility & TP/SL from Binance public market data</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400">Volatility &amp; TP/SL from Binance public market data</p>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-4">
+        {/* 「Open tool →」 줄을 뺐다 — 카드 전체가 이미 링크다(운세 허브와 같은 이유) */}
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {TOOLS.map(t => (
             <Link key={t.href} href={t.href}
-              className="group relative overflow-hidden rounded-2xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 hover:shadow-md hover:border-amber-200 dark:hover:border-amber-500/40 transition-all">
-              <div className={`absolute -right-6 -top-6 w-24 h-24 rounded-full bg-sec-soft opacity-10 group-hover:opacity-20 transition-opacity`} />
-              <div className="relative">
-                <div className="flex items-start justify-between mb-4">
-                  <ToolIcon emoji={t.icon} className="text-slate-800 dark:text-slate-100 w-8 h-8" />
-                  {t.badge && <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-100 dark:border-amber-500/25">{t.badge}</span>}
-                </div>
-                <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-1">{t.title}</h2>
-                <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">{t.desc}</p>
-                <div className="flex items-center gap-1 text-xs font-semibold text-amber-600 dark:text-amber-400">
-                  Open tool
-                  <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                  </svg>
-                </div>
+              className="group rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 transition-colors hover:border-slate-300 dark:hover:border-slate-700">
+              <div className="mb-3 flex items-start justify-between gap-2">
+                <span className="bg-sec-soft inline-flex h-9 w-9 items-center justify-center rounded-lg">
+                  <ToolIcon emoji={t.icon} className="h-5 w-5" />
+                </span>
+                {t.badge && <span className="rounded-full border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-[10px] font-semibold text-slate-500 dark:text-slate-400">{t.badge}</span>}
               </div>
+              <h2 className="mb-1 font-bold text-slate-900 dark:text-slate-100">{t.title}</h2>
+              <p className="text-[13px] leading-relaxed text-slate-500 dark:text-slate-400">{t.desc}</p>
             </Link>
           ))}
         </div>
 
-        <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-10">Prices via Binance public API · all calculations are for reference only, not investment advice</p>
+        <p className="text-xs text-slate-400 dark:text-slate-500 mt-10">Prices via Binance public API · all calculations are for reference only, not investment advice</p>
 
         <ReferralCards lang="en" heading="Exchange sign-up bonuses" />
 

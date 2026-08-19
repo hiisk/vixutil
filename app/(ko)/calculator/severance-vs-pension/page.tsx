@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import CalcShell, {
-  Card, CardHeader, Label, inputCls,
+  Card, CardHeader, Label, PrimaryBtn, inputCls,
   SummaryCard, SummaryGrid, TableWrap,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
@@ -25,22 +25,15 @@ export default function SeveranceVsPensionPage() {
   const [pensionYears, setPensionYears] = useState('15');
   const [returnRate, setReturnRate] = useState('4');
   const [startAge, setStartAge] = useState('60');
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | {
+  const [result, setResult] = useState<null | {
     c: ReturnType<typeof compare>;
     table: ReturnType<typeof compareTable>;
     breakeven: number | null;
-  } = ((): null | {
-    c: ReturnType<typeof compare>;
-    table: ReturnType<typeof compareTable>;
-    breakeven: number | null;
-  } => {
+  }>(null);
+
+  function calculate() {
     const serviceMonths = (Number(years) || 0) * 12 + (Number(months) || 0);
-    if (payout <= 0 || serviceMonths <= 0) return null;
+    if (payout <= 0 || serviceMonths <= 0) return;
     const input = {
       payout,
       serviceMonths,
@@ -48,17 +41,13 @@ export default function SeveranceVsPensionPage() {
       returnRate: (Number(returnRate) || 0) / 100,
       startAge: Number(startAge) || 0,
     };
-    if (input.pensionYears <= 0) return null;
-    return ({
+    if (input.pensionYears <= 0) return;
+    setResult({
       c: compare(input),
       table: compareTable(input, TABLE_YEARS),
       breakeven: breakevenYears(input),
     });
-  
-    return null;
-  })();
-
-
+  }
 
   return (
     <CalcShell
@@ -138,7 +127,7 @@ export default function SeveranceVsPensionPage() {
             </div>
             <div>
               <Label>근속 기간</Label>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-x-4 gap-y-5">
                 <div className="flex items-center gap-2">
                   <input type="number" value={years} onChange={e => setYears(e.target.value)}
                     min="0" className={inputCls} />
@@ -157,7 +146,7 @@ export default function SeveranceVsPensionPage() {
         <Card className="p-5">
           <CardHeader title="연금으로 받는다면" sub="확인할 수 없는 값이라 넣어 두지 않았습니다" />
           <div className="flex flex-col gap-3">
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>수령 기간 (년)</Label>
                 <input type="number" value={pensionYears} onChange={e => setPensionYears(e.target.value)}
@@ -177,6 +166,7 @@ export default function SeveranceVsPensionPage() {
                 아직 안 받은 잔액에 붙는 수익률 · 손실을 보는 경우를 보려면 음수를 넣으세요
               </p>
             </div>
+            <PrimaryBtn onClick={calculate}>두 선택 비교하기</PrimaryBtn>
           </div>
         </Card>
 

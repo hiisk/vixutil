@@ -78,7 +78,7 @@ export default function SecretSanta({ lang = 'ko' }: { lang?: RandomLang }) {
           <button
             onClick={run}
             disabled={names.length < 3 || dupWarning}
-            className="w-full bg-sec font-black text-lg rounded-2xl py-4 shadow-lg shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all disabled:opacity-50 disabled:hover:translate-y-0"
+            className="w-full bg-sec font-black text-lg rounded-lg py-4 shadow-sm shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all disabled:opacity-50 disabled:hover:translate-y-0"
           >
             {ui.santaDraw}
           </button>
@@ -112,19 +112,19 @@ export default function SecretSanta({ lang = 'ko' }: { lang?: RandomLang }) {
 
           <button
             onClick={() => setAssign(null)}
-            className="w-full border-2 border-rose-200 dark:border-rose-900/50 text-rose-600 dark:text-rose-300 font-bold rounded-2xl py-3 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors"
+            className="w-full border-2 border-rose-200 dark:border-rose-900/50 text-rose-600 dark:text-rose-300 font-bold rounded-lg py-3 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors"
           >
             {ui.drawAgain}
           </button>
 
           {/* 확인 패널 (인라인 카드, 오버레이 아님) */}
           {openFor && (
-            <div className="ss-pop mt-5 rounded-2xl border-2 border-rose-300 dark:border-rose-800 bg-rose-50/60 dark:bg-rose-950/20 p-6 text-center">
+            <div className="ss-pop mt-5 rounded-lg border-2 border-rose-300 dark:border-rose-800 bg-rose-50/60 dark:bg-rose-950/20 p-6 text-center">
               <div className="text-sm font-bold text-slate-500 dark:text-slate-400 mb-3">{ui.santaOnly(openFor)}</div>
               {!revealed ? (
                 <button
                   onClick={() => setRevealed(true)}
-                  className="w-full bg-sec font-black rounded-xl py-3.5 hover:shadow-lg transition-all"
+                  className="w-full bg-sec font-black rounded-xl py-3.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all"
                 >
                   {ui.santaReveal}
                 </button>

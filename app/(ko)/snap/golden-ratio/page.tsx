@@ -199,27 +199,27 @@ export default function GoldenRatioPage() {
         </div>
       </header>
 
-      <div className="max-w-xl mx-auto px-4 py-8">
-        <div className="text-center mb-6">
-          <ToolIcon emoji="📐" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+      <div className="hero-band max-w-xl mx-auto px-4 py-8">
+        <div className="mb-6">
+          <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="📐" className="h-6 w-6" /></span>
           <h1 className="page-h1">얼굴 황금비율 테스트</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">실제 얼굴 인식으로 이목구비 비례가 황금비(φ)에 얼마나 가까운지 측정해요</p>
         </div>
 
-        <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900/40 rounded-2xl p-4 mb-6 text-xs text-amber-800 dark:text-amber-300 leading-relaxed">
+        <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900/40 rounded-lg p-4 mb-6 text-xs text-amber-800 dark:text-amber-300 leading-relaxed">
           <p className="font-bold mb-1">🔒 사진은 서버에 전송되지 않아요</p>
           <p>이목구비 비율은 이 브라우저 안에서 실제로 측정돼요. 다만 황금비는 미의 절대 기준이 아니라 하나의 참고 개념일 뿐이니, 점수는 재미로만 봐주세요.</p>
         </div>
 
         {modelState === 'loading' && (
-          <div className="w-full border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl py-16 flex flex-col items-center gap-3 bg-white dark:bg-slate-900">
+          <div className="w-full border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-lg py-16 flex flex-col items-center gap-3 bg-white dark:bg-slate-900">
             <div className="w-8 h-8 border-4 border-slate-200 dark:border-slate-700 border-t-amber-500 rounded-full animate-spin" />
             <span className="text-sm font-bold text-slate-500 dark:text-slate-400">얼굴 인식 모델을 불러오는 중...</span>
           </div>
         )}
 
         {modelState === 'error' && (
-          <div className="w-full border-2 border-dashed border-rose-200 dark:border-rose-900/50 rounded-2xl py-12 px-4 flex flex-col items-center gap-2 bg-rose-50 dark:bg-rose-950/30 text-center">
+          <div className="w-full border-2 border-dashed border-rose-200 dark:border-rose-900/50 rounded-lg py-12 px-4 flex flex-col items-center gap-2 bg-rose-50 dark:bg-rose-950/30 text-center">
             <ToolIcon emoji="⚠️" className="w-8 h-8 text-slate-800 dark:text-slate-100" />
             <span className="text-sm font-bold text-rose-600">얼굴 인식 모델을 불러오지 못했어요</span>
             <span className="text-xs text-rose-400">네트워크 상태를 확인하고 새로고침 해주세요</span>
@@ -229,7 +229,7 @@ export default function GoldenRatioPage() {
         {modelState === 'ready' && !preview && (
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="w-full border-2 border-dashed border-slate-300 rounded-2xl py-16 flex flex-col items-center gap-3 bg-white dark:bg-slate-900 hover:border-amber-400 hover:bg-amber-50/50 dark:hover:bg-amber-950/40 transition-colors"
+            className="w-full border-2 border-dashed border-slate-300 rounded-lg py-16 flex flex-col items-center gap-3 bg-white dark:bg-slate-900 hover:border-amber-400 hover:bg-amber-50/50 dark:hover:bg-amber-950/40 transition-colors"
           >
             <ToolIcon emoji="📷" className="w-9 h-9 text-slate-800 dark:text-slate-100" />
             <span className="text-sm font-bold text-slate-600 dark:text-slate-300">사진을 선택해주세요</span>
@@ -240,11 +240,11 @@ export default function GoldenRatioPage() {
 
         {preview && (
           <div className="mb-6">
-            <div className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 aspect-square max-w-xs mx-auto">
+            <div className="relative rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 aspect-square max-w-xs mx-auto">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={preview} alt="업로드한 사진 미리보기" className="w-full h-full object-cover" />
               {analyzing && (
-                <div className="absolute inset-0 bg-slate-900/60 flex flex-col items-center justify-center gap-3">
+                <div className="absolute inset-0 bg-slate-900/60 gap-3">
                   <div className="w-10 h-10 border-4 border-white/30 dark:border-slate-700/30 border-t-white rounded-full animate-spin" />
                   <p className="text-white text-sm font-bold">비율 분석 중...</p>
                 </div>
@@ -259,7 +259,7 @@ export default function GoldenRatioPage() {
         )}
 
         {faceError && !analyzing && (
-          <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 rounded-2xl p-5 mb-6 text-center">
+          <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 rounded-lg p-5 mb-6 text-center">
             <p className="text-sm font-bold text-amber-700 dark:text-amber-300 mb-3">🙈 {faceError}</p>
             <button onClick={() => fileInputRef.current?.click()} className="text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2.5 transition-colors">
               다른 사진 선택하기
@@ -269,7 +269,7 @@ export default function GoldenRatioPage() {
 
         {result && !analyzing && (
           <div id="golden-result" className="space-y-4">
-            <div className="bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl p-6 text-white text-center">
+            <div className="bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg p-6 text-white text-center">
               <div className="flex justify-end mb-2">
                 <ShareBtn />
               </div>
@@ -279,7 +279,7 @@ export default function GoldenRatioPage() {
               <p className="text-sm leading-relaxed">{result.overall}</p>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5">
               <p className="label-caps mb-3">📊 세부 비율 (φ ≈ 1.618 기준)</p>
               <div className="flex flex-col gap-3">
                 {result.metrics.map(m => (
@@ -297,12 +297,12 @@ export default function GoldenRatioPage() {
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100 dark:border-amber-900/40 rounded-2xl p-5">
+            <div className="bg-amber-50 border border-amber-100 dark:border-amber-900/40 rounded-lg p-5">
               <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">💡 참고 팁</p>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.tip}</p>
             </div>
 
-            <button onClick={handleReset} className="w-full py-3.5 rounded-2xl font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-amber-300 hover:text-amber-600 transition-colors">
+            <button onClick={handleReset} className="w-full py-3.5 rounded-lg font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-amber-300 hover:text-amber-600 transition-colors">
               🔄 다른 사진으로 다시 해보기
             </button>
 

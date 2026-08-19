@@ -69,7 +69,7 @@ export default function TunerTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
 
   return (
     <div>
-      <div className={`rounded-2xl px-6 py-10 text-center transition-colors ${inTune ? 'bg-emerald-600' : 'bg-slate-900'}`}>
+      <div className={`rounded-lg px-6 py-10 text-center transition-colors ${inTune ? 'bg-emerald-600' : 'bg-slate-900'}`}>
         <p className="text-7xl font-black text-white">
           {reading ? reading.note : '—'}
           {reading && <span className="text-3xl text-white/60">{reading.octave}</span>}

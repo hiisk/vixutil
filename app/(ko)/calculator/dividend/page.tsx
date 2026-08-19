@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
@@ -88,8 +89,7 @@ export default function DividendPage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>투자금액 (원)</Label>
-              <input type="number" value={invest} onChange={e => setInvest(e.target.value)}
-                placeholder="예: 100,000,000" className={inputCls} min="0" />
+              <MoneyInput value={invest} onChange={setInvest} placeholder="예: 100,000,000" />
             </div>
             <div>
               <Label>배당수익률 (%)</Label>
@@ -110,7 +110,7 @@ export default function DividendPage() {
               <span className="text-sm text-slate-700 dark:text-slate-200">배당소득세 15.4% 차감</span>
             </label>
             <div>
-              <Label>목표 월 배당금 (역산용, 선택)</Label>
+              <Label>목표 월 배당금 <span className="dial-opt">역산용, 선택</span></Label>
               <input type="number" value={targetMonthly} onChange={e => setTargetMonthly(e.target.value)}
                 placeholder="예: 500,000" className={inputCls} min="0" />
             </div>
@@ -125,7 +125,7 @@ export default function DividendPage() {
               <p className="stat-value">{fmt(result.annualAfterTax)}원</p>
               <p className="stat-sub">{FREQ_MAP[freq].label} 1회 {fmt(result.perPaymentAfterTax)}원</p>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <SummaryCard label="연간 배당금 (세전)" value={`${fmt(result.annual)}원`} />
               <SummaryCard label="배당소득세" value={taxed ? `-${fmt(result.annual - result.annualAfterTax)}원` : '미적용'} variant="red" />
             </div>

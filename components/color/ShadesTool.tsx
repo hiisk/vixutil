@@ -33,7 +33,7 @@ export default function ShadesTool({ lang = 'ko' }: { lang?: ColorLang } = {}) {
     <div>
       <ColorInput value={base} onChange={setBase} label={ui.baseColor} />
 
-      <div className="mt-4 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700">
+      <div className="mt-4 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700">
         {steps.map(s => (
           <button
             key={s.step}

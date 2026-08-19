@@ -65,7 +65,7 @@ export default function CalculatorHub() {
         {/* 히어로 + 검색 */}
         <section className="py-7 sm:py-10 border-b border-slate-100 dark:border-slate-800">
           {/* 홈에서 누른 그 칸과 같은 타일 — 낱장 머리와도 같은 모양이다 */}
-          <div className="mb-6">
+          <div className="hero-band ">
             <PageHero
               title="실생활 계산기 모음"
               desc={`직장인·세금·금융·부동산·생활·자동차·공과금·개발자 — ${total}개 계산기`}

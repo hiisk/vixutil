@@ -1,15 +1,15 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 
 /*
- * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
- * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
- * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
- * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
- * 골라 둔 예시를 그대로 올렸다.
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 빈 칸으로 열면 무엇을
+ * 보여 주는 계산기인지 눌러 보기 전에는 모른다 — 값을 미리 넣어 두면 「계산하기」
+ * 한 번에 한 벌이 통째로 보이고, 사람은 그 위에 자기 숫자를 덮어쓴다.
+ * 값은 내가 지어내지 않고 저자가 이미 골라 둔 예시를 그대로 올렸다.
  */
 import Link from 'next/link';
-import CalcShell, { Card, CardHeader, Label, inputCls } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
 import {
   PENSION_DEDUCTION_CAP, PRIVATE_OVER_RATE, PRIVATE_SEPARATE_LIMIT,
   calcPensionTax, pensionDeduction, spreadTable,
@@ -27,20 +27,13 @@ export default function PensionTaxPage() {
   const [otherIncome, setOtherIncome] = useState('0');
   const [personalDeduction, setPersonalDeduction] = useState('1500000');
   const [privateTotal, setPrivateTotal] = useState('');
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | {
+  const [result, setResult] = useState<null | {
     r: ReturnType<typeof calcPensionTax>;
     publicAnnual: number;
     spread: ReturnType<typeof spreadTable> | null;
-  } = ((): null | {
-    r: ReturnType<typeof calcPensionTax>;
-    publicAnnual: number;
-    spread: ReturnType<typeof spreadTable> | null;
-  } => {
+  }>(null);
+
+  function calculate() {
     const publicAnnual = Number(publicMonthly || 0) * 12;
     const input = {
       publicAnnual,
@@ -49,18 +42,14 @@ export default function PensionTaxPage() {
       otherIncome: Number(otherIncome || 0),
       personalDeduction: Number(personalDeduction || 0),
     };
-    if (publicAnnual <= 0 && input.privateAnnual <= 0) return null;
+    if (publicAnnual <= 0 && input.privateAnnual <= 0) return;
     const total = Number(privateTotal || 0);
-    return ({
+    setResult({
       r: calcPensionTax(input),
       publicAnnual,
       spread: total > 0 ? spreadTable(input, total, SPREAD_YEARS) : null,
     });
-  
-    return null;
-  })();
-
-
+  }
 
   return (
     <CalcShell
@@ -117,14 +106,12 @@ export default function PensionTaxPage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>공적연금 월 수령액 (원) — 국민연금 등</Label>
-              <input type="number" value={publicMonthly} onChange={e => setPublicMonthly(e.target.value)}
-                placeholder="예: 1200000" className={inputCls} min="0" />
+              <MoneyInput value={publicMonthly} onChange={setPublicMonthly} placeholder="예: 1200000" />
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>사적연금 연 수령액 (원)</Label>
-                <input type="number" value={privateAnnual} onChange={e => setPrivateAnnual(e.target.value)}
-                  placeholder="예: 12000000" className={inputCls} min="0" />
+                <MoneyInput value={privateAnnual} onChange={setPrivateAnnual} placeholder="예: 12000000" />
               </div>
               <div>
                 <Label>나이 (만)</Label>
@@ -132,23 +119,21 @@ export default function PensionTaxPage() {
                   className={inputCls} min="0" />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>그 밖의 종합과세 소득 (연, 원)</Label>
-                <input type="number" value={otherIncome} onChange={e => setOtherIncome(e.target.value)}
-                  className={inputCls} min="0" />
+                <MoneyInput value={otherIncome} onChange={setOtherIncome} />
               </div>
               <div>
                 <Label>인적공제 등 소득공제 (원)</Label>
-                <input type="number" value={personalDeduction} onChange={e => setPersonalDeduction(e.target.value)}
-                  className={inputCls} min="0" />
+                <MoneyInput value={personalDeduction} onChange={setPersonalDeduction} />
               </div>
             </div>
             <div>
-              <Label>연금계좌 총 적립액 (원, 비우면 생략)</Label>
-              <input type="number" value={privateTotal} onChange={e => setPrivateTotal(e.target.value)}
-                placeholder="나눠 받기 비교용 · 예: 150000000" className={inputCls} min="0" />
+              <Label>연금계좌 총 적립액 <span className="dial-opt">원, 비우면 생략</span></Label>
+              <MoneyInput value={privateTotal} onChange={setPrivateTotal} placeholder="나눠 받기 비교용 · 예: 150000000" />
             </div>
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

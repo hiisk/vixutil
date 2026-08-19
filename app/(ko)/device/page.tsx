@@ -68,8 +68,8 @@ export default function DeviceHubPage() {
       </header>
 
       <main className="relative max-w-2xl mx-auto px-4 py-10">
-        <div className="text-center mb-9">
-          <ToolIcon emoji="🧰" className="w-12 h-12 mx-auto mb-4 text-slate-800 dark:text-slate-100" />
+        <div className="hero-band ">
+          <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="🧰" className="h-6 w-6" /></span>
           <h1 className="page-h1">기기 점검</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
             키보드·마우스·마이크·웹캠·스피커·모니터가 제대로 도는지
@@ -77,7 +77,7 @@ export default function DeviceHubPage() {
           </p>
         </div>
 
-        <div className="rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-3.5 mb-7 text-xs text-slate-500 dark:text-slate-400 leading-relaxed text-center">
+        <div className="rounded-lg border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-3.5 mb-7 text-xs text-slate-500 dark:text-slate-400 leading-relaxed text-center">
           🔒 설치·회원가입 없이 바로 씁니다. 카메라·마이크 데이터는 이 브라우저 안에서만 처리되고 서버로 전송되지 않습니다.
         </div>
 
@@ -92,9 +92,8 @@ export default function DeviceHubPage() {
                   <Link
                     key={t.slug}
                     href={`/device/${t.slug}`}
-                    className="group relative overflow-hidden rounded-2xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 hover:shadow-md hover:border-sky-200 transition-all"
+                    className="group relative overflow-hidden rounded-lg border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 hover:border-slate-300 dark:hover:border-slate-700 hover:border-sky-200 transition-all"
                   >
-                    <div className={`absolute -right-6 -top-6 w-24 h-24 rounded-full bg-sec-soft opacity-10 group-hover:opacity-20 transition-opacity`} />
                     <div className="relative">
                       <div className="flex items-start justify-between mb-3">
                         <ToolIcon emoji={t.icon} color={t.og[0]} accent={t.og[1]} className="w-8 h-8" />
@@ -123,7 +122,7 @@ export default function DeviceHubPage() {
         {/* 화면 규격은 점검 도구가 아니라 자료라서 갈래 바깥에 따로 세운다 */}
         <Link
           href="/device/screen"
-          className="group mt-10 flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+          className="group mt-10 flex items-center gap-4 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:border-slate-300 dark:hover:border-slate-700 hover:-translate-y-0.5 transition-all"
         >
           <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-sec-soft">
             <ToolIcon emoji={SCREEN_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />
@@ -136,7 +135,7 @@ export default function DeviceHubPage() {
           </span>
         </Link>
 
-        <div className="mt-10 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+        <div className="mt-10 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
           <h2 className="sec-h2">이럴 때 쓰세요</h2>
           <ul className="flex flex-col gap-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
             <li>🛒 <b className="text-slate-800 dark:text-slate-100">중고 거래 전후</b> — 키보드·모니터·패드를 그 자리에서 확인</li>

@@ -15,7 +15,7 @@ export default function PxTable({ pixels,
   head: [string, string, string];
 }) {
   return (
-    <div className="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-700">
+    <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
       <table className="w-full text-sm tabular-nums">
         <thead>
           <tr className="bg-slate-50 dark:bg-slate-800 text-[11px] text-slate-500 dark:text-slate-400">

@@ -1,5 +1,6 @@
 'use client';
 import { useMemo, useState } from 'react';
+import { sampleFromPlaceholder } from '@/lib/text-tools';
 import { toSlug, DEFAULT_SLUG, type SlugOptions } from '@/lib/text-more';
 import { CARD, CopyRow, InputArea, Toggle } from './ui';
 import { SLUG_UI } from '@/lib/text-more-ui';
@@ -9,7 +10,8 @@ const LIMITS = [0, 40, 60, 80];
 
 export default function SlugTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
   const ui = SLUG_UI[lang];
-  const [text, setText] = useState('');
+  /* 열자마자 한 벌이 돌아가게 — 플레이스홀더가 예시일 때만 쓴다(lib/text-tools.ts) */
+  const [text, setText] = useState(() => sampleFromPlaceholder(ui.placeholder));
   const [options, setOptions] = useState<SlugOptions>(DEFAULT_SLUG);
 
   const result = useMemo(() => toSlug(text, options), [text, options]);

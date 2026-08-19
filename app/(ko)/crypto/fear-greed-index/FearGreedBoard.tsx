@@ -100,7 +100,7 @@ export default function FearGreedBoard() {
 
   if (state === 'loading') {
     return (
-      <div role="status" aria-live="polite" className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
+      <div role="status" aria-live="polite" className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
         <div aria-hidden="true" className="w-8 h-8 border-4 border-slate-200 dark:border-slate-700 border-t-amber-500 rounded-full animate-spin" />
         <span className="text-sm font-bold text-slate-500 dark:text-slate-400">Loading the index and Bitcoin&apos;s full history…</span>
       </div>
@@ -109,7 +109,7 @@ export default function FearGreedBoard() {
 
   if (state === 'error' || !snap) {
     return (
-      <div role="alert" className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
+      <div role="alert" className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
         <span aria-hidden="true" className="text-3xl">⚠️</span>
         <span className="text-sm font-bold text-rose-600 dark:text-rose-400">Couldn&apos;t load the index</span>
         <button type="button" onClick={load} className="mt-2 text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2 transition-colors">Retry</button>
@@ -122,7 +122,7 @@ export default function FearGreedBoard() {
   return (
     <>
       {/* 현재 값 */}
-      <div className="rounded-3xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 mb-4 text-center">
+      <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 mb-4 text-center">
         <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Crypto Fear &amp; Greed Index</p>
         <p className={`text-6xl font-black tabular-nums ${ui.cls}`}>{snap.current}</p>
         <p className={`text-lg font-black mt-1 ${ui.cls}`}>{snap.currentBucket}</p>
@@ -145,7 +145,7 @@ export default function FearGreedBoard() {
       </div>
 
       {/* 백테스트 — 이 페이지의 존재 이유 */}
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
         <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700 flex flex-wrap items-center justify-between gap-3">
           <div>
             <h2 className="text-sm font-black text-slate-900 dark:text-white">Does &quot;buy when there&apos;s fear&quot; actually work?</h2>
@@ -231,7 +231,7 @@ export default function FearGreedBoard() {
         </div>
       </div>
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
         <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">What the index is made of</h2>
         <p className="mb-2">
           The index is published by alternative.me and blends volatility, market momentum and volume, social media activity, Bitcoin dominance

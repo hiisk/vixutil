@@ -88,9 +88,9 @@ export function TestIntlHub({ lang }: { lang: TestIntlLang }) {
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {tests.map(t => (
             <Link prefetch={false} key={t.slug} href={`/${lang}/test/${t.slug}`}
-              className={`group relative overflow-hidden rounded-2xl ${thumbSurface(t.slug, 'test')} p-5 min-h-[9.5rem] flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl transition-all`}>
+              className={`group relative overflow-hidden rounded-lg ${thumbSurface(t.slug, 'test')} p-5 min-h-[9.5rem] flex flex-col justify-between hover:-translate-y-1 hover:border-slate-300 dark:hover:border-slate-700 transition-all`}>
               <div className="flex items-start justify-between">
-                <ToolIcon emoji={t.icon} className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
+                <ToolIcon emoji={t.icon} className="w-9 h-9 drop-shadow-sm transition-transform group-hover:scale-110" />
                 <span className="text-[10px] font-bold bg-white/25 rounded-full px-2 py-0.5">{t.questions.length}</span>
               </div>
               <div>

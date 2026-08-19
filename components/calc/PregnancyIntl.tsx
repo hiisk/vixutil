@@ -55,7 +55,7 @@ export default function PregnancyIntl({ lang }: { lang: CalcLang }) {
     <div className="flex flex-col gap-4">
       <Card className="p-5">
         <p className="label-caps mb-3">{c.section}</p>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-5">
           <div>
             <Label>{c.lastPeriod}</Label>
             <input type="date" value={lastPeriod} onChange={e => setLastPeriod(e.target.value)} className={inputCls} />
@@ -78,7 +78,7 @@ export default function PregnancyIntl({ lang }: { lang: CalcLang }) {
               {c.current} {result.weeks} {c.weeks} {result.days} {c.days}
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-4 gap-y-5">
             <SummaryCard label={c.trimester} value={trimesterLabel} />
             <SummaryCard label={c.remaining} value={fmt(Math.max(0, result.remaining))} variant="green" />
             <SummaryCard label={c.conception} value={result.conception.toLocaleDateString(tag, { month: 'short', day: 'numeric' })} />

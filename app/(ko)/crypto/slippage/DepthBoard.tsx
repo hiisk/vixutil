@@ -25,8 +25,8 @@ interface Snapshot {
   fetchedAt: number;
 }
 
-const inputCls =
-  'w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition';
+/* 사이트 공용 칸 — 초점 테두리가 갈래 색을 따라간다(globals.css .dial-input) */
+const inputCls = 'dial-input';
 
 const money = (v: number) => {
   if (v >= 1_000_000) return `$${(v / 1_000_000).toFixed(2)}M`;
@@ -122,14 +122,14 @@ export default function DepthBoard() {
 
   return (
     <>
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 mb-4">
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5 mb-4">
         <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5" htmlFor="sl-coin">Coin</label>
         <div className="flex flex-wrap items-center gap-3">
           <div className="relative flex-1 min-w-[220px]">
             <input id="sl-coin" type="text" value={query} onChange={e => setQuery(e.target.value)}
               placeholder={`${coin.base} · search another coin`} className={inputCls} autoComplete="off" />
             {suggestions.length > 0 && (
-              <ul className="absolute z-20 mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-lg overflow-hidden">
+              <ul className="absolute z-20 mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm overflow-hidden">
                 {suggestions.map(c => (
                   <li key={c.slug}>
                     <button type="button" onClick={() => pickCoin(c)}
@@ -194,7 +194,7 @@ export default function DepthBoard() {
               ['Best ask', px(bb.ask), 'text-rose-600 dark:text-rose-400'],
               ['Spread', `${fmtBps(snap.spread)} bp`, bpsTone(snap.spread)],
             ] as const).map(([label, v, cls]) => (
-              <div key={label} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3">
+              <div key={label} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3">
                 <p className="text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400">{label}</p>
                 <p className={`text-xl font-black tabular-nums ${cls}`}>{v}</p>
               </div>
@@ -202,7 +202,7 @@ export default function DepthBoard() {
           </div>
 
           {/* 본론 — 주문 크기별 슬리피지 */}
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
             <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
               <h2 className="text-sm font-black text-slate-900 dark:text-white">
                 What a market {side} costs, by size
@@ -268,7 +268,7 @@ export default function DepthBoard() {
           </div>
 
           {/* 깊이 밴드 */}
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
             <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
               <h2 className="text-sm font-black text-slate-900 dark:text-white">How much money sits near the price</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
@@ -322,12 +322,12 @@ export default function DepthBoard() {
           </div>
         </>
       ) : state === 'loading' ? (
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-8 mb-4 text-center text-sm text-slate-500 dark:text-slate-400">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-8 mb-4 text-center text-sm text-slate-500 dark:text-slate-400">
           Reading the live order book…
         </div>
       ) : null}
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
         <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">This is a snapshot, and it flatters you</h2>
         <p className="mb-2">
           The figures come from a single order-book snapshot taken when the page loaded, and they assume every resting order stays put while

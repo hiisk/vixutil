@@ -91,13 +91,13 @@ export default function NameMatchPage() {
         </div>
       </header>
 
-      <div className="max-w-xl mx-auto px-4 py-6">
-        <div className="text-center mb-6">
+      <div className="hero-band max-w-xl mx-auto px-4 py-6">
+        <div className="mb-6">
           <h1 className="page-h1">💕 이름 궁합</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">두 사람 이름의 획수로 보는 궁합</p>
         </div>
 
-        <form onSubmit={submit} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-6">
+        <form onSubmit={submit} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-6">
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">내 이름</label>
@@ -118,7 +118,7 @@ export default function NameMatchPage() {
 
         {result && verdict ? (
           <div className="space-y-4">
-            <div className="rounded-2xl border border-rose-200 dark:border-rose-900/50 bg-gradient-to-br from-rose-50 to-pink-50/50 dark:from-rose-950/30 dark:to-transparent p-6 text-center">
+            <div className="rounded-lg border border-rose-200 dark:border-rose-900/50 bg-rose-50/50 dark:from-rose-950/30 dark:to-transparent p-6 text-center">
               <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 mb-1">
                 {result.nameA} <span className="text-rose-400">×</span> {result.nameB}
               </p>
@@ -128,7 +128,7 @@ export default function NameMatchPage() {
               <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mt-2">{verdict.comment}</p>
             </div>
 
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+            <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
               <h2 className="text-sm font-black text-slate-800 dark:text-slate-100 mb-3">계산 과정</h2>
               <Steps result={result} />
               <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-3 leading-relaxed">
@@ -139,7 +139,7 @@ export default function NameMatchPage() {
           </div>
         ) : (
           <div className="text-center py-12 text-slate-300 dark:text-slate-600">
-            <ToolIcon emoji="☝️" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+            <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">두 사람의 이름을 입력해보세요</p>
           </div>
         )}
@@ -149,7 +149,7 @@ export default function NameMatchPage() {
           여기는 32%"라는 반응이 나오는 게 정상이고, 그 이유가 계산 오류가 아니라
           기준 차이라는 걸 알려주는 편이 낫다.
         */}
-        <div className="mt-8 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+        <div className="mt-8 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
           <h2 className="text-sm font-black text-slate-800 dark:text-slate-100 mb-2">다른 사이트와 결과가 달라요</h2>
           <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
             한글 획수를 세는 기준이 하나로 정해져 있지 않기 때문입니다. 예를 들어 ㄱ을 1획으로 보는 표도 있고 2획으로 보는 표도 있어서,

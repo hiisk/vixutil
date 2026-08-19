@@ -161,7 +161,7 @@ export default function BodyFatPage() {
 
             {tab === 'navy' ? (
               <>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-x-4 gap-y-5">
                   <div>
                     <Label>키 (cm)</Label>
                     <input type="number" value={height} onChange={e => setHeight(e.target.value)} placeholder="175" className={inputCls} />
@@ -191,7 +191,7 @@ export default function BodyFatPage() {
               </>
             ) : (
               <>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-x-4 gap-y-5">
                   <div>
                     <Label>BMI</Label>
                     <input type="number" value={bmi} onChange={e => setBmi(e.target.value)} placeholder="22.5" step="0.1" className={inputCls} />
@@ -219,7 +219,7 @@ export default function BodyFatPage() {
         {result && (
           <>
             {/* 결과 카드 */}
-            <div className={`rounded-2xl border p-5 ${result.level.bg}`}>
+            <div className={`rounded-lg border p-5 ${result.level.bg}`}>
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">체지방률</p>
@@ -232,7 +232,7 @@ export default function BodyFatPage() {
 
               {result.totalWeight > 0 && (
                 <>
-                  <div className="grid grid-cols-2 gap-3 mb-4">
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-5 mb-4">
                     <div className="bg-white dark:bg-slate-900 rounded-xl p-3 border border-slate-100 dark:border-slate-800">
                       <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">체지방량</p>
                       <p className="text-lg font-black text-slate-800 dark:text-slate-100">{result.fatMass.toFixed(1)} kg</p>

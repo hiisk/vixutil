@@ -97,13 +97,13 @@ export default function FoodWeightPage({ ing, lang }: { ing: Ingredient; lang: L
         {/* 찾으러 온 숫자를 맨 위에 — 미국 컵과 한국 컵을 나란히 둔다 */}
         <div className="text-center mb-6">
           {/* 다른 상세 화면과 같은 배지 — 가는 선이 작게 흐려지지 않게 흰색으로 얹는다 */}
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-3 shadow-lg bg-sec-soft">
+          <div className="hero-band inline-flex items-center justify-center w-14 h-14 rounded-lg shadow-sm bg-sec-soft">
             <ToolIcon emoji="⚖️" className="w-7 h-7" />
           </div>
           <h1 className="page-h1">{name}</h1>
           <div className="grid grid-cols-2 gap-2 max-w-md mx-auto">
             {volumes.filter(v => v.hero).map(v => (
-              <div key={v.label} className="rounded-2xl border border-amber-200 dark:border-amber-900/50 bg-amber-50 dark:bg-amber-950/30 px-3 py-3">
+              <div key={v.label} className="rounded-lg border border-amber-200 dark:border-amber-900/50 bg-amber-50 dark:bg-amber-950/30 px-3 py-3">
                 <p className="text-2xl font-black text-amber-900 dark:text-amber-200 tabular-nums">
                   {v.grams}
                   <span className="text-sm font-bold ml-0.5">{ui.gram}</span>
@@ -114,12 +114,12 @@ export default function FoodWeightPage({ ing, lang }: { ing: Ingredient; lang: L
           </div>
         </div>
 
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
-          <table className="w-full text-sm">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
+          <table className="kv-table w-full text-sm">
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
               {volumes.map(v => (
                 <tr key={v.label}>
-                  <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400 w-3/5 bg-slate-50 dark:bg-slate-900/40">
+                  <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400 w-3/5">
                     {v.label}
                   </th>
                   <td className="px-4 py-3 font-black text-slate-800 dark:text-slate-100 tabular-nums">
@@ -128,7 +128,7 @@ export default function FoodWeightPage({ ing, lang }: { ing: Ingredient; lang: L
                 </tr>
               ))}
               <tr>
-                <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-900/40">
+                <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400">
                   {ui.densityLabel}
                 </th>
                 <td className="px-4 py-3 font-black text-slate-800 dark:text-slate-100 tabular-nums">
@@ -153,7 +153,7 @@ export default function FoodWeightPage({ ing, lang }: { ing: Ingredient; lang: L
           </div>
         </section>
 
-        <section className="mt-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 px-4 py-3.5">
+        <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-3.5">
           <h2 className="text-sm font-black text-slate-700 dark:text-slate-200 mb-1">{ui.per100gTitle}</h2>
           <p className="text-sm text-slate-600 dark:text-slate-300 tabular-nums">
             100 {ui.gram} = {ui.cupOf(String(f.cupsPer100g))} · {f.mlPer100g} ml

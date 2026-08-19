@@ -24,9 +24,9 @@ interface Snapshot {
   closes: number[];
 }
 
-const inputCls =
-  'w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition tabular-nums';
-const labelCls = 'block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5';
+/* 사이트 공용 칸 — 초점 테두리가 갈래 색을 따라간다(globals.css .dial-input) */
+const inputCls = 'dial-input';
+const labelCls = 'dial-k mb-1 block';
 
 const money = (v: number) => `$${v.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
 const signed = (v: number) => `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`;
@@ -101,7 +101,7 @@ export default function DcaCalculator() {
   return (
     <>
       {/* 코인 + 입력 */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 mb-4">
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5 mb-4">
         <label className={labelCls} htmlFor="dca-coin">Coin</label>
         <div className="flex flex-wrap items-center gap-3 mb-4">
           <div className="relative flex-1 min-w-[220px]">
@@ -110,7 +110,7 @@ export default function DcaCalculator() {
               placeholder={`${coin.base} · search another coin`} className={inputCls} autoComplete="off"
             />
             {suggestions.length > 0 && (
-              <ul className="absolute z-20 mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-lg overflow-hidden">
+              <ul className="absolute z-20 mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm overflow-hidden">
                 {suggestions.map(c => (
                   <li key={c.slug}>
                     <button type="button" onClick={() => pickCoin(c)}
@@ -188,7 +188,7 @@ export default function DcaCalculator() {
       {/* 최근 구간 결과 */}
       {recent ? (
         <>
-          <div className="rounded-3xl border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-white via-white to-amber-50 dark:from-slate-900 dark:via-slate-900 dark:to-amber-500/[0.05] p-6 mb-4">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-amber-50 dark:bg-slate-900 p-6 mb-4">
             <p className="text-[11px] uppercase tracking-wide text-amber-600 dark:text-amber-400 mb-1">
               {money(amt)} {FREQ_LABEL[freq].toLowerCase()} into {coin.base} for the last {effDays} days
             </p>
@@ -208,7 +208,7 @@ export default function DcaCalculator() {
 
           {/* 분포 — 이 페이지가 다른 DCA 계산기와 갈리는 지점 */}
           {dist && (
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
+            <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
               <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
                 <h2 className="text-sm font-black text-slate-900 dark:text-white">Was that a lucky window?</h2>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
@@ -271,7 +271,7 @@ export default function DcaCalculator() {
 
           {/* DCA vs 일시불 */}
           {recent.lump != null && (
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-4">
+            <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-4">
               <h2 className="text-sm font-black text-slate-900 dark:text-white mb-1">DCA vs putting it all in at the start</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
                 Same total money, same window — one spread out, one invested on day one.
@@ -298,12 +298,12 @@ export default function DcaCalculator() {
           )}
         </>
       ) : (
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-8 mb-4 text-center text-sm text-slate-500 dark:text-slate-400">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-8 mb-4 text-center text-sm text-slate-500 dark:text-slate-400">
           {state === 'loading' ? 'Loading price history…' : 'Enter an amount to run the backtest.'}
         </div>
       )}
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
         <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">What this backtest does and does not include</h2>
         <p className="mb-2">
           Buys happen at the daily close from Binance, with no trading fees, no spread and no slippage. Real exchange fees would lower every

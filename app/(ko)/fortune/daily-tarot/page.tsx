@@ -64,8 +64,8 @@ export default function DailyTarotPage() {
         </div>
       </header>
 
-      <div className="max-w-lg mx-auto px-4 py-8">
-        <div className="text-center mb-6">
+      <div className="hero-band max-w-lg mx-auto px-4 py-8">
+        <div className="mb-6">
           <p className="text-xs font-bold text-amber-600 tracking-widest uppercase mb-1">Daily Tarot</p>
           <h1 className="page-h1">오늘의 타로 한 장</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
@@ -74,17 +74,17 @@ export default function DailyTarotPage() {
         </div>
 
         {!daily ? (
-          <div className="animate-pulse rounded-3xl bg-slate-100 dark:bg-slate-800 h-80 mb-6" />
+          <div className="animate-pulse rounded-xl bg-slate-100 dark:bg-slate-800 h-80 mb-6" />
         ) : (
           <>
             <p className="text-center text-xs font-bold text-slate-400 dark:text-slate-500 mb-3">{daily.dateLabel}</p>
 
             {/* 카드 히어로 */}
             <div
-              className="dt-flip relative rounded-3xl text-white p-8 mb-5 text-center overflow-hidden"
+              className="dt-flip relative rounded-xl text-white p-8 mb-5 text-center overflow-hidden"
               style={{ background: `linear-gradient(135deg, ${daily.card.color}, ${daily.card.color}cc)` }}
             >
-              <div className="text-7xl mb-3 drop-shadow-lg" style={{ transform: daily.reversed ? 'rotate(180deg)' : 'none', display: 'inline-block' }}>
+              <div className="text-7xl mb-3 drop-shadow-sm" style={{ transform: daily.reversed ? 'rotate(180deg)' : 'none', display: 'inline-block' }}>
                 {daily.card.emoji}
               </div>
               <div className="text-xs font-bold text-white/80">{daily.card.nameEn}</div>
@@ -95,7 +95,7 @@ export default function DailyTarotPage() {
             </div>
 
             {/* 의미 */}
-            <div className="rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 p-5 mb-4">
+            <div className="rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 p-5 mb-4">
               <div className="text-xs font-black text-amber-600 mb-2">오늘의 메시지</div>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">
                 {daily.reversed ? daily.card.reversed : daily.card.upright}
@@ -104,17 +104,17 @@ export default function DailyTarotPage() {
 
             {/* 행운 요소 */}
             <div className="grid grid-cols-3 gap-3 mb-6">
-              <div className="rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 p-3 text-center">
+              <div className="rounded-lg bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 p-3 text-center">
                 <div className="text-[10px] font-bold text-slate-400 mb-1">행운의 색</div>
                 <div className="w-6 h-6 rounded-full mx-auto mb-1 border border-slate-200 dark:border-slate-600" style={{ background: daily.color[1] }} />
                 <div className="text-xs font-black text-slate-700 dark:text-slate-200">{daily.color[0]}</div>
               </div>
-              <div className="rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 p-3 text-center">
+              <div className="rounded-lg bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 p-3 text-center">
                 <div className="text-[10px] font-bold text-slate-400 mb-1">행운의 방향</div>
                 <ToolIcon emoji="🧭" className="w-7 h-7 mb-0.5 text-slate-800 dark:text-slate-100" />
                 <div className="text-xs font-black text-slate-700 dark:text-slate-200">{daily.direction}</div>
               </div>
-              <div className="rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 p-3 text-center">
+              <div className="rounded-lg bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 p-3 text-center">
                 <div className="text-[10px] font-bold text-slate-400 mb-1">행운의 숫자</div>
                 <ToolIcon emoji="🍀" className="w-7 h-7 mb-0.5 text-slate-800 dark:text-slate-100" />
                 <div className="text-xs font-black text-slate-700 dark:text-slate-200">{daily.number}</div>

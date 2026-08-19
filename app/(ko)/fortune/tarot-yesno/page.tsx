@@ -91,8 +91,8 @@ export default function TarotYesNoPage() {
         </div>
       </header>
 
-      <div className="max-w-lg mx-auto px-4 py-8">
-        <div className="text-center mb-6">
+      <div className="hero-band max-w-lg mx-auto px-4 py-8">
+        <div className="mb-6">
           <p className="text-xs font-bold text-violet-600 tracking-widest uppercase mb-1">Yes or No Tarot</p>
           <h1 className="page-h1">타로 예스/노</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
@@ -111,7 +111,7 @@ export default function TarotYesNoPage() {
         <button
           onClick={pull}
           disabled={drawing}
-          className="w-full bg-sec font-black text-lg rounded-2xl py-4 mb-6 shadow-lg shadow-violet-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all disabled:opacity-70"
+          className="w-full bg-sec font-black text-lg rounded-lg py-4 mb-6 shadow-sm shadow-violet-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all disabled:opacity-70"
         >
           {drawing ? '카드를 뽑는 중…' : result ? '🔮 다시 뽑기' : '🔮 카드 뽑기'}
         </button>
@@ -122,14 +122,14 @@ export default function TarotYesNoPage() {
               <p className="text-center text-sm text-slate-500 dark:text-slate-400 italic mb-3">“{question.trim()}”</p>
             )}
             {/* 판정 히어로 */}
-            <div className={`dt-flip rounded-3xl bg-gradient-to-br ${v.gradient} text-white p-8 text-center mb-4`}>
+            <div className={`dt-flip rounded-xl bg-gradient-to-br ${v.gradient} text-white p-8 text-center mb-4`}>
               <div className="text-6xl mb-2">{v.emoji}</div>
               <div className="text-3xl font-black drop-shadow">{v.label}</div>
               <p className="text-sm text-white/90 mt-2">{v.note}</p>
             </div>
 
             {/* 근거 카드 */}
-            <div className="rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 p-5 mb-6">
+            <div className="rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 p-5 mb-6">
               <div className="flex items-center gap-3 mb-2">
                 <span className="text-3xl" style={{ transform: result.reversed ? 'rotate(180deg)' : 'none', display: 'inline-block' }}>{result.card.emoji}</span>
                 <div>

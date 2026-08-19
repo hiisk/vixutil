@@ -83,12 +83,12 @@ export default function RotateTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
 
   return (
     <div>
-      <div className="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-950 flex items-center justify-center min-h-[14rem]">
+      <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-950 flex items-center justify-center min-h-[14rem]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={url} alt={ui.alt} className="w-full max-h-[26rem] object-contain" />
       </div>
 
-      <div className="mt-4 rounded-2xl border chip-off p-5">
+      <div className="mt-4 rounded-lg border chip-off p-5">
         <div className="grid grid-cols-4 gap-2">
           <button onClick={() => turn(-90)} className={btn}>{ui.left}</button>
           <button onClick={() => turn(90)} className={btn}>{ui.right}</button>

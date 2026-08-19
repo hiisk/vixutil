@@ -102,10 +102,8 @@ export default function ScreenSpecPage({ slug, lang }: { slug: string; lang: Lan
       </header>
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
-        <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-3 shadow-lg bg-sec-soft">
-            <ToolIcon emoji={SCREEN_ICON} className="w-7 h-7" />
-          </div>
+        <div className="hero-band ">
+          <span className="bg-sec-soft inline-flex h-10 w-10 items-center justify-center rounded-lg"><ToolIcon emoji={SCREEN_ICON} className="h-5 w-5" /></span>
           <h1 className="page-h1">{sc.name}</h1>
           <p className="text-xs text-slate-400 dark:text-slate-500">
             {ui.kindLabel[sc.kind]} · {v.className}
@@ -120,7 +118,7 @@ export default function ScreenSpecPage({ slug, lang }: { slug: string; lang: Lan
             { k: ui.diagonal, val: ui.inchUnit(v.inch) },
             { k: ui.density, val: `${v.ppi}` , unit: 'ppi' },
           ].map(x => (
-            <div key={x.k} className="rounded-2xl border chip-off px-2 py-3 text-center">
+            <div key={x.k} className="rounded-lg border chip-off px-2 py-3 text-center">
               <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 truncate">{x.k}</p>
               <p className="text-sm sm:text-base font-black text-slate-800 dark:text-slate-100 tabular-nums mt-1 break-all">
                 {x.val}
@@ -130,7 +128,7 @@ export default function ScreenSpecPage({ slug, lang }: { slug: string; lang: Lan
           ))}
         </div>
 
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 px-4 py-5 mb-6 flex justify-center">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-5 mb-6 flex justify-center">
           <ScreenShape
             ratio={v.ratioValue}
             portrait={v.portrait}
@@ -140,12 +138,12 @@ export default function ScreenSpecPage({ slug, lang }: { slug: string; lang: Lan
           />
         </section>
 
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
-          <table className="w-full text-sm">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
+          <table className="kv-table w-full text-sm">
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
               {rows.map(r => (
                 <tr key={r.label}>
-                  <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400 w-1/2 bg-slate-50 dark:bg-slate-900/40">
+                  <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400 w-1/2">
                     {r.label}
                   </th>
                   <td className="px-4 py-3 font-black text-slate-800 dark:text-slate-100 tabular-nums">{r.value}</td>
@@ -169,9 +167,9 @@ export default function ScreenSpecPage({ slug, lang }: { slug: string; lang: Lan
         <section className="mt-8" aria-label={ui.compareTitle}>
           <h2 className="sec-h2-tight">{ui.compareTitle}</h2>
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3">{ui.compareNote}</p>
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead className="bg-slate-50 dark:bg-slate-900/40 text-[11px] font-bold text-slate-400 dark:text-slate-500">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden overflow-x-auto">
+            <table className="kv-table w-full text-sm">
+              <thead className=" text-[11px] font-bold text-slate-400 dark:text-slate-500">
                 <tr>
                   {ui.compareCols.map(c => (
                     <th key={c} scope="col" className="text-left px-3 py-2 whitespace-nowrap">{c}</th>

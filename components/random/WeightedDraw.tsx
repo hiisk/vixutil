@@ -19,7 +19,7 @@ export default function WeightedDraw({ lang = 'ko' }: { lang?: RandomLang }) {
   return (
     <div>
       {won !== null && (
-        <div className="rounded-2xl border-2 border-rose-300 bg-gradient-to-br from-rose-500 to-pink-600 p-6 mb-5 text-center">
+        <div className="rounded-lg border-2 border-rose-300 bg-gradient-to-br from-rose-500 to-pink-600 p-6 mb-5 text-center">
           <p className="text-xs font-bold text-white/70">{common.winner}</p>
           <p className="mt-1 text-2xl font-black text-white break-words">{won}</p>
         </div>
@@ -66,7 +66,7 @@ export default function WeightedDraw({ lang = 'ko' }: { lang?: RandomLang }) {
           const hit = weightedPick(items.filter(i => i.label.trim()), Math.random);
           setWon(hit ? hit.label : null);
         }}
-        className="w-full mt-4 bg-sec font-black text-lg rounded-2xl py-4 shadow-lg shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all"
+        className="w-full mt-4 bg-sec font-black text-lg rounded-lg py-4 shadow-sm shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all"
       >
         {ui.drawWeighted} 🎯
       </button>

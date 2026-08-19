@@ -1,14 +1,14 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 
 /*
- * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
- * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
- * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
- * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
- * 골라 둔 예시를 그대로 올렸다.
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 빈 칸으로 열면 무엇을
+ * 보여 주는 계산기인지 눌러 보기 전에는 모른다 — 값을 미리 넣어 두면 「계산하기」
+ * 한 번에 한 벌이 통째로 보이고, 사람은 그 위에 자기 숫자를 덮어쓴다.
+ * 값은 내가 지어내지 않고 저자가 이미 골라 둔 예시를 그대로 올렸다.
  */
-import CalcShell, { Card, CardHeader, Label, inputCls } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
 import {
   AREA_LIMIT, NON_HOUSING_RATES, housingAcqRate, housingRatesFor,
 } from '@/lib/home-buying-cost';
@@ -37,18 +37,13 @@ export default function AcquisitionTaxPage() {
   const [adjusted, setAdjusted] = useState(false);
   const [firstBuy, setFirstBuy] = useState(false);
   const [overArea, setOverArea] = useState(false);
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | {
+  const [result, setResult] = useState<null | {
     rate: number; acquisitionTax: number; ruralTax: number; eduTax: number; total: number; discount: number;
-  } = ((): null | {
-    rate: number; acquisitionTax: number; ruralTax: number; eduTax: number; total: number; discount: number;
-  } => {
+  }>(null);
+
+  function calculate() {
     const p = Number(price);
-    if (p <= 0) return null;
+    if (p <= 0) return;
 
     /*
      * 세율 셋을 lib에서 한꺼번에 받는다. 주택은 지방교육세가 취득세액의 10%
@@ -67,12 +62,8 @@ export default function AcquisitionTaxPage() {
     const discount = firstBuy && type === 'house' ? Math.min(2_000_000, acquisitionTax) : 0;
     const total = subtotal - discount;
 
-    return ({ rate: rate * 100, acquisitionTax, ruralTax, eduTax, total, discount });
-  
-    return null;
-  })();
-
-
+    setResult({ rate: rate * 100, acquisitionTax, ruralTax, eduTax, total, discount });
+  }
 
   return (
     <CalcShell
@@ -121,8 +112,7 @@ export default function AcquisitionTaxPage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>취득가액 (원)</Label>
-              <input type="number" value={price} onChange={e => setPrice(e.target.value)}
-                placeholder="예: 500,000,000" className={inputCls} min="0" />
+              <MoneyInput value={price} onChange={setPrice} placeholder="예: 500,000,000" />
             </div>
             <div>
               <Label>부동산 구분</Label>
@@ -165,6 +155,7 @@ export default function AcquisitionTaxPage() {
                 </label>
               </>
             )}
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

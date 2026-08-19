@@ -42,14 +42,14 @@ export default function TodayColorPage() {
         </div>
       </header>
 
-      <div className="max-w-xl mx-auto px-4 py-6">
-        <div className="text-center mb-6">
-          <ToolIcon emoji="🎨" className="w-12 h-12 mx-auto mb-2 text-slate-800 dark:text-slate-100" />
+      <div className="hero-band max-w-xl mx-auto px-4 py-6">
+        <div className="mb-6">
+          <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="🎨" className="h-6 w-6" /></span>
           <h1 className="page-h1">오늘의 행운 색</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">오늘 당신에게 힘이 되는 색과 피하면 좋은 색 — 매일 바뀝니다</p>
         </div>
 
-        <form onSubmit={run} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-6">
+        <form onSubmit={run} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-6">
           <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">이름 (선택 — 비우면 오늘 모두의 색)</label>
           <input
             value={name}
@@ -57,7 +57,7 @@ export default function TodayColorPage() {
             placeholder="예) 홍길동"
             className="fld w-full focus:border-violet-400 mb-3"
           />
-          <button type="submit" className="w-full rounded-xl bg-sec text-sm font-black py-3.5 transition-all active:scale-[0.99] shadow-md shadow-violet-200 dark:shadow-none">
+          <button type="submit" className="w-full rounded-xl bg-sec text-sm font-black py-3.5 transition-all active:scale-[0.99] shadow-sm shadow-violet-200 dark:shadow-none">
             오늘의 행운 색 보기 🎨
           </button>
         </form>
@@ -66,7 +66,7 @@ export default function TodayColorPage() {
           <div id="tc-result" className="tc-pop">
             {/* 행운의 색 히어로 */}
             <div
-              className="relative rounded-3xl p-8 mb-4 text-center overflow-hidden"
+              className="relative rounded-xl p-8 mb-4 text-center overflow-hidden"
               style={{ background: `linear-gradient(135deg, ${result.lucky.hex}, ${result.lucky.hex}cc)` }}
             >
               <div className="text-xs font-bold text-white/80 mb-1 drop-shadow">오늘의 행운 색</div>
@@ -82,13 +82,13 @@ export default function TodayColorPage() {
             </div>
 
             {/* 활용 팁 */}
-            <div className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-5 mb-4">
+            <div className="rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-5 mb-4">
               <div className="text-xs font-black text-violet-600 mb-1">오늘의 활용 팁 💡</div>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.lucky.tip}</p>
             </div>
 
             {/* 피해야 할 색 */}
-            <div className="rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 p-4 mb-6 flex items-center gap-3">
+            <div className="rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 p-4 mb-6 flex items-center gap-3">
               <span className="w-8 h-8 rounded-full shrink-0 border border-slate-200 dark:border-slate-600" style={{ background: result.avoid.hex }} />
               <div>
                 <div className="text-xs font-bold text-slate-400">오늘 피하면 좋은 색</div>

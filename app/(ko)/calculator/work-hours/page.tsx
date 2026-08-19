@@ -86,7 +86,7 @@ export default function WorkHoursPage() {
           <LangPicker current="ko" route="/calculator/work-hours" available={ALL_LOCALES10} />
         </div>
         <Card className="p-5">
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div>
               <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">출근</label>
               <input

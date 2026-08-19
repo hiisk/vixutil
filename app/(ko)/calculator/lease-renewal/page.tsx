@@ -1,15 +1,15 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 
 /*
- * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
- * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
- * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
- * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
- * 골라 둔 예시를 그대로 올렸다.
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 빈 칸으로 열면 무엇을
+ * 보여 주는 계산기인지 눌러 보기 전에는 모른다 — 값을 미리 넣어 두면 「계산하기」
+ * 한 번에 한 벌이 통째로 보이고, 사람은 그 위에 자기 숫자를 덮어쓴다.
+ * 값은 내가 지어내지 않고 저자가 이미 골라 둔 예시를 그대로 올렸다.
  */
 import Link from 'next/link';
-import CalcShell, { Card, CardHeader, Label, inputCls } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
 import { CAP_RATIO, allAsMonthly, renewalCap } from '@/lib/lease-renewal';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
@@ -19,30 +19,20 @@ export default function LeaseRenewalPage() {
   const [deposit, setDeposit] = useState('300000000');
   const [monthly, setMonthly] = useState('0');
   const [rate, setRate] = useState('5.5');
+  const [result, setResult] = useState<null | {
+    cap: ReturnType<typeof renewalCap>;
+    all: ReturnType<typeof allAsMonthly> | null;
+  }>(null);
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | {
-    cap: ReturnType<typeof renewalCap>;
-    all: ReturnType<typeof allAsMonthly> | null;
-  } = ((): null | {
-    cap: ReturnType<typeof renewalCap>;
-    all: ReturnType<typeof allAsMonthly> | null;
-  } => {
+  function calculate() {
     const lease = { deposit: Number(deposit), monthly: Number(monthly || 0) };
-    if (lease.deposit <= 0) return null;
+    if (lease.deposit <= 0) return;
     const r = Number(rate) / 100;
-    return ({
+    setResult({
       cap: renewalCap(lease),
       all: r > 0 ? allAsMonthly(lease, r) : null,
     });
-  
-    return null;
-  })();
-
+  }
 
   return (
     <CalcShell
@@ -79,19 +69,18 @@ export default function LeaseRenewalPage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>지금 보증금 (원)</Label>
-              <input type="number" value={deposit} onChange={e => setDeposit(e.target.value)}
-                placeholder="예: 300000000" className={inputCls} min="0" />
+              <MoneyInput value={deposit} onChange={setDeposit} placeholder="예: 300000000" />
             </div>
             <div>
               <Label>지금 월세 (원, 전세면 0)</Label>
-              <input type="number" value={monthly} onChange={e => setMonthly(e.target.value)}
-                placeholder="예: 500000" className={inputCls} min="0" />
+              <MoneyInput value={monthly} onChange={setMonthly} placeholder="예: 500000" />
             </div>
             <div>
-              <Label>전월세전환율 (%, 비우면 생략)</Label>
+              <Label>전월세전환율 <span className="dial-opt">%, 비우면 생략</span></Label>
               <input type="number" value={rate} onChange={e => setRate(e.target.value)}
                 placeholder="예: 5.5" className={inputCls} min="0" step="0.1" />
             </div>
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

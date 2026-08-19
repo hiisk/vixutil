@@ -79,7 +79,7 @@ export default function CompressTool({ lang = 'ko' }: { lang?: ImageLang } = {})
 
   return (
     <div>
-      <div className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-950">
+      <div className="relative rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-950">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={compare ? originalUrl : url || originalUrl}
@@ -98,7 +98,7 @@ export default function CompressTool({ lang = 'ko' }: { lang?: ImageLang } = {})
         </button>
       </div>
 
-      <div className="mt-4 rounded-2xl border chip-off p-5">
+      <div className="mt-4 rounded-lg border chip-off p-5">
         <div className="flex items-baseline justify-between mb-2">
           <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{c.quality}</span>
           <span className="text-sm font-black text-violet-600 tabular-nums">{Math.round(quality * 100)}%</span>

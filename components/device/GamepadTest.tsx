@@ -88,7 +88,7 @@ export default function GamepadTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
 
   if (!supported) {
     return (
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-5 py-10 text-center">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-5 py-10 text-center">
         <ToolIcon emoji="🎮" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
         <p className="text-sm text-slate-500 dark:text-slate-400">{ui.unsupported}</p>
       </div>
@@ -97,7 +97,7 @@ export default function GamepadTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
 
   if (pads.length === 0) {
     return (
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-5 py-12 text-center">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-5 py-12 text-center">
         <ToolIcon emoji="🎮" className="w-12 h-12 mx-auto mb-3 animate-pulse text-slate-800 dark:text-slate-100" />
         <p className="text-sm font-bold text-slate-600 dark:text-slate-300 mb-2">{ui.waiting}</p>
         <p className="note-xs max-w-sm mx-auto">
@@ -114,7 +114,7 @@ export default function GamepadTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
       {pads.map(pad => {
         const drifting = pad.axes.some(a => Math.abs(a) > DRIFT);
         return (
-          <div key={pad.index} className="rounded-2xl border chip-off p-5">
+          <div key={pad.index} className="rounded-lg border chip-off p-5">
             <div className="flex items-start justify-between gap-3 mb-4">
               <div className="min-w-0">
                 <p className="text-sm font-black text-slate-800 dark:text-slate-100 truncate">🎮 {pad.id}</p>

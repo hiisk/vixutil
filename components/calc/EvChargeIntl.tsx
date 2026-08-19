@@ -34,7 +34,7 @@ export default function EvChargeIntl({ lang }: { lang: CalcLang }) {
       <Card className="p-5">
         <p className="label-caps mb-3">{c.section}</p>
         <div className="flex flex-col gap-3">
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-3 gap-x-4 gap-y-5">
             <div>
               <Label>{c.capacity}</Label>
               <input type="number" step="0.1" value={capacity} onChange={e => setCapacity(e.target.value)} className={inputCls} />
@@ -48,7 +48,7 @@ export default function EvChargeIntl({ lang }: { lang: CalcLang }) {
               <input type="number" value={toPct} onChange={e => setToPct(e.target.value)} className={inputCls} />
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div>
               <Label>{c.price}</Label>
               <input type="number" step="0.01" value={price} onChange={e => setPrice(e.target.value)} className={inputCls} />
@@ -69,7 +69,7 @@ export default function EvChargeIntl({ lang }: { lang: CalcLang }) {
             <p className="stat-label">{c.cost}</p>
             <p className="stat-value">{fmt(result.cost, 0)}</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-4 gap-y-5">
             <SummaryCard label={c.energy} value={`${fmt(result.kWh, 1)} kWh`} />
             <SummaryCard label={c.range} value={`${fmt(result.range, 0)} km`} variant="green" />
             <SummaryCard label={c.per100} value={fmt((result.cost / result.range) * 100, 2)} />

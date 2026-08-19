@@ -103,7 +103,7 @@ export default function CorrelationBoard() {
 
   if (state === 'loading') {
     return (
-      <div role="status" aria-live="polite" className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
+      <div role="status" aria-live="polite" className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
         <div aria-hidden="true" className="w-8 h-8 border-4 border-slate-200 dark:border-slate-700 border-t-amber-500 rounded-full animate-spin" />
         <span className="text-sm font-bold text-slate-500 dark:text-slate-400">Loading two years for {UNIVERSE.length} coins…</span>
       </div>
@@ -112,7 +112,7 @@ export default function CorrelationBoard() {
 
   if (state === 'error') {
     return (
-      <div role="alert" className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
+      <div role="alert" className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
         <span aria-hidden="true" className="text-3xl">⚠️</span>
         <span className="text-sm font-bold text-rose-600 dark:text-rose-400">Couldn&apos;t load market data</span>
         <button type="button" onClick={load} className="mt-2 text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2 transition-colors">Retry</button>
@@ -136,7 +136,7 @@ export default function CorrelationBoard() {
       </div>
 
       {/* 매트릭스 */}
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
         <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
           <h2 className="text-sm font-black text-slate-900 dark:text-white">Daily return correlation · last {days} days</h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
@@ -144,7 +144,7 @@ export default function CorrelationBoard() {
           </p>
         </div>
         <div className="scroll-x overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="kv-table w-full text-sm">
             <thead>
               <tr className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
                 <th scope="col" className="text-left font-semibold px-3 py-2.5 sticky left-0 bg-white dark:bg-slate-900">&nbsp;</th>
@@ -178,7 +178,7 @@ export default function CorrelationBoard() {
       </div>
 
       {/* 불안정성 — 이 페이지의 요점 */}
-      <div className="rounded-2xl border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
+      <div className="rounded-lg border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
         <h2 className="text-sm font-black text-amber-900 dark:text-amber-200 mb-1.5">That matrix is one number for a moving target</h2>
         <p className="text-xs text-amber-900/85 dark:text-amber-200/85 leading-relaxed">
           Correlation is not a property of a pair; it is a property of a pair over a window. Split the same {days} days into {CHUNKS} equal
@@ -191,7 +191,7 @@ export default function CorrelationBoard() {
         </p>
       </div>
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
         <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
           <h2 className="text-sm font-black text-slate-900 dark:text-white">Against Bitcoin, and on the days that matter</h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
@@ -268,7 +268,7 @@ export default function CorrelationBoard() {
         </div>
       </div>
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
         <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">What a correlation matrix cannot tell you</h2>
         <p className="mb-2">
           It measures linear co-movement of daily returns over one chosen window, and nothing else. It does not say the pair will keep

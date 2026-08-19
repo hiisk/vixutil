@@ -64,7 +64,7 @@ export default function CompoundGoalIntl({ lang }: { lang: CalcLang }) {
 
       <Card className="p-5">
         <div className="flex flex-col gap-3">
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div>
               <Label>{c.start}</Label>
               <input type="number" value={start} onChange={e => setStart(e.target.value)} className={inputCls} />
@@ -74,7 +74,7 @@ export default function CompoundGoalIntl({ lang }: { lang: CalcLang }) {
               <input type="number" value={goal} onChange={e => setGoal(e.target.value)} className={inputCls} />
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div>
               <Label>{c.rate}</Label>
               <input type="number" step="0.1" value={rate} onChange={e => setRate(e.target.value)} className={inputCls} />

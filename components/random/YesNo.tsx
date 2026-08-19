@@ -42,7 +42,7 @@ export default function YesNo({ lang = 'ko' }: { lang?: RandomLang }) {
       <button
         onClick={go}
         disabled={spinning}
-        className="w-full mt-5 bg-sec font-black text-lg rounded-2xl py-4 shadow-lg shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all disabled:opacity-60"
+        className="w-full mt-5 bg-sec font-black text-lg rounded-lg py-4 shadow-sm shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all disabled:opacity-60"
       >
         {ui.decide} 🪙
       </button>

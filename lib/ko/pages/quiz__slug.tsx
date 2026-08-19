@@ -46,12 +46,7 @@ export default async function QuizPage({ params }: { params: Promise<{ slug: str
         ])}
       />
       {/* 번역판이 있는 슬러그에서만 — 없는데 띄우면 그 언어가 404다 */}
-      {hasAlternates('quiz', slug) && (
-        <div className="max-w-lg mx-auto px-4 w-full pt-3 flex justify-end">
-          <LangPicker current="ko" route={`/quiz/${slug}`} available={localesWithItem('quiz', slug)} />
-        </div>
-      )}
-      <QuizEngine quiz={quiz} />
+      <QuizEngine quiz={quiz} headerRight={hasAlternates('quiz', slug) ? <LangPicker current="ko" route={`/quiz/${slug}`} available={localesWithItem('quiz', slug)} /> : null} />
       <QuizContent quiz={quiz} />
       <div className="bg-white dark:bg-slate-900">
         <div className="max-w-lg mx-auto px-4 pb-10 w-full">

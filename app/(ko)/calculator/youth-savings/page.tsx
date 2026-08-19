@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 import Link from 'next/link';
 import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
@@ -154,8 +155,7 @@ export default function YouthSavingsPage() {
             </div>
             <div>
               <Label>내 연소득 (만원)</Label>
-              <input type="number" value={income} onChange={e => setIncome(e.target.value)}
-                placeholder="예: 3000" className={inputCls} min="0" />
+              <MoneyInput value={income} onChange={setIncome} placeholder="예: 3000" />
               <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
                 아래 구간표에서 어느 줄이 적용되는지만 가릅니다
               </p>
@@ -175,7 +175,7 @@ export default function YouthSavingsPage() {
               <div key={i} className="rounded-xl border border-slate-200 dark:border-slate-700 p-4 flex flex-col gap-3">
                 <p className="text-xs font-bold text-slate-400 dark:text-slate-500">{i + 1}번째 구간</p>
                 <div>
-                  <Label>연소득 상한 (만원, 비우면 소득 무관)</Label>
+                  <Label>연소득 상한 <span className="dial-opt">만원, 비우면 소득 무관</span></Label>
                   <input type="number" value={row.ceiling} onChange={e => setRow(i, { ceiling: e.target.value })}
                     placeholder="예: 2400" className={inputCls} min="0" />
                 </div>
@@ -225,7 +225,7 @@ export default function YouthSavingsPage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <SummaryCard label="내 납입 원금" value={`${fmt(result.principal)}원`} />
               <SummaryCard label="정부 기여금" value={`${fmt(result.matchTotal)}원`} variant="green" />
               <SummaryCard

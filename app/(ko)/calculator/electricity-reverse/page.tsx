@@ -1,49 +1,39 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 
 /*
- * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
- * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
- * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
- * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
- * 골라 둔 예시를 그대로 올렸다.
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 빈 칸으로 열면 무엇을
+ * 보여 주는 계산기인지 눌러 보기 전에는 모른다 — 값을 미리 넣어 두면 「계산하기」
+ * 한 번에 한 벌이 통째로 보이고, 사람은 그 위에 자기 숫자를 덮어쓴다.
+ * 값은 내가 지어내지 않고 저자가 이미 골라 둔 예시를 그대로 올렸다.
  */
 import Link from 'next/link';
-import CalcShell, { Card, CardHeader, Label, inputCls } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
 import { calcElectricity, kwhForBill, tierOf, toNextTier } from '@/lib/electricity-tariff';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
 export default function ElectricityReversePage() {
   const [bill, setBill] = useState('55000');
+  const [result, setResult] = useState<null | {
+    kwh: number; tier: number; left: number | null;
+    detail: ReturnType<typeof calcElectricity>; nextTierBill: number | null;
+  }>(null);
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | {
-    kwh: number; tier: number; left: number | null;
-    detail: ReturnType<typeof calcElectricity>; nextTierBill: number | null;
-  } = ((): null | {
-    kwh: number; tier: number; left: number | null;
-    detail: ReturnType<typeof calcElectricity>; nextTierBill: number | null;
-  } => {
+  function calculate() {
     const b = Number(bill);
-    if (b <= 0) return null;
+    if (b <= 0) return;
     const kwh = kwhForBill(b);
     const left = toNextTier(kwh);
-    return ({
+    setResult({
       kwh,
       tier: tierOf(kwh) + 1,
       left,
       detail: calcElectricity(kwh),
       nextTierBill: left === null ? null : calcElectricity(kwh + left + 0.001).total,
     });
-  
-    return null;
-  })();
-
+  }
 
   return (
     <CalcShell
@@ -80,9 +70,9 @@ export default function ElectricityReversePage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>고지서 금액 (원)</Label>
-              <input type="number" value={bill} onChange={e => setBill(e.target.value)}
-                placeholder="예: 55000" className={inputCls} min="0" />
+              <MoneyInput value={bill} onChange={setBill} placeholder="예: 55000" />
             </div>
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

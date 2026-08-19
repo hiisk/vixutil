@@ -151,8 +151,8 @@ export default function BirthStone({ lang }: { lang: Exclude<Lang, 'ko'> }) {
       </header>
 
       <div className="max-w-xl mx-auto px-4 py-6">
-        <div className="text-center mb-6">
-          <ToolIcon emoji="💎" className="w-12 h-12 mx-auto mb-2 text-slate-800 dark:text-slate-100" />
+        <div className="mb-6">
+          <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="💎" className="h-6 w-6" /></span>
           <div className="hero-band">
             <PageHero title={c.title} desc={c.lead} />
           </div>
@@ -176,10 +176,10 @@ export default function BirthStone({ lang }: { lang: Exclude<Lang, 'ko'> }) {
         {result && (
           <div id="bs-result" className="bs-pop">
             <div
-              className="relative rounded-3xl text-white p-8 mb-4 text-center overflow-hidden"
+              className="relative rounded-xl text-white p-8 mb-4 text-center overflow-hidden"
               style={{ background: `linear-gradient(135deg, ${result.color}, ${result.color}bb)` }}
             >
-              <div className="text-7xl mb-2 drop-shadow-lg">{result.emoji}</div>
+              <div className="text-7xl mb-2 drop-shadow-sm">{result.emoji}</div>
               <div className="text-xs font-bold text-white/85">{c.stoneOf(result.month)}</div>
               <div className="text-3xl font-black drop-shadow">{result.stone}</div>
               <div className="inline-block mt-3 text-xs font-bold bg-white/25 rounded-full px-4 py-1.5">
@@ -187,7 +187,7 @@ export default function BirthStone({ lang }: { lang: Exclude<Lang, 'ko'> }) {
               </div>
             </div>
 
-            <div className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-5 mb-4">
+            <div className="rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-5 mb-4">
               <div className="flex items-center gap-3">
                 <ToolIcon emoji="🌸" className="w-9 h-9 text-slate-800 dark:text-slate-100" />
                 <div>
@@ -198,7 +198,7 @@ export default function BirthStone({ lang }: { lang: Exclude<Lang, 'ko'> }) {
               </div>
             </div>
 
-            <div className="rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 p-5 mb-6">
+            <div className="rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 p-5 mb-6">
               <div className="text-xs font-black text-fuchsia-600 mb-2">{c.bornIn(result.month)}</div>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.blurb}</p>
             </div>

@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 import Link from 'next/link';
 import CalcShell, { Card, CardHeader, Label, inputCls, SummaryCard } from '@/components/CalcShell';
 import {
@@ -134,14 +135,12 @@ export default function MonthlyRentDeductionPage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>총급여 (원)</Label>
-              <input type="number" min="0" value={salary} onChange={e => setSalary(e.target.value)}
-                className={inputCls} placeholder="비과세 수당을 뺀 한 해 급여" />
+              <MoneyInput value={salary} onChange={setSalary} placeholder="비과세 수당을 뺀 한 해 급여" />
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>월세액 (원/월)</Label>
-                <input type="number" min="0" value={rent} onChange={e => setRent(e.target.value)}
-                  className={inputCls} />
+                <MoneyInput value={rent} onChange={setRent} />
               </div>
               <div>
                 <Label>낸 개월 수</Label>
@@ -182,7 +181,7 @@ export default function MonthlyRentDeductionPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-5">
           <SummaryCard label="한 해 낸 월세" value={`${fmt(r.annualRent)}원`} />
           <SummaryCard label="공제 대상 월세액" value={`${fmt(r.eligibleRent)}원`}
             sub={r.overLimit > 0 ? `한도 초과 ${fmt(r.overLimit)}원 버려짐` : `연 한도 ${man(r.rentLimit)}`} />
@@ -258,11 +257,10 @@ export default function MonthlyRentDeductionPage() {
 
         <Card className="p-5">
           <CardHeader title="결정세액 — 아는 값이 있으면 그것이 맞습니다" />
-          <div className="grid grid-cols-2 gap-3 pt-2">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5 pt-2">
             <div>
               <Label>결정세액 (원)</Label>
-              <input type="number" min="0" value={tax} onChange={e => setTax(e.target.value)}
-                className={inputCls} placeholder={`비우면 ${fmt(r.taxBeforeCredit)}원`} />
+              <MoneyInput value={tax} onChange={setTax} />
             </div>
             <div>
               <Label>부양가족 수 (본인 제외)</Label>
@@ -271,13 +269,11 @@ export default function MonthlyRentDeductionPage() {
             </div>
             <div>
               <Label>이미 받는 세액공제 (원)</Label>
-              <input type="number" min="0" value={otherCredits} onChange={e => setOtherCredits(e.target.value)}
-                className={inputCls} placeholder="보험료·의료비·연금계좌 등" />
+              <MoneyInput value={otherCredits} onChange={setOtherCredits} placeholder="보험료·의료비·연금계좌 등" />
             </div>
             <div>
               <Label>종합소득금액 (원)</Label>
-              <input type="number" min="0" value={totalIncome} onChange={e => setTotalIncome(e.target.value)}
-                className={inputCls} placeholder="근로소득만 있으면 비움" />
+              <MoneyInput value={totalIncome} onChange={setTotalIncome} placeholder="근로소득만 있으면 비움" />
             </div>
           </div>
           <p className="mt-2 text-xs text-slate-400 dark:text-slate-500">
@@ -309,16 +305,14 @@ export default function MonthlyRentDeductionPage() {
               </tbody>
             </table>
           </div>
-          <div className="grid grid-cols-2 gap-3 pt-4">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5 pt-4">
             <div>
               <Label>연 한도 (원)</Label>
-              <input type="number" min="0" value={limit} onChange={e => setLimit(e.target.value)}
-                className={inputCls} placeholder={`비우면 ${fmt(RENT_LIMIT)}원`} />
+              <MoneyInput value={limit} onChange={setLimit} />
             </div>
             <div>
               <Label>총급여 상한 (원)</Label>
-              <input type="number" min="0" value={salaryCap} onChange={e => setSalaryCap(e.target.value)}
-                className={inputCls} placeholder={`비우면 ${fmt(second.salaryUpTo)}원`} />
+              <MoneyInput value={salaryCap} onChange={setSalaryCap} />
             </div>
             <div>
               <Label>높은 공제율 (%)</Label>

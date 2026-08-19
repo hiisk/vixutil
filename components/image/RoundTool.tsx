@@ -68,7 +68,7 @@ export default function RoundTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
   return (
     <div>
       <div
-        className="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 flex items-center justify-center min-h-[14rem]"
+        className="rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 flex items-center justify-center min-h-[14rem]"
         // 투명한 자리가 보이도록 바둑판을 깐다 — 흰 배경이면 잘 잘렸는지 알 수 없다
         style={{
           backgroundImage: 'linear-gradient(45deg,#e2e8f0 25%,transparent 25%),linear-gradient(-45deg,#e2e8f0 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#e2e8f0 75%),linear-gradient(-45deg,transparent 75%,#e2e8f0 75%)',
@@ -85,7 +85,7 @@ export default function RoundTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
         )}
       </div>
 
-      <div className="mt-4 rounded-2xl border chip-off p-5">
+      <div className="mt-4 rounded-lg border chip-off p-5">
         <div className="flex items-baseline justify-between mb-1.5">
           <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.radius}</span>
           <span className="text-sm font-black text-violet-600 tabular-nums">{radius}%</span>

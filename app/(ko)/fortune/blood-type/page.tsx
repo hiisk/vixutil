@@ -52,8 +52,8 @@ export default function BloodTypePage() {
         </div>
       </header>
 
-      <div className="max-w-xl mx-auto px-4 py-6">
-        <div className="text-center mb-6">
+      <div className="hero-band max-w-xl mx-auto px-4 py-6">
+        <div className="mb-6">
           <h1 className="page-h1">🩸 혈액형 오늘의 운세</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">내 혈액형을 선택하세요</p>
         </div>
@@ -65,7 +65,7 @@ export default function BloodTypePage() {
               onClick={() => handleSelect(t.id)}
               className={`rounded-xl p-3 text-center transition-all border ${
                 selected === t.id
-                  ? 'bg-rose-600 border-rose-600 text-white shadow-md'
+                  ? 'bg-rose-600 border-rose-600 text-white shadow-sm'
                   : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-rose-300 text-slate-700 dark:text-slate-200'
               }`}
             >
@@ -91,7 +91,7 @@ export default function BloodTypePage() {
           </div>
         ) : (
           <div className="text-center py-12 text-slate-300 dark:text-slate-600">
-            <ToolIcon emoji="☝️" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+            <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">혈액형을 선택하면 오늘의 운세를 볼 수 있습니다</p>
           </div>
         )}
@@ -101,7 +101,7 @@ export default function BloodTypePage() {
           예시로 쓰고 있는 내용이다. 운세 페이지를 만들면서 그걸 못 본 척하면
           앞뒤가 안 맞으니, 재미로 보라는 말을 눈에 띄는 자리에 적어둔다.
         */}
-        <div className="mt-8 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+        <div className="mt-8 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
           <h2 className="text-sm font-black text-slate-800 dark:text-slate-100 mb-2">혈액형으로 성격을 알 수 있나요?</h2>
           <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
             아닙니다. 혈액형과 성격의 관련성은 여러 차례 검증됐지만 일관된 연관은 확인되지 않았습니다.

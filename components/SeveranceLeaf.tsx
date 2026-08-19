@@ -39,7 +39,7 @@ export default function SeveranceLeaf({ wage, years }: { wage: number; years: nu
           월급 {wage}만원 · 근속 {years}년 퇴직금
         </h1>
 
-        <div className="mt-4 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 p-6 text-white">
+        <div className="mt-4 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 p-6 text-white">
           <p className="text-amber-100 text-xs mb-1">퇴직금 (세전)</p>
           <p className="cv text-4xl font-black leading-none tabular-nums">{won(f.pay)}원</p>
           <p className="mt-2 text-sm text-amber-100">
@@ -53,7 +53,7 @@ export default function SeveranceLeaf({ wage, years }: { wage: number; years: nu
             평균임금은 퇴직 전 <b>3개월의 실제 일수</b>로 나눕니다. 그 일수가 달마다 달라서,
             같은 월급·같은 근속이라도 퇴직하는 달에 따라 퇴직금이 달라집니다.
           </p>
-          <div className="mt-3 rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
+          <div className="mt-3 rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
             <div className="row-pair">
               <span className="row-label">가장 많은 달 — {f.max.month}월 말 ({f.max.days}일)</span>
               <span className="val">{won(f.max.pay)}<span className="val-unit">원</span></span>
@@ -75,7 +75,7 @@ export default function SeveranceLeaf({ wage, years }: { wage: number; years: nu
 
         <section className="mt-6">
           <h2 className="sec-h2">월급 {wage}만원, 근속 연수별</h2>
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
             {/* hover 색은 globals.css의 .row-pair:hover가 --c-sec으로 이미 그린다 —
                 여기 적혀 있던 amber 짝은 같은 것을 두 번 적은 것이었다 */}
             {f.yearsTable.map(r => (

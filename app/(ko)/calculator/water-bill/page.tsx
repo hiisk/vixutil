@@ -2,13 +2,12 @@
 import { useState } from 'react';
 
 /*
- * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
- * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
- * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
- * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
- * 골라 둔 예시를 그대로 올렸다.
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 빈 칸으로 열면 무엇을
+ * 보여 주는 계산기인지 눌러 보기 전에는 모른다 — 값을 미리 넣어 두면 「계산하기」
+ * 한 번에 한 벌이 통째로 보이고, 사람은 그 위에 자기 숫자를 덮어쓴다.
+ * 값은 내가 지어내지 않고 저자가 이미 골라 둔 예시를 그대로 올렸다.
  */
-import CalcShell, { Card, CardHeader, Label, inputCls } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
@@ -25,28 +24,19 @@ function calcWaterFee(usage: number): number {
 export default function WaterBillPage() {
   const [usage, setUsage] = useState('20');
   const [pipe, setPipe] = useState('15');
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | {
+  const [result, setResult] = useState<null | {
     basicFee: number; waterFee: number; sewerFee: number; envFee: number; total: number;
-  } = ((): null | {
-    basicFee: number; waterFee: number; sewerFee: number; envFee: number; total: number;
-  } => {
+  }>(null);
+
+  function calculate() {
     const u = Number(usage);
-    if (u <= 0) return null;
+    if (u <= 0) return;
     const basicFee = PIPE_BASIC[pipe];
     const waterFee = calcWaterFee(u);
     const sewerFee = Math.round((basicFee + waterFee) * 0.69);
     const envFee = u * 170;
-    return ({ basicFee, waterFee, sewerFee, envFee, total: basicFee + waterFee + sewerFee + envFee });
-  
-    return null;
-  })();
-
-
+    setResult({ basicFee, waterFee, sewerFee, envFee, total: basicFee + waterFee + sewerFee + envFee });
+  }
 
   return (
     <CalcShell
@@ -97,6 +87,7 @@ export default function WaterBillPage() {
                 <option value="25">25mm (기본요금 2,080원)</option>
               </select>
             </div>
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

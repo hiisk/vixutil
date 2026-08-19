@@ -5,7 +5,7 @@ import { SOUND_COMMON, type SoundLang } from '@/lib/sound-ui-intl';
 
 /** 소리 도구가 함께 쓰는 조각들 */
 
-export const CARD = 'rounded-2xl border chip-off p-5';
+export const CARD = 'rounded-lg border chip-off p-5';
 
 export function Stat({ label, value, accent }: { label: string; value: string | number; accent?: string }) {
   return (
@@ -46,7 +46,7 @@ export function PlayButton({
   return (
     <button
       onClick={onToggle}
-      className={`w-full rounded-xl font-bold py-3.5 text-sm shadow-lg text-white transition-opacity hover:opacity-90 ${
+      className={`w-full rounded-xl font-bold py-3.5 text-sm shadow-sm text-white transition-opacity hover:opacity-90 ${
         playing ? 'bg-slate-700' : `bg-gradient-to-r ${gradient}`
       }`}
     >
@@ -111,12 +111,12 @@ export function MicGate({
   onStart: () => void; error?: string; icon: string; gradient: string; children: React.ReactNode; lang?: SoundLang;
 }) {
   return (
-    <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-5 py-10 text-center">
+    <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-5 py-10 text-center">
       <div className="text-5xl mb-3">{icon}</div>
       <p className="text-sm text-slate-500 dark:text-slate-400 mb-5 leading-relaxed">{children}</p>
       <button
         onClick={onStart}
-        className={`rounded-xl bg-gradient-to-r ${gradient} text-white font-bold px-7 py-3 text-sm shadow-lg hover:opacity-90 transition-opacity`}
+        className={`rounded-xl bg-gradient-to-r ${gradient} text-white font-bold px-7 py-3 text-sm shadow-sm hover:opacity-90 transition-opacity`}
       >
         {SOUND_COMMON[lang].micStart}
       </button>

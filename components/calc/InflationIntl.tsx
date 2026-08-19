@@ -52,7 +52,7 @@ export default function InflationIntl({ lang }: { lang: CalcLang }) {
             <Label>{mode === 'future' ? c.amount : c.futureAmount}</Label>
             <input type="number" value={amount} onChange={e => setAmount(e.target.value)} className={inputCls} />
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div>
               <Label>{c.rate}</Label>
               <input type="number" step="0.1" value={rate} onChange={e => setRate(e.target.value)} className={inputCls} />
@@ -72,7 +72,7 @@ export default function InflationIntl({ lang }: { lang: CalcLang }) {
             <p className="stat-label">{mode === 'future' ? c.resultFuture : c.resultPresent}</p>
             <p className="stat-value">{fmt(last.value)}</p>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <SummaryCard
               label={c.cumulative}
               value={`${(mode === 'future' ? (last.value / result.base - 1) * 100 : (result.base / last.value - 1) * 100).toFixed(1)}%`}

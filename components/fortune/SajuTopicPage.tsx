@@ -62,8 +62,8 @@ export default function SajuTopicPage({ lang, topic }: { lang: AnyLocale10; topi
 
   /* 폼 위 — 이 문의 이름표. h1은 여기 하나뿐이다(통합 화면은 주제가 있으면 낮춘다) */
   const head = (
-    <div className="text-center mb-6">
-      <ToolIcon emoji={TOPIC_EMOJI[topic]} className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+    <div className="mb-6">
+      <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji={TOPIC_EMOJI[topic]} className="h-6 w-6" /></span>
       <div className="hero-band">
         <PageHero title={heading} desc={c.lead[topic]} />
       </div>

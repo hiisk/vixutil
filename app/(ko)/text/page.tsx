@@ -70,8 +70,8 @@ export default function TextHubPage() {
       </header>
 
       <main className="relative max-w-2xl mx-auto px-4 py-10">
-        <div className="text-center mb-9">
-          <ToolIcon emoji="✍️" className="w-12 h-12 mx-auto mb-4 text-slate-800 dark:text-slate-100" />
+        <div className="hero-band ">
+          <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="✍️" className="h-6 w-6" /></span>
           <h1 className="page-h1">텍스트 도구</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
             한글을 다루다 생기는 잔일들
@@ -79,7 +79,7 @@ export default function TextHubPage() {
           </p>
         </div>
 
-        <div className="rounded-2xl border border-indigo-100 dark:border-indigo-900/40 bg-indigo-50/70 dark:bg-indigo-950/30 px-4 py-3.5 mb-7 text-xs text-indigo-800 dark:text-indigo-200 leading-relaxed text-center">
+        <div className="rounded-lg border border-indigo-100 dark:border-indigo-900/40 bg-indigo-50/70 dark:bg-indigo-950/30 px-4 py-3.5 mb-7 text-xs text-indigo-800 dark:text-indigo-200 leading-relaxed text-center">
           🔒 입력한 글은 브라우저 안에서만 처리됩니다. 서버로 전송되지 않으니 계약서나 자기소개서도 안심하고 넣으세요.
         </div>
 
@@ -94,9 +94,8 @@ export default function TextHubPage() {
                   <Link
                     key={t.slug}
                     href={`/text/${t.slug}`}
-                    className="group relative overflow-hidden rounded-2xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 hover:shadow-md hover:border-indigo-200 transition-all"
+                    className="group relative overflow-hidden rounded-lg border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 hover:border-slate-300 dark:hover:border-slate-700 hover:border-indigo-200 transition-all"
                   >
-                    <div className={`absolute -right-6 -top-6 w-24 h-24 rounded-full bg-sec-soft opacity-10 group-hover:opacity-20 transition-opacity`} />
                     <div className="relative">
                       <ToolIcon emoji={t.icon} color={t.og[0]} accent={t.og[1]} className="w-9 h-9 block mb-3" />
                       <h3 className="text-base font-black text-slate-900 dark:text-slate-100 mb-1">{t.title}</h3>
@@ -115,7 +114,7 @@ export default function TextHubPage() {
           ))}
         </div>
 
-        <div className="mt-10 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+        <div className="mt-10 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
           <h2 className="sec-h2">이럴 때 쓰세요</h2>
           <ul className="flex flex-col gap-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
             <li>⌨️ <b className="text-slate-800 dark:text-slate-100">한/영을 안 바꾸고 다 쳤을 때</b> — 지우고 다시 치지 말고 그대로 붙여 넣으세요</li>
@@ -128,7 +127,7 @@ export default function TextHubPage() {
         {/* 특수문자는 도구가 아니라 눌러서 복사하는 목록이라 갈래 바깥에 세운다 */}
         <Link
           href="/text/char"
-          className="group mt-10 flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+          className="group mt-10 flex items-center gap-4 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:border-slate-300 dark:hover:border-slate-700 hover:-translate-y-0.5 transition-all"
         >
           <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-sec-soft">
             <ToolIcon emoji={GLYPH_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />
@@ -141,7 +140,7 @@ export default function TextHubPage() {
 
         <Link
           href="/text/regex"
-          className="group mt-4 flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+          className="group mt-4 flex items-center gap-4 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:border-slate-300 dark:hover:border-slate-700 hover:-translate-y-0.5 transition-all"
         >
           <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-sec-soft">
             <ToolIcon emoji={REGEX_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />

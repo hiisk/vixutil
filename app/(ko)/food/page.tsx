@@ -69,8 +69,8 @@ export default function FoodHubPage() {
       </header>
 
       <main className="relative max-w-2xl mx-auto px-4 py-10">
-        <div className="text-center mb-9">
-          <ToolIcon emoji="🍳" className="w-12 h-12 mx-auto mb-4 text-slate-800 dark:text-slate-100" />
+        <div className="hero-band ">
+          <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="🍳" className="h-6 w-6" /></span>
           <h1 className="page-h1">계량·요리</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
             요리하다 손에 뭐 묻은 채로 검색하게 되는 것들
@@ -78,7 +78,7 @@ export default function FoodHubPage() {
           </p>
         </div>
 
-        <div className="rounded-2xl border border-amber-100 dark:border-amber-900/40 bg-amber-50/70 dark:bg-amber-950/30 px-4 py-3.5 mb-7 text-xs text-amber-800 dark:text-amber-200 leading-relaxed text-center">
+        <div className="rounded-lg border border-amber-100 dark:border-amber-900/40 bg-amber-50/70 dark:bg-amber-950/30 px-4 py-3.5 mb-7 text-xs text-amber-800 dark:text-amber-200 leading-relaxed text-center">
 🍳 한국 기준(1컵 200ml, 1큰술 15ml)으로 계산합니다. 미국 레시피는 1컵이 240ml입니다.
         </div>
 
@@ -93,9 +93,8 @@ export default function FoodHubPage() {
                   <Link
                     key={t.slug}
                     href={`/food/${t.slug}`}
-                    className="group relative overflow-hidden rounded-2xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 hover:shadow-md hover:border-amber-200 transition-all"
+                    className="group relative overflow-hidden rounded-lg border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 hover:border-slate-300 dark:hover:border-slate-700 hover:border-amber-200 transition-all"
                   >
-                    <div className={`absolute -right-6 -top-6 w-24 h-24 rounded-full bg-sec-soft opacity-10 group-hover:opacity-20 transition-opacity`} />
                     <div className="relative">
                       <ToolIcon emoji={t.icon} color={t.og[0]} accent={t.og[1]} className="w-9 h-9 block mb-3" />
                       <h3 className="text-base font-black text-slate-900 dark:text-slate-100 mb-1">{t.title}</h3>
@@ -145,7 +144,7 @@ export default function FoodHubPage() {
           ))}
         </section>
 
-        <div className="mt-10 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+        <div className="mt-10 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
           <h2 className="sec-h2">이럴 때 쓰세요</h2>
           <ul className="flex flex-col gap-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
             <li>⚖️ <b className="text-slate-800 dark:text-slate-100">저울이 없을 때</b> — 컵·큰술을 그램으로 바꿔 봅니다</li>

@@ -35,7 +35,7 @@ export default function LtvIntl({ lang }: { lang: CalcLang }) {
     <div className="flex flex-col gap-4">
       <Card className="p-5">
         <p className="label-caps mb-3">{c.section}</p>
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 gap-x-4 gap-y-5">
           <div>
             <Label>{c.propertyValue}</Label>
             <input type="number" value={propertyValue} onChange={e => setPropertyValue(e.target.value)} className={inputCls} />
@@ -64,7 +64,7 @@ export default function LtvIntl({ lang }: { lang: CalcLang }) {
               </p>
             )}
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-4 gap-y-5">
             <SummaryCard label={c.equity} value={fmt(result.equity)} />
             <SummaryCard label={c.maxLoan} value={fmt(result.maxLoan)} />
             <SummaryCard label={c.headroom} value={fmt(result.headroom)} />

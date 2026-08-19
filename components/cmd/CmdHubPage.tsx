@@ -56,15 +56,13 @@ export default function CmdHubPage({ lang }: { lang: Lang }) {
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
         <div className="text-center mb-7">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 shadow-lg bg-sec-soft">
-            <ToolIcon emoji={CMD_ICON} className="w-8 h-8" />
-          </div>
+          <span className="bg-sec-soft inline-flex h-10 w-10 items-center justify-center rounded-lg"><ToolIcon emoji={CMD_ICON} className="h-5 w-5" /></span>
           <div className="hero-band">
             <PageHero title={ui.hubTitle} desc={ui.hubLead.replace('{n}', n)} />
           </div>
         </div>
 
-        <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 px-4 py-3 mb-8">
+        <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-3 mb-8">
           {ui.hubNotice}
         </p>
 

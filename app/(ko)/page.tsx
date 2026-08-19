@@ -678,7 +678,7 @@ export default function HubPage() {
         */}
         <Link
           href="/search"
-          className="group flex items-center gap-3 mb-10 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 rounded-2xl px-4 py-3.5 shadow-sm hover:border-indigo-300 hover:shadow-lg transition-all"
+          className="group flex items-center gap-3 mb-10 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 rounded-lg px-4 py-3.5 shadow-sm hover:border-indigo-300 hover:border-slate-300 dark:hover:border-slate-700 transition-all"
         >
           <svg className="w-5 h-5 text-slate-400 dark:text-slate-500 group-hover:text-indigo-500 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />

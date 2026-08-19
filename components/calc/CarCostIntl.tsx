@@ -57,7 +57,7 @@ export default function CarCostIntl({ lang }: { lang: CalcLang }) {
             <p className="stat-label">{c.yearly}</p>
             <p className="stat-value">{fmt(result.yearly)}</p>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <SummaryCard label={c.monthly} value={fmt(result.monthly)} />
             <SummaryCard label={c.perKm} value={fmt(result.perKm, 2)} />
           </div>

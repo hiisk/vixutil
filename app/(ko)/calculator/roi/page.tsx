@@ -2,13 +2,12 @@
 import { useState } from 'react';
 
 /*
- * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
- * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
- * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
- * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
- * 골라 둔 예시를 그대로 올렸다.
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 빈 칸으로 열면 무엇을
+ * 보여 주는 계산기인지 눌러 보기 전에는 모른다 — 값을 미리 넣어 두면 「계산하기」
+ * 한 번에 한 벌이 통째로 보이고, 사람은 그 위에 자기 숫자를 덮어쓴다.
+ * 값은 내가 지어내지 않고 저자가 이미 골라 둔 예시를 그대로 올렸다.
  */
-import CalcShell, { Card, Label, inputCls, SummaryCard, TabBar } from '@/components/CalcShell';
+import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard, TabBar } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
@@ -21,26 +20,18 @@ export default function RoiPage() {
   const [fee, setFee] = useState(0);
   const [years, setYears] = useState('3');
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: {
+  const [result, setResult] = useState<{
     profit: number;
     roi: number;
     cagr?: number;
     isGain: boolean;
-  } | null = ((): {
-    profit: number;
-    roi: number;
-    cagr?: number;
-    isGain: boolean;
-  } | null => {
+  } | null>(null);
+
+  function calculate() {
     const b = buy;
     const s = sell;
     const f = fee;
-    if (b <= 0 || s <= 0) return null;
+    if (b <= 0 || s <= 0) return;
 
     const profit = s - b - f;
     const roi = (profit / b) * 100;
@@ -51,12 +42,8 @@ export default function RoiPage() {
       if (y > 0) cagr = (Math.pow(s / b, 1 / y) - 1) * 100;
     }
 
-    return ({ profit, roi, cagr, isGain: profit >= 0 });
-  
-    return null;
-  })();
-
-
+    setResult({ profit, roi, cagr, isGain: profit >= 0 });
+  }
 
   return (
     <CalcShell
@@ -112,7 +99,7 @@ export default function RoiPage() {
               <CommaInput value={sell} onChange={setSell} placeholder="예: 7,000,000" />
             </div>
             <div>
-              <Label>수수료·세금 합계 (원, 선택)</Label>
+              <Label>수수료·세금 합계 <span className="dial-opt">원, 선택</span></Label>
               <CommaInput value={fee} onChange={setFee} placeholder="0" />
             </div>
             {mode === 'annualized' && (
@@ -123,18 +110,21 @@ export default function RoiPage() {
               </div>
             )}
           </div>
+          <div className="mt-4">
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
+          </div>
         </Card>
 
         {result && (
           <>
-            <div className={`rounded-2xl p-5 ${result.isGain ? 'bg-blue-600' : 'bg-rose-500'}`}>
+            <div className={`rounded-lg p-5 ${result.isGain ? 'bg-blue-600' : 'bg-rose-500'}`}>
               <p className="text-white/70 text-xs mb-1">순손익</p>
               <p className="text-white text-3xl font-black">
                 {result.isGain ? '+' : ''}{fmt(result.profit)}원
               </p>
               <p className="text-white/70 text-sm mt-1">수익률 {pct(result.roi)}</p>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <SummaryCard label="수익률" value={pct(result.roi)} variant={result.isGain ? 'green' : 'red'} />
               {result.cagr !== undefined && (
                 <SummaryCard label="연환산 CAGR" value={pct(result.cagr)} variant={result.isGain ? 'green' : 'red'} />

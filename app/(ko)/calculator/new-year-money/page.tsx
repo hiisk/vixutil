@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 import Link from 'next/link';
 import CalcShell, { Card, CardHeader, Label, selectCls, inputCls } from '@/components/CalcShell';
 import {
@@ -203,10 +204,7 @@ export default function NewYearMoneyPage() {
             </div>
             <div>
               <Label>그 집에서 우리 아이가 받은 금액 (원, 한 명당)</Label>
-              <input
-                type="number" value={received} onChange={e => setReceived(e.target.value)}
-                placeholder="예: 50000 (비우면 안 씁니다)" className={inputCls} min="0" step="1000"
-              />
+              <MoneyInput value={received} onChange={setReceived} placeholder="예: 50000 (비우면 안 씁니다)" />
             </div>
           </div>
         </Card>

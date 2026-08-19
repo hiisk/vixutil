@@ -72,7 +72,7 @@ export default function TimeShell({
       <main className="relative max-w-2xl mx-auto px-4 pb-10 tool-lift">
 
 
-        <div className="mb-5 rounded-2xl border border-sky-100 dark:border-sky-900/40 bg-sky-50/70 dark:bg-sky-950/30 px-4 py-3 text-xs text-sky-800 dark:text-sky-200 leading-relaxed text-center">
+        <div className="mb-5 rounded-lg border border-sky-100 dark:border-sky-900/40 bg-sky-50/70 dark:bg-sky-950/30 px-4 py-3 text-xs text-sky-800 dark:text-sky-200 leading-relaxed text-center">
           ⏱️ 이 탭이 열려 있는 동안 동작합니다. 설치도 회원가입도 없습니다.
         </div>
 

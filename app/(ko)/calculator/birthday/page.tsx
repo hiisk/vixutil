@@ -66,13 +66,13 @@ export default function BirthdayPage() {
 
         {info && (
           <>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div className="stat-pri text-center">
                 <p className="stat-label">띠</p>
                 <p className="text-4xl mb-1">{info.zodiacEmoji}</p>
                 <p className="text-slate-900 dark:text-slate-50 text-xl font-black">{info.zodiac}띠</p>
               </div>
-              <div className="bg-slate-800 rounded-2xl p-5 text-center">
+              <div className="bg-slate-800 rounded-lg p-5 text-center">
                 <p className="text-slate-400 dark:text-slate-500 text-xs mb-1">별자리</p>
                 <p className="text-4xl mb-1">{info.star.emoji}</p>
                 <p className="text-white text-xl font-black">{info.star.name}</p>

@@ -27,7 +27,7 @@ export default function GradientTool({ lang = 'ko' }: { lang?: ColorLang } = {})
 
   return (
     <div>
-      <div className="h-44 rounded-2xl border border-slate-200 dark:border-slate-700" style={{ background: css }} />
+      <div className="h-44 rounded-lg border border-slate-200 dark:border-slate-700" style={{ background: css }} />
 
       <div className="grid sm:grid-cols-2 gap-3 mt-4">
         <ColorInput value={from} onChange={setFrom} label={ui.startColor} />

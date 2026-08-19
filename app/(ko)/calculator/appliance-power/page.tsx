@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, CardHeader, Label, inputCls } from '@/components/CalcShell';
+import MoneyInput from '@/components/MoneyInput';
+import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
 import { calcElectricity, extraCost, tierOf, toNextTier } from '@/lib/electricity-tariff';
@@ -46,28 +47,20 @@ export default function AppliancePowerPage() {
   const [hours, setHours] = useState('8');
   const [days, setDays] = useState('30');
   const [base, setBase] = useState('300');
+  const [result, setResult] = useState<null | {
+    watt: number; kwh: number; extra: number;
+    beforeTotal: number; afterTotal: number;
+    tierBefore: number; tierAfter: number; left: number | null;
+  }>(null);
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | {
-    watt: number; kwh: number; extra: number;
-    beforeTotal: number; afterTotal: number;
-    tierBefore: number; tierAfter: number; left: number | null;
-  } = ((): null | {
-    watt: number; kwh: number; extra: number;
-    beforeTotal: number; afterTotal: number;
-    tierBefore: number; tierAfter: number; left: number | null;
-  } => {
+  function calculate() {
     const w = Number(watt || 0) || APPLIANCES.find(a => a.key === key)!.watt;
     const h = Number(hours);
     const d = Number(days);
     const b = Number(base);
-    if (w <= 0 || h <= 0 || d <= 0 || b < 0) return null;
+    if (w <= 0 || h <= 0 || d <= 0 || b < 0) return;
     const kwh = (w / 1000) * h * d;
-    return ({
+    setResult({
       watt: w,
       kwh,
       extra: extraCost(b, kwh),
@@ -77,10 +70,7 @@ export default function AppliancePowerPage() {
       tierAfter: tierOf(b + kwh) + 1,
       left: toNextTier(b),
     });
-  
-    return null;
-  })();
-
+  }
 
   return (
     <CalcShell
@@ -127,11 +117,11 @@ export default function AppliancePowerPage() {
               </select>
             </div>
             <div>
-              <Label>소비전력 직접 입력 (W, 비우면 위 값)</Label>
+              <Label>소비전력 직접 입력 <span className="dial-opt">W, 비우면 위 값</span></Label>
               <input type="number" value={watt} onChange={e => setWatt(e.target.value)}
                 placeholder={`예: ${APPLIANCES.find(a => a.key === key)!.watt}`} className={inputCls} min="0" />
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>하루 사용 시간</Label>
                 <input type="number" value={hours} onChange={e => setHours(e.target.value)}
@@ -145,9 +135,9 @@ export default function AppliancePowerPage() {
             </div>
             <div>
               <Label>이 가전을 빼고 원래 쓰던 사용량 (kWh)</Label>
-              <input type="number" value={base} onChange={e => setBase(e.target.value)}
-                placeholder="예: 300" className={inputCls} min="0" />
+              <MoneyInput value={base} onChange={setBase} placeholder="예: 300" />
             </div>
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

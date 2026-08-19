@@ -50,9 +50,9 @@ export default function BitcoinVsGoldPage() {
         </div>
       </header>
 
-      <div className="max-w-3xl mx-auto px-4 py-8">
-        <div className="text-center mb-6">
-          <ToolIcon emoji="🥇" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+      <div className="hero-band max-w-3xl mx-auto px-4 py-8">
+        <div className="mb-6">
+          <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="🥇" className="h-6 w-6" /></span>
           <h1 className="page-h1">Bitcoin vs Gold</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">
             &quot;Digital gold&quot; is <b className="text-slate-700 dark:text-slate-200">two claims</b> — tested separately
@@ -67,7 +67,7 @@ export default function BitcoinVsGoldPage() {
           정적 렌더 영역. 위 보드는 브라우저에서 두 이력을 받아 맞춰 계산하므로
           자바스크립트를 실행하지 않는 크롤러에겐 아래 본문이 페이지의 내용이다.
         */}
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
           <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">One phrase, two different promises</h2>
           <p className="mb-3">
             &quot;Digital gold&quot; is used to mean two things that are rarely separated. The first is that Bitcoin stores value the way gold
@@ -88,7 +88,7 @@ export default function BitcoinVsGoldPage() {
           </p>
         </section>
 
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-4 mb-6 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-4 mb-6 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
           <p>
             ⚠️ Not investment advice. Gold is represented by a tokenised claim traded on the same exchange, which is not identical to holding
             bullion. All figures are historical and measured over whatever window the two series share. All decisions and risks are your own.

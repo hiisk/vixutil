@@ -81,9 +81,7 @@ export default function ConvertPage({ tool, lang }: { tool: ConvertTool; lang: C
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
         <div className="text-center mb-7">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 text-3xl bg-sec-soft shadow-lg">
-            <ToolIcon emoji={tool.icon} className="w-8 h-8" />
-          </div>
+          <span className="bg-sec-soft inline-flex h-10 w-10 items-center justify-center rounded-lg"><ToolIcon emoji={tool.icon} className="h-5 w-5" /></span>
           <div className="hero-band">
             <PageHero title={text.title} desc={text.long} />
           </div>

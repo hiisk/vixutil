@@ -29,7 +29,7 @@ export default function RockPaperScissors({ lang = 'ko' }: { lang?: RandomLang }
   return (
     <div>
       {result && (
-        <div className="rounded-2xl border chip-off p-6 mb-5 text-center">
+        <div className="rounded-lg border chip-off p-6 mb-5 text-center">
           <div className="flex items-center justify-center gap-6">
             <span className="text-5xl" aria-label={label[mine!]}>{EMOJI[mine!]}</span>
             <span className="text-sm font-black text-slate-300 dark:text-slate-600">VS</span>
@@ -45,7 +45,7 @@ export default function RockPaperScissors({ lang = 'ko' }: { lang?: RandomLang }
           <button
             key={h}
             onClick={() => play(h)}
-            className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-5 hover:border-rose-300 hover:-translate-y-0.5 transition-all"
+            className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-5 hover:border-rose-300 hover:-translate-y-0.5 transition-all"
           >
             <span className="block text-4xl">{EMOJI[h]}</span>
             <span className="block mt-1 text-sm font-bold text-slate-600 dark:text-slate-300">{label[h]}</span>

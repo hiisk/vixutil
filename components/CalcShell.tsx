@@ -193,7 +193,7 @@ export default function CalcShell({
                 이 자리를 FAQ 뒤에 둔 것은 결과 바로 아래에 두면 계산 흐름을 끊기
                 때문이다. 대신 글씨를 죽이지 않고 테두리를 줘서 눈에 들어오게 했다.
               */}
-              <div className="mt-8 rounded-2xl border border-amber-200/80 dark:border-amber-900/60 bg-amber-50/60 dark:bg-amber-950/30 p-5">
+              <div className="mt-8 rounded-lg border border-amber-200/80 dark:border-amber-900/60 bg-amber-50/60 dark:bg-amber-950/30 p-5">
                 <p className="text-sm font-semibold text-amber-900 dark:text-amber-200 mb-1">
                   이 결과는 틀릴 수 있습니다
                 </p>
@@ -231,14 +231,14 @@ export function Card({ children, className = '' }: { children: React.ReactNode; 
 export function CardHeader({ title, sub }: { title: string; sub?: string }) {
   return (
     <div className="px-5 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
-      <p className="font-bold text-slate-800 dark:stat-sub">{title}</p>
+      <p className="text-sm font-bold text-slate-800 dark:text-slate-100">{title}</p>
       {sub && <span className="text-xs text-slate-400 dark:text-slate-500">{sub}</span>}
     </div>
   );
 }
 
 export function Label({ children }: { children: React.ReactNode }) {
-  return <label className="dial-k block mb-0.5">{children}</label>;
+  return <label className="dial-k mb-1 block">{children}</label>;
 }
 
 /*
@@ -307,15 +307,18 @@ export function SummaryGrid({ children }: { children: React.ReactNode }) {
 }
 
 /**
- * 결과 칸 앞의 부호 — 계산기라서 뜻이 있는 기호만 쓴다 (2026-08-19).
+ * 결과 칸 앞의 부호 — 답에만 붙인다 (2026-08-19).
  *
- * primary는 «=»다. 계산기에서 등호 뒤에 오는 것이 답이라는 약속은 설명이
- * 필요 없다. green·red는 늘었다·줄었다라서 화살표다. default에는 아무것도
- * 안 붙인다 — 전부에 붙이면 부호가 아니라 장식이 된다.
+ * 처음에는 green·red에 화살표(↑↓)도 붙였다. 그런데 이 사이트에서 green·red는
+ * «늘었다·줄었다»가 아니라 «좋다·나쁘다»로 쓰인다 — 공제금액이 green인데 ↑가
+ * 붙으면 «공제가 늘었다»는 없는 뜻이 생긴다. 색이 이미 그 일을 하고 있으므로
+ * 화살표는 틀린 신호만 더했다.
+ *
+ * primary의 «=»만 남긴다. 계산기에서 등호 뒤에 오는 것이 답이라는 약속은
+ * 설명이 필요 없고, 어느 칸이 답인지는 색만으로는 훑는 눈에 늦게 읽힌다.
  */
-function StatMark({ variant }: { variant: 'primary' | 'green' | 'red' }) {
-  const glyph = variant === 'primary' ? '=' : variant === 'green' ? '↑' : '↓';
-  return <span aria-hidden className={`stat-mark stat-mark-${variant}`}>{glyph}</span>;
+function StatMark() {
+  return <span aria-hidden className="stat-mark stat-mark-primary">=</span>;
 }
 
 export function SummaryCard({
@@ -333,7 +336,7 @@ export function SummaryCard({
   return (
     <div className={cls}>
       <p className="stat-label">
-        {variant !== 'default' && <StatMark variant={variant} />}
+        {variant === 'primary' && <StatMark />}
         {label}
       </p>
       <p className="stat-value">{value}</p>

@@ -1,15 +1,15 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 
 /*
- * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
- * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
- * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
- * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
- * 골라 둔 예시를 그대로 올렸다.
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 빈 칸으로 열면 무엇을
+ * 보여 주는 계산기인지 눌러 보기 전에는 모른다 — 값을 미리 넣어 두면 「계산하기」
+ * 한 번에 한 벌이 통째로 보이고, 사람은 그 위에 자기 숫자를 덮어쓴다.
+ * 값은 내가 지어내지 않고 저자가 이미 골라 둔 예시를 그대로 올렸다.
  */
 import Link from 'next/link';
-import CalcShell, { Card, CardHeader, Label, inputCls } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
 import {
   ASSET_CONVERSION_RATE, COUPLE_REDUCTION, FINANCIAL_DEDUCTION, LINKAGE_THRESHOLD,
   WORK_INCOME_FACTOR, calcBasicPension, maxAssetFor,
@@ -31,18 +31,12 @@ export default function BasicPensionPage() {
   const [fullAmount, setFullAmount] = useState('340000');
   const [couple, setCouple] = useState(false);
   const [nationalPension, setNationalPension] = useState('0');
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | {
+  const [result, setResult] = useState<null | {
     r: ReturnType<typeof calcBasicPension>;
     maxAsset: number;
-  } = ((): null | {
-    r: ReturnType<typeof calcBasicPension>;
-    maxAsset: number;
-  } => {
+  }>(null);
+
+  function calculate() {
     const input = {
       workIncome: Number(workIncome || 0),
       otherIncome: Number(otherIncome || 0),
@@ -57,13 +51,9 @@ export default function BasicPensionPage() {
       couple,
       nationalPension: Number(nationalPension || 0),
     };
-    if (input.threshold <= 0 || input.fullAmount <= 0) return null;
-    return ({ r: calcBasicPension(input), maxAsset: maxAssetFor(input) });
-  
-    return null;
-  })();
-
-
+    if (input.threshold <= 0 || input.fullAmount <= 0) return;
+    setResult({ r: calcBasicPension(input), maxAsset: maxAssetFor(input) });
+  }
 
   return (
     <CalcShell
@@ -123,66 +113,55 @@ export default function BasicPensionPage() {
         <Card className="p-5">
           <div className="flex flex-col gap-3">
             <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">그 해 고시값</p>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>선정기준액 (월, 원)</Label>
-                <input type="number" value={threshold} onChange={e => setThreshold(e.target.value)}
-                  placeholder="예: 2280000" className={inputCls} min="0" />
+                <MoneyInput value={threshold} onChange={setThreshold} placeholder="예: 2280000" />
               </div>
               <div>
                 <Label>기준연금액 (월, 원)</Label>
-                <input type="number" value={fullAmount} onChange={e => setFullAmount(e.target.value)}
-                  placeholder="예: 340000" className={inputCls} min="0" />
+                <MoneyInput value={fullAmount} onChange={setFullAmount} placeholder="예: 340000" />
               </div>
               <div>
                 <Label>기본재산액 (원)</Label>
-                <input type="number" value={basicAssetDeduction} onChange={e => setBasicAssetDeduction(e.target.value)}
-                  placeholder="사는 곳별 고시값" className={inputCls} min="0" />
+                <MoneyInput value={basicAssetDeduction} onChange={setBasicAssetDeduction} placeholder="사는 곳별 고시값" />
               </div>
               <div>
                 <Label>근로소득공제 (원)</Label>
-                <input type="number" value={workDeduction} onChange={e => setWorkDeduction(e.target.value)}
-                  placeholder="그 해 고시값" className={inputCls} min="0" />
+                <MoneyInput value={workDeduction} onChange={setWorkDeduction} placeholder="그 해 고시값" />
               </div>
             </div>
 
             <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">내 소득과 재산</p>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>근로소득 (월, 원)</Label>
-                <input type="number" value={workIncome} onChange={e => setWorkIncome(e.target.value)}
-                  className={inputCls} min="0" />
+                <MoneyInput value={workIncome} onChange={setWorkIncome} />
               </div>
               <div>
                 <Label>기타소득 (월, 원)</Label>
-                <input type="number" value={otherIncome} onChange={e => setOtherIncome(e.target.value)}
-                  className={inputCls} min="0" />
+                <MoneyInput value={otherIncome} onChange={setOtherIncome} />
               </div>
               <div>
                 <Label>일반재산 (원)</Label>
-                <input type="number" value={generalAsset} onChange={e => setGeneralAsset(e.target.value)}
-                  className={inputCls} min="0" />
+                <MoneyInput value={generalAsset} onChange={setGeneralAsset} />
               </div>
               <div>
                 <Label>금융재산 (원)</Label>
-                <input type="number" value={financialAsset} onChange={e => setFinancialAsset(e.target.value)}
-                  className={inputCls} min="0" />
+                <MoneyInput value={financialAsset} onChange={setFinancialAsset} />
               </div>
               <div>
                 <Label>부채 (원)</Label>
-                <input type="number" value={debt} onChange={e => setDebt(e.target.value)}
-                  className={inputCls} min="0" />
+                <MoneyInput value={debt} onChange={setDebt} />
               </div>
               <div>
                 <Label>고급자동차·회원권 (원)</Label>
-                <input type="number" value={luxuryAsset} onChange={e => setLuxuryAsset(e.target.value)}
-                  className={inputCls} min="0" />
+                <MoneyInput value={luxuryAsset} onChange={setLuxuryAsset} />
               </div>
             </div>
             <div>
               <Label>받고 있는 국민연금 (월, 원)</Label>
-              <input type="number" value={nationalPension} onChange={e => setNationalPension(e.target.value)}
-                className={inputCls} min="0" />
+              <MoneyInput value={nationalPension} onChange={setNationalPension} />
             </div>
             <div className="flex gap-2">
               {[{ v: false, label: '단독가구' }, { v: true, label: '부부 둘 다 수급' }].map(o => (
@@ -196,12 +175,13 @@ export default function BasicPensionPage() {
                 </button>
               ))}
             </div>
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 
         {result && (
           <>
-            <div className={`rounded-2xl p-5 ${result.r.eligible ? 'bg-blue-600' : 'bg-slate-600'}`}>
+            <div className={`rounded-lg p-5 ${result.r.eligible ? 'bg-blue-600' : 'bg-slate-600'}`}>
               <p className="text-blue-200 text-xs mb-1">
                 {result.r.eligible ? '예상 월 수령액' : '선정기준액을 넘었습니다'}
               </p>

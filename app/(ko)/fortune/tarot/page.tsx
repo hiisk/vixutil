@@ -91,7 +91,7 @@ function TarotCardFront({ card, reversed, size = 'md', onClick }:
     <button
       onClick={onClick}
       style={{ width: d.w, height: d.h, background: `linear-gradient(150deg, ${card.color}dd 0%, ${card.color} 100%)` }}
-      className="rounded-xl border-[3px] border-white shadow-md flex flex-col items-center justify-center gap-1 text-white transition-transform hover:scale-105 active:scale-95 flex-shrink-0"
+      className="rounded-xl border-[3px] border-white shadow-sm gap-1 text-white transition-transform hover:scale-105 active:scale-95 flex-shrink-0"
     >
       <div className={`${d.emoji} ${reversed ? 'rotate-180' : ''} transition-transform leading-none`}>{card.emoji}</div>
       <p className={`${d.name} font-bold text-center leading-tight px-1`}>{card.name}</p>
@@ -113,7 +113,7 @@ function TarotCardBack({ size = 'md', label, onClick }:
       <button
         onClick={onClick}
         style={{ width: d.w, height: d.h }}
-        className="rounded-xl border-[3px] border-purple-300/30 shadow-md flex flex-col items-center justify-center gap-1 cursor-pointer hover:opacity-80 active:scale-95 transition-all flex-shrink-0 bg-gradient-to-br from-violet-900 via-purple-950 to-slate-900"
+        className="rounded-xl border-[3px] border-purple-300/30 shadow-sm gap-1 cursor-pointer hover:opacity-80 active:scale-95 transition-all flex-shrink-0 bg-gradient-to-br from-violet-900 via-purple-950 to-slate-900"
       >
         <div className="text-purple-400 text-lg leading-none">✦</div>
         {size !== 'xs' && <p className="text-[9px] text-purple-400 font-semibold text-center leading-tight px-1">클릭하여<br/>공개</p>}
@@ -157,7 +157,7 @@ function OneLayout({ drawn, revealed, onReveal }: LayoutProps) {
     <div className="flex justify-center py-4">
       {!drawn ? (
         <div style={{ width: CARD_DIMS.lg.w, height: CARD_DIMS.lg.h }}
-          className="rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950" />
+          className="rounded-lg border-2 border-dashed border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950" />
       ) : !revealed[0] ? (
         <TarotCardBack size="lg" label="오늘의 메시지" onClick={() => onReveal(0)} />
       ) : (
@@ -301,7 +301,7 @@ function CardInterpretation({ drawn, spread }: { drawn: DrawnSet; spread: Spread
     <div className="space-y-3 mt-2">
       <p className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest text-center">카드 해석</p>
       {drawn.map((item, i) => (
-        <div key={i} className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl overflow-hidden">
+        <div key={i} className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-lg overflow-hidden">
           <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-50"
             style={{ borderLeft: `4px solid ${item.card.color}` }}>
             <div className="w-9 h-9 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
@@ -368,7 +368,7 @@ function CatalogTab() {
             const cards = MINOR_ARCANA.filter(c => c.suit === suit);
             const open = openSuit === suit;
             return (
-              <div key={suit} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden">
+              <div key={suit} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
                 <button onClick={() => setOpenSuit(open ? null : suit)}
                   className="w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
                   <div className="w-8 h-8 rounded-xl flex items-center justify-center text-lg flex-shrink-0" style={{ background: info.color + '22' }}>{info.emoji}</div>
@@ -410,7 +410,7 @@ function CatalogTab() {
 
       {/* 선택된 카드 상세 */}
       {selected && (
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden sticky bottom-4 shadow-lg">
+        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden sticky bottom-4 shadow-sm">
           <div className="flex items-center gap-3 px-4 py-3" style={{ borderLeft: `4px solid ${selected.color}` }}>
             <div className="w-10 h-10 rounded-xl flex items-center justify-center text-2xl flex-shrink-0" style={{ background: selected.color + '22' }}>{selected.emoji}</div>
             <div className="flex-1">
@@ -571,7 +571,7 @@ export default function TarotPage() {
             </div>
 
             {/* 스프레드 영역 */}
-            <div ref={resultRef} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
+            <div ref={resultRef} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
               <SpreadLayout drawn={drawn} revealed={revealed} spread={spread} onReveal={handleReveal} />
 
               {/* 액션 버튼 */}

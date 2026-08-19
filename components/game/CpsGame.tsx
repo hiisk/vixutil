@@ -86,7 +86,7 @@ export default function CpsGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
       <button
         onClick={click}
         disabled={done}
-        className={`w-full h-64 sm:h-72 rounded-2xl text-white flex flex-col items-center justify-center select-none touch-none transition-colors ${
+        className={`w-full h-64 sm:h-72 rounded-lg text-white flex flex-col items-center justify-center select-none touch-none transition-colors ${
           done ? 'bg-slate-700' : running ? 'bg-gradient-to-br from-sky-500 to-indigo-600 active:scale-[0.99]' : 'bg-slate-800'
         }`}
       >

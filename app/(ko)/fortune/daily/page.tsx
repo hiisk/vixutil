@@ -52,13 +52,13 @@ export default function DailyFortunePage() {
         </div>
       </header>
 
-      <div className="max-w-xl mx-auto px-4 py-6">
-        <div className="text-center mb-6">
+      <div className="hero-band max-w-xl mx-auto px-4 py-6">
+        <div className="mb-6">
           <h1 className="page-h1">🔮 오늘의 종합운세</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">생년월일로 보는 오늘의 총운·연애·금전·직업·건강운</p>
         </div>
 
-        <form onSubmit={submit} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-6">
+        <form onSubmit={submit} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-6">
           <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">생년월일</label>
           <div className="grid grid-cols-3 gap-2">
             <input type="number" inputMode="numeric" placeholder="예) 1995" value={form.year}
@@ -72,7 +72,7 @@ export default function DailyFortunePage() {
               className="fld focus:border-violet-400" />
           </div>
           {error && <p className="text-xs text-rose-600 dark:text-rose-400 mt-2">{error}</p>}
-          <button type="submit" className="w-full mt-3 rounded-xl bg-sec text-sm font-black py-3.5 transition-all active:scale-[0.99] shadow-md shadow-violet-200">
+          <button type="submit" className="w-full mt-3 rounded-xl bg-sec text-sm font-black py-3.5 transition-all active:scale-[0.99] shadow-sm shadow-violet-200">
             오늘의 운세 보기
           </button>
         </form>
@@ -93,12 +93,12 @@ export default function DailyFortunePage() {
           </div>
         ) : (
           <div className="text-center py-10 text-slate-300 dark:text-slate-600">
-            <ToolIcon emoji="☝️" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+            <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">생년월일을 입력하면 오늘의 종합운세를 볼 수 있어요</p>
           </div>
         )}
 
-        <div className="mt-8 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+        <div className="mt-8 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
           <h2 className="text-sm font-black text-slate-800 dark:text-slate-100 mb-2">운세는 어떻게 정해지나요?</h2>
           <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
             생년월일과 오늘 날짜를 섞은 값으로 준비된 운세 문장 중 하나를 고르는 방식이에요.

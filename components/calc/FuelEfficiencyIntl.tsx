@@ -52,7 +52,7 @@ export default function FuelEfficiencyIntl({ lang }: { lang: CalcLang }) {
 
       <Card className="p-5">
         <p className="label-caps mb-3">{c.section}</p>
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 gap-x-4 gap-y-5">
           <div>
             <Label>{c.distance} ({distanceUnit})</Label>
             <input type="number" value={distance} onChange={e => setDistance(e.target.value)} className={inputCls} />
@@ -76,7 +76,7 @@ export default function FuelEfficiencyIntl({ lang }: { lang: CalcLang }) {
             <p className="stat-label">{c.result}</p>
             <p className="stat-value">{fmt(result.kmPerL)} km/L</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-4 gap-y-5">
             <SummaryCard label="L/100 km" value={fmt(100 / result.kmPerL)} />
             <SummaryCard label={c.mpgUs} value={fmt((result.kmPerL * L_PER_US_GAL) / KM_PER_MILE)} />
             <SummaryCard label={c.mpgUk} value={fmt((result.kmPerL * L_PER_UK_GAL) / KM_PER_MILE)} />

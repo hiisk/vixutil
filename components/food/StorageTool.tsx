@@ -29,7 +29,7 @@ export default function StorageTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
         value={query}
         onChange={e => setQuery(e.target.value)}
         placeholder={ui.searchPlaceholder}
-        className="w-full rounded-2xl border chip-off px-4 py-3 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none focus:border-cyan-400 transition-colors"
+        className="w-full rounded-lg border chip-off px-4 py-3 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none focus:border-cyan-400 transition-colors"
       />
 
       <div className="flex gap-2 overflow-x-auto pb-1 mt-3" style={{ scrollbarWidth: 'none' }}>
@@ -50,7 +50,7 @@ export default function StorageTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
 
       <div className="flex flex-col gap-2 mt-4">
         {items.map(s => (
-          <div key={s.name} className="rounded-2xl border chip-off px-4 py-3.5">
+          <div key={s.name} className="rounded-lg border chip-off px-4 py-3.5">
             <div className="flex items-center gap-3">
               <span className="hub-card-body">
                 <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{s.name}</span>

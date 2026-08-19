@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, CardHeader, Label, inputCls } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
 import { BRANCHES, RANKS, dischargeDate, serviceProgress, rankDates } from '@/lib/discharge';
 
 const fmt = (d: Date) => d.toISOString().split('T')[0];
@@ -9,31 +9,20 @@ const todayStr = () => new Date().toISOString().split('T')[0];
 export default function DischargePage() {
   const [enlist, setEnlist] = useState(todayStr());
   const [branch, setBranch] = useState('army');
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | {
+  const [result, setResult] = useState<null | {
     discharge: Date; months: number;
     total: number; done: number; left: number; percent: number;
     ranks: { rank: string; date: Date }[];
-  } = ((): null | {
-    discharge: Date; months: number;
-    total: number; done: number; left: number; percent: number;
-    ranks: { rank: string; date: Date }[];
-  } => {
+  }>(null);
+
+  function calculate() {
     const start = new Date(`${enlist}T00:00:00Z`);
-    if (Number.isNaN(start.getTime())) return null;
+    if (Number.isNaN(start.getTime())) return;
     const months = BRANCHES.find(b => b.key === branch)!.months;
     const discharge = dischargeDate(start, months);
     const p = serviceProgress(start, discharge, new Date());
-    return ({ discharge, months, ...p, ranks: rankDates(start, months) });
-  
-    return null;
-  })();
-
-
+    setResult({ discharge, months, ...p, ranks: rankDates(start, months) });
+  }
 
   return (
     <CalcShell
@@ -77,6 +66,7 @@ export default function DischargePage() {
                 ))}
               </select>
             </div>
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

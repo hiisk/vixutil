@@ -51,7 +51,7 @@ export default function HanjaPage({ idiom: i, lang }: { idiom: Idiom; lang: Form
   const glossOf = (n: number): string => idiomGloss(i, lang, n);
 
   const block = (label: string, body: string) => (
-    <div className="mt-3 rounded-2xl border chip-off px-4 py-3.5">
+    <div className="mt-3 rounded-lg border chip-off px-4 py-3.5">
       <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 mb-1.5">{label}</p>
       <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body}</p>
     </div>
@@ -94,7 +94,7 @@ export default function HanjaPage({ idiom: i, lang }: { idiom: Idiom; lang: Form
           <p className="text-xs font-bold text-slate-400 dark:text-slate-500 mb-3">
             {hanjaCategories(lang)[i.category] ?? i.category}
           </p>
-          <div className={`rounded-2xl bg-gradient-to-br ${s.grad} text-white px-6 py-7`}>
+          <div className={`rounded-lg bg-gradient-to-br ${s.grad} text-white px-6 py-7`}>
             <p className="text-4xl sm:text-5xl font-black tracking-[0.15em]">{i.hanja}</p>
             <p className="text-base font-bold text-white/85 mt-3">{i.reading}</p>
             <p className="text-xs text-white/65 mt-1">{i.pinyin}</p>
@@ -120,7 +120,7 @@ export default function HanjaPage({ idiom: i, lang }: { idiom: Idiom; lang: Form
         {block(ui.originTitle, t.origin)}
         {block(ui.usageTitle, t.usage)}
 
-        <div className="mt-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 overflow-hidden">
+        <div className="mt-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 overflow-hidden">
           {([[ui.hanjaLabel, i.hanja], [ui.simplified, i.simplified], [ui.reading, i.reading], [ui.pinyin, i.pinyin]] as const).map(([label, value]) => (
             <div key={label} className="flex items-baseline gap-3 px-4 py-2.5 border-b border-slate-200/70 dark:border-slate-700/70 last:border-0">
               <span className="w-20 shrink-0 text-xs font-bold text-slate-400 dark:text-slate-500">{label}</span>

@@ -50,7 +50,7 @@ export default function DepositIntl({ lang }: { lang: CalcLang }) {
             <Label>{c.amount}</Label>
             <input type="number" value={amount} onChange={e => setAmount(e.target.value)} className={inputCls} />
           </div>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-3 gap-x-4 gap-y-5">
             <div>
               <Label>{c.rate}</Label>
               <input type="number" step="0.01" value={rate} onChange={e => setRate(e.target.value)} className={inputCls} />

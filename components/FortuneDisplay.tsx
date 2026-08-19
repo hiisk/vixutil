@@ -88,7 +88,7 @@ export default function FortuneDisplay({ subjectId, subjectName, subjectEmoji, b
   return (
     <div className="space-y-4">
       {/* 헤더 카드 */}
-      <div className="bg-gradient-to-br from-violet-500 to-purple-700 rounded-2xl p-6 text-white text-center">
+      <div className="bg-gradient-to-br from-violet-500 to-purple-700 rounded-lg p-6 text-white text-center">
         <div className="flex justify-end mb-2">
           <ShareBtn name={subjectName} />
         </div>
@@ -105,7 +105,7 @@ export default function FortuneDisplay({ subjectId, subjectName, subjectEmoji, b
       {/* 도메인별 별점 */}
       <div className="grid grid-cols-2 gap-3">
         {DOMAINS.map(d => (
-          <div key={d.key} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
+          <div key={d.key} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
             <p className="text-sm text-slate-500 dark:text-slate-400 mb-1.5">{d.icon} {d.label}</p>
             <Stars n={f.stars[d.key]} />
           </div>
@@ -113,7 +113,7 @@ export default function FortuneDisplay({ subjectId, subjectName, subjectEmoji, b
       </div>
 
       {/* 종합운 */}
-      <div className="bg-white dark:bg-slate-900 border border-violet-100 dark:border-violet-900/40 rounded-2xl p-5">
+      <div className="bg-white dark:bg-slate-900 border border-violet-100 dark:border-violet-900/40 rounded-lg p-5">
         <p className="text-xs font-bold text-violet-600 uppercase tracking-wide mb-2">✨ 오늘의 총운</p>
         <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{f.overall}</p>
         <div className="mt-3 flex flex-wrap items-center gap-1.5">
@@ -126,14 +126,14 @@ export default function FortuneDisplay({ subjectId, subjectName, subjectEmoji, b
       </div>
 
       {/* 오늘의 조언 */}
-      <div className="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100 dark:border-amber-900/40 rounded-2xl p-5">
+      <div className="bg-amber-50 border border-amber-100 dark:border-amber-900/40 rounded-lg p-5">
         <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">💡 오늘의 조언</p>
         <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{f.advice}</p>
       </div>
 
       {/* 도메인 운세 */}
       {DOMAINS.map(d => (
-        <div key={d.key} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
+        <div key={d.key} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5">
           <p className="label-caps mb-1">{d.icon} {d.label}</p>
           <div className="mb-2"><Stars n={f.stars[d.key]} /></div>
           <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{f[d.key]}</p>
@@ -141,7 +141,7 @@ export default function FortuneDisplay({ subjectId, subjectName, subjectEmoji, b
       ))}
 
       {/* 행운 정보 */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5">
         <p className="label-caps mb-3">🍀 오늘의 행운</p>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div className="text-center">

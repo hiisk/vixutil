@@ -69,14 +69,14 @@ export default function BinauralTool({ lang = 'ko' }: { lang?: SoundLang } = {})
 
   return (
     <div>
-      <div className="rounded-2xl bg-gradient-to-br from-teal-500 to-indigo-600 px-6 py-10 text-center text-white">
+      <div className="rounded-lg bg-gradient-to-br from-teal-500 to-indigo-600 px-6 py-10 text-center text-white">
         <p className="text-6xl font-black tabular-nums">{beat}<span className="text-2xl ml-1">Hz</span></p>
         <p className="text-sm text-white/70 mt-2">
           {ui.channels(base, base + beat)}
         </p>
       </div>
 
-      <div className="rounded-2xl border border-amber-200 dark:border-amber-900/50 bg-amber-50 dark:bg-amber-950/30 px-4 py-3 mt-3 text-xs text-amber-800 dark:text-amber-200 text-center">
+      <div className="rounded-lg border border-amber-200 dark:border-amber-900/50 bg-amber-50 dark:bg-amber-950/30 px-4 py-3 mt-3 text-xs text-amber-800 dark:text-amber-200 text-center">
         {ui.headphones}
       </div>
 

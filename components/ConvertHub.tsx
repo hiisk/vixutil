@@ -55,15 +55,15 @@ export default function ConvertHub({ lang, faq }: { lang: ConvertLang; faq?: { q
       </header>
 
       <main className="relative max-w-2xl mx-auto px-4 py-10">
-        <div className="text-center mb-9">
-          <ToolIcon emoji="🔄" className="w-12 h-12 mx-auto mb-4 text-slate-800 dark:text-slate-100" />
+        <div className="hero-band ">
+          <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="🔄" className="h-6 w-6" /></span>
           <h1 className="page-h1">{ui.hubTitle}</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
             {ui.hubLead} · {CONVERT_TOOLS.length}
           </p>
         </div>
 
-        <div className="rounded-2xl border border-blue-100 dark:border-blue-900/40 bg-blue-50/70 dark:bg-blue-950/30 px-4 py-3.5 mb-7 text-xs text-blue-800 dark:text-blue-200 leading-relaxed text-center">
+        <div className="rounded-lg border border-blue-100 dark:border-blue-900/40 bg-blue-50/70 dark:bg-blue-950/30 px-4 py-3.5 mb-7 text-xs text-blue-800 dark:text-blue-200 leading-relaxed text-center">
           {ui.hubNotice}
         </div>
 

@@ -44,7 +44,7 @@ export default function DdayPage() {
         <Card className="p-5">
           <div className="flex flex-col gap-3">
             <div>
-              <Label>이름 (선택)</Label>
+              <Label>이름 <span className="dial-opt">선택</span></Label>
               <input type="text" value={label} onChange={e=>setLabel(e.target.value)}
                 placeholder="예: 수능, 입사일, 생일" className={inputCls}/>
             </div>
@@ -60,7 +60,7 @@ export default function DdayPage() {
 
         {result && (
           <>
-            <div className={`rounded-2xl p-7 text-center ${
+            <div className={`rounded-lg p-7 text-center ${
               result.diff>0 ? 'bg-blue-600' : result.diff===0 ? 'bg-emerald-600' : 'bg-slate-700'
             }`}>
               <p className="text-white/70 text-sm mb-2">{result.label}</p>
@@ -74,7 +74,7 @@ export default function DdayPage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-3 gap-x-4 gap-y-5">
               {[
                 {l:'주 단위', v:`${(Math.abs(result.diff)/7).toFixed(1)}주`},
                 {l:'월 단위', v:`${(Math.abs(result.diff)/30.44).toFixed(1)}개월`},
@@ -114,7 +114,7 @@ function TwoDate() {
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-x-4 gap-y-5">
         <div>
           <Label>시작일</Label>
           <input type="date" value={from} onChange={e=>setFrom(e.target.value)} className={inputCls}/>

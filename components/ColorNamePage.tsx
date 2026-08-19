@@ -125,7 +125,7 @@ export default function ColorNamePage({ color, lang, lead, nearby: nearbyProp, f
       <main className="relative max-w-2xl mx-auto px-4 py-8">
         {/* 큰 스와치가 먼저다 — 이름만으로는 어떤 색인지 아무도 모른다 */}
         <div
-          className="rounded-3xl px-5 py-10 text-center shadow-sm border border-black/5"
+          className="rounded-xl px-5 py-10 text-center shadow-sm border border-black/5"
           style={{ background: color.hex, color: onColor }}
           data-color-swatch
         >
@@ -136,12 +136,12 @@ export default function ColorNamePage({ color, lang, lead, nearby: nearbyProp, f
 
         {lead && <p className="mt-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{lead}</p>}
 
-        <section className="mt-6 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
-          <table className="w-full text-sm">
+        <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
+          <table className="kv-table w-full text-sm">
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
               {rows.map(r => (
                 <tr key={r.label}>
-                  <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400 w-2/5 bg-slate-50 dark:bg-slate-900/40">
+                  <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400 w-2/5">
                     {r.label}
                   </th>
                   <td className="cv px-4 py-3 font-black text-slate-800 dark:text-slate-100 tabular-nums">{r.value}</td>
@@ -162,7 +162,7 @@ export default function ColorNamePage({ color, lang, lead, nearby: nearbyProp, f
               { bg: '#ffffff', fg: color.hex, label: ui.onWhite, ratio: f.onWhite, pass: f.aaWhite },
               { bg: '#000000', fg: color.hex, label: ui.onBlack, ratio: f.onBlack, pass: f.aaBlack },
             ].map(c => (
-              <div key={c.label} className="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+              <div key={c.label} className="rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
                 <div className="px-4 py-5 text-center" style={{ background: c.bg, color: c.fg }}>
                   <span className="text-base font-black">Aa</span>
                 </div>

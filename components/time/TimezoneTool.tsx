@@ -63,7 +63,7 @@ export default function TimezoneTool({ lang = 'ko' }: { lang?: TimeLang } = {}) 
         {select(toId, setToId, ui.targetCity)}
       </div>
 
-      <div className="mt-4 rounded-2xl bg-slate-900 text-white px-6 py-8 text-center">
+      <div className="mt-4 rounded-lg bg-slate-900 text-white px-6 py-8 text-center">
         <p className="text-sm text-white/60 mb-1">{ui.atIs(from.city, `${String(hour).padStart(2, '0')}:00`)}</p>
         <p className="text-5xl font-black tabular-nums">
           {String(converted).padStart(2, '0')}:00
@@ -89,7 +89,7 @@ export default function TimezoneTool({ lang = 'ko' }: { lang?: TimeLang } = {}) 
       <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-5 mb-2">
         {ui.dayCompare(overlap.length)}
       </p>
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
         {rows.map(r => (
           <button
             key={r.here}

@@ -149,7 +149,7 @@ export default function PaletteTool({ lang = 'ko' }: { lang?: ImageLang } = {}) 
 
   return (
     <div>
-      <div className="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-950">
+      <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-950">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={objUrl}
@@ -163,7 +163,7 @@ export default function PaletteTool({ lang = 'ko' }: { lang?: ImageLang } = {}) 
       </p>
 
       {/* 대표 색 띠 — 비율만큼 폭을 준다 */}
-      <div className="mt-4 flex h-16 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700">
+      <div className="mt-4 flex h-16 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700">
         {swatches.map(s => (
           <button
             key={s.hex}

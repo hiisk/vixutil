@@ -1,12 +1,14 @@
 'use client';
 import { useMemo, useState } from 'react';
+import { sampleFromPlaceholder } from '@/lib/text-tools';
 import { dedupeLines, type DedupeOptions } from '@/lib/text-clean';
 import { CARD, CopyBox, InputArea, Stat, Toggle } from './ui';
 import { DEDUPE_UI, type TextLang } from '@/lib/text-ui-intl';
 
 export default function DedupeTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
   const ui = DEDUPE_UI[lang];
-  const [text, setText] = useState('');
+  /* 열자마자 한 벌이 돌아가게 — 플레이스홀더가 예시일 때만 쓴다(lib/text-tools.ts) */
+  const [text, setText] = useState(() => sampleFromPlaceholder(ui.placeholder));
   const [options, setOptions] = useState<DedupeOptions>({
     dedupe: true, ignoreCase: false, ignoreSpace: true, removeBlank: true, sort: 'none', numbered: false,
   });

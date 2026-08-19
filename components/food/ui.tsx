@@ -2,7 +2,7 @@
 import { useCallback, useState } from 'react';
 
 /** 계량·요리 도구가 함께 쓰는 조각들 */
-export const CARD = 'rounded-2xl border chip-off p-5';
+export const CARD = 'rounded-lg border chip-off p-5';
 
 export function useCopy() {
   const [copied, setCopied] = useState(false);
@@ -48,7 +48,7 @@ export function NumberField({
 
 export function Result({ children, sub }: { children: React.ReactNode; sub?: string }) {
   return (
-    <div className="mt-4 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 text-white px-6 py-8 text-center">
+    <div className="mt-4 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 text-white px-6 py-8 text-center">
       <div className="text-3xl sm:text-4xl font-black">{children}</div>
       {sub && <p className="text-sm text-white/80 mt-2">{sub}</p>}
     </div>

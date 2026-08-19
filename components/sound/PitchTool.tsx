@@ -77,7 +77,7 @@ export default function PitchTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
 
   return (
     <div>
-      <div className="rounded-2xl bg-slate-900 px-6 py-10 text-center">
+      <div className="rounded-lg bg-slate-900 px-6 py-10 text-center">
         {question ? (
           <>
             <p className="text-sm text-white/60 mb-3">{ui.askInterval}</p>
@@ -140,7 +140,7 @@ export default function PitchTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
 
       <button
         onClick={next}
-        className="mt-3 w-full rounded-xl bg-sec font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
+        className="mt-3 w-full rounded-xl bg-sec font-bold py-3.5 text-sm shadow-sm hover:opacity-90 transition-opacity"
       >
         {question ? ui.next : ui.start}
       </button>

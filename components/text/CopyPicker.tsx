@@ -102,7 +102,7 @@ export default function CopyPicker({
           value={query}
           onChange={e => setQuery(e.target.value)}
           placeholder={ui.searchPlaceholder}
-          className="w-full rounded-2xl border chip-off px-4 py-3 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none focus:border-indigo-400 transition-colors mb-4"
+          className="w-full rounded-lg border chip-off px-4 py-3 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none focus:border-indigo-400 transition-colors mb-4"
         />
       )}
 

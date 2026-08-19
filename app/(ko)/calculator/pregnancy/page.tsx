@@ -166,7 +166,7 @@ export default function PregnancyPage() {
         {result && (
           <>
             {/* 핵심 결과 */}
-            <div className="rounded-2xl border border-rose-200 dark:border-rose-900/50 bg-rose-50 dark:bg-rose-950/30 p-5">
+            <div className="rounded-lg border border-rose-200 dark:border-rose-900/50 bg-rose-50 dark:bg-rose-950/30 p-5">
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <p className="text-xs text-rose-400 mb-1">출산 예정일</p>

@@ -121,16 +121,16 @@ export default function SpeakerTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
   return (
     <div>
       {/* 좌우 스피커 시각화 — 어느 쪽이 울려야 하는지를 눈으로 먼저 알려준다 */}
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-6">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-6">
         <div className="flex items-center justify-center gap-4 sm:gap-8">
           {(['left', 'right'] as const).map(s => {
             const on = mode !== null && (side === s || side === 'both');
             return (
               <div key={s} className="flex flex-col items-center gap-2">
                 <div
-                  className={`w-24 h-24 sm:w-28 sm:h-28 rounded-2xl flex items-center justify-center text-4xl transition-all duration-200 border-2 ${
+                  className={`w-24 h-24 sm:w-28 sm:h-28 rounded-lg flex items-center justify-center text-4xl transition-all duration-200 border-2 ${
                     on
-                      ? 'bg-gradient-to-br from-emerald-500 to-teal-600 border-emerald-400 text-white scale-105 shadow-lg animate-pulse'
+                      ? 'bg-gradient-to-br from-emerald-500 to-teal-600 border-emerald-400 text-white scale-105 shadow-sm animate-pulse'
                       : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-300 dark:text-slate-600'
                   }`}
                 >
@@ -171,7 +171,7 @@ export default function SpeakerTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
         ))}
       </div>
 
-      <div className="mt-5 rounded-2xl border chip-off p-5">
+      <div className="mt-5 rounded-lg border chip-off p-5">
         <div className="flex items-baseline justify-between mb-2">
           <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.freq}</span>
           <span className="text-lg font-black text-emerald-600 font-mono">
@@ -224,7 +224,7 @@ export default function SpeakerTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
       </div>
 
       {/* 스스로 체크하는 항목 — 브라우저가 대신 판정할 수 없는 부분이다 */}
-      <div className="mt-4 rounded-2xl border chip-off p-5">
+      <div className="mt-4 rounded-lg border chip-off p-5">
         <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3">{ui.checkTitle}</p>
         <div className="flex flex-col gap-2">
           {[

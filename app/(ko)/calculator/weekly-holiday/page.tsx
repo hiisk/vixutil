@@ -1,15 +1,15 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 
 /*
- * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
- * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
- * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
- * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
- * 골라 둔 예시를 그대로 올렸다.
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 빈 칸으로 열면 무엇을
+ * 보여 주는 계산기인지 눌러 보기 전에는 모른다 — 값을 미리 넣어 두면 「계산하기」
+ * 한 번에 한 벌이 통째로 보이고, 사람은 그 위에 자기 숫자를 덮어쓴다.
+ * 값은 내가 지어내지 않고 저자가 이미 골라 둔 예시를 그대로 올렸다.
  */
 import CalcShell, {
-  Card, Label, inputCls, SummaryGrid, SummaryCard,
+  Card, Label, inputCls, PrimaryBtn, SummaryGrid, SummaryCard,
 } from '@/components/CalcShell';
 import { weeklyHolidayHours } from '@/lib/statutory-hours';
 
@@ -28,17 +28,13 @@ export default function WeeklyHolidayPage() {
   const [hourlyWage, setHourlyWage] = useState('10320');
   const [dailyHours, setDailyHours] = useState('8');
   const [workDays, setWorkDays] = useState('5');
+  const [result, setResult] = useState<Result | null>(null);
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: Result | null = ((): Result | null => {
+  function calculate() {
     const wage = Number(hourlyWage);
     const hours = Number(dailyHours);
     const days = Number(workDays);
-    if (!wage || !hours || !days) return null;
+    if (!wage || !hours || !days) return;
 
     const weeklyHours = hours * days;
     const eligible = weeklyHours >= 15;
@@ -51,11 +47,8 @@ export default function WeeklyHolidayPage() {
     const monthlyPay = weeklyPay * (365 / 12 / 7);
     const monthlyHolidayTotal = weeklyHolidayPay * (365 / 12 / 7);
 
-    return ({ weeklyHours, eligible, weeklyHolidayPay, weeklyPay, monthlyPay, monthlyHolidayTotal });
-  
-    return null;
-  })();
-
+    setResult({ weeklyHours, eligible, weeklyHolidayPay, weeklyPay, monthlyPay, monthlyHolidayTotal });
+  }
 
   return (
     <CalcShell
@@ -97,15 +90,9 @@ export default function WeeklyHolidayPage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>시급 (원)</Label>
-              <input
-                type="number"
-                value={hourlyWage}
-                onChange={e => setHourlyWage(e.target.value)}
-                placeholder="예: 10,320"
-                className={inputCls}
-              />
+              <MoneyInput value={hourlyWage} onChange={setHourlyWage} placeholder="예: 10,320" />
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>1일 근무시간 (시간)</Label>
                 <input
@@ -128,12 +115,15 @@ export default function WeeklyHolidayPage() {
               </div>
             </div>
           </div>
+          <div className="mt-4">
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
+          </div>
         </Card>
 
         {result && (
           <>
             {!result.eligible && (
-              <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 rounded-2xl p-4 text-sm text-amber-700 dark:text-amber-300 font-semibold">
+              <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 rounded-lg p-4 text-sm text-amber-700 dark:text-amber-300 font-semibold">
                 ⚠️ 주 {result.weeklyHours}시간 근무 — 주 15시간 미만은 주휴수당 미발생
               </div>
             )}

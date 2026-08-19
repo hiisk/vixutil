@@ -99,7 +99,7 @@ export default function TonePlayer({
         type="button"
         onClick={playing ? stop : start}
         aria-pressed={playing}
-        className={`w-full max-w-xs h-14 rounded-2xl font-black text-white text-base shadow-lg transition-all active:scale-95 ${
+        className={`w-full max-w-xs h-14 rounded-lg font-black text-white text-base shadow-sm transition-all active:scale-95 ${
           playing
             ? 'bg-gradient-to-br from-rose-500 to-red-600'
             : 'bg-gradient-to-br from-emerald-500 to-teal-600 hover:-translate-y-0.5'

@@ -107,7 +107,7 @@ export default function SleepPage() {
 
         <div className="flex flex-col gap-2">
           {times.map(t => (
-            <div key={t.cycles} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 flex items-center justify-between">
+            <div key={t.cycles} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4 flex items-center justify-between">
               <div>
                 <p className="font-bold text-slate-800 dark:text-slate-100">
                   {mode === 'wakeup' ? `${t.bedtime}에 취침` : `${t.wakeup}에 기상`}

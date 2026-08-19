@@ -223,7 +223,7 @@ export default function MatchFortune({ kind, lang }: { kind: MatchKind; lang: In
       </header>
 
       <div className="max-w-xl mx-auto px-4 py-6">
-        <div className="text-center mb-6">
+        <div className="mb-6">
           <div className="text-5xl mb-2">{ICONS[kind]}</div>
           <div className="hero-band">
             <PageHero title={TITLES[kind][lang]} desc={LEADS[kind][lang]} />
@@ -237,7 +237,7 @@ export default function MatchFortune({ kind, lang }: { kind: MatchKind; lang: In
 
         {result ? (
           <div className="space-y-4">
-            <div className={`rounded-3xl bg-gradient-to-br ${scoreColor(result.score)} text-white p-8 text-center`}>
+            <div className={`rounded-xl bg-gradient-to-br ${scoreColor(result.score)} text-white p-8 text-center`}>
               <div className="text-5xl mb-2">{result.emoji}</div>
               <div className="flex items-center justify-center gap-2 text-sm font-bold text-white/85 mb-2">
                 <span>{options[a!].emoji} {options[a!].name}</span>
@@ -255,7 +255,7 @@ export default function MatchFortune({ kind, lang }: { kind: MatchKind; lang: In
               { label: ui.love, body: result.love, accent: 'text-rose-600' },
               { label: ui.advice, body: result.advice, accent: 'text-amber-600' },
             ].map(sec => (
-              <div key={sec.label} className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-5">
+              <div key={sec.label} className="rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-5">
                 <div className={`text-xs font-black ${sec.accent} mb-2`}>{sec.label}</div>
                 <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{sec.body}</p>
               </div>
@@ -273,7 +273,7 @@ export default function MatchFortune({ kind, lang }: { kind: MatchKind; lang: In
           </div>
         ) : (
           <div className="text-center py-12 text-slate-300 dark:text-slate-600">
-            <ToolIcon emoji="☝️" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+            <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">{ui.pickBoth}</p>
           </div>
         )}

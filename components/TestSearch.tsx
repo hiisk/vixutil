@@ -10,7 +10,7 @@ const CATEGORIES = ['성격', '연애·결혼', '직장·커리어', '금융·�
 function TestCard({ t }: { t: CardItem }) {
   return (
     <Link href={`/test/${t.slug}`}
-      className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden hover:border-violet-300 hover:shadow-md transition-all">
+      className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden hover:border-violet-300 hover:border-slate-300 dark:hover:border-slate-700 transition-all">
       {/*
         예전에는 여기서 OG 이미지(1200×630 PNG, 개당 ~90KB)를 썸네일로 썼다.
         200px로 줄여 보여주니 이미지 안의 글씨는 어차피 안 읽히고, 제목·설명은
@@ -60,7 +60,7 @@ export default function TestSearch({ tests }: { tests: CardItem[] }) {
           value={query}
           onChange={e => setQuery(e.target.value)}
           placeholder="테스트 검색..."
-          className="w-full border border-slate-200 dark:border-slate-700 rounded-2xl px-4 py-3 pl-10 text-sm text-slate-700 dark:text-slate-200 placeholder-slate-400 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all"
+          className="w-full border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-3 pl-10 text-sm text-slate-700 dark:text-slate-200 placeholder-slate-400 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all"
         />
         {query && (
           <button

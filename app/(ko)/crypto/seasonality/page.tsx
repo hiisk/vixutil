@@ -50,9 +50,9 @@ export default function SeasonalityPage() {
         </div>
       </header>
 
-      <div className="max-w-3xl mx-auto px-4 py-8">
-        <div className="text-center mb-6">
-          <ToolIcon emoji="🗓️" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+      <div className="hero-band max-w-3xl mx-auto px-4 py-8">
+        <div className="mb-6">
+          <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="🗓️" className="h-6 w-6" /></span>
           <h1 className="page-h1">Monthly Seasonality</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">
             Shown with the <b className="text-slate-700 dark:text-slate-200">sample size</b> that usually gets left out
@@ -67,7 +67,7 @@ export default function SeasonalityPage() {
           아래는 서버에서 정적으로 렌더된다. 위 보드는 브라우저에서 전체 이력을 받아
           계산하므로 자바스크립트를 실행하지 않는 크롤러에겐 빈 껍데기로 보인다.
         */}
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
           <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">Nine Octobers is nine observations</h2>
           <p className="mb-3">
             This page groups a coin&apos;s daily closes into calendar months and reports the median return for each, along with how many years
@@ -88,7 +88,7 @@ export default function SeasonalityPage() {
           </p>
         </section>
 
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-4 mb-6 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-4 mb-6 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
           <p>
             ⚠️ Not investment advice. Monthly groupings describe a handful of past observations per month and carry no forecast. Returns are
             computed from Binance daily closes and exclude any period before the coin listed there. All decisions and risks are your own.

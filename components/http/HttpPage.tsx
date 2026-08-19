@@ -95,24 +95,22 @@ export default function HttpPage({ slug, lang }: { slug: string; lang: Lang }) {
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl mb-3 shadow-lg bg-sec-soft">
-            <ToolIcon emoji={HTTP_ICON} className="w-6 h-6" />
-          </div>
+          <span className="bg-sec-soft inline-flex h-10 w-10 items-center justify-center rounded-lg"><ToolIcon emoji={HTTP_ICON} className="h-5 w-5" /></span>
           <div className="hero-band">
             <PageHero title={x.name} desc={kind} />
           </div>
         </div>
 
-        <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 px-4 py-4 mb-6">
+        <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-4 mb-6">
           {desc}
         </p>
 
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
-          <table className="w-full text-sm">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
+          <table className="kv-table w-full text-sm">
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
               {rows.map(r => (
                 <tr key={r.label}>
-                  <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400 w-2/5 bg-slate-50 dark:bg-slate-900/40">
+                  <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400 w-2/5">
                     {r.label}
                   </th>
                   <td className="px-4 py-3 font-black text-slate-800 dark:text-slate-100 break-all font-mono text-[13px]">{r.value}</td>
@@ -122,7 +120,7 @@ export default function HttpPage({ slug, lang }: { slug: string; lang: Lang }) {
           </table>
         </section>
 
-        <p className="mt-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed rounded-2xl border chip-off px-4 py-3">
+        <p className="mt-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed rounded-lg border chip-off px-4 py-3">
           {f.kind === 'status' ? ui.classNote[f.klass!] : ui.sideNote[f.side!]}
         </p>
 

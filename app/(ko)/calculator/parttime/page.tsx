@@ -1,14 +1,14 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 
 /*
- * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
- * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
- * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
- * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
- * 골라 둔 예시를 그대로 올렸다.
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 빈 칸으로 열면 무엇을
+ * 보여 주는 계산기인지 눌러 보기 전에는 모른다 — 값을 미리 넣어 두면 「계산하기」
+ * 한 번에 한 벌이 통째로 보이고, 사람은 그 위에 자기 숫자를 덮어쓴다.
+ * 값은 내가 지어내지 않고 저자가 이미 골라 둔 예시를 그대로 올렸다.
  */
-import CalcShell, { Card, Label, inputCls, SummaryCard } from '@/components/CalcShell';
+import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
 import { monthlyHours as statutoryMonthlyHours, weeklyHolidayHours } from '@/lib/statutory-hours';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
@@ -17,23 +17,16 @@ export default function ParttimePage() {
   const [hourly, setHourly] = useState('10320');
   const [dailyHours, setDailyHours] = useState('4');
   const [weekDays, setWeekDays] = useState('5');
+  const [result, setResult] = useState<null | {
+    weeklyHours: number; hasHoliday: boolean; holidayPay: number;
+    daily: number; weeklyBase: number; weeklyTotal: number; monthly: number;
+  }>(null);
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | {
-    weeklyHours: number; hasHoliday: boolean; holidayPay: number;
-    daily: number; weeklyBase: number; weeklyTotal: number; monthly: number;
-  } = ((): null | {
-    weeklyHours: number; hasHoliday: boolean; holidayPay: number;
-    daily: number; weeklyBase: number; weeklyTotal: number; monthly: number;
-  } => {
+  function calculate() {
     const h = Number(hourly);
     const dh = Number(dailyHours);
     const wd = Number(weekDays);
-    if (h <= 0 || dh <= 0) return null;
+    if (h <= 0 || dh <= 0) return;
 
     const weeklyHours = dh * wd;
     const hasHoliday = weeklyHours >= 15;
@@ -43,7 +36,7 @@ export default function ParttimePage() {
     const weeklyTotal = weeklyBase + holidayPay;
     const monthlyHours = statutoryMonthlyHours(weeklyHours);
 
-    return ({
+    setResult({
       weeklyHours,
       hasHoliday,
       holidayPay,
@@ -52,10 +45,7 @@ export default function ParttimePage() {
       weeklyTotal,
       monthly: Math.round(h * monthlyHours),
     });
-  
-    return null;
-  })();
-
+  }
 
   return (
     <CalcShell
@@ -90,10 +80,9 @@ export default function ParttimePage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>시급 (원)</Label>
-              <input type="number" value={hourly} onChange={e => setHourly(e.target.value)}
-                placeholder="예: 10,320" className={inputCls} min="0" />
+              <MoneyInput value={hourly} onChange={setHourly} placeholder="예: 10,320" />
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>일 근무시간</Label>
                 <select value={dailyHours} onChange={e => setDailyHours(e.target.value)} className={inputCls}>
@@ -111,12 +100,13 @@ export default function ParttimePage() {
                 </select>
               </div>
             </div>
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 
         {result && (
           <>
-            <div className={`rounded-2xl p-5 ${result.hasHoliday ? 'bg-blue-600' : 'bg-slate-700'}`}>
+            <div className={`rounded-lg p-5 ${result.hasHoliday ? 'bg-blue-600' : 'bg-slate-700'}`}>
               <p className="text-blue-200 text-xs mb-1">월 급여 (주휴 {result.hasHoliday ? '포함' : '미포함'})</p>
               <p className="text-white text-3xl font-black">{fmt(result.monthly)}원</p>
               {result.hasHoliday
@@ -124,7 +114,7 @@ export default function ParttimePage() {
                 : <p className="text-red-300 text-sm mt-1">주 {result.weeklyHours}h · 주 15h 미만으로 주휴수당 미발생</p>
               }
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <SummaryCard label="일급" value={`${fmt(result.daily)}원`} />
               <SummaryCard label="주급 (기본)" value={`${fmt(result.weeklyBase)}원`} />
               {result.hasHoliday && (

@@ -118,7 +118,7 @@ export default function RouletteWheel({ lang = 'ko' }: { lang?: RandomLang }) {
 
       {/* 결과 */}
       {winner && (
-        <div className="wc-pop text-center rounded-2xl bg-gradient-to-br from-rose-500 to-pink-600 text-white py-5 mb-6">
+        <div className="wc-pop text-center rounded-lg bg-gradient-to-br from-rose-500 to-pink-600 text-white py-5 mb-6">
           <div className="text-xs font-bold text-rose-100 mb-1">{ui.winner}</div>
           <div className="text-3xl font-black">{winner}</div>
         </div>
@@ -127,7 +127,7 @@ export default function RouletteWheel({ lang = 'ko' }: { lang?: RandomLang }) {
       <button
         onClick={spin}
         disabled={spinning || !filled}
-        className="w-full bg-sec font-black text-lg rounded-2xl py-4 mb-6 shadow-lg shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all disabled:opacity-50 disabled:hover:translate-y-0"
+        className="w-full bg-sec font-black text-lg rounded-lg py-4 mb-6 shadow-sm shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all disabled:opacity-50 disabled:hover:translate-y-0"
       >
         {spinning ? ui.spinning : ui.spin}
       </button>

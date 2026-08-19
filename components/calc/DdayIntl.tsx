@@ -48,7 +48,7 @@ export default function DdayIntl({ lang }: { lang: CalcLang }) {
     <div className="flex flex-col gap-4">
       <Card className="p-5">
         <p className="label-caps mb-3">{c.section}</p>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-5">
           <div>
             <Label>{c.target}</Label>
             <input type="date" value={target} onChange={e => setTarget(e.target.value)} className={inputCls} />
@@ -74,7 +74,7 @@ export default function DdayIntl({ lang }: { lang: CalcLang }) {
               </p>
             )}
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-4 gap-y-5">
             <SummaryCard label={c.totalDays} value={fmt(Math.abs(result.diff))} />
             <SummaryCard label={c.weeks} value={fmt(Math.floor(Math.abs(result.diff) / 7))} />
             <SummaryCard label={c.workdays} value={fmt(result.weekdays)} variant="green" />

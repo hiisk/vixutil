@@ -20,7 +20,7 @@ export default function DevUuidIntl({ lang }: { lang: CalcLang }) {
   return (
     <div className="flex flex-col gap-4">
       <Card className="p-5">
-        <div className="grid grid-cols-2 gap-3 items-end">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-5 items-end">
           <div>
             <Label>{c.count}</Label>
             <input type="number" min={1} max={100} value={count} onChange={e => setCount(e.target.value)} className={inputCls} />

@@ -87,7 +87,7 @@ export default function AvgPriceIntl({ lang }: { lang: CalcLang }) {
             </p>
           </div>
           {result.pl !== undefined && (
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <SummaryCard label={c.marketValue} value={fmt(result.value!)} />
               <SummaryCard
                 label={c.unrealised}

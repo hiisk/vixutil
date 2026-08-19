@@ -402,27 +402,27 @@ export default function SnapShell<T>({
       </header>
 
       <div className="max-w-xl mx-auto px-4 py-8">
-        <div className="text-center mb-6">
+        <div className="mb-6">
           <div className="text-5xl mb-3">{icon}</div>
           <div className="hero-band">
             <PageHero title={title} desc={lead} />
           </div>
         </div>
 
-        <div className={`${theme.notice} rounded-2xl p-4 mb-6 text-xs leading-relaxed`}>
+        <div className={`${theme.notice} rounded-lg p-4 mb-6 text-xs leading-relaxed`}>
           <p className="font-bold mb-1">{ui.privacyTitle}</p>
           <p>{privacyBody}</p>
         </div>
 
         {modelState === 'loading' && (
-          <div role="status" aria-live="polite" className="w-full border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl py-16 flex flex-col items-center gap-3 bg-white dark:bg-slate-900">
+          <div role="status" aria-live="polite" className="w-full border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-lg py-16 flex flex-col items-center gap-3 bg-white dark:bg-slate-900">
             <div aria-hidden="true" className={`w-8 h-8 border-4 border-slate-200 dark:border-slate-700 ${theme.spinner} rounded-full animate-spin`} />
             <span className="text-sm font-bold text-slate-500 dark:text-slate-400">{ui.loadingModel}</span>
           </div>
         )}
 
         {modelState === 'error' && (
-          <div role="alert" className="w-full border-2 border-dashed border-rose-200 dark:border-rose-900/50 rounded-2xl py-12 px-4 flex flex-col items-center gap-2 bg-rose-50 dark:bg-rose-950/30 text-center">
+          <div role="alert" className="w-full border-2 border-dashed border-rose-200 dark:border-rose-900/50 rounded-lg py-12 px-4 flex flex-col items-center gap-2 bg-rose-50 dark:bg-rose-950/30 text-center">
             <ToolIcon emoji="⚠️" className="w-8 h-8 text-slate-800 dark:text-slate-100" />
             <span className="text-sm font-bold text-rose-600">{ui.modelFailed}</span>
             <span className="text-xs text-rose-400">{ui.modelFailedHint}</span>
@@ -433,7 +433,7 @@ export default function SnapShell<T>({
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className={`w-full border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-2xl py-16 flex flex-col items-center gap-3 bg-white dark:bg-slate-900 ${theme.dropHover} transition-colors`}
+            className={`w-full border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg py-16 flex flex-col items-center gap-3 bg-white dark:bg-slate-900 ${theme.dropHover} transition-colors`}
           >
             <ToolIcon emoji="📷" className="w-9 h-9 text-slate-800 dark:text-slate-100" />
             <span className="text-sm font-bold text-slate-600 dark:text-slate-300">{ui.pickPhoto}</span>
@@ -445,7 +445,7 @@ export default function SnapShell<T>({
 
         {preview && (
           <div className="mb-6">
-            <div className="relative rounded-2xl overflow-hidden border chip-off aspect-square max-w-xs mx-auto">
+            <div className="relative rounded-lg overflow-hidden border chip-off aspect-square max-w-xs mx-auto">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={preview} alt={ui.previewAlt} className="w-full h-full object-cover" />
               {analyzing && (
@@ -465,7 +465,7 @@ export default function SnapShell<T>({
         )}
 
         {faceError && !analyzing && (
-          <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 rounded-2xl p-5 mb-6 text-center">
+          <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 rounded-lg p-5 mb-6 text-center">
             <p className="text-sm font-bold text-amber-700 dark:text-amber-300 mb-3">🙈 {faceError}</p>
             <button type="button" onClick={() => fileInputRef.current?.click()}
               className="text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2.5 transition-colors">
@@ -481,7 +481,7 @@ export default function SnapShell<T>({
             {/* eslint-disable-next-line react-hooks/refs */}
             {children(result, reset)}
             <button type="button" onClick={reset}
-              className={`w-full py-3.5 rounded-2xl font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 ${theme.resetHover} transition-colors`}>
+              className={`w-full py-3.5 rounded-lg font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 ${theme.resetHover} transition-colors`}>
               {ui.again}
             </button>
             <p className="text-center text-xs text-slate-300 dark:text-slate-600 pt-2">{disclaimer}</p>

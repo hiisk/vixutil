@@ -49,7 +49,7 @@ export default function RetirementIntl({ lang }: { lang: CalcLang }) {
       <Card className="p-5">
         <p className="label-caps mb-3">{c.section}</p>
         <div className="flex flex-col gap-3">
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div>
               <Label>{c.currentAge}</Label>
               <input type="number" value={currentAge} onChange={e => setCurrentAge(e.target.value)} className={inputCls} />
@@ -59,7 +59,7 @@ export default function RetirementIntl({ lang }: { lang: CalcLang }) {
               <input type="number" value={retireAge} onChange={e => setRetireAge(e.target.value)} className={inputCls} />
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div>
               <Label>{c.savings}</Label>
               <input type="number" value={savings} onChange={e => setSavings(e.target.value)} className={inputCls} />
@@ -84,14 +84,14 @@ export default function RetirementIntl({ lang }: { lang: CalcLang }) {
             <p className="stat-label">{c.total}</p>
             <p className="stat-value">{fmt(result.total)}</p>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <SummaryCard label={c.paidIn} value={fmt(result.paidIn)} />
             <SummaryCard label={c.growth} value={`+${fmt(result.total - result.paidIn)}`} variant="green" />
           </div>
 
           <Card className="p-5">
             <p className="label-caps mb-3">{c.payout}</p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-4 gap-y-5">
               {[20, 25, 30].map(y => (
                 <SummaryCard key={y} label={`${y} ${c.years}`} value={fmt(result.total / (y * 12))} />
               ))}

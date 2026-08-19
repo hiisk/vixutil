@@ -87,7 +87,7 @@ export default function WatermarkTool({ lang = 'ko' }: { lang?: ImageLang } = {}
 
   return (
     <div>
-      <div className="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-950 flex items-center justify-center min-h-[14rem]">
+      <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-950 flex items-center justify-center min-h-[14rem]">
         {/* url이 빌 때 <img>를 그리면 브라우저가 페이지를 다시 받는다 — 첫 렌더에는 아예 안 그린다 */}
         {url && (
           <>
@@ -97,7 +97,7 @@ export default function WatermarkTool({ lang = 'ko' }: { lang?: ImageLang } = {}
         )}
       </div>
 
-      <div className="mt-4 rounded-2xl border chip-off p-5">
+      <div className="mt-4 rounded-lg border chip-off p-5">
         <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">{ui.markText}</label>
         <input
           value={text}

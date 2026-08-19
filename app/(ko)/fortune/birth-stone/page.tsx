@@ -40,9 +40,9 @@ export default function BirthStonePage() {
         </div>
       </header>
 
-      <div className="max-w-xl mx-auto px-4 py-6">
-        <div className="text-center mb-6">
-          <ToolIcon emoji="💎" className="w-12 h-12 mx-auto mb-2 text-slate-800 dark:text-slate-100" />
+      <div className="hero-band max-w-xl mx-auto px-4 py-6">
+        <div className="mb-6">
+          <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="💎" className="h-6 w-6" /></span>
           <h1 className="page-h1">탄생석·탄생화</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">태어난 달의 보석과 꽃, 그리고 그 의미를 확인하세요</p>
         </div>
@@ -66,10 +66,10 @@ export default function BirthStonePage() {
           <div id="bs-result" className="bs-pop">
             {/* 보석 히어로 */}
             <div
-              className="relative rounded-3xl text-white p-8 mb-4 text-center overflow-hidden"
+              className="relative rounded-xl text-white p-8 mb-4 text-center overflow-hidden"
               style={{ background: `linear-gradient(135deg, ${result.color}, ${result.color}bb)` }}
             >
-              <div className="text-7xl mb-2 drop-shadow-lg">{result.emoji}</div>
+              <div className="text-7xl mb-2 drop-shadow-sm">{result.emoji}</div>
               <div className="text-xs font-bold text-white/85">{result.month}월의 탄생석 · {result.stoneEn}</div>
               <div className="text-3xl font-black drop-shadow">{result.stone}</div>
               <div className="inline-block mt-3 text-xs font-bold bg-white/25 rounded-full px-4 py-1.5">
@@ -78,7 +78,7 @@ export default function BirthStonePage() {
             </div>
 
             {/* 탄생화 */}
-            <div className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-5 mb-4">
+            <div className="rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-5 mb-4">
               <div className="flex items-center gap-3">
                 <ToolIcon emoji="🌸" className="w-9 h-9 text-slate-800 dark:text-slate-100" />
                 <div>
@@ -90,7 +90,7 @@ export default function BirthStonePage() {
             </div>
 
             {/* 성향 */}
-            <div className="rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 p-5 mb-6">
+            <div className="rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 p-5 mb-6">
               <div className="text-xs font-black text-fuchsia-600 mb-2">{result.month}월에 태어난 당신은</div>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.blurb}</p>
             </div>

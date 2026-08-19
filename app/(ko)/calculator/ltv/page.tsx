@@ -1,14 +1,14 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 
 /*
- * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
- * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
- * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
- * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
- * 골라 둔 예시를 그대로 올렸다.
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 빈 칸으로 열면 무엇을
+ * 보여 주는 계산기인지 눌러 보기 전에는 모른다 — 값을 미리 넣어 두면 「계산하기」
+ * 한 번에 한 벌이 통째로 보이고, 사람은 그 위에 자기 숫자를 덮어쓴다.
+ * 값은 내가 지어내지 않고 저자가 이미 골라 둔 예시를 그대로 올렸다.
  */
-import CalcShell, { Card, Label, inputCls, SummaryCard } from '@/components/CalcShell';
+import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
 
@@ -36,30 +36,21 @@ export default function LtvPage() {
   const [loanAmount, setLoanAmount] = useState('300000000');
   const [zone, setZone] = useState<Zone>('metro');
   const [owner, setOwner] = useState<Owner>('none');
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | {
+  const [result, setResult] = useState<null | {
     ltv: number; limit: number; maxLoan: number; addable: number;
-  } = ((): null | {
-    ltv: number; limit: number; maxLoan: number; addable: number;
-  } => {
+  }>(null);
+
+  function calculate() {
     const pv = Number(propertyValue);
     const la = Number(loanAmount);
-    if (pv <= 0) return null;
+    if (pv <= 0) return;
 
     const ltv = la > 0 ? (la / pv) * 100 : 0;
     const limit = LTV_LIMIT[zone][owner];
     const maxLoan = pv * limit / 100;
     const addable = Math.max(0, maxLoan - la);
-    return ({ ltv, limit, maxLoan, addable });
-  
-    return null;
-  })();
-
-
+    setResult({ ltv, limit, maxLoan, addable });
+  }
 
   return (
     <CalcShell
@@ -99,13 +90,11 @@ export default function LtvPage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>부동산 시세 / 감정가 (원)</Label>
-              <input type="number" value={propertyValue} onChange={e => setPropertyValue(e.target.value)}
-                placeholder="예: 500,000,000" className={inputCls} min="0" />
+              <MoneyInput value={propertyValue} onChange={setPropertyValue} placeholder="예: 500,000,000" />
             </div>
             <div>
               <Label>대출 금액 (원)</Label>
-              <input type="number" value={loanAmount} onChange={e => setLoanAmount(e.target.value)}
-                placeholder="예: 300,000,000" className={inputCls} min="0" />
+              <MoneyInput value={loanAmount} onChange={setLoanAmount} placeholder="예: 300,000,000" />
             </div>
             <div>
               <Label>지역 구분</Label>
@@ -123,12 +112,13 @@ export default function LtvPage() {
                 <option value="multi">다주택자</option>
               </select>
             </div>
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 
         {result && (
           <>
-            <div className={`rounded-2xl p-5 ${result.ltv <= result.limit ? 'bg-blue-600' : 'bg-rose-500'}`}>
+            <div className={`rounded-lg p-5 ${result.ltv <= result.limit ? 'bg-blue-600' : 'bg-rose-500'}`}>
               <p className="text-white/70 text-xs mb-1">현재 LTV</p>
               <p className="text-white text-3xl font-black">{result.ltv.toFixed(1)}%</p>
               <p className="text-white/70 text-sm mt-1">
@@ -142,7 +132,7 @@ export default function LtvPage() {
                 style={{ width: `${Math.min(100, result.ltv)}%` }}
               />
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <SummaryCard label="규제 LTV 한도" value={`${result.limit}%`} />
               <SummaryCard label="최대 대출 가능" value={`${fmt(result.maxLoan)}원`} />
               <SummaryCard label="추가 대출 가능" value={`${fmt(result.addable)}원`} variant={result.addable > 0 ? 'green' : 'red'} />

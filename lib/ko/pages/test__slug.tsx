@@ -46,12 +46,7 @@ export default async function TestPage({ params }: { params: Promise<{ slug: str
         ])}
       />
       {/* 번역판이 있는 슬러그에서만 — 없는데 띄우면 그 언어가 404다 */}
-      {hasAlternates('test', slug) && (
-        <div className="max-w-lg mx-auto px-4 w-full pt-3 flex justify-end">
-          <LangPicker current="ko" route={`/test/${slug}`} available={localesWithItem('test', slug)} />
-        </div>
-      )}
-      <TestEngine test={test} />
+      <TestEngine test={test} headerRight={hasAlternates('test', slug) ? <LangPicker current="ko" route={`/test/${slug}`} available={localesWithItem('test', slug)} /> : null} />
       <TestContent test={test} />
       <div className="bg-white dark:bg-slate-900">
         <div className="max-w-lg mx-auto px-4 pb-10 w-full">

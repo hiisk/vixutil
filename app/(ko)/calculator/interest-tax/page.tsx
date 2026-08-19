@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, {
-  Card, CardHeader, Label, inputCls,
+  Card, CardHeader, Label, PrimaryBtn, inputCls,
   SummaryCard, SummaryGrid,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
@@ -17,24 +17,17 @@ export default function InterestTaxPage() {
   const [principal, setPrincipal] = useState(10_000_000);
   const [rate, setRate] = useState('4.0');
   const [months, setMonths] = useState('12');
+  const [result, setResult] = useState<ReturnType<typeof calcInterestTax> | null>(null);
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: ReturnType<typeof calcInterestTax> | null = ((): ReturnType<typeof calcInterestTax> | null => {
+  function calculate() {
     if (mode === 'interest') {
-      if (interest <= 0) return null;
-      return (calcInterestTax(interest));
+      if (interest <= 0) return;
+      setResult(calcInterestTax(interest));
     } else {
-      if (principal <= 0) return null;
-      return (calcDepositAfterTax({ principal, annualRate: Number(rate) || 0, months: Number(months) || 0 }));
+      if (principal <= 0) return;
+      setResult(calcDepositAfterTax({ principal, annualRate: Number(rate) || 0, months: Number(months) || 0 }));
     }
-  
-    return null;
-  })();
-
+  }
 
   return (
     <CalcShell
@@ -73,7 +66,7 @@ export default function InterestTaxPage() {
             ].map(o => (
               <button
                 key={o.v}
-                onClick={() => { setMode(o.v); }}
+                onClick={() => { setMode(o.v); setResult(null); }}
                 className={`rounded-xl border p-3 text-sm font-bold transition-all ${
                   mode === o.v
                     ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/30 text-blue-700 dark:text-blue-300'
@@ -96,7 +89,7 @@ export default function InterestTaxPage() {
                 <Label>예치 원금 (원)</Label>
                 <CommaInput value={principal} onChange={setPrincipal} placeholder="예: 10,000,000" />
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-x-4 gap-y-5">
                 <div>
                   <Label>연이율 (%)</Label>
                   <input type="number" value={rate} onChange={e => setRate(e.target.value)} step="0.1" min="0" className={inputCls} />
@@ -109,6 +102,8 @@ export default function InterestTaxPage() {
             </div>
           )}
         </Card>
+
+        <PrimaryBtn onClick={calculate}>세금·실수령 계산</PrimaryBtn>
 
         {result && (
           <>

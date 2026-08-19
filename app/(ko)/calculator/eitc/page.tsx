@@ -1,7 +1,8 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 import Link from 'next/link';
-import CalcShell, { Card, CardHeader, Label, TabBar, inputCls } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, TabBar, inputCls, PrimaryBtn } from '@/components/CalcShell';
 import {
   HALF_RATIO, LATE_RATIO, HOUSEHOLD_LABEL,
   type Household, type Phase,
@@ -44,26 +45,19 @@ export default function EitcPage() {
   const [asset, setAsset] = useState('0');
   const [lateApply, setLateApply] = useState(false);
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | {
+  const [result, setResult] = useState<null | {
     r: ReturnType<typeof calcEitc>;
     /** 지금 소득에서 100만원을 더 벌면 근로장려금이 얼마 움직이나 */
     slope: number;
     /** 자녀 수를 곱한 자녀장려금 최대액 — 결과에서 견주려고 들고 있는다 */
     childCap: number;
     workCap: number;
-  } = ((): null | {
-    r: ReturnType<typeof calcEitc>;
-    /** 지금 소득에서 100만원을 더 벌면 근로장려금이 얼마 움직이나 */
-    slope: number;
-    /** 자녀 수를 곱한 자녀장려금 최대액 — 결과에서 견주려고 들고 있는다 */
-    childCap: number;
-    workCap: number;
-  } => {
+  }>(null);
+
+  // 자녀장려금은 홑벌이·맞벌이에만 있다 — 단독가구에서는 입력칸부터 안 보인다
+  const hasChildCredit = household !== 'single';
+
+  function calculate() {
     const work = {
       ceiling: Number(ceiling || 0),
       max: Number(maxAmount || 0),
@@ -71,7 +65,7 @@ export default function EitcPage() {
       plateauEnd: Number(plateauEnd || 0),
       floor: 0,
     };
-    if (work.ceiling <= 0 || work.max <= 0) return null;
+    if (work.ceiling <= 0 || work.max <= 0) return;
 
     // 자녀장려금 고시값을 안 넣었으면 근로장려금만 낸다 — 없는 값을 지어내지 않는다
     const childGiven = Number(childCeiling) > 0 && Number(childMax) > 0;
@@ -99,20 +93,13 @@ export default function EitcPage() {
     };
 
     const n = Math.max(0, Math.floor(input.children));
-    return ({
+    setResult({
       r: calcEitc(input),
       slope: marginalRate(work, input.earnedIncome) * 1_000_000,
       childCap: child && household !== 'single' ? perChild(child, n).max : 0,
       workCap: work.max,
     });
-  
-    return null;
-  })();
-
-  // 자녀장려금은 홑벌이·맞벌이에만 있다 — 단독가구에서는 입력칸부터 안 보인다
-  const hasChildCredit = household !== 'single';
-
-
+  }
 
   return (
     <CalcShell
@@ -232,40 +219,34 @@ export default function EitcPage() {
             <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
               근로장려금 산정식 — {HOUSEHOLD_LABEL[household]}의 그 해 고시값
             </p>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>총소득 기준금액 (원)</Label>
-                <input type="number" value={ceiling} onChange={e => setCeiling(e.target.value)}
-                  placeholder="가구 유형별 고시값" className={inputCls} min="0" />
+                <MoneyInput value={ceiling} onChange={setCeiling} placeholder="가구 유형별 고시값" />
               </div>
               <div>
                 <Label>최대 지급액 (원)</Label>
-                <input type="number" value={maxAmount} onChange={e => setMaxAmount(e.target.value)}
-                  placeholder="가구 유형별 고시값" className={inputCls} min="0" />
+                <MoneyInput value={maxAmount} onChange={setMaxAmount} placeholder="가구 유형별 고시값" />
               </div>
               <div>
                 <Label>점증이 끝나는 소득 (원)</Label>
-                <input type="number" value={plateauStart} onChange={e => setPlateauStart(e.target.value)}
-                  placeholder="최대액이 시작하는 곳" className={inputCls} min="0" />
+                <MoneyInput value={plateauStart} onChange={setPlateauStart} placeholder="최대액이 시작하는 곳" />
               </div>
               <div>
                 <Label>점감이 시작하는 소득 (원)</Label>
-                <input type="number" value={plateauEnd} onChange={e => setPlateauEnd(e.target.value)}
-                  placeholder="최대액이 끝나는 곳" className={inputCls} min="0" />
+                <MoneyInput value={plateauEnd} onChange={setPlateauEnd} placeholder="최대액이 끝나는 곳" />
               </div>
             </div>
 
             <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">재산 기준 (고시값)</p>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>지급 제외 기준 (원)</Label>
-                <input type="number" value={assetLimit} onChange={e => setAssetLimit(e.target.value)}
-                  placeholder="이 금액 이상이면 0원" className={inputCls} min="0" />
+                <MoneyInput value={assetLimit} onChange={setAssetLimit} placeholder="이 금액 이상이면 0원" />
               </div>
               <div>
                 <Label>{HALF_RATIO * 100}% 감액 기준 (원)</Label>
-                <input type="number" value={assetHalfLimit} onChange={e => setAssetHalfLimit(e.target.value)}
-                  placeholder="이 금액 이상이면 절반" className={inputCls} min="0" />
+                <MoneyInput value={assetHalfLimit} onChange={setAssetHalfLimit} placeholder="이 금액 이상이면 절반" />
               </div>
             </div>
 
@@ -274,47 +255,40 @@ export default function EitcPage() {
                 <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">
                   자녀장려금 산정식 (고시값, 자녀 1인당) — 비우면 근로장려금만 냅니다
                 </p>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-x-4 gap-y-5">
                   <div>
                     <Label>총소득 기준금액 (원)</Label>
-                    <input type="number" value={childCeiling} onChange={e => setChildCeiling(e.target.value)}
-                      placeholder="근로장려금과 다릅니다" className={inputCls} min="0" />
+                    <MoneyInput value={childCeiling} onChange={setChildCeiling} placeholder="근로장려금과 다릅니다" />
                   </div>
                   <div>
                     <Label>1인당 최대 지급액 (원)</Label>
-                    <input type="number" value={childMax} onChange={e => setChildMax(e.target.value)}
-                      placeholder="자녀 한 명 기준" className={inputCls} min="0" />
+                    <MoneyInput value={childMax} onChange={setChildMax} placeholder="자녀 한 명 기준" />
                   </div>
                   <div>
                     <Label>점감이 시작하는 소득 (원)</Label>
-                    <input type="number" value={childPlateauEnd} onChange={e => setChildPlateauEnd(e.target.value)}
-                      placeholder="가구 유형별 고시값" className={inputCls} min="0" />
+                    <MoneyInput value={childPlateauEnd} onChange={setChildPlateauEnd} placeholder="가구 유형별 고시값" />
                   </div>
                   <div>
                     <Label>1인당 최저 지급액 (원)</Label>
-                    <input type="number" value={childFloor} onChange={e => setChildFloor(e.target.value)}
-                      placeholder="점감이 닿는 바닥" className={inputCls} min="0" />
+                    <MoneyInput value={childFloor} onChange={setChildFloor} placeholder="점감이 닿는 바닥" />
                   </div>
                 </div>
               </>
             )}
 
             <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">내 소득과 재산</p>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>총소득 (원, 부부 합산)</Label>
-                <input type="number" value={totalIncome} onChange={e => setTotalIncome(e.target.value)}
-                  placeholder="이자·배당까지 모두" className={inputCls} min="0" />
+                <MoneyInput value={totalIncome} onChange={setTotalIncome} placeholder="이자·배당까지 모두" />
               </div>
               <div>
                 <Label>총급여액 등 (원)</Label>
-                <input type="number" value={earnedIncome} onChange={e => setEarnedIncome(e.target.value)}
-                  placeholder="근로·사업(조정률)만" className={inputCls} min="0" />
+                <MoneyInput value={earnedIncome} onChange={setEarnedIncome} placeholder="근로·사업(조정률)만" />
               </div>
               <div>
                 <Label>가구원 재산 합계 (원)</Label>
-                <input type="number" value={asset} onChange={e => setAsset(e.target.value)}
-                  className={inputCls} min="0" />
+                <MoneyInput value={asset} onChange={setAsset} />
               </div>
               {hasChildCredit && (
                 <div>
@@ -330,12 +304,14 @@ export default function EitcPage() {
                 className="w-4 h-4 accent-blue-600" />
               신청 기한을 놓친 기한 후 신청 ({LATE_RATIO * 100}%만 지급)
             </label>
+
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 
         {result && (
           <>
-            <div className={`rounded-2xl p-5 ${result.r.total > 0 ? 'bg-blue-600' : 'bg-slate-600'}`}>
+            <div className={`rounded-lg p-5 ${result.r.total > 0 ? 'bg-blue-600' : 'bg-slate-600'}`}>
               <p className="text-blue-200 text-xs mb-1">
                 {result.r.total > 0 ? '받을 수 있는 금액' : '지급 대상이 아닙니다'}
               </p>

@@ -69,7 +69,7 @@ export default function DevJwtIntl({ lang }: { lang: CalcLang }) {
 
       {parts && (
         <>
-          <div className={`rounded-2xl border px-5 py-3 text-sm font-bold ${
+          <div className={`rounded-lg border px-5 py-3 text-sm font-bold ${
             parts.expired
               ? 'bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-900/50 text-rose-700 dark:text-rose-300'
               : 'bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-900/50 text-emerald-700 dark:text-emerald-300'

@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 import Link from 'next/link';
 import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
 import { GRADE_LABEL, SAFE_DEBT_RATIO, calcJeonseSafety } from '@/lib/jeonse-safety';
@@ -138,18 +139,15 @@ export default function JeonseSafetyPage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>집 시세 (원)</Label>
-              <input type="number" value={marketPrice} onChange={e => setMarketPrice(e.target.value)}
-                placeholder="예: 500000000" className={inputCls} min="0" />
+              <MoneyInput value={marketPrice} onChange={setMarketPrice} placeholder="예: 500000000" />
             </div>
             <div>
               <Label>내 보증금 (원)</Label>
-              <input type="number" value={deposit} onChange={e => setDeposit(e.target.value)}
-                placeholder="예: 300000000" className={inputCls} min="0" />
+              <MoneyInput value={deposit} onChange={setDeposit} placeholder="예: 300000000" />
             </div>
             <div>
               <Label>선순위 채권 (원) — 등기부 을구의 근저당 설정액 등</Label>
-              <input type="number" value={seniorDebt} onChange={e => setSeniorDebt(e.target.value)}
-                placeholder="예: 100000000" className={inputCls} min="0" />
+              <MoneyInput value={seniorDebt} onChange={setSeniorDebt} placeholder="예: 100000000" />
             </div>
             <div>
               <Label>낙찰가율 (%) — 그 지역 최근 경매 낙찰가율</Label>
@@ -170,13 +168,11 @@ export default function JeonseSafetyPage() {
               <>
                 <div>
                   <Label>소액임차인 기준액 (원) — 현행 고시 확인</Label>
-                  <input type="number" value={threshold} onChange={e => setThreshold(e.target.value)}
-                    placeholder="예: 165000000" className={inputCls} min="0" />
+                  <MoneyInput value={threshold} onChange={setThreshold} placeholder="예: 165000000" />
                 </div>
                 <div>
                   <Label>최우선변제액 (원) — 현행 고시 확인</Label>
-                  <input type="number" value={amount} onChange={e => setAmount(e.target.value)}
-                    placeholder="예: 55000000" className={inputCls} min="0" />
+                  <MoneyInput value={amount} onChange={setAmount} placeholder="예: 55000000" />
                 </div>
               </>
             )}
@@ -186,7 +182,7 @@ export default function JeonseSafetyPage() {
 
         {result && (
           <>
-            <div className={`${GRADE_BG[result.grade]} rounded-2xl p-5`}>
+            <div className={`${GRADE_BG[result.grade]} rounded-lg p-5`}>
               <p className={`${GRADE_SUB[result.grade]} text-xs mb-1`}>
                 {result.shortfall > 0 ? '경매로 넘어가면 떼일 금액' : '떼일 금액 없음'}
               </p>

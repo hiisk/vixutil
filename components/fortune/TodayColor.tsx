@@ -143,14 +143,14 @@ export default function TodayColor({ lang }: { lang: IntlLang }) {
       </header>
 
       <div className="max-w-xl mx-auto px-4 py-6">
-        <div className="text-center mb-6">
-          <ToolIcon emoji="🎨" className="w-12 h-12 mx-auto mb-2 text-slate-800 dark:text-slate-100" />
+        <div className="mb-6">
+          <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="🎨" className="h-6 w-6" /></span>
           <div className="hero-band">
             <PageHero title={c.title} desc={c.lead} />
           </div>
         </div>
 
-        <form onSubmit={submit} className="rounded-2xl border chip-off p-5 mb-6">
+        <form onSubmit={submit} className="rounded-lg border chip-off p-5 mb-6">
           <label htmlFor="tc-name" className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{c.nameLabel}</label>
           <input
             id="tc-name"
@@ -166,7 +166,7 @@ export default function TodayColor({ lang }: { lang: IntlLang }) {
 
         {result && (
           <div className="space-y-4">
-            <div className="rounded-3xl p-8 text-center text-white" style={{ background: `linear-gradient(135deg, ${result.lucky.hex}, ${result.lucky.hex}bb)` }}>
+            <div className="rounded-xl p-8 text-center text-white" style={{ background: `linear-gradient(135deg, ${result.lucky.hex}, ${result.lucky.hex}bb)` }}>
               <div className="text-xs font-bold text-white/85 mb-1">{c.luckyLabel}</div>
               <div className="text-3xl font-black drop-shadow mb-2">{result.lucky.name}</div>
               <p className="text-sm text-white/90">{result.lucky.meaning}</p>
@@ -177,12 +177,12 @@ export default function TodayColor({ lang }: { lang: IntlLang }) {
               </div>
             </div>
 
-            <div className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-5">
+            <div className="rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-5">
               <div className="text-xs font-black text-violet-600 mb-2">{c.tipLabel}</div>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.lucky.tip}</p>
             </div>
 
-            <div className="rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 p-5 flex items-center gap-3">
+            <div className="rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 p-5 flex items-center gap-3">
               <span className="w-10 h-10 rounded-full border-2 border-white shadow-sm shrink-0" style={{ background: result.avoid.hex }} />
               <div>
                 <div className="text-xs font-bold text-slate-400">{c.avoidLabel}</div>

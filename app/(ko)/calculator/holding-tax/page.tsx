@@ -1,14 +1,14 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 
 /*
- * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
- * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
- * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
- * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
- * 골라 둔 예시를 그대로 올렸다.
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 빈 칸으로 열면 무엇을
+ * 보여 주는 계산기인지 눌러 보기 전에는 모른다 — 값을 미리 넣어 두면 「계산하기」
+ * 한 번에 한 벌이 통째로 보이고, 사람은 그 위에 자기 숫자를 덮어쓴다.
+ * 값은 내가 지어내지 않고 저자가 이미 골라 둔 예시를 그대로 올렸다.
  */
-import CalcShell, { Card, CardHeader, Label, inputCls } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
 import { calcHoldingTax } from '@/lib/holding-tax';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
@@ -17,37 +17,11 @@ export default function HoldingTaxPage() {
   const [publicPrice, setPublicPrice] = useState('1500000000');
   const [isOneHouse, setIsOneHouse] = useState(true);
   const [paidPropertyTax, setPaidPropertyTax] = useState('');
+  const [result, setResult] = useState<null | {
+    propertyTax: number; jongbuBase: number; jongbu: number; ruralTax: number;
+    totalJongbu: number; totalHolding: number;
+  }>(null);
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | {
-    propertyTax: number; jongbuBase: number; jongbu: number; ruralTax: number;
-    totalJongbu: number; totalHolding: number;
-  } = ((): null | {
-    propertyTax: number; jongbuBase: number; jongbu: number; ruralTax: number;
-    totalJongbu: number; totalHolding: number;
-  } => {
-    const p = Number(publicPrice);
-    if (p <= 0) return null;
-    const r = calcHoldingTax({
-      publicPrice: p,
-      oneHouse: isOneHouse,
-      paidPropertyTax: Number(paidPropertyTax || 0),
-    });
-    return ({
-      propertyTax: r.propertyTax,
-      jongbuBase: r.jongbuBase,
-      jongbu: r.jongbu,
-      ruralTax: r.ruralTax,
-      totalJongbu: r.totalJongbu,
-      totalHolding: r.totalHolding,
-    });
-  
-    return null;
-  })();
   /*
    * ── 셈을 lib으로 옮기고 종부세를 고쳤다 (2026-08-12) ────────
    * 전에는 이 파일 안에 세율표와 셈이 있었고, 종부세를 **초과누진이 아니라
@@ -57,7 +31,23 @@ export default function HoldingTaxPage() {
    * 같은 구조로 100배 버그가 나왔다. 이제 lib/holding-tax.ts가 갖고
    * tests/holding-tax.test.ts가 경계를 1원 차이로 밟는다.
    */
-
+  function calculate() {
+    const p = Number(publicPrice);
+    if (p <= 0) return;
+    const r = calcHoldingTax({
+      publicPrice: p,
+      oneHouse: isOneHouse,
+      paidPropertyTax: Number(paidPropertyTax || 0),
+    });
+    setResult({
+      propertyTax: r.propertyTax,
+      jongbuBase: r.jongbuBase,
+      jongbu: r.jongbu,
+      ruralTax: r.ruralTax,
+      totalJongbu: r.totalJongbu,
+      totalHolding: r.totalHolding,
+    });
+  }
 
   return (
     <CalcShell
@@ -107,8 +97,7 @@ export default function HoldingTaxPage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>주택 공시가격 합산 (원)</Label>
-              <input type="number" value={publicPrice} onChange={e => setPublicPrice(e.target.value)}
-                placeholder="예: 1,500,000,000" className={inputCls} min="0" />
+              <MoneyInput value={publicPrice} onChange={setPublicPrice} placeholder="예: 1,500,000,000" />
             </div>
             <label className="flex items-center gap-2 cursor-pointer select-none">
               <input type="checkbox" checked={isOneHouse} onChange={e => setIsOneHouse(e.target.checked)}
@@ -120,6 +109,7 @@ export default function HoldingTaxPage() {
               <input type="number" value={paidPropertyTax} onChange={e => setPaidPropertyTax(e.target.value)}
                 placeholder="비워두면 자동 계산" className={inputCls} min="0" />
             </div>
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

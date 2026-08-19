@@ -95,7 +95,7 @@ export default function MathGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
   return (
     <div>
       {phase === 'idle' && (
-        <div className="rounded-2xl border chip-off p-5">
+        <div className="rounded-lg border chip-off p-5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.opTitle}</p>
           <div className="grid grid-cols-4 gap-2">
             {(['+', '-', '×', '÷'] as Op[]).map(op => (
@@ -133,7 +133,7 @@ export default function MathGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
       )}
 
       {phase === 'run' && (
-        <div className="rounded-2xl bg-slate-900 text-white px-6 py-10 text-center">
+        <div className="rounded-lg bg-slate-900 text-white px-6 py-10 text-center">
           <p className="text-sm text-white/60 mb-3 tabular-nums">{ui.timeLeft(left.toFixed(1), solved)}</p>
           <p className="text-4xl sm:text-5xl font-black tabular-nums mb-5">{question.text}</p>
           <input
@@ -151,7 +151,7 @@ export default function MathGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
       )}
 
       {phase === 'over' && (
-        <div className="rounded-2xl bg-slate-900 text-white px-6 py-10 text-center">
+        <div className="rounded-lg bg-slate-900 text-white px-6 py-10 text-center">
           <p className="text-6xl font-black tabular-nums">{solved}</p>
           <p className="text-sm text-white/70 mt-1">{ui.solvedIn(DURATION)}</p>
         </div>
@@ -160,7 +160,7 @@ export default function MathGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
       <button
         onClick={start}
         disabled={phase === 'run'}
-        className="mt-4 w-full rounded-xl bg-sec font-bold py-3.5 text-sm shadow-lg hover:opacity-90 disabled:opacity-50 transition-opacity"
+        className="mt-4 w-full rounded-xl bg-sec font-bold py-3.5 text-sm shadow-sm hover:opacity-90 disabled:opacity-50 transition-opacity"
       >
         {phase === 'over' ? c.retry : phase === 'run' ? c.running : ui.startIn(DURATION)}
       </button>

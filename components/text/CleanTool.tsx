@@ -1,5 +1,6 @@
 'use client';
 import { useMemo, useState } from 'react';
+import { sampleFromPlaceholder } from '@/lib/text-tools';
 import { cleanText, DEFAULT_CLEAN, type CleanOptions } from '@/lib/text-clean';
 import { CARD, CopyBox, InputArea, Toggle } from './ui';
 import { CLEAN_UI, type TextLang } from '@/lib/text-ui-intl';
@@ -17,7 +18,8 @@ const OPTIONS: { key: keyof CleanOptions }[] = [
 
 export default function CleanTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
   const ui = CLEAN_UI[lang];
-  const [text, setText] = useState('');
+  /* 열자마자 한 벌이 돌아가게 — 플레이스홀더가 예시일 때만 쓴다(lib/text-tools.ts) */
+  const [text, setText] = useState(() => sampleFromPlaceholder(ui.placeholder));
   const [options, setOptions] = useState<CleanOptions>(DEFAULT_CLEAN);
 
   const result = useMemo(() => cleanText(text, options), [text, options]);
@@ -51,7 +53,7 @@ export default function CleanTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
       </div>
 
       {text && (
-        <div className="mt-4 rounded-2xl border chip-off px-4 py-3.5">
+        <div className="mt-4 rounded-lg border chip-off px-4 py-3.5">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">
             {entries.length === 0 ? ui.nothing : shrunk > 0 ? ui.shrunk(shrunk) : ui.cleaned}
           </p>

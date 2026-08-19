@@ -106,7 +106,7 @@ export default function GpaIntl({ lang }: { lang: CalcLang }) {
               {result.gpa.toLocaleString(tag, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} / {scale}
             </p>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <SummaryCard label={c.totalCredits} value={result.credits.toLocaleString(tag)} />
             <SummaryCard label={c.totalPoints} value={result.points.toLocaleString(tag, { maximumFractionDigits: 1 })} />
           </div>

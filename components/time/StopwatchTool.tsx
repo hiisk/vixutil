@@ -25,7 +25,7 @@ export default function StopwatchTool({ lang = 'ko' }: { lang?: TimeLang } = {})
 
   return (
     <div>
-      <div className="rounded-2xl bg-slate-900 px-6 py-12 text-center">
+      <div className="rounded-lg bg-slate-900 px-6 py-12 text-center">
         <p className="text-5xl sm:text-6xl font-black text-white tabular-nums tracking-tight">
           {formatDuration(elapsed, true)}
         </p>
@@ -37,7 +37,7 @@ export default function StopwatchTool({ lang = 'ko' }: { lang?: TimeLang } = {})
       <div className="grid grid-cols-3 gap-2 mt-4">
         <button
           onClick={startedAt !== null ? stop : start}
-          className={`rounded-xl font-bold py-3.5 text-sm shadow-lg transition-opacity hover:opacity-90 ${
+          className={`rounded-xl font-bold py-3.5 text-sm shadow-sm transition-opacity hover:opacity-90 ${
             startedAt !== null ? 'bg-slate-700' : 'bg-sec'
           }`}
         >
@@ -66,7 +66,7 @@ export default function StopwatchTool({ lang = 'ko' }: { lang?: TimeLang } = {})
             <Stat label={ui.slowest} value={slowest ? formatDuration(slowest, true) : '—'} accent="text-rose-500" />
           </div>
 
-          <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+          <div className="mt-4 rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
             {[...laps].map((t, i) => {
               const seg = segments[i];
               const tone =

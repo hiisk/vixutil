@@ -145,7 +145,13 @@ const UI: Record<Lang, {
   },
 };
 
-export default function ChecklistEngine({ checklist, lang = 'ko' }: { checklist: Checklist; lang?: Lang }) {
+  /*
+   * headerRight — 머리줄 오른쪽에 얹을 것(언어 고르개).
+   * 예전에는 부르는 쪽이 이 엔진 **위에** 자기 줄을 하나 더 만들어 고르개를
+   * 놓았다. 화면 위쪽 50px이 고르개 하나에 쓰였고, 머리 띠가 두 겹으로 보였다.
+   * 머리줄이 이미 있으므로 그 안에 넣는다.
+   */
+export default function ChecklistEngine({ checklist, lang = 'ko', headerRight }: { checklist: Checklist; lang?: Lang; headerRight?: React.ReactNode }) {
   const ui = UI[lang];
   // 진행 상황은 언어별로 따로 저장한다. 같은 slug라도 항목 id가 언어마다 달라질 수 있다.
   const STORAGE_KEY = lang === 'ko' ? `checklist-${checklist.slug}` : `checklist-${lang}-${checklist.slug}`;
@@ -479,6 +485,7 @@ export default function ChecklistEngine({ checklist, lang = 'ko' }: { checklist:
             </svg>
             {ui.share}
           </button>
+        {headerRight && <span className="ml-auto shrink-0">{headerRight}</span>}
         </div>
       </header>
 
@@ -486,9 +493,10 @@ export default function ChecklistEngine({ checklist, lang = 'ko' }: { checklist:
         {/* 타이틀 */}
         <div className="mb-6">
           {/* 목록 카드와 같은 그라데이션·이모지 — 제목 옆 작은 이모지보다 눈에 들어온다 */}
-          <div className={`w-20 h-20 rounded-2xl mb-4 flex items-center justify-center bg-sec-soft shadow-lg`}>
-            <ToolIcon emoji={checklist.icon} className="w-10 h-10 drop-shadow-md" />
-          </div>
+          {/* 96px 아이콘 판이 화면 위쪽을 차지했다 — 칩 하나로 줄인다 */}
+          <span className="bg-sec-soft mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg">
+            <ToolIcon emoji={checklist.icon} className="h-5 w-5" />
+          </span>
           <span className="text-xs font-bold text-sky-600 bg-sky-50 dark:bg-sky-950/30 px-3 py-1 rounded-full">{checklist.category}</span>
           <div className="hero-band">
             <PageHero title={checklist.title} desc={checklist.desc} />
@@ -508,7 +516,7 @@ export default function ChecklistEngine({ checklist, lang = 'ko' }: { checklist:
 
         {/* 완료 메시지 */}
         {isAllDone && (
-          <div className="bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/50 rounded-2xl p-5 text-center mb-6">
+          <div className="bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/50 rounded-lg p-5 text-center mb-6">
             <p className="text-3xl mb-2">🎉</p>
             <p className="font-black text-emerald-700 dark:text-emerald-300 text-lg">모든 항목 완료!</p>
             <p className="text-sm text-emerald-600 mt-1">수고하셨습니다. 모든 준비를 마쳤어요.</p>
@@ -544,7 +552,7 @@ export default function ChecklistEngine({ checklist, lang = 'ko' }: { checklist:
             const sectionAllDone = sectionDone === sectionIds.length;
 
             return (
-              <div key={section.title} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden">
+              <div key={section.title} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
                 <button
                   onClick={() => toggleSection(sectionIds)}
                   className="w-full flex items-center justify-between px-5 py-4 border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors text-left"
@@ -645,7 +653,7 @@ export default function ChecklistEngine({ checklist, lang = 'ko' }: { checklist:
 
       {/* 토스트 */}
       {toast && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-slate-800 text-white text-sm font-semibold px-5 py-3 rounded-full shadow-lg animate-fade-in-up">
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-slate-800 text-white text-sm font-semibold px-5 py-3 rounded-full shadow-sm animate-fade-in-up">
           {toast}
         </div>
       )}

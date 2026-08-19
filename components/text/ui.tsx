@@ -61,7 +61,7 @@ export function InputArea({
         onChange={e => onChange(e.target.value)}
         placeholder={placeholder}
         rows={rows}
-        className="w-full rounded-2xl border chip-off px-4 py-3 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none focus:border-indigo-400 transition-colors resize-y leading-relaxed"
+        className="w-full rounded-lg border chip-off px-4 py-3 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none focus:border-indigo-400 transition-colors resize-y leading-relaxed"
       />
     </div>
   );
@@ -100,7 +100,7 @@ export function CopyBox({
         </button>
       </div>
       <div
-        className={`w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap break-words overflow-auto ${
+        className={`w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap break-words overflow-auto ${
           mono ? 'font-mono' : ''
         } ${value ? 'text-slate-800 dark:text-slate-100' : 'text-slate-300 dark:text-slate-600'}`}
         style={{ minHeight: `${rows * 1.6}rem` }}
@@ -188,4 +188,4 @@ export function Toggle({
   );
 }
 
-export const CARD = 'rounded-2xl border chip-off p-5';
+export const CARD = 'rounded-lg border chip-off p-5';

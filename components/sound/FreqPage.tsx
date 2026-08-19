@@ -98,17 +98,15 @@ export default function FreqPage({ slug, lang }: { slug: string; lang: Lang }) {
       </header>
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
-        <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-3 shadow-lg bg-sec-soft">
-            <ToolIcon emoji={FREQ_ICON} className="w-7 h-7" />
-          </div>
+        <div className="mb-6">
+          <span className="bg-sec-soft inline-flex h-10 w-10 items-center justify-center rounded-lg"><ToolIcon emoji={FREQ_ICON} className="h-5 w-5" /></span>
           <h1 className="page-h1 tabular-nums">{freq.hz} Hz</h1>
           <p className="text-xs text-slate-400 dark:text-slate-500">
             {ui.rangeLabel[f.range]} · {f.note}
           </p>
         </div>
 
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 px-4 py-6 mb-6">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-6 mb-6">
           <TonePlayer
             hz={freq.hz}
             playLabel={ui.play}
@@ -127,7 +125,7 @@ export default function FreqPage({ slug, lang }: { slug: string; lang: Lang }) {
         {freq.tags.length > 0 && (
           <section className="mb-6 flex flex-col gap-2">
             {freq.tags.map(t => (
-              <div key={t} className="rounded-2xl border chip-off px-4 py-3">
+              <div key={t} className="rounded-lg border chip-off px-4 py-3">
                 <p className="text-[11px] font-black text-emerald-600 dark:text-emerald-400 mb-0.5">{ui.tagLabel[t]}</p>
                 <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{ui.tagNote[t]}</p>
                 {t === 'dtmf' && keys.length > 0 && (
@@ -138,12 +136,12 @@ export default function FreqPage({ slug, lang }: { slug: string; lang: Lang }) {
           </section>
         )}
 
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
-          <table className="w-full text-sm">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
+          <table className="kv-table w-full text-sm">
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
               {rows.map(r => (
                 <tr key={r.label}>
-                  <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400 w-1/2 bg-slate-50 dark:bg-slate-900/40">
+                  <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400 w-1/2">
                     {r.label}
                   </th>
                   <td className="px-4 py-3 font-black text-slate-800 dark:text-slate-100 tabular-nums">{r.value}</td>

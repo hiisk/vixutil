@@ -71,7 +71,7 @@ export default function CopyGlyph({
       onClick={copy}
       data-glyph={char}
       data-copied={done ? '1' : '0'}
-      className="group w-full rounded-3xl border chip-off py-8 hover:shadow-lg active:scale-[0.98] transition-all"
+      className="group w-full rounded-xl border chip-off py-8 hover:border-slate-300 dark:hover:border-slate-700 active:scale-[0.98] transition-all"
     >
       <span className="block text-6xl sm:text-7xl text-slate-900 dark:text-slate-100 leading-none mb-4">{char}</span>
       <span

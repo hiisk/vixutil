@@ -63,7 +63,7 @@ export default function GlobalSearch({ items, empty }: { items: SearchItem[]; em
           onChange={e => { setQuery(e.target.value); setActive('전체'); }}
           placeholder="실업급여, 전세, MBTI, 로또…"
           autoFocus
-          className="w-full border-2 border-slate-200 dark:border-slate-700 rounded-2xl pl-12 pr-4 py-3.5 text-base text-slate-800 dark:text-slate-100 placeholder:text-slate-300 focus:outline-none focus:border-indigo-400 transition-colors bg-white dark:bg-slate-900"
+          className="w-full border-2 border-slate-200 dark:border-slate-700 rounded-lg pl-12 pr-4 py-3.5 text-base text-slate-800 dark:text-slate-100 placeholder:text-slate-300 focus:outline-none focus:border-indigo-400 transition-colors bg-white dark:bg-slate-900"
         />
       </div>
 

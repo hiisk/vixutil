@@ -128,7 +128,7 @@ export default function Game2048({ lang = 'ko' }: { lang?: GameLang } = {}) {
         aria-label={ui.boardLabel}
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
-        className="mt-3 aspect-square w-full touch-none select-none rounded-2xl bg-slate-200 p-2 dark:bg-slate-800"
+        className="mt-3 aspect-square w-full touch-none select-none rounded-lg bg-slate-200 p-2 dark:bg-slate-800"
       >
         <div className="grid h-full w-full grid-cols-4 grid-rows-4 gap-2">
           {game.board.map((v, i) => (
@@ -159,14 +159,14 @@ export default function Game2048({ lang = 'ko' }: { lang?: GameLang } = {}) {
       <div className="mt-2 grid grid-cols-2 gap-2">
         <button
           onClick={restart}
-          className="rounded-xl bg-sec py-3 text-sm font-bold shadow-lg transition-opacity hover:opacity-90"
+          className="rounded-xl bg-sec py-3 text-sm font-bold shadow-sm transition-opacity hover:opacity-90"
         >
           {ui.newGame}
         </button>
         {showWin ? (
           <button
             onClick={() => setKept(true)}
-            className="rounded-xl bg-sec py-3 text-sm font-bold shadow-lg transition-opacity hover:opacity-90"
+            className="rounded-xl bg-sec py-3 text-sm font-bold shadow-sm transition-opacity hover:opacity-90"
           >
             {ui.keepGoing}
           </button>

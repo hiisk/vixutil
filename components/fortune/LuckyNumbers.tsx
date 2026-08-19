@@ -165,14 +165,14 @@ export default function LuckyNumbers({ lang }: { lang: IntlLang }) {
       </header>
 
       <div className="max-w-xl mx-auto px-4 py-6">
-        <div className="text-center mb-6">
-          <ToolIcon emoji="🍀" className="w-12 h-12 mx-auto mb-2 text-slate-800 dark:text-slate-100" />
+        <div className="mb-6">
+          <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="🍀" className="h-6 w-6" /></span>
           <div className="hero-band">
             <PageHero title={c.title} desc={c.lead} />
           </div>
         </div>
 
-        <form onSubmit={submit} className="rounded-2xl border chip-off p-5 mb-6">
+        <form onSubmit={submit} className="rounded-lg border chip-off p-5 mb-6">
           <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{c.birthLabel}</label>
           <div className="grid grid-cols-3 gap-2">
             <input type="number" inputMode="numeric" placeholder={c.yearPh} value={form.year}
@@ -193,7 +193,7 @@ export default function LuckyNumbers({ lang }: { lang: IntlLang }) {
 
         {result ? (
           <div className="space-y-4">
-            <div className="rounded-2xl border chip-off p-6">
+            <div className="rounded-lg border chip-off p-6">
               <div className="flex flex-wrap items-center justify-center gap-2">
                 {result.numbers.map(n => (
                   <span key={n} className="w-11 h-11 rounded-full flex items-center justify-center text-white text-base font-black shadow-sm"
@@ -216,7 +216,7 @@ export default function LuckyNumbers({ lang }: { lang: IntlLang }) {
                 { label: c.weekday, value: result.weekday, icon: '📅' },
                 { label: c.timeSlot, value: result.timeSlot, icon: '⏰' },
               ].map(item => (
-                <div key={item.label} className="rounded-2xl border chip-off p-4 text-center">
+                <div key={item.label} className="rounded-lg border chip-off p-4 text-center">
                   <ToolIcon emoji={item.icon} className="text-slate-800 dark:text-slate-100 w-6 h-6 mx-auto mb-1" />
                   <div className="text-[11px] text-slate-400 dark:text-slate-500">{item.label}</div>
                   <div className="text-sm font-bold text-slate-700 dark:text-slate-200 mt-0.5">{item.value}</div>
@@ -228,7 +228,7 @@ export default function LuckyNumbers({ lang }: { lang: IntlLang }) {
           </div>
         ) : (
           <div className="text-center py-12 text-slate-300 dark:text-slate-600">
-            <ToolIcon emoji="☝️" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+            <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">{c.empty}</p>
           </div>
         )}

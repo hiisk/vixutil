@@ -102,7 +102,7 @@ export default function MouseTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
         onPointerMove={onMove}
         onWheel={onWheel}
         onContextMenu={e => e.preventDefault()}
-        className="relative select-none touch-none rounded-2xl border-2 border-dashed border-sky-200 dark:border-sky-900 bg-slate-50 dark:bg-slate-950 h-52 sm:h-60 flex flex-col items-center justify-center cursor-crosshair overflow-hidden"
+        className="relative select-none touch-none rounded-lg border-2 border-dashed border-sky-200 dark:border-sky-900 bg-slate-50 dark:bg-slate-950 h-52 sm:h-60 flex flex-col items-center justify-center cursor-crosshair overflow-hidden"
       >
         <div className={`text-4xl mb-2 transition-transform ${active !== null ? 'scale-90' : ''}`}>🖱️</div>
         <p className="text-sm font-bold text-slate-600 dark:text-slate-300">

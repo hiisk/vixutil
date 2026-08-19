@@ -27,9 +27,9 @@ function AnimalPicker({
             <button
               key={a.id}
               onClick={() => onChange(i)}
-              className={`aspect-square rounded-xl flex flex-col items-center justify-center transition-all border ${
+              className={`aspect-square rounded-xl transition-all border ${
                 on
-                  ? `${accent} border-transparent text-white shadow-md scale-105`
+                  ? `${accent} border-transparent text-white shadow-sm scale-105`
                   : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-rose-300'
               }`}
             >
@@ -95,20 +95,20 @@ export default function ZodiacMatchPage() {
         </div>
       </header>
 
-      <div className="max-w-xl mx-auto px-4 py-6">
-        <div className="text-center mb-6">
+      <div className="hero-band max-w-xl mx-auto px-4 py-6">
+        <div className="mb-6">
           <h1 className="page-h1">🐲 띠 궁합</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">두 사람의 띠로 보는 전통 궁합</p>
         </div>
 
         {/* 입력 */}
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-4 flex flex-col gap-5">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-4 flex flex-col gap-5">
           <AnimalPicker label="내 띠" value={me} onChange={setMe} accent="bg-gradient-to-br from-rose-500 to-pink-600" />
           <AnimalPicker label="상대 띠" value={partner} onChange={setPartner} accent="bg-gradient-to-br from-violet-500 to-purple-600" />
           <button
             onClick={calculate}
             disabled={me === null || partner === null}
-            className="w-full rounded-xl bg-sec disabled:from-slate-200 disabled:to-slate-200 dark:disabled:from-slate-800 dark:disabled:to-slate-800 disabled:text-slate-400 text-sm font-black py-3.5 transition-all active:scale-[0.99] shadow-md shadow-rose-200 disabled:shadow-none"
+            className="w-full rounded-xl bg-sec disabled:from-slate-200 disabled:to-slate-200 dark:disabled:from-slate-800 dark:disabled:to-slate-800 disabled:text-slate-400 text-sm font-black py-3.5 transition-all active:scale-[0.99] shadow-sm shadow-rose-200 disabled:shadow-none"
           >
             {me === null || partner === null ? '두 띠를 모두 골라주세요' : '궁합 보기 💘'}
           </button>
@@ -117,7 +117,7 @@ export default function ZodiacMatchPage() {
         {result && meAnimal && partnerAnimal && (
           <div id="match-result" className="space-y-4">
             {/* 결과 히어로 */}
-            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-rose-500 via-pink-500 to-red-500 p-6 text-white text-center shadow-lg">
+            <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-rose-500 via-pink-500 to-red-500 p-6 text-white text-center shadow-sm">
               <span className="absolute -top-6 -right-4 text-[110px] opacity-15 select-none">{result.info.emoji}</span>
               <div className="relative">
                 <div className="flex items-center justify-center gap-3 mb-3">
@@ -139,18 +139,18 @@ export default function ZodiacMatchPage() {
             </div>
 
             {/* 관계 원리 */}
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+            <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
               <p className="text-xs font-black text-rose-500 uppercase tracking-wide mb-2">왜 이렇게 나왔나요?</p>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.reason}</p>
             </div>
 
             {/* 연애·조언 */}
             <div className="grid gap-3">
-              <div className="rounded-2xl border border-rose-100 dark:border-rose-900/40 bg-rose-50/60 dark:bg-rose-950/20 p-5">
+              <div className="rounded-lg border border-rose-100 dark:border-rose-900/40 bg-rose-50/60 dark:bg-rose-950/20 p-5">
                 <p className="text-xs font-black text-rose-600 dark:text-rose-400 mb-1.5">💕 연애 궁합</p>
                 <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.loveComment}</p>
               </div>
-              <div className="rounded-2xl border border-amber-100 dark:border-amber-900/40 bg-amber-50/60 dark:bg-amber-950/20 p-5">
+              <div className="rounded-lg border border-amber-100 dark:border-amber-900/40 bg-amber-50/60 dark:bg-amber-950/20 p-5">
                 <p className="text-xs font-black text-amber-600 dark:text-amber-400 mb-1.5">💡 관계 조언</p>
                 <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.adviceComment}</p>
               </div>
@@ -168,13 +168,13 @@ export default function ZodiacMatchPage() {
 
         {!result && (
           <div className="text-center py-10 text-slate-300 dark:text-slate-600">
-            <ToolIcon emoji="☝️" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+            <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">두 사람의 띠를 골라 궁합을 확인해보세요</p>
           </div>
         )}
 
         {/* 설명 */}
-        <div className="mt-8 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+        <div className="mt-8 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
           <h2 className="text-sm font-black text-slate-800 dark:text-slate-100 mb-2">띠 궁합은 어떻게 정해지나요?</h2>
           <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
             십이지(띠)에는 예로부터 잘 어울리는 관계와 부딪치기 쉬운 관계가 정해져 있습니다.

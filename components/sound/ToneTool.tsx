@@ -71,7 +71,7 @@ export default function ToneTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
 
   return (
     <div>
-      <div className="rounded-2xl bg-slate-900 px-6 py-10 text-center">
+      <div className="rounded-lg bg-slate-900 px-6 py-10 text-center">
         <p className="text-6xl font-black text-white tabular-nums">
           {freq >= 1000 ? (freq / 1000).toFixed(freq % 1000 === 0 ? 0 : 1) : freq}
           <span className="text-2xl text-white/50 ml-1">{freq >= 1000 ? 'kHz' : 'Hz'}</span>

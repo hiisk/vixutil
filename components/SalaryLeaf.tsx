@@ -38,7 +38,7 @@ export default function SalaryLeaf({ manwon }: { manwon: number }) {
           연봉 {won(manwon)}만원 실수령액
         </h1>
 
-        <div className="mt-4 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 p-6 text-white">
+        <div className="mt-4 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 p-6 text-white">
           <p className="text-blue-100 text-xs mb-1">월 실수령액</p>
           <p className="text-4xl font-black leading-none tabular-nums">{won(r.netMonthly)}원</p>
           <p className="mt-2 text-sm text-blue-100">
@@ -48,7 +48,7 @@ export default function SalaryLeaf({ manwon }: { manwon: number }) {
 
         <section className="mt-6">
           <h2 className="sec-h2">공제 내역 (월)</h2>
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
             {[
               ['국민연금', r.pension], ['건강보험', r.health], ['장기요양', r.longCare],
               ['고용보험', r.employment], ['소득세', r.incomeTax], ['지방소득세', r.localTax],

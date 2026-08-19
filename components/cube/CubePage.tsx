@@ -100,24 +100,22 @@ export default function CubePage({ slug, lang }: { slug: string; lang: Lang }) {
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-3 shadow-lg bg-sec-soft">
-            <ToolIcon emoji={CUBE_ICON} className="w-7 h-7" />
-          </div>
+          <span className="bg-sec-soft inline-flex h-10 w-10 items-center justify-center rounded-lg"><ToolIcon emoji={CUBE_ICON} className="h-5 w-5" /></span>
           <div className="hero-band">
             <PageHero title={item.label} desc={ui.desc(f)} />
           </div>
         </div>
 
-        <div className="rounded-2xl border chip-off p-4 mb-4">
+        <div className="rounded-lg border chip-off p-4 mb-4">
           <CubeTop state={diagram(f)} slot={item.step === 'f2l'} label={item.label} className="w-full max-w-[220px] mx-auto" />
         </div>
 
-        <div className="rounded-2xl border-2 border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/30 px-4 py-4 mb-4">
+        <div className="rounded-lg border-2 border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/30 px-4 py-4 mb-4">
           <div className="text-[11px] font-bold text-amber-700 dark:text-amber-400 mb-1">{ui.algLabel}</div>
           <p className="text-lg sm:text-xl font-black text-slate-900 dark:text-slate-100 font-mono leading-snug break-words">{item.alg}</p>
         </div>
 
-        <dl className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden mb-8">
+        <dl className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden mb-8">
           {rows.map(([k, v]) => (
             <div key={v} className="row-pair">
               <dt className="row-label">{k}</dt>
@@ -139,7 +137,7 @@ export default function CubePage({ slug, lang }: { slug: string; lang: Lang }) {
                 <Link prefetch={false}
                   key={o.slug}
                   href={`${hub}/${o.slug}`}
-                  className="rounded-2xl border chip-off p-2.5 hover:border-amber-400 hover:shadow-md transition-all"
+                  className="rounded-lg border chip-off p-2.5 hover:border-amber-400 hover:border-slate-300 dark:hover:border-slate-700 transition-all"
                 >
                   <CubeTop state={diagram(of_)} slot={o.step === 'f2l'} label={o.label} className="w-full max-w-[84px] mx-auto" />
                   <div className="mt-1.5 text-center text-[11px] font-black text-slate-700 dark:text-slate-200">{o.label}</div>

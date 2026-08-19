@@ -80,7 +80,7 @@ export default function RefreshRateTest({ lang = 'ko' }: { lang?: DeviceLang } =
 
   return (
     <div>
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-6 text-center">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-6 text-center">
         <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-2">
           {running ? ui.measuring : result ? ui.resultLabel : ui.ready}
         </p>
@@ -99,7 +99,7 @@ export default function RefreshRateTest({ lang = 'ko' }: { lang?: DeviceLang } =
         <button
           onClick={run}
           disabled={running}
-          className="mt-5 rounded-xl bg-sec font-bold px-8 py-3 text-sm shadow-lg hover:opacity-90 disabled:opacity-60 transition-opacity"
+          className="mt-5 rounded-xl bg-sec font-bold px-8 py-3 text-sm shadow-sm hover:opacity-90 disabled:opacity-60 transition-opacity"
         >
           {running ? ui.measuringBtn : result ? ui.again : ui.startBtn}
         </button>
@@ -145,7 +145,7 @@ export default function RefreshRateTest({ lang = 'ko' }: { lang?: DeviceLang } =
       )}
 
       {/* 눈으로 비교하는 부분 — 숫자보다 이쪽이 체감에 가깝다 */}
-      <div className="mt-4 rounded-2xl border chip-off p-5">
+      <div className="mt-4 rounded-lg border chip-off p-5">
         <div className="flex items-center justify-between mb-3">
           <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.motionTitle}</p>
           <button
@@ -157,7 +157,7 @@ export default function RefreshRateTest({ lang = 'ko' }: { lang?: DeviceLang } =
         </div>
         <div className="relative h-12 rounded-xl bg-slate-100 dark:bg-slate-800 overflow-hidden">
           <div
-            className="absolute top-1/2 w-10 h-10 rounded-lg bg-sec-soft shadow-lg"
+            className="absolute top-1/2 w-10 h-10 rounded-lg bg-sec-soft shadow-sm"
             style={{
               transform: 'translateY(-50%)',
               left: 0,

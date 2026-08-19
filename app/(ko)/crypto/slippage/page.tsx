@@ -50,9 +50,9 @@ export default function SlippagePage() {
         </div>
       </header>
 
-      <div className="max-w-3xl mx-auto px-4 py-8">
-        <div className="text-center mb-6">
-          <ToolIcon emoji="📶" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+      <div className="hero-band max-w-3xl mx-auto px-4 py-8">
+        <div className="mb-6">
+          <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="📶" className="h-6 w-6" /></span>
           <h1 className="page-h1">Slippage &amp; Order Book Depth</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">
             The cost everyone checks <b className="text-slate-700 dark:text-slate-200">after</b> the trade
@@ -67,7 +67,7 @@ export default function SlippagePage() {
           정적 렌더 영역. 위 보드는 실시간 호가창을 받아 계산하므로
           자바스크립트를 실행하지 않는 크롤러에겐 아래 본문이 페이지의 내용이다.
         */}
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
           <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">The fee is the small number</h2>
           <p className="mb-3">
             Exchange fees are advertised, compared and argued about to the second decimal place. Slippage is neither advertised nor easy to
@@ -88,7 +88,7 @@ export default function SlippagePage() {
           </p>
         </section>
 
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-4 mb-6 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-4 mb-6 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
           <p>
             ⚠️ Not investment advice. Figures come from a single live order-book snapshot and assume resting orders do not move, which is not
             how markets behave under size. Treat them as a lower bound on real execution cost. All decisions and risks are your own.

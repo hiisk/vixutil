@@ -76,7 +76,7 @@ export default function FormulaEngine({
 
   return (
     <div>
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/70 backdrop-blur p-4">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/70 backdrop-blur p-4">
         <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3">{ui.inputs}</p>
         <div className={`grid gap-3 ${tool.fields.length > 2 ? 'sm:grid-cols-2' : ''}`}>
           {tool.fields.map(f => (
@@ -104,7 +104,7 @@ export default function FormulaEngine({
         </div>
       </div>
 
-      <div className={`mt-3 rounded-2xl bg-gradient-to-br ${section.grad} text-white px-6 py-7 text-center shadow-lg`}>
+      <div className={`mt-3 rounded-lg bg-gradient-to-br ${section.grad} text-white px-6 py-7 text-center shadow-sm`}>
         <p className="text-sm text-white/75 mb-1">{term(primary.term)}</p>
         <p data-formula-result className="text-3xl sm:text-4xl font-black tabular-nums break-all">{primaryText}</p>
         <button
@@ -137,13 +137,13 @@ export default function FormulaEngine({
       )}
 
       {verdict && (
-        <div className="mt-3 rounded-2xl border chip-off px-4 py-3.5">
+        <div className="mt-3 rounded-lg border chip-off px-4 py-3.5">
           <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 mb-1">{ui.interpret}</p>
           <p className={`text-sm font-bold leading-relaxed ${tone}`}>{verdictText(verdict, lang)}</p>
         </div>
       )}
 
-      <div className="mt-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 px-4 py-3.5">
+      <div className="mt-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 px-4 py-3.5">
         <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 mb-1.5">{ui.formula}</p>
         <p className="text-sm font-mono font-bold text-slate-700 dark:text-slate-200 leading-relaxed break-words">
           {formulaText}

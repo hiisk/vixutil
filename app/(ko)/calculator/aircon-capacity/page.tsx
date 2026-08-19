@@ -1,15 +1,15 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 
 /*
- * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
- * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
- * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
- * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
- * 골라 둔 예시를 그대로 올렸다.
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 빈 칸으로 열면 무엇을
+ * 보여 주는 계산기인지 눌러 보기 전에는 모른다 — 값을 미리 넣어 두면 「계산하기」
+ * 한 번에 한 벌이 통째로 보이고, 사람은 그 위에 자기 숫자를 덮어쓴다.
+ * 값은 내가 지어내지 않고 저자가 이미 골라 둔 예시를 그대로 올렸다.
  */
 import Link from 'next/link';
-import CalcShell, { Card, CardHeader, Label, inputCls, selectCls } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, inputCls, selectCls, PrimaryBtn } from '@/components/CalcShell';
 import {
   GRADES, USES, kwToBtu, pickGrade, pyeongLabel, requiredCapacity, runningCost,
   type Choice, type Need, type RoomUse, type RunCost,
@@ -30,7 +30,7 @@ const WINDOWS: { label: string; ratio: number }[] = [
 ];
 
 export default function AirconCapacityPage() {
-  const [area, setArea] = useState('');
+  const [area, setArea] = useState('30');
   const [unit, setUnit] = useState<'pyeong' | 'sqm'>('pyeong');
   const [use, setUse] = useState<RoomUse>('living');
   const [topFloor, setTopFloor] = useState(false);
@@ -46,12 +46,7 @@ export default function AirconCapacityPage() {
    * 계산할 때의 입력을 결과와 함께 들고 있는다 — 결과를 띄운 뒤 용도만 바꾸면
    * 표에 적힌 계수와 숫자가 어긋나기 때문이다.
    */
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | {
+  const [result, setResult] = useState<null | {
     need: Need;
     choice: Choice;
     run: RunCost | null;
@@ -59,18 +54,12 @@ export default function AirconCapacityPage() {
     wPerSqm: number;
     hours: number;
     days: number;
-  } = ((): null | {
-    need: Need;
-    choice: Choice;
-    run: RunCost | null;
-    useLabel: string;
-    wPerSqm: number;
-    hours: number;
-    days: number;
-  } => {
+  }>(null);
+
+  function calculate() {
     const a = Number(area);
     // 1e400 같은 값을 넣으면 Infinity가 되어 등급 계단 밖으로 나간다
-    if (!(a > 0) || !Number.isFinite(a)) return null;
+    if (!(a > 0) || !Number.isFinite(a)) return;
     const h = Number(ceiling);
     const picked = USES.find(u => u.key === use)!;
     const need = requiredCapacity({
@@ -87,7 +76,7 @@ export default function AirconCapacityPage() {
     const c = Number(cop);
     const h24 = Number(hours);
     const d = Number(days);
-    return ({
+    setResult({
       need,
       choice,
       run: c > 0 && h24 > 0 && d > 0
@@ -98,11 +87,7 @@ export default function AirconCapacityPage() {
       hours: h24,
       days: d,
     });
-  
-    return null;
-  })();
-
-
+  }
 
   return (
     <CalcShell
@@ -157,7 +142,7 @@ export default function AirconCapacityPage() {
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-3 gap-x-4 gap-y-5">
               <div className="col-span-2">
                 <Label>냉방할 면적</Label>
                 <input type="number" value={area} onChange={e => setArea(e.target.value)}
@@ -197,11 +182,10 @@ export default function AirconCapacityPage() {
                 className="w-4 h-4 accent-blue-600" />
               <span className="text-sm text-slate-700 dark:text-slate-200">서향·남서향 (오후 늦게 해가 든다)</span>
             </label>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>재실 인원</Label>
-                <input type="number" value={people} onChange={e => setPeople(e.target.value)}
-                  placeholder="예: 2" className={inputCls} min="0" />
+                <MoneyInput value={people} onChange={setPeople} placeholder="예: 2" />
               </div>
               <div>
                 <Label>천장 높이 (m)</Label>
@@ -209,6 +193,7 @@ export default function AirconCapacityPage() {
                   placeholder="예: 2.3" className={inputCls} min="0" step="0.1" />
               </div>
             </div>
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 
@@ -220,7 +205,7 @@ export default function AirconCapacityPage() {
               <input type="number" value={cop} onChange={e => setCop(e.target.value)}
                 placeholder="예: 4.0" className={inputCls} min="0" step="0.1" />
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>하루 사용 시간</Label>
                 <input type="number" value={hours} onChange={e => setHours(e.target.value)}
@@ -234,8 +219,7 @@ export default function AirconCapacityPage() {
             </div>
             <div>
               <Label>에어컨을 빼고 원래 쓰던 사용량 (kWh)</Label>
-              <input type="number" value={base} onChange={e => setBase(e.target.value)}
-                placeholder="예: 300" className={inputCls} min="0" />
+              <MoneyInput value={base} onChange={setBase} placeholder="예: 300" />
             </div>
           </div>
         </Card>

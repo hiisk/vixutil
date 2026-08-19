@@ -93,22 +93,20 @@ export default function RegexPage({ slug, lang }: { slug: string; lang: Lang }) 
       </header>
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
-        <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-3 shadow-lg bg-sec-soft">
-            <ToolIcon emoji={REGEX_ICON} className="w-7 h-7" />
-          </div>
+        <div className="hero-band ">
+          <span className="bg-sec-soft inline-flex h-10 w-10 items-center justify-center rounded-lg"><ToolIcon emoji={REGEX_ICON} className="h-5 w-5" /></span>
           <h1 className="page-h1">{what}</h1>
           <p className="note-sm">{ui.desc(f, what)}</p>
         </div>
 
-        <div className="rounded-2xl border-2 border-sky-300 dark:border-sky-800 bg-sky-50 dark:bg-sky-950/30 px-4 py-4 mb-4">
+        <div className="rounded-lg border-2 border-sky-300 dark:border-sky-800 bg-sky-50 dark:bg-sky-950/30 px-4 py-4 mb-4">
           <div className="text-[11px] font-bold text-sky-700 dark:text-sky-400 mb-1">{ui.patternLabel}</div>
           <code className="block text-base sm:text-lg font-black text-slate-900 dark:text-slate-100 font-mono leading-snug break-all">
             /{x.re}/{x.flags}
           </code>
         </div>
 
-        <dl className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden mb-4">
+        <dl className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden mb-4">
           <div className="row-pair">
             <dt className="text-xs text-slate-500 dark:text-slate-400">{ui.anchoredLabel}</dt>
             <dd className="text-sm font-bold text-slate-800 dark:text-slate-100 text-right">{f.anchored ? ui.anchoredYes : ui.anchoredNo}</dd>
@@ -134,7 +132,7 @@ export default function RegexPage({ slug, lang }: { slug: string; lang: Lang }) 
           </div>
         </dl>
 
-        <div className="rounded-2xl border chip-off p-4 mb-8">
+        <div className="rounded-lg border chip-off p-4 mb-8">
           <h2 className="sec-h2-tight">{ui.tryTitle}</h2>
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.tryNote}</p>
           <RegexTry
@@ -151,7 +149,7 @@ export default function RegexPage({ slug, lang }: { slug: string; lang: Lang }) 
         <div className="grid sm:grid-cols-2 gap-4 mb-8">
           <section>
             <h2 className="text-sm font-black text-emerald-700 dark:text-emerald-400 mb-2">{ui.okTitle}</h2>
-            <ul className="rounded-2xl border border-emerald-200 dark:border-emerald-900/60 divide-y divide-emerald-100 dark:divide-emerald-900/40 overflow-hidden">
+            <ul className="rounded-lg border border-emerald-200 dark:border-emerald-900/60 divide-y divide-emerald-100 dark:divide-emerald-900/40 overflow-hidden">
               {x.ok.map(s => (
                 <li key={s} className="px-3 py-2 bg-emerald-50/60 dark:bg-emerald-950/20 text-xs font-mono text-slate-700 dark:text-slate-200 break-all">{show(s)}</li>
               ))}
@@ -159,7 +157,7 @@ export default function RegexPage({ slug, lang }: { slug: string; lang: Lang }) 
           </section>
           <section>
             <h2 className="text-sm font-black text-rose-700 dark:text-rose-400 mb-2">{ui.noTitle}</h2>
-            <ul className="rounded-2xl border border-rose-200 dark:border-rose-900/60 divide-y divide-rose-100 dark:divide-rose-900/40 overflow-hidden">
+            <ul className="rounded-lg border border-rose-200 dark:border-rose-900/60 divide-y divide-rose-100 dark:divide-rose-900/40 overflow-hidden">
               {x.no.map(s => (
                 <li key={s} className="px-3 py-2 bg-rose-50/60 dark:bg-rose-950/20 text-xs font-mono text-slate-700 dark:text-slate-200 break-all">{show(s)}</li>
               ))}
@@ -169,7 +167,7 @@ export default function RegexPage({ slug, lang }: { slug: string; lang: Lang }) 
 
         <section className="mb-8">
           <h2 className="sec-h2">{ui.siblingTitle}</h2>
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
             {siblingPatterns(slug).map(o => (
               <Link prefetch={false}
                 key={o.slug}

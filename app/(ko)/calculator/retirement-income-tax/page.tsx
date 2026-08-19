@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, {
-  Card, CardHeader, Label, inputCls,
+  Card, CardHeader, Label, PrimaryBtn, inputCls,
   SummaryCard, SummaryGrid,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
@@ -13,20 +13,13 @@ export default function RetirementIncomeTaxPage() {
   const [payout, setPayout] = useState(50_000_000);
   const [years, setYears] = useState('10');
   const [months, setMonths] = useState('0');
+  const [result, setResult] = useState<RetirementTaxResult | null>(null);
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: RetirementTaxResult | null = ((): RetirementTaxResult | null => {
+  function calculate() {
     const serviceMonths = (Number(years) || 0) * 12 + (Number(months) || 0);
-    if (payout <= 0 || serviceMonths <= 0) return null;
-    return (calcRetirementTax({ payout, serviceMonths }));
-  
-    return null;
-  })();
-
+    if (payout <= 0 || serviceMonths <= 0) return;
+    setResult(calcRetirementTax({ payout, serviceMonths }));
+  }
 
   return (
     <CalcShell
@@ -76,7 +69,7 @@ export default function RetirementIncomeTaxPage() {
             </div>
             <div>
               <Label>근속 기간</Label>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-x-4 gap-y-5">
                 <div className="flex items-center gap-2">
                   <input
                     type="number" value={years} onChange={e => setYears(e.target.value)}
@@ -98,6 +91,8 @@ export default function RetirementIncomeTaxPage() {
             </div>
           </div>
         </Card>
+
+        <PrimaryBtn onClick={calculate}>퇴직소득세 계산</PrimaryBtn>
 
         {result && (
           <>

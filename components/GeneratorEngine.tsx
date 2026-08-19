@@ -1,7 +1,7 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
 import PageHero from '@/components/PageHero';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import ShareButton from './ShareButton';
 import type { Generator } from '@/lib/types';
@@ -31,7 +31,24 @@ function CopyBtn({ text }: { text: string }) {
   );
 }
 
-export default function GeneratorEngine({ gen }: { gen: Generator }) {
+  /*
+   * headerRight — 머리줄 오른쪽에 얹을 것(언어 고르개).
+   * 예전에는 부르는 쪽이 이 엔진 **위에** 자기 줄을 하나 더 만들어 고르개를
+   * 놓았다. 화면 위쪽 50px이 고르개 하나에 쓰였고, 머리 띠가 두 겹으로 보였다.
+   * 머리줄이 이미 있으므로 그 안에 넣는다.
+   */
+export default function GeneratorEngine({ gen, headerRight }: { gen: Generator; headerRight?: React.ReactNode }) {
+  /*
+   * ── 열자마자 한 벌을 뽑는다 (2026-08-19) ────────────────────────
+   * 「시작」을 눌러야 아무 일이 일어났다. 그런데 생성기는 **입력이 없는 도구**다 —
+   * 누르기 전에 사람이 정할 것이 하나도 없는데 버튼이 한 번을 가로막고 있었고,
+   * 그동안 화면은 절반이 빈 채로 서 있었다. 버튼은 남되 「다시 생성하기」가 된다 —
+   * 마음에 안 들면 다시 돌리는 것이 이 도구를 쓰는 방식이다.
+   *
+   * useState의 초기값으로 뽑으면 안 된다. 클라이언트 컴포넌트도 서버에서 한 번
+   * 그려지므로 서버가 뽑은 것과 브라우저가 뽑은 것이 달라 하이드레이션이 어긋난다.
+   * 마운트 뒤에 뽑으면 서버는 빈 화면을 그리고 브라우저가 채운다.
+   */
   const [results, setResults]   = useState<string[]>([]);
   const [saved, setSaved]       = useState<string[]>([]);
   const [animKey, setAnimKey]   = useState(0);
@@ -41,6 +58,19 @@ export default function GeneratorEngine({ gen }: { gen: Generator }) {
     setResults(makeBatch(gen));
     setAnimKey(k => k + 1);
   }
+
+  /*
+   * 첫 화면에 한 벌 — 갈래(gen)가 바뀌면 다시 뽑는다.
+   *
+   * 무작위는 «바깥 세계»라 효과 안에서 읽는 것이 맞다. 렌더 중에 뽑으면 서버가
+   * 뽑은 값과 브라우저가 뽑은 값이 달라 하이드레이션이 어긋난다.
+   * ThemeToggle이 DOM에서 테마를 읽는 것과 같은 자리다.
+   */
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setResults(makeBatch(gen));
+    setAnimKey(k => k + 1);
+  }, [gen]);
 
   function refreshOne(idx: number) {
     setResults(prev => {
@@ -82,26 +112,30 @@ export default function GeneratorEngine({ gen }: { gen: Generator }) {
           </Link>
           <span className="text-slate-200">·</span>
           <span className="row-name">{gen.title}</span>
+        {headerRight && <span className="ml-auto shrink-0">{headerRight}</span>}
         </div>
       </header>
 
       <div className="flex-1 px-4 py-8 max-w-lg mx-auto w-full">
-        {/* 인트로 */}
-        <div className="text-center mb-7">
-          {/* 목록 카드와 같은 그라데이션·이모지 — 텍스트만 있으면 허전하다 */}
-          <div className={`w-24 h-24 rounded-3xl mx-auto mb-4 flex items-center justify-center bg-sec-soft shadow-xl`}>
-            <ToolIcon emoji={gen.icon} className="w-12 h-12 drop-shadow-md" />
+        {/*
+          머리 — 사이트의 다른 갈래와 같은 규격이다. 예전에는 96px짜리 아이콘 판과
+          제목 타일이 **둘 다 가운데**에 떠 있어서, 도구는 아래 있는데 화면 위쪽
+          절반을 소개가 차지했다. 칩 하나로 줄이고 왼쪽에 세운다.
+        */}
+        <div className="hero-band">
+          <div className="mb-3 flex items-center gap-2">
+            <span className="bg-sec-soft inline-flex h-10 w-10 items-center justify-center rounded-lg">
+              <ToolIcon emoji={gen.icon} className="h-5 w-5" />
+            </span>
+            <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{gen.category}</span>
           </div>
-          <span className="text-xs font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950/30 px-3 py-1 rounded-full">{gen.category}</span>
-          <div className="hero-band">
-            <PageHero title={gen.title} desc={gen.desc} />
-          </div>
+          <PageHero title={gen.title} desc={gen.desc} />
         </div>
 
         {/* 생성 버튼 */}
         <button
           onClick={generate}
-          className="w-full bg-emerald-500 hover:bg-emerald-600 active:scale-[0.98] text-white rounded-2xl py-4 font-black text-base transition-all shadow-md shadow-emerald-200 mb-5"
+          className="w-full bg-emerald-500 hover:bg-emerald-600 active:scale-[0.98] text-white rounded-lg py-4 font-black text-base transition-all shadow-sm shadow-emerald-200 mb-5"
         >
           {hasResults ? '🔄 다시 생성하기' : `✨ ${gen.title} 시작`}
         </button>
@@ -115,7 +149,7 @@ export default function GeneratorEngine({ gen }: { gen: Generator }) {
               return (
                 <div
                   key={`${r}-${i}`}
-                  className="group flex items-start gap-3 bg-white dark:bg-slate-900 rounded-2xl px-4 py-3.5 border border-slate-100 dark:border-slate-800 hover:border-emerald-200 hover:shadow-sm transition-all"
+                  className="group flex items-start gap-3 bg-white dark:bg-slate-900 rounded-lg px-4 py-3.5 border border-slate-100 dark:border-slate-800 hover:border-emerald-200 hover:shadow-sm transition-all"
                 >
                   <span className="shrink-0 w-5 h-5 rounded-full bg-emerald-100 dark:bg-emerald-950/40 text-emerald-600 text-xs font-black flex items-center justify-center mt-0.5">
                     {i + 1}

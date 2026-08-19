@@ -162,7 +162,13 @@ function grade(pct: number, ui: (typeof UI)[QuizLang]) {
   return { label: ui.grades[4], color: 'from-rose-400 to-red-600', textColor: 'text-rose-100', hex: ['#fb7185', '#dc2626'] };
 }
 
-export default function QuizEngine({ quiz, lang = 'ko' }: { quiz: Quiz; lang?: QuizLang }) {
+  /*
+   * headerRight — 머리줄 오른쪽에 얹을 것(언어 고르개).
+   * 예전에는 부르는 쪽이 이 엔진 **위에** 자기 줄을 하나 더 만들어 고르개를
+   * 놓았다. 화면 위쪽 50px이 고르개 하나에 쓰였고, 머리 띠가 두 겹으로 보였다.
+   * 머리줄이 이미 있으므로 그 안에 넣는다.
+   */
+export default function QuizEngine({ quiz, lang = 'ko', headerRight }: { quiz: Quiz; lang?: QuizLang; headerRight?: React.ReactNode }) {
   const ui = UI[lang];
   const hubHref = lang === 'ko' ? '/quiz' : `/${lang}/quiz`;
   const [phase, setPhase] = useState<Phase>('start');
@@ -214,22 +220,27 @@ export default function QuizEngine({ quiz, lang = 'ko' }: { quiz: Quiz; lang?: Q
             </svg>
             {ui.allQuizzes}
           </Link>
+        {headerRight && <span className="ml-auto shrink-0">{headerRight}</span>}
         </div>
       </header>
-      <div className="flex-1 flex flex-col items-center justify-center px-4 py-14 max-w-lg mx-auto w-full text-center">
-        {/* 목록 카드와 같은 그라데이션·이모지 — 텍스트만 있으면 허전하다 */}
-        <div className={`w-32 h-32 rounded-3xl mb-6 flex items-center justify-center bg-sec-soft shadow-xl`}>
-          <ToolIcon emoji={quiz.icon} className="w-14 h-14 drop-shadow-md" />
+      <div className="flex-1 px-4 py-8 max-w-lg mx-auto w-full">
+        {/*
+          128px 아이콘 판이 첫 화면을 통째로 차지했다. 시작 화면은 «무엇을
+          하는 것이고 얼마나 걸리나»를 알려 주는 자리지 소개 포스터가 아니다.
+          칩 하나로 줄이고 왼쪽에 세운다 — 다른 갈래와 같은 규격이다.
+        */}
+        <div className="mb-3 flex items-center gap-2">
+          <span className="bg-sec-soft inline-flex h-10 w-10 items-center justify-center rounded-lg">
+            <ToolIcon emoji={quiz.icon} className="h-5 w-5" />
+          </span>
+          <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{quiz.category}</span>
         </div>
-        <span className="text-xs font-bold text-amber-600 bg-amber-50 dark:bg-amber-950/30 px-3 py-1 rounded-full mb-3">{quiz.category}</span>
-        <div className="w-full max-w-sm mb-6">
-          <div className="hero-band">
+        <div className="hero-band">
             <PageHero title={quiz.title} desc={quiz.desc} />
           </div>
-        </div>
         <p className="text-xs text-slate-400 dark:text-slate-500 mb-8">{ui.meta(quiz.questions.length)}</p>
         <button onClick={() => setPhase('question')}
-          className="w-full max-w-xs bg-amber-500 hover:bg-amber-600 text-white font-black py-4 rounded-2xl text-base transition-colors shadow-md shadow-amber-200">
+          className="w-full max-w-xs bg-amber-500 hover:bg-amber-600 text-white font-black py-4 rounded-lg text-base transition-colors shadow-sm shadow-amber-200">
           {ui.start}
         </button>
       </div>
@@ -263,7 +274,7 @@ export default function QuizEngine({ quiz, lang = 'ko' }: { quiz: Quiz; lang?: Q
             const answered = phase === 'answer';
             const isRight = i === q.correct;
             const isChosen = i === selected;
-            let cls = 'group w-full text-left flex items-center gap-3 border rounded-2xl pl-3 pr-4 py-3.5 text-sm font-medium transition-all ';
+            let cls = 'group w-full text-left flex items-center gap-3 border rounded-lg pl-3 pr-4 py-3.5 text-sm font-medium transition-all ';
             let badgeCls = 'shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-black transition-colors ';
             if (answered) {
               if (isRight) { cls += 'bg-emerald-50 dark:bg-emerald-950/30 border-2 border-emerald-400 text-emerald-800 dark:text-emerald-300 font-bold'; badgeCls += 'bg-emerald-500 text-white'; }
@@ -286,7 +297,7 @@ export default function QuizEngine({ quiz, lang = 'ko' }: { quiz: Quiz; lang?: Q
         {phase === 'answer' && (
           <div className="mt-5 space-y-3">
             {q.explanation && (
-              <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-100 dark:border-blue-900/40 rounded-2xl p-4">
+              <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-100 dark:border-blue-900/40 rounded-lg p-4">
                 <p className="text-xs font-bold text-blue-600 mb-1">{ui.explanation}</p>
                 <p className="text-sm text-blue-800 dark:text-blue-300 leading-relaxed">{q.explanation}</p>
               </div>
@@ -311,9 +322,8 @@ export default function QuizEngine({ quiz, lang = 'ko' }: { quiz: Quiz; lang?: Q
       <div className="h-1 topbar" />
       <div className="flex-1 px-4 py-8 max-w-lg mx-auto w-full">
         {/* Score hero card */}
-        <div className={`relative overflow-hidden rounded-3xl bg-gradient-to-br ${g.color} p-8 text-white text-center mb-6 shadow-lg`}>
-          <span className="absolute -top-6 -right-6 text-[120px] opacity-10 select-none">{medal(pct)}</span>
-          <div className="text-7xl mb-3 filter drop-shadow-lg">{medal(pct)}</div>
+        <div className={`relative overflow-hidden rounded-xl bg-gradient-to-br ${g.color} p-8 text-white text-center mb-6 shadow-sm`}>
+          <div className="text-7xl mb-3 filter drop-shadow-sm">{medal(pct)}</div>
           <div className="text-5xl font-black mb-1">{correct}<span className="text-2xl font-normal opacity-70"> / {total}</span></div>
           <div className={`text-2xl font-black ${g.textColor} mb-2`}>{ui.score(pct)} · {g.label}</div>
           <p className={`text-sm ${g.textColor}`}>{msg}</p>
@@ -325,7 +335,7 @@ export default function QuizEngine({ quiz, lang = 'ko' }: { quiz: Quiz; lang?: Q
 
         {/* Wrong answers */}
         {wrongList.length > 0 && (
-          <div className="bg-red-50 dark:bg-red-950/30 border border-red-100 dark:border-red-900/40 rounded-2xl p-4 mb-5">
+          <div className="bg-red-50 dark:bg-red-950/30 border border-red-100 dark:border-red-900/40 rounded-lg p-4 mb-5">
             <p className="text-xs font-bold text-red-500 mb-2">{ui.wrongCount(wrongList.length)}</p>
             <div className="space-y-1">
               {wrongList.map(idx => (

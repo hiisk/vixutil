@@ -206,27 +206,27 @@ export default function CoupleMatchPage() {
         </div>
       </header>
 
-      <div className="max-w-xl mx-auto px-4 py-8">
-        <div className="text-center mb-6">
-          <ToolIcon emoji="💑" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+      <div className="hero-band max-w-xl mx-auto px-4 py-8">
+        <div className="mb-6">
+          <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="💑" className="h-6 w-6" /></span>
           <h1 className="page-h1">커플 관상 궁합</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">두 사람의 사진으로 인상이 얼마나 닮았는지 궁합을 봐드려요</p>
         </div>
 
-        <div className="bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/40 rounded-2xl p-4 mb-6 text-xs text-rose-800 dark:text-rose-300 leading-relaxed">
+        <div className="bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/40 rounded-lg p-4 mb-6 text-xs text-rose-800 dark:text-rose-300 leading-relaxed">
           <p className="font-bold mb-1">🔒 사진은 서버에 전송되지 않아요</p>
           <p>두 얼굴의 이목구비 비율은 이 브라우저 안에서 실제로 측정돼요. 사진은 어디에도 저장·전송되지 않으며, 궁합 해석은 참고용 오락 콘텐츠입니다.</p>
         </div>
 
         {modelState === 'loading' && (
-          <div className="w-full border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl py-16 flex flex-col items-center gap-3 bg-white dark:bg-slate-900">
+          <div className="w-full border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-lg py-16 flex flex-col items-center gap-3 bg-white dark:bg-slate-900">
             <div className="w-8 h-8 border-4 border-slate-200 dark:border-slate-700 border-t-rose-500 rounded-full animate-spin" />
             <span className="text-sm font-bold text-slate-500 dark:text-slate-400">얼굴 인식 모델을 불러오는 중...</span>
           </div>
         )}
 
         {modelState === 'error' && (
-          <div className="w-full border-2 border-dashed border-rose-200 dark:border-rose-900/50 rounded-2xl py-12 px-4 flex flex-col items-center gap-2 bg-rose-50 dark:bg-rose-950/30 text-center">
+          <div className="w-full border-2 border-dashed border-rose-200 dark:border-rose-900/50 rounded-lg py-12 px-4 flex flex-col items-center gap-2 bg-rose-50 dark:bg-rose-950/30 text-center">
             <ToolIcon emoji="⚠️" className="w-8 h-8 text-slate-800 dark:text-slate-100" />
             <span className="text-sm font-bold text-rose-600">얼굴 인식 모델을 불러오지 못했어요</span>
             <span className="text-xs text-rose-400">네트워크 상태를 확인하고 새로고침 해주세요</span>
@@ -240,7 +240,7 @@ export default function CoupleMatchPage() {
                 <div key={slot}>
                   <button
                     onClick={() => inputRefs[slot].current?.click()}
-                    className="w-full aspect-square rounded-2xl border-2 border-dashed border-slate-300 bg-white dark:bg-slate-900 hover:border-rose-400 hover:bg-rose-50/50 dark:hover:bg-rose-950/40 transition-colors overflow-hidden relative flex flex-col items-center justify-center gap-2"
+                    className="w-full aspect-square rounded-lg border-2 border-dashed border-slate-300 bg-white dark:bg-slate-900 hover:border-rose-400 hover:bg-rose-50/50 dark:hover:bg-rose-950/40 transition-colors overflow-hidden relative gap-2"
                   >
                     {previews[slot] ? (
                       // eslint-disable-next-line @next/next/no-img-element
@@ -269,7 +269,7 @@ export default function CoupleMatchPage() {
             <button
               onClick={analyze}
               disabled={!bothReady}
-              className="w-full py-3.5 rounded-2xl font-bold text-sm bg-sec hover:opacity-90 active:scale-[0.98] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+              className="w-full py-3.5 rounded-lg font-bold text-sm bg-sec hover:opacity-90 active:scale-[0.98] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
             >
               {bothReady ? '💘 궁합 보기' : '두 사진을 모두 올려주세요'}
             </button>
@@ -278,17 +278,17 @@ export default function CoupleMatchPage() {
 
         {result && (
           <div id="couple-result" className="space-y-4 mt-6">
-            <div className="bg-gradient-to-br from-rose-500 to-pink-600 rounded-2xl p-6 text-white text-center">
+            <div className="bg-gradient-to-br from-rose-500 to-pink-600 rounded-lg p-6 text-white text-center">
               <div className="flex justify-end mb-2">
                 <ShareBtn />
               </div>
-              <ToolIcon emoji="💘" className="w-12 h-12 mx-auto mb-2 text-slate-800 dark:text-slate-100" />
+              <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="💘" className="h-6 w-6" /></span>
               <p className="text-sm font-semibold text-white/80 mb-1">커플 관상 궁합</p>
               <p className="text-4xl font-black mb-3">{result.score}%</p>
               <p className="text-sm leading-relaxed">{result.headline}</p>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5">
               <p className="label-caps mb-3">💞 이목구비별 닮은 정도</p>
               <div className="flex flex-col gap-2.5">
                 {result.breakdown.map(m => (
@@ -305,12 +305,12 @@ export default function CoupleMatchPage() {
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100 dark:border-amber-900/40 rounded-2xl p-5">
+            <div className="bg-amber-50 border border-amber-100 dark:border-amber-900/40 rounded-lg p-5">
               <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">💌 오늘의 커플 팁</p>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.comment}</p>
             </div>
 
-            <button onClick={handleReset} className="w-full py-3.5 rounded-2xl font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-rose-300 hover:text-rose-600 transition-colors">
+            <button onClick={handleReset} className="w-full py-3.5 rounded-lg font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-rose-300 hover:text-rose-600 transition-colors">
               🔄 다른 사진으로 다시 해보기
             </button>
 

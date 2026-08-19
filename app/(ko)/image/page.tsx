@@ -68,8 +68,8 @@ export default function ImageHubPage() {
       </header>
 
       <main className="relative max-w-2xl mx-auto px-4 py-10">
-        <div className="text-center mb-9">
-          <ToolIcon emoji="🖼️" className="w-12 h-12 mx-auto mb-4 text-slate-800 dark:text-slate-100" />
+        <div className="hero-band ">
+          <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="🖼️" className="h-6 w-6" /></span>
           <h1 className="page-h1">이미지 도구</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
             용량 줄이기·크기 조절·자르기·모자이크까지
@@ -77,7 +77,7 @@ export default function ImageHubPage() {
           </p>
         </div>
 
-        <div className="rounded-2xl border border-violet-100 dark:border-violet-900/40 bg-violet-50/70 dark:bg-violet-950/30 px-4 py-3.5 mb-7 text-xs text-violet-800 dark:text-violet-200 leading-relaxed text-center">
+        <div className="rounded-lg border border-violet-100 dark:border-violet-900/40 bg-violet-50/70 dark:bg-violet-950/30 px-4 py-3.5 mb-7 text-xs text-violet-800 dark:text-violet-200 leading-relaxed text-center">
           🔒 모든 편집은 이 브라우저 안에서 끝납니다. 사진이 서버로 전송되지 않으니 신분증·계좌 캡처도 안심하고 쓰세요.
         </div>
 
@@ -92,9 +92,8 @@ export default function ImageHubPage() {
                   <Link
                     key={t.slug}
                     href={`/image/${t.slug}`}
-                    className="group relative overflow-hidden rounded-2xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 hover:shadow-md hover:border-violet-200 transition-all"
+                    className="group relative overflow-hidden rounded-lg border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 hover:border-slate-300 dark:hover:border-slate-700 hover:border-violet-200 transition-all"
                   >
-                    <div className={`absolute -right-6 -top-6 w-24 h-24 rounded-full bg-sec-soft opacity-10 group-hover:opacity-20 transition-opacity`} />
                     <div className="relative">
                       <ToolIcon emoji={t.icon} color={t.og[0]} accent={t.og[1]} className="w-9 h-9 block mb-3" />
                       <h3 className="text-base font-black text-slate-900 dark:text-slate-100 mb-1">{t.title}</h3>
@@ -113,7 +112,7 @@ export default function ImageHubPage() {
           ))}
         </div>
 
-        <div className="mt-10 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+        <div className="mt-10 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
           <h2 className="sec-h2">이럴 때 쓰세요</h2>
           <ul className="flex flex-col gap-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
             <li>📎 <b className="text-slate-800 dark:text-slate-100">첨부 용량 제한에 걸렸을 때</b> — 용량 줄이기로 화질을 조금만 낮추면 대부분 통과합니다</li>
@@ -129,7 +128,7 @@ export default function ImageHubPage() {
 
           href="/image/size"
 
-          className="group mt-10 flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+          className="group mt-10 flex items-center gap-4 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:border-slate-300 dark:hover:border-slate-700 hover:-translate-y-0.5 transition-all"
 
         >
 

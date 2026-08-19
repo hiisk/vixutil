@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 import Link from 'next/link';
 import CalcShell, { Card, CardHeader, Label, inputCls, SummaryCard, SummaryGrid } from '@/components/CalcShell';
 import {
@@ -214,8 +215,7 @@ export default function CondolenceMoneyPage() {
 
             <div>
               <Label>전에 받은 부조 (만원, 없으면 비움)</Label>
-              <input type="number" value={received} onChange={e => setReceived(e.target.value)}
-                placeholder="예: 10" className={inputCls} min="0" step="1" />
+              <MoneyInput value={received} onChange={setReceived} placeholder="예: 10" />
               <p className="text-xs text-slate-400 dark:text-slate-500 mt-1.5">
                 내 집안 일에 이 분이 부조를 해 주셨다면, 그만큼은 맞추는 것이 관습입니다
               </p>

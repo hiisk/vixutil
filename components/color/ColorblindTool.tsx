@@ -31,7 +31,7 @@ export default function ColorblindTool({ lang = 'ko' }: { lang?: ColorLang } = {
         <ColorInput value={b} onChange={setB} label={ui.second} />
       </div>
 
-      <div className="mt-4 flex rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 h-20">
+      <div className="mt-4 flex rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 h-20">
         <div className="flex-1" style={{ background: a }} />
         <div className="flex-1" style={{ background: b }} />
       </div>
@@ -39,7 +39,7 @@ export default function ColorblindTool({ lang = 'ko' }: { lang?: ColorLang } = {
 
       <div className="flex flex-col gap-3 mt-5">
         {rows.map(r => (
-          <div key={r.type} className="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+          <div key={r.type} className="rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
             <div className="flex h-16">
               <div className="flex-1" style={{ background: r.a }} />
               <div className="flex-1" style={{ background: r.b }} />

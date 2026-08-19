@@ -188,13 +188,13 @@ export default function FaceSymmetry({ lang }: { lang: SnapIntlLang }) {
     >
       {result => (
         <>
-          <div className="bg-gradient-to-br from-violet-500 to-fuchsia-600 rounded-2xl p-6 text-white text-center">
+          <div className="bg-gradient-to-br from-violet-500 to-fuchsia-600 rounded-lg p-6 text-white text-center">
             <p className="text-sm font-semibold text-white/80 mb-2">{c.overall}</p>
             <p className="text-4xl font-black mb-3">{result.percent}%</p>
             <p className="text-sm leading-relaxed">{result.text}</p>
           </div>
 
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5">
             <div className="flex items-baseline justify-between mb-3">
               <p className="label-caps">{c.breakdown}</p>
               <p className="text-xs text-slate-400 dark:text-slate-500">{c.best} · <strong className="text-violet-600">{result.bestRegion}</strong></p>
@@ -216,7 +216,7 @@ export default function FaceSymmetry({ lang }: { lang: SnapIntlLang }) {
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-violet-50 to-fuchsia-50 dark:from-violet-950/20 dark:to-fuchsia-950/20 border border-violet-100 dark:border-violet-900/40 rounded-2xl p-5">
+          <div className="bg-violet-50 dark:from-violet-950/20 dark:to-fuchsia-950/20 border border-violet-100 dark:border-violet-900/40 rounded-lg p-5">
             <p className="text-xs font-bold text-violet-600 uppercase tracking-wide mb-2">{c.tip}</p>
             <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.tip}</p>
           </div>

@@ -202,12 +202,12 @@ export default function FaceReading({ lang }: { lang: SnapIntlLang }) {
     >
       {result => (
         <>
-          <div className="bg-gradient-to-br from-amber-500 to-red-500 rounded-2xl p-6 text-white text-center">
+          <div className="bg-gradient-to-br from-amber-500 to-red-500 rounded-lg p-6 text-white text-center">
             <p className="text-sm font-semibold text-white/80 mb-2">{c.overall}</p>
             <p className="text-sm leading-relaxed">{result.overall}</p>
           </div>
 
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5">
             <p className="label-caps mb-3">{c.features}</p>
             <div className="flex flex-col gap-4">
               {result.features.map(f => (
@@ -225,7 +225,7 @@ export default function FaceReading({ lang }: { lang: SnapIntlLang }) {
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/20 border border-amber-100 dark:border-amber-900/40 rounded-2xl p-5">
+          <div className="bg-amber-50 dark:from-amber-950/20 dark:to-orange-950/20 border border-amber-100 dark:border-amber-900/40 rounded-lg p-5">
             <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">{c.luck}</p>
             <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.todayLuck}</p>
           </div>

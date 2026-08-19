@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, Label, inputCls, SummaryCard, TabBar } from '@/components/CalcShell';
+import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard, TabBar } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
@@ -13,21 +13,15 @@ export default function DepositPage() {
   const [rate, setRate] = useState('3.5');
   const [period, setPeriod] = useState('12');
   const [unit, setUnit] = useState<'month' | 'year'>('month');
+  const [result, setResult] = useState<null | {
+    interest: number; tax: number; netInterest: number; total: number;
+  }>(null);
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | {
-    interest: number; tax: number; netInterest: number; total: number;
-  } = ((): null | {
-    interest: number; tax: number; netInterest: number; total: number;
-  } => {
+  function calculate() {
     const p = principal;
     const r = Number(rate) / 100;
     const periodVal = Number(period);
-    if (p <= 0 || r <= 0 || periodVal <= 0) return null;
+    if (p <= 0 || r <= 0 || periodVal <= 0) return;
 
     const years = unit === 'year' ? periodVal : periodVal / 12;
     let interest = 0;
@@ -37,11 +31,8 @@ export default function DepositPage() {
       interest = p * (Math.pow(1 + r, years) - 1);
     }
     const tax = interest * 0.154;
-    return ({ interest, tax, netInterest: interest - tax, total: p + interest - tax });
-  
-    return null;
-  })();
-
+    setResult({ interest, tax, netInterest: interest - tax, total: p + interest - tax });
+  }
 
   return (
     <CalcShell
@@ -83,7 +74,7 @@ export default function DepositPage() {
             { value: 'compound', label: '복리' },
           ]}
           value={mode}
-          onChange={v => { setMode(v as 'simple' | 'compound'); }}
+          onChange={v => { setMode(v as 'simple' | 'compound'); setResult(null); }}
         />
         <Card className="p-5">
           <div className="flex flex-col gap-3">
@@ -110,6 +101,7 @@ export default function DepositPage() {
                 </select>
               </div>
             </div>
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 
@@ -119,7 +111,7 @@ export default function DepositPage() {
               <p className="stat-label">만기 수령액 (세후)</p>
               <p className="stat-value">{fmt(result.total)}원</p>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <SummaryCard label="원금" value={`${fmt(principal)}원`} />
               <SummaryCard label="세전 이자" value={`${fmt(result.interest)}원`} variant="green" />
               <SummaryCard label="이자소득세 (15.4%)" value={`-${fmt(result.tax)}원`} variant="red" />

@@ -83,7 +83,7 @@ export default function BodyFatIntl({ lang }: { lang: CalcLang }) {
         </div>
 
         {mode === 'navy' ? (
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div>
               <Label>{c.height}</Label>
               <input type="number" value={height} onChange={e => setHeight(e.target.value)} className={inputCls} />
@@ -108,7 +108,7 @@ export default function BodyFatIntl({ lang }: { lang: CalcLang }) {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-3 gap-x-4 gap-y-5">
             <div>
               <Label>{c.bmi}</Label>
               <input type="number" step="0.1" value={bmi} onChange={e => setBmi(e.target.value)} className={inputCls} />
@@ -139,7 +139,7 @@ export default function BodyFatIntl({ lang }: { lang: CalcLang }) {
 
           {result.fat > 0 && (
             <>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-x-4 gap-y-5">
                 <SummaryCard label={c.fatMass} value={`${fmt(result.fat)} kg`} variant="red" />
                 <SummaryCard label={c.leanMass} value={`${fmt(result.lean)} kg`} variant="green" />
               </div>

@@ -219,7 +219,7 @@ export default function PersonalColor({ lang }: { lang: SnapIntlLang }) {
     >
       {result => (
         <>
-          <div className="rounded-2xl p-6 text-white text-center" style={{ background: `linear-gradient(135deg, ${result.from}, ${result.to})` }}>
+          <div className="rounded-lg p-6 text-white text-center" style={{ background: `linear-gradient(135deg, ${result.from}, ${result.to})` }}>
             <p className="text-sm font-semibold text-white/80 mb-2">{c.result}</p>
             <div className="text-5xl mb-2">{result.emoji}</div>
             <p className="text-2xl font-black mb-1">{result.label}</p>
@@ -227,7 +227,7 @@ export default function PersonalColor({ lang }: { lang: SnapIntlLang }) {
             <p className="text-sm leading-relaxed">{result.text}</p>
           </div>
 
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5">
             <p className="text-xs font-bold text-emerald-600 uppercase tracking-wide mb-3">{c.palette}</p>
             <div className="grid grid-cols-3 gap-2">
               {result.palette.map(s => (
@@ -239,7 +239,7 @@ export default function PersonalColor({ lang }: { lang: SnapIntlLang }) {
             </div>
           </div>
 
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5">
             <p className="text-xs font-bold text-rose-500 uppercase tracking-wide mb-3">{c.avoid}</p>
             <div className="grid grid-cols-3 gap-2">
               {result.avoidPalette.map(s => (
@@ -251,7 +251,7 @@ export default function PersonalColor({ lang }: { lang: SnapIntlLang }) {
             </div>
           </div>
 
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5">
             <p className="label-caps mb-3">{c.metrics}</p>
             <div className="flex flex-col gap-3">
               {[
@@ -272,7 +272,7 @@ export default function PersonalColor({ lang }: { lang: SnapIntlLang }) {
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-pink-50 to-violet-50 dark:from-pink-950/20 dark:to-violet-950/20 border border-pink-100 dark:border-pink-900/40 rounded-2xl p-5">
+          <div className="bg-pink-50 dark:from-pink-950/20 dark:to-violet-950/20 border border-pink-100 dark:border-pink-900/40 rounded-lg p-5">
             <p className="text-xs font-bold text-pink-600 uppercase tracking-wide mb-2">{c.tip}</p>
             <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.tip}</p>
           </div>

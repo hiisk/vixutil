@@ -43,7 +43,7 @@ export default function BloodPressureIntl({ lang }: { lang: CalcLang }) {
     <div className="flex flex-col gap-4">
       <Card className="p-5">
         <p className="label-caps mb-3">{c.section}</p>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-5">
           <div>
             <Label>{c.systolic}</Label>
             <input type="number" value={systolic} onChange={e => setSystolic(e.target.value)} className={inputCls} />
@@ -58,7 +58,7 @@ export default function BloodPressureIntl({ lang }: { lang: CalcLang }) {
       </Card>
 
       {result && (
-        <div className={`rounded-2xl p-6 text-center ${TONES[result.tone]}`}>
+        <div className={`rounded-lg p-6 text-center ${TONES[result.tone]}`}>
           <p className="text-white/70 text-xs mb-1">{c.result}</p>
           <p className="text-white text-3xl font-black">{labels[result.key]}</p>
           <p className="text-white/80 text-sm mt-1">{result.sys} / {result.dia} {c.unit}</p>

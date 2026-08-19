@@ -67,8 +67,8 @@ export default function ColorHubPage() {
       </header>
 
       <main className="relative max-w-2xl mx-auto px-4 py-10">
-        <div className="text-center mb-9">
-          <ToolIcon emoji="🎨" className="w-12 h-12 mx-auto mb-4 text-slate-800 dark:text-slate-100" />
+        <div className="hero-band ">
+          <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="🎨" className="h-6 w-6" /></span>
           <h1 className="page-h1">색상 도구</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
             어울리는 색과 읽히는 색
@@ -76,7 +76,7 @@ export default function ColorHubPage() {
           </p>
         </div>
 
-        <div className="rounded-2xl border border-violet-100 dark:border-violet-900/40 bg-violet-50/70 dark:bg-violet-950/30 px-4 py-3.5 mb-7 text-xs text-violet-800 dark:text-violet-200 leading-relaxed text-center">
+        <div className="rounded-lg border border-violet-100 dark:border-violet-900/40 bg-violet-50/70 dark:bg-violet-950/30 px-4 py-3.5 mb-7 text-xs text-violet-800 dark:text-violet-200 leading-relaxed text-center">
 🎨 계산은 전부 브라우저 안에서 끝납니다. 회원가입도 저장도 없습니다.
         </div>
 
@@ -91,9 +91,8 @@ export default function ColorHubPage() {
                   <Link
                     key={t.slug}
                     href={`/color/${t.slug}`}
-                    className="group relative overflow-hidden rounded-2xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 hover:shadow-md hover:border-violet-200 transition-all"
+                    className="group relative overflow-hidden rounded-lg border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 hover:border-slate-300 dark:hover:border-slate-700 hover:border-violet-200 transition-all"
                   >
-                    <div className={`absolute -right-6 -top-6 w-24 h-24 rounded-full bg-sec-soft opacity-10 group-hover:opacity-20 transition-opacity`} />
                     <div className="relative">
                       <ToolIcon emoji={t.icon} color={t.og[0]} accent={t.og[1]} className="w-9 h-9 block mb-3" />
                       <h3 className="text-base font-black text-slate-900 dark:text-slate-100 mb-1">{t.title}</h3>
@@ -143,7 +142,7 @@ export default function ColorHubPage() {
           ))}
         </section>
 
-        <div className="mt-10 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+        <div className="mt-10 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
           <h2 className="sec-h2">이럴 때 쓰세요</h2>
           <ul className="flex flex-col gap-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
             <li>🎨 <b className="text-slate-800 dark:text-slate-100">브랜드 색을 정했을 때</b> — 명도 단계와 어울리는 보조색을 한 번에 만듭니다</li>

@@ -23,7 +23,7 @@ export default function TemperatureTool({ lang = 'ko' }: { lang?: ColorLang } = 
 
   return (
     <div>
-      <div className="flex rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 h-40">
+      <div className="flex rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 h-40">
         <div className="flex-1 flex flex-col items-center justify-center" style={{ background: rgbToHex(a) }}>
           <span className="text-2xl font-black text-slate-900/70">{kelvin}K</span>
         </div>

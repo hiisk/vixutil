@@ -1,7 +1,8 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 import Link from 'next/link';
-import CalcShell, { Card, CardHeader, Label, inputCls } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
 import { decliningTable, halfLife } from '@/lib/depreciation';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
@@ -10,22 +11,15 @@ export default function CarDepreciationPage() {
   const [price, setPrice] = useState('40000000');
   const [rate, setRate] = useState('15');
   const [years, setYears] = useState('10');
+  const [result, setResult] = useState<null | { rows: ReturnType<typeof decliningTable>; half: number | null }>(null);
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | { rows: ReturnType<typeof decliningTable>; half: number | null } = ((): null | { rows: ReturnType<typeof decliningTable>; half: number | null } => {
+  function calculate() {
     const p = Number(price);
     const r = Number(rate) / 100;
     const y = Number(years);
-    if (p <= 0 || r < 0 || r >= 1 || y <= 0 || y > 30) return null;
-    return ({ rows: decliningTable(p, r, y), half: halfLife(r) });
-  
-    return null;
-  })();
-
+    if (p <= 0 || r < 0 || r >= 1 || y <= 0 || y > 30) return;
+    setResult({ rows: decliningTable(p, r, y), half: halfLife(r) });
+  }
 
   return (
     <CalcShell
@@ -61,10 +55,9 @@ export default function CarDepreciationPage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>구매가 (원)</Label>
-              <input type="number" value={price} onChange={e => setPrice(e.target.value)}
-                placeholder="예: 40000000" className={inputCls} min="0" />
+              <MoneyInput value={price} onChange={setPrice} placeholder="예: 40000000" />
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>연 감가율 (%)</Label>
                 <input type="number" value={rate} onChange={e => setRate(e.target.value)}
@@ -76,6 +69,7 @@ export default function CarDepreciationPage() {
                   placeholder="예: 10" className={inputCls} min="1" max="30" />
               </div>
             </div>
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

@@ -110,7 +110,7 @@ export default function HalvingCountdown() {
 
   if (state === 'loading') {
     return (
-      <div role="status" aria-live="polite" className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
+      <div role="status" aria-live="polite" className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
         <div aria-hidden="true" className="w-8 h-8 border-4 border-slate-200 dark:border-slate-700 border-t-amber-500 rounded-full animate-spin" />
         <span className="text-sm font-bold text-slate-500 dark:text-slate-400">Reading the current block height…</span>
       </div>
@@ -119,7 +119,7 @@ export default function HalvingCountdown() {
 
   if (state === 'error' || !snap) {
     return (
-      <div role="alert" className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
+      <div role="alert" className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
         <span aria-hidden="true" className="text-3xl">⚠️</span>
         <span className="text-sm font-bold text-rose-600 dark:text-rose-400">Couldn&apos;t reach the block explorer</span>
         <button type="button" onClick={load} className="mt-2 text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2 transition-colors">Retry</button>
@@ -131,7 +131,7 @@ export default function HalvingCountdown() {
 
   return (
     <>
-      <div className="rounded-3xl border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-white via-white to-amber-50 dark:from-slate-900 dark:via-slate-900 dark:to-amber-500/[0.05] p-6 mb-4 text-center">
+      <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-amber-50 dark:bg-slate-900 p-6 mb-4 text-center">
         <p className="text-[11px] uppercase tracking-wide text-amber-600 dark:text-amber-400 mb-2">
           Next halving · block {i.nextHeight.toLocaleString()}
         </p>
@@ -170,7 +170,7 @@ export default function HalvingCountdown() {
       </div>
 
       {/* 기준 선택 — 사이트마다 날짜가 다른 이유를 그대로 보여준다 */}
-      <div className="rounded-2xl border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
+      <div className="rounded-lg border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
         <h2 className="text-sm font-black text-amber-900 dark:text-amber-200 mb-1.5">Why countdowns disagree</h2>
         <p className="text-xs text-amber-900/85 dark:text-amber-200/85 leading-relaxed mb-3">
           A halving happens at a block height, not on a date. Converting blocks to a date needs an assumed block time, and blocks do not
@@ -214,7 +214,7 @@ export default function HalvingCountdown() {
           ['After halving', `${i.nextReward} BTC`, 'per block'],
           ['Halvings so far', String(i.epoch), 'since 2009'],
         ].map(([label, v, note]) => (
-          <div key={label} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <div key={label} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">{label}</p>
             <p className="text-lg font-black text-slate-900 dark:text-white tabular-nums">{v}</p>
             <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{note}</p>
@@ -223,7 +223,7 @@ export default function HalvingCountdown() {
       </div>
 
       {/* 다음 반감기들 */}
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
         <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
           <h2 className="text-sm font-black text-slate-900 dark:text-white">The schedule from here</h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
@@ -258,7 +258,7 @@ export default function HalvingCountdown() {
         </div>
       </div>
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
         <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">What a halving does and does not do</h2>
         <p className="mb-2">
           It halves the reward paid to miners for each block, which halves the rate of new supply. That is the whole mechanism. It is

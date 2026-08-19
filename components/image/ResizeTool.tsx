@@ -88,12 +88,12 @@ export default function ResizeTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
 
   return (
     <div>
-      <div className="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-950">
+      <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-950">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={url} alt={ui.alt} className="w-full max-h-[24rem] object-contain" />
       </div>
 
-      <div className="mt-4 rounded-2xl border chip-off p-5">
+      <div className="mt-4 rounded-lg border chip-off p-5">
         <div className="flex items-end gap-2">
           <label className="flex-1">
             <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">{ui.width}</span>

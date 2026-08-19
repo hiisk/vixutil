@@ -200,7 +200,7 @@ export default function FirstImpression({ lang }: { lang: SnapIntlLang }) {
     >
       {result => (
         <>
-          <div className={`bg-gradient-to-br ${result.color} rounded-2xl p-6 text-white text-center`}>
+          <div className={`bg-gradient-to-br ${result.color} rounded-lg p-6 text-white text-center`}>
             <p className="text-sm font-semibold text-white/80 mb-2">{c.result}</p>
             <div className="text-5xl mb-2">{result.emoji}</div>
             <p className="text-2xl font-black mb-3">{result.label}</p>
@@ -212,7 +212,7 @@ export default function FirstImpression({ lang }: { lang: SnapIntlLang }) {
             </div>
           </div>
 
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5">
             <p className="label-caps mb-3">{c.scores}</p>
             <div className="flex flex-col gap-3">
               {[
@@ -233,12 +233,12 @@ export default function FirstImpression({ lang }: { lang: SnapIntlLang }) {
             </div>
           </div>
 
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5">
             <p className="text-xs font-bold text-violet-600 uppercase tracking-wide mb-2">{c.strength}</p>
             <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.strength}</p>
           </div>
 
-          <div className="bg-gradient-to-br from-fuchsia-50 to-violet-50 dark:from-fuchsia-950/20 dark:to-violet-950/20 border border-fuchsia-100 dark:border-fuchsia-900/40 rounded-2xl p-5">
+          <div className="bg-fuchsia-50 dark:from-fuchsia-950/20 dark:to-violet-950/20 border border-fuchsia-100 dark:border-fuchsia-900/40 rounded-lg p-5">
             <p className="text-xs font-bold text-fuchsia-600 uppercase tracking-wide mb-2">{c.tip}</p>
             <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.tip}</p>
           </div>

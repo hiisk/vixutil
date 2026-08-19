@@ -58,14 +58,14 @@ export default function ExchangePage() {
           </Card>
         )}
         {error && (
-          <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-2xl px-4 py-3 text-red-600 text-sm">{error}</div>
+          <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-lg px-4 py-3 text-red-600 text-sm">{error}</div>
         )}
 
         {rates && (
           <>
             <Card className="p-5">
               <p className="label-caps mb-3">통화 선택</p>
-              <div className="grid grid-cols-2 gap-3 mb-3">
+              <div className="grid grid-cols-2 gap-x-4 gap-y-5 mb-3">
                 <div>
                   <Label>보낼 통화</Label>
                   <select value={from} onChange={e=>setFrom(e.target.value)} className={inputCls}>

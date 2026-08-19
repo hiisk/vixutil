@@ -118,7 +118,7 @@ export default function SolarPaybackPage() {
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="label-caps mb-3">설비와 우리 집 사용량</p>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div>
               <Label>설치 용량 (kW)</Label>
               <input type="number" value={capacity} onChange={e => setCapacity(e.target.value)}

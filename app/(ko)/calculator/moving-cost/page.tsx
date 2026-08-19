@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 import Link from 'next/link';
 import CalcShell, { Card, CardHeader, Label, TabBar, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
 import {
@@ -175,8 +176,7 @@ export default function MovingCostPage() {
 
             <div>
               <Label>평당 단가 (원/평, 일반이사 기준)</Label>
-              <input type="number" value={perPyeong} onChange={e => setPerPyeong(e.target.value)}
-                placeholder="업체 견적에서 받은 값" className={inputCls} min="0" />
+              <MoneyInput value={perPyeong} onChange={setPerPyeong} placeholder="업체 견적에서 받은 값" />
               <p className="text-xs text-slate-400 dark:text-slate-500 mt-1.5">
                 시세를 넣어 두지 않았습니다 — 견적 총액을 평수로 나눈 값을 넣으세요.
                 포장이사 견적이라면 종류를 &lsquo;일반이사&rsquo;로 두어야 두 번 세지 않습니다
@@ -216,8 +216,7 @@ export default function MovingCostPage() {
                 </div>
                 <div>
                   <Label>km당 가산 (원)</Label>
-                  <input type="number" value={perKm} onChange={e => setPerKm(e.target.value)}
-                    placeholder="견적에서 받은 값" className={inputCls} min="0" />
+                  <MoneyInput value={perKm} onChange={setPerKm} placeholder="견적에서 받은 값" />
                 </div>
               </div>
             )}
@@ -259,13 +258,11 @@ export default function MovingCostPage() {
             <div className="grid grid-cols-2 gap-2">
               <div>
                 <Label>층당 계단 이용료 (원)</Label>
-                <input type="number" value={perFloorFee} onChange={e => setPerFloorFee(e.target.value)}
-                  placeholder="견적에서 받은 값" className={inputCls} min="0" />
+                <MoneyInput value={perFloorFee} onChange={setPerFloorFee} placeholder="견적에서 받은 값" />
               </div>
               <div>
                 <Label>사다리차 1대 (원)</Label>
-                <input type="number" value={ladderFee} onChange={e => setLadderFee(e.target.value)}
-                  placeholder="견적에서 받은 값" className={inputCls} min="0" />
+                <MoneyInput value={ladderFee} onChange={setLadderFee} placeholder="견적에서 받은 값" />
               </div>
             </div>
             <p className="text-xs text-slate-400 dark:text-slate-500">
@@ -299,32 +296,27 @@ export default function MovingCostPage() {
               </div>
               <div>
                 <Label>1대 탈부착 (원)</Label>
-                <input type="number" value={airconPerUnit} onChange={e => setAirconPerUnit(e.target.value)}
-                  placeholder="배관·가스 별도 확인" className={inputCls} min="0" />
+                <MoneyInput value={airconPerUnit} onChange={setAirconPerUnit} placeholder="배관·가스 별도 확인" />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-2">
               <div>
                 <Label>피아노·금고 등 (원)</Label>
-                <input type="number" value={specialItemFee} onChange={e => setSpecialItemFee(e.target.value)}
-                  placeholder="특수 물품" className={inputCls} min="0" />
+                <MoneyInput value={specialItemFee} onChange={setSpecialItemFee} placeholder="특수 물품" />
               </div>
               <div>
                 <Label>보관이사 보관료 (원)</Label>
-                <input type="number" value={storageFee} onChange={e => setStorageFee(e.target.value)}
-                  placeholder="재배송비 포함해 적으세요" className={inputCls} min="0" />
+                <MoneyInput value={storageFee} onChange={setStorageFee} placeholder="재배송비 포함해 적으세요" />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-2">
               <div>
                 <Label>폐기물 처리 (원)</Label>
-                <input type="number" value={disposalFee} onChange={e => setDisposalFee(e.target.value)}
-                  placeholder="대형폐기물 스티커 등" className={inputCls} min="0" />
+                <MoneyInput value={disposalFee} onChange={setDisposalFee} placeholder="대형폐기물 스티커 등" />
               </div>
               <div>
                 <Label>입주 청소 (원)</Label>
-                <input type="number" value={cleaningFee} onChange={e => setCleaningFee(e.target.value)}
-                  placeholder="예: 250000" className={inputCls} min="0" />
+                <MoneyInput value={cleaningFee} onChange={setCleaningFee} placeholder="예: 250000" />
               </div>
             </div>
           </div>
@@ -342,8 +334,7 @@ export default function MovingCostPage() {
             </label>
             <div>
               <Label>협의 할인 (원)</Label>
-              <input type="number" value={discount} onChange={e => setDiscount(e.target.value)}
-                placeholder="깎은 금액" className={inputCls} min="0" />
+              <MoneyInput value={discount} onChange={setDiscount} placeholder="깎은 금액" />
             </div>
             <p className="text-xs text-slate-400 dark:text-slate-500">
               &ldquo;현금으로 하면 부가세 빼 준다&rdquo;는 세금계산서를 받지 않는다는 뜻입니다 —
@@ -365,7 +356,7 @@ export default function MovingCostPage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <SummaryCard label="이사업체 몫" value={man(result.companyTotal)} sub="부가세가 붙는 대상" />
               <SummaryCard label="추가 항목" value={man(result.extrasTotal)} sub="따로 청구되는 몫" />
             </div>

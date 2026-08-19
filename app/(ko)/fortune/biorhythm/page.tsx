@@ -64,7 +64,7 @@ function Chart({ points }: { points: ChartPoint[] }) {
 function Result({ result, points }: { result: BiorhythmResult; points: ChartPoint[] }) {
   return (
     <div className="space-y-4">
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
         <div className="flex items-baseline justify-between mb-1">
           <h2 className="text-sm font-black text-slate-800 dark:text-slate-100">오늘의 리듬</h2>
           <span className="text-xs text-slate-400 dark:text-slate-500">태어난 지 {result.days.toLocaleString()}일째</span>
@@ -72,7 +72,7 @@ function Result({ result, points }: { result: BiorhythmResult; points: ChartPoin
         <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{overallComment(result)}</p>
       </div>
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
         <Chart points={points} />
         <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 mt-2">
           {CYCLES.map(c => (
@@ -89,7 +89,7 @@ function Result({ result, points }: { result: BiorhythmResult; points: ChartPoin
         {result.cycles.map(state => {
           const meta = CYCLES.find(c => c.key === state.key)!;
           return (
-            <div key={state.key} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+            <div key={state.key} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-lg">{meta.emoji}</span>
                 <span className="text-sm font-black text-slate-800 dark:text-slate-100">{meta.label}</span>
@@ -160,13 +160,13 @@ export default function BiorhythmPage() {
         </div>
       </header>
 
-      <div className="max-w-2xl mx-auto px-4 py-6">
-        <div className="text-center mb-6">
+      <div className="hero-band max-w-2xl mx-auto px-4 py-6">
+        <div className="mb-6">
           <h1 className="page-h1">📈 바이오리듬 계산기</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">생년월일로 신체·감성·지성 리듬 보기</p>
         </div>
 
-        <form onSubmit={submit} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-6">
+        <form onSubmit={submit} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-6">
           <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">생년월일</label>
           <div className="grid grid-cols-3 gap-2">
             <input type="number" inputMode="numeric" placeholder="예) 1995" value={form.year}
@@ -189,7 +189,7 @@ export default function BiorhythmPage() {
           <Result result={result} points={points} />
         ) : (
           <div className="text-center py-12 text-slate-300 dark:text-slate-600">
-            <ToolIcon emoji="☝️" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+            <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">생년월일을 입력하면 오늘의 리듬을 볼 수 있습니다</p>
           </div>
         )}
@@ -199,7 +199,7 @@ export default function BiorhythmPage() {
           다르다. 그래서 오히려 과학처럼 보이기 쉬운데, 주기값 자체에 근거가 없다는
           점은 분명히 적어둔다. 계산이 정확한 것과 예측이 맞는 것은 다른 얘기다.
         */}
-        <div className="mt-8 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+        <div className="mt-8 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
           <h2 className="text-sm font-black text-slate-800 dark:text-slate-100 mb-2">바이오리듬은 과학인가요?</h2>
           <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
             아닙니다. 신체 23일·감성 28일·지성 33일이라는 주기는 20세기 초에 제안된 뒤 그대로 굳어진 값이고,

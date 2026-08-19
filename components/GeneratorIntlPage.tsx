@@ -61,8 +61,8 @@ export function GeneratorIntlHub({ lang }: { lang: GeneratorIntlLang }) {
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {gens.map(g => (
             <Link prefetch={false} key={g.slug} href={`/${lang}/generator/${g.slug}`}
-              className={`group relative overflow-hidden rounded-2xl ${thumbSurface(g.slug, 'generator')} p-5 min-h-[9.5rem] flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl transition-all`}>
-              <ToolIcon emoji={g.icon} className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
+              className={`group relative overflow-hidden rounded-lg ${thumbSurface(g.slug, 'generator')} p-5 min-h-[9.5rem] flex flex-col justify-between hover:-translate-y-1 hover:border-slate-300 dark:hover:border-slate-700 transition-all`}>
+              <ToolIcon emoji={g.icon} className="w-9 h-9 drop-shadow-sm transition-transform group-hover:scale-110" />
               <div>
                 <div className="text-base font-black drop-shadow leading-tight">{g.title}</div>
                 <div className="text-[11px] font-medium opacity-80 mt-1 line-clamp-2">{g.desc}</div>

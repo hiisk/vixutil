@@ -1,6 +1,13 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, Label, inputCls, SummaryCard } from '@/components/CalcShell';
+
+/*
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 빈 칸으로 열면 무엇을
+ * 보여 주는 계산기인지 눌러 보기 전에는 모른다 — 값을 미리 넣어 두면 「계산하기」
+ * 한 번에 한 벌이 통째로 보이고, 사람은 그 위에 자기 숫자를 덮어쓴다.
+ * 값은 내가 지어내지 않고 저자가 이미 골라 둔 예시를 그대로 올렸다.
+ */
+import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
 
@@ -16,28 +23,21 @@ const fmt = (n: number) => Math.round(n).toLocaleString();
 
 export default function CaloriePage() {
   const [gender, setGender] = useState<'male' | 'female'>('male');
-  const [age, setAge] = useState('');
-  const [height, setHeight] = useState('');
-  const [weight, setWeight] = useState('');
+  const [age, setAge] = useState('30');
+  const [height, setHeight] = useState('175');
+  const [weight, setWeight] = useState('70');
   const [activity, setActivity] = useState('1.55');
+  const [result, setResult] = useState<null | { bmr: number; tdee: number }>(null);
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | { bmr: number; tdee: number } = ((): null | { bmr: number; tdee: number } => {
+  function calculate() {
     const a = Number(age); const h = Number(height); const w = Number(weight);
-    if (a <= 0 || h <= 0 || w <= 0) return null;
+    if (a <= 0 || h <= 0 || w <= 0) return;
     const bmr = gender === 'male'
       ? 10 * w + 6.25 * h - 5 * a + 5
       : 10 * w + 6.25 * h - 5 * a - 161;
     const tdee = bmr * Number(activity);
-    return ({ bmr, tdee });
-  
-    return null;
-  })();
-
+    setResult({ bmr, tdee });
+  }
 
   return (
     <CalcShell
@@ -125,6 +125,7 @@ export default function CaloriePage() {
                 ))}
               </div>
             </div>
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 
@@ -134,7 +135,7 @@ export default function CaloriePage() {
               <p className="stat-label">하루 권장 칼로리 (TDEE)</p>
               <p className="stat-value">{fmt(result.tdee)} kcal</p>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <SummaryCard label="기초대사량 (BMR)" value={`${fmt(result.bmr)} kcal`} />
               <SummaryCard label="감량 목표" value={`${fmt(result.tdee - 500)} kcal`} sub="하루 -500kcal" variant="red" />
               <SummaryCard label="유지" value={`${fmt(result.tdee)} kcal`} variant="primary" />

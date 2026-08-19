@@ -1,5 +1,6 @@
 'use client';
 import { useMemo, useState } from 'react';
+import { sampleFromPlaceholder } from '@/lib/text-tools';
 import { maskPersonal, DEFAULT_MASK, type MaskOptions } from '@/lib/text-more';
 import { CARD, CopyBox, InputArea, Stat, Toggle } from './ui';
 import { MASK_UI } from '@/lib/text-more-ui';
@@ -9,7 +10,8 @@ const CHARS = ['*', '●', '■', 'X'];
 
 export default function MaskTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
   const ui = MASK_UI[lang];
-  const [text, setText] = useState('');
+  /* 열자마자 한 벌이 돌아가게 — 플레이스홀더가 예시일 때만 쓴다(lib/text-tools.ts) */
+  const [text, setText] = useState(() => sampleFromPlaceholder(ui.placeholder));
   const [options, setOptions] = useState<MaskOptions>(DEFAULT_MASK);
 
   const result = useMemo(() => maskPersonal(text, options), [text, options]);

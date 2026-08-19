@@ -107,13 +107,13 @@ export default function CompoundPage() {
 
         <Card className="p-5">
           <p className="label-caps mb-3">투자 조건</p>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div className="col-span-2 sm:col-span-1">
               <Label>초기 원금 (원)</Label>
               <CommaInput value={principal} onChange={setPrincipal} placeholder="예: 10,000,000" />
             </div>
             <div className="col-span-2 sm:col-span-1">
-              <Label>월 추가납입 (원, 선택)</Label>
+              <Label>월 추가납입 <span className="dial-opt">원, 선택</span></Label>
               <CommaInput value={monthly} onChange={setMonthly} placeholder="예: 300,000" />
             </div>
             <div>

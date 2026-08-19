@@ -1,7 +1,8 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 import Link from 'next/link';
-import CalcShell, { Card, CardHeader, Label, inputCls } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
 import {
   BENEFIT_RULES, amountOfMedian, calcMedianIncome, medianFor,
 } from '@/lib/median-income';
@@ -17,23 +18,19 @@ export default function MedianIncomePage() {
   const [incomeValue, setIncomeValue] = useState('0');
   const [assetValue, setAssetValue] = useState('0');
   const [pct, setPct] = useState('100');
+  const [result, setResult] = useState<null | {
+    r: ReturnType<typeof calcMedianIncome>;
+    size: number;
+    custom: { percent: number; amount: number } | null;
+  }>(null);
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | {
-    r: ReturnType<typeof calcMedianIncome>;
-    size: number;
-    custom: { percent: number; amount: number } | null;
-  } = ((): null | {
-    r: ReturnType<typeof calcMedianIncome>;
-    size: number;
-    custom: { percent: number; amount: number } | null;
-  } => {
+  function setCell(i: number, v: string) {
+    setTable(prev => prev.map((x, j) => (i === j ? v : x)));
+  }
+
+  function calculate() {
     const medianBySize = table.map(v => Number(v || 0));
-    if (medianFor(medianBySize, size) <= 0) return null;
+    if (medianFor(medianBySize, size) <= 0) return;
     const r = calcMedianIncome({
       medianBySize,
       size,
@@ -41,19 +38,12 @@ export default function MedianIncomePage() {
       assetValue: Number(assetValue || 0),
     });
     const p = Number(pct);
-    return ({
+    setResult({
       r,
       size,
       custom: p > 0 ? { percent: p, amount: amountOfMedian(p, r.median) } : null,
     });
-  
-    return null;
-  })();
-  function setCell(i: number, v: string) {
-    setTable(prev => prev.map((x, j) => (i === j ? v : x)));
   }
-
-
 
   return (
     <CalcShell
@@ -122,7 +112,7 @@ export default function MedianIncomePage() {
             <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
               그 해 고시표 — 가구원 수별 기준 중위소득 (월, 원)
             </p>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               {SIZE_LABELS.map((label, i) => (
                 <div key={label}>
                   <Label>{label} 가구</Label>
@@ -152,29 +142,28 @@ export default function MedianIncomePage() {
             <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">
               소득인정액 (기초생활보장 기준)
             </p>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>소득평가액 (월, 원)</Label>
-                <input type="number" value={incomeValue} onChange={e => setIncomeValue(e.target.value)}
-                  className={inputCls} min="0" />
+                <MoneyInput value={incomeValue} onChange={setIncomeValue} />
               </div>
               <div>
                 <Label>재산의 소득환산액 (월, 원)</Label>
-                <input type="number" value={assetValue} onChange={e => setAssetValue(e.target.value)}
-                  className={inputCls} min="0" />
+                <MoneyInput value={assetValue} onChange={setAssetValue} />
               </div>
             </div>
             <div>
-              <Label>따로 볼 퍼센트 (%, 비우면 생략)</Label>
+              <Label>따로 볼 퍼센트 <span className="dial-opt">%, 비우면 생략</span></Label>
               <input type="number" value={pct} onChange={e => setPct(e.target.value)}
                 placeholder="예: 100" className={inputCls} min="0" step="1" />
             </div>
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 
         {result && (
           <>
-            <div className={`rounded-2xl p-5 ${result.r.eligible.length > 0 ? 'bg-blue-600' : 'bg-slate-600'}`}>
+            <div className={`rounded-lg p-5 ${result.r.eligible.length > 0 ? 'bg-blue-600' : 'bg-slate-600'}`}>
               <p className="text-blue-200 text-xs mb-1">내 소득인정액은 기준 중위소득의</p>
               <p className="text-white text-3xl font-black">{result.r.percent.toFixed(1)}%</p>
               <p className="text-blue-200 text-xs mt-1">

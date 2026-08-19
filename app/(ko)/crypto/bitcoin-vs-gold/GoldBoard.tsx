@@ -47,8 +47,8 @@ interface Snapshot {
   goldOnBigDrops: StressResponse | null;
 }
 
-const inputCls =
-  'w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition';
+/* 사이트 공용 칸 — 초점 테두리가 갈래 색을 따라간다(globals.css .dial-input) */
+const inputCls = 'dial-input';
 
 const iso = (ms: number) => new Date(ms).toISOString().slice(0, 10);
 const signed = (v: number, d = 2) => `${v >= 0 ? '+' : '−'}${Math.abs(v).toFixed(d)}%`;
@@ -154,7 +154,7 @@ export default function GoldBoard() {
 
   return (
     <>
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 mb-4">
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5 mb-4">
         <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5" htmlFor="bvg-coin">
           Compare against gold
         </label>
@@ -163,7 +163,7 @@ export default function GoldBoard() {
             <input id="bvg-coin" type="text" value={query} onChange={e => setQuery(e.target.value)}
               placeholder={`${coin.base} · search another coin`} className={inputCls} autoComplete="off" />
             {suggestions.length > 0 && (
-              <ul className="absolute z-20 mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-lg overflow-hidden">
+              <ul className="absolute z-20 mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm overflow-hidden">
                 {suggestions.map(c => (
                   <li key={c.slug}>
                     <button type="button" onClick={() => pickCoin(c)}
@@ -205,7 +205,7 @@ export default function GoldBoard() {
       {snap && (
         <>
           {/* 주장 1 — 가치 저장 */}
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
             <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
               <h2 className="text-sm font-black text-slate-900 dark:text-white">Claim 1 — &quot;a store of value, like gold&quot;</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Same {snap.days.toLocaleString()} days, same measurements.</p>
@@ -271,7 +271,7 @@ export default function GoldBoard() {
           </div>
 
           {/* 주장 2 — 헤지 */}
-          <div className={`rounded-2xl border p-5 mb-4 ${
+          <div className={`rounded-lg border p-5 mb-4 ${
             verdict === 'fails' ? 'border-rose-500/30 bg-rose-50 dark:bg-rose-500/[0.07]'
               : verdict === 'hedge' ? 'border-emerald-500/30 bg-emerald-50 dark:bg-emerald-500/[0.07]'
               : 'border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07]'
@@ -347,7 +347,7 @@ export default function GoldBoard() {
 
           {/* 관계의 불안정성 */}
           {snap.roll && (
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-4">
+            <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-4">
               <h2 className="text-sm font-black text-slate-900 dark:text-white mb-1">The relationship does not hold still</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
                 Correlation measured over a rolling {ROLL_WINDOW}-day window, {snap.roll.values.length.toLocaleString()} windows in total.
@@ -381,7 +381,7 @@ export default function GoldBoard() {
         </>
       )}
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
         <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">Where the gold price comes from</h2>
         <p className="mb-2">
           Gold here is PAXG, a token redeemable for allocated physical gold, priced on the same exchange and the same daily UTC candles as

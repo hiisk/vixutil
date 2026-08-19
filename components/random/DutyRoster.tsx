@@ -53,7 +53,7 @@ export default function DutyRosterTool({ lang = 'ko' }: { lang?: RandomLang }) {
       <button
         onClick={() => setRoster(dutyRoster(names, turns, perTurn, Math.random))}
         disabled={names.length < 2}
-        className="w-full mt-4 mb-5 bg-sec font-black text-lg rounded-2xl py-4 shadow-lg shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all disabled:opacity-50"
+        className="w-full mt-4 mb-5 bg-sec font-black text-lg rounded-lg py-4 shadow-sm shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all disabled:opacity-50"
       >
         {ui.makeRoster} 📋
       </button>

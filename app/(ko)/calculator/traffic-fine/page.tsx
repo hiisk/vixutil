@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import CalcShell, {
-  Card, CardHeader, Label, inputCls, selectCls,
+  Card, CardHeader, Label, PrimaryBtn, inputCls, selectCls,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 import {
@@ -36,13 +36,12 @@ export default function TrafficFinePage() {
   const [accumulated, setAccumulated] = useState('0');
   const [credits, setCredits] = useState('0');
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: FineResult | null = ((): FineResult | null => {
-    return (calcFine({
+  const [result, setResult] = useState<FineResult | null>(null);
+
+  const info = VIOLATIONS.find(v => v.id === violation)!;
+
+  function calculate() {
+    setResult(calcFine({
       violation,
       overSpeed: Number(overSpeed) || 0,
       schoolZone,
@@ -61,13 +60,7 @@ export default function TrafficFinePage() {
       accumulated: Number(accumulated) || 0,
       credits: Number(credits) || 0,
     }));
-  
-    return null;
-  })();
-
-  const info = VIOLATIONS.find(v => v.id === violation)!;
-
-
+  }
 
   return (
     <CalcShell
@@ -176,7 +169,7 @@ export default function TrafficFinePage() {
             </label>
 
             {schoolZone && (
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-x-4 gap-y-5">
                 <div>
                   <Label>금액 배수</Label>
                   <input
@@ -203,7 +196,7 @@ export default function TrafficFinePage() {
 
         <Card className="p-5">
           <CardHeader title="고지서 금액 (넣으면 표보다 우선)" />
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div>
               <Label>범칙금 (원)</Label>
               <CommaInput value={fineOverride} onChange={setFineOverride} placeholder="비우면 표의 값" />
@@ -228,7 +221,7 @@ export default function TrafficFinePage() {
 
         <Card className="p-5">
           <CardHeader title="납부 시점 (과태료)" />
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-3 gap-x-4 gap-y-5">
             <div>
               <Label>통지서 받고 지난 일수</Label>
               <input type="number" value={daysSinceNotice} onChange={e => setDaysSinceNotice(e.target.value)}
@@ -273,7 +266,7 @@ export default function TrafficFinePage() {
 
         <Card className="p-5">
           <CardHeader title="이미 쌓인 벌점" />
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div>
               <Label>지난 1년 누산 벌점 (점)</Label>
               <input type="number" value={accumulated} onChange={e => setAccumulated(e.target.value)}
@@ -291,6 +284,8 @@ export default function TrafficFinePage() {
             공제받을 점수가 있으면 공제 칸에 넣으세요.
           </p>
         </Card>
+
+        <PrimaryBtn onClick={calculate}>범칙금·과태료 계산</PrimaryBtn>
 
         {result && (
           <>

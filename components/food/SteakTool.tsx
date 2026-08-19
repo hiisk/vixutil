@@ -42,7 +42,7 @@ export default function SteakTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
         ))}
       </div>
 
-      <div className="mt-4 rounded-2xl bg-gradient-to-br from-red-500 to-rose-700 text-white px-6 py-8 text-center">
+      <div className="mt-4 rounded-lg bg-gradient-to-br from-red-500 to-rose-700 text-white px-6 py-8 text-center">
         <p className="text-sm text-white/70 mb-1">{ui.pullAt(names[doneness.id].name)}</p>
         <p className="text-5xl font-black tabular-nums">{doneness.pull}℃</p>
         <p className="text-sm text-white/80 mt-2">{ui.afterRest(doneness.final)}</p>

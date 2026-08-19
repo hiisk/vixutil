@@ -152,9 +152,9 @@ export default function SubjectFortune({ kind, lang }: { kind: SubjectKind; lang
               key={s.id}
               type="button"
               onClick={() => handleSelect(s.id)}
-              className={`rounded-2xl p-3 text-center transition-all border ${
+              className={`rounded-lg p-3 text-center transition-all border ${
                 selected === s.id
-                  ? 'bg-violet-600 border-violet-600 text-white shadow-md'
+                  ? 'bg-violet-600 border-violet-600 text-white shadow-sm'
                   : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-violet-300 text-slate-700 dark:text-slate-200'
               }`}
             >

@@ -1,15 +1,15 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 
 /*
- * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
- * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
- * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
- * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
- * 골라 둔 예시를 그대로 올렸다.
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 빈 칸으로 열면 무엇을
+ * 보여 주는 계산기인지 눌러 보기 전에는 모른다 — 값을 미리 넣어 두면 「계산하기」
+ * 한 번에 한 벌이 통째로 보이고, 사람은 그 위에 자기 숫자를 덮어쓴다.
+ * 값은 내가 지어내지 않고 저자가 이미 골라 둔 예시를 그대로 올렸다.
  */
 import Link from 'next/link';
-import CalcShell, { Card, CardHeader, Label, inputCls } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
 import {
   OVERLAP_BONUS, SURVIVOR_RATES, calcSurvivor, ownPensionBreakEven, survivorRate,
 } from '@/lib/survivor-pension';
@@ -23,20 +23,13 @@ export default function SurvivorPensionPage() {
   const [extraMonths, setExtraMonths] = useState('0');
   const [family, setFamily] = useState('0');
   const [ownPension, setOwnPension] = useState('0');
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | {
+  const [result, setResult] = useState<null | {
     r: ReturnType<typeof calcSurvivor>;
     months: number;
     line: number;
-  } = ((): null | {
-    r: ReturnType<typeof calcSurvivor>;
-    months: number;
-    line: number;
-  } => {
+  }>(null);
+
+  function calculate() {
     const months = Number(years || 0) * 12 + Number(extraMonths || 0);
     const input = {
       avgIncome: Number(avgIncome),
@@ -47,14 +40,10 @@ export default function SurvivorPensionPage() {
       familyAnnual: Number(family || 0) * 12,
       ownPension: Number(ownPension || 0),
     };
-    if (input.avgIncome <= 0 || input.myIncome <= 0 || months <= 0) return null;
+    if (input.avgIncome <= 0 || input.myIncome <= 0 || months <= 0) return;
     const r = calcSurvivor(input);
-    return ({ r, months, line: ownPensionBreakEven(r.survivorMonthly) });
-  
-    return null;
-  })();
-
-
+    setResult({ r, months, line: ownPensionBreakEven(r.survivorMonthly) });
+  }
 
   return (
     <CalcShell
@@ -110,15 +99,13 @@ export default function SurvivorPensionPage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>A값 · 전체 가입자 평균소득월액 (원)</Label>
-              <input type="number" value={avgIncome} onChange={e => setAvgIncome(e.target.value)}
-                placeholder="예: 3000000" className={inputCls} min="0" />
+              <MoneyInput value={avgIncome} onChange={setAvgIncome} placeholder="예: 3000000" />
             </div>
             <div>
               <Label>숨진 가입자의 B값 · 평균 기준소득월액 (원)</Label>
-              <input type="number" value={myIncome} onChange={e => setMyIncome(e.target.value)}
-                placeholder="예: 3000000" className={inputCls} min="0" />
+              <MoneyInput value={myIncome} onChange={setMyIncome} placeholder="예: 3000000" />
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>가입기간 (년)</Label>
                 <input type="number" value={years} onChange={e => setYears(e.target.value)}
@@ -130,18 +117,17 @@ export default function SurvivorPensionPage() {
                   className={inputCls} min="0" max="11" />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>부양가족연금 월액 (원)</Label>
-                <input type="number" value={family} onChange={e => setFamily(e.target.value)}
-                  className={inputCls} min="0" />
+                <MoneyInput value={family} onChange={setFamily} />
               </div>
               <div>
                 <Label>내 노령연금 월액 (원)</Label>
-                <input type="number" value={ownPension} onChange={e => setOwnPension(e.target.value)}
-                  className={inputCls} min="0" />
+                <MoneyInput value={ownPension} onChange={setOwnPension} />
               </div>
             </div>
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

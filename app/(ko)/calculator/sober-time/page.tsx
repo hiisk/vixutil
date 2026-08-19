@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, {
-  Card, CardHeader, Label, inputCls, selectCls,
+  Card, CardHeader, Label, PrimaryBtn, inputCls, selectCls,
   SummaryCard, SummaryGrid,
 } from '@/components/CalcShell';
 import {
@@ -25,26 +25,19 @@ export default function SoberTimePage() {
   const [weight, setWeight] = useState('70');
   const [sex, setSex] = useState<Sex>('male');
   const [hoursSince, setHoursSince] = useState('0');
+  const [result, setResult] = useState<SoberResult | null>(null);
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: SoberResult | null = ((): SoberResult | null => {
+  function calculate() {
     const preset = DRINK_PRESETS.find(p => p.id === presetId)!;
     const n = Math.max(0, Number(count) || 0);
     const drinks: Drink[] = Array.from({ length: n }, () => ({ volumeMl: preset.volumeMl, abv: preset.abv }));
-    return (calcSoberTime({
+    setResult(calcSoberTime({
       drinks,
       weightKg: Number(weight) || 0,
       sex,
       hoursSince: Number(hoursSince) || 0,
     }));
-  
-    return null;
-  })();
-
+  }
 
   return (
     <CalcShell
@@ -78,7 +71,7 @@ export default function SoberTimePage() {
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <CardHeader title="마신 술" />
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div>
               <Label>종류</Label>
               <select value={presetId} onChange={e => setPresetId(e.target.value)} className={selectCls}>
@@ -96,7 +89,7 @@ export default function SoberTimePage() {
 
         <Card className="p-5">
           <CardHeader title="내 정보" />
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-3 gap-x-4 gap-y-5">
             <div>
               <Label>체중 (kg)</Label>
               <input type="number" value={weight} onChange={e => setWeight(e.target.value)} min="0" className={inputCls} />
@@ -114,6 +107,8 @@ export default function SoberTimePage() {
             </div>
           </div>
         </Card>
+
+        <PrimaryBtn onClick={calculate}>혈중알코올농도 계산</PrimaryBtn>
 
         {result && (
           <>

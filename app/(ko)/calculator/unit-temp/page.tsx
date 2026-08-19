@@ -2,13 +2,12 @@
 import { useState } from 'react';
 
 /*
- * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
- * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
- * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
- * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
- * 골라 둔 예시를 그대로 올렸다.
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 빈 칸으로 열면 무엇을
+ * 보여 주는 계산기인지 눌러 보기 전에는 모른다 — 값을 미리 넣어 두면 「계산하기」
+ * 한 번에 한 벌이 통째로 보이고, 사람은 그 위에 자기 숫자를 덮어쓴다.
+ * 값은 내가 지어내지 않고 저자가 이미 골라 둔 예시를 그대로 올렸다.
  */
-import CalcShell, { Card, Label, inputCls, selectCls } from '@/components/CalcShell';
+import CalcShell, { Card, Label, inputCls, selectCls, PrimaryBtn } from '@/components/CalcShell';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
 
@@ -67,26 +66,19 @@ const LANDMARKS: { c: number; label: string }[] = [
 export default function UnitTempPage() {
   const [value, setValue] = useState('36.5');
   const [unit, setUnit] = useState<TempUnit>('C');
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: { C: number; F: number; K: number; R: number } | null = ((): { C: number; F: number; K: number; R: number } | null => {
+  const [result, setResult] = useState<{ C: number; F: number; K: number; R: number } | null>(null);
+
+  function calculate() {
     const n = parseFloat(value);
-    if (isNaN(n)) return null;
+    if (isNaN(n)) return;
     const c = toCelsius(n, unit);
-    return ({
+    setResult({
       C: c,
       F: fromCelsius(c, 'F'),
       K: fromCelsius(c, 'K'),
       R: fromCelsius(c, 'R'),
     });
-  
-    return null;
-  })();
-
-
+  }
 
   const descObj = result
     ? DESCRIPTIONS.find(d => result.C < d.max) ?? DESCRIPTIONS[DESCRIPTIONS.length - 1]
@@ -120,13 +112,16 @@ export default function UnitTempPage() {
               </select>
             </div>
           </div>
+          <div className="mt-4">
+            <PrimaryBtn onClick={calculate}>변환하기</PrimaryBtn>
+          </div>
         </Card>
 
         {result && (
           <>
             {/* 체감 설명 */}
             {descObj && (
-              <div className={`rounded-2xl border px-5 py-4 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700`}>
+              <div className={`rounded-lg border px-5 py-4 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700`}>
                 <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">체감 설명</p>
                 <p className={`text-base font-bold ${descObj.color}`}>{descObj.desc}</p>
                 <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">{result.C.toFixed(2)}°C 기준</p>

@@ -45,7 +45,7 @@ export default function CaloriesBurnIntl({ lang }: { lang: CalcLang }) {
               ))}
             </select>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div>
               <Label>{c.weight}</Label>
               <input type="number" value={weight} onChange={e => setWeight(e.target.value)} className={inputCls} />
@@ -73,7 +73,7 @@ export default function CaloriesBurnIntl({ lang }: { lang: CalcLang }) {
 
           <Card className="p-5">
             <p className="label-caps mb-3">{c.compare}</p>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-5">
               {FOODS.map(([key, kcal]) => (
                 <SummaryCard
                   key={key}

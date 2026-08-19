@@ -83,7 +83,7 @@ export default function LongShortBoard() {
 
   if (state === 'loading') {
     return (
-      <div role="status" aria-live="polite" className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
+      <div role="status" aria-live="polite" className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
         <div aria-hidden="true" className="w-8 h-8 border-4 border-slate-200 dark:border-slate-700 border-t-amber-500 rounded-full animate-spin" />
         <span className="text-sm font-bold text-slate-500 dark:text-slate-400">Reading positioning for {UNIVERSE} futures markets…</span>
       </div>
@@ -92,7 +92,7 @@ export default function LongShortBoard() {
 
   if (state === 'error') {
     return (
-      <div role="alert" className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
+      <div role="alert" className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
         <span aria-hidden="true" className="text-3xl">⚠️</span>
         <span className="text-sm font-bold text-rose-600 dark:text-rose-400">Couldn&apos;t load positioning data</span>
         <span className="text-xs text-slate-500 dark:text-slate-400">Binance futures may be restricted in your region</span>
@@ -104,7 +104,7 @@ export default function LongShortBoard() {
   return (
     <>
       {/* 세 가지가 다른 것을 잰다는 점을 먼저 밝힌다 */}
-      <div className="rounded-2xl border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
+      <div className="rounded-lg border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
         <h2 className="text-sm font-black text-amber-900 dark:text-amber-200 mb-1.5">Counting people is not counting money</h2>
         <p className="text-xs text-amber-900/85 dark:text-amber-200/85 leading-relaxed">
           Binance publishes three different ratios and most sites pick one and call it &quot;the&quot; long/short ratio. The account ratio counts
@@ -130,7 +130,7 @@ export default function LongShortBoard() {
         </div>
       </div>
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
         <div className="scroll-x overflow-x-auto max-h-[600px] overflow-y-auto">
           <table className="w-full text-sm whitespace-nowrap">
             <thead className="sticky top-0 bg-white dark:bg-slate-900 z-10">
@@ -206,7 +206,7 @@ export default function LongShortBoard() {
       </div>
 
       {/* 검증할 수 없다는 사실을 숨기지 않는다 */}
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
         <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">Why there is no backtest on this page</h2>
         <p className="mb-2">
           Other pages on this site test the popular claim rather than repeating it — the fear and greed index gets a direct measurement of whether

@@ -71,7 +71,7 @@ export default function TypingGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
 
   return (
     <div>
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-5">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-5">
         <p className="text-lg sm:text-xl leading-relaxed font-bold tracking-tight">
           {[...target].map((ch, i) => {
             const state = i >= typed.length ? 'rest' : typed[i] === ch ? 'ok' : 'bad';
@@ -97,7 +97,7 @@ export default function TypingGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
         onChange={e => onType(e.target.value)}
         placeholder={ui.placeholder}
         autoComplete="off"
-        className="mt-3 w-full rounded-2xl border-2 chip-off px-4 py-3.5 text-lg text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none focus:border-violet-400 transition-colors"
+        className="mt-3 w-full rounded-lg border-2 chip-off px-4 py-3.5 text-lg text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none focus:border-violet-400 transition-colors"
       />
 
       <div className="grid grid-cols-4 gap-2 mt-4">

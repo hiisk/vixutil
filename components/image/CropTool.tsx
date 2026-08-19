@@ -184,7 +184,7 @@ export default function CropTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
         onPointerMove={onMove}
         onPointerUp={onUp}
         onPointerCancel={onUp}
-        className="relative select-none touch-none rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-950 cursor-crosshair"
+        className="relative select-none touch-none rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-950 cursor-crosshair"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -241,7 +241,7 @@ export default function CropTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
         )}
       </div>
 
-      <div className="mt-4 rounded-2xl border chip-off p-5">
+      <div className="mt-4 rounded-lg border chip-off p-5">
         <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.ratioTitle}</p>
         <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
           {RATIOS.map((r, i) => (

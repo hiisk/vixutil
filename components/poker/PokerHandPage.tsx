@@ -101,14 +101,14 @@ export default function PokerHandPage({ slug, lang }: { slug: string; lang: Lang
           <Cards cards={f.cards} kind={f.kind} />
         </div>
 
-        <div className="text-center mb-6">
+        <div className="mb-6">
           <p className="text-xs font-bold text-emerald-700 dark:text-emerald-400 mb-1">{ui.kind[f.kind]} · {ui.tier[f.tier]}</p>
           <div className="hero-band">
             <PageHero title={f.label} desc={ui.tierNote[f.tier]} />
           </div>
         </div>
 
-        <dl className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden mb-8">
+        <dl className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden mb-8">
           {rows.map(([k, v]) => (
             <div key={k} className="row-pair">
               <dt className="row-label">{k}</dt>
@@ -120,7 +120,7 @@ export default function PokerHandPage({ slug, lang }: { slug: string; lang: Lang
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.flopTitle}</h2>
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.flopNote}</p>
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
             {f.flop.filter(x => x.pct > 0).map(x => (
               <div key={x.key} className="flex items-center gap-3 px-4 py-2.5 bg-white dark:bg-slate-900">
                 <span className="text-sm text-slate-600 dark:text-slate-300 shrink-0 w-40 truncate">{ui.flop[x.key]}</span>
@@ -140,7 +140,7 @@ export default function PokerHandPage({ slug, lang }: { slug: string; lang: Lang
 
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.score}</h2>
-          <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/40 px-4 py-3">
+          <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-3">
             {ui.scoreNote}
           </p>
         </section>

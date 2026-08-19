@@ -97,7 +97,7 @@ export default function AthBoard() {
 
   if (state === 'loading') {
     return (
-      <div role="status" aria-live="polite" className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
+      <div role="status" aria-live="polite" className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
         <div aria-hidden="true" className="w-8 h-8 border-4 border-slate-200 dark:border-slate-700 border-t-amber-500 rounded-full animate-spin" />
         <span className="text-sm font-bold text-slate-500 dark:text-slate-400">Reading {UNIVERSE} coins&apos; full history…</span>
       </div>
@@ -106,7 +106,7 @@ export default function AthBoard() {
 
   if (state === 'error') {
     return (
-      <div role="alert" className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
+      <div role="alert" className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
         <span aria-hidden="true" className="text-3xl">⚠️</span>
         <span className="text-sm font-bold text-rose-600 dark:text-rose-400">Couldn&apos;t load market data</span>
         <span className="text-xs text-slate-500 dark:text-slate-400">Binance may be restricted in your region</span>
@@ -118,7 +118,7 @@ export default function AthBoard() {
   return (
     <>
       {/* 비대칭을 먼저 보여준다 — 이 페이지의 요점이다 */}
-      <div className="rounded-2xl border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
+      <div className="rounded-lg border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
         <h2 className="text-sm font-black text-amber-900 dark:text-amber-200 mb-1.5">A 50% drop needs a 100% gain</h2>
         <p className="text-xs text-amber-900/85 dark:text-amber-200/85 leading-relaxed mb-3">
           Falling and recovering are not the same number, and the gap widens fast. This is the single most misread figure in a drawdown,
@@ -141,7 +141,7 @@ export default function AthBoard() {
             ['Down 80% or more', summary.deep, 'text-rose-600 dark:text-rose-400'],
             ['Median drawdown', `−${summary.median.toFixed(0)}%`, 'text-slate-900 dark:text-white'],
           ].map(([label, v, cls]) => (
-            <div key={label as string} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+            <div key={label as string} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
               <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">{label as string}</p>
               <p className={`text-xl font-black tabular-nums ${cls as string}`}>{v as string | number}</p>
             </div>
@@ -166,7 +166,7 @@ export default function AthBoard() {
         </div>
       </div>
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
         <div className="scroll-x overflow-x-auto max-h-[600px] overflow-y-auto">
           <table className="w-full text-sm whitespace-nowrap">
             <thead className="sticky top-0 bg-white dark:bg-slate-900 z-10">

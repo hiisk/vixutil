@@ -45,7 +45,7 @@ export default function RefinanceIntl({ lang }: { lang: CalcLang }) {
             <Label>{c.balance}</Label>
             <input type="number" value={balance} onChange={e => setBalance(e.target.value)} className={inputCls} />
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div>
               <Label>{c.currentRate}</Label>
               <input type="number" step="0.01" value={currentRate} onChange={e => setCurrentRate(e.target.value)} className={inputCls} />
@@ -79,14 +79,14 @@ export default function RefinanceIntl({ lang }: { lang: CalcLang }) {
 
       {result && (
         <>
-          <div className={`${result.worthIt ? 'bg-emerald-600' : 'bg-rose-600'} rounded-2xl p-6 text-center`}>
+          <div className={`${result.worthIt ? 'bg-emerald-600' : 'bg-rose-600'} rounded-lg p-6 text-center`}>
             <p className={`${result.worthIt ? 'text-emerald-200' : 'text-rose-200'} text-xs mb-1`}>{c.net}</p>
             <p className="text-white text-4xl font-black">{fmt(result.netBenefit)}</p>
             <p className={`${result.worthIt ? 'text-emerald-200' : 'text-rose-200'} text-xs mt-1`}>
               {result.worthIt ? c.worth : c.notWorth}
             </p>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <SummaryCard label={c.monthlyChange} value={fmt(result.paymentDiff)} />
             <SummaryCard
               label={c.breakEven}

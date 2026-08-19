@@ -187,8 +187,8 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
         {topicHead}
         {/* 주제 낱장은 제 이름표를 위에서 이미 세웠다 — h1이 둘이면 안 된다 */}
         {!initialTopic && (
-          <div className="text-center mb-6">
-            <ToolIcon emoji="🔯" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+          <div className="mb-6">
+            <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="🔯" className="h-6 w-6" /></span>
             <div className="hero-band">
               <PageHero title={ui.title} desc={ui.lead} />
             </div>
@@ -206,7 +206,7 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
 
         {chart && dayStem && dayStemIntl ? (
           <div id="saju-result" className="space-y-4">
-            <div className="rounded-2xl border chip-off p-5">
+            <div className="rounded-lg border chip-off p-5">
               <p className="text-xs font-bold text-indigo-600 uppercase tracking-wide mb-3">{ui.chart}</p>
               <div className="grid grid-cols-4 gap-2">
                 <PillarCard label={ui.hourPillar} p={chart.hour} stems={stems} branches={branches} />
@@ -216,7 +216,7 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
               </div>
             </div>
 
-            <div className="rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-700 p-6 text-white">
+            <div className="rounded-lg bg-gradient-to-br from-indigo-500 to-violet-700 p-6 text-white">
               <p className="text-xs font-semibold text-white/80 mb-1">{ui.dayMaster}</p>
               <p className="text-3xl font-black mb-1">{dayStem.hanja} · {dayStemIntl.kor}</p>
               <p className="text-xs text-white/80 mb-3">{dayStemIntl.nature} · {elements[dayStem.element].label}</p>
@@ -235,7 +235,7 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
               </div>
             </div>
 
-            <div className="rounded-2xl border chip-off p-5">
+            <div className="rounded-lg border chip-off p-5">
               <div className="flex items-baseline justify-between mb-3">
                 <p className="label-caps">{ui.elements}</p>
                 <span className="text-[11px] font-bold text-indigo-600">
@@ -264,7 +264,7 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
             </div>
 
             {missing.length > 0 && (
-              <div className="rounded-2xl border chip-off p-5">
+              <div className="rounded-lg border chip-off p-5">
                 <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-3">{ui.missing}</p>
                 <div className="space-y-3">
                   {missing.map(el => (
@@ -277,7 +277,7 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
               </div>
             )}
 
-            <div className="rounded-2xl border chip-off p-5">
+            <div className="rounded-lg border chip-off p-5">
               <p className="label-caps mb-3">{ui.tenGods}</p>
               <div className="space-y-3">
                 {([[ui.yearPillar, chart.year], [ui.monthPillar, chart.month], [ui.hourPillar, chart.hour]] as const)
@@ -302,7 +302,7 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
               </div>
             </div>
 
-            <div className="rounded-2xl border chip-off p-5">
+            <div className="rounded-lg border chip-off p-5">
               <p className="label-caps mb-3">{ui.luckPillars}</p>
               <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
                 {chart.daewoons.slice(0, 8).map(w => {
@@ -323,7 +323,7 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
               영역별 운세 — 점수는 lib/saju-fortune-facts.ts가 계산하므로 한국어 화면과
               같은 값이 나온다. 열 개를 한 번에 펼치면 화면이 너무 길어져 넷만 먼저 보인다.
             */}
-            <div className="rounded-2xl border chip-off p-5">
+            <div className="rounded-lg border chip-off p-5">
               <p className="label-caps mb-1">{du.title}</p>
               <p className="note-xs mb-4">{du.lead}</p>
               <div className="flex flex-col gap-3">
@@ -370,7 +370,7 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
               </button>}
             </div>
 
-            <div className="rounded-2xl border chip-off p-5">
+            <div className="rounded-lg border chip-off p-5">
               <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{ui.originNote}</p>
             </div>
 
@@ -379,7 +379,7 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
           </div>
         ) : (
           <div className="text-center py-10 text-slate-300 dark:text-slate-600">
-            <ToolIcon emoji="☝️" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+            <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">{ui.empty}</p>
           </div>
         )}

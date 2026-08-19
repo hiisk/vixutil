@@ -193,7 +193,7 @@ export default function FirstImpressionPage() {
       </header>
 
       <div className="relative max-w-lg mx-auto px-4 py-8">
-        <div className="text-center mb-7">
+        <div className="mb-7">
           <span className="text-xs font-bold text-indigo-600 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/40 px-3 py-1 rounded-full">AI 얼굴 분석</span>
           <h1 className="page-h1 mt-3">첫인상 분석</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
@@ -204,7 +204,7 @@ export default function FirstImpressionPage() {
 
         {/* 업로드 */}
         {!result && (
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-6 shadow-sm">
             {modelState === 'loading' && (
               <p className="text-center text-sm text-slate-400 dark:text-slate-500 py-8">
                 얼굴 인식 모델을 불러오는 중이에요…
@@ -222,7 +222,7 @@ export default function FirstImpressionPage() {
                 {preview ? (
                   <div className="flex flex-col items-center gap-4">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={preview} alt="분석할 사진" className="w-40 h-40 object-cover rounded-2xl border border-slate-200 dark:border-slate-700" />
+                    <img src={preview} alt="분석할 사진" className="w-40 h-40 object-cover rounded-lg border border-slate-200 dark:border-slate-700" />
                     {analyzing && <p className="text-sm text-indigo-600 dark:text-indigo-300 font-semibold">얼굴을 분석하고 있어요…</p>}
                     {faceError && (
                       <>
@@ -258,7 +258,7 @@ export default function FirstImpressionPage() {
         {/* 결과 */}
         {result && (
           <div id="impression-result" className="flex flex-col gap-4">
-            <div className={`rounded-3xl bg-gradient-to-br ${result.type.color} p-6 text-white text-center shadow-lg`}>
+            <div className={`rounded-xl bg-gradient-to-br ${result.type.color} p-6 text-white text-center shadow-sm`}>
               <p className="text-6xl mb-3">{result.type.emoji}</p>
               <h2 className="text-2xl font-black mb-2">{result.type.label}</h2>
               <div className="flex flex-wrap justify-center gap-1.5 mt-3">
@@ -268,11 +268,11 @@ export default function FirstImpressionPage() {
               </div>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-5 shadow-sm">
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.type.desc}</p>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-5 shadow-sm">
               <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">실제 측정값</p>
               {[
                 { label: '눈의 또렷함', value: result.eyeScore },
@@ -291,12 +291,12 @@ export default function FirstImpressionPage() {
               ))}
             </div>
 
-            <div className="bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/40 rounded-2xl p-5">
+            <div className="bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/40 rounded-lg p-5">
               <p className="text-xs font-bold text-emerald-700 dark:text-emerald-300 uppercase tracking-wide mb-1.5">이럴 때 강점이 돼요</p>
               <p className="text-sm text-emerald-800 dark:text-emerald-200 leading-relaxed">{result.type.strength}</p>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-5 shadow-sm">
               <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-1.5">💡 오늘의 팁</p>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.tip}</p>
             </div>

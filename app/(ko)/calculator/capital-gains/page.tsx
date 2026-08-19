@@ -1,14 +1,14 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 
 /*
- * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
- * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
- * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
- * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
- * 골라 둔 예시를 그대로 올렸다.
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 빈 칸으로 열면 무엇을
+ * 보여 주는 계산기인지 눌러 보기 전에는 모른다 — 값을 미리 넣어 두면 「계산하기」
+ * 한 번에 한 벌이 통째로 보이고, 사람은 그 위에 자기 숫자를 덮어쓴다.
+ * 값은 내가 지어내지 않고 저자가 이미 골라 둔 예시를 그대로 올렸다.
  */
-import CalcShell, { Card, CardHeader, Label, inputCls, SummaryCard } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
 
 /*
  * 소득세 세율표는 lib/salary.ts 하나에서 온다 — 원래 이 파일에 사본이 있었다.
@@ -34,25 +34,19 @@ export default function CapitalGainsPage() {
   const [transfer, setTransfer] = useState('500000000');
   const [years, setYears] = useState('3');
   const [houseType, setHouseType] = useState<'one' | 'multi' | 'non'>('one');
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | {
+  const [result, setResult] = useState<null | {
     gain: number; ltdRate: number; ltd: number; basic: number;
     taxBase: number; tax: number; local: number; total: number;
-  } = ((): null | {
-    gain: number; ltdRate: number; ltd: number; basic: number;
-    taxBase: number; tax: number; local: number; total: number;
-  } => {
+  }>(null);
+
+  function calculate() {
     const acq = Number(acquire);
     const tra = Number(transfer);
-    if (acq <= 0 || tra <= 0) return null;
+    if (acq <= 0 || tra <= 0) return;
 
     const expense = acq * 0.03;
     const gain = tra - acq - expense;
-    if (gain <= 0) { return (null); return null; }
+    if (gain <= 0) { setResult(null); return; }
 
     const y = Number(years);
     const isOne = houseType === 'one';
@@ -69,12 +63,8 @@ export default function CapitalGainsPage() {
     }
 
     const local = tax * 0.1;
-    return ({ gain, ltdRate, ltd, basic, taxBase, tax, local, total: tax + local });
-  
-    return null;
-  })();
-
-
+    setResult({ gain, ltdRate, ltd, basic, taxBase, tax, local, total: tax + local });
+  }
 
   return (
     <CalcShell
@@ -120,15 +110,13 @@ export default function CapitalGainsPage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>취득가액 (원)</Label>
-              <input type="number" value={acquire} onChange={e => setAcquire(e.target.value)}
-                placeholder="예: 300,000,000" className={inputCls} min="0" />
+              <MoneyInput value={acquire} onChange={setAcquire} placeholder="예: 300,000,000" />
             </div>
             <div>
               <Label>양도가액 (원)</Label>
-              <input type="number" value={transfer} onChange={e => setTransfer(e.target.value)}
-                placeholder="예: 500,000,000" className={inputCls} min="0" />
+              <MoneyInput value={transfer} onChange={setTransfer} placeholder="예: 500,000,000" />
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>보유기간</Label>
                 <select value={years} onChange={e => setYears(e.target.value)} className={inputCls}>
@@ -146,6 +134,7 @@ export default function CapitalGainsPage() {
                 </select>
               </div>
             </div>
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 
@@ -155,7 +144,7 @@ export default function CapitalGainsPage() {
               <p className="stat-label">예상 양도소득세 (지방세 포함)</p>
               <p className="stat-value">{fmt(result.total)}원</p>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <SummaryCard label="양도차익" value={`${fmt(result.gain)}원`} />
               <SummaryCard label="과세표준" value={`${fmt(result.taxBase)}원`} />
               <SummaryCard label="양도소득세" value={`${fmt(result.tax)}원`} variant="red" />

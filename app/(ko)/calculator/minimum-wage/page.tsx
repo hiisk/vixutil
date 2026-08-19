@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 import CalcShell, { Card, Label, inputCls, SummaryCard } from '@/components/CalcShell';
 import { CALC_FAQ } from '@/lib/calc-faq';
 
@@ -73,8 +74,7 @@ export default function MinimumWagePage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>시급 (원)</Label>
-              <input type="number" value={hourly} onChange={e => setHourly(e.target.value)}
-                placeholder="10030" className={inputCls} min="0" />
+              <MoneyInput value={hourly} onChange={setHourly} placeholder="10030" />
               <p className="text-xs text-blue-600 mt-1.5 font-semibold">2026년 최저시급: 10,320원</p>
             </div>
             <div>
@@ -98,7 +98,7 @@ export default function MinimumWagePage() {
               <p className="stat-value">{fmt(result.monthly)}원</p>
               <p className="stat-sub">연봉 {fmt(result.annual)}원</p>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <SummaryCard label="시급" value={`${fmt(result.hourly)}원`} />
               <SummaryCard label="일급 (8h)" value={`${fmt(result.daily)}원`} />
               <SummaryCard label="주급 (주휴 포함)" value={`${fmt(result.weekly)}원`} />

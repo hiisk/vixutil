@@ -25,7 +25,7 @@ function MbtiPicker({
               key={t}
               onClick={() => onChange(t)}
               className={`rounded-lg py-2 text-xs font-black transition-all border ${
-                on ? `${accent} border-transparent text-white shadow-md scale-105`
+                on ? `${accent} border-transparent text-white shadow-sm scale-105`
                    : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-violet-300'
               }`}
             >
@@ -71,19 +71,19 @@ export default function MbtiMatchPage() {
         </div>
       </header>
 
-      <div className="max-w-xl mx-auto px-4 py-6">
-        <div className="text-center mb-6">
+      <div className="hero-band max-w-xl mx-auto px-4 py-6">
+        <div className="mb-6">
           <h1 className="page-h1">🧠 MBTI 궁합</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">두 사람의 MBTI로 보는 궁합</p>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-4 flex flex-col gap-5">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-4 flex flex-col gap-5">
           <MbtiPicker label="내 MBTI" value={me} onChange={setMe} accent="bg-gradient-to-br from-violet-500 to-indigo-600" />
           <MbtiPicker label="상대 MBTI" value={partner} onChange={setPartner} accent="bg-gradient-to-br from-sky-500 to-blue-600" />
           <button
             onClick={calculate}
             disabled={!me || !partner}
-            className="w-full rounded-xl bg-sec disabled:from-slate-200 disabled:to-slate-200 dark:disabled:from-slate-800 dark:disabled:to-slate-800 disabled:text-slate-400 text-sm font-black py-3.5 transition-all active:scale-[0.99] shadow-md shadow-violet-200 disabled:shadow-none"
+            className="w-full rounded-xl bg-sec disabled:from-slate-200 disabled:to-slate-200 dark:disabled:from-slate-800 dark:disabled:to-slate-800 disabled:text-slate-400 text-sm font-black py-3.5 transition-all active:scale-[0.99] shadow-sm shadow-violet-200 disabled:shadow-none"
           >
             {!me || !partner ? '두 MBTI를 모두 골라주세요' : '궁합 보기 ✨'}
           </button>
@@ -101,12 +101,12 @@ export default function MbtiMatchPage() {
           />
         ) : (
           <div className="text-center py-10 text-slate-300 dark:text-slate-600">
-            <ToolIcon emoji="☝️" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+            <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">두 사람의 MBTI를 골라 궁합을 확인해보세요</p>
           </div>
         )}
 
-        <div className="mt-8 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+        <div className="mt-8 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
           <h2 className="text-sm font-black text-slate-800 dark:text-slate-100 mb-2">MBTI 궁합은 어떻게 정해지나요?</h2>
           <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
             공식 기준은 없지만, 널리 통용되는 통념을 규칙으로 옮겼어요. 세상을 보는 방식(N/S)과

@@ -51,8 +51,8 @@ export default function ShadowTool({ lang = 'ko' }: { lang?: ColorLang } = {}) {
 
   return (
     <div>
-      <div className="rounded-2xl bg-slate-100 dark:bg-slate-950 py-14 flex items-center justify-center">
-        <div className="w-40 h-28 rounded-2xl bg-white dark:bg-slate-800" style={{ boxShadow: css }} />
+      <div className="rounded-lg bg-slate-100 dark:bg-slate-950 py-14 flex items-center justify-center">
+        <div className="w-40 h-28 rounded-lg bg-white dark:bg-slate-800" style={{ boxShadow: css }} />
       </div>
 
       <div className="grid grid-cols-4 gap-2 mt-4">

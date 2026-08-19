@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, Label, inputCls, SummaryCard } from '@/components/CalcShell';
+import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 import { principalFor } from '@/lib/loan-schedule';
 
@@ -13,42 +13,30 @@ export default function MaxLoanPage() {
   const [existing, setExisting] = useState(0);
   const [dti, setDti] = useState('40');
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: {
+  const [result, setResult] = useState<{
     maxLoan: number;
     monthlyPayment: number;
     totalInterest: number;
     allowableMonthly: number;
-  } | null = ((): {
-    maxLoan: number;
-    monthlyPayment: number;
-    totalInterest: number;
-    allowableMonthly: number;
-  } | null => {
+  } | null>(null);
+
+  function calculate() {
     const income = annualIncome;
     const n = Number(loanYears) * 12;
     const existingMonthly = existing;
-    if (income <= 0 || Number(rate) <= 0) return null;
+    if (income <= 0 || Number(rate) <= 0) return;
 
     const monthlyIncome = income / 12;
     const allowableMonthly = monthlyIncome * Number(dti) / 100 - existingMonthly;
-    if (allowableMonthly <= 0) return null;
+    if (allowableMonthly <= 0) return;
 
     // 한도 역산은 lib/loan-schedule.ts의 principalFor 한 곳에서 온다
     const maxLoan = principalFor(allowableMonthly, Number(rate), n);
     const totalPayment = allowableMonthly * n;
     const totalInterest = totalPayment - maxLoan;
 
-    return ({ maxLoan, monthlyPayment: allowableMonthly, totalInterest, allowableMonthly });
-  
-    return null;
-  })();
-
-
+    setResult({ maxLoan, monthlyPayment: allowableMonthly, totalInterest, allowableMonthly });
+  }
 
   return (
     <CalcShell
@@ -87,7 +75,7 @@ export default function MaxLoanPage() {
               <Label>연 소득 (원)</Label>
               <CommaInput value={annualIncome} onChange={setAnnualIncome} placeholder="예: 60,000,000" />
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>대출 금리 (%)</Label>
                 <input type="number" value={rate} onChange={e => setRate(e.target.value)}
@@ -115,6 +103,9 @@ export default function MaxLoanPage() {
               </select>
             </div>
           </div>
+          <div className="mt-4">
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
+          </div>
         </Card>
 
         {result && (
@@ -124,7 +115,7 @@ export default function MaxLoanPage() {
               <p className="stat-value">{fmt(result.maxLoan)}원</p>
               <p className="stat-sub">월 상환액 {fmt(result.monthlyPayment)}원</p>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <SummaryCard label="월 허용 상환액" value={`${fmt(result.allowableMonthly)}원`} />
               <SummaryCard label="총 이자" value={`${fmt(result.totalInterest)}원`} variant="red" />
             </div>

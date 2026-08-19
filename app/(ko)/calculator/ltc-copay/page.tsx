@@ -1,15 +1,15 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 
 /*
- * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
- * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
- * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
- * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
- * 골라 둔 예시를 그대로 올렸다.
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 빈 칸으로 열면 무엇을
+ * 보여 주는 계산기인지 눌러 보기 전에는 모른다 — 값을 미리 넣어 두면 「계산하기」
+ * 한 번에 한 벌이 통째로 보이고, 사람은 그 위에 자기 숫자를 덮어쓴다.
+ * 값은 내가 지어내지 않고 저자가 이미 골라 둔 예시를 그대로 올렸다.
  */
 import Link from 'next/link';
-import CalcShell, { Card, CardHeader, Label, inputCls, selectCls } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, inputCls, selectCls, PrimaryBtn } from '@/components/CalcShell';
 import {
   GRADES, RELIEF_RATES, SERVICE_RATES,
   type Relief, type ServiceKind,
@@ -40,45 +40,33 @@ export default function LtcCopayPage() {
   const [relief, setRelief] = useState<Relief>('none');
   const [nonBenefit, setNonBenefit] = useState('0');
   const [budget, setBudget] = useState('400000');
+  const [result, setResult] = useState<null | {
+    r: ReturnType<typeof calcCopay>;
+    grade: string;
+    kind: ServiceKind;
+    usable: number | null;
+  }>(null);
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | {
-    r: ReturnType<typeof calcCopay>;
-    grade: string;
-    kind: ServiceKind;
-    usable: number | null;
-  } = ((): null | {
-    r: ReturnType<typeof calcCopay>;
-    grade: string;
-    kind: ServiceKind;
-    usable: number | null;
-  } => {
+  function calculate() {
     const u = Number(used);
-    if (u <= 0) return null;
+    if (u <= 0) return;
     /*
      * 시설급여는 월 한도액이 아니라 등급별 1일 수가 × 이용일수로 매겨진다.
      * 그래서 한도를 비워 두면 초과분 없이(한도 = 이용액) 셈한다.
      * 재가급여는 한도액이 없으면 셈 자체가 안 되므로 넣을 때까지 기다린다.
      */
     const l = limit === '' ? (kind === 'facility' ? u : 0) : Number(limit);
-    if (kind === 'home' && l <= 0) return null;
+    if (kind === 'home' && l <= 0) return;
 
     const input = { kind, used: u, limit: l, relief, nonBenefit: Number(nonBenefit || 0) };
     const b = Number(budget);
-    return ({
+    setResult({
       r: calcCopay(input),
       grade,
       kind,
       usable: b > 0 ? maxUsableFor(input, b) : null,
     });
-  
-    return null;
-  })();
-
+  }
 
   return (
     <CalcShell
@@ -159,7 +147,7 @@ export default function LtcCopayPage() {
               ))}
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>등급</Label>
                 <select value={grade} onChange={e => setGrade(e.target.value)} className={selectCls}>
@@ -168,19 +156,15 @@ export default function LtcCopayPage() {
               </div>
               <div>
                 <Label>월 한도액 (원)</Label>
-                <input type="number" value={limit} onChange={e => setLimit(e.target.value)}
-                  placeholder={kind === 'facility' ? '비우면 초과 없음' : '그 해 고시값'}
-                  className={inputCls} min="0" />
+                <MoneyInput value={limit} onChange={setLimit} />
               </div>
               <div>
                 <Label>이번 달 급여 이용액 (원)</Label>
-                <input type="number" value={used} onChange={e => setUsed(e.target.value)}
-                  placeholder="급여비용 총액" className={inputCls} min="0" />
+                <MoneyInput value={used} onChange={setUsed} placeholder="급여비용 총액" />
               </div>
               <div>
                 <Label>비급여 합계 (원)</Label>
-                <input type="number" value={nonBenefit} onChange={e => setNonBenefit(e.target.value)}
-                  placeholder="식사재료비·상급침실료 등" className={inputCls} min="0" />
+                <MoneyInput value={nonBenefit} onChange={setNonBenefit} placeholder="식사재료비·상급침실료 등" />
               </div>
             </div>
             <p className="text-xs text-slate-400 dark:text-slate-500">
@@ -196,10 +180,10 @@ export default function LtcCopayPage() {
               </select>
             </div>
             <div>
-              <Label>한 달에 낼 수 있는 돈 (원, 비우면 생략)</Label>
-              <input type="number" value={budget} onChange={e => setBudget(e.target.value)}
-                placeholder="예: 400000" className={inputCls} min="0" />
+              <Label>한 달에 낼 수 있는 돈 <span className="dial-opt">원, 비우면 생략</span></Label>
+              <MoneyInput value={budget} onChange={setBudget} placeholder="예: 400000" />
             </div>
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

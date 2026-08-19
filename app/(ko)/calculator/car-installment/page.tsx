@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import CalcShell, { Card, Label, inputCls, SummaryCard, RatioBar } from '@/components/CalcShell';
+import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard, RatioBar } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
@@ -14,39 +14,27 @@ export default function CarInstallmentPage() {
   const [months, setMonths] = useState('60');
   const [rate, setRate] = useState('5');
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: {
+  const [result, setResult] = useState<{
     loan: number;
     monthly: number;
     totalPay: number;
     totalInterest: number;
-  } | null = ((): {
-    loan: number;
-    monthly: number;
-    totalPay: number;
-    totalInterest: number;
-  } | null => {
+  } | null>(null);
+
+  function calculate() {
     const p = price;
     const d = down;
     const n = Number(months);
     // 무이자 할부(0%)가 흔하다 — rate <= 0으로 막으면 그 경우에 버튼이 죽는다
-    if (p <= 0 || !(Number(rate) >= 0)) return null;
+    if (p <= 0 || !(Number(rate) >= 0)) return;
 
     const loan = p - d;
     // 원리금균등 식은 lib/loan-schedule.ts 한 곳에서 온다
     const monthly = equalPayment(loan, Number(rate), n);
     const totalPay = monthly * n + d;
     const totalInterest = monthly * n - loan;
-    return ({ loan, monthly, totalPay, totalInterest });
-  
-    return null;
-  })();
-
-
+    setResult({ loan, monthly, totalPay, totalInterest });
+  }
 
   return (
     <CalcShell
@@ -96,7 +84,7 @@ export default function CarInstallmentPage() {
               <Label>선수금 / 계약금 (원)</Label>
               <CommaInput value={down} onChange={setDown} placeholder="예: 5,000,000" />
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>할부 기간</Label>
                 <select value={months} onChange={e => setMonths(e.target.value)} className={inputCls}>
@@ -112,6 +100,9 @@ export default function CarInstallmentPage() {
               </div>
             </div>
           </div>
+          <div className="mt-4">
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
+          </div>
         </Card>
 
         {result && (
@@ -121,7 +112,7 @@ export default function CarInstallmentPage() {
               <p className="stat-value">{fmt(result.monthly)}원</p>
               <p className="stat-sub">총 {months}개월 납부</p>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <SummaryCard label="대출 원금" value={`${fmt(result.loan)}원`} />
               <SummaryCard label="총 이자" value={`${fmt(result.totalInterest)}원`} variant="red" />
               <SummaryCard label="총 납부액 (선수금 포함)" value={`${fmt(result.totalPay)}원`} />

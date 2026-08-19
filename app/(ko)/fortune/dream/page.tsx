@@ -63,12 +63,19 @@ export default function DreamPage() {
       </header>
 
       {/* 히어로 + 검색 */}
-      <div className="bg-gradient-to-br from-slate-900 via-indigo-950 to-violet-950 text-white pt-10 pb-8">
+      {/*
+        짙은 남색 그라디언트 판이었다. 흰 사이트 한가운데 검은 판이 박히는
+        그림이고, 제목 규격을 통일하면서 어두운 글자가 얹혀 안 읽히게 됐다.
+        지면 그대로 두고 갈래색 칩 하나로 성격을 낸다.
+      */}
+      <div className="hero-band pt-8">
         <div className="max-w-2xl mx-auto px-4">
-          <div className="text-center mb-7">
-            <ToolIcon emoji="🌙" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+          <div className="mb-7">
+            <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg">
+              <ToolIcon emoji="🌙" className="h-6 w-6" />
+            </span>
             <h1 className="page-h1">꿈 해몽</h1>
-            <p className="text-indigo-300 text-sm">어젯밤 꿈의 의미를 알아보세요</p>
+            <p className="text-sm text-slate-500 dark:text-slate-400">어젯밤 꿈의 의미를 알아보세요</p>
           </div>
           <div className="relative">
             <span className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40 text-lg pointer-events-none">🔍</span>
@@ -77,7 +84,7 @@ export default function DreamPage() {
               value={search}
               onChange={e => { setSearch(e.target.value); setSelected(null); }}
               placeholder="돼지, 뱀, 불, 나는 꿈…"
-              className="w-full pl-11 pr-4 py-3.5 rounded-2xl bg-white/10 dark:bg-slate-900/10 border border-white/20 dark:border-slate-700/20 text-white placeholder-white/40 text-base focus:outline-none focus:bg-white/15 focus:border-violet-400 transition-all"
+              className="w-full pl-11 pr-4 py-3.5 rounded-lg bg-white/10 dark:bg-slate-900/10 border border-white/20 dark:border-slate-700/20 text-white placeholder-white/40 text-base focus:outline-none focus:bg-white/15 focus:border-violet-400 transition-all"
             />
             {search && (
               <button
@@ -154,9 +161,9 @@ export default function DreamPage() {
                 <button
                   key={dream.id}
                   onClick={() => pick(dream)}
-                  className={`text-left rounded-2xl border p-4 transition-all duration-200 ${
+                  className={`text-left rounded-lg border p-4 transition-all duration-200 ${
                     isOpen
-                      ? 'border-violet-400 bg-violet-50 dark:bg-violet-950/30 shadow-md ring-1 ring-violet-300'
+                      ? 'border-violet-400 bg-violet-50 dark:bg-violet-950/30 shadow-sm ring-1 ring-violet-300'
                       : 'border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-violet-200 hover:shadow-sm'
                   }`}
                 >
@@ -191,7 +198,7 @@ export default function DreamPage() {
           />
 
           {/* 시트 */}
-          <div className="relative bg-white dark:bg-slate-900 rounded-t-3xl w-full max-w-2xl max-h-[82vh] overflow-y-auto shadow-2xl">
+          <div className="relative bg-white dark:bg-slate-900 rounded-t-3xl w-full max-w-2xl max-h-[82vh] overflow-y-auto shadow-sm">
             {/* 드래그 핸들 */}
             <div className="flex justify-center pt-3 pb-1">
               <div className="w-10 h-1 rounded-full bg-slate-200 dark:bg-slate-700" />
@@ -261,13 +268,13 @@ export default function DreamPage() {
                       'https://vixutil.com/fortune/dream',
                     );
                   }}
-                  className="flex-1 py-3.5 rounded-2xl bg-violet-600 font-bold text-white hover:bg-violet-700 transition-colors text-sm"
+                  className="flex-1 py-3.5 rounded-lg bg-violet-600 font-bold text-white hover:bg-violet-700 transition-colors text-sm"
                 >
                   공유하기
                 </button>
                 <button
                   onClick={() => setSelected(null)}
-                  className="flex-1 py-3.5 rounded-2xl bg-slate-100 dark:bg-slate-800 font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-200 transition-colors text-sm"
+                  className="flex-1 py-3.5 rounded-lg bg-slate-100 dark:bg-slate-800 font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-200 transition-colors text-sm"
                 >
                   닫기
                 </button>

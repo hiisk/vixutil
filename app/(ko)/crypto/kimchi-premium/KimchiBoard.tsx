@@ -135,7 +135,7 @@ export default function KimchiBoard() {
 
   if (state === 'loading') {
     return (
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
         <div className="w-8 h-8 border-4 border-slate-200 dark:border-slate-700 border-t-amber-500 rounded-full animate-spin" />
         <span className="text-sm font-bold text-slate-500 dark:text-slate-400">업비트·빗썸·바이낸스 시세 불러오는 중…</span>
       </div>
@@ -144,7 +144,7 @@ export default function KimchiBoard() {
 
   if (state === 'error' || !snap) {
     return (
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
         <span className="text-3xl">⚠️</span>
         <span className="text-sm font-bold text-rose-600 dark:text-rose-400">{errMsg ?? '시세를 불러오지 못했습니다'}</span>
         <span className="text-xs text-slate-500 dark:text-slate-400 text-center max-w-sm px-4">
@@ -165,7 +165,7 @@ export default function KimchiBoard() {
         알 수 없으므로, 빠진 소스를 이름으로 밝힌다.
       */}
       {snap.sources.some(s => !s.ok) && (
-        <div role="status" className="rounded-2xl border border-amber-500/30 bg-amber-500/[0.08] px-4 py-3 mb-4 text-xs text-amber-800 dark:text-amber-200/90 leading-relaxed">
+        <div role="status" className="rounded-lg border border-amber-500/30 bg-amber-500/[0.08] px-4 py-3 mb-4 text-xs text-amber-800 dark:text-amber-200/90 leading-relaxed">
           <b>일부 데이터를 받지 못했습니다.</b>{' '}
           {snap.sources.filter(s => !s.ok).map(s => s.label).join(' · ')} 응답이 없어 해당 값은 &quot;—&quot;로 표시됩니다.
           나머지 소스로 계산한 값은 정상입니다.
@@ -173,7 +173,7 @@ export default function KimchiBoard() {
       )}
 
       {/* 헤드라인 — 사람들이 이 페이지에 오는 이유는 이 숫자 하나다 */}
-      <div className="rounded-3xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 mb-4">
+      <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 mb-4">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-[11px] uppercase tracking-wide text-slate-400 dark:text-slate-500 mb-1">
@@ -238,7 +238,7 @@ export default function KimchiBoard() {
       </div>
 
       {/* 두 기준의 차이를 설명 — 이걸 모르면 숫자가 왜 다른지 알 수 없다 */}
-      <div className="rounded-2xl border border-amber-500/25 bg-amber-50 dark:bg-amber-500/[0.06] p-4 mb-4 text-xs text-amber-900 dark:text-amber-200/80 leading-relaxed">
+      <div className="rounded-lg border border-amber-500/25 bg-amber-50 dark:bg-amber-500/[0.06] p-4 mb-4 text-xs text-amber-900 dark:text-amber-200/80 leading-relaxed">
         {basis === 'fx' ? (
           <>
             <b>환율 기준</b>은 뉴스와 커뮤니티에서 인용하는 그 김프입니다. 국내 원화 가격을 공식 USD/KRW 환율로 환산해 비교합니다.
@@ -287,7 +287,7 @@ export default function KimchiBoard() {
         </div>
       </div>
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm whitespace-nowrap">
             <thead>

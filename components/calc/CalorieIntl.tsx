@@ -49,7 +49,7 @@ export default function CalorieIntl({ lang }: { lang: CalcLang }) {
 
       <Card className="p-5">
         <p className="label-caps mb-3">{c.section}</p>
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 gap-x-4 gap-y-5">
           <div>
             <Label>{c.age}</Label>
             <input type="number" value={age} onChange={e => setAge(e.target.value)} className={inputCls} />
@@ -98,7 +98,7 @@ export default function CalorieIntl({ lang }: { lang: CalcLang }) {
             <p className="stat-value">{fmt(result.tdee)}</p>
             <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">{c.unit}</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-4 gap-y-5">
             <SummaryCard label={c.bmr} value={fmt(result.bmr)} />
             <SummaryCard label={c.lose} value={fmt(result.tdee - 500)} sub={c.slow} variant="green" />
             <SummaryCard label={c.gain} value={fmt(result.tdee + 500)} sub={c.fast} />

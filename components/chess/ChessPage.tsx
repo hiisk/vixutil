@@ -113,13 +113,13 @@ export default function ChessPage({ slug, lang }: { slug: string; lang: Lang }) 
       </header>
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
-        <div className="text-center mb-5">
+        <div className="hero-band ">
           <p className="text-xs font-bold text-violet-700 dark:text-violet-400 mb-1">{ui.group[f.group]}</p>
           <h1 className="page-h1">{name}</h1>
           <p className="font-mono text-sm text-slate-600 dark:text-slate-300 break-words">{f.line}</p>
         </div>
 
-        <section className="mb-8 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/40 p-4">
+        <section className="mb-8 rounded-lg border border-slate-200 dark:border-slate-700 p-4">
           <h2 className="sr-only">{ui.step}</h2>
           <StepBoard
             frames={f.frames}
@@ -129,13 +129,13 @@ export default function ChessPage({ slug, lang }: { slug: string; lang: Lang }) 
           />
         </section>
 
-        <p className="rounded-2xl border chip-off cell-note mb-5">
+        <p className="rounded-lg border chip-off cell-note mb-5">
           {story.join(' ')}
         </p>
 
         <section className="mb-8">
           <h2 className="sec-h2">{ui.position}</h2>
-          <dl className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
+          <dl className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
             {rows.map(([k, v]) => (
               <div key={k} className="row-pair">
                 <dt className="row-label">{k}</dt>
@@ -148,7 +148,7 @@ export default function ChessPage({ slug, lang }: { slug: string; lang: Lang }) 
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.movesTitle}</h2>
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.movesNote}</p>
-          <ol className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
+          <ol className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
             {f.steps.map((step, i) => (
               <li key={`${step.san}-${i}`} className="flex items-baseline gap-3 px-4 py-2.5 bg-white dark:bg-slate-900">
                 <span className="shrink-0 w-14 font-mono text-xs font-bold text-slate-400 dark:text-slate-500 tabular-nums">
@@ -172,7 +172,7 @@ export default function ChessPage({ slug, lang }: { slug: string; lang: Lang }) 
             <p className="text-xs text-slate-400 dark:text-slate-500 mb-3">
               {fill(ui.sharedWith, { n: f.sharedPly })}
             </p>
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
+            <div className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
               {f.siblings.map(kin => {
                 const y = openingOf(kin);
                 if (!y) return null;

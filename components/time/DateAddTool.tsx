@@ -57,7 +57,7 @@ export default function DateAddTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
 
       {result && (
         <>
-          <div className="mt-4 rounded-2xl bg-gradient-to-br from-violet-500 to-fuchsia-600 text-white px-6 py-8 text-center">
+          <div className="mt-4 rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-600 text-white px-6 py-8 text-center">
             <p className="text-sm text-white/70 mb-1">{ui.result}</p>
             <p className="text-3xl font-black">{formatKo(result.date)}</p>
             <p className="text-sm text-white/70 mt-2">

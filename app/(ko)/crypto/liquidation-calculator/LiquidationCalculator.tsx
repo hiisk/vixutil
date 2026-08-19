@@ -28,10 +28,10 @@ interface Snapshot {
   model: ForecastModel;
 }
 
-const inputCls =
-  'w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition tabular-nums';
+/* 사이트 공용 칸 — 초점 테두리가 갈래 색을 따라간다(globals.css .dial-input) */
+const inputCls = 'dial-input';
 
-const labelCls = 'block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5';
+const labelCls = 'dial-k mb-1 block';
 
 /** 확률이 높을수록 붉게 — 색만으로 전달하지 않도록 숫자를 항상 함께 쓴다 */
 function riskTone(pct: number): string {
@@ -147,7 +147,7 @@ export default function LiquidationCalculator() {
   return (
     <>
       {/* 코인 선택 */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 mb-4">
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5 mb-4">
         <label className={labelCls} htmlFor="coin-search">Coin</label>
         <div className="flex flex-wrap items-center gap-3">
           <div className="relative flex-1 min-w-[220px]">
@@ -161,7 +161,7 @@ export default function LiquidationCalculator() {
               autoComplete="off"
             />
             {suggestions.length > 0 && (
-              <ul className="absolute z-20 mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-lg overflow-hidden">
+              <ul className="absolute z-20 mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm overflow-hidden">
                 {suggestions.map(c => (
                   <li key={c.slug}>
                     <button
@@ -208,7 +208,7 @@ export default function LiquidationCalculator() {
       </div>
 
       {/* 입력 */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 mb-4">
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5 mb-4">
         <div className="grid sm:grid-cols-2 gap-4">
           <div className="sm:col-span-2">
             <span className={labelCls}>Direction</span>
@@ -299,7 +299,7 @@ export default function LiquidationCalculator() {
       {/* 결과 */}
       {calc ? (
         <>
-          <div className={`rounded-2xl border p-6 mb-4 ${side === 'long' ? 'border-rose-200 dark:border-rose-500/30 bg-rose-50 dark:bg-rose-500/[0.07]' : 'border-rose-200 dark:border-rose-500/30 bg-rose-50 dark:bg-rose-500/[0.07]'}`}>
+          <div className={`rounded-lg border p-6 mb-4 ${side === 'long' ? 'border-rose-200 dark:border-rose-500/30 bg-rose-50 dark:bg-rose-500/[0.07]' : 'border-rose-200 dark:border-rose-500/30 bg-rose-50 dark:bg-rose-500/[0.07]'}`}>
             <p className="text-[11px] uppercase tracking-wide text-rose-600 dark:text-rose-400 mb-1">Liquidation price</p>
             {calc.liquidatable ? (
               <>
@@ -320,7 +320,7 @@ export default function LiquidationCalculator() {
 
           {/* 청산 확률 — 다른 계산기는 가격만 알려주고 끝난다 */}
           {calc.liquidatable && (
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
+            <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
               <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
                 <h2 className="text-sm font-black text-slate-900 dark:text-white">Probability of being liquidated</h2>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
@@ -365,7 +365,7 @@ export default function LiquidationCalculator() {
               ['Bankruptcy price', calc.liquidatable ? `$${formatPrice(calc.bankruptcyPrice)}` : '—', 'where margin hits zero'],
               ['Loss at liquidation', `$${formatPrice(calc.lossAtLiq)}`, `${((calc.lossAtLiq / calc.totalMargin) * 100).toFixed(1)}% of your margin`],
             ].map(([label, value, note]) => (
-              <div key={label} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+              <div key={label} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
                 <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">{label}</p>
                 <p className="text-base font-black text-slate-900 dark:text-white tabular-nums">{value}</p>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{note}</p>
@@ -374,7 +374,7 @@ export default function LiquidationCalculator() {
           </div>
 
           {/* 역산 — 버티고 싶은 조정폭에서 배율을 구한다 */}
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-4">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-4">
             <h2 className="text-sm font-black text-slate-900 dark:text-white mb-1">How much leverage survives a given drawdown?</h2>
             <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
               The most leverage you can take at a {mmr}% maintenance margin rate and still survive a {side === 'long' ? 'drop' : 'rise'} of that size.
@@ -398,7 +398,7 @@ export default function LiquidationCalculator() {
           </div>
         </>
       ) : (
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-8 mb-4 text-center text-sm text-slate-500 dark:text-slate-400">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-8 mb-4 text-center text-sm text-slate-500 dark:text-slate-400">
           {Number(mmr) / 100 >= 1 / Number(leverage)
             ? `A ${mmr}% maintenance margin rate exceeds the initial margin at ${leverage}× — the exchange would not let this position open.`
             : 'Enter an entry price, margin and leverage to get the liquidation price.'}
@@ -406,7 +406,7 @@ export default function LiquidationCalculator() {
       )}
 
       {/* 정직한 한계 — 이 사이트의 방식대로, 빠진 것을 먼저 밝힌다 */}
-      <div className="rounded-2xl border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4 text-xs text-amber-900 dark:text-amber-200/85 leading-relaxed">
+      <div className="rounded-lg border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4 text-xs text-amber-900 dark:text-amber-200/85 leading-relaxed">
         <h2 className="text-sm font-black mb-2">What this calculation leaves out</h2>
         <ul className="space-y-1.5">
           <li>· <b>Fees and funding.</b> Both eat into margin, so your real liquidation price sits <b>closer to entry</b> than this one. The longer you hold, the wider the gap.</li>
@@ -418,7 +418,7 @@ export default function LiquidationCalculator() {
         </p>
       </div>
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
         <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">How the liquidation price is derived</h2>
         <p className="mb-2">
           Liquidation is the moment remaining equity equals the maintenance margin. That margin is charged on the notional

@@ -64,7 +64,7 @@ export function useBeep() {
   }, []);
 }
 
-export const CARD = 'rounded-2xl border chip-off p-5';
+export const CARD = 'rounded-lg border chip-off p-5';
 
 export function Stat({ label, value, accent }: { label: string; value: string | number; accent?: string }) {
   return (

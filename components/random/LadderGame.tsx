@@ -166,7 +166,7 @@ export default function LadderGame({ lang = 'ko' }: { lang?: RandomLang }) {
 
       {/* 결과 문구 */}
       {selected !== null && (
-        <div className="wc-pop text-center rounded-2xl bg-gradient-to-br from-violet-500 to-purple-600 text-white py-4 mb-6">
+        <div className="wc-pop text-center rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 text-white py-4 mb-6">
           <span className="text-lg font-black">{names[selected]}</span>
           <span className="mx-2">→</span>
           <span className="text-lg font-black">{results[revealed[selected]]}</span>
@@ -175,7 +175,7 @@ export default function LadderGame({ lang = 'ko' }: { lang?: RandomLang }) {
 
       <button
         onClick={() => reset(cols)}
-        className="w-full bg-sec font-black rounded-2xl py-3.5 mb-6 hover:-translate-y-0.5 hover:shadow-xl transition-all"
+        className="w-full bg-sec font-black rounded-lg py-3.5 mb-6 hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all"
       >
         {ui.reshuffle}
       </button>

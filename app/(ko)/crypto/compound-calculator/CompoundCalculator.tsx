@@ -24,9 +24,9 @@ interface Snapshot {
   model: ForecastModel;
 }
 
-const inputCls =
-  'w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition tabular-nums';
-const labelCls = 'block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5';
+/* 사이트 공용 칸 — 초점 테두리가 갈래 색을 따라간다(globals.css .dial-input) */
+const inputCls = 'dial-input';
+const labelCls = 'dial-k mb-1 block';
 
 const num = (v: number, d = 2) => v.toLocaleString(undefined, { maximumFractionDigits: d });
 
@@ -117,7 +117,7 @@ export default function CompoundCalculator() {
 
   return (
     <>
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 mb-4">
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5 mb-4">
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
             <label className={labelCls} htmlFor="cc-principal">Starting amount</label>
@@ -164,7 +164,7 @@ export default function CompoundCalculator() {
 
       {r ? (
         <>
-          <div className="rounded-3xl border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-white via-white to-amber-50 dark:from-slate-900 dark:via-slate-900 dark:to-amber-500/[0.05] p-6 mb-4">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-amber-50 dark:bg-slate-900 p-6 mb-4">
             <p className="text-[11px] uppercase tracking-wide text-amber-600 dark:text-amber-400 mb-1">Balance after {years} year{Number(years) === 1 ? '' : 's'}</p>
             <div className="flex flex-wrap items-end gap-x-8 gap-y-3">
               <div>
@@ -185,7 +185,7 @@ export default function CompoundCalculator() {
 
           {/* APR vs APY — 첫 번째 차별점 */}
           {gap != null && Math.abs(gap) > 0.005 && (
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-4">
+            <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-4">
               <h2 className="text-sm font-black text-slate-900 dark:text-white mb-1">
                 {rateKind === 'apr' ? 'That APR is not the return you get' : 'That APY corresponds to a lower APR'}
               </h2>
@@ -210,7 +210,7 @@ export default function CompoundCalculator() {
           )}
 
           {/* 가격 변동이 이자를 지운다 — 핵심 차별점 */}
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
             <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700 flex flex-wrap items-start justify-between gap-3">
               <div className="min-w-0">
                 <h2 className="text-sm font-black text-slate-900 dark:text-white">Yield earns coins. Price decides what they are worth.</h2>
@@ -223,7 +223,7 @@ export default function CompoundCalculator() {
                   placeholder={`${coin.base} · change coin`} aria-label="Change coin"
                   className="w-44 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500" />
                 {suggestions.length > 0 && (
-                  <ul className="absolute right-0 z-20 mt-1 w-56 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-lg overflow-hidden">
+                  <ul className="absolute right-0 z-20 mt-1 w-56 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm overflow-hidden">
                     {suggestions.map(c => (
                       <li key={c.slug}>
                         <button type="button" onClick={() => pickCoin(c)}
@@ -288,12 +288,12 @@ export default function CompoundCalculator() {
           </div>
         </>
       ) : (
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-8 mb-4 text-center text-sm text-slate-500 dark:text-slate-400">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-8 mb-4 text-center text-sm text-slate-500 dark:text-slate-400">
           Enter a starting amount, a rate and a holding period.
         </div>
       )}
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
         <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">What a yield figure leaves out</h2>
         <p className="mb-2">
           Advertised rates in crypto are paid in the token, so the yield increases the number of coins you hold rather than the value of your

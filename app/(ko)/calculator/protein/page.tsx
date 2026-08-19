@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, {
-  Card, CardHeader, Label, inputCls, selectCls,
+  Card, CardHeader, Label, PrimaryBtn, inputCls, selectCls,
   SummaryCard, SummaryGrid,
 } from '@/components/CalcShell';
 import {
@@ -13,20 +13,13 @@ import { ALL_LOCALES10 } from '@/lib/locales';
 export default function ProteinPage() {
   const [weight, setWeight] = useState('70');
   const [levelId, setLevelId] = useState('active');
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: ProteinResult | null = ((): ProteinResult | null => {
+  const [result, setResult] = useState<ProteinResult | null>(null);
+
+  function calculate() {
     const w = Number(weight) || 0;
-    if (w <= 0) return null;
-    return (calcProtein({ weightKg: w, levelId }));
-  
-    return null;
-  })();
-
-
+    if (w <= 0) return;
+    setResult(calcProtein({ weightKg: w, levelId }));
+  }
 
   return (
     <CalcShell
@@ -77,6 +70,8 @@ export default function ProteinPage() {
             </div>
           </div>
         </Card>
+
+        <PrimaryBtn onClick={calculate}>단백질 권장량 계산</PrimaryBtn>
 
         {result && (
           <>

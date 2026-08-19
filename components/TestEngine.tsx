@@ -165,7 +165,13 @@ const UI: Record<TestLang, {
   },
 };
 
-export default function TestEngine({ test, lang = 'ko' }: { test: Test; lang?: TestLang }) {
+  /*
+   * headerRight — 머리줄 오른쪽에 얹을 것(언어 고르개).
+   * 예전에는 부르는 쪽이 이 엔진 **위에** 자기 줄을 하나 더 만들어 고르개를
+   * 놓았다. 화면 위쪽 50px이 고르개 하나에 쓰였고, 머리 띠가 두 겹으로 보였다.
+   * 머리줄이 이미 있으므로 그 안에 넣는다.
+   */
+export default function TestEngine({ test, lang = 'ko', headerRight }: { test: Test; lang?: TestLang; headerRight?: React.ReactNode }) {
   const ui = UI[lang];
   const hubHref = lang === 'ko' ? '/test' : `/${lang}/test`;
   const [phase, setPhase] = useState<'start' | 'question' | 'result'>('start');
@@ -218,25 +224,27 @@ export default function TestEngine({ test, lang = 'ko' }: { test: Test; lang?: T
             </svg>
             {ui.allTests}
           </Link>
+        {headerRight && <span className="ml-auto shrink-0">{headerRight}</span>}
         </div>
       </header>
-      <div className="flex-1 flex flex-col items-center justify-center px-4 py-12 max-w-lg mx-auto w-full text-center">
+      <div className="flex-1 px-4 py-8 max-w-lg mx-auto w-full">
         {/*
-          목록 카드와 같은 그라데이션·이모지를 크게 다시 보여준다. 들어오자마자
-          텍스트만 있으면 허전하고, 어떤 카드를 눌렀는지도 이어지지 않는다.
+          128px 아이콘 판이 첫 화면을 통째로 차지했다. 시작 화면은 «무엇을
+          하는 것이고 얼마나 걸리나»를 알려 주는 자리지 소개 포스터가 아니다.
+          칩 하나로 줄이고 왼쪽에 세운다 — 다른 갈래와 같은 규격이다.
         */}
-        <div className={`w-32 h-32 rounded-3xl mb-6 flex items-center justify-center bg-sec-soft shadow-xl`}>
-          <ToolIcon emoji={test.icon} className="w-14 h-14 drop-shadow-md" />
+        <div className="mb-3 flex items-center gap-2">
+          <span className="bg-sec-soft inline-flex h-10 w-10 items-center justify-center rounded-lg">
+            <ToolIcon emoji={test.icon} className="h-5 w-5" />
+          </span>
+          <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{test.category}</span>
         </div>
-        <span className="text-xs font-bold text-violet-500 bg-violet-50 dark:bg-violet-950/30 px-3 py-1 rounded-full mb-3">{test.category}</span>
-        <div className="w-full max-w-sm mb-6">
-          <div className="hero-band">
+        <div className="hero-band">
             <PageHero title={test.title} desc={test.desc} />
           </div>
-        </div>
         <p className="text-xs text-slate-400 dark:text-slate-500 mb-8">{ui.meta(test.questions.length)}</p>
         <button onClick={() => setPhase('question')}
-          className="w-full max-w-xs bg-sec active:scale-[0.99] font-black py-4 rounded-2xl text-base transition-all shadow-lg">
+          className="btn-pri">
           {ui.start}
         </button>
       </div>
@@ -263,7 +271,7 @@ export default function TestEngine({ test, lang = 'ko' }: { test: Test; lang?: T
           <div className="flex flex-col gap-2.5">
             {q.opts.map((opt, i) => (
               <button key={i} onClick={() => pick(i)}
-                className="group w-full text-left flex items-center gap-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-2xl pl-3 pr-4 py-3.5 text-sm font-medium text-slate-700 dark:text-slate-200 hover:border-violet-400 hover:bg-violet-50 dark:hover:bg-violet-950/40 hover:text-violet-700 hover:shadow-sm active:scale-[0.99] transition-all">
+                className="group w-full text-left flex items-center gap-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg pl-3 pr-4 py-3.5 text-sm font-medium text-slate-700 dark:text-slate-200 hover:border-violet-400 hover:bg-violet-50 dark:hover:bg-violet-950/40 hover:text-violet-700 hover:shadow-sm active:scale-[0.99] transition-all">
                 <span className="shrink-0 w-7 h-7 rounded-full border-2 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 text-xs font-black flex items-center justify-center transition-colors group-hover:border-violet-500 group-hover:bg-violet-500 group-hover:text-white">
                   {['A', 'B', 'C', 'D', 'E'][i] ?? i + 1}
                 </span>
@@ -299,14 +307,9 @@ export default function TestEngine({ test, lang = 'ko' }: { test: Test; lang?: T
       </header>
       <div className="flex-1 px-4 py-8 max-w-lg mx-auto w-full">
         {/* Result hero card */}
-        <div className={`te-pop relative overflow-hidden rounded-3xl bg-gradient-to-br ${grad} p-8 text-white text-center mb-6 shadow-xl`}>
-          {/* decorative bg emoji */}
-          <span className="absolute -top-4 -right-4 text-[100px] opacity-10 select-none">{result.emoji}</span>
-          <span className="absolute -bottom-4 -left-4 text-[80px] opacity-10 select-none">{result.emoji}</span>
-          {/* soft glow */}
-          <span aria-hidden className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 w-40 h-40 rounded-full bg-white/20 blur-3xl" />
+        <div className={`te-pop relative overflow-hidden rounded-xl bg-gradient-to-br ${grad} p-8 text-white text-center mb-6 shadow-sm`}>
           {/* main emoji */}
-          <div className="te-pop-emoji text-7xl mb-4 filter drop-shadow-lg relative z-10">{result.emoji}</div>
+          <div className="te-pop-emoji text-7xl mb-4 filter drop-shadow-sm relative z-10">{result.emoji}</div>
           <span className="relative z-10 text-xs font-bold bg-white/20 dark:bg-slate-900/20 px-3 py-1 rounded-full">{ui.resultOf(test.category)}</span>
           {mbtiType && (
             <p className="relative z-10 text-4xl font-black mt-4 tracking-widest">{mbtiType}</p>
@@ -317,7 +320,7 @@ export default function TestEngine({ test, lang = 'ko' }: { test: Test; lang?: T
 
         {/* Traits */}
         {result.traits && result.traits.length > 0 && (
-          <div className="bg-slate-50 dark:bg-slate-950 rounded-2xl p-5 mb-5">
+          <div className="bg-slate-50 dark:bg-slate-950 rounded-lg p-5 mb-5">
             <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wide">{ui.traits}</p>
             <div className="flex flex-wrap gap-2">
               {result.traits.map((t, i) => (

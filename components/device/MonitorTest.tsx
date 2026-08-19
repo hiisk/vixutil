@@ -98,7 +98,7 @@ export default function MonitorTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
             className="absolute inset-0 w-full h-full cursor-pointer"
           />
           {hint && (
-            <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-black/65 px-6 py-4 text-center text-sm text-white leading-relaxed">
+            <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg bg-black/65 px-6 py-4 text-center text-sm text-white leading-relaxed">
               <span className="block font-black mb-1">{ui.colors[PATTERNS.indexOf(current)]} ({idx + 1}/{PATTERNS.length})</span>
               {ui.tips[PATTERNS.indexOf(current)]}
               <span className="block mt-2 text-[11px] text-white/70">
@@ -116,7 +116,7 @@ export default function MonitorTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
         </div>
       )}
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-5">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-5">
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
           {ui.how}
           <br />
@@ -151,7 +151,7 @@ export default function MonitorTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
         </button>
       </div>
 
-      <div className="mt-4 rounded-2xl border chip-off p-5">
+      <div className="mt-4 rounded-lg border chip-off p-5">
         <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3">{ui.judgeTitle}</p>
         <ul className="flex flex-col gap-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           <li>

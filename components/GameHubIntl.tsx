@@ -63,9 +63,11 @@ export default function GameHubIntl({ lang }: { lang: GameIntlLang }) {
                 <Link
                   key={t.slug}
                   href={`/${lang}/game/${t.slug}`}
-                  className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${t.gradient} text-white p-5 min-h-[9rem] flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl transition-all`}
+                  className="group flex min-h-[8rem] flex-col justify-between rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 transition-colors hover:border-slate-300 dark:hover:border-slate-700"
                 >
-                  <ToolIcon emoji={t.icon} className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
+                  <span className="bg-sec-soft inline-flex h-9 w-9 items-center justify-center rounded-lg">
+                    <ToolIcon emoji={t.icon} className="h-5 w-5" />
+                  </span>
                   <span>
                     <span className="block text-base font-black drop-shadow leading-tight">{t.title}</span>
                     <span className="block text-[11px] font-medium opacity-80 mt-1 line-clamp-2">{t.desc}</span>
@@ -78,7 +80,7 @@ export default function GameHubIntl({ lang }: { lang: GameIntlLang }) {
 
         <Link
           href={`/${lang}/game/cube`}
-          className="group flex items-center gap-4 rounded-2xl border chip-off px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+          className="group flex items-center gap-4 rounded-lg border chip-off px-5 py-4 hover:border-slate-300 dark:hover:border-slate-700 hover:-translate-y-0.5 transition-all"
         >
           <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-sec-soft">
             <ToolIcon emoji={CUBE_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />
@@ -92,7 +94,7 @@ export default function GameHubIntl({ lang }: { lang: GameIntlLang }) {
 
         <Link
           href={`/${lang}/game/chess`}
-          className="group mt-3 flex items-center gap-4 rounded-2xl border chip-off px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+          className="group mt-3 flex items-center gap-4 rounded-lg border chip-off px-5 py-4 hover:border-slate-300 dark:hover:border-slate-700 hover:-translate-y-0.5 transition-all"
         >
           <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-sec-soft">
             <ToolIcon emoji={CHESS_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />
@@ -106,7 +108,7 @@ export default function GameHubIntl({ lang }: { lang: GameIntlLang }) {
 
         <Link
           href={`/${lang}/game/poker`}
-          className="group mt-3 flex items-center gap-4 rounded-2xl border chip-off px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+          className="group mt-3 flex items-center gap-4 rounded-lg border chip-off px-5 py-4 hover:border-slate-300 dark:hover:border-slate-700 hover:-translate-y-0.5 transition-all"
         >
           <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-sec-soft">
             <ToolIcon emoji={POKER_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />

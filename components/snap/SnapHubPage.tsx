@@ -42,8 +42,8 @@ export default function SnapHubPage({ lang }: { lang: SnapIntlLang }) {
       </header>
 
       <div className="max-w-3xl mx-auto px-4 py-10">
-        <div className="text-center mb-10">
-          <ToolIcon emoji="📸" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+        <div className="mb-10">
+          <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="📸" className="h-6 w-6" /></span>
           <div className="hero-band">
             <PageHero title={c.title} desc={c.lead} />
           </div>
@@ -52,8 +52,8 @@ export default function SnapHubPage({ lang }: { lang: SnapIntlLang }) {
         <div className="grid sm:grid-cols-2 gap-4">
           {cards.map(t => (
             <Link prefetch={false} key={t.href} href={t.href}
-              className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${t.color} text-white p-6 min-h-[10rem] flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl transition-all`}>
-              <ToolIcon emoji={t.icon} className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
+              className={`group relative overflow-hidden rounded-lg bg-gradient-to-br ${t.color} text-white p-6 min-h-[10rem] flex flex-col justify-between hover:-translate-y-1 hover:border-slate-300 dark:hover:border-slate-700 transition-all`}>
+              <ToolIcon emoji={t.icon} className="w-9 h-9 drop-shadow-sm transition-transform group-hover:scale-110" />
               <div>
                 <div className="text-lg font-black drop-shadow leading-tight">{t.title}</div>
                 <div className="text-xs font-medium opacity-80 mt-1">{t.desc}</div>
@@ -64,7 +64,7 @@ export default function SnapHubPage({ lang }: { lang: SnapIntlLang }) {
 
         <Link prefetch={false}
           href={`/${lang}/snap/lens`}
-          className="group mt-6 flex items-center gap-4 rounded-2xl border chip-off px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+          className="group mt-6 flex items-center gap-4 rounded-lg border chip-off px-5 py-4 hover:border-slate-300 dark:hover:border-slate-700 hover:-translate-y-0.5 transition-all"
         >
           <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-sec-soft">
             <ToolIcon emoji={LENS_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />

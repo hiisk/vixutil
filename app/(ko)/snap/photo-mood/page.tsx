@@ -191,14 +191,14 @@ export default function PhotoMoodPage() {
         </div>
       </header>
 
-      <div className="max-w-xl mx-auto px-4 py-8">
-        <div className="text-center mb-6">
-          <ToolIcon emoji="🎞️" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+      <div className="hero-band max-w-xl mx-auto px-4 py-8">
+        <div className="mb-6">
+          <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="🎞️" className="h-6 w-6" /></span>
           <h1 className="page-h1">사진 감성 분석</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">아무 사진이나 올려도 돼요 — 실제 색감을 분석해드려요</p>
         </div>
 
-        <div className="bg-violet-50 dark:bg-violet-950/30 border border-violet-100 dark:border-violet-900/40 rounded-2xl p-4 mb-6 text-xs text-violet-800 dark:text-violet-300 leading-relaxed">
+        <div className="bg-violet-50 dark:bg-violet-950/30 border border-violet-100 dark:border-violet-900/40 rounded-lg p-4 mb-6 text-xs text-violet-800 dark:text-violet-300 leading-relaxed">
           <p className="font-bold mb-1">🔒 사진은 서버에 전송되지 않아요</p>
           <p>얼굴 인식이 필요 없는 기능이라 인물·풍경·음식 등 어떤 사진이든 올릴 수 있어요. 밝기·채도·대비·색감은 이 브라우저 안에서 실제로 측정되고, 사진은 어디에도 저장·전송되지 않습니다.</p>
         </div>
@@ -206,7 +206,7 @@ export default function PhotoMoodPage() {
         {!preview && (
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="w-full border-2 border-dashed border-slate-300 rounded-2xl py-16 flex flex-col items-center gap-3 bg-white dark:bg-slate-900 hover:border-fuchsia-400 hover:bg-fuchsia-50/50 dark:hover:bg-fuchsia-950/40 transition-colors"
+            className="w-full border-2 border-dashed border-slate-300 rounded-lg py-16 flex flex-col items-center gap-3 bg-white dark:bg-slate-900 hover:border-fuchsia-400 hover:bg-fuchsia-50/50 dark:hover:bg-fuchsia-950/40 transition-colors"
           >
             <ToolIcon emoji="📷" className="w-9 h-9 text-slate-800 dark:text-slate-100" />
             <span className="text-sm font-bold text-slate-600 dark:text-slate-300">사진을 선택해주세요</span>
@@ -223,11 +223,11 @@ export default function PhotoMoodPage() {
 
         {preview && (
           <div className="mb-6">
-            <div className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 aspect-square max-w-xs mx-auto">
+            <div className="relative rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 aspect-square max-w-xs mx-auto">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={preview} alt="업로드한 사진 미리보기" className="w-full h-full object-cover" />
               {analyzing && (
-                <div className="absolute inset-0 bg-slate-900/60 flex flex-col items-center justify-center gap-3">
+                <div className="absolute inset-0 bg-slate-900/60 gap-3">
                   <div className="w-10 h-10 border-4 border-white/30 dark:border-slate-700/30 border-t-white rounded-full animate-spin" />
                   <p className="text-white text-sm font-bold">색감 분석 중...</p>
                 </div>
@@ -245,7 +245,7 @@ export default function PhotoMoodPage() {
         )}
 
         {imgError && !analyzing && (
-          <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 rounded-2xl p-5 mb-6 text-center">
+          <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 rounded-lg p-5 mb-6 text-center">
             <p className="text-sm font-bold text-amber-700 dark:text-amber-300 mb-3">🙈 {imgError}</p>
             <button
               onClick={() => fileInputRef.current?.click()}
@@ -259,7 +259,7 @@ export default function PhotoMoodPage() {
         {result && !analyzing && (
           <div id="mood-result" className="space-y-4">
             <div
-              className="rounded-2xl p-6 text-white text-center"
+              className="rounded-lg p-6 text-white text-center"
               style={{ background: `linear-gradient(135deg, ${result.from} 0%, ${result.to} 100%)` }}
             >
               <div className="flex justify-end mb-2">
@@ -272,7 +272,7 @@ export default function PhotoMoodPage() {
             </div>
 
             {palette.length > 0 && (
-              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
+              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5">
                 <p className="label-caps mb-3">🎨 이 사진의 컬러 팔레트</p>
                 <div className="flex gap-2">
                   {palette.map(hex => (
@@ -286,7 +286,7 @@ export default function PhotoMoodPage() {
             )}
 
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
+              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
                 <div className="flex items-center justify-between mb-1.5">
                   <p className="text-xs font-bold text-slate-500 dark:text-slate-400">☀️ 밝기</p>
                   <span className="text-[11px] font-bold text-slate-600 dark:text-slate-300">{result.brightnessPercent}%</span>
@@ -295,7 +295,7 @@ export default function PhotoMoodPage() {
                   <div className="h-full bg-sec rounded-full" style={{ width: `${result.brightnessPercent}%` }} />
                 </div>
               </div>
-              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
+              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
                 <div className="flex items-center justify-between mb-1.5">
                   <p className="text-xs font-bold text-slate-500 dark:text-slate-400">🌈 채도</p>
                   <span className="text-[11px] font-bold text-slate-600 dark:text-slate-300">{result.saturationPercent}%</span>
@@ -304,7 +304,7 @@ export default function PhotoMoodPage() {
                   <div className="h-full bg-sec rounded-full" style={{ width: `${result.saturationPercent}%` }} />
                 </div>
               </div>
-              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
+              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
                 <div className="flex items-center justify-between mb-1.5">
                   <p className="text-xs font-bold text-slate-500 dark:text-slate-400">🌡️ 웜/쿨</p>
                   <span className="text-[11px] font-bold text-slate-600 dark:text-slate-300">{result.warmthPercent}% {result.warmthPercent >= 50 ? '웜' : '쿨'}</span>
@@ -313,7 +313,7 @@ export default function PhotoMoodPage() {
                   <div className="h-full bg-sec rounded-full" style={{ width: `${result.warmthPercent}%` }} />
                 </div>
               </div>
-              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
+              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
                 <div className="flex items-center justify-between mb-1.5">
                   <p className="text-xs font-bold text-slate-500 dark:text-slate-400">◐ 대비</p>
                   <span className="text-[11px] font-bold text-slate-600 dark:text-slate-300">{result.contrastPercent}%</span>
@@ -324,14 +324,14 @@ export default function PhotoMoodPage() {
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100 dark:border-amber-900/40 rounded-2xl p-5">
+            <div className="bg-amber-50 border border-amber-100 dark:border-amber-900/40 rounded-lg p-5">
               <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">💬 캡션 팁</p>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.captionTip}</p>
             </div>
 
             <button
               onClick={handleReset}
-              className="w-full py-3.5 rounded-2xl font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-fuchsia-300 hover:text-fuchsia-600 transition-colors"
+              className="w-full py-3.5 rounded-lg font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-fuchsia-300 hover:text-fuchsia-600 transition-colors"
             >
               🔄 다른 사진으로 다시 해보기
             </button>

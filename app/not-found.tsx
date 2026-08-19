@@ -49,7 +49,7 @@ const COLUMNS = [
 
 export default function NotFound() {
   return (
-    <div className="page-wrap flex flex-col">
+    <div className="hero-band page-wrap flex flex-col">
       <div className="h-1 topbar" />
 
       <main className="flex-1 max-w-2xl mx-auto px-4 py-14 w-full">

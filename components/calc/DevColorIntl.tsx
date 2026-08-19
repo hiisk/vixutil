@@ -57,7 +57,7 @@ export default function DevColorIntl({ lang }: { lang: CalcLang }) {
 
       {rgb && hsl && (
         <>
-          <div className="rounded-2xl h-24 border border-slate-200 dark:border-slate-700" style={{ background: hexStr }} />
+          <div className="rounded-lg h-24 border border-slate-200 dark:border-slate-700" style={{ background: hexStr }} />
           <Card className="p-5">
             <div className="flex flex-col divide-y divide-slate-100 dark:divide-slate-800">
               {[[c.hex, hexStr], [c.rgb, rgbStr], [c.hsl, hslStr]].map(([k, v]) => (

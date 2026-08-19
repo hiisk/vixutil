@@ -37,7 +37,7 @@ export default function AppliancePowerIntl({ lang }: { lang: CalcLang }) {
     <div className="flex flex-col gap-4">
       <Card className="p-5">
         <p className="label-caps mb-3">{c.section}</p>
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 gap-x-4 gap-y-5">
           <div>
             <Label>{c.watts}</Label>
             <input type="number" value={watts} onChange={e => setWatts(e.target.value)} className={inputCls} min="0" />

@@ -57,19 +57,19 @@ export default function NumberPicker({ lang = 'ko' }: { lang?: RandomLang }) {
 
       <button
         onClick={draw}
-        className="w-full bg-sec font-black text-lg rounded-2xl py-4 mb-3 shadow-lg shadow-emerald-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all"
+        className="w-full bg-sec font-black text-lg rounded-lg py-4 mb-3 shadow-sm shadow-emerald-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all"
       >
         {ui.generate}
       </button>
       <button
         onClick={lotto}
-        className="w-full border-2 border-emerald-200 dark:border-emerald-900/50 text-emerald-600 dark:text-emerald-300 font-bold rounded-2xl py-3 mb-6 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 transition-colors"
+        className="w-full border-2 border-emerald-200 dark:border-emerald-900/50 text-emerald-600 dark:text-emerald-300 font-bold rounded-lg py-3 mb-6 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 transition-colors"
       >
         {ui.lottery}
       </button>
 
       {result && (
-        <div className="rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-600 text-white p-6 text-center">
+        <div className="rounded-lg bg-gradient-to-br from-emerald-400 to-teal-600 text-white p-6 text-center">
           <div className="text-xs font-bold text-emerald-100 mb-3">{isLotto ? ui.luckyNumbers : ui.result}</div>
           <div className="flex flex-wrap justify-center gap-2">
             {result.map((n, i) => (

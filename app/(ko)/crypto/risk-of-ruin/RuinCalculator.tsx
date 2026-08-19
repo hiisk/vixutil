@@ -8,9 +8,9 @@ const RISK_ROWS = [0.5, 1, 2, 3, 5, 10, 20];
 /** 감내 하락폭 선택지(%) */
 const THRESHOLDS: [string, number][] = [['25%', 25], ['50%', 50], ['75%', 75], ['90%', 90]];
 
-const inputCls =
-  'w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition tabular-nums';
-const labelCls = 'block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5';
+/* 사이트 공용 칸 — 초점 테두리가 갈래 색을 따라간다(globals.css .dial-input) */
+const inputCls = 'dial-input';
+const labelCls = 'dial-k mb-1 block';
 
 /** 파산 확률을 크기에 맞게 표시 — 아주 작은 값이 "0%"로 뭉개지면 안전하다고 오해한다 */
 function fmtPct(v: number): string {
@@ -64,7 +64,7 @@ export default function RuinCalculator() {
 
   return (
     <>
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 mb-4">
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5 mb-4">
         <div className="grid sm:grid-cols-3 gap-4">
           <div>
             <label className={labelCls} htmlFor="ror-win">Win rate (%)</label>
@@ -105,7 +105,7 @@ export default function RuinCalculator() {
 
       {r ? (
         <>
-          <div className={`rounded-3xl border p-6 mb-4 ${r.hasEdge ? 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900' : 'border-rose-500/40 bg-rose-50 dark:bg-rose-500/[0.08]'}`}>
+          <div className={`rounded-xl border p-6 mb-4 ${r.hasEdge ? 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900' : 'border-rose-500/40 bg-rose-50 dark:bg-rose-500/[0.08]'}`}>
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">
               Chance of losing {ruinThresholdPct}% of the account
             </p>
@@ -125,7 +125,7 @@ export default function RuinCalculator() {
           </div>
 
           {/* 같은 우위, 다른 리스크 */}
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
             <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
               <h2 className="text-sm font-black text-slate-900 dark:text-white">Same edge, different bet size</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
@@ -169,14 +169,14 @@ export default function RuinCalculator() {
           </div>
         </>
       ) : (
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-8 mb-4 text-center text-sm text-slate-500 dark:text-slate-400">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-8 mb-4 text-center text-sm text-slate-500 dark:text-slate-400">
           {Number(riskPerTradePct) >= ruinThresholdPct
             ? `Risking ${riskPerTradePct}% per trade means a single loss already reaches a ${ruinThresholdPct}% drawdown.`
             : 'Enter a win rate, a reward ratio and a risk per trade.'}
         </div>
       )}
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
         <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">What this model assumes</h2>
         <p className="mb-2">
           Each trade is treated as independent with a fixed win rate and a fixed reward ratio, and the risk is a constant fraction of the

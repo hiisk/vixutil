@@ -23,7 +23,7 @@ export function readableOn(rgb: RGB): '#000000' | '#ffffff' {
   return luminance(rgb) > 0.35 ? '#000000' : '#ffffff';
 }
 
-export const CARD = 'rounded-2xl border chip-off p-5';
+export const CARD = 'rounded-lg border chip-off p-5';
 
 /** 색 하나를 고르는 입력 — 색상 선택기와 HEX 입력을 함께 둔다 */
 export function ColorInput({

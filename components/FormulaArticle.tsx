@@ -26,7 +26,7 @@ function H({ children }: { children: React.ReactNode }) {
 
 function Frame({ children }: { children: React.ReactNode }) {
   return (
-    <div className="rounded-2xl border chip-off overflow-x-auto">
+    <div className="rounded-lg border chip-off overflow-x-auto">
       <table className="w-full border-collapse min-w-[20rem]">{children}</table>
     </div>
   );
@@ -92,7 +92,7 @@ export default function FormulaArticle({
 
       <section>
         <H>{ui.articleSteps}</H>
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/40 px-4 py-4 space-y-3">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-4 space-y-3">
           {[
             { k: ui.stepFormula, v: renderFormula(tool.formula, lang) },
             { k: ui.stepSubstitute, v: substituted(tool, lang) },
@@ -160,7 +160,7 @@ export default function FormulaArticle({
 
       <section>
         <H>{ui.articleCaution}</H>
-        <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed rounded-2xl border border-amber-200 dark:border-amber-900/50 bg-amber-50 dark:bg-amber-950/25 px-4 py-3.5">
+        <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed rounded-lg border border-amber-200 dark:border-amber-900/50 bg-amber-50 dark:bg-amber-950/25 px-4 py-3.5">
           {text.note}
         </p>
       </section>

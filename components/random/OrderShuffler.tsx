@@ -40,7 +40,7 @@ export default function OrderShuffler({ lang = 'ko' }: { lang?: RandomLang }) {
       <button
         onClick={run}
         disabled={items.length < 2}
-        className="w-full bg-sec font-black text-lg rounded-2xl py-4 mb-6 shadow-lg shadow-cyan-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all disabled:opacity-50"
+        className="w-full bg-sec font-black text-lg rounded-lg py-4 mb-6 shadow-sm shadow-cyan-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all disabled:opacity-50"
       >
         {ui.shuffleOrder}
       </button>

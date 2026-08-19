@@ -54,7 +54,7 @@ export default function TimeDiffIntl({ lang }: { lang: CalcLang }) {
 
       <Card className="p-5">
         {mode === 'diff' ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-5">
             <div>
               <Label>{c.from}</Label>
               <input type="datetime-local" value={from} onChange={e => setFrom(e.target.value)} className={inputCls} />
@@ -70,7 +70,7 @@ export default function TimeDiffIntl({ lang }: { lang: CalcLang }) {
               <Label>{c.base}</Label>
               <input type="datetime-local" value={base} onChange={e => setBase(e.target.value)} className={inputCls} />
             </div>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-3 gap-x-4 gap-y-5">
               <div>
                 <Label>{c.days}</Label>
                 <input type="number" value={days} onChange={e => setDays(e.target.value)} className={inputCls} />
@@ -120,7 +120,7 @@ export default function TimeDiffIntl({ lang }: { lang: CalcLang }) {
               {Math.floor(abs / 86400)}{c.d} {Math.floor((abs % 86400) / 3600)}{c.h} {Math.floor((abs % 3600) / 60)}{c.m}
             </p>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <SummaryCard label={c.totalHours} value={fmt(abs / 3600)} />
             <SummaryCard label={c.totalMinutes} value={fmt(Math.round(abs / 60))} />
           </div>

@@ -52,15 +52,13 @@ export default function KeycodeHubPage({ lang }: { lang: Lang }) {
       </header>
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-3 shadow-lg bg-sec-soft">
-            <ToolIcon emoji={KEYCODE_ICON} className="w-7 h-7" />
-          </div>
+        <div className="hero-band ">
+          <span className="bg-sec-soft inline-flex h-10 w-10 items-center justify-center rounded-lg"><ToolIcon emoji={KEYCODE_ICON} className="h-5 w-5" /></span>
           <h1 className="page-h1">{ui.hubTitle}</h1>
           <p className="note-sm">{ui.hubLead}</p>
         </div>
 
-        <section className="mb-9 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/40 px-4 py-3">
+        <section className="mb-9 rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-3">
           <h2 className="text-sm font-black text-slate-800 dark:text-slate-100 mb-1">{ui.layoutTitle}</h2>
           <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{ui.layoutNote}</p>
           <p className="note-xs mt-2">{ui.deprecatedNote}</p>
@@ -73,7 +71,7 @@ export default function KeycodeHubPage({ lang }: { lang: Lang }) {
               <span className="ml-1.5 text-[11px] font-bold text-slate-400 dark:text-slate-500">{keysOfGroup(g).length}</span>
             </h2>
             <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.groupNote[g]}</p>
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
+            <div className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
               {keysOfGroup(g).map(x => {
                 const f = keyFacts(x);
                 return (

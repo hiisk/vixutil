@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 import AreaChart from '@/components/AreaChart';
 import Link from 'next/link';
 import CalcShell, {
@@ -108,15 +109,14 @@ export default function StudentLoanPage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>대출 원금 (원)</Label>
-              <input type="number" value={principal} onChange={e => setPrincipal(e.target.value)}
-                placeholder="예: 30000000" className={inputCls} min="0" />
+              <MoneyInput value={principal} onChange={setPrincipal} placeholder="예: 30000000" />
             </div>
             <div>
               <Label>연이율 (%, 그 해 고시 금리)</Label>
               <input type="number" value={rate} onChange={e => setRate(e.target.value)}
                 placeholder="예: 1.7" className={inputCls} min="0" step="0.1" />
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>일반 상환 기간 (개월)</Label>
                 <input type="number" value={months} onChange={e => setMonths(e.target.value)}
@@ -138,15 +138,13 @@ export default function StudentLoanPage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>첫해 연 소득 (원, 세전)</Label>
-              <input type="number" value={income} onChange={e => setIncome(e.target.value)}
-                placeholder="예: 30000000" className={inputCls} min="0" />
+              <MoneyInput value={income} onChange={setIncome} placeholder="예: 30000000" />
             </div>
             <div>
               <Label>상환기준소득 (원, 그 해 고시값)</Label>
-              <input type="number" value={threshold} onChange={e => setThreshold(e.target.value)}
-                placeholder="예: 25000000" className={inputCls} min="0" />
+              <MoneyInput value={threshold} onChange={setThreshold} placeholder="예: 25000000" />
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>상환율 (%, 고시값)</Label>
                 <input type="number" value={repayRate} onChange={e => setRepayRate(e.target.value)}
@@ -166,8 +164,8 @@ export default function StudentLoanPage() {
           <>
             {/* 갚지 못하는 경우가 먼저다 — 총액 비교보다 이 사실이 중요하다 */}
             {icl.finishYear === null ? (
-              <div className="rounded-2xl border-2 border-red-300 dark:border-red-900/60 bg-red-50 dark:bg-red-950/30 p-5">
-                <p className="text-red-800 dark:stat-sub font-bold mb-1">
+              <div className="rounded-lg border-2 border-red-300 dark:border-red-900/60 bg-red-50 dark:bg-red-950/30 p-5">
+                <p className="text-red-800 dark:text-red-200 font-bold mb-1">
                   이 소득으로는 취업 후 상환이 끝나지 않습니다
                 </p>
                 <p className="text-xs leading-relaxed text-red-700 dark:text-red-300/90">

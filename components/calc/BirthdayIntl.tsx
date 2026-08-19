@@ -81,7 +81,7 @@ export default function BirthdayIntl({ lang }: { lang: CalcLang }) {
             <p className="stat-sub mt-2">{c.age} {result.age}</p>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <SummaryCard
               label={c.nextBirthday}
               value={`${fmt(result.toNext)} ${c.daysUnit}`}

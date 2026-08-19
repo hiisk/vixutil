@@ -1,5 +1,6 @@
 'use client';
 import { useMemo, useState } from 'react';
+import { sampleFromPlaceholder } from '@/lib/text-tools';
 import { makeTable, type TableFormat, type TableInput } from '@/lib/text-more';
 import { CARD, CopyBox, InputArea, Stat, Toggle } from './ui';
 import { TABLE_UI } from '@/lib/text-more-ui';
@@ -11,7 +12,8 @@ const FORMAT_LABEL = ['Markdown', 'CSV', 'TSV', 'HTML'];
 
 export default function TableTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
   const ui = TABLE_UI[lang];
-  const [text, setText] = useState('');
+  /* 열자마자 한 벌이 돌아가게 — 플레이스홀더가 예시일 때만 쓴다(lib/text-tools.ts) */
+  const [text, setText] = useState(() => sampleFromPlaceholder(ui.placeholder));
   const [input, setInput] = useState<TableInput>('auto');
   const [format, setFormat] = useState<TableFormat>('markdown');
   const [header, setHeader] = useState(true);

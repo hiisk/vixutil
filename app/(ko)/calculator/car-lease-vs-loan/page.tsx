@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import CalcShell, { Card, CardHeader, Label, inputCls, SummaryCard } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 import { comparePlans, type Comparison } from '@/lib/car-lease-vs-loan';
 
@@ -30,15 +30,12 @@ export default function CarLeaseVsLoanPage() {
   const [buy, setBuy] = useState(false);
   const [buyout, setBuyout] = useState(15_000_000);
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: Comparison | null = ((): Comparison | null => {
+  const [result, setResult] = useState<Comparison | null>(null);
+
+  function calculate() {
     const n = Number(months);
-    if (price <= 0 || n <= 0) return null;
-    return (comparePlans({
+    if (price <= 0 || n <= 0) return;
+    setResult(comparePlans({
       price,
       months: n,
       upfrontFee,
@@ -55,11 +52,7 @@ export default function CarLeaseVsLoanPage() {
       leaseIncludesInsurance: includesInsurance,
       leaseBuyout: buy ? buyout : null,
     }));
-  
-    return null;
-  })();
-
-
+  }
 
   return (
     <CalcShell
@@ -126,7 +119,7 @@ export default function CarLeaseVsLoanPage() {
               <Label>차량 가격 (원)</Label>
               <CommaInput value={price} onChange={setPrice} placeholder="예: 40,000,000" />
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>비교 기간</Label>
                 <select value={months} onChange={e => setMonths(e.target.value)} className={inputCls}>
@@ -140,7 +133,7 @@ export default function CarLeaseVsLoanPage() {
                 <CommaInput value={upfrontFee} onChange={setUpfrontFee} placeholder="예: 2,800,000" />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>연 감가율 (%)</Label>
                 <input type="number" value={depreciation} onChange={e => setDepreciation(e.target.value)}
@@ -181,7 +174,7 @@ export default function CarLeaseVsLoanPage() {
               <Label>월 리스료 (원)</Label>
               <CommaInput value={leaseMonthly} onChange={setLeaseMonthly} placeholder="예: 730,000" />
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>보증금 (원)</Label>
                 <CommaInput value={leaseDeposit} onChange={setLeaseDeposit} placeholder="예: 5,000,000" />
@@ -217,6 +210,7 @@ export default function CarLeaseVsLoanPage() {
                 <CommaInput value={buyout} onChange={setBuyout} placeholder="예: 15,000,000" />
               </div>
             )}
+            <PrimaryBtn onClick={calculate}>비교하기</PrimaryBtn>
           </div>
         </Card>
 
@@ -230,7 +224,7 @@ export default function CarLeaseVsLoanPage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <SummaryCard label="기간 말 잔존가치" value={`${fmt(result.residual)}원`}
                 sub={`산 값의 ${Math.round((result.residual / price) * 100)}% · 현금·할부에 남는 값`} />
               <SummaryCard label="할부 월 상환액" value={`${fmt(result.loan.monthly)}원`}

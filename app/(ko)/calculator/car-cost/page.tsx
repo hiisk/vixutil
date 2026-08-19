@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import CalcShell, { Card, CardHeader, Label, inputCls } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
 import { carCost, fixedCost, type CarInput } from '@/lib/car-cost';
@@ -13,27 +13,20 @@ export default function CarCostPage() {
     km: '12000', kmpl: '12', fuelPrice: '1700',
     tax: '520000', insurance: '800000', maintenance: '400000', parking: '600000',
   });
+  const [result, setResult] = useState<null | (ReturnType<typeof carCost> & { fixed: number })>(null);
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | (ReturnType<typeof carCost> & { fixed: number }) = ((): null | (ReturnType<typeof carCost> & { fixed: number }) => {
+  const set = (k: keyof typeof v) => (e: React.ChangeEvent<HTMLInputElement>) =>
+    setV(prev => ({ ...prev, [k]: e.target.value }));
+
+  function calculate() {
     const input: CarInput = {
       km: Number(v.km), kmpl: Number(v.kmpl), fuelPrice: Number(v.fuelPrice),
       tax: Number(v.tax), insurance: Number(v.insurance),
       maintenance: Number(v.maintenance), parking: Number(v.parking),
     };
-    if (input.km < 0) return null;
-    return ({ ...carCost(input), fixed: fixedCost(input) });
-  
-    return null;
-  })();
-  const set = (k: keyof typeof v) => (e: React.ChangeEvent<HTMLInputElement>) =>
-    setV(prev => ({ ...prev, [k]: e.target.value }));
-
-
+    if (input.km < 0) return;
+    setResult({ ...carCost(input), fixed: fixedCost(input) });
+  }
 
   const fields: [keyof typeof v, string, string][] = [
     ['km', '연간 주행거리 (km)', '12000'],
@@ -86,6 +79,7 @@ export default function CarCostPage() {
                 <input type="number" value={v[k]} onChange={set(k)} placeholder={ph} className={inputCls} min="0" />
               </div>
             ))}
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

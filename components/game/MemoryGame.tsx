@@ -80,7 +80,7 @@ export default function MemoryGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
             onClick={() => press(p.id)}
             disabled={phase !== 'input'}
             aria-label={ui.buttonAria(p.id + 1)}
-            className={`aspect-square rounded-2xl transition-colors duration-100 ${lit === p.id ? p.on : p.off} ${
+            className={`aspect-square rounded-lg transition-colors duration-100 ${lit === p.id ? p.on : p.off} ${
               phase === 'input' ? 'cursor-pointer hover:opacity-90' : 'cursor-default'
             }`}
           />
@@ -103,7 +103,7 @@ export default function MemoryGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
       {(phase === 'idle' || phase === 'over') && (
         <button
           onClick={start}
-          className="mt-4 w-full rounded-xl bg-sec font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
+          className="mt-4 w-full rounded-xl bg-sec font-bold py-3.5 text-sm shadow-sm hover:opacity-90 transition-opacity"
         >
           {phase === 'over' ? c.retry : c.start}
         </button>

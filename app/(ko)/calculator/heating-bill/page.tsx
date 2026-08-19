@@ -1,15 +1,15 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 
 /*
- * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
- * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
- * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
- * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
- * 골라 둔 예시를 그대로 올렸다.
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 빈 칸으로 열면 무엇을
+ * 보여 주는 계산기인지 눌러 보기 전에는 모른다 — 값을 미리 넣어 두면 「계산하기」
+ * 한 번에 한 벌이 통째로 보이고, 사람은 그 위에 자기 숫자를 덮어쓴다.
+ * 값은 내가 지어내지 않고 저자가 이미 골라 둔 예시를 그대로 올렸다.
  */
 import Link from 'next/link';
-import CalcShell, { Card, CardHeader, Label, inputCls } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
 import { afterSaving, calcHeating, type HeatingBill } from '@/lib/heating';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
@@ -20,13 +20,9 @@ export default function HeatingBillPage() {
   const [mcal, setMcal] = useState('700');
   const [usageRate, setUsageRate] = useState('');
   const [days, setDays] = useState('31');
+  const [result, setResult] = useState<null | { bill: HeatingBill; cut10: HeatingBill; cut20: HeatingBill }>(null);
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | { bill: HeatingBill; cut10: HeatingBill; cut20: HeatingBill } = ((): null | { bill: HeatingBill; cut10: HeatingBill; cut20: HeatingBill } => {
+  function calculate() {
     const input = {
       area: Number(area),
       basicRate: Number(basicRate),
@@ -34,16 +30,13 @@ export default function HeatingBillPage() {
       usageRate: Number(usageRate),
       days: Number(days),
     };
-    if (input.area <= 0 || input.usageRate <= 0 || input.mcal < 0) return null;
-    return ({
+    if (input.area <= 0 || input.usageRate <= 0 || input.mcal < 0) return;
+    setResult({
       bill: calcHeating(input),
       cut10: afterSaving(input, 0.1),
       cut20: afterSaving(input, 0.2),
     });
-  
-    return null;
-  })();
-
+  }
 
   return (
     <CalcShell
@@ -83,7 +76,7 @@ export default function HeatingBillPage() {
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>계약면적 (㎡)</Label>
                 <input type="number" value={area} onChange={e => setArea(e.target.value)}
@@ -91,11 +84,10 @@ export default function HeatingBillPage() {
               </div>
               <div>
                 <Label>기본단가 (원/㎡)</Label>
-                <input type="number" value={basicRate} onChange={e => setBasicRate(e.target.value)}
-                  placeholder="고지서에서" className={inputCls} min="0" step="0.01" />
+                <MoneyInput value={basicRate} onChange={setBasicRate} placeholder="고지서에서" />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>사용열량 (Mcal)</Label>
                 <input type="number" value={mcal} onChange={e => setMcal(e.target.value)}
@@ -103,8 +95,7 @@ export default function HeatingBillPage() {
               </div>
               <div>
                 <Label>사용단가 (원/Mcal)</Label>
-                <input type="number" value={usageRate} onChange={e => setUsageRate(e.target.value)}
-                  placeholder="고지서에서" className={inputCls} min="0" step="0.01" />
+                <MoneyInput value={usageRate} onChange={setUsageRate} placeholder="고지서에서" />
               </div>
             </div>
             <div>
@@ -112,6 +103,7 @@ export default function HeatingBillPage() {
               <input type="number" value={days} onChange={e => setDays(e.target.value)}
                 placeholder="예: 31" className={inputCls} min="0" max="62" />
             </div>
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

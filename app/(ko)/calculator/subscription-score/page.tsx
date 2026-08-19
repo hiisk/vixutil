@@ -125,7 +125,7 @@ export default function SubscriptionScorePage() {
           <p className="text-slate-500 dark:text-slate-400 text-base mt-1">/ 84점</p>
         </div>
 
-        <div className={`rounded-2xl p-4 text-center ${grade.bg}`}>
+        <div className={`rounded-lg p-4 text-center ${grade.bg}`}>
           <p className={`font-bold text-lg ${grade.color}`}>{grade.label}</p>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             {total >= 60 ? '인기 단지 1순위 당첨 가능성 높음' :

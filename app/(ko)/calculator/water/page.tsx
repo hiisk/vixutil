@@ -2,36 +2,28 @@
 import { useState } from 'react';
 
 /*
- * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
- * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
- * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
- * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
- * 골라 둔 예시를 그대로 올렸다.
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 빈 칸으로 열면 무엇을
+ * 보여 주는 계산기인지 눌러 보기 전에는 모른다 — 값을 미리 넣어 두면 「계산하기」
+ * 한 번에 한 벌이 통째로 보이고, 사람은 그 위에 자기 숫자를 덮어쓴다.
+ * 값은 내가 지어내지 않고 저자가 이미 골라 둔 예시를 그대로 올렸다.
  */
-import CalcShell, { Card, Label, inputCls } from '@/components/CalcShell';
+import CalcShell, { Card, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
 
 export default function WaterPage() {
   const [weight, setWeight] = useState('65');
   const [activity, setActivity] = useState('normal');
   const [weather, setWeather] = useState('normal');
+  const [result, setResult] = useState<null | { ml: number }>(null);
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | { ml: number } = ((): null | { ml: number } => {
+  function calculate() {
     const w = Number(weight);
-    if (w <= 0) return null;
+    if (w <= 0) return;
     let ml = w * 33;
     if (activity === 'high') ml += 400;
     if (weather === 'hot') ml += 500;
     if (weather === 'exercise') ml += 700;
-    return ({ ml });
-  
-    return null;
-  })();
-
+    setResult({ ml });
+  }
 
   return (
     <CalcShell
@@ -90,6 +82,7 @@ export default function WaterPage() {
                 <option value="exercise">운동 중 (+700ml)</option>
               </select>
             </div>
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 
@@ -100,14 +93,14 @@ export default function WaterPage() {
               <p className="text-slate-900 dark:text-slate-50 text-5xl font-black">{result.ml.toLocaleString()}</p>
               <p className="text-slate-500 dark:text-slate-400 text-xl mt-1">ml</p>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               {[
                 { label: 'L 기준', value: `${(result.ml / 1000).toFixed(1)} L` },
                 { label: '물 컵 (200ml)', value: `${Math.ceil(result.ml / 200)}잔` },
                 { label: '소형 페트병 (330ml)', value: `${Math.ceil(result.ml / 330)}병` },
                 { label: '중형 페트병 (500ml)', value: `${Math.ceil(result.ml / 500)}병` },
               ].map(r => (
-                <div key={r.label} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
+                <div key={r.label} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
                   <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">{r.label}</p>
                   <p className="font-black text-slate-900 dark:text-slate-100 text-lg">{r.value}</p>
                 </div>

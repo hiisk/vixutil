@@ -87,24 +87,24 @@ export default function PortPage({ slug, lang }: { slug: string; lang: Lang }) {
       </header>
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
-        <div className="mx-auto mb-5 w-52 rounded-2xl border-2 border-fuchsia-400 dark:border-fuchsia-700 bg-fuchsia-50 dark:bg-fuchsia-950/40 px-4 py-4 text-center shadow-lg">
+        <div className="mx-auto mb-5 w-52 rounded-lg border-2 border-fuchsia-400 dark:border-fuchsia-700 bg-fuchsia-50 dark:bg-fuchsia-950/40 px-4 py-4 text-center shadow-sm">
           <div className="text-5xl font-black text-slate-900 dark:text-slate-100 leading-tight tabular-nums">{x.port}</div>
           <div className="mt-1 text-sm font-bold text-fuchsia-700 dark:text-fuchsia-300 font-mono">{f.name}</div>
           <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{ui.protoLabel[f.proto]} · 0x{f.hex}</div>
         </div>
 
-        <div className="text-center mb-6">
+        <div className="hero-band ">
           <h1 className="page-h1">{ui.metaTitle(f)}</h1>
           <p className="text-xs font-bold text-fuchsia-700 dark:text-fuchsia-400 mb-2">{ui.groupLabel[f.group]}</p>
           <p className="note-sm">{ui.desc(f)}</p>
         </div>
 
-        <p className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/40 cell-note mb-4">
+        <p className="rounded-lg border border-slate-200 dark:border-slate-700 cell-note mb-4">
           {ui.rangeNote[f.range]}
         </p>
 
         {f.custom && (
-          <p className="rounded-2xl border border-amber-200 dark:border-amber-900/60 bg-amber-50 dark:bg-amber-950/30 px-4 py-3 text-sm text-amber-800 dark:text-amber-200 leading-relaxed mb-4">
+          <p className="rounded-lg border border-amber-200 dark:border-amber-900/60 bg-amber-50 dark:bg-amber-950/30 px-4 py-3 text-sm text-amber-800 dark:text-amber-200 leading-relaxed mb-4">
             <span className="font-bold">{ui.customLabel}</span> · {ui.customNote}
           </p>
         )}
@@ -119,7 +119,7 @@ export default function PortPage({ slug, lang }: { slug: string; lang: Lang }) {
           </div>
         </section>
 
-        <dl className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden mb-8">
+        <dl className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden mb-8">
           {rows.map(([k, v]) => (
             <div key={k} className="row-pair">
               <dt className="row-label">{k}</dt>
@@ -146,7 +146,7 @@ export default function PortPage({ slug, lang }: { slug: string; lang: Lang }) {
 
         <section className="mb-8">
           <h2 className="sec-h2">{ui.neighbourTitle}</h2>
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
             {neighbours(x.port).map(o => (
               <Link prefetch={false}
                 key={o.port}

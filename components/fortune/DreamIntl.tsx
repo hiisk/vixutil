@@ -82,8 +82,8 @@ export default function DreamIntl({ lang }: { lang: IntlLang }) {
       </header>
 
       <div className="max-w-2xl mx-auto px-4 py-8">
-        <div className="text-center mb-6">
-          <ToolIcon emoji="🌙" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+        <div className="mb-6">
+          <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="🌙" className="h-6 w-6" /></span>
           <div className="hero-band">
             <PageHero title={c.title} desc={c.lead} />
           </div>
@@ -94,7 +94,7 @@ export default function DreamIntl({ lang }: { lang: IntlLang }) {
           value={search}
           onChange={e => setSearch(e.target.value)}
           placeholder={c.search}
-          className="w-full rounded-2xl border chip-off px-4 py-3 text-sm text-slate-800 dark:text-slate-100 focus:border-indigo-400 focus:outline-none mb-4"
+          className="w-full rounded-lg border chip-off px-4 py-3 text-sm text-slate-800 dark:text-slate-100 focus:border-indigo-400 focus:outline-none mb-4"
         />
 
         <div className="flex flex-wrap gap-2 mb-6">
@@ -121,7 +121,7 @@ export default function DreamIntl({ lang }: { lang: IntlLang }) {
             {filtered.map(d => {
               const open = openId === d.id;
               return (
-                <div key={d.id} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden">
+                <div key={d.id} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
                   <button type="button" onClick={() => setOpenId(open ? null : d.id)}
                     className="w-full flex items-center gap-3 px-5 py-4 text-left hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
                     <span className="text-2xl shrink-0">{d.emoji}</span>

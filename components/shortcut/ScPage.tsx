@@ -84,9 +84,7 @@ export default function ScPage({ slug, lang }: { slug: string; lang: Lang }) {
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl mb-3 shadow-lg bg-sec-soft">
-            <ToolIcon emoji={SC_ICON} className="w-6 h-6" />
-          </div>
+          <span className="bg-sec-soft inline-flex h-10 w-10 items-center justify-center rounded-lg"><ToolIcon emoji={SC_ICON} className="h-5 w-5" /></span>
           <div className="hero-band">
             <PageHero title={`${app} · ${x.action}`} desc={x.group} />
           </div>
@@ -95,11 +93,11 @@ export default function ScPage({ slug, lang }: { slug: string; lang: Lang }) {
         {/* 키가 먼저다 — 찾아온 사람이 눌러야 할 것 */}
         <section className="mb-6" aria-label={ui.keysCol}>
           <div className="grid sm:grid-cols-2 gap-3">
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 px-4 py-4 text-center">
+            <div className="rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-4 text-center">
               <p className="label-caps mb-2.5">{ui.winTitle}</p>
               <KeyCombo combo={x.win} size="lg" naLabel={ui.naNote} />
             </div>
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 px-4 py-4 text-center">
+            <div className="rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-4 text-center">
               <p className="label-caps mb-2.5">{ui.macTitle}</p>
               <KeyCombo combo={x.mac} size="lg" naLabel={ui.naNote} />
             </div>
@@ -109,7 +107,7 @@ export default function ScPage({ slug, lang }: { slug: string; lang: Lang }) {
           )}
         </section>
 
-        <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed rounded-2xl border chip-off px-4 py-4 mb-6">
+        <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed rounded-lg border chip-off px-4 py-4 mb-6">
           {desc}
         </p>
 
@@ -124,7 +122,7 @@ export default function ScPage({ slug, lang }: { slug: string; lang: Lang }) {
           </div>
         </dl>
 
-        <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 px-4 py-3">
+        <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-3">
           {ui.appNote[x.app]}
         </p>
 

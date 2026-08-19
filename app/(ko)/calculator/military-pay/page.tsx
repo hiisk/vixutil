@@ -1,7 +1,8 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 import Link from 'next/link';
-import CalcShell, { Card, CardHeader, Label, inputCls } from '@/components/CalcShell';
+import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
 import { BRANCHES, PAY, SAVINGS_MAX, rankMonths, savings, totalPay } from '@/lib/military-pay';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
@@ -12,36 +13,24 @@ export default function MilitaryPayPage() {
   const [branch, setBranch] = useState('army');
   const [monthly, setMonthly] = useState('550000');
   const [rate, setRate] = useState('5');
+  const [result, setResult] = useState<null | {
+    months: number;
+    ranks: ReturnType<typeof rankMonths>;
+    pay: number;
+    plan: ReturnType<typeof savings>;
+  }>(null);
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | {
-    months: number;
-    ranks: ReturnType<typeof rankMonths>;
-    pay: number;
-    plan: ReturnType<typeof savings>;
-  } = ((): null | {
-    months: number;
-    ranks: ReturnType<typeof rankMonths>;
-    pay: number;
-    plan: ReturnType<typeof savings>;
-  } => {
+  function calculate() {
     const b = BRANCHES.find(x => x.key === branch);
-    if (!b) return null;
+    if (!b) return;
     const m = Math.min(Math.max(Number(monthly) || 0, 0), SAVINGS_MAX);
-    return ({
+    setResult({
       months: b.months,
       ranks: rankMonths(b.months),
       pay: totalPay(b.months),
       plan: savings(b.months, m, Number(rate) || 0),
     });
-  
-    return null;
-  })();
-
+  }
 
   return (
     <CalcShell
@@ -97,14 +86,14 @@ export default function MilitaryPayPage() {
             </div>
             <div>
               <Label>적금 월 납입액 (최대 {fmt(SAVINGS_MAX)}원)</Label>
-              <input type="number" value={monthly} onChange={e => setMonthly(e.target.value)}
-                placeholder="예: 550000" className={inputCls} min="0" max={SAVINGS_MAX} step="10000" />
+              <MoneyInput value={monthly} onChange={setMonthly} placeholder="예: 550000" />
             </div>
             <div>
               <Label>적금 연이율 (%)</Label>
               <input type="number" value={rate} onChange={e => setRate(e.target.value)}
                 placeholder="예: 5" className={inputCls} min="0" step="0.1" />
             </div>
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 

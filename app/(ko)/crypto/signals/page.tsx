@@ -385,7 +385,7 @@ export default function SignalsPage() {
           <ReferralCards lang="en" heading="New-user bonuses" />
         </div>
 
-        <div className="text-center mb-6">
+        <div className="hero-band ">
           <ToolIcon emoji="📈" className="w-9 h-9 mx-auto mb-2 text-slate-800 dark:text-slate-100" />
           <h1 className="page-h1">Crypto Signal Board</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">Consensus of 4 strategies (Trend · Bollinger · RSI · ATR) → direction, entry / TP / SL, live P&amp;L, and 3D–3Y price projections</p>
@@ -433,7 +433,7 @@ export default function SignalsPage() {
                   value: (t: Ticker24h) => `${t.rangePct.toFixed(1)}%`, cls: 'text-amber-600 dark:text-amber-400',
                   cta: 'Sort by 24h range', sort: 'range24h' as SortKey },
               ]).map(card => (
-                <div key={card.key} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 flex flex-col">
+                <div key={card.key} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 flex flex-col">
                   <div className="flex items-center justify-between mb-3">
                     <span className="flex items-center gap-2 text-sm font-black text-slate-900 dark:text-white">
                       <ToolIcon emoji={card.icon} className="w-5 h-5 shrink-0" />{card.title}
@@ -512,7 +512,7 @@ export default function SignalsPage() {
         </div>
 
         {(listState === 'loading' || listState === 'empty' || listState === 'error') && (
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-20 flex flex-col items-center gap-3">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-20 flex flex-col items-center gap-3">
             {listState === 'loading' ? (
               <>
                 <div className="w-8 h-8 border-4 border-slate-200 dark:border-slate-700 border-t-amber-500 rounded-full animate-spin" />
@@ -533,7 +533,7 @@ export default function SignalsPage() {
 
         {/* Full-compute progress (P&L sort) */}
         {listState === 'ready' && fullCompute.active && (
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-16 flex flex-col items-center gap-3">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-16 flex flex-col items-center gap-3">
             <div className="w-8 h-8 border-4 border-slate-200 dark:border-slate-700 border-t-amber-500 rounded-full animate-spin" />
             <span className="text-sm font-bold text-slate-700 dark:text-slate-200">Calculating signals for all coins…</span>
             <span className="cell-sub">{fullCompute.done} / {fullCompute.total}</span>
@@ -545,7 +545,7 @@ export default function SignalsPage() {
 
         {listState === 'ready' && !fullCompute.active && (
           <>
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
+            <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full text-sm whitespace-nowrap">
                   <thead>
@@ -742,7 +742,7 @@ export default function SignalsPage() {
           </>
         )}
 
-        <div className="mt-6 rounded-2xl border border-amber-500/25 bg-amber-500/[0.06] p-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[95ch]">
+        <div className="mt-6 rounded-lg border border-amber-500/25 bg-amber-500/[0.06] p-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[95ch]">
           <p className="font-bold text-amber-700 dark:text-amber-300/90 mb-1">How the 3D–3Y forecast is built</p>
           <p className="mb-2">
             <b className="text-amber-700 dark:text-amber-300/90">Each 3D–3Y cell is the typical peak</b> — the price the coin touches at some point within that window in
@@ -768,7 +768,7 @@ export default function SignalsPage() {
 
         <Faq items={SECTION_FAQ['crypto/signals']} className="mt-8" lang="en" />
 
-        <div className="mt-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[95ch]">
+        <div className="mt-6 rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[95ch]">
           <p className="mb-1">⚠️ Not investment advice — reference calculations only. All trading decisions and risks are your own.</p>
           <p className="mb-1">Signal = consensus of 4 strategies (Trend = SMA 20/50, Bollinger = %B, RSI = 14, ATR = SMA20 trend); confidence % is the share voting the same direction. Entry is the last closed daily candle; the trade target = entry + {TP_MULT}×ATR in the signal direction — over 8,552 historical setups it was reached the next day 4.6% of the time and within five days 23.2%, while the stop was hit first 42.1% of the time. The stop-loss ({SL_MULT}×ATR), live P&amp;L and target-hit history are on each coin&apos;s page. Spot is buy-only (long); LONG/SHORT applies to futures only.</p>
           <p>Projections (3D–3Y) fit a geometric Brownian motion to {FORECAST_DAYS} days of log returns. The trend is split into a market component (beta to BTC) and a coin-specific alpha, each shrunk toward zero as a Bayesian posterior mean; no technical tilt is applied. Coins with under two years of history use a conservative prior, and the drift is capped at ±0.5 in annual log terms. Ranges use a fat-tailed Student-t whose degrees of freedom rise with the horizon, and each horizon uses its own measured blend of current and long-run volatility.</p>

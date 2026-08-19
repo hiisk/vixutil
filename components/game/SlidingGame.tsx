@@ -138,7 +138,7 @@ export default function SlidingGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
         aria-label={ui.boardLabel}
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
-        className="relative mt-3 aspect-square w-full touch-none select-none rounded-2xl bg-slate-200 p-1.5 dark:bg-slate-800"
+        className="relative mt-3 aspect-square w-full touch-none select-none rounded-lg bg-slate-200 p-1.5 dark:bg-slate-800"
       >
         <div className="relative h-full w-full">
           {game.tiles.map((v, i) =>
@@ -173,7 +173,7 @@ export default function SlidingGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
       <div className="mt-2 grid grid-cols-2 gap-2">
         <button
           onClick={() => reset(size)}
-          className="rounded-xl bg-sec py-3 text-sm font-bold shadow-lg transition-opacity hover:opacity-90"
+          className="rounded-xl bg-sec py-3 text-sm font-bold shadow-sm transition-opacity hover:opacity-90"
         >
           {ui.shuffle}
         </button>

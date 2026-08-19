@@ -27,8 +27,8 @@ interface Snapshot {
   to: number;
 }
 
-const inputCls =
-  'w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent transition';
+/* 사이트 공용 칸 — 초점 테두리가 갈래 색을 따라간다(globals.css .dial-input) */
+const inputCls = 'dial-input';
 
 const iso = (ms: number) => new Date(ms).toISOString().slice(0, 10);
 const signedPct = (v: number) => `${v >= 0 ? '+' : '−'}${Math.abs(v).toFixed(1)}%`;
@@ -112,14 +112,14 @@ export default function TimingBoard() {
 
   return (
     <>
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 mb-4">
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5 mb-4">
         <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5" htmlFor="sat-coin">Coin</label>
         <div className="flex flex-wrap items-center gap-3">
           <div className="relative flex-1 min-w-[220px]">
             <input id="sat-coin" type="text" value={query} onChange={e => setQuery(e.target.value)}
               placeholder={`${coin.base} · search another coin`} className={inputCls} autoComplete="off" />
             {suggestions.length > 0 && (
-              <ul className="absolute z-20 mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-lg overflow-hidden">
+              <ul className="absolute z-20 mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm overflow-hidden">
                 {suggestions.map(c => (
                   <li key={c.slug}>
                     <button type="button" onClick={() => pickCoin(c)}
@@ -172,7 +172,7 @@ export default function TimingBoard() {
         <>
           {/* 근접성 — 이 페이지가 존재하는 이유 */}
           {scen.pairs.length > 0 && (
-            <div className="rounded-2xl border border-rose-500/30 bg-rose-50 dark:bg-rose-500/[0.07] p-5 mb-4">
+            <div className="rounded-lg border border-rose-500/30 bg-rose-50 dark:bg-rose-500/[0.07] p-5 mb-4">
               <h2 className="text-sm font-black text-rose-900 dark:text-rose-200 mb-1.5">
                 The best day and the worst day were {scen.pairs.length === 1 ? 'next to each other' : 'neighbours'}
               </h2>
@@ -191,7 +191,7 @@ export default function TimingBoard() {
             </div>
           )}
 
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
             <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
               <h2 className="text-sm font-black text-slate-900 dark:text-white">
                 {snap.coin.name}, {iso(snap.from)} → {iso(snap.to)}
@@ -266,7 +266,7 @@ export default function TimingBoard() {
           {/* 극단의 날 목록 */}
           <div className="grid sm:grid-cols-2 gap-4 mb-4">
             {([['Best days', scen.best, 'emerald'], ['Worst days', scen.worst, 'rose']] as const).map(([title, list, hue]) => (
-              <div key={title} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
+              <div key={title} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
                 <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-700">
                   <h3 className="text-xs font-black text-slate-900 dark:text-white">{title}</h3>
                 </div>
@@ -287,12 +287,12 @@ export default function TimingBoard() {
           </div>
         </>
       ) : state === 'loading' ? (
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-8 mb-4 text-center text-sm text-slate-500 dark:text-slate-400">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-8 mb-4 text-center text-sm text-slate-500 dark:text-slate-400">
           Reading the full daily history…
         </div>
       ) : null}
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
         <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">How each row is built</h2>
         <p className="mb-2">
           Every scenario compounds the same daily closes. Sitting out a day means that day earns zero rather than being removed from the

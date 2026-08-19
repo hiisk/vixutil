@@ -167,7 +167,7 @@ export default function DailyFortune({ lang }: { lang: IntlLang }) {
           </div>
         </div>
 
-        <form onSubmit={submit} className="rounded-2xl border chip-off p-5 mb-6">
+        <form onSubmit={submit} className="rounded-lg border chip-off p-5 mb-6">
           <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{c.birthLabel}</label>
           <div className="grid grid-cols-3 gap-2">
             <input type="number" inputMode="numeric" placeholder={c.yearPh} value={form.year}
@@ -181,7 +181,7 @@ export default function DailyFortune({ lang }: { lang: IntlLang }) {
               className="fld focus:border-violet-400" />
           </div>
           {error && <p className="text-xs text-rose-600 dark:text-rose-400 mt-2">{error}</p>}
-          <button type="submit" className="w-full mt-3 rounded-xl bg-sec text-sm font-black py-3.5 transition-all active:scale-[0.99] shadow-md shadow-violet-200 dark:shadow-none">
+          <button type="submit" className="w-full mt-3 rounded-xl bg-sec text-sm font-black py-3.5 transition-all active:scale-[0.99] shadow-sm shadow-violet-200 dark:shadow-none">
             {c.submit}
           </button>
         </form>
@@ -209,7 +209,7 @@ export default function DailyFortune({ lang }: { lang: IntlLang }) {
           </div>
         )}
 
-        <div className="mt-8 rounded-2xl border chip-off p-5">
+        <div className="mt-8 rounded-lg border chip-off p-5">
           <h2 className="text-sm font-black text-slate-800 dark:text-slate-100 mb-2">{c.howQ}</h2>
           <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{c.howA}</p>
         </div>

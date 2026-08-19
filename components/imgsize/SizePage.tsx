@@ -97,25 +97,23 @@ export default function SizePage({ slug, lang }: { slug: string; lang: Lang }) {
       </header>
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
-        <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl mb-3 shadow-lg bg-sec-soft">
-            <ToolIcon emoji={IMG_SIZE_ICON} className="w-6 h-6" />
-          </div>
+        <div className="hero-band ">
+          <span className="bg-sec-soft inline-flex h-10 w-10 items-center justify-center rounded-lg"><ToolIcon emoji={IMG_SIZE_ICON} className="h-5 w-5" /></span>
           <h1 className="page-h1">{x.name}</h1>
           <p className="text-3xl font-black text-pink-600 dark:text-pink-400 tabular-nums mb-1">{x.w} × {x.h}</p>
           <p className="text-xs text-slate-400 dark:text-slate-500">{kind} · {f.ratioLabel}</p>
         </div>
 
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 px-4 py-5 mb-6 flex justify-center">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-5 mb-6 flex justify-center">
           <SizeShape w={x.w} h={x.h} label={f.ratioLabel} />
         </section>
 
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
-          <table className="w-full text-sm">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
+          <table className="kv-table w-full text-sm">
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
               {rows.map(r => (
                 <tr key={r.label}>
-                  <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400 w-1/2 bg-slate-50 dark:bg-slate-900/40">
+                  <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400 w-1/2">
                     {r.label}
                   </th>
                   <td className="px-4 py-3 font-black text-slate-800 dark:text-slate-100 tabular-nums">{r.value}</td>
@@ -125,7 +123,7 @@ export default function SizePage({ slug, lang }: { slug: string; lang: Lang }) {
           </table>
         </section>
 
-        <p className="mt-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed rounded-2xl border chip-off px-4 py-3">
+        <p className="mt-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed rounded-lg border chip-off px-4 py-3">
           {ui.kindNote[x.kind]}
         </p>
 

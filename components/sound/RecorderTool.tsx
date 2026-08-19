@@ -79,7 +79,7 @@ export default function RecorderTool({ lang = 'ko' }: { lang?: SoundLang } = {})
 
   return (
     <div>
-      <div className={`rounded-2xl px-6 py-10 text-center transition-colors ${state === 'recording' ? 'bg-rose-600' : 'bg-slate-900'}`}>
+      <div className={`rounded-lg px-6 py-10 text-center transition-colors ${state === 'recording' ? 'bg-rose-600' : 'bg-slate-900'}`}>
         <p className="text-5xl font-black text-white tabular-nums">{formatDuration(elapsed)}</p>
         <p className="text-sm text-white/60 mt-2">
           {state === 'recording' ? ui.recording : state === 'done' ? ui.done : ui.idle}
@@ -96,7 +96,7 @@ export default function RecorderTool({ lang = 'ko' }: { lang?: SoundLang } = {})
       <div className="grid grid-cols-2 gap-2 mt-4">
         <button
           onClick={state === 'recording' ? stop : start}
-          className={`rounded-xl font-bold py-3.5 text-sm shadow-lg transition-opacity hover:opacity-90 ${
+          className={`rounded-xl font-bold py-3.5 text-sm shadow-sm transition-opacity hover:opacity-90 ${
             state === 'recording' ? 'bg-slate-700' : 'bg-sec'
           }`}
         >

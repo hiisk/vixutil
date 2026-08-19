@@ -50,9 +50,9 @@ export default function LiquidationCalculatorPage() {
         </div>
       </header>
 
-      <div className="max-w-3xl mx-auto px-4 py-8">
-        <div className="text-center mb-6">
-          <ToolIcon emoji="⚠️" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+      <div className="hero-band max-w-3xl mx-auto px-4 py-8">
+        <div className="mb-6">
+          <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="⚠️" className="h-6 w-6" /></span>
           <h1 className="page-h1">Crypto Liquidation Calculator</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">
             The liquidation price — and <b className="text-slate-700 dark:text-slate-200">the probability of reaching it</b>
@@ -67,7 +67,7 @@ export default function LiquidationCalculatorPage() {
           아래는 서버에서 정적으로 렌더된다. 위 계산기는 브라우저에서 동작하므로
           자바스크립트를 실행하지 않는 크롤러에겐 빈 껍데기로 보인다.
         */}
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
           <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">How to use this liquidation calculator</h2>
           <p className="mb-3">
             A leveraged position is closed by the exchange when losses eat into the margin far enough that what is left equals the
@@ -83,7 +83,7 @@ export default function LiquidationCalculatorPage() {
           </p>
         </section>
 
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-4 mb-6 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-4 mb-6 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
           <p>
             ⚠️ Not investment advice. This figure excludes trading fees, funding payments, tiered maintenance margin and the exchange&apos;s
             insurance-fund mechanics, so it is an <b className="text-slate-700 dark:text-slate-200">optimistic estimate</b> — real liquidation comes sooner.

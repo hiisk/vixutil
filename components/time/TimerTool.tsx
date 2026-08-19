@@ -53,7 +53,7 @@ export default function TimerTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
 
   return (
     <div>
-      <div className={`rounded-2xl px-6 py-12 text-center transition-colors ${done ? 'bg-rose-500' : 'bg-slate-900'}`}>
+      <div className={`rounded-lg px-6 py-12 text-center transition-colors ${done ? 'bg-rose-500' : 'bg-slate-900'}`}>
         <p className="text-6xl sm:text-7xl font-black text-white tabular-nums tracking-tight">
           {formatDuration(left)}
         </p>
@@ -93,7 +93,7 @@ export default function TimerTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
       <div className="grid grid-cols-2 gap-2 mt-4">
         <button
           onClick={running ? pause : start}
-          className="rounded-xl bg-sec font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
+          className="rounded-xl bg-sec font-bold py-3.5 text-sm shadow-sm hover:opacity-90 transition-opacity"
         >
           {running ? ui.pause : paused !== null ? ui.resume : ui.start}
         </button>

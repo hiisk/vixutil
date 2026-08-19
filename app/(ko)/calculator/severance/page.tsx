@@ -122,7 +122,7 @@ export default function SeverancePage() {
         {/* 공통: 재직기간 */}
         <Card className="p-5">
           <p className="label-caps mb-3">재직기간</p>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div>
               <Label>입사일</Label>
               <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} className={inputCls} />
@@ -149,7 +149,7 @@ export default function SeverancePage() {
             </div>
           ) : (
             <div className="flex flex-col gap-3">
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-4 gap-y-5">
                 <div>
                   <Label>직전 1개월 급여</Label>
                   <CommaInput value={wage1} onChange={setWage1} placeholder="예: 3,000,000" />
@@ -170,19 +170,19 @@ export default function SeverancePage() {
           {/* 상여금·연차수당 (두 모드 공통) */}
           <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <Label>연간 상여금 (원, 선택)</Label>
+              <Label>연간 상여금 <span className="dial-opt">원, 선택</span></Label>
               <CommaInput value={annualBonus} onChange={setAnnualBonus} placeholder="예: 7,000,000" />
               <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">연간 정기 상여 합계</p>
             </div>
             <div>
-              <Label>연간 연차미사용수당 (원, 선택)</Label>
+              <Label>연간 연차미사용수당 <span className="dial-opt">원, 선택</span></Label>
               <CommaInput value={annualLeavePay} onChange={setAnnualLeavePay} placeholder="예: 500,000" />
             </div>
           </div>
 
           {/* 통상임금 비교 */}
           <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
-            <Label>월 통상임금 (원, 선택 — 평균임금과 비교)</Label>
+            <Label>월 통상임금 <span className="dial-opt">원, 선택 — 평균임금과 비교</span></Label>
             <CommaInput value={monthlyStdWage} onChange={setMonthlyStdWage} placeholder="입력 시 평균임금과 비교해 높은 값 적용" />
             <p className="text-xs text-slate-400 dark:text-slate-500 mt-1.5">
               통상임금이 평균임금보다 높으면 통상임금 기준으로 계산 (근로기준법 제2조)
@@ -200,7 +200,7 @@ export default function SeverancePage() {
         {result && (
           <>
             {/* 결과 요약 */}
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <SummaryCard
                 label="퇴직금 (세전)"
                 value={`${fmt(result.severancePay)}원`}

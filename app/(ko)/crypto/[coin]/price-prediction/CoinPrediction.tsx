@@ -278,7 +278,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
 
   if (state === 'loading') {
     return (
-      <div role="status" aria-live="polite" className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
+      <div role="status" aria-live="polite" className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
         <div aria-hidden="true" className="w-8 h-8 border-4 border-slate-200 dark:border-slate-700 border-t-amber-500 rounded-full animate-spin" />
         <span className="text-sm font-bold text-slate-500 dark:text-slate-400">Loading {coin.name} market data…</span>
       </div>
@@ -287,7 +287,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
 
   if (state !== 'ready' || !snap) {
     return (
-      <div role="alert" className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
+      <div role="alert" className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
         <span aria-hidden="true" className="text-3xl">{state === 'nodata' ? '📉' : '⚠️'}</span>
         <span className="text-sm font-bold text-rose-600 dark:text-rose-400">
           {state === 'nodata' ? `Not enough price history for ${coin.name}` : 'Couldn’t load market data'}
@@ -324,10 +324,10 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
         어둡게 바뀌어 검정 배경 위에 검정 숫자가 얹혔다 — 아무것도 안 보였다.
         그라데이션 접두어(from-/via-/to-)는 색 치환 규칙이 놓치는 자리다.
       */}
-      <div className="relative overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-white via-white to-amber-50 dark:from-slate-900 dark:via-slate-900 dark:to-amber-500/[0.05] p-6 mb-4 shadow-sm">
+      <div className="relative overflow-hidden rounded-xl border border-slate-200 dark:border-slate-700 bg-amber-50 dark:bg-slate-900 p-6 mb-4 shadow-sm">
         <span className="pointer-events-none absolute -right-16 -top-20 w-64 h-64 rounded-full bg-amber-300/25 dark:bg-amber-400/10 blur-3xl" />
 
-        <div className="relative flex flex-wrap items-center justify-between gap-4 mb-6">
+        <div className="hero-band relative flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <CoinLogo base={coin.base} size={44} />
             <div>
@@ -348,17 +348,17 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
 
         {/* 헤드라인 3종 — 전부 크고, 전부 참이고, 전부 코인마다 다르다 */}
         <div className="relative grid sm:grid-cols-3 gap-3">
-          <div className="rounded-2xl bg-slate-50/60 dark:bg-slate-950/60 border border-amber-500/25 p-4">
+          <div className="rounded-lg bg-slate-50/60 dark:bg-slate-950/60 border border-amber-500/25 p-4">
             <p className="text-[11px] uppercase tracking-wide text-amber-600 dark:text-amber-400/80 mb-1">Typical peak · 1 year</p>
             <p className="text-2xl font-black text-amber-700 dark:text-amber-300 tabular-nums">${formatPrice(p1y.peak)}</p>
             <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">+{p1y.peakPct.toFixed(1)}% · touched at some point in half of all paths</p>
           </div>
-          <div className="rounded-2xl bg-slate-50/60 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-700 p-4">
+          <div className="rounded-lg bg-slate-50/60 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-700 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Gain ≥10% in 30 days</p>
             <p className="text-2xl font-black text-emerald-600 dark:text-emerald-400 tabular-nums">{p1m.pUp10.toFixed(1)}%</p>
             <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">probability · drop ≥10%: {p1m.pDown10.toFixed(1)}%</p>
           </div>
-          <div className="rounded-2xl bg-slate-50/60 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-700 p-4">
+          <div className="rounded-lg bg-slate-50/60 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-700 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Volatility</p>
             <p className={`text-2xl font-black tabular-nums ${VOL_CLR[volLabel]}`}>{m.annualVolPct.toFixed(0)}%</p>
             <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">{volLabel} · now {m.currentAnnualVolPct.toFixed(0)}%, {m.currentAnnualVolPct < m.annualVolPct ? 'calmer' : 'wilder'} than usual</p>
@@ -372,7 +372,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
         핵심이라 둘을 나란히 놓는다.
       */}
       {ath && (
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-4">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-4">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
               <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">All-time high · Binance daily closes</p>
@@ -420,7 +420,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
       )}
 
       {/* 캘리브레이션 증거 — 경쟁 사이트는 방법을 말하고, 우리는 적중률을 말한다 */}
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 px-4 py-3 mb-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-[11px]">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 px-4 py-3 mb-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-[11px]">
         <span className="flex items-center gap-1.5 font-bold text-slate-700 dark:text-slate-200">
           <span aria-hidden="true">✓</span> Calibrated, and checked
         </span>
@@ -432,7 +432,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
       </div>
 
       {m.limitedHistory && (
-        <div className="rounded-2xl border border-amber-500/30 bg-amber-500/[0.08] p-4 mb-5 text-xs text-amber-800 dark:text-amber-200/80">
+        <div className="rounded-lg border border-amber-500/30 bg-amber-500/[0.08] p-4 mb-5 text-xs text-amber-800 dark:text-amber-200/80">
           <b>Limited history.</b> {coin.base} has only {m.samples + 1} daily closes, below the {RELIABLE_SAMPLES} we consider reliable.
           Volatility — and therefore every range and probability on this page — is estimated from a short sample and will move a lot as more data arrives.
         </div>
@@ -456,7 +456,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
 
       {/* 투자 계산기 — 경쟁사는 단일 ROI를 주지만, 결과는 숫자가 아니라 분포다 */}
       {invest && (
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-5">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-5">
           <div className="flex flex-wrap items-end justify-between gap-4 mb-4">
             <div>
               <h2 className="text-sm font-black text-slate-900 dark:text-white mb-0.5">If you invest today</h2>
@@ -512,26 +512,26 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
       <Section id="overview" title="Overview" sub={`Live market state and technical readout for ${coin.name}`}>
         {/* 히어로가 가격·변동성을, Indicators 섹션이 RSI·SMA를 이미 보여주므로 여기서는 중복을 뺀다 */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">24h volume</p>
             <p className="text-lg font-black text-slate-900 dark:text-white tabular-nums">{formatVolume(s.quoteVolume)}</p>
           </div>
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Green days (30d)</p>
             <p className="text-lg font-black tabular-nums text-slate-900 dark:text-white">{s.green.green}/{s.green.total} <span className="text-xs text-slate-500 dark:text-slate-400">{greenPct}%</span></p>
           </div>
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Trend significance</p>
             <p className="text-lg font-black text-slate-900 dark:text-white">{trendLabel} <span className="cell-sub">t={m.tStat.toFixed(2)}</span></p>
           </div>
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">History used</p>
             <p className="text-lg font-black tabular-nums text-slate-900 dark:text-white">{m.samples + 1} <span className="text-xs text-slate-500 dark:text-slate-400">daily closes</span></p>
           </div>
         </div>
 
         {s.consensus && (
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-2">Technical consensus</p>
             <div className="flex flex-wrap items-center gap-3">
               <span className={`inline-flex items-center gap-1.5 text-xs font-black px-2.5 py-1 rounded ${BIAS_STYLE[s.consensus.bias].cls}`}>
@@ -556,7 +556,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
 
       {/* ── Prediction ───────────────────────────── */}
       <Section id="prediction" title="Prediction" sub={`Two independent views: a conservative statistical model, and every comparable window ${coin.base} has actually lived through`}>
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 mb-4">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 mb-4">
           <ForecastChart history={s.closes.slice(-CHART_HISTORY)} daily={m.daily} spot={s.price} paths={paths} historyPath={histPath} height={320} />
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 text-center leading-relaxed">
             The faint lines are <b className="text-slate-500 dark:text-slate-400">simulated scenarios</b> from the same fitted model — samples of how the price could wander, not
@@ -569,7 +569,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
         </div>
 
         {/* 왜 장기 중앙값이 평평한지 먼저 밝힌다 */}
-        <div className="rounded-2xl border border-amber-500/25 bg-amber-500/[0.06] p-4 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+        <div className="rounded-lg border border-amber-500/25 bg-amber-500/[0.06] p-4 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
           <p className="mb-2">
             {coin.base}&apos;s raw trailing drift is <b className="text-slate-700 dark:text-slate-200">{((Math.exp(m.muRaw * 365) - 1) * 100).toFixed(1)}%</b> per year
             (t = {m.tStat.toFixed(2)}, not significant). Extrapolating that would just replay the last year, so instead we split it into a market component and
@@ -609,22 +609,22 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
 
         {/* 확률 — 중앙값과 달리 코인·지평마다 실제로 달라지는 값 */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Gain ≥10% in 30d</p>
             <p className="text-xl font-black text-emerald-600 dark:text-emerald-400 tabular-nums">{p1m.pUp10.toFixed(1)}%</p>
             <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">probability</p>
           </div>
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Drop ≥10% in 30d</p>
             <p className="text-xl font-black text-rose-600 dark:text-rose-400 tabular-nums">{p1m.pDown10.toFixed(1)}%</p>
             <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">probability</p>
           </div>
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Gain ≥10% in 1y</p>
             <p className="text-xl font-black text-emerald-600 dark:text-emerald-400 tabular-nums">{p1y.pUp10.toFixed(1)}%</p>
             <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">probability</p>
           </div>
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Hit TP before SL</p>
             {isFinite(pTp) ? (
               <>
@@ -645,7 +645,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           levels should give — it is the model telling you the levels carry no edge by themselves.
         </p>
 
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
           <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-700 flex flex-wrap items-center justify-between gap-3">
             <h3 className="text-sm font-black text-slate-900 dark:text-white">{TIMEFRAMES[tf].label}</h3>
             <div className="inline-flex rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-0.5">
@@ -712,7 +712,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
           <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-700"><h3 className="text-sm font-black text-slate-900 dark:text-white">By horizon</h3></div>
           <div className="scroll-x overflow-x-auto">
             <table className="w-full text-sm whitespace-nowrap">
@@ -762,7 +762,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
         </div>
 
         {/* 목표가 도달 확률 — "10만 갈까?" 같은 질문에 점 예측이 아니라 확률로 답한다 */}
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
           <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-700">
             <h3 className="text-sm font-black text-slate-900 dark:text-white">Probability of reaching a price</h3>
             <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
@@ -848,7 +848,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
 
         {/* 과거 구간 시나리오 — 모델이 아니라 이 코인이 실제로 살아낸 구간들 */}
         {s.scenarios.length > 0 && (
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
             <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-700">
               <h3 className="text-sm font-black text-slate-900 dark:text-white">Historical scenarios — what {coin.base} actually did</h3>
               <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
@@ -906,7 +906,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
 
         {/* 월별 예측 — 연도 탭 */}
         {months.length > 0 && (
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
             <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-700 flex flex-wrap items-center justify-between gap-3">
               <h3 className="text-sm font-black text-slate-900 dark:text-white">Month by month</h3>
               <div className="inline-flex rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-0.5">
@@ -957,7 +957,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
       {ta && (
         <Section id="technical" title="Indicators" sub={`${ta.total} readings for ${coin.base} — where the price sits, not where it is going`}>
           {/* Sentiment tally */}
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 mb-4">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 mb-4">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
               <div>
                 <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400">Indicator tally</p>
@@ -988,7 +988,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
             {([['Daily SMA', ta.dailySma], ['Daily EMA', ta.dailyEma], ['Weekly SMA', ta.weeklySma], ['Weekly EMA', ta.weeklyEma]] as [string, Reading[]][])
               .filter(([, rows]) => rows.length > 0)
               .map(([title, rows]) => (
-                <div key={title} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
+                <div key={title} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
                   <div className="px-4 py-2.5 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
                     <h3 className="text-xs font-black text-slate-900 dark:text-white">{title}</h3>
                     <span className="text-[10px] text-slate-500 dark:text-slate-400">price vs line</span>
@@ -1014,7 +1014,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           </div>
 
           {/* Oscillators */}
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
             <div className="px-4 py-2.5 border-b border-slate-200 dark:border-slate-700"><h3 className="text-xs font-black text-slate-900 dark:text-white">Oscillators</h3></div>
             <div className="scroll-x overflow-x-auto">
               <table className="w-full text-sm whitespace-nowrap">
@@ -1035,7 +1035,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
 
           {/* Pivot levels */}
           {ta.pv && (
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
+            <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
               <div className="px-4 py-2.5 border-b border-slate-200 dark:border-slate-700">
                 <h3 className="text-xs font-black text-slate-900 dark:text-white">Key price levels</h3>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
@@ -1075,7 +1075,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
 
       {/* ── Historic data ────────────────────────── */}
       <Section id="historic" title="History" sub={`${coin.base} daily open / high / low / close and volume, last ${HISTORY_ROWS} closed candles (UTC)`}>
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
           <div className="scroll-x overflow-x-auto max-h-[520px] overflow-y-auto">
             <table className="w-full text-sm whitespace-nowrap">
               <thead className="sticky top-0 bg-white dark:bg-slate-900 z-10">
@@ -1111,7 +1111,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
       </Section>
 
       {/* 방법론 */}
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-4 mb-5 note-sm [&>p]:max-w-[72ch]">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-4 mb-5 note-sm [&>p]:max-w-[72ch]">
         <h2 className="text-sm font-black text-slate-700 dark:text-slate-200 mb-2">How this {coin.name} prediction is made</h2>
         <p className="mb-2">
           We take {m.samples + 1} daily closes from Binance and convert them to log returns, giving a drift (μ) and a volatility (σ).
@@ -1184,7 +1184,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
 
       {/* 상관계수 — 저희는 이미 BTC 베타를 쓰므로 데이터가 있다 */}
       {corrs.length > 0 && (
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-5">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-5">
           <h2 className="text-sm font-black text-slate-900 dark:text-white mb-1">How {coin.base} moves with other coins</h2>
           <p className="text-[11px] text-slate-500 dark:text-slate-400 mb-4">
             Correlation of daily returns over the last {CORR_DAYS} days. 1.00 means they move in lockstep; 0 means unrelated.
@@ -1219,7 +1219,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
         </div>
       )}
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-5">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-5">
         <h2 className="text-sm font-black text-slate-900 dark:text-white mb-1">What this page will not tell you</h2>
         <p className="text-[11px] text-slate-500 dark:text-slate-400 mb-3">Every claim below is something we tested and could not support. The tests live in the code.</p>
         <ul className="space-y-2 text-xs text-slate-500 dark:text-slate-400">
@@ -1238,7 +1238,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
         </ul>
       </div>
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-4 note-sm [&>p]:max-w-[72ch]">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-4 note-sm [&>p]:max-w-[72ch]">
         <p>
           ⚠️ Not investment advice. This page contains statistical projections of a price distribution, not a forecast of what {coin.name} will do.
           The model knows nothing about news, regulation, liquidity or market structure. All trading decisions and risks are your own.

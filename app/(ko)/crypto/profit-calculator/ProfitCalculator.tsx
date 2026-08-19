@@ -11,9 +11,9 @@ const SUGGEST_LIMIT = 8;
 
 type State = 'loading' | 'ready' | 'error';
 
-const inputCls =
-  'w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition tabular-nums';
-const labelCls = 'block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5';
+/* 사이트 공용 칸 — 초점 테두리가 갈래 색을 따라간다(globals.css .dial-input) */
+const inputCls = 'dial-input';
+const labelCls = 'dial-k mb-1 block';
 
 const money = (v: number) =>
   `${v < 0 ? '−' : ''}$${Math.abs(v).toLocaleString(undefined, { maximumFractionDigits: 2 })}`;
@@ -82,14 +82,14 @@ export default function ProfitCalculator() {
 
   return (
     <>
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 mb-4">
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5 mb-4">
         <label className={labelCls} htmlFor="pf-coin">Coin</label>
         <div className="flex flex-wrap items-center gap-3">
           <div className="relative flex-1 min-w-[220px]">
             <input id="pf-coin" type="text" value={query} onChange={e => setQuery(e.target.value)}
               placeholder={`${coin.base} · search another coin`} className={inputCls} autoComplete="off" />
             {suggestions.length > 0 && (
-              <ul className="absolute z-20 mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-lg overflow-hidden">
+              <ul className="absolute z-20 mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm overflow-hidden">
                 {suggestions.map(c => (
                   <li key={c.slug}>
                     <button type="button" onClick={() => pickCoin(c)}
@@ -125,7 +125,7 @@ export default function ProfitCalculator() {
         </p>
       </div>
 
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 mb-4">
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5 mb-4">
         <div className="grid sm:grid-cols-2 gap-4">
           <div className="sm:col-span-2">
             <span className={labelCls}>Direction</span>
@@ -188,7 +188,7 @@ export default function ProfitCalculator() {
 
       {r ? (
         <>
-          <div className="rounded-3xl border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-white via-white to-amber-50 dark:from-slate-900 dark:via-slate-900 dark:to-amber-500/[0.05] p-6 mb-4">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-amber-50 dark:bg-slate-900 p-6 mb-4">
             <p className="text-[11px] uppercase tracking-wide text-amber-600 dark:text-amber-400 mb-1">Net profit after fees</p>
             <div className="flex flex-wrap items-end gap-x-8 gap-y-3">
               <div>
@@ -208,7 +208,7 @@ export default function ProfitCalculator() {
           </div>
 
           {/* 본전 가격 — 이 페이지가 다른 수익 계산기와 갈리는 지점 */}
-          <div className={`rounded-2xl border p-5 mb-4 ${fooled ? 'border-rose-500/40 bg-rose-50 dark:bg-rose-500/[0.08]' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900'}`}>
+          <div className={`rounded-lg border p-5 mb-4 ${fooled ? 'border-rose-500/40 bg-rose-50 dark:bg-rose-500/[0.08]' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900'}`}>
             <h2 className="text-sm font-black text-slate-900 dark:text-white mb-1">Your break-even is not your entry price</h2>
             <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
               Fees are charged on the way in and on the way out, so the price has to move before you are level.
@@ -248,7 +248,7 @@ export default function ProfitCalculator() {
               ['Total fees', `$${formatPrice(r.totalFees)}`, `in ${formatPrice(r.entryFee)} + out ${formatPrice(r.exitFee)}`],
               ['Fees vs gross P&L', r.feeShareOfGrossPct != null ? `${r.feeShareOfGrossPct.toFixed(1)}%` : '—', 'of the raw move'],
             ].map(([label, value, note]) => (
-              <div key={label} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+              <div key={label} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
                 <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">{label}</p>
                 <p className="text-base font-black text-slate-900 dark:text-white tabular-nums">{value}</p>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 truncate">{note}</p>
@@ -257,12 +257,12 @@ export default function ProfitCalculator() {
           </div>
         </>
       ) : (
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-8 mb-4 text-center text-sm text-slate-500 dark:text-slate-400">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-8 mb-4 text-center text-sm text-slate-500 dark:text-slate-400">
           Enter an entry price, exit price and position size.
         </div>
       )}
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
         <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">What leverage does and does not change</h2>
         <p className="mb-2">
           Leverage does not change the profit in dollars. Once the position size is fixed, a given price move produces the same gain or loss

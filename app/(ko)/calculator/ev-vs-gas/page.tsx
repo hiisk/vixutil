@@ -1,16 +1,16 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 
 /*
- * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
- * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
- * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
- * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
- * 골라 둔 예시를 그대로 올렸다.
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 빈 칸으로 열면 무엇을
+ * 보여 주는 계산기인지 눌러 보기 전에는 모른다 — 값을 미리 넣어 두면 「계산하기」
+ * 한 번에 한 벌이 통째로 보이고, 사람은 그 위에 자기 숫자를 덮어쓴다.
+ * 값은 내가 지어내지 않고 저자가 이미 골라 둔 예시를 그대로 올렸다.
  */
 import Link from 'next/link';
 import CalcShell, {
-  Card, CardHeader, Label, inputCls, SummaryCard, SummaryGrid, TableWrap,
+  Card, CardHeader, Label, inputCls, PrimaryBtn, SummaryCard, SummaryGrid, TableWrap,
 } from '@/components/CalcShell';
 import { compareEvVsGas, type EvVsGasResult } from '@/lib/ev-vs-gas';
 
@@ -33,18 +33,14 @@ export default function EvVsGasPage() {
   const [gasUnit, setGasUnit] = useState('');
   const [gasTax, setGasTax] = useState('');
   const [gasMaint, setGasMaint] = useState('900000');
+  const [result, setResult] = useState<EvVsGasResult | null>(null);
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: EvVsGasResult | null = ((): EvVsGasResult | null => {
+  function calculate() {
     const y = Number(years);
-    if (y < 1) return null;
-    if (Number(evEff) <= 0 || Number(gasEff) <= 0) return null;
-    if (Number(evPrice) <= 0 || Number(gasPrice) <= 0) return null;
-    return (compareEvVsGas({
+    if (y < 1) return;
+    if (Number(evEff) <= 0 || Number(gasEff) <= 0) return;
+    if (Number(evPrice) <= 0 || Number(gasPrice) <= 0) return;
+    setResult(compareEvVsGas({
       km: Number(km || 0),
       years: y,
       ev: {
@@ -58,10 +54,7 @@ export default function EvVsGasPage() {
         tax: Number(gasTax || 0), maintenance: Number(gasMaint || 0),
       },
     }));
-  
-    return null;
-  })();
-
+  }
 
   const be = result?.breakevenYears ?? null;
 
@@ -135,13 +128,11 @@ export default function EvVsGasPage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>차값 (원)</Label>
-              <input type="number" value={evPrice} onChange={e => setEvPrice(e.target.value)}
-                placeholder="예: 55000000" className={inputCls} min="0" />
+              <MoneyInput value={evPrice} onChange={setEvPrice} placeholder="예: 55000000" />
             </div>
             <div>
               <Label>취득 감면·보조금 (원)</Label>
-              <input type="number" value={evTaxCut} onChange={e => setEvTaxCut(e.target.value)}
-                placeholder="예: 3000000" className={inputCls} min="0" />
+              <MoneyInput value={evTaxCut} onChange={setEvTaxCut} placeholder="예: 3000000" />
             </div>
             <div>
               <Label>전비 (km/kWh)</Label>
@@ -150,18 +141,15 @@ export default function EvVsGasPage() {
             </div>
             <div>
               <Label>충전 단가 (원/kWh)</Label>
-              <input type="number" value={evUnit} onChange={e => setEvUnit(e.target.value)}
-                placeholder="완속·급속에 따라 다름" className={inputCls} min="0" />
+              <MoneyInput value={evUnit} onChange={setEvUnit} placeholder="완속·급속에 따라 다름" />
             </div>
             <div>
               <Label>자동차세 (원/년)</Label>
-              <input type="number" value={evTax} onChange={e => setEvTax(e.target.value)}
-                placeholder="고지서의 연간 세액" className={inputCls} min="0" />
+              <MoneyInput value={evTax} onChange={setEvTax} placeholder="고지서의 연간 세액" />
             </div>
             <div>
               <Label>정비·소모품 (원/년)</Label>
-              <input type="number" value={evMaint} onChange={e => setEvMaint(e.target.value)}
-                placeholder="예: 400000" className={inputCls} min="0" />
+              <MoneyInput value={evMaint} onChange={setEvMaint} placeholder="예: 400000" />
             </div>
           </div>
         </Card>
@@ -171,8 +159,7 @@ export default function EvVsGasPage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>차값 (원)</Label>
-              <input type="number" value={gasPrice} onChange={e => setGasPrice(e.target.value)}
-                placeholder="예: 40000000" className={inputCls} min="0" />
+              <MoneyInput value={gasPrice} onChange={setGasPrice} placeholder="예: 40000000" />
             </div>
             <div>
               <Label>연비 (km/L)</Label>
@@ -181,19 +168,17 @@ export default function EvVsGasPage() {
             </div>
             <div>
               <Label>유류비 (원/L)</Label>
-              <input type="number" value={gasUnit} onChange={e => setGasUnit(e.target.value)}
-                placeholder="지금 주유소 가격" className={inputCls} min="0" />
+              <MoneyInput value={gasUnit} onChange={setGasUnit} placeholder="지금 주유소 가격" />
             </div>
             <div>
               <Label>자동차세 (원/년)</Label>
-              <input type="number" value={gasTax} onChange={e => setGasTax(e.target.value)}
-                placeholder="고지서의 연간 세액" className={inputCls} min="0" />
+              <MoneyInput value={gasTax} onChange={setGasTax} placeholder="고지서의 연간 세액" />
             </div>
             <div>
               <Label>정비·소모품 (원/년)</Label>
-              <input type="number" value={gasMaint} onChange={e => setGasMaint(e.target.value)}
-                placeholder="예: 900000" className={inputCls} min="0" />
+              <MoneyInput value={gasMaint} onChange={setGasMaint} placeholder="예: 900000" />
             </div>
+            <PrimaryBtn onClick={calculate}>비교하기</PrimaryBtn>
           </div>
         </Card>
 

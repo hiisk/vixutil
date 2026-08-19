@@ -80,34 +80,37 @@ export default function FortunePage() {
         </div>
       </header>
 
-      <div className="max-w-2xl mx-auto px-4 py-10">
-        {/* 타이틀 */}
-        <div className="text-center mb-10">
-          <ToolIcon emoji="🔮" className="w-12 h-12 mx-auto mb-4 text-slate-800 dark:text-slate-100" />
+      <div className="max-w-4xl mx-auto px-4 py-10">
+        {/* 머리 — 사이트의 다른 갈래와 같은 규격이다(왼쪽 정렬 + 갈래색 칩) */}
+        <div className="hero-band">
+          <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg">
+            <ToolIcon emoji="🔮" className="h-6 w-6" />
+          </span>
           <h1 className="page-h1">오늘의 운세</h1>
-          <p className="text-slate-500 dark:text-slate-400 text-sm">매일 새롭게 업데이트 · 사주·별자리·띠·타로·MBTI</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400">매일 새롭게 업데이트 · 사주·별자리·띠·타로·MBTI</p>
         </div>
 
         {/* 카테고리 카드 */}
-        <div className="grid sm:grid-cols-2 gap-4">
+        {/*
+          카드에서 뺀 것 둘.
+          · 구석의 원형 얼룩 — 어느 AI 화면에나 있는 그 장식이고, 카드마다 하나씩
+            깔리면 격자가 얼룩덜룩해진다.
+          · 「운세 보기 →」 줄 — 카드 전체가 이미 링크다. 같은 말을 카드 안에 또
+            적으면 손가락에게 아무것도 더해 주지 않으면서 카드만 40px 길어진다.
+          아이콘은 갈래색 칩에 담는다 — 색이 카드마다 정보를 나른다.
+        */}
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {TYPES.map(t => (
             <Link key={t.href} href={t.href}
-              className="group relative overflow-hidden rounded-2xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 hover:shadow-md hover:border-violet-200 transition-all">
-              <div className={`absolute -right-6 -top-6 w-24 h-24 rounded-full bg-sec-soft opacity-10 group-hover:opacity-20 transition-opacity`} />
-              <div className="relative">
-                <div className="flex items-start justify-between mb-4">
-                  <ToolIcon emoji={t.icon} className="text-slate-800 dark:text-slate-100 w-8 h-8" />
-                  {t.badge && <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-violet-50 dark:bg-violet-950/30 text-violet-600 border border-violet-100 dark:border-violet-900/40">{t.badge}</span>}
-                </div>
-                <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-1">{t.title}</h2>
-                <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">{t.desc}</p>
-                <div className="flex items-center gap-1 text-xs font-semibold text-violet-600">
-                  운세 보기
-                  <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                  </svg>
-                </div>
+              className="group rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 transition-colors hover:border-slate-300 dark:hover:border-slate-700">
+              <div className="mb-3 flex items-start justify-between gap-2">
+                <span className="bg-sec-soft inline-flex h-9 w-9 items-center justify-center rounded-lg">
+                  <ToolIcon emoji={t.icon} className="h-5 w-5" />
+                </span>
+                {t.badge && <span className="rounded-full border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-[10px] font-semibold text-slate-500 dark:text-slate-400">{t.badge}</span>}
               </div>
+              <h2 className="mb-1 font-bold text-slate-900 dark:text-slate-100">{t.title}</h2>
+              <p className="text-[13px] leading-relaxed text-slate-500 dark:text-slate-400">{t.desc}</p>
             </Link>
           ))}
         </div>
@@ -115,7 +118,7 @@ export default function FortunePage() {
         {/* 스냅테스트 프로모 */}
         <Link
           href="/snap"
-          className="group relative overflow-hidden rounded-2xl border border-slate-100 dark:border-slate-800 bg-gradient-to-br from-fuchsia-50 to-sky-50 p-6 mt-4 flex items-center gap-4 hover:shadow-md hover:border-fuchsia-200 transition-all"
+          className="group relative overflow-hidden rounded-lg border border-slate-100 dark:border-slate-800 bg-fuchsia-50 p-6 mt-4 flex items-center gap-4 hover:border-slate-300 dark:hover:border-slate-700 hover:border-fuchsia-200 transition-all"
         >
           <ToolIcon emoji="📸" className="w-9 h-9 text-slate-800 dark:text-slate-100" />
           <div className="flex-1">
@@ -135,7 +138,7 @@ export default function FortunePage() {
         {/* 타로 78장 자료는 뽑기 도구가 아니라 찾아보는 목록이라 따로 세운다 */}
         <Link
           href="/fortune/card"
-          className="group mt-10 flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+          className="group mt-10 flex items-center gap-4 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:border-slate-300 dark:hover:border-slate-700 hover:-translate-y-0.5 transition-all"
         >
           <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-sec-soft">
             <ToolIcon emoji={TAROT_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />

@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import CalcShell, {
-  Card, CardHeader, Label, TabBar, inputCls,
+  Card, CardHeader, Label, PrimaryBtn, TabBar, inputCls,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 import {
@@ -24,34 +24,24 @@ export default function CarExciseTaxPage() {
   const [rate, setRate] = useState(String(DEFAULT_EXCISE_RATE * 100));
   const [lowRate, setLowRate] = useState('3.5');
   const [cap, setCap] = useState(0);
+  const [result, setResult] = useState<null | {
+    now: ExciseBreakdown;
+    cmp: RateCompare | null;
+  }>(null);
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | {
-    now: ExciseBreakdown;
-    cmp: RateCompare | null;
-  } = ((): null | {
-    now: ExciseBreakdown;
-    cmp: RateCompare | null;
-  } => {
-    if (amount <= 0) return null;
+  function calculate() {
+    if (amount <= 0) return;
     const r = Math.max(0, Number(rate) || 0) / 100;
     // 출고가로 넣었으면 먼저 공장도가로 되짚는다 — 그다음은 두 길이 같다
     const base = mode === 'base' ? amount : fromReleasePrice(amount, r).base;
-    if (base <= 0) return null;
+    if (base <= 0) return;
 
     const low = Math.max(0, Number(lowRate) || 0) / 100;
-    return ({
+    setResult({
       now: calcExcise(base, r),
       cmp: lowRate !== '' && low < r ? compareRates(base, r, low, cap) : null,
     });
-  
-    return null;
-  })();
-
+  }
 
   return (
     <CalcShell
@@ -129,7 +119,7 @@ export default function CarExciseTaxPage() {
                   : '제조사가 매기는 값 = 개별소비세의 과세표준'}
               </p>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>개별소비세 세율 (%)</Label>
                 <input type="number" value={rate} onChange={e => setRate(e.target.value)}
@@ -154,6 +144,7 @@ export default function CarExciseTaxPage() {
                 인하 때 깎아 주는 개별소비세에 상한이 있었으면 그 금액
               </p>
             </div>
+            <PrimaryBtn onClick={calculate}>개별소비세 계산</PrimaryBtn>
           </div>
         </Card>
 

@@ -50,12 +50,7 @@ export default async function ChecklistPage({ params }: { params: Promise<{ slug
         ])}
       />
       {/* 번역판이 있는 슬러그에서만 — 없는데 띄우면 그 언어가 404다 */}
-      {hasAlternates('checklist', slug) && (
-        <div className="max-w-lg mx-auto px-4 w-full pt-3 flex justify-end">
-          <LangPicker current="ko" route={`/checklist/${slug}`} available={localesWithItem('checklist', slug)} />
-        </div>
-      )}
-      <ChecklistEngine checklist={checklist} />
+      <ChecklistEngine checklist={checklist} headerRight={hasAlternates('checklist', slug) ? <LangPicker current="ko" route={`/checklist/${slug}`} available={localesWithItem('checklist', slug)} /> : null} />
       <div className="max-w-lg mx-auto px-4 w-full">
         <Faq items={contentFaq('checklist', slug, checklist)} className="mb-8" />
         <CrossLinks className="mb-4" />

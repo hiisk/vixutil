@@ -50,9 +50,9 @@ export default function RiskOfRuinPage() {
         </div>
       </header>
 
-      <div className="max-w-3xl mx-auto px-4 py-8">
-        <div className="text-center mb-6">
-          <ToolIcon emoji="💀" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+      <div className="hero-band max-w-3xl mx-auto px-4 py-8">
+        <div className="mb-6">
+          <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="💀" className="h-6 w-6" /></span>
           <h1 className="page-h1">Risk of Ruin</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">
             The same edge, <b className="text-slate-700 dark:text-slate-200">wildly different outcomes</b>, from bet size alone
@@ -67,7 +67,7 @@ export default function RiskOfRuinPage() {
           이 페이지는 순수 계산이라 서버에서 그려도 되지만, 입력 상호작용이 필요해
           클라이언트 컴포넌트로 둔다. 아래 설명은 서버에서 정적으로 렌더된다.
         */}
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
           <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">Bet size decides more than the edge does</h2>
           <p className="mb-3">
             Risk of ruin is the probability that a run of losses takes an account down to some level you would not continue from. It depends
@@ -86,7 +86,7 @@ export default function RiskOfRuinPage() {
           </p>
         </section>
 
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-4 mb-6 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-4 mb-6 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
           <p>
             ⚠️ Not investment advice. The model assumes independent trades with a fixed win rate and reward ratio; real losses cluster, which
             makes ruin more likely than shown. Win rates entered from memory or from a short record are usually too optimistic. All decisions

@@ -219,13 +219,13 @@ export default function Handwriting({ lang }: { lang: SnapIntlLang }) {
     >
       {result => (
         <>
-          <div className="bg-gradient-to-br from-teal-500 to-cyan-600 rounded-2xl p-6 text-white text-center">
+          <div className="bg-gradient-to-br from-teal-500 to-cyan-600 rounded-lg p-6 text-white text-center">
             <p className="text-sm font-semibold text-white/80 mb-2">{c.result}</p>
             <p className="text-4xl font-black mb-1">{result.slantDeg > 0 ? '+' : ''}{result.slantDeg}°</p>
             <p className="text-xs text-white/80">{c.slant}</p>
           </div>
 
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5">
             <div className="flex items-center justify-between mb-1">
               <span className="text-xs font-bold text-teal-600 uppercase tracking-wide">{c.slant}</span>
               <span className="text-xs font-bold text-teal-600">{result.slantPercent}%</span>
@@ -236,7 +236,7 @@ export default function Handwriting({ lang }: { lang: SnapIntlLang }) {
             <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.slantText}</p>
           </div>
 
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5">
             <div className="flex items-center justify-between mb-1">
               <span className="text-xs font-bold text-emerald-600 uppercase tracking-wide">{c.pressure}</span>
               <span className="text-xs font-bold text-emerald-600">{result.pressurePercent}%</span>
@@ -247,7 +247,7 @@ export default function Handwriting({ lang }: { lang: SnapIntlLang }) {
             <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.pressureText}</p>
           </div>
 
-          <div className="bg-gradient-to-br from-teal-50 to-emerald-50 dark:from-teal-950/20 dark:to-emerald-950/20 border border-teal-100 dark:border-teal-900/40 rounded-2xl p-5">
+          <div className="bg-teal-50 dark:from-teal-950/20 dark:to-emerald-950/20 border border-teal-100 dark:border-teal-900/40 rounded-lg p-5">
             <p className="text-xs font-bold text-teal-600 uppercase tracking-wide mb-2">{c.tip}</p>
             <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.tip}</p>
           </div>

@@ -45,7 +45,7 @@ export default function WordCountPage() {
         {/* 통계 그리드 */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {STAT_ITEMS.slice(0, 4).map(item => (
-            <div key={item.key} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
+            <div key={item.key} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
               <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">{item.label}</p>
               <p className={`text-2xl font-black ${item.color}`}>
                 {stats[item.key].toLocaleString('ko-KR')}
@@ -56,7 +56,7 @@ export default function WordCountPage() {
         </div>
         <div className="grid grid-cols-3 gap-3">
           {STAT_ITEMS.slice(4).map(item => (
-            <div key={item.key} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
+            <div key={item.key} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
               <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">{item.label}</p>
               <p className={`text-2xl font-black ${item.color}`}>
                 {stats[item.key].toLocaleString('ko-KR')}

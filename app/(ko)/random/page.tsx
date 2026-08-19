@@ -66,9 +66,9 @@ export default function RandomIndexPage() {
             <Link
               key={t.slug}
               href={`/random/${t.slug}`}
-              className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${t.gradient} text-white p-5 min-h-[9rem] flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl transition-all`}
+              className={`group relative overflow-hidden rounded-lg bg-gradient-to-br ${t.gradient} text-white p-5 min-h-[9rem] flex flex-col justify-between hover:-translate-y-1 hover:border-slate-300 dark:hover:border-slate-700 transition-all`}
             >
-              <ToolIcon emoji={t.icon} className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
+              <ToolIcon emoji={t.icon} className="w-9 h-9 drop-shadow-sm transition-transform group-hover:scale-110" />
               <div>
                 <div className="text-lg font-black drop-shadow leading-tight">{t.title}</div>
                 <div className="text-[11px] font-medium opacity-80 mt-1 line-clamp-2">{t.desc}</div>
@@ -79,7 +79,7 @@ export default function RandomIndexPage() {
 
         <Link
           href="/random/dice"
-          className="group mt-6 flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+          className="group mt-6 flex items-center gap-4 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:border-slate-300 dark:hover:border-slate-700 hover:-translate-y-0.5 transition-all"
         >
           <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-sec-soft">
             <ToolIcon emoji={DICE_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />

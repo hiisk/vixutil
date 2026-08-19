@@ -9,8 +9,13 @@ const SAMPLES = [
   { label: '섞여 있는 문장', text: 'godlfdmf(qorPtu)' },
 ];
 
+/*
+ * 첫 값 (2026-08-19). 열면 입력이 비어 있고 결과가 전부 «—»라 도구가 죽어
+ * 보였다 — 무엇을 하는 도구인지 손으로 쳐 보기 전에는 모른다. 저자가 적어 둔
+ * 예시를 첫 값으로 올리면 열자마자 한 벌이 돌아간다.
+ */
 export default function HanyoungTool() {
-  const [text, setText] = useState('');
+  const [text, setText] = useState('dkssudgktpdy');
   const [manual, setManual] = useState<'auto' | 'ko-to-en' | 'en-to-ko'>('auto');
 
   const direction = manual === 'auto' ? guessDirection(text) : manual;

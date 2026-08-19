@@ -22,7 +22,8 @@ interface Row {
 
 type LoadState = 'loading' | 'ready' | 'error';
 
-const inputCls = 'w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition';
+/* 사이트 공용 칸 — 초점 테두리가 갈래 색을 따라간다(globals.css .dial-input) */
+const inputCls = 'dial-input';
 
 export default function AtrTpslPage() {
   const [state, setState] = useState<LoadState>('loading');
@@ -106,20 +107,20 @@ export default function AtrTpslPage() {
         </div>
       </header>
 
-      <div className="max-w-2xl mx-auto px-4 py-8">
-        <div className="text-center mb-6">
-          <ToolIcon emoji="📊" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+      <div className="hero-band max-w-2xl mx-auto px-4 py-8">
+        <div className="mb-6">
+          <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="📊" className="h-6 w-6" /></span>
           <h1 className="page-h1">ATR-based TP/SL Calculator</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">Compute take-profit / stop-loss from the daily ATR(14) of top-volume Binance coins</p>
         </div>
 
-        <div className="bg-amber-50 dark:bg-amber-500/10 border border-amber-100 dark:border-amber-500/25 rounded-2xl p-4 mb-6 text-xs text-amber-800 dark:text-amber-200 leading-relaxed">
+        <div className="bg-amber-50 dark:bg-amber-500/10 border border-amber-100 dark:border-amber-500/25 rounded-lg p-4 mb-6 text-xs text-amber-800 dark:text-amber-200 leading-relaxed">
           <p className="font-bold mb-1">⚠️ Not investment advice</p>
           <p>This tool fetches Binance public market data in your browser and computes the ATR (average true range). TP/SL are volatility-based reference values only — nothing here is a trade recommendation, and all decisions and risks are your own.</p>
         </div>
 
         {/* Volatility ranking table */}
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden mb-6">
+        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden mb-6">
           <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100 dark:border-slate-800">
             <p className="label-caps">Top 20 by volume · Daily ATR</p>
             <button
@@ -188,7 +189,7 @@ export default function AtrTpslPage() {
 
         {/* TP/SL calculator */}
         {selectedRow && (
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 mb-6">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5 mb-6">
             <div className="flex items-center justify-between mb-4">
               <p className="label-caps">TP/SL Calculation</p>
               <span className="text-sm font-black text-slate-800 dark:text-slate-100">{selectedRow.base}/USDT</span>
@@ -239,12 +240,12 @@ export default function AtrTpslPage() {
 
             {calc && (
               <div className="mt-2 grid grid-cols-2 gap-3">
-                <div className="rounded-2xl border border-emerald-200 dark:border-emerald-500/30 bg-emerald-50 dark:bg-emerald-500/10 p-4">
+                <div className="rounded-lg border border-emerald-200 dark:border-emerald-500/30 bg-emerald-50 dark:bg-emerald-500/10 p-4">
                   <p className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold mb-1">🎯 Take Profit (TP)</p>
                   <p className="text-lg font-black text-emerald-700 dark:text-emerald-300">{formatPrice(calc.tp)}</p>
                   <p className="text-xs text-emerald-600 dark:text-emerald-400 mt-0.5">{direction === 'long' ? '+' : '-'}{calc.tpDistPct.toFixed(2)}%</p>
                 </div>
-                <div className="rounded-2xl border border-rose-200 dark:border-rose-500/30 bg-rose-50 dark:bg-rose-500/10 p-4">
+                <div className="rounded-lg border border-rose-200 dark:border-rose-500/30 bg-rose-50 dark:bg-rose-500/10 p-4">
                   <p className="text-xs text-rose-600 dark:text-rose-400 font-semibold mb-1">🛑 Stop Loss (SL)</p>
                   <p className="text-lg font-black text-rose-600 dark:text-rose-300">{formatPrice(calc.sl)}</p>
                   <p className="text-xs text-rose-600 dark:text-rose-400 mt-0.5">{direction === 'long' ? '-' : '+'}{calc.slDistPct.toFixed(2)}%</p>

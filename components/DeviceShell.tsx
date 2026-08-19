@@ -75,7 +75,7 @@ export default function DeviceShell({
 
 
         {tool.needsPermission && (
-          <div className="mb-5 rounded-2xl border border-sky-100 dark:border-sky-900/40 bg-sky-50/70 dark:bg-sky-950/30 px-4 py-3 text-xs text-sky-800 dark:text-sky-200 leading-relaxed">
+          <div className="mb-5 rounded-lg border border-sky-100 dark:border-sky-900/40 bg-sky-50/70 dark:bg-sky-950/30 px-4 py-3 text-xs text-sky-800 dark:text-sky-200 leading-relaxed">
             🔒 브라우저가 권한을 물어보면 허용해 주세요. 카메라·마이크 데이터는 이 브라우저 안에서만 처리되고
             서버로 전송되거나 저장되지 않습니다.
           </div>

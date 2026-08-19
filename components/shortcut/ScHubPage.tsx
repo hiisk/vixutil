@@ -63,15 +63,13 @@ export default function ScHubPage({ lang }: { lang: Lang }) {
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
         <div className="text-center mb-7">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 shadow-lg bg-sec-soft">
-            <ToolIcon emoji={SC_ICON} className="w-8 h-8" />
-          </div>
+          <span className="bg-sec-soft inline-flex h-10 w-10 items-center justify-center rounded-lg"><ToolIcon emoji={SC_ICON} className="h-5 w-5" /></span>
           <div className="hero-band">
             <PageHero title={ui.hubTitle} desc={ui.hubLead.replace('{n}', n)} />
           </div>
         </div>
 
-        <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 px-4 py-3 mb-8">
+        <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-3 mb-8">
           {ui.hubNotice}
         </p>
 
@@ -85,10 +83,10 @@ export default function ScHubPage({ lang }: { lang: Lang }) {
                 <span className="text-xs font-bold text-slate-400 dark:text-slate-500">{list.length}</span>
               </h2>
               <p className="mb-3 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{ui.appNote[app]}</p>
-              <div className="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
-                <table className="w-full text-sm">
+              <div className="rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
+                <table className="kv-table w-full text-sm">
                   <thead>
-                    <tr className="border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/40 text-[11px] font-bold text-slate-400 dark:text-slate-500">
+                    <tr className="border-b border-slate-100 dark:border-slate-800 text-[11px] font-bold text-slate-400 dark:text-slate-500">
                       <th scope="col" className="text-left px-4 py-2">{ui.actionCol}</th>
                       <th scope="col" className="text-left px-4 py-2 w-2/5">{ui.keysCol}</th>
                     </tr>

@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, {
-  Card, CardHeader, Label, SummaryCard,
+  Card, CardHeader, Label, PrimaryBtn, SummaryCard,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 import { CALC_FAQ } from '@/lib/calc-faq';
@@ -88,23 +88,16 @@ export default function ParentalLeavePage() {
   const [salary, setSalary] = useState(0);
   const [duration, setDuration] = useState('12');
   const [mode, setMode] = useState<'solo' | 'both'>('solo');
+  const [result, setResult] = useState<null | { total: number; rows: { label: string; monthly: number; count: number }[]; monthly: number }>(null);
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | { total: number; rows: { label: string; monthly: number; count: number }[]; monthly: number } = ((): null | { total: number; rows: { label: string; monthly: number; count: number }[]; monthly: number } => {
+  function calculate() {
     const monthly = salary * 10000;
-    if (!monthly || monthly <= 0) return null;
+    if (!monthly || monthly <= 0) return;
     const months = Math.min(Math.max(1, Number(duration)), 12);
     const { total, rows } = mode === 'solo' ? calcSolo(monthly, months) : calcBoth(monthly, months);
     const avg = Math.round(total / months);
-    return ({ total, rows, monthly: avg });
-  
-    return null;
-  })();
-
+    setResult({ total, rows, monthly: avg });
+  }
 
   return (
     <CalcShell
@@ -183,6 +176,8 @@ export default function ParentalLeavePage() {
             </button>
           ))}
         </div>
+
+        <PrimaryBtn onClick={calculate}>육아휴직 급여 계산하기</PrimaryBtn>
       </Card>
 
       {result && (

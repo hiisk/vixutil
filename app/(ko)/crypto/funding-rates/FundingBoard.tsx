@@ -17,8 +17,8 @@ const HISTORY_LIMIT = 500;
 type State = 'loading' | 'ready' | 'error';
 type View = 'longs-pay' | 'shorts-pay';
 
-const inputCls =
-  'w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition';
+/* 사이트 공용 칸 — 초점 테두리가 갈래 색을 따라간다(globals.css .dial-input) */
+const inputCls = 'dial-input';
 
 const slugOf = (base: string) => COINS.find(c => c.base === base)?.slug ?? null;
 
@@ -104,7 +104,7 @@ export default function FundingBoard() {
 
   if (state === 'loading') {
     return (
-      <div role="status" aria-live="polite" className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
+      <div role="status" aria-live="polite" className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
         <div aria-hidden="true" className="w-8 h-8 border-4 border-slate-200 dark:border-slate-700 border-t-amber-500 rounded-full animate-spin" />
         <span className="text-sm font-bold text-slate-500 dark:text-slate-400">Loading funding rates from Binance…</span>
       </div>
@@ -113,7 +113,7 @@ export default function FundingBoard() {
 
   if (state === 'error') {
     return (
-      <div role="alert" className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
+      <div role="alert" className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
         <span aria-hidden="true" className="text-3xl">⚠️</span>
         <span className="text-sm font-bold text-rose-600 dark:text-rose-400">Couldn&apos;t load funding rates</span>
         <span className="text-xs text-slate-500 dark:text-slate-400">Binance futures may be restricted in your region</span>
@@ -125,7 +125,7 @@ export default function FundingBoard() {
   return (
     <>
       {/* 정산 주기 분포 — 이 페이지의 존재 이유를 숫자로 먼저 보여준다 */}
-      <div className="rounded-2xl border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
+      <div className="rounded-lg border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
         <h2 className="text-sm font-black text-amber-900 dark:text-amber-200 mb-1.5">Not every coin settles every 8 hours</h2>
         <p className="text-xs text-amber-900/85 dark:text-amber-200/85 leading-relaxed mb-3">
           Funding tables almost always annualise by assuming three settlements a day. Right now
@@ -161,7 +161,7 @@ export default function FundingBoard() {
       </div>
 
       {/* 표 */}
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
         <div className="scroll-x overflow-x-auto max-h-[560px] overflow-y-auto">
           <table className="w-full text-sm whitespace-nowrap">
             <thead className="sticky top-0 bg-white dark:bg-slate-900 z-10">
@@ -228,7 +228,7 @@ export default function FundingBoard() {
 
       {/* 비용 계산 */}
       {sel ? (
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-4">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-4">
           <div className="flex items-center gap-2 mb-4">
             <CoinLogo base={sel.base} size={24} />
             <h2 className="text-sm font-black text-slate-900 dark:text-white">What {sel.base} funding costs you</h2>
@@ -279,13 +279,13 @@ export default function FundingBoard() {
           </div>
         </div>
       ) : (
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-8 mb-4 text-center text-sm text-slate-500 dark:text-slate-400">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-8 mb-4 text-center text-sm text-slate-500 dark:text-slate-400">
           Tap any row to see what its funding would cost on a position you size.
         </div>
       )}
 
       {/* 정직한 한계 */}
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
         <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">Before treating a high rate as free money</h2>
         <p className="mb-2">
           A large negative rate looks like it pays you to go long, and the &quot;funding arbitrage&quot; framing is to hold the perpetual and hedge

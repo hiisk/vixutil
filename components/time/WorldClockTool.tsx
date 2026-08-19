@@ -43,7 +43,7 @@ export default function WorldClockTool({ lang = 'ko' }: { lang?: TimeLang } = {}
           const part = dayPart(hour);
           const diff = mounted && now ? offsetHours(c.zone, baseZone, now) : 0;
           return (
-            <div key={id} className={`rounded-2xl px-4 py-3.5 flex items-center gap-3 ${TONE[part]}`}>
+            <div key={id} className={`rounded-lg px-4 py-3.5 flex items-center gap-3 ${TONE[part]}`}>
               <span className="text-2xl shrink-0">{c.flag}</span>
               <span className="hub-card-body">
                 <span className="block text-sm font-black">{c.city}</span>

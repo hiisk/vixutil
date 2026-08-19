@@ -59,8 +59,8 @@ export default function MbtiPage() {
         </div>
       </header>
 
-      <div className="max-w-xl mx-auto px-4 py-6">
-        <div className="text-center mb-6">
+      <div className="hero-band max-w-xl mx-auto px-4 py-6">
+        <div className="mb-6">
           <h1 className="page-h1">🧠 MBTI 오늘의 운세</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">내 MBTI 유형을 선택하세요</p>
         </div>
@@ -78,7 +78,7 @@ export default function MbtiPage() {
                       onClick={() => handleSelect(id)}
                       className={`rounded-xl p-2.5 text-center transition-all border ${
                         selected === id
-                          ? 'bg-sky-600 border-sky-600 text-white shadow-md'
+                          ? 'bg-sky-600 border-sky-600 text-white shadow-sm'
                           : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-sky-300 text-slate-700 dark:text-slate-200'
                       }`}
                     >
@@ -108,7 +108,7 @@ export default function MbtiPage() {
           </div>
         ) : (
           <div className="text-center py-12 text-slate-300 dark:text-slate-600">
-            <ToolIcon emoji="☝️" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+            <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">MBTI 유형을 선택하면 오늘의 운세를 볼 수 있습니다</p>
           </div>
         )}

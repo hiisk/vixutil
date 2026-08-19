@@ -286,8 +286,8 @@ function MirrorPair({ img, axis, box }: { img: HTMLImageElement; axis: number; b
   return (
     <div className="grid grid-cols-2 gap-3">
       {/* ref를 배열에 담아 돌면 React가 막는다 — 둘뿐이니 그냥 적는다 */}
-      <canvas ref={left} className="w-full rounded-2xl bg-slate-100 dark:bg-slate-800" />
-      <canvas ref={right} className="w-full rounded-2xl bg-slate-100 dark:bg-slate-800" />
+      <canvas ref={left} className="w-full rounded-lg bg-slate-100 dark:bg-slate-800" />
+      <canvas ref={right} className="w-full rounded-lg bg-slate-100 dark:bg-slate-800" />
     </div>
   );
 }
@@ -349,7 +349,7 @@ export default function MeasuredTest({ lang, slug }: { lang: SnapLang; slug: New
             </ul>
           </div>
 
-          <p className="rounded-2xl bg-slate-50 px-4 py-3 text-sm text-slate-600 dark:bg-slate-800/60 dark:text-slate-300">
+          <p className="rounded-lg bg-slate-50 px-4 py-3 text-sm text-slate-600 dark:bg-slate-800/60 dark:text-slate-300">
             <b>{v.advice}</b> — {r.weakest}
           </p>
 
@@ -371,7 +371,7 @@ export default function MeasuredTest({ lang, slug }: { lang: SnapLang; slug: New
 
           <button
             onClick={reset}
-            className={`w-full rounded-2xl border border-slate-200 py-3 text-sm font-semibold text-slate-600 transition-colors dark:border-slate-700 dark:text-slate-300 ${s.theme.resetHover}`}
+            className={`w-full rounded-lg border border-slate-200 py-3 text-sm font-semibold text-slate-600 transition-colors dark:border-slate-700 dark:text-slate-300 ${s.theme.resetHover}`}
           >
             ↺
           </button>

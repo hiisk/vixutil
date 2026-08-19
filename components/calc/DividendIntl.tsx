@@ -41,7 +41,7 @@ export default function DividendIntl({ lang }: { lang: CalcLang }) {
       <Card className="p-5">
         <p className="label-caps mb-3">{c.section}</p>
         <div className="flex flex-col gap-3">
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div>
               <Label>{c.invest}</Label>
               <input type="number" value={invest} onChange={e => setInvest(e.target.value)} className={inputCls} />
@@ -51,7 +51,7 @@ export default function DividendIntl({ lang }: { lang: CalcLang }) {
               <input type="number" step="0.1" value={rate} onChange={e => setRate(e.target.value)} className={inputCls} />
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div>
               <Label>{c.freq}</Label>
               <select value={freq} onChange={e => setFreq(e.target.value)} className={selectCls}>
@@ -77,7 +77,7 @@ export default function DividendIntl({ lang }: { lang: CalcLang }) {
 
       {result && (
         <>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <SummaryCard
               label={c.annualIncome}
               value={fmt(result.annualNet)}

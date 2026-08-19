@@ -151,7 +151,7 @@ export default function KeyboardTest({ lang = 'ko' }: { lang?: DeviceLang } = {}
 
   return (
     <div>
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-2.5 sm:p-3.5 overflow-hidden">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-2.5 sm:p-3.5 overflow-hidden">
         <div className="flex flex-col gap-1 sm:gap-1.5">
           {ROWS.map((row, i) => (
             <div key={i} className="flex gap-1 sm:gap-1.5">{row.map(cell)}</div>

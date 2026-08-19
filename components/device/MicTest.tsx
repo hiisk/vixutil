@@ -141,7 +141,7 @@ export default function MicTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
   return (
     <div>
       {state !== 'on' ? (
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-5 py-10 text-center">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-5 py-10 text-center">
           <ToolIcon emoji="🎤" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
           <p className="text-sm text-slate-500 dark:text-slate-400 mb-5 leading-relaxed">
             {ui.prompt1}
@@ -151,7 +151,7 @@ export default function MicTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
           <button
             onClick={() => start()}
             disabled={state === 'starting'}
-            className="rounded-xl bg-sec font-bold px-7 py-3 text-sm shadow-lg hover:opacity-90 disabled:opacity-60 transition-opacity"
+            className="rounded-xl bg-sec font-bold px-7 py-3 text-sm shadow-sm hover:opacity-90 disabled:opacity-60 transition-opacity"
           >
             {state === 'starting' ? ui.opening : ui.startTest}
           </button>
@@ -160,7 +160,7 @@ export default function MicTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
           )}
         </div>
       ) : (
-        <div className="rounded-2xl border chip-off p-5">
+        <div className="rounded-lg border chip-off p-5">
           <div className="flex items-end justify-center gap-[3px] h-28 mb-5">
             {bars.map((b, i) => (
               <div

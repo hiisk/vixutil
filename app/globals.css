@@ -366,11 +366,24 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
    게다가 이 문자열은 세 번 저장된다 — HTML, .rsc(하이드레이션용 페이로드),
    .segments(세그먼트별 프리페치). 빌드 산출물이 커져 Vercel 빌드가 디스크에서
    죽은 자리가 여기다. 압축은 전송만 도와주고 디스크는 못 도와준다. */
+/* ── 갈래 바로가기 칩 (2026-08-19 다시 씀) ──────────────────────
+   테두리 상자 열일곱 개가 모든 페이지 아래에 깔려 있었다. 판이 열일곱이면
+   하나하나가 «누를 것»으로 안 읽히고 벽으로 읽힌다. 테두리를 걷고 글자와
+   아이콘만 남긴다 — 마우스를 올릴 때만 옅은 판이 뜬다.
+
+   hover 색이 파랑으로 박혀 있던 것도 갈래 색으로 바꿨다. 이 칩은 열 언어
+   모든 페이지에 있으므로 여기 파랑 하나가 사이트 전체에서 가장 자주 보이는
+   «틀린 색»이었다. */
 .nav-chip {
-  @apply flex items-center gap-2 rounded-xl border border-slate-200 dark:border-slate-700
-         px-3 py-2.5 text-sm font-semibold text-slate-600 dark:text-slate-300
-         hover:border-blue-300 hover:text-blue-600 dark:hover:text-blue-300
-         hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors;
+  @apply flex items-center gap-2 rounded-md px-2.5 py-2 text-sm font-medium
+         text-slate-600 dark:text-slate-300 transition-colors;
+}
+@media (hover: hover) {
+  .nav-chip:hover {
+    background: rgb(var(--c-sec-rgb) / 0.07);
+    color: var(--c-sec);
+  }
+  .nav-chip:hover .nav-chip-icon { color: var(--c-sec); }
 }
 
 /* 그 안의 아이콘 — 같은 자리에 같은 수만큼 붙는다 */
@@ -710,6 +723,15 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
    아래 여섯이 낱장 두 장에서 23KB를 차지했다. 되풀이 횟수가 크다 —
    값 칸 66회, 단위 59회, 이웃 칩 62회(테두리 색만 다른 변종 둘). */
 
+/* ── 이름/값 두 열짜리 표 (2026-08-19) ───────────────────────────
+   이름 열이 회색 판으로 채워져 있었다. 판을 칠하면 «머리글»로 읽히는데 이건
+   머리글이 아니라 한 줄의 왼쪽 절반이다. 판을 걷고 줄 사이 실선만 남긴다 —
+   사이트의 다른 표(.row-pair)가 쓰는 갈래색 줄무늬와 같은 생각이다. */
+.kv-table tbody tr { border-bottom: 1px solid var(--color-slate-100); }
+html.dark .kv-table tbody tr { border-bottom-color: var(--color-slate-800); }
+.kv-table tbody tr:last-child { border-bottom: 0; }
+.kv-table tbody tr:nth-child(even) { background: rgb(var(--c-sec-rgb) / 0.04); }
+
 /* 표의 값 칸 — 한 장에 예순 번 넘게 나온다.
    이름 칸(row-label)과 무게 차이가 거의 없어 스무 줄짜리 표가 밋밋했다.
    한 급 키우고(14→15px) 대비를 끝까지 올려 값이 먼저 읽히게 한다. */
@@ -857,8 +879,9 @@ html.dark .row-pair.row-now {
 }
 
 /* 칸 밑에 붙는 한 줄 설명 */
+/* 칸 밑 한 줄 설명 — 그 칸에 속하므로 위로 바짝 붙인다 */
 .fld-note {
-  @apply text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed;
+  @apply mt-1.5 text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed;
 }
 
 /* ── 판·단추·칸을 섹션색으로 (2026-08-18) ────────────────────────
@@ -918,13 +941,8 @@ html.dark .row-pair.row-now {
 }
 html.dark .hero-band::before { border-bottom-color: var(--color-slate-800); }
 
-/* 띠 안에서는 상자가 아니다. .hero보다 뒤에 오도록 두 클래스로 붙여 우선순위를 올린다 */
-.hero.hero-flat {
-  background: none;
-  border: 0;
-  border-radius: 0;
-  padding: 0;
-}
+/* .hero가 이미 판을 안 그린다 — 남은 것은 좌우 여백을 지우는 일뿐이다 */
+.hero.hero-flat { padding: 0; }
 .hero.hero-flat .hero-in { @apply px-0 py-6 sm:py-8; }
 /* 잘린 큰 아이콘은 바탕 그림이 아니라 얼룩이다 — 띠에서는 안 그린다 */
 .hero.hero-flat .hero-art { display: none; }
@@ -1006,8 +1024,6 @@ html.dark .btn-pri { color: #1a1a17; }
          text-[11px] font-bold leading-none;
 }
 .stat-mark-primary { background: rgb(var(--c-sec-rgb) / 0.16); color: var(--c-sec); }
-.stat-mark-green   { @apply bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300; }
-.stat-mark-red     { @apply bg-rose-100 text-rose-700 dark:bg-rose-900/50 dark:text-rose-300; }
 
 /* 숫자를 말로 한 줄 — components/CalcShell.tsx의 Insight.
    판을 깔지 않는다. 결과 바로 아래에 판이 또 오면 층이 하나 더 생겨서, 읽으라고
@@ -1063,7 +1079,13 @@ html.dark .btn-pri { color: #1a1a17; }
 }
 .dial:focus-within { border-color: var(--c-sec); }
 .dial-k {
-  @apply text-[11px] font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500;
+  @apply text-xs font-medium text-slate-500 dark:text-slate-400;
+}
+/* «(선택)»·«(비우면 …)» — 있어도 되고 없어도 되는 칸이다. 주요 입력과 같은
+   무게로 서 있으면 폼이 실제보다 길고 어려워 보인다. 라벨에서 이 부분만
+   떼어 흐리게 둔다 — 없애면 «왜 비어 있지»가 되고, 같게 두면 «다 채워야 하나»가 된다. */
+.dial-opt {
+  @apply font-normal text-slate-400 dark:text-slate-500;
 }
 .dial input {
   @apply w-full bg-transparent p-0 text-lg font-semibold tabular-nums
@@ -1075,13 +1097,24 @@ html.dark .btn-pri { color: #1a1a17; }
    .dial과 같은 생각이되, 라벨과 칸이 이미 짝지어져 있는 낱장(159장)을 위해
    테두리를 칸 자체에 건다. 위·좌·우 선을 지우고 아래만 남기면 «상자»가
    «고칠 수 있는 값»이 된다 — 마크업은 한 글자도 안 고치고 전부 바뀐다. */
+/* ── 폼 리듬 (2026-08-19) ────────────────────────────────────────
+   라벨·칸·설명이 전부 같은 간격으로 놓여 있어서, 어디까지가 한 칸인지 눈으로
+   안 잘렸다. 라벨은 칸에 바짝 붙이고(mb 0.5) 칸 아래 여백을 벌려 덩어리 사이가
+   덩어리 안보다 넓게 만든다 — 묶음은 간격 차이로만 생긴다.
+
+   칸 높이도 키웠다. 값이 18px인데 위아래 8px면 손가락으로 겨눌 자리가 34px다. */
 .dial-input {
-  @apply w-full bg-transparent px-0 py-2 text-lg font-semibold tabular-nums
+  @apply w-full bg-transparent px-0 pt-1.5 pb-2.5 text-lg font-semibold tabular-nums
          text-slate-900 dark:text-slate-50 outline-none
          border-0 border-b border-slate-200 dark:border-slate-800 rounded-none
          transition-colors;
 }
 .dial-input:focus { border-color: var(--c-sec); }
+/* 돈 칸 아래 한글 단위 — «300,000,000»이 3억인지 30억인지 한 박자 걸린다.
+   한국에서 큰 돈은 억·만으로 읽지 자릿수로 읽지 않는다(components/MoneyInput.tsx). */
+.money-hint {
+  @apply mt-1 text-[11px] font-medium text-slate-400 dark:text-slate-500 tabular-nums;
+}
 .dial-input::placeholder { @apply text-slate-300 dark:text-slate-600 font-normal; }
 /* select은 화살표를 직접 그린다 — 아래 선만 남기면 기본 화살표가 겉돈다 */
 .dial-sel {
@@ -1257,17 +1290,20 @@ html.dark .chart-grid { stroke: var(--color-slate-800); }
 
    타일로 두면 기둥 안에 들어가 정렬이 저절로 맞고, **홈에서 누른 그 칸과 같은
    모양**이 페이지 머리에 다시 나온다 — 홈 격자·공유 카드·페이지가 한 줄로 이어진다. */
+/* ── 머리는 판이 아니다 (2026-08-19) ─────────────────────────────
+   한동안 제목을 옅은 색 타일에 담았다. 그런데 머리 아래 실선(.hero-band)이 이미
+   본문과 층을 나누고 있어서, 타일은 같은 일을 두 번 하는 것이었다. 게다가 타일을
+   쓰는 페이지와 안 쓰는 페이지가 갈려서 «어떤 데는 상자, 어떤 데는 글»이 됐다.
+
+   지면 위에 글자만 세운다. 이제 .hero-flat과 차이가 없으므로 그 클래스는 아무
+   일도 하지 않는다 — 부르는 곳이 백 곳이 넘어 지우는 대신 빈 규칙으로 남긴다. */
 .hero {
-  background: rgb(var(--c-sec-rgb) / 0.05);
-  border: 1px solid rgb(var(--c-sec-rgb) / 0.14);
-  border-radius: 1rem;
-  overflow: hidden;
   position: relative;
 }
 .hero-in {
   position: relative;
   z-index: 1;
-  @apply px-5 py-8 sm:px-7 sm:py-10;
+  @apply py-6 sm:py-8;
 }
 /* ── 위계를 뒤집었다 (2026-08-19) ────────────────────────────────
    제목을 52px까지 키웠다가 되돌린다. 이 페이지에서 제일 큰 글자는 «대출 이자

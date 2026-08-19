@@ -64,8 +64,9 @@ export default function SectionShortcuts({ lang = 'ko' }: { lang?: AnyLocale10 }
         ...homeSections(lang).map(s => ({ href: localeHref(lang, s.route), icon: s.icon, label: s.title })),
       ];
 
+  /* 테두리를 걷어 칸이 좁아졌다 — 넓은 화면에서는 네 줄로 세운다 */
   return (
-    <nav className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+    <nav className="grid grid-cols-2 gap-x-2 gap-y-0.5 sm:grid-cols-3 lg:grid-cols-4">
       {sections.map((s) => (
         <Link prefetch={false} key={s.href} href={s.href} className="nav-chip">
           <ToolIcon emoji={s.icon} className="nav-chip-icon" />

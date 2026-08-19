@@ -24,8 +24,8 @@ function TypeRow({
             <button
               key={t.id}
               onClick={() => onChange(t.id)}
-              className={`rounded-2xl py-3 flex flex-col items-center justify-center transition-all border ${
-                on ? `${accent} border-transparent text-white shadow-md scale-105`
+              className={`rounded-lg py-3 transition-all border ${
+                on ? `${accent} border-transparent text-white shadow-sm scale-105`
                    : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-rose-300'
               }`}
             >
@@ -74,19 +74,19 @@ export default function BloodMatchPage() {
         </div>
       </header>
 
-      <div className="max-w-xl mx-auto px-4 py-6">
-        <div className="text-center mb-6">
+      <div className="hero-band max-w-xl mx-auto px-4 py-6">
+        <div className="mb-6">
           <h1 className="page-h1">🩸 혈액형 궁합</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">두 사람의 혈액형으로 보는 궁합</p>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-4 flex flex-col gap-5">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-4 flex flex-col gap-5">
           <TypeRow label="내 혈액형" value={me} onChange={setMe} accent="bg-gradient-to-br from-rose-500 to-red-600" />
           <TypeRow label="상대 혈액형" value={partner} onChange={setPartner} accent="bg-gradient-to-br from-orange-500 to-amber-600" />
           <button
             onClick={calculate}
             disabled={!me || !partner}
-            className="w-full rounded-xl bg-sec disabled:from-slate-200 disabled:to-slate-200 dark:disabled:from-slate-800 dark:disabled:to-slate-800 disabled:text-slate-400 text-sm font-black py-3.5 transition-all active:scale-[0.99] shadow-md shadow-rose-200 disabled:shadow-none"
+            className="w-full rounded-xl bg-sec disabled:from-slate-200 disabled:to-slate-200 dark:disabled:from-slate-800 dark:disabled:to-slate-800 disabled:text-slate-400 text-sm font-black py-3.5 transition-all active:scale-[0.99] shadow-sm shadow-rose-200 disabled:shadow-none"
           >
             {!me || !partner ? '두 혈액형을 모두 골라주세요' : '궁합 보기 💘'}
           </button>
@@ -104,12 +104,12 @@ export default function BloodMatchPage() {
           />
         ) : (
           <div className="text-center py-10 text-slate-300 dark:text-slate-600">
-            <ToolIcon emoji="☝️" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+            <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">두 사람의 혈액형을 골라 궁합을 확인해보세요</p>
           </div>
         )}
 
-        <div className="mt-8 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+        <div className="mt-8 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
           <h2 className="text-sm font-black text-slate-800 dark:text-slate-100 mb-2">혈액형 궁합, 믿어도 되나요?</h2>
           <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
             아니요, <strong className="text-slate-800 dark:text-slate-100">과학적 근거는 없습니다</strong>.

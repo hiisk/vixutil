@@ -100,7 +100,7 @@ export default function LangPicker({
       {open && (
         <div
           role="menu"
-          className={`absolute z-50 mt-1.5 min-w-[9rem] rounded-xl border chip-off shadow-lg overflow-hidden ${
+          className={`absolute z-50 mt-1.5 min-w-[9rem] rounded-xl border chip-off shadow-sm overflow-hidden ${
             align === 'right' ? 'right-0' : 'left-0'
           }`}
         >

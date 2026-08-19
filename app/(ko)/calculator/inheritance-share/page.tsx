@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 import Link from 'next/link';
 import CalcShell, { Card, CardHeader, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
 import {
@@ -155,11 +156,10 @@ export default function InheritanceSharePage() {
         <Card className="p-5">
           <div className="flex flex-col gap-3">
             <div>
-              <Label>상속재산 (원, 비우면 비율만)</Label>
-              <input type="number" value={estate} onChange={e => setEstate(e.target.value)}
-                placeholder="예: 700000000" className={inputCls} min="0" />
+              <Label>상속재산 <span className="dial-opt">원, 비우면 비율만</span></Label>
+              <MoneyInput value={estate} onChange={setEstate} placeholder="예: 700000000" />
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>자녀 수 (살아 있는)</Label>
                 <select value={children} onChange={e => setChildren(e.target.value)} className={inputCls}>
@@ -199,7 +199,7 @@ export default function InheritanceSharePage() {
               )}
             </div>
 
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-3 gap-x-4 gap-y-5">
               <div>
                 <Label>직계존속</Label>
                 <select value={parents} onChange={e => setParents(e.target.value)} className={inputCls}>

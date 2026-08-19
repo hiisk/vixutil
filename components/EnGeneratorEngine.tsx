@@ -111,9 +111,10 @@ export default function EnGeneratorEngine({ gen, lang = 'en' }: { gen: Generator
 
       <div className="flex-1 px-4 py-8 max-w-lg mx-auto w-full">
         <div className="text-center mb-7">
-          <div className={`w-24 h-24 rounded-3xl mx-auto mb-4 flex items-center justify-center bg-sec-soft shadow-xl`}>
-            <ToolIcon emoji={gen.icon} className="w-12 h-12 drop-shadow-md" />
-          </div>
+          {/* 96px 아이콘 판이 화면 위쪽을 차지했다 — 칩 하나로 줄인다 */}
+          <span className="bg-sec-soft mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg">
+            <ToolIcon emoji={gen.icon} className="h-5 w-5" />
+          </span>
           <span className="text-xs font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950/30 px-3 py-1 rounded-full">{gen.category}</span>
           <div className="hero-band">
             <PageHero title={gen.title} desc={gen.desc} />
@@ -122,7 +123,7 @@ export default function EnGeneratorEngine({ gen, lang = 'en' }: { gen: Generator
 
         <button
           onClick={generate}
-          className="w-full bg-emerald-500 hover:bg-emerald-600 active:scale-[0.98] text-white rounded-2xl py-4 font-black text-base transition-all shadow-md shadow-emerald-200 dark:shadow-none mb-5"
+          className="w-full bg-emerald-500 hover:bg-emerald-600 active:scale-[0.98] text-white rounded-lg py-4 font-black text-base transition-all shadow-sm shadow-emerald-200 dark:shadow-none mb-5"
         >
           {hasResults ? t.again : t.go}
         </button>
@@ -130,7 +131,7 @@ export default function EnGeneratorEngine({ gen, lang = 'en' }: { gen: Generator
         {hasResults && (
           <div key={animKey} className="space-y-2.5 mb-4 animate-in">
             {results.map((r, i) => (
-              <div key={`${r}-${i}`} className="group flex items-center gap-3 bg-white dark:bg-slate-900 rounded-2xl px-4 py-3.5 border border-slate-100 dark:border-slate-800 hover:border-emerald-200 hover:shadow-sm transition-all">
+              <div key={`${r}-${i}`} className="group flex items-center gap-3 bg-white dark:bg-slate-900 rounded-lg px-4 py-3.5 border border-slate-100 dark:border-slate-800 hover:border-emerald-200 hover:shadow-sm transition-all">
                 <span className="shrink-0 w-5 h-5 rounded-full bg-emerald-100 dark:bg-emerald-950/40 text-emerald-600 text-xs font-black flex items-center justify-center">{i + 1}</span>
                 <p className="flex-1 text-sm font-semibold text-slate-800 dark:text-slate-100 min-w-0">{r}</p>
                 <button onClick={() => refreshOne(i)} title={t.reroll} className="text-slate-300 dark:text-slate-600 hover:text-emerald-500 transition-colors p-1">

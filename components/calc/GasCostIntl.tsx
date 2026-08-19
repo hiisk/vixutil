@@ -30,7 +30,7 @@ export default function GasCostIntl({ lang }: { lang: CalcLang }) {
     <div className="flex flex-col gap-4">
       <Card className="p-5">
         <p className="label-caps mb-3">{c.section}</p>
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 gap-x-4 gap-y-5">
           <div>
             <Label>{c.distance}</Label>
             <input type="number" value={distance} onChange={e => setDistance(e.target.value)} className={inputCls} />
@@ -58,7 +58,7 @@ export default function GasCostIntl({ lang }: { lang: CalcLang }) {
             <p className="stat-label">{c.cost}</p>
             <p className="stat-value">{fmt(result.cost, 0)}</p>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <SummaryCard label={c.fuelNeeded} value={`${fmt(result.fuel)} ${c.litres}`} />
             <SummaryCard label={c.perKm} value={fmt(result.cost / result.km, 3)} />
           </div>

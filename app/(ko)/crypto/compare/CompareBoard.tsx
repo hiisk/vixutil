@@ -42,8 +42,8 @@ interface Snapshot {
   overlapDays: number;
 }
 
-const inputCls =
-  'w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition';
+/* 사이트 공용 칸 — 초점 테두리가 갈래 색을 따라간다(globals.css .dial-input) */
+const inputCls = 'dial-input';
 
 const signed = (v: number | null | undefined, d = 1) =>
   v == null || !isFinite(v) ? '—' : `${v >= 0 ? '+' : ''}${v.toFixed(d)}%`;
@@ -74,7 +74,7 @@ function CoinPicker({
         <input id={id} type="text" value={query} onChange={e => setQuery(e.target.value)}
           placeholder={`${coin.base} · search`} className={inputCls} autoComplete="off" />
         {suggestions.length > 0 && (
-          <ul className="absolute z-20 mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-lg overflow-hidden">
+          <ul className="absolute z-20 mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm overflow-hidden">
             {suggestions.map(c => (
               <li key={c.slug}>
                 <button type="button" onClick={() => { onPick(c); setQuery(''); }}
@@ -148,7 +148,7 @@ export default function CompareBoard() {
 
   if (state === 'loading') {
     return (
-      <div role="status" aria-live="polite" className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
+      <div role="status" aria-live="polite" className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
         <div aria-hidden="true" className="w-8 h-8 border-4 border-slate-200 dark:border-slate-700 border-t-amber-500 rounded-full animate-spin" />
         <span className="text-sm font-bold text-slate-500 dark:text-slate-400">Loading both coins…</span>
       </div>
@@ -157,7 +157,7 @@ export default function CompareBoard() {
 
   if (state === 'error' || !snap) {
     return (
-      <div role="alert" className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
+      <div role="alert" className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
         <span aria-hidden="true" className="text-3xl">⚠️</span>
         <span className="text-sm font-bold text-rose-600 dark:text-rose-400">Couldn&apos;t load one of these coins</span>
         <button type="button" onClick={load} className="mt-2 text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2 transition-colors">Retry</button>
@@ -217,7 +217,7 @@ export default function CompareBoard() {
 
   return (
     <>
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 mb-4">
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5 mb-4">
         <div className="flex flex-wrap items-end gap-3">
           <CoinPicker label="First coin" id="cmp-a" coin={coinA} onPick={c => setSlugA(c.slug)} />
           <span className="pb-3 text-sm font-black text-slate-400 dark:text-slate-500">vs</span>
@@ -228,7 +228,7 @@ export default function CompareBoard() {
       {/* 헤드라인 */}
       <div className="grid grid-cols-2 gap-3 mb-4">
         {[a, b].map(s => (
-          <div key={s.coin.slug} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <div key={s.coin.slug} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
             <div className="flex items-center gap-2.5 mb-2">
               <CoinLogo base={s.coin.base} size={28} />
               <div className="min-w-0">
@@ -248,7 +248,7 @@ export default function CompareBoard() {
       </div>
 
       {/* 구간별 수익률 — 창을 바꾸면 승자가 바뀐다 */}
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
         <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
           <h2 className="text-sm font-black text-slate-900 dark:text-white">Return over different windows</h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
@@ -288,7 +288,7 @@ export default function CompareBoard() {
       </div>
 
       {/* 위험 지표 */}
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
         <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
           <h2 className="text-sm font-black text-slate-900 dark:text-white">Risk side by side</h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
@@ -327,7 +327,7 @@ export default function CompareBoard() {
 
       {/* 상관계수 — 비교의 전제를 무너뜨리는 부분 */}
       {snap.corr != null && (
-        <div className="rounded-2xl border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
+        <div className="rounded-lg border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
           <h2 className="text-sm font-black text-amber-900 dark:text-amber-200 mb-1.5">
             These two move together at {snap.corr.toFixed(2)} — {corrLabel(snap.corr)}
           </h2>
@@ -343,7 +343,7 @@ export default function CompareBoard() {
         </div>
       )}
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
         <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">Why &quot;which is better&quot; has no answer here</h2>
         <p className="mb-2">
           Every comparison of two assets is a comparison over a window, and the window usually decides the result. That is why the returns

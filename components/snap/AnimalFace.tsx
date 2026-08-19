@@ -201,7 +201,7 @@ export default function AnimalFace({ lang }: { lang: SnapIntlLang }) {
     >
       {result => (
         <>
-          <div className="rounded-2xl p-6 text-white text-center" style={{ background: `linear-gradient(135deg, ${result.from}, ${result.to})` }}>
+          <div className="rounded-lg p-6 text-white text-center" style={{ background: `linear-gradient(135deg, ${result.from}, ${result.to})` }}>
             <p className="text-sm font-semibold text-white/80 mb-2">{c.result}</p>
             <div className="text-6xl mb-2">{result.emoji}</div>
             <p className="text-2xl font-black mb-1">{result.label}</p>
@@ -209,7 +209,7 @@ export default function AnimalFace({ lang }: { lang: SnapIntlLang }) {
             <p className="text-sm leading-relaxed">{result.text}</p>
           </div>
 
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 flex items-center gap-3">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5 flex items-center gap-3">
             <span className="text-3xl">{result.runnerUp.emoji}</span>
             <div className="flex-1">
               <p className="text-xs text-slate-400 dark:text-slate-500">{c.runnerUp}</p>
@@ -218,7 +218,7 @@ export default function AnimalFace({ lang }: { lang: SnapIntlLang }) {
             <span className="text-sm font-bold text-orange-600">{result.runnerUp.percent}%</span>
           </div>
 
-          <div className="bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-950/20 dark:to-amber-950/20 border border-orange-100 dark:border-orange-900/40 rounded-2xl p-5">
+          <div className="bg-orange-50 dark:from-orange-950/20 dark:to-amber-950/20 border border-orange-100 dark:border-orange-900/40 rounded-lg p-5">
             <p className="text-xs font-bold text-orange-600 uppercase tracking-wide mb-2">{c.tip}</p>
             <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.tip}</p>
           </div>

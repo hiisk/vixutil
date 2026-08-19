@@ -136,7 +136,7 @@ export default function Scorecard({ symbols, market }: { symbols: string[]; mark
   const anyRealEdge = rows?.some(r => verdict(r.merged.hitEdgePP, r.merged.expectancyEdgeR, r.stdErrPP) === 'real-edge');
 
   return (
-    <section className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-6">
+    <section className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-6">
       <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
         <h2 className="text-sm font-black text-slate-900 dark:text-white">Does this board work?</h2>
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">

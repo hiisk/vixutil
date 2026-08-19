@@ -45,7 +45,7 @@ export default function MatchResultCard({
   return (
     <div id="match-result" className="space-y-4">
       {/* 히어로 */}
-      <div className={`mr-pop relative overflow-hidden rounded-3xl bg-gradient-to-br ${heroGradient} p-6 text-white text-center shadow-xl`}>
+      <div className={`mr-pop relative overflow-hidden rounded-xl bg-gradient-to-br ${heroGradient} p-6 text-white text-center shadow-sm`}>
         <span className="absolute -top-6 -right-4 text-[110px] opacity-15 select-none">{result.emoji}</span>
         <span aria-hidden className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 w-40 h-40 rounded-full bg-white/20 blur-3xl" />
         <div className="relative">
@@ -72,18 +72,18 @@ export default function MatchResultCard({
       </div>
 
       {/* 관계 원리 */}
-      <div className="rounded-2xl border chip-off p-5">
+      <div className="rounded-lg border chip-off p-5">
         <p className={`text-xs font-black ${accentText} uppercase tracking-wide mb-2`}>왜 이렇게 나왔나요?</p>
         <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.reason}</p>
       </div>
 
       {/* 연애·조언 */}
       <div className="grid gap-3">
-        <div className="rounded-2xl border border-rose-100 dark:border-rose-900/40 bg-rose-50/60 dark:bg-rose-950/20 p-5">
+        <div className="rounded-lg border border-rose-100 dark:border-rose-900/40 bg-rose-50/60 dark:bg-rose-950/20 p-5">
           <p className="text-xs font-black text-rose-600 dark:text-rose-400 mb-1.5">💕 연애 궁합</p>
           <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.loveComment}</p>
         </div>
-        <div className="rounded-2xl border border-amber-100 dark:border-amber-900/40 bg-amber-50/60 dark:bg-amber-950/20 p-5">
+        <div className="rounded-lg border border-amber-100 dark:border-amber-900/40 bg-amber-50/60 dark:bg-amber-950/20 p-5">
           <p className="text-xs font-black text-amber-600 dark:text-amber-400 mb-1.5">💡 관계 조언</p>
           <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.adviceComment}</p>
         </div>

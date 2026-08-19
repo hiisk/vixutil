@@ -57,7 +57,7 @@ export default function ImageDrop({
         onDragOver={e => { e.preventDefault(); setOver(true); }}
         onDragLeave={() => setOver(false)}
         onDrop={e => { e.preventDefault(); setOver(false); take(e.dataTransfer.files); }}
-        className={`flex flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed px-5 py-12 cursor-pointer transition-colors ${
+        className={`flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed px-5 py-12 cursor-pointer transition-colors ${
           over
             ? 'border-violet-400 bg-violet-50 dark:bg-violet-950/40'
             : 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 hover:border-violet-300'

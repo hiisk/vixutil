@@ -73,7 +73,7 @@ export default function AltseasonBoard() {
 
   if (state === 'loading') {
     return (
-      <div role="status" aria-live="polite" className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
+      <div role="status" aria-live="polite" className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
         <div aria-hidden="true" className="w-8 h-8 border-4 border-slate-200 dark:border-slate-700 border-t-amber-500 rounded-full animate-spin" />
         <span className="text-sm font-bold text-slate-500 dark:text-slate-400">Loading {UNIVERSE} coins from Binance…</span>
         <span className="text-xs text-slate-500 dark:text-slate-400">This one takes a moment — it reads a year of history per coin.</span>
@@ -83,7 +83,7 @@ export default function AltseasonBoard() {
 
   if (state === 'error' || !idx) {
     return (
-      <div role="alert" className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
+      <div role="alert" className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
         <span aria-hidden="true" className="text-3xl">⚠️</span>
         <span className="text-sm font-bold text-rose-600 dark:text-rose-400">Couldn&apos;t load market data</span>
         <span className="text-xs text-slate-500 dark:text-slate-400">Binance may be restricted in your region</span>
@@ -111,7 +111,7 @@ export default function AltseasonBoard() {
       </div>
 
       {/* 지수 */}
-      <div className={`rounded-3xl border p-6 mb-4 text-center ${ui.ring}`}>
+      <div className={`rounded-xl border p-6 mb-4 text-center ${ui.ring}`}>
         <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">
           Altcoin Season Index · {idx.days} days
         </p>
@@ -158,7 +158,7 @@ export default function AltseasonBoard() {
       </div>
 
       {/* 구성 종목 — 지수는 이 표의 요약일 뿐이다 */}
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
         <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
           <h2 className="text-sm font-black text-slate-900 dark:text-white">Every coin behind that number</h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
@@ -209,7 +209,7 @@ export default function AltseasonBoard() {
       </div>
 
       {/* 정직한 한계 */}
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
         <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">What this index is not</h2>
         <p className="mb-2">
           <b className="text-slate-700 dark:text-slate-200">The 75 and 25 thresholds are conventions, not findings.</b> Nothing changes in the market

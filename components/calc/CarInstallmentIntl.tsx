@@ -33,7 +33,7 @@ export default function CarInstallmentIntl({ lang }: { lang: CalcLang }) {
       <Card className="p-5">
         <p className="label-caps mb-3">{c.section}</p>
         <div className="flex flex-col gap-3">
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div>
               <Label>{c.price}</Label>
               <input type="number" value={price} onChange={e => setPrice(e.target.value)} className={inputCls} />
@@ -43,7 +43,7 @@ export default function CarInstallmentIntl({ lang }: { lang: CalcLang }) {
               <input type="number" value={down} onChange={e => setDown(e.target.value)} className={inputCls} />
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div>
               <Label>{c.months}</Label>
               <input type="number" value={months} onChange={e => setMonths(e.target.value)} className={inputCls} />
@@ -64,7 +64,7 @@ export default function CarInstallmentIntl({ lang }: { lang: CalcLang }) {
             <p className="stat-label">{c.monthly}</p>
             <p className="stat-value">{fmt(result.monthly)}</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-4 gap-y-5">
             <SummaryCard label={c.borrowed} value={fmt(result.loan)} />
             <SummaryCard label={c.totalPaid} value={fmt(result.paid)} />
             <SummaryCard label={c.totalInterest} value={fmt(result.interest)} variant="red" />

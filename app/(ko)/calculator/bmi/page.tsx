@@ -2,13 +2,12 @@
 import { useState } from 'react';
 
 /*
- * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
- * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
- * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
- * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
- * 골라 둔 예시를 그대로 올렸다.
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 빈 칸으로 열면 무엇을
+ * 보여 주는 계산기인지 눌러 보기 전에는 모른다 — 값을 미리 넣어 두면 「계산하기」
+ * 한 번에 한 벌이 통째로 보이고, 사람은 그 위에 자기 숫자를 덮어쓴다.
+ * 값은 내가 지어내지 않고 저자가 이미 골라 둔 예시를 그대로 올렸다.
  */
-import CalcShell, { Card, Label, inputCls } from '@/components/CalcShell';
+import CalcShell, { Card, Label, inputCls, PrimaryBtn } from '@/components/CalcShell';
 
 // 대한비만학회 2022 진료지침 기준
 const LEVELS = [
@@ -26,33 +25,23 @@ export default function BmiPage() {
   const [height, setHeight] = useState('175');
   const [weight, setWeight] = useState('70');
   const [sex, setSex] = useState<'m'|'f'>('m');
+  const [result, setResult] = useState<{
+    bmi: number; std: number; diff: number; level: typeof LEVELS[0];
+    idealMin: number; idealMax: number;
+  }|null>(null);
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: {
-    bmi: number; std: number; diff: number; level: typeof LEVELS[0];
-    idealMin: number; idealMax: number;
-  }|null = ((): {
-    bmi: number; std: number; diff: number; level: typeof LEVELS[0];
-    idealMin: number; idealMax: number;
-  }|null => {
+  function calculate() {
     const h = Number(height) / 100;
     const w = Number(weight);
-    if (!h || !w) return null;
+    if (!h || !w) return;
     const bmi = w / (h * h);
     const std = sex === 'm' ? (Number(height) - 100) * 0.9 : (Number(height) - 100) * 0.85;
     const level = LEVELS.find(l => bmi < l.max) ?? LEVELS[LEVELS.length - 1];
     // 정상 BMI 범위 체중
     const idealMin = 18.5 * h * h;
     const idealMax = 22.9 * h * h;
-    return ({ bmi, std, diff: w - std, level, idealMin, idealMax });
-  
-    return null;
-  })();
-
+    setResult({ bmi, std, diff: w - std, level, idealMin, idealMax });
+  }
 
   const bmiPct = result ? Math.min(100, Math.max(0, (result.bmi - BMI_SCALE.min) / (BMI_SCALE.max - BMI_SCALE.min) * 100)) : 0;
 
@@ -104,7 +93,7 @@ export default function BmiPage() {
                 ))}
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>키 (cm)</Label>
                 <input type="number" value={height} onChange={e=>setHeight(e.target.value)}
@@ -117,12 +106,15 @@ export default function BmiPage() {
               </div>
             </div>
           </div>
+          <div className="mt-4">
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
+          </div>
         </Card>
 
         {result && (
           <>
             {/* BMI 결과 카드 */}
-            <div className={`rounded-2xl border p-5 ${result.level.bg}`}>
+            <div className={`rounded-lg border p-5 ${result.level.bg}`}>
               <div className="flex justify-between items-start mb-5">
                 <div>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">BMI 지수</p>
@@ -157,7 +149,7 @@ export default function BmiPage() {
             </div>
 
             {/* 수치 카드들 */}
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <Card className="p-4">
                 <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">표준체중 ({sex==='m'?'남':'여'})</p>
                 <p className="text-xl font-black text-slate-900 dark:text-slate-100">{result.std.toFixed(1)} kg</p>

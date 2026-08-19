@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import CalcShell, {
-  Card, CardHeader, Label, inputCls, selectCls,
+  Card, CardHeader, Label, PrimaryBtn, inputCls, selectCls,
   SummaryCard, SummaryGrid,
 } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
@@ -18,25 +18,18 @@ export default function CarRegistrationPage() {
   const [bondRate, setBondRate] = useState('12');
   const [bondDiscountRate, setBondDiscountRate] = useState('8');
   const [etcFee, setEtcFee] = useState(150_000);
+  const [result, setResult] = useState<RegistrationResult | null>(null);
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: RegistrationResult | null = ((): RegistrationResult | null => {
-    if (price <= 0) return null;
-    return (calcRegistration({
+  function calculate() {
+    if (price <= 0) return;
+    setResult(calcRegistration({
       price,
       carType,
       bondRate: Number(bondRate) || 0,
       bondDiscountRate: Number(bondDiscountRate) || 0,
       etcFee,
     }));
-  
-    return null;
-  })();
-
+  }
 
   return (
     <CalcShell
@@ -107,7 +100,7 @@ export default function CarRegistrationPage() {
 
         <Card className="p-5">
           <CardHeader title="공채 · 기타" />
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div>
               <Label>공채 매입 비율 (%)</Label>
               <input
@@ -131,6 +124,8 @@ export default function CarRegistrationPage() {
             공채를 만기까지 보유할 계획이면 할인율을 0으로 두세요. 되파는 경우에만 손실이 생깁니다.
           </p>
         </Card>
+
+        <PrimaryBtn onClick={calculate}>취등록세 계산</PrimaryBtn>
 
         {result && (
           <>

@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Card, Label } from '@/components/CalcShell';
+import { Card, Label, PrimaryBtn } from '@/components/CalcShell';
 import { DEV_DIFF } from '@/lib/calc-l10n/dev-tools5';
 import type { CalcLang } from '@/lib/calc-l10n/types';
 
@@ -30,20 +30,13 @@ export default function DevDiffIntl({ lang }: { lang: CalcLang }) {
   const c = DEV_DIFF[lang].ui;
   const [left, setLeft] = useState('');
   const [right, setRight] = useState('');
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: Line[] | null = ((): Line[] | null => {
+  const [result, setResult] = useState<Line[] | null>(null);
+
+  function compare() {
     const a = left.split('\n').slice(0, 1000);
     const b = right.split('\n').slice(0, 1000);
-    return (diffLines(a, b));
-  
-    return null;
-  })();
-
-
+    setResult(diffLines(a, b));
+  }
 
   const counts = result
     ? { add: result.filter(l => l.kind === 'add').length, del: result.filter(l => l.kind === 'del').length, same: result.filter(l => l.kind === 'same').length }
@@ -65,6 +58,8 @@ export default function DevDiffIntl({ lang }: { lang: CalcLang }) {
         ))}
       </div>
       <p className="text-xs text-slate-400 dark:text-slate-500 text-center">{c.limit}</p>
+
+      <PrimaryBtn onClick={compare}>{c.compare}</PrimaryBtn>
 
       {result && counts && (
         <Card className="p-5">

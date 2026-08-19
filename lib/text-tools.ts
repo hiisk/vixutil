@@ -266,3 +266,21 @@ export function relatedTextTools(slug: string, limit = 4): TextTool[] {
 export function findTextTool(slug: string): TextTool | undefined {
   return TEXT_TOOLS.find(t => t.slug === slug);
 }
+
+/**
+ * 플레이스홀더에서 첫 값을 뽑는다 (2026-08-19).
+ *
+ * 텍스트 도구는 열면 입력이 비어 있고 결과가 전부 «—»라 죽어 보였다. 무엇을
+ * 하는 도구인지 손으로 쳐 보기 전에는 모른다. 그래서 열자마자 한 벌이 돌아가게
+ * 첫 값을 넣는데, 값을 **지어내지 않는다** — 플레이스홀더가 이미 예시면 그것을 쓴다.
+ *
+ * 안내문(«PDF에서 복사한 글을 붙여 넣으세요»)은 예시가 아니므로 거른다. 예시인지는
+ * 앞머리로 가린다 — 한국어는 «예)», 그 밖 언어는 «e.g.»·«ex.»·«ej.»·«例»다.
+ * 못 가리면 빈 값 그대로 둔다. 그 도구는 예전처럼 비어서 열리고 깨지지 않는다.
+ */
+export function sampleFromPlaceholder(placeholder: string): string {
+  const m = placeholder.match(/^\s*(?:예[):]|e\.?g\.?[:)]?|ex[.:)]|ej[.:)]|例[)：:])\s*(.+)$/i);
+  if (!m) return '';
+  // «A 또는 B»처럼 두 가지를 든 예시는 앞엣것만
+  return m[1].split(/\s+(?:또는|or|o|ou)\s+/)[0].trim();
+}

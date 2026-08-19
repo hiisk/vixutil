@@ -57,7 +57,7 @@ export default function TeamMaker({ lang = 'ko' }: { lang?: RandomLang }) {
       <button
         onClick={make}
         disabled={members.length < 2}
-        className="w-full bg-sec font-black text-lg rounded-2xl py-4 mb-6 shadow-lg shadow-sky-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all disabled:opacity-50"
+        className="w-full bg-sec font-black text-lg rounded-lg py-4 mb-6 shadow-sm shadow-sky-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all disabled:opacity-50"
       >
         {ui.makeTeams}
       </button>
@@ -65,7 +65,7 @@ export default function TeamMaker({ lang = 'ko' }: { lang?: RandomLang }) {
       {teams && (
         <div className="grid grid-cols-2 gap-3">
           {teams.map((team, i) => (
-            <div key={i} className={`wc-pop rounded-2xl bg-gradient-to-br ${TEAM_COLORS[i % TEAM_COLORS.length]} text-white p-4`} style={{ animationDelay: `${i * 70}ms` }}>
+            <div key={i} className={`wc-pop rounded-lg bg-gradient-to-br ${TEAM_COLORS[i % TEAM_COLORS.length]} text-white p-4`} style={{ animationDelay: `${i * 70}ms` }}>
               <div className="text-xs font-bold text-white/80 mb-2">{ui.teamLabel(i + 1, team.length)}</div>
               <div className="flex flex-wrap gap-1.5">
                 {team.map((m, j) => (

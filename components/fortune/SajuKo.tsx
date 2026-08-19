@@ -48,7 +48,7 @@ function PillarCard({ label, pillar, isDay, ilganIdx }: {
   return (
     <div className="flex-1 min-w-0 flex flex-col gap-1">
       <p className={`text-[10px] font-black text-center tracking-wider ${isDay ? 'text-indigo-600' : 'text-slate-400 dark:text-slate-500'}`}>{label}</p>
-      <div className={`rounded-xl border-2 overflow-hidden flex flex-col ${isDay ? 'border-indigo-300 shadow-md shadow-indigo-100' : 'border-slate-200 dark:border-slate-700'}`}>
+      <div className={`rounded-xl border-2 overflow-hidden flex flex-col ${isDay ? 'border-indigo-300 shadow-sm shadow-indigo-100' : 'border-slate-200 dark:border-slate-700'}`}>
         {/* 천간 */}
         <div className="p-2 flex flex-col items-center border-b border-slate-200 dark:border-slate-800" style={{ background: stemEl.bg }}>
           <span className="text-2xl font-black leading-none" style={{ color: stemEl.color }}>{stem.hanja}</span>
@@ -127,7 +127,7 @@ function DaewoonCard({ entry, isCurrent }: { entry: DaewoonEntry; isCurrent: boo
   const branchEl = ELEMENT_INFO[branch.element];
   return (
     <div className={`flex-shrink-0 w-[72px] rounded-xl border-2 overflow-hidden text-center transition-all
-      ${isCurrent ? 'border-indigo-400 shadow-lg shadow-indigo-100 scale-105' : 'border-slate-200 dark:border-slate-700'}`}>
+      ${isCurrent ? 'border-indigo-400 shadow-sm shadow-indigo-100 scale-105' : 'border-slate-200 dark:border-slate-700'}`}>
       {isCurrent && (
         <div className="bg-indigo-500 text-white text-[8px] font-black py-0.5">현재</div>
       )}
@@ -349,14 +349,21 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
             <ToolIcon emoji="🔯" className="w-4 h-4 text-white" />
             사주 분석하기
           </span>}
+          /*
+            보라 그라디언트 판이었다. 판 위 흰 글씨는 갈래마다 색이 다른 이
+            사이트에서 여기만 튀었고, 제목 규격을 통일하면서 어두운 글자가 얹혀
+            아예 안 읽히게 됐다. 지면 그대로 두고 아이콘만 갈래색 칩에 담는다 —
+            운세라는 성격은 글리프가 내고 판이 낼 일이 아니다.
+          */
           header={
-            <div className="bg-gradient-to-br from-indigo-600 to-violet-700 px-5 py-6 text-center text-white">
-              {/* 보라 머리글 위다 — text-slate-800이면 아이콘이 배경에 묻힌다 */}
-              <ToolIcon emoji="🔯" className="w-9 h-9 mx-auto mb-2 text-white" />
+            <div className="border-b border-slate-200 dark:border-slate-800 px-5 py-6">
+              <span className="bg-sec-soft mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg">
+                <ToolIcon emoji="🔯" className="h-5 w-5" />
+              </span>
               {initialTopic
-                ? <p className="text-xl font-black">사주 분석</p>
+                ? <p className="page-h1">사주 분석</p>
                 : <h1 className="page-h1">사주 분석</h1>}
-              <p className="text-xs opacity-70 mt-1">생년월일과 성별로 사주(四柱)를 분석합니다</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">생년월일과 성별로 사주(四柱)를 분석합니다</p>
             </div>
           }
         >
@@ -386,11 +393,10 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
             </div>
 
             {/* ── 스텝 카드 ── */}
-            <div className="rounded-3xl overflow-hidden shadow-lg border border-white">
+            <div className="rounded-xl overflow-hidden shadow-sm border border-white">
 
               {/* 카드 헤더 */}
               <div className={`bg-gradient-to-br ${currentStep?.grad ?? 'from-indigo-600 to-violet-700'} px-5 pt-6 pb-8 text-white relative overflow-hidden`}>
-                <div className="absolute -right-4 -top-4 text-8xl opacity-10 select-none leading-none">{currentStep?.emoji}</div>
                 <p className="text-[10px] font-black opacity-60 tracking-widest uppercase mb-3">
                   Step {safeStep + 1} / {allSteps.length}
                 </p>
@@ -480,7 +486,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                 {/* ── singang ── */}
                 {currentStep?.key === 'singang' && singang && (
                   <div className="p-5 space-y-4">
-                    <div className={`rounded-2xl p-4 border-2 ${singang.strong ? 'border-rose-200 dark:border-rose-900/50 bg-rose-50 dark:bg-rose-950/30' : 'border-blue-200 dark:border-blue-900/50 bg-blue-50 dark:bg-blue-950/30'}`}>
+                    <div className={`rounded-lg p-4 border-2 ${singang.strong ? 'border-rose-200 dark:border-rose-900/50 bg-rose-50 dark:bg-rose-950/30' : 'border-blue-200 dark:border-blue-900/50 bg-blue-50 dark:bg-blue-950/30'}`}>
                       <div className="flex items-center gap-2 mb-3">
                         <span className="text-2xl">{singang.strong ? '💪' : '🌱'}</span>
                         <div>
@@ -490,7 +496,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                       </div>
                       <p className={`text-sm leading-[1.85] ${singang.strong ? 'text-rose-800 dark:text-rose-300' : 'text-blue-800 dark:text-blue-300'}`}>{singang.desc}</p>
                     </div>
-                    <div className="rounded-2xl p-4 bg-amber-50 dark:bg-amber-950/30 border-2 border-amber-200 dark:border-amber-900/50">
+                    <div className="rounded-lg p-4 bg-amber-50 dark:bg-amber-950/30 border-2 border-amber-200 dark:border-amber-900/50">
                       <p className="text-xs font-black text-amber-700 dark:text-amber-300 mb-2">🌟 용신(用神) — 내가 취해야 할 기운</p>
                       <p className="text-lg font-black text-amber-800 dark:text-amber-200 mb-2">{singang.yongshin}</p>
                       <p className="text-sm text-amber-700 dark:text-amber-300 leading-[1.85]">{singang.yongshinDesc}</p>
@@ -516,7 +522,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                 {currentStep?.key === 'ohaeng' && (
                   <div className="p-5 space-y-4">
                     {dominantEl && (
-                      <div className="rounded-2xl p-4 border-2" style={{ background:ELEMENT_INFO[dominantEl].bg, borderColor:ELEMENT_INFO[dominantEl].border }}>
+                      <div className="rounded-lg p-4 border-2" style={{ background:ELEMENT_INFO[dominantEl].bg, borderColor:ELEMENT_INFO[dominantEl].border }}>
                         <p className="text-xs font-black mb-2" style={{ color:ELEMENT_INFO[dominantEl].color }}>
                           {ELEMENT_INFO[dominantEl].emoji} {ELEMENT_INFO[dominantEl].label} 기운이 가장 강합니다
                         </p>
@@ -538,7 +544,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                         ))}
                       </div>
                     )}
-                    <div className="bg-slate-50 dark:bg-slate-950 rounded-2xl p-4">
+                    <div className="bg-slate-50 dark:bg-slate-950 rounded-lg p-4">
                       <p className="text-xs font-black text-slate-500 dark:text-slate-400 mb-3">지장간(地藏干) — 숨겨진 기운</p>
                       <div className="space-y-2">
                         {[
@@ -587,7 +593,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                       const stemInfo = STEMS[p.stemIdx];
                       if (!info) return null;
                       return (
-                        <div key={label} className="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+                        <div key={label} className="rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
                           <div className="flex items-center gap-2 px-4 py-3 bg-slate-50 dark:bg-slate-950">
                             <span className="text-lg font-black" style={{ color:ELEMENT_INFO[stemInfo.element].color }}>{stemInfo.hanja}</span>
                             <span className="text-xs font-bold text-slate-700 dark:text-slate-200">{label}</span>
@@ -618,7 +624,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                       지지의 십성. 천간 셋만 보면 여덟 글자 가운데 셋만 읽는 셈이라
                       화면에 안 나오는 절반이 생긴다 — 지지는 지장간 본기로 십성을 본다.
                     */}
-                    <div className="bg-slate-50 dark:bg-slate-950 rounded-2xl p-4">
+                    <div className="bg-slate-50 dark:bg-slate-950 rounded-lg p-4">
                       <p className="text-xs font-black text-slate-500 dark:text-slate-400 mb-1">지지(地支)의 십성 — 지장간 본기 기준</p>
                       <p className="text-[10px] text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">천간이 겉으로 드러난 기운이라면 지지는 뿌리입니다. 각 지지에 감춰진 지장간의 본기(本氣)로 십성을 봅니다.</p>
                       <div className="space-y-1.5">
@@ -660,7 +666,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                   return (
                     <div className="p-5 space-y-4">
                       {/* 점수 */}
-                      <div className={`rounded-2xl p-4 ${c.bg} border ${c.border}`}>
+                      <div className={`rounded-lg p-4 ${c.bg} border ${c.border}`}>
                         <div className="flex items-center justify-between mb-3">
                           <div className="flex gap-1.5">
                             {[1,2,3,4,5].map(i => (
@@ -684,7 +690,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                         if (!t || !facts) return null;
                         const rows = topicEvidence(t, facts, result.day, result.month, currentDaewoon?.pillar ?? null);
                         return (
-                          <div className={`rounded-2xl border ${c.border} ${c.bg} p-4`}>
+                          <div className={`rounded-lg border ${c.border} ${c.bg} p-4`}>
                             <p className={`text-[10px] font-black uppercase tracking-wide mb-2.5 ${c.accent}`}>이 사주가 짚는 자리</p>
                             <SajuEvidence lang="ko" rows={rows} />
                             {/* 앞으로 가는 길은 옆으로 가는 칩보다 커야 한다 — .next-step의 까닭 */}
@@ -707,7 +713,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                         ))}
                       </div>
                       {/* 조언 */}
-                      <div className={`rounded-2xl p-4 border-2 ${c.bg} ${c.border}`}>
+                      <div className={`rounded-lg p-4 border-2 ${c.bg} ${c.border}`}>
                         <p className={`text-xs font-black mb-2 ${c.accent}`}>💡 핵심 조언</p>
                         <p className="text-sm text-slate-700 dark:text-slate-200 leading-[1.85]">{d.advice}</p>
                       </div>
@@ -842,7 +848,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
               <button
                 onClick={() => goStep(i => i - 1)}
                 disabled={safeStep === 0}
-                className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-2xl font-bold text-sm transition-all border-2 ${
+                className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-lg font-bold text-sm transition-all border-2 ${
                   safeStep === 0
                     ? 'border-slate-100 dark:border-slate-800 text-slate-300 dark:text-slate-600 bg-white dark:bg-slate-900 cursor-not-allowed'
                     : 'border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-900 hover:border-indigo-300 hover:text-indigo-600'
@@ -856,10 +862,10 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
               <button
                 onClick={() => { goStep(i => i + 1); document.getElementById('saju-result')?.scrollIntoView({ behavior:'smooth', block:'start' }); }}
                 disabled={safeStep === allSteps.length - 1}
-                className={`flex-[2] flex items-center justify-center gap-2 py-3.5 rounded-2xl font-black text-sm transition-all ${
+                className={`flex-[2] flex items-center justify-center gap-2 py-3.5 rounded-lg font-black text-sm transition-all ${
                   safeStep === allSteps.length - 1
                     ? 'bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 cursor-not-allowed'
-                    : 'bg-sec shadow-lg shadow-indigo-200 hover:shadow-indigo-300 active:scale-[0.98]'
+                    : 'bg-sec shadow-sm shadow-indigo-200 hover:shadow-indigo-300 active:scale-[0.98]'
                 }`}
               >
                 {safeStep === allSteps.length - 1 ? '마지막 페이지' : (
@@ -875,13 +881,13 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
 
             {/* 공유 */}
             <div className="flex gap-2 mt-2">
-              <button onClick={handleShare} className="flex-1 flex items-center justify-center gap-2 py-3 bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-900/50 rounded-2xl text-xs font-bold text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-950/50 transition-colors">
+              <button onClick={handleShare} className="flex-1 flex items-center justify-center gap-2 py-3 bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-900/50 rounded-lg text-xs font-bold text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-950/50 transition-colors">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186z" />
                 </svg>
                 공유하기
               </button>
-              <button onClick={handleCopyLink} className="flex-1 flex items-center justify-center gap-2 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+              <button onClick={handleCopyLink} className="flex-1 flex items-center justify-center gap-2 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
                 {copied ? <><svg className="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg><span className="text-emerald-600">복사됨!</span></> : '🔗 링크 복사'}
               </button>
             </div>

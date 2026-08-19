@@ -50,9 +50,9 @@ export default function HalvingCountdownPage() {
         </div>
       </header>
 
-      <div className="max-w-3xl mx-auto px-4 py-8">
-        <div className="text-center mb-6">
-          <ToolIcon emoji="⛏️" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+      <div className="hero-band max-w-3xl mx-auto px-4 py-8">
+        <div className="mb-6">
+          <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="⛏️" className="h-6 w-6" /></span>
           <h1 className="page-h1">Bitcoin Halving Countdown</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">
             Counted in <b className="text-slate-700 dark:text-slate-200">blocks</b>, not guessed from a date
@@ -67,7 +67,7 @@ export default function HalvingCountdownPage() {
           아래는 서버에서 정적으로 렌더된다. 위 카운트다운은 브라우저에서 체인 높이를
           받아 그리므로 자바스크립트를 실행하지 않는 크롤러에겐 빈 껍데기로 보인다.
         */}
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
           <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">A halving is a block height, not a date</h2>
           <p className="mb-3">
             Every 210,000 blocks the reward paid to miners is cut in half. The rule is fixed in the protocol, so the exact block is known
@@ -87,7 +87,7 @@ export default function HalvingCountdownPage() {
           </p>
         </section>
 
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-4 mb-6 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-4 mb-6 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
           <p>
             ⚠️ Not investment advice. Block height comes from a public explorer and estimated dates depend on an assumed block time that
             will not hold exactly. All decisions and risks are your own.

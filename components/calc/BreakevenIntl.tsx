@@ -65,7 +65,7 @@ export default function BreakevenIntl({ lang }: { lang: CalcLang }) {
               <Label>{c.buyPrice}</Label>
               <input type="number" value={buyPrice} onChange={e => setBuyPrice(e.target.value)} className={inputCls} />
             </div>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-3 gap-x-4 gap-y-5">
               <div>
                 <Label>{c.buyFee}</Label>
                 <input type="number" step="0.01" value={buyFee} onChange={e => setBuyFee(e.target.value)} className={inputCls} />
@@ -87,7 +87,7 @@ export default function BreakevenIntl({ lang }: { lang: CalcLang }) {
               <Label>{c.fixedCost}</Label>
               <input type="number" value={fixedCost} onChange={e => setFixedCost(e.target.value)} className={inputCls} />
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div>
                 <Label>{c.unitPrice}</Label>
                 <input type="number" value={unitPrice} onChange={e => setUnitPrice(e.target.value)} className={inputCls} />
@@ -116,7 +116,7 @@ export default function BreakevenIntl({ lang }: { lang: CalcLang }) {
             <p className="stat-label">{c.bepQty}</p>
             <p className="stat-value">{fmt(Math.ceil(biz.qty), 0)} {c.units}</p>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <SummaryCard label={c.bepSales} value={fmt(Math.ceil(biz.qty) * (parseFloat(unitPrice) || 0), 0)} />
             <SummaryCard label={c.contribution} value={fmt(biz.contribution)} variant="green" />
           </div>

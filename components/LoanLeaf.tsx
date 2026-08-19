@@ -49,7 +49,7 @@ export default function LoanLeaf({ principal, rate, term }: { principal: number;
           {label} 연 {rate}% {term}년 대출
         </h1>
 
-        <div className="mt-4 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-700 p-6 text-white">
+        <div className="mt-4 rounded-lg bg-gradient-to-br from-emerald-600 to-teal-700 p-6 text-white">
           <p className="text-emerald-100 text-xs mb-1">원리금균등 월 상환액</p>
           <p className="text-4xl font-black leading-none tabular-nums">{won(f.monthly)}원</p>
           <p className="mt-2 text-sm text-emerald-100">
@@ -60,7 +60,7 @@ export default function LoanLeaf({ principal, rate, term }: { principal: number;
 
         <section className="mt-6">
           <h2 className="sec-h2">상환방식에 따라 이자가 다릅니다</h2>
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
             {f.schedules.map(s => (
               <div key={s.method} className="px-4 py-3">
                 <div className="flex items-baseline justify-between gap-3">

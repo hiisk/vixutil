@@ -367,7 +367,7 @@ export default function QrTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
       </div>
 
       {made && 'problem' in made && (
-        <div className="mt-4 rounded-2xl border border-rose-200 dark:border-rose-900/60 bg-rose-50/70 dark:bg-rose-950/30 px-4 py-3 text-sm text-rose-800 dark:text-rose-200 leading-relaxed">
+        <div className="mt-4 rounded-lg border border-rose-200 dark:border-rose-900/60 bg-rose-50/70 dark:bg-rose-950/30 px-4 py-3 text-sm text-rose-800 dark:text-rose-200 leading-relaxed">
           {made.problem}
         </div>
       )}
@@ -426,7 +426,7 @@ export default function QrTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
       )}
 
       {!made && (
-        <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-4 py-10 text-center text-sm text-slate-300 dark:text-slate-600">
+        <div className="mt-4 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-4 py-10 text-center text-sm text-slate-300 dark:text-slate-600">
           {ui.empty}
         </div>
       )}

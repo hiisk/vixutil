@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 import Link from 'next/link';
 import CalcShell, { Card, CardHeader, Label, inputCls, selectCls } from '@/components/CalcShell';
 import {
@@ -125,7 +126,7 @@ export default function SchoolRankPage() {
         {/* ── 석차 → 등급 ───────────────────────────── */}
         <Card className="p-5">
           <CardHeader title="석차로 등급 보기" />
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-3 gap-x-4 gap-y-5">
             <div>
               <Label>석차</Label>
               <input type="number" min="1" value={rank} onChange={e => setRank(e.target.value)}
@@ -138,8 +139,7 @@ export default function SchoolRankPage() {
             </div>
             <div>
               <Label>동석차 인원</Label>
-              <input type="number" min="1" value={tied} onChange={e => setTied(e.target.value)}
-                className={inputCls} />
+              <MoneyInput value={tied} onChange={setTied} />
             </div>
           </div>
 
@@ -249,7 +249,7 @@ export default function SchoolRankPage() {
 
           {avg && (
             <>
-              <div className="mt-4 rounded-2xl bg-slate-900 p-5 dark:bg-slate-800">
+              <div className="mt-4 rounded-lg bg-slate-900 p-5 dark:bg-slate-800">
                 <p className="mb-1 text-xs text-slate-400">평균 등급 (이수단위 가중평균)</p>
                 <p className="stat-value">{two(avg.average)}</p>
                 <p className="mt-1 text-sm text-slate-400">
@@ -269,11 +269,10 @@ export default function SchoolRankPage() {
         {/* ── 원점수 → 표준점수 ───────────────────── */}
         <Card className="p-5">
           <CardHeader title="원점수로 위치 어림하기 (참고)" />
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-3 gap-x-4 gap-y-5">
             <div>
               <Label>원점수</Label>
-              <input type="number" value={raw} onChange={e => setRaw(e.target.value)}
-                className={inputCls} placeholder="성적표 값" />
+              <MoneyInput value={raw} onChange={setRaw} placeholder="성적표 값" />
             </div>
             <div>
               <Label>과목 평균</Label>

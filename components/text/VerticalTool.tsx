@@ -1,5 +1,6 @@
 'use client';
 import { useMemo, useState } from 'react';
+import { sampleFromPlaceholder } from '@/lib/text-tools';
 import { toVertical } from '@/lib/text-more';
 import { CARD, CopyBox, InputArea, Toggle } from './ui';
 import { VERTICAL_UI } from '@/lib/text-more-ui';
@@ -9,7 +10,8 @@ const GAPS = [0, 1, 2, 3];
 
 export default function VerticalTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
   const ui = VERTICAL_UI[lang];
-  const [text, setText] = useState('');
+  /* 열자마자 한 벌이 돌아가게 — 플레이스홀더가 예시일 때만 쓴다(lib/text-tools.ts) */
+  const [text, setText] = useState(() => sampleFromPlaceholder(ui.placeholder));
   const [gap, setGap] = useState(1);
   const [rightToLeft, setRightToLeft] = useState(false);
 

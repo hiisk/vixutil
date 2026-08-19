@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 import Link from 'next/link';
 import CalcShell, { Card, CardHeader, Label, inputCls, selectCls, SummaryCard } from '@/components/CalcShell';
 import {
@@ -99,8 +100,7 @@ export default function MaternityLeavePage() {
             </div>
             <div>
               <Label>월 통상임금 (원)</Label>
-              <input type="number" min="0" value={wage} onChange={e => setWage(e.target.value)}
-                className={inputCls} placeholder="휴가 시작일 기준" />
+              <MoneyInput value={wage} onChange={setWage} placeholder="휴가 시작일 기준" />
             </div>
             <div>
               <Label>주 소정근로시간</Label>
@@ -149,7 +149,7 @@ export default function MaternityLeavePage() {
               <p className="stat-value">{fmt(spouse.total)}원</p>
               <p className="mt-1 stat-sub">유급이므로 통상임금 전액입니다</p>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <SummaryCard label="통상시급" value={`${fmt(spouse.hourly)}원`} />
               <SummaryCard label="1일 통상임금 (8시간)" value={`${fmt(spouse.dailyWage)}원`} />
             </div>
@@ -172,7 +172,7 @@ export default function MaternityLeavePage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <SummaryCard label="1일 통상임금" value={`${fmt(leave.dailyWage)}원`} />
               <SummaryCard label="고용보험 30일분" value={`${fmt(leave.eiMonthly)}원`} />
               <SummaryCard label="출산 후 최소 일수" value={`${leave.afterBirthMinDays}일`} />
@@ -234,16 +234,14 @@ export default function MaternityLeavePage() {
 
             <Card className="p-5">
               <CardHeader title="고시 금액 직접 넣기" />
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-x-4 gap-y-5">
                 <div>
                   <Label>30일분 상한액 (원)</Label>
-                  <input type="number" min="0" value={cap} onChange={e => setCap(e.target.value)}
-                    className={inputCls} placeholder="비우면 지금 고시값" />
+                  <MoneyInput value={cap} onChange={setCap} placeholder="비우면 지금 고시값" />
                 </div>
                 <div>
                   <Label>30일분 하한액 (원)</Label>
-                  <input type="number" min="0" value={floor} onChange={e => setFloor(e.target.value)}
-                    className={inputCls} placeholder={`비우면 ${fmt(monthlyMinimumWage(undefined, hours))}원`} />
+                  <MoneyInput value={floor} onChange={setFloor} />
                 </div>
               </div>
               <p className="mt-2 text-xs text-slate-400 dark:text-slate-500">

@@ -170,14 +170,14 @@ export default function Expression({ lang }: { lang: SnapIntlLang }) {
     >
       {result => (
         <>
-          <div className="rounded-2xl p-6 text-white text-center" style={{ background: `linear-gradient(135deg, ${result.from}, ${result.to})` }}>
+          <div className="rounded-lg p-6 text-white text-center" style={{ background: `linear-gradient(135deg, ${result.from}, ${result.to})` }}>
             <p className="text-sm font-semibold text-white/80 mb-2">{c.result}</p>
             <div className="text-5xl mb-2">{result.emoji}</div>
             <p className="text-2xl font-black mb-3">{result.label} {result.scores[0].percent}%</p>
             <p className="text-sm leading-relaxed">{result.text}</p>
           </div>
 
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5">
             <p className="label-caps mb-3">{c.breakdown}</p>
             <div className="flex flex-col gap-2.5">
               {result.scores.map(s => (
@@ -194,7 +194,7 @@ export default function Expression({ lang }: { lang: SnapIntlLang }) {
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-indigo-50 to-violet-50 dark:from-indigo-950/20 dark:to-violet-950/20 border border-indigo-100 dark:border-indigo-900/40 rounded-2xl p-5">
+          <div className="bg-indigo-50 dark:from-indigo-950/20 dark:to-violet-950/20 border border-indigo-100 dark:border-indigo-900/40 rounded-lg p-5">
             <p className="text-xs font-bold text-indigo-600 uppercase tracking-wide mb-2">{c.tip}</p>
             <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.tip}</p>
           </div>

@@ -32,7 +32,7 @@ export default function RandomToolShell({ tool, children, lang = 'ko' }: { tool:
       </header>
 
       <div className="max-w-lg mx-auto px-4 py-8">
-        <div className="text-center mb-6">
+        <div className="mb-6">
           <ToolIcon emoji={tool.icon} className="text-slate-800 dark:text-slate-100 w-14 h-14 mx-auto mb-2" />
           <div className="hero-band">
             <PageHero title={t.title} desc={t.desc} />

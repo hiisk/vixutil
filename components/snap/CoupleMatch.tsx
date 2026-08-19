@@ -193,20 +193,20 @@ export default function CoupleMatch({ lang }: { lang: SnapIntlLang }) {
       </header>
 
       <div className="max-w-xl mx-auto px-4 py-8">
-        <div className="text-center mb-6">
-          <ToolIcon emoji="💞" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+        <div className="mb-6">
+          <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="💞" className="h-6 w-6" /></span>
           <div className="hero-band">
             <PageHero title={ui.title} desc={ui.lead} />
           </div>
         </div>
 
-        <div className="bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/40 rounded-2xl p-4 mb-6 text-xs text-rose-800 dark:text-rose-300 leading-relaxed">
+        <div className="bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/40 rounded-lg p-4 mb-6 text-xs text-rose-800 dark:text-rose-300 leading-relaxed">
           <p className="font-bold mb-1">{lang === 'en' ? '🔒 Neither photo leaves this device' : '🔒 两张照片都不会离开这台设备'}</p>
           <p>{ui.privacy}</p>
         </div>
 
         {modelState === 'error' && (
-          <div role="alert" className="rounded-2xl border-2 border-dashed border-rose-200 dark:border-rose-900/50 bg-rose-50 dark:bg-rose-950/30 py-10 text-center text-sm font-bold text-rose-600 mb-6">
+          <div role="alert" className="rounded-lg border-2 border-dashed border-rose-200 dark:border-rose-900/50 bg-rose-50 dark:bg-rose-950/30 py-10 text-center text-sm font-bold text-rose-600 mb-6">
             {lang === 'en' ? 'Could not load the face detection model' : '人脸识别模型加载失败'}
           </div>
         )}
@@ -221,7 +221,7 @@ export default function CoupleMatch({ lang }: { lang: SnapIntlLang }) {
                 type="button"
                 onClick={() => inputRefs[slot].current?.click()}
                 disabled={modelState !== 'ready'}
-                className="w-full aspect-square rounded-2xl border-2 border-dashed border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-rose-400 transition-colors overflow-hidden flex items-center justify-center disabled:opacity-50"
+                className="w-full aspect-square rounded-lg border-2 border-dashed border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-rose-400 transition-colors overflow-hidden flex items-center justify-center disabled:opacity-50"
               >
                 {previews[slot] ? (
                   // eslint-disable-next-line @next/next/no-img-element
@@ -245,20 +245,20 @@ export default function CoupleMatch({ lang }: { lang: SnapIntlLang }) {
         </div>
 
         {error && (
-          <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 rounded-2xl p-4 mb-6 text-center text-sm font-bold text-amber-700 dark:text-amber-300">
+          <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 rounded-lg p-4 mb-6 text-center text-sm font-bold text-amber-700 dark:text-amber-300">
             🙈 {error}
           </div>
         )}
 
         {result ? (
           <div className="space-y-4">
-            <div className="bg-gradient-to-br from-rose-400 to-fuchsia-500 rounded-2xl p-6 text-white text-center">
+            <div className="bg-gradient-to-br from-rose-400 to-fuchsia-500 rounded-lg p-6 text-white text-center">
               <p className="text-sm font-semibold text-white/80 mb-2">{ui.score}</p>
               <p className="text-5xl font-black mb-3">{result.score}</p>
               <p className="text-sm leading-relaxed">{result.headlineIntl}</p>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5">
               <p className="label-caps mb-3">{ui.breakdown}</p>
               <div className="flex flex-col gap-3">
                 {result.breakdown.map(m => (
@@ -275,13 +275,13 @@ export default function CoupleMatch({ lang }: { lang: SnapIntlLang }) {
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-rose-50 to-pink-50 dark:from-rose-950/20 dark:to-pink-950/20 border border-rose-100 dark:border-rose-900/40 rounded-2xl p-5">
+            <div className="bg-rose-50 dark:from-rose-950/20 dark:to-pink-950/20 border border-rose-100 dark:border-rose-900/40 rounded-lg p-5">
               <p className="text-xs font-bold text-rose-600 uppercase tracking-wide mb-2">{ui.comment}</p>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.commentIntl}</p>
             </div>
 
             <button type="button" onClick={reset}
-              className="w-full py-3.5 rounded-2xl font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-rose-300 hover:text-rose-600 transition-colors">
+              className="w-full py-3.5 rounded-lg font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-rose-300 hover:text-rose-600 transition-colors">
               {ui.reset}
             </button>
 
@@ -290,7 +290,7 @@ export default function CoupleMatch({ lang }: { lang: SnapIntlLang }) {
           </div>
         ) : (
           <div className="text-center py-10 text-slate-300 dark:text-slate-600">
-            <ToolIcon emoji="☝️" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
+            <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">{ui.pickBoth}</p>
           </div>
         )}

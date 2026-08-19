@@ -63,7 +63,7 @@ export default function SajuForm({
   return (
     <form
       onSubmit={e => { e.preventDefault(); onSubmit(); }}
-      className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-6"
+      className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-6"
     >
       {header}
       <div className="p-5">
@@ -135,7 +135,7 @@ export default function SajuForm({
 
       {error && <p className="text-xs text-rose-600 dark:text-rose-400 mb-2">{error}</p>}
       <button type="submit"
-        className={`w-full rounded-xl bg-gradient-to-r ${submitClass ?? 'from-indigo-600 to-violet-600'} text-white text-sm font-black py-3.5 hover:-translate-y-0.5 hover:shadow-lg transition-all`}>
+        className={`w-full rounded-xl bg-gradient-to-r ${submitClass ?? 'from-indigo-600 to-violet-600'} text-white text-sm font-black py-3.5 hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all`}>
         {submitLabel}
       </button>
       </div>

@@ -74,7 +74,7 @@ export default function RandomPicker({ lang = 'ko' }: { lang?: RandomLang }) {
         />
       </div>
 
-      <div className="relative mb-5 overflow-hidden rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 text-white min-h-[7rem] flex flex-col items-center justify-center p-5">
+      <div className="relative mb-5 overflow-hidden rounded-lg bg-gradient-to-br from-amber-400 to-orange-500 text-white min-h-[7rem] flex flex-col items-center justify-center p-5">
         {rolling ? (
           <>
             <div className="text-xs font-bold text-amber-100 mb-1 tracking-widest">🥁 {ui.drumroll}</div>
@@ -100,7 +100,7 @@ export default function RandomPicker({ lang = 'ko' }: { lang?: RandomLang }) {
       <button
         onClick={draw}
         disabled={items.length === 0 || rolling}
-        className="w-full bg-sec font-black text-lg rounded-2xl py-4 shadow-lg shadow-amber-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all disabled:opacity-50 disabled:hover:translate-y-0"
+        className="w-full bg-sec font-black text-lg rounded-lg py-4 shadow-sm shadow-amber-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all disabled:opacity-50 disabled:hover:translate-y-0"
       >
         {rolling ? ui.drawing : winners ? ui.drawAgain : ui.draw}
       </button>

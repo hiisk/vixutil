@@ -5,8 +5,14 @@ import { CARD, CopyRow, Stat } from './ui';
 
 const EXAMPLES = ['홍길동', '이지은', '박서준', '남궁민수', '최우식'];
 
+/*
+ * 첫 값 (2026-08-19). 열면 입력이 비어 있고 결과가 전부 «—»라 도구가 죽어
+ * 보였다 — 무엇을 하는 도구인지 손으로 쳐 보기 전에는 모른다. 플레이스홀더에
+ * 저자가 적어 둔 예시를 첫 값으로 올리면 열자마자 한 벌이 돌아가고, 사람은
+ * 그 위에 자기 글을 덮어쓴다.
+ */
 export default function RomanizeTool() {
-  const [name, setName] = useState('');
+  const [name, setName] = useState('홍길동');
   const [override, setOverride] = useState<number | null>(null);
 
   const auto = splitName(name);
@@ -27,7 +33,7 @@ export default function RomanizeTool() {
           value={name}
           onChange={e => { setName(e.target.value); setOverride(null); }}
           placeholder="예) 홍길동"
-          className="w-full rounded-2xl border chip-off px-4 py-3.5 text-lg font-bold text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none focus:border-indigo-400 transition-colors"
+          className="w-full rounded-lg border chip-off px-4 py-3.5 text-lg font-bold text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none focus:border-indigo-400 transition-colors"
         />
       </label>
 

@@ -52,10 +52,8 @@ export default function FractionHubPage({ lang }: { lang: Lang }) {
       </header>
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-3 shadow-lg bg-sec-soft">
-            <ToolIcon emoji={FRACTION_ICON} className="w-7 h-7" />
-          </div>
+        <div className="hero-band ">
+          <span className="bg-sec-soft inline-flex h-10 w-10 items-center justify-center rounded-lg"><ToolIcon emoji={FRACTION_ICON} className="h-5 w-5" /></span>
           <h1 className="page-h1">{ui.hubTitle}</h1>
           <p className="note-sm">{ui.hubLead}</p>
         </div>
@@ -73,7 +71,7 @@ export default function FractionHubPage({ lang }: { lang: Lang }) {
                 {terminates(d) ? ui.terminatingLabel : ui.repeatingLabel}
               </span>
             </h3>
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
+            <div className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
               {fractionsOfDenominator(d).map(f => {
                 const g = fractionFacts(f);
                 return (

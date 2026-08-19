@@ -116,7 +116,7 @@ export default function SimpleInterestPage() {
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <p className="label-caps mb-3">예금 조건</p>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div className="col-span-2">
               <Label>원금 (원)</Label>
               <CommaInput value={principal} onChange={setPrincipal} placeholder="예: 10,000,000" />

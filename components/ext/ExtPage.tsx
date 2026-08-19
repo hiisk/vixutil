@@ -93,16 +93,14 @@ export default function ExtPage({ slug, lang }: { slug: string; lang: Lang }) {
       </header>
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
-        <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-3 shadow-lg bg-sec-soft">
-            <ToolIcon emoji={EXT_ICON} className="w-7 h-7" />
-          </div>
+        <div className="hero-band ">
+          <span className="bg-sec-soft inline-flex h-10 w-10 items-center justify-center rounded-lg"><ToolIcon emoji={EXT_ICON} className="h-5 w-5" /></span>
           <h1 className="page-h1">.{x.ext}</h1>
           <p className="text-xs text-slate-400 dark:text-slate-500">{kind} · {f.mime}</p>
         </div>
 
         {/* 이 화면에 오는 이유가 이것이다 — 무엇으로 여는가 */}
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 px-4 py-4 mb-6">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-4 mb-6">
           <p className="text-[11px] font-black text-indigo-600 dark:text-indigo-400 mb-2">{ui.openWith}</p>
           <div className="flex flex-wrap gap-1.5">
             {f.apps.map(a => (
@@ -114,12 +112,12 @@ export default function ExtPage({ slug, lang }: { slug: string; lang: Lang }) {
           <p className="mt-3 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{ui.kindNote[x.kind]}</p>
         </section>
 
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
-          <table className="w-full text-sm">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
+          <table className="kv-table w-full text-sm">
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
               {rows.map(r => (
                 <tr key={r.label}>
-                  <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400 w-1/2 bg-slate-50 dark:bg-slate-900/40">
+                  <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400 w-1/2">
                     {r.label}
                   </th>
                   <td className="px-4 py-3 font-black text-slate-800 dark:text-slate-100 break-all">{r.value}</td>

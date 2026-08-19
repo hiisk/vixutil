@@ -93,7 +93,7 @@ export default function ColorBlindGame({ lang = 'ko' }: { lang?: GameLang } = {}
           />
           <button
             onClick={restart}
-            className="mt-3 w-full rounded-xl bg-sec font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
+            className="mt-3 w-full rounded-xl bg-sec font-bold py-3.5 text-sm shadow-sm hover:opacity-90 transition-opacity"
           >
             {c.retry}
           </button>

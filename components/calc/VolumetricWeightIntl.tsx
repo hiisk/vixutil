@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Card, CardHeader, Label, inputCls, selectCls } from '@/components/CalcShell';
+import { Card, CardHeader, Label, PrimaryBtn, inputCls, selectCls } from '@/components/CalcShell';
 import { maxVolumeFor, volumetricWeight } from '@/lib/volumetric';
 import { VOLUMETRIC_WEIGHT } from '@/lib/calc-l10n/sizes';
 import type { CalcLang } from '@/lib/calc-l10n/types';
@@ -14,33 +14,26 @@ export default function VolumetricWeightIntl({ lang }: { lang: CalcLang }) {
   const [height, setHeight] = useState('');
   const [actual, setActual] = useState('');
   const [divisor, setDivisor] = useState('5000');
+  const [result, setResult] = useState<null | (ReturnType<typeof volumetricWeight> & { limit: number })>(null);
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | (ReturnType<typeof volumetricWeight> & { limit: number }) = ((): null | (ReturnType<typeof volumetricWeight> & { limit: number }) => {
+  const fmt = (n: number, d = 2) => n.toLocaleString(tag, { maximumFractionDigits: d });
+
+  function calculate() {
     const box = {
       width: Number(width), depth: Number(depth),
       height: Number(height), actual: Number(actual),
     };
-    if (box.width <= 0 || box.depth <= 0 || box.height <= 0 || box.actual <= 0) return null;
+    if (box.width <= 0 || box.depth <= 0 || box.height <= 0 || box.actual <= 0) return;
     const d = Number(divisor);
-    return ({ ...volumetricWeight(box, d), limit: maxVolumeFor(box.actual, d) });
-  
-    return null;
-  })();
-  const fmt = (n: number, d = 2) => n.toLocaleString(tag, { maximumFractionDigits: d });
-
-
+    setResult({ ...volumetricWeight(box, d), limit: maxVolumeFor(box.actual, d) });
+  }
 
   return (
     <div className="flex flex-col gap-4">
       <Card className="p-5">
         <p className="label-caps mb-3">{c.section}</p>
         <div className="flex flex-col gap-3">
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-3 gap-x-4 gap-y-5">
             <div>
               <Label>{c.length}</Label>
               <input type="number" value={width} onChange={e => setWidth(e.target.value)}
@@ -69,6 +62,7 @@ export default function VolumetricWeightIntl({ lang }: { lang: CalcLang }) {
               <option value="6000">{c.div6000}</option>
             </select>
           </div>
+          <PrimaryBtn onClick={calculate}>{c.calc}</PrimaryBtn>
         </div>
       </Card>
 

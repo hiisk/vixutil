@@ -1,14 +1,14 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 
 /*
- * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
- * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
- * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
- * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
- * 골라 둔 예시를 그대로 올렸다.
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 빈 칸으로 열면 무엇을
+ * 보여 주는 계산기인지 눌러 보기 전에는 모른다 — 값을 미리 넣어 두면 「계산하기」
+ * 한 번에 한 벌이 통째로 보이고, 사람은 그 위에 자기 숫자를 덮어쓴다.
+ * 값은 내가 지어내지 않고 저자가 이미 골라 둔 예시를 그대로 올렸다.
  */
-import CalcShell, { Card, Label, inputCls, SummaryCard, RatioBar } from '@/components/CalcShell';
+import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard, RatioBar } from '@/components/CalcShell';
 
 const fmt = (n: number) => Math.round(n).toLocaleString();
 
@@ -16,28 +16,19 @@ export default function ToAnnualPage() {
   const [monthly, setMonthly] = useState('3000000');
   const [bonus, setBonus] = useState('0');
   const [extra, setExtra] = useState('1000000');
+  const [result, setResult] = useState<null | {
+    base: number; bonusTotal: number; extraTotal: number; annual: number; monthlyAvg: number;
+  }>(null);
 
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | {
-    base: number; bonusTotal: number; extraTotal: number; annual: number; monthlyAvg: number;
-  } = ((): null | {
-    base: number; bonusTotal: number; extraTotal: number; annual: number; monthlyAvg: number;
-  } => {
+  function calculate() {
     const m = Number(monthly);
-    if (m <= 0) return null;
+    if (m <= 0) return;
     const base = m * 12;
     const bonusTotal = m * Number(bonus);
     const extraTotal = Number(extra || 0);
     const annual = base + bonusTotal + extraTotal;
-    return ({ base, bonusTotal, extraTotal, annual, monthlyAvg: annual / 12 });
-  
-    return null;
-  })();
-
+    setResult({ base, bonusTotal, extraTotal, annual, monthlyAvg: annual / 12 });
+  }
 
   return (
     <CalcShell
@@ -73,8 +64,7 @@ export default function ToAnnualPage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>월 기본급 (원)</Label>
-              <input type="number" value={monthly} onChange={e => setMonthly(e.target.value)}
-                placeholder="예: 3,000,000" className={inputCls} min="0" />
+              <MoneyInput value={monthly} onChange={setMonthly} placeholder="예: 3,000,000" />
             </div>
             <div>
               <Label>상여금 (기본급의 몇 개월분)</Label>
@@ -85,10 +75,10 @@ export default function ToAnnualPage() {
               </select>
             </div>
             <div>
-              <Label>기타 연간 수당·인센티브 (원, 선택)</Label>
-              <input type="number" value={extra} onChange={e => setExtra(e.target.value)}
-                placeholder="예: 1,000,000" className={inputCls} min="0" />
+              <Label>기타 연간 수당·인센티브 <span className="dial-opt">원, 선택</span></Label>
+              <MoneyInput value={extra} onChange={setExtra} placeholder="예: 1,000,000" />
             </div>
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 
@@ -99,7 +89,7 @@ export default function ToAnnualPage() {
               <p className="stat-value">{fmt(result.annual)}원</p>
               <p className="stat-sub">월 평균 {fmt(result.monthlyAvg)}원</p>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <SummaryCard label="기본 연봉 (×12)" value={`${fmt(result.base)}원`} />
               <SummaryCard label="상여금 합계" value={`${fmt(result.bonusTotal)}원`} variant="green" />
               {result.extraTotal > 0 && (

@@ -64,7 +64,7 @@ export default function RecipeScaleTool({ lang = 'ko' }: { lang?: FoodLang } = {
           onChange={e => setText(e.target.value)}
           rows={7}
           placeholder={ui.placeholder}
-          className="w-full rounded-2xl border chip-off px-4 py-3 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none focus:border-amber-400 leading-relaxed"
+          className="w-full rounded-lg border chip-off px-4 py-3 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none focus:border-amber-400 leading-relaxed"
         />
       </label>
 
@@ -79,7 +79,7 @@ export default function RecipeScaleTool({ lang = 'ko' }: { lang?: FoodLang } = {
             {copied ? ui.copied : ui.copy}
           </button>
         </div>
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-4 py-3 text-sm whitespace-pre-wrap leading-relaxed min-h-[8rem] text-slate-800 dark:text-slate-100">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-4 py-3 text-sm whitespace-pre-wrap leading-relaxed min-h-[8rem] text-slate-800 dark:text-slate-100">
           {result || <span className="text-slate-300 dark:text-slate-600">{ui.empty}</span>}
         </div>
       </div>

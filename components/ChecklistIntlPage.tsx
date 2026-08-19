@@ -87,7 +87,7 @@ export function ChecklistIntlHub({ lang }: { lang: ChecklistIntlLang }) {
         </div>
       </header>
 
-      <div className="max-w-5xl mx-auto px-4 py-10">
+      <div className="hero-band max-w-5xl mx-auto px-4 py-10">
         <p className="text-xs font-bold text-sky-600 tracking-widest uppercase mb-2">{ui.eyebrow}</p>
         <h1 className="page-h1">{ui.h1}</h1>
         <p className="text-slate-500 dark:text-slate-400 text-sm mb-8">
@@ -97,9 +97,9 @@ export function ChecklistIntlHub({ lang }: { lang: ChecklistIntlLang }) {
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {lists.map((c, i) => (
             <Link prefetch={false} key={c.slug} href={`/${lang}/checklist/${c.slug}`}
-              className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${CARD_GRADIENTS[i % CARD_GRADIENTS.length]} text-white p-5 min-h-[9.5rem] flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl transition-all`}>
+              className={`group relative overflow-hidden rounded-lg bg-gradient-to-br ${CARD_GRADIENTS[i % CARD_GRADIENTS.length]} text-white p-5 min-h-[9.5rem] flex flex-col justify-between hover:-translate-y-1 hover:border-slate-300 dark:hover:border-slate-700 transition-all`}>
               <div className="flex items-start justify-between">
-                <ToolIcon emoji={c.icon} className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
+                <ToolIcon emoji={c.icon} className="w-9 h-9 drop-shadow-sm transition-transform group-hover:scale-110" />
                 <span className="text-[10px] font-bold bg-white/25 rounded-full px-2 py-0.5">{countOf(c)}</span>
               </div>
               <div>

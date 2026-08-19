@@ -22,7 +22,7 @@ function GenCard({ g }: { g: CardItem }) {
   return (
     <Link
       href={`/generator/${g.slug}`}
-      className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden hover:border-emerald-300 hover:shadow-md transition-all"
+      className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden hover:border-emerald-300 hover:border-slate-300 dark:hover:border-slate-700 transition-all"
     >
       {/* OG 이미지를 썸네일로 쓰던 자리 — TestSearch와 같은 이유로 그라데이션+이모지로 대체했다. */}
       <div className={`card-thumb ${thumbSurface(g.slug, 'generator')}`}>
@@ -68,7 +68,7 @@ export default function GeneratorSearch({ generators }: { generators: CardItem[]
           value={query}
           onChange={e => setQuery(e.target.value)}
           placeholder="생성기 검색..."
-          className="w-full border border-slate-200 dark:border-slate-700 rounded-2xl px-4 py-3 pl-10 text-sm text-slate-700 dark:text-slate-200 placeholder-slate-400 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 transition-all bg-white dark:bg-slate-900"
+          className="w-full border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-3 pl-10 text-sm text-slate-700 dark:text-slate-200 placeholder-slate-400 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 transition-all bg-white dark:bg-slate-900"
         />
         {query && (
           <button onClick={() => setQuery('')} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 hover:text-slate-600">

@@ -1,5 +1,6 @@
 'use client';
 import { useMemo, useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 import Link from 'next/link';
 import CalcShell, { Card, CardHeader, Label, inputCls } from '@/components/CalcShell';
 import {
@@ -143,8 +144,7 @@ export default function CardDeductionPage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>총급여 (원, 비과세 제외)</Label>
-              <input type="number" value={gross} onChange={e => setGross(e.target.value)}
-                placeholder="예: 40000000" className={inputCls} min="0" />
+              <MoneyInput value={gross} onChange={setGross} placeholder="예: 40000000" />
               {input.grossSalary > 0 && (
                 <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
                   문턱 = 총급여 × {THRESHOLD_RATIO * 100}% = {fmt(input.grossSalary * THRESHOLD_RATIO)}원
@@ -174,7 +174,7 @@ export default function CardDeductionPage() {
         <Card>
           <CardHeader title="공제율·한도" sub="해마다 바뀌어 온 값이라 고칠 수 있게 열어 두었습니다" />
           <div className="p-5 pt-4 flex flex-col gap-3">
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               {MEANS_ORDER.map(m => (
                 <div key={m}>
                   <Label>{MEANS_LABEL[m]} 공제율 (%)</Label>
@@ -185,8 +185,7 @@ export default function CardDeductionPage() {
             </div>
             <div>
               <Label>추가한도 (원)</Label>
-              <input type="number" value={extraLimit} onChange={e => setExtraLimit(e.target.value)}
-                className={inputCls} min="0" />
+              <MoneyInput value={extraLimit} onChange={setExtraLimit} />
               <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
                 전통시장·대중교통·도서공연 몫에만 열리는 한도입니다. 기본한도(총급여 7,000만원 이하
                 300만원, 초과 250만원)는 총급여에서 자동으로 정해집니다. 두 값 모두 연도별로 바뀌어
@@ -195,8 +194,7 @@ export default function CardDeductionPage() {
             </div>
             <div>
               <Label>그 밖의 소득공제 합계 (원, 비워도 됩니다)</Label>
-              <input type="number" value={otherDeduction} onChange={e => setOtherDeduction(e.target.value)}
-                placeholder="인적공제·보험료 등" className={inputCls} min="0" />
+              <MoneyInput value={otherDeduction} onChange={setOtherDeduction} placeholder="인적공제·보험료 등" />
               <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
                 줄어드는 세금은 과세표준이 어느 세율 구간에 있느냐로 갈립니다. 이 칸을 비우면
                 근로소득공제만 뺀 과세표준으로 어림합니다 — 실제보다 세율이 높게 잡힐 수 있습니다.

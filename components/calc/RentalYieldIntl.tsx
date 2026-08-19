@@ -36,7 +36,7 @@ export default function RentalYieldIntl({ lang }: { lang: CalcLang }) {
       <Card className="p-5">
         <p className="label-caps mb-3">{c.property}</p>
         <div className="flex flex-col gap-3">
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div>
               <Label>{c.price}</Label>
               <input type="number" value={price} onChange={e => setPrice(e.target.value)} className={inputCls} />
@@ -61,7 +61,7 @@ export default function RentalYieldIntl({ lang }: { lang: CalcLang }) {
 
       <Card className="p-5">
         <p className="label-caps mb-3">{c.financing}</p>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-5">
           <div>
             <Label>{c.loan}</Label>
             <input type="number" value={loan} onChange={e => setLoan(e.target.value)} className={inputCls} />

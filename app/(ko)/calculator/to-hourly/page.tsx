@@ -1,14 +1,14 @@
 'use client';
 import { useState } from 'react';
+import MoneyInput from '@/components/MoneyInput';
 
 /*
- * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 버튼을 없애 실시간이
- * 되면서 빈 칸으로 열면 폼만 있고 결과가 없는 화면이 된다 — 무엇을 보여 주는
- * 계산기인지 열어 보고도 모른다. 값을 미리 넣어 두면 열자마자 한 벌이 돌아가고
- * 사람은 그 위에 자기 숫자를 덮어쓴다. 값은 내가 지어내지 않고 저자가 이미
- * 골라 둔 예시를 그대로 올렸다.
+ * 첫 값은 플레이스홀더에 적혀 있던 예시다(«예: 175»). 빈 칸으로 열면 무엇을
+ * 보여 주는 계산기인지 눌러 보기 전에는 모른다 — 값을 미리 넣어 두면 「계산하기」
+ * 한 번에 한 벌이 통째로 보이고, 사람은 그 위에 자기 숫자를 덮어쓴다.
+ * 값은 내가 지어내지 않고 저자가 이미 골라 둔 예시를 그대로 올렸다.
  */
-import CalcShell, { Card, Label, inputCls, SummaryCard } from '@/components/CalcShell';
+import CalcShell, { Card, Label, inputCls, PrimaryBtn, SummaryCard } from '@/components/CalcShell';
 
 /* 최저시급은 lib/minimum-wage.ts 하나에서 온다 — 해마다 바뀌므로 사본을 두지 않는다 */
 import { MIN_HOURLY_WAGE as MIN_WAGE_2026 } from '@/lib/minimum-wage';
@@ -18,35 +18,26 @@ const fmt = (n: number) => Math.round(n).toLocaleString();
 export default function ToHourlyPage() {
   const [monthly, setMonthly] = useState('3000000');
   const [weeklyHours, setWeeklyHours] = useState('40');
-  /*
-   * 버튼을 없앴다 (2026-08-19). 값에서 바로 나오므로 저장할 상태가 없다.
-   * 입력이 아직 성립하지 않으면 null이고, 그동안 결과가 안 그려진다 —
-   * 예전에 버튼을 안 누른 상태와 같다.
-   */
-  const result: null | {
+  const [result, setResult] = useState<null | {
     hourly: number; daily: number; monthlyHours: number; vsMin: number;
-  } = ((): null | {
-    hourly: number; daily: number; monthlyHours: number; vsMin: number;
-  } => {
+  }>(null);
+
+  function calculate() {
     const m = Number(monthly);
     const w = Number(weeklyHours);
-    if (m <= 0 || w <= 0) return null;
+    if (m <= 0 || w <= 0) return;
 
     // 주휴시간은 lib/statutory-hours.ts에서 온다 — 여기 적어 두었을 때 주 44시간이 229h로 나와
     // 선택지 라벨(월 226h)과 어긋났다
     const monthlyHours = statutoryMonthlyHours(w);
     const hourly = m / monthlyHours;
-    return ({
+    setResult({
       hourly,
       daily: hourly * 8,
       monthlyHours: Math.round(monthlyHours),
       vsMin: ((hourly - MIN_WAGE_2026) / MIN_WAGE_2026) * 100,
     });
-  
-    return null;
-  })();
-
-
+  }
 
   return (
     <CalcShell
@@ -81,8 +72,7 @@ export default function ToHourlyPage() {
           <div className="flex flex-col gap-3">
             <div>
               <Label>월급 (원)</Label>
-              <input type="number" value={monthly} onChange={e => setMonthly(e.target.value)}
-                placeholder="예: 3,000,000" className={inputCls} min="0" />
+              <MoneyInput value={monthly} onChange={setMonthly} placeholder="예: 3,000,000" />
             </div>
             <div>
               <Label>주 소정근로시간</Label>
@@ -93,6 +83,7 @@ export default function ToHourlyPage() {
                 <option value="20">20시간 (월 104h)</option>
               </select>
             </div>
+            <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
         </Card>
 
@@ -106,7 +97,7 @@ export default function ToHourlyPage() {
                 ({result.vsMin >= 0 ? '기준 이상' : '최저시급 미달 ⚠️'})
               </p>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <SummaryCard label="일급 (8시간)" value={`${fmt(result.daily)}원`} />
               <SummaryCard label="월 소정근로시간" value={`${result.monthlyHours}시간`} />
             </div>

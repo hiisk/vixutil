@@ -22,8 +22,8 @@ interface Snapshot {
   totalDays: number;
 }
 
-const inputCls =
-  'w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition';
+/* 사이트 공용 칸 — 초점 테두리가 갈래 색을 따라간다(globals.css .dial-input) */
+const inputCls = 'dial-input';
 
 const signed = (v: number, d = 3) => `${v >= 0 ? '+' : ''}${v.toFixed(d)}%`;
 const rCls = (v: number) => (v >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400');
@@ -77,14 +77,14 @@ export default function WeekdayBoard() {
 
   return (
     <>
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 mb-4">
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5 mb-4">
         <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5" htmlFor="wd-coin">Coin</label>
         <div className="flex flex-wrap items-center gap-3">
           <div className="relative flex-1 min-w-[220px]">
             <input id="wd-coin" type="text" value={query} onChange={e => setQuery(e.target.value)}
               placeholder={`${coin.base} · search another coin`} className={inputCls} autoComplete="off" />
             {suggestions.length > 0 && (
-              <ul className="absolute z-20 mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-lg overflow-hidden">
+              <ul className="absolute z-20 mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm overflow-hidden">
                 {suggestions.map(c => (
                   <li key={c.slug}>
                     <button type="button" onClick={() => pickCoin(c)}
@@ -121,7 +121,7 @@ export default function WeekdayBoard() {
 
       {snap && (
         <>
-          <div className="rounded-2xl border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
+          <div className="rounded-lg border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
             <h2 className="text-sm font-black text-amber-900 dark:text-amber-200 mb-1.5">
               {sig === 0
                 ? 'No weekday clears the significance bar'
@@ -142,7 +142,7 @@ export default function WeekdayBoard() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
             <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
               <h2 className="text-sm font-black text-slate-900 dark:text-white">{snap.coin.name} by weekday, UTC</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
@@ -205,7 +205,7 @@ export default function WeekdayBoard() {
         </>
       )}
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
         <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">Why weekday effects are weak in crypto specifically</h2>
         <p className="mb-2">
           Weekday patterns in traditional markets come from structure: exchanges close, settlement takes days, funds report on schedules, and

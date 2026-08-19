@@ -68,7 +68,7 @@ export default function DecibelTool({ lang = 'ko' }: { lang?: SoundLang } = {}) 
 
   return (
     <div>
-      <div className="rounded-2xl bg-slate-900 px-6 py-10 text-center">
+      <div className="rounded-lg bg-slate-900 px-6 py-10 text-center">
         <p className="text-6xl font-black text-white tabular-nums">{db.toFixed(1)}</p>
         <p className="text-sm text-white/60 mt-1">dBFS · {ui.aboutLevel(ui.refs[REFERENCE.indexOf(nearest)])}</p>
 

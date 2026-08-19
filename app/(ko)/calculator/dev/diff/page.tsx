@@ -150,15 +150,15 @@ export default function DiffPage() {
           <>
             {/* 통계 */}
             <div className="grid grid-cols-3 gap-3">
-              <div className="bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/50 rounded-2xl p-4 text-center">
+              <div className="bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/50 rounded-lg p-4 text-center">
                 <p className="text-2xl font-black text-emerald-700 dark:text-emerald-300">+{stats.added}</p>
                 <p className="text-xs text-emerald-600 mt-1">추가된 줄</p>
               </div>
-              <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-2xl p-4 text-center">
+              <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-lg p-4 text-center">
                 <p className="text-2xl font-black text-red-600">-{stats.deleted}</p>
                 <p className="text-xs text-red-500 mt-1">삭제된 줄</p>
               </div>
-              <div className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 text-center">
+              <div className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg p-4 text-center">
                 <p className="text-2xl font-black text-slate-500 dark:text-slate-400">{stats.equal}</p>
                 <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">동일한 줄</p>
               </div>
@@ -166,7 +166,7 @@ export default function DiffPage() {
 
             {/* Diff 결과 */}
             {stats.added === 0 && stats.deleted === 0 ? (
-              <div className="rounded-2xl border border-emerald-200 dark:border-emerald-900/50 bg-emerald-50 dark:bg-emerald-950/30 p-5 text-center">
+              <div className="rounded-lg border border-emerald-200 dark:border-emerald-900/50 bg-emerald-50 dark:bg-emerald-950/30 p-5 text-center">
                 <p className="text-emerald-700 dark:text-emerald-300 font-bold text-sm">두 텍스트가 완전히 동일합니다.</p>
               </div>
             ) : (

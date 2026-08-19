@@ -6,9 +6,9 @@ import {
   drawdownProbabilityPct, KELLY_FRACTIONS,
 } from '@/lib/kelly';
 
-const inputCls =
-  'w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition tabular-nums';
-const labelCls = 'block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5';
+/* 사이트 공용 칸 — 초점 테두리가 갈래 색을 따라간다(globals.css .dial-input) */
+const inputCls = 'dial-input';
+const labelCls = 'dial-k mb-1 block';
 
 function fmtPct(v: number, d = 1): string {
   if (!isFinite(v)) return '—';
@@ -66,7 +66,7 @@ export default function KellyCalculator() {
 
   return (
     <>
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 mb-4">
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5 mb-4">
         <div className="grid sm:grid-cols-3 gap-4">
           <div>
             <label className={labelCls} htmlFor="k-win">Win rate (%)</label>
@@ -95,7 +95,7 @@ export default function KellyCalculator() {
 
       {r && r.hasEdge && rows ? (
         <>
-          <div className="rounded-3xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 mb-4">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 mb-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Full Kelly</p>
             <p className="text-5xl font-black tabular-nums text-violet-600 dark:text-violet-400">
               {r.fullKellyPct.toFixed(1)}%
@@ -118,7 +118,7 @@ export default function KellyCalculator() {
           </div>
 
           {/* 본론 */}
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
             <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
               <h2 className="text-sm font-black text-slate-900 dark:text-white">What you give up by betting less</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
@@ -181,7 +181,7 @@ export default function KellyCalculator() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-violet-200 dark:border-violet-500/30 bg-violet-50/50 dark:bg-violet-500/[0.06] p-5 mb-4">
+          <div className="rounded-lg border border-violet-200 dark:border-violet-500/30 bg-violet-50/50 dark:bg-violet-500/[0.06] p-5 mb-4">
             <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">The drawdown columns ignore your edge entirely</h2>
             <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed max-w-[72ch]">
               Change the win rate or the reward ratio above and watch those two columns: they do not move. Under the standard
@@ -193,7 +193,7 @@ export default function KellyCalculator() {
           </div>
         </>
       ) : (
-        <div className="rounded-2xl border border-rose-500/40 bg-rose-50 dark:bg-rose-500/[0.08] p-6 mb-4">
+        <div className="rounded-lg border border-rose-500/40 bg-rose-50 dark:bg-rose-500/[0.08] p-6 mb-4">
           <p className="text-sm text-rose-700 dark:text-rose-300 leading-relaxed max-w-[72ch]">
             {r
               ? <>At {winRatePct}% with {rMultiple}:1 the expectancy is <b className="tabular-nums">{r.expectancyR.toFixed(3)}R</b> — Kelly returns{' '}
@@ -205,7 +205,7 @@ export default function KellyCalculator() {
         </div>
       )}
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
         <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">Why the answer is almost always &quot;less than this&quot;</h2>
         <p className="mb-2">
           Kelly assumes the win rate and the reward ratio are known exactly. In practice both are estimates from a limited number of trades,

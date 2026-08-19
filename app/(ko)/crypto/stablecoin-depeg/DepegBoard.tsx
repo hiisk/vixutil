@@ -84,7 +84,7 @@ export default function DepegBoard() {
 
   if (state === 'loading') {
     return (
-      <div role="status" aria-live="polite" className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
+      <div role="status" aria-live="polite" className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
         <div aria-hidden="true" className="w-8 h-8 border-4 border-slate-200 dark:border-slate-700 border-t-amber-500 rounded-full animate-spin" />
         <span className="text-sm font-bold text-slate-500 dark:text-slate-400">Reading stablecoin prices…</span>
       </div>
@@ -93,7 +93,7 @@ export default function DepegBoard() {
 
   if (state === 'error') {
     return (
-      <div role="alert" className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
+      <div role="alert" className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
         <span aria-hidden="true" className="text-3xl">⚠️</span>
         <span className="text-sm font-bold text-rose-600 dark:text-rose-400">Couldn&apos;t load stablecoin prices</span>
         <button type="button" onClick={() => { setState('loading'); setReloadKey(k => k + 1); }}
@@ -105,7 +105,7 @@ export default function DepegBoard() {
   return (
     <>
       {/* 기준이 USDT라는 사실을 먼저 밝힌다 */}
-      <div className="rounded-2xl border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
+      <div className="rounded-lg border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
         <h2 className="text-sm font-black text-amber-900 dark:text-amber-200 mb-1.5">These prices are against USDT, not against a dollar</h2>
         <p className="text-xs text-amber-900/85 dark:text-amber-200/85 leading-relaxed">
           Binance quotes stablecoins in USDT, so a reading of 0.999 means one tenth of a percent below <b>USDT</b> — not below a dollar. If
@@ -120,14 +120,14 @@ export default function DepegBoard() {
 
       <div className="grid grid-cols-3 gap-3 mb-4">
         {([['pegged', counts.pegged], ['watch', counts.watch], ['depegged', counts.depegged]] as [PegState, number][]).map(([k, n]) => (
-          <div key={k} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 text-center">
+          <div key={k} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 text-center">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">{STATE_UI[k].label}</p>
             <p className="text-2xl font-black text-slate-900 dark:text-white tabular-nums">{n}</p>
           </div>
         ))}
       </div>
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
         <div className="scroll-x overflow-x-auto">
           <table className="w-full text-sm whitespace-nowrap">
             <thead>
@@ -180,7 +180,7 @@ export default function DepegBoard() {
         </div>
       </div>
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
         <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">What a small deviation does and does not mean</h2>
         <p className="mb-2">
           Stablecoins trade a few basis points either side of parity all the time. That is ordinary market-making, not distress: redemption

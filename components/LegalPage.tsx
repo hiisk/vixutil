@@ -87,7 +87,7 @@ export default function LegalPage({ kind, locale }: { kind: LegalKind; locale: A
               주소를 적으면 바꿀 때 한 곳이 남고, 그 언어만 죽은 주소를 안내한다.
             */}
             {s.mail && (
-              <div className="mt-3 rounded-2xl border chip-off px-4 py-4">
+              <div className="mt-3 rounded-lg border chip-off px-4 py-4">
                 <p className="label-caps mb-1.5">{chrome.mailLabel}</p>
                 <a
                   href={`mailto:${LEGAL_EMAIL}`}
