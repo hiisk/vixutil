@@ -108,12 +108,12 @@ export default function AimGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
           <div className="absolute inset-0 flex flex-col items-center justify-center text-white px-6 text-center">
             {done ? (
               <>
-                <span className="text-5xl font-black tabular-nums">{hits}</span>
+                <span className="text-5xl font-bold tabular-nums">{hits}</span>
                 <span className="text-sm text-white/70 mt-1">{ui.hitsSub(accuracy)}</span>
               </>
             ) : (
               <>
-                <span className="text-2xl font-black mb-1">{ui.introTitle(DURATION)}</span>
+                <span className="text-2xl font-bold mb-1">{ui.introTitle(DURATION)}</span>
                 <span className="text-sm text-white/60">{ui.introSub}</span>
               </>
             )}

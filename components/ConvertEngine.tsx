@@ -50,7 +50,7 @@ export default function ConvertEngine({ tool, lang = 'ko' }: { tool: ConvertTool
   ) => (
     <div className="flex-1 min-w-0">
       <label className="block">
-        <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">{unit}</span>
+        <span className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">{unit}</span>
         <div className="relative">
           <input
             value={value}
@@ -85,7 +85,7 @@ export default function ConvertEngine({ tool, lang = 'ko' }: { tool: ConvertTool
       </button>
 
       <div className="mt-4 rounded-lg border chip-off overflow-hidden">
-        <p className="px-4 py-2.5 text-xs font-black text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-950 border-b border-slate-100 dark:border-slate-800">
+        <p className="px-4 py-2.5 text-xs font-medium text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-950 border-b border-slate-100 dark:border-slate-800">
           {ui.quickTitle}
         </p>
         {tool.quick.map(v => {
@@ -100,7 +100,7 @@ export default function ConvertEngine({ tool, lang = 'ko' }: { tool: ConvertTool
                 {v}{tool.from}
               </span>
               <span className="text-slate-300 dark:text-slate-600 text-xs">=</span>
-              <span className="text-sm font-black text-blue-600 tabular-nums">
+              <span className="text-sm font-bold text-blue-600 tabular-nums">
                 {converted}{tool.to}
               </span>
             </button>
@@ -109,7 +109,7 @@ export default function ConvertEngine({ tool, lang = 'ko' }: { tool: ConvertTool
       </div>
 
       <div className="mt-4 rounded-lg border chip-off p-5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.formula}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.formula}</p>
         <p className="text-sm font-mono text-slate-700 dark:text-slate-200">
           {/* 역수 변환은 곱셈이 아니라 나눗셈이다 — 페이스·BPM·연비가 그렇다 */}
           {tool.reciprocal

@@ -315,7 +315,7 @@ export default function EitcPage() {
               <p className="text-blue-200 text-xs mb-1">
                 {result.r.total > 0 ? '받을 수 있는 금액' : '지급 대상이 아닙니다'}
               </p>
-              <p className="text-white text-3xl font-black">
+              <p className="text-white text-3xl font-bold">
                 {result.r.total > 0 ? `${fmt(result.r.total)}원` : '0원'}
               </p>
               <p className="text-blue-200 text-xs mt-1">

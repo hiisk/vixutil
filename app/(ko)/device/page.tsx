@@ -84,7 +84,7 @@ export default function DeviceHubPage() {
         <div className="flex flex-col gap-7">
           {grouped.map(g => (
             <section key={g.category} aria-label={g.category}>
-              <h2 className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
+              <h2 className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
                 {g.category}
               </h2>
               <div className="grid sm:grid-cols-2 gap-3">
@@ -103,7 +103,7 @@ export default function DeviceHubPage() {
                           </span>
                         )}
                       </div>
-                      <h3 className="text-base font-black text-slate-900 dark:text-slate-100 mb-1">{t.title}</h3>
+                      <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mb-1">{t.title}</h3>
                       <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-3">{t.desc}</p>
                       <span className="flex items-center gap-1 text-xs font-semibold text-sky-600">
                         테스트 하기
@@ -128,7 +128,7 @@ export default function DeviceHubPage() {
             <ToolIcon emoji={SCREEN_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />
           </span>
           <span className="min-w-0">
-            <span className="block text-sm font-black text-slate-800 dark:text-slate-100">
+            <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">
               {DEVICE_UI.ko.hubTitle}
             </span>
             <span className="block text-xs text-slate-500 dark:text-slate-400 mt-0.5">{DEVICE_UI.ko.hubLead}</span>

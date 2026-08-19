@@ -242,7 +242,7 @@ export default function CropTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
       </div>
 
       <div className="mt-4 rounded-lg border chip-off p-5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.ratioTitle}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.ratioTitle}</p>
         <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
           {RATIOS.map((r, i) => (
             <button

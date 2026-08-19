@@ -68,7 +68,7 @@ export default function RiskAdjustedPage() {
           계산하므로 자바스크립트를 실행하지 않는 크롤러에겐 빈 껍데기로 보인다.
         */}
         <section className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
-          <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">&quot;Best risk-adjusted&quot; depends on the definition of risk</h2>
+          <h2 className="text-base font-bold text-slate-900 dark:text-white mb-3">&quot;Best risk-adjusted&quot; depends on the definition of risk</h2>
           <p className="mb-3">
             Return alone ranks assets by how much they went up, which says nothing about what holding them felt like. Risk-adjusted ratios
             divide return by some measure of risk, and the choice of measure changes the answer. This page computes three of them for the

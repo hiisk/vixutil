@@ -67,7 +67,7 @@ export function QuizIntlHub({ lang }: { lang: QuizIntlLang }) {
       <div className="h-1 topbar" />
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center gap-4">
-          <Link prefetch={false} href={`/${lang}/quiz`} className="font-black text-amber-600 text-lg shrink-0">vixutil</Link>
+          <Link prefetch={false} href={`/${lang}/quiz`} className="font-bold text-amber-600 text-lg shrink-0">vixutil</Link>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{ui.nav}</span>
           <span className="ml-auto flex items-center gap-2">
             <LangPicker current={lang} route="/quiz" available={HUB_LANGS} />
@@ -89,7 +89,7 @@ export function QuizIntlHub({ lang }: { lang: QuizIntlLang }) {
                 <span className="text-[10px] font-bold bg-white/25 rounded-full px-2 py-0.5">{q.questions.length}</span>
               </div>
               <div>
-                <div className="text-base font-black drop-shadow leading-tight">{q.title}</div>
+                <div className="text-base font-bold drop-shadow leading-tight">{q.title}</div>
                 <div className="text-[11px] font-medium opacity-80 mt-1 line-clamp-2">{q.desc}</div>
               </div>
             </Link>
@@ -102,7 +102,7 @@ export function QuizIntlHub({ lang }: { lang: QuizIntlLang }) {
       </div>
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
-        <span className="text-sm font-black text-amber-600">vixutil</span>
+        <span className="text-sm font-bold text-amber-600">vixutil</span>
         <p className="text-xs text-slate-400 mt-1">{ui.foot}</p>
       </footer>
     </div>
@@ -147,7 +147,7 @@ export function QuizIntlDetail({ lang, quiz }: { lang: QuizIntlLang; quiz: Quiz 
         <Faq items={quizFaqIntl(lang, quiz)} lang={lang} className="" />
       </div>
       <div className="max-w-lg mx-auto px-4 w-full pb-10 pt-8">
-        <h2 className="text-sm font-black text-slate-700 dark:text-slate-200 mb-3">{ui.more}</h2>
+        <h2 className="text-sm font-bold text-slate-700 dark:text-slate-200 mb-3">{ui.more}</h2>
         <div className="grid grid-cols-2 gap-2">
           {others.map(o => (
             <Link prefetch={false} key={o.slug} href={`/${lang}/quiz/${o.slug}`}
@@ -159,7 +159,7 @@ export function QuizIntlDetail({ lang, quiz }: { lang: QuizIntlLang; quiz: Quiz 
         </div>
       </div>
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
-        <Link prefetch={false} href={`/${lang}/quiz`} className="text-sm font-black text-amber-600">vixutil</Link>
+        <Link prefetch={false} href={`/${lang}/quiz`} className="text-sm font-bold text-amber-600">vixutil</Link>
         <p className="text-xs text-slate-400 mt-1">{ui.foot}</p>
       </footer>
     </>

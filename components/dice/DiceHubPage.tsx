@@ -92,7 +92,7 @@ export default function DiceHubPage({ lang }: { lang: Lang }) {
                       href={`${path}/${r.slug}`}
                       className="flex items-baseline gap-3 px-4 py-2.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
                     >
-                      <span className="text-sm font-black text-rose-700 dark:text-rose-400 font-mono shrink-0 w-[52px] tabular-nums">{f.sum}</span>
+                      <span className="text-sm font-bold text-rose-700 dark:text-rose-400 font-mono shrink-0 w-[52px] tabular-nums">{f.sum}</span>
                       <span className="text-sm font-bold text-slate-700 dark:text-slate-200 tabular-nums shrink-0 w-[72px]">{n(f.percent)}%</span>
                       <span className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
                         {ui.waysLabel} {n(f.ways)}

@@ -94,7 +94,7 @@ export default function FortuneDisplay({ subjectId, subjectName, subjectEmoji, b
         </div>
         <p className="text-sm font-semibold text-purple-200 mb-2">{today} 운세</p>
         <div className="text-6xl mb-3">{subjectEmoji}</div>
-        <h2 className="text-2xl font-black mb-1">{subjectName}</h2>
+        <h2 className="text-2xl font-bold mb-1">{subjectName}</h2>
         {badge && <span className="text-xs bg-white/20 dark:bg-slate-900/20 px-3 py-1 rounded-full font-semibold">{badge}</span>}
         <div className="mt-4 flex flex-col items-center gap-1">
           <p className="text-xs text-purple-200">오늘의 종합운</p>
@@ -152,7 +152,7 @@ export default function FortuneDisplay({ subjectId, subjectName, subjectEmoji, b
           </div>
           <div className="text-center">
             <div className="w-10 h-10 rounded-full bg-violet-100 dark:bg-violet-950/40 flex items-center justify-center mx-auto mb-1">
-              <span className="text-lg font-black text-violet-600">{f.luckyNumber}</span>
+              <span className="text-lg font-bold text-violet-600">{f.luckyNumber}</span>
             </div>
             <p className="text-xs text-slate-400 dark:text-slate-500">행운의 숫자</p>
             <p className="text-sm font-bold text-slate-700 dark:text-slate-200">{f.luckyNumber}</p>

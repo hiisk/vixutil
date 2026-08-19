@@ -145,7 +145,7 @@ export default function RebalanceBoard() {
         <>
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
             <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
-              <h2 className="text-sm font-black text-slate-900 dark:text-white">
+              <h2 className="text-sm font-bold text-slate-900 dark:text-white">
                 Equal weight in {active.join(' / ')} over the last {days} days
               </h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
@@ -182,7 +182,7 @@ export default function RebalanceBoard() {
                           {label}
                           {isNever && <span className="block text-[10px] font-normal text-slate-500 dark:text-slate-400">baseline</span>}
                         </td>
-                        <td className="px-3 py-2.5 text-right tabular-nums font-black text-slate-900 dark:text-white">{mult(val)}</td>
+                        <td className="px-3 py-2.5 text-right tabular-nums font-bold text-slate-900 dark:text-white">{mult(val)}</td>
                         <td className={`px-3 py-2.5 text-right tabular-nums border-l border-slate-200/40 dark:border-slate-700/40 ${
                           isNever ? 'text-slate-400 dark:text-slate-500'
                           : edge > 0 ? 'text-emerald-600 dark:text-emerald-400 font-bold'
@@ -212,7 +212,7 @@ export default function RebalanceBoard() {
           {/* 방치했을 때 얼마나 쏠렸는가 */}
           {buyHold && (
             <div className="rounded-lg border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
-              <h2 className="text-sm font-black text-amber-900 dark:text-amber-200 mb-1.5">Leaving it alone is a decision too</h2>
+              <h2 className="text-sm font-bold text-amber-900 dark:text-amber-200 mb-1.5">Leaving it alone is a decision too</h2>
               {/*
                 문구가 결과를 단정하지 않게 한다. 초기 버전은 "방치가 보통 이긴다"고 썼는데
                 화면에 뜬 값은 리밸런싱이 +0.6%p 앞선 경우였다 — 표와 어긋나는 주장이었다.
@@ -237,7 +237,7 @@ export default function RebalanceBoard() {
       )}
 
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
-        <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">When rebalancing helps, and when it does the opposite</h2>
+        <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-2">When rebalancing helps, and when it does the opposite</h2>
         <p className="mb-2">
           Rebalancing sells whatever rose and buys whatever fell. That is profitable when assets take turns leading, because it systematically
           trims the expensive one and adds to the cheap one. It is costly when one asset simply keeps winning, because it repeatedly cuts the

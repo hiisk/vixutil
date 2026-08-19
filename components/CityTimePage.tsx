@@ -101,7 +101,7 @@ export default function CityTimePage({ city, lang }: { city: TimeCity; lang: Lan
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-5">
             {country?.flag} {f.country} · UTC {f.standardLabel}
           </p>
-          <p className="text-xs font-bold text-slate-400 dark:text-slate-500 mb-1">{ui.nowLabel}</p>
+          <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mb-1">{ui.nowLabel}</p>
           <CityClock zone={city.zone} locale={langInfo(lang).htmlLang} />
         </div>
 
@@ -113,7 +113,7 @@ export default function CityTimePage({ city, lang }: { city: TimeCity; lang: Lan
                   <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400 w-3/5">
                     {r.label}
                   </th>
-                  <td className="px-4 py-3 font-black text-slate-800 dark:text-slate-100 tabular-nums">{r.value}</td>
+                  <td className="px-4 py-3 font-bold text-slate-800 dark:text-slate-100 tabular-nums">{r.value}</td>
                 </tr>
               ))}
             </tbody>
@@ -127,7 +127,7 @@ export default function CityTimePage({ city, lang }: { city: TimeCity; lang: Lan
             {f.gaps.map(g => (
               <div key={g.city} className="rounded-xl border chip-off px-3 py-2.5 text-center">
                 <p className="text-[11px] font-bold text-slate-500 dark:text-slate-400 truncate">{g.city}</p>
-                <p className="text-sm font-black text-slate-800 dark:text-slate-100 tabular-nums mt-0.5">{g.label}</p>
+                <p className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums mt-0.5">{g.label}</p>
               </div>
             ))}
           </div>
@@ -157,7 +157,7 @@ export default function CityTimePage({ city, lang }: { city: TimeCity; lang: Lan
                   <span className="text-sm font-bold text-slate-800 dark:text-slate-100 truncate">
                     {timeCountry(n.country)?.flag} {n.name[lang]}
                   </span>
-                  <span className="text-xs font-black text-slate-500 dark:text-slate-400 tabular-nums shrink-0">
+                  <span className="text-xs font-medium text-slate-500 dark:text-slate-400 tabular-nums shrink-0">
                     {gapLabel(gapMinutes(n, city))}
                   </span>
                 </Link>

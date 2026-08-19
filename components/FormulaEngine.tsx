@@ -77,11 +77,11 @@ export default function FormulaEngine({
   return (
     <div>
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/70 backdrop-blur p-4">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3">{ui.inputs}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-3">{ui.inputs}</p>
         <div className={`grid gap-3 ${tool.fields.length > 2 ? 'sm:grid-cols-2' : ''}`}>
           {tool.fields.map(f => (
             <label key={f.key} className="block">
-              <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">
+              <span className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">
                 {term(f.term)}
                 {f.unit && f.unit !== 'none' && (
                   <span className="ml-1 font-medium text-slate-400 dark:text-slate-500">
@@ -97,7 +97,7 @@ export default function FormulaEngine({
                 }}
                 inputMode="decimal"
                 aria-label={term(f.term)}
-                className={`w-full rounded-xl border-2 chip-off px-3.5 py-3 text-xl font-black text-slate-800 dark:text-slate-100 tabular-nums focus:outline-none transition-colors ${section.focusBorder}`}
+                className={`w-full rounded-xl border-2 chip-off px-3.5 py-3 text-xl font-bold text-slate-800 dark:text-slate-100 tabular-nums focus:outline-none transition-colors ${section.focusBorder}`}
               />
             </label>
           ))}
@@ -106,7 +106,7 @@ export default function FormulaEngine({
 
       <div className={`mt-3 rounded-lg bg-gradient-to-br ${section.grad} text-white px-6 py-7 text-center shadow-sm`}>
         <p className="text-sm text-white/75 mb-1">{term(primary.term)}</p>
-        <p data-formula-result className="text-3xl sm:text-4xl font-black tabular-nums break-all">{primaryText}</p>
+        <p data-formula-result className="text-3xl sm:text-4xl font-bold tabular-nums break-all">{primaryText}</p>
         <button
           onClick={copy}
           className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-white/15 hover:bg-white/25 px-3.5 py-1.5 text-xs font-bold transition-colors"
@@ -125,9 +125,9 @@ export default function FormulaEngine({
               <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 mb-1 truncate">
                 {term(o.term)}
               </p>
-              <p className={`text-base font-black tabular-nums ${section.textAccent}`}>
+              <p className={`text-base font-bold tabular-nums ${section.textAccent}`}>
                 {groupNum(o.value, o.digits ?? 2)}
-                <span className="text-xs font-bold text-slate-400 dark:text-slate-500 ml-0.5">
+                <span className="text-xs font-medium text-slate-400 dark:text-slate-500 ml-0.5">
                   {unitLabel(o.unit ?? 'none')}
                 </span>
               </p>

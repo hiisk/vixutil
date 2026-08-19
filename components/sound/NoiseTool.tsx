@@ -96,7 +96,7 @@ export default function NoiseTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300'
             }`}
           >
-            <span className="block text-sm font-black">{ui.kinds[i]}</span>
+            <span className="block text-sm font-bold">{ui.kinds[i]}</span>
           </button>
         ))}
       </div>
@@ -108,7 +108,7 @@ export default function NoiseTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
         <Slider label={c.volume} value={volume} min={0} max={100} unit="%" onChange={setVolume} accent="accent-sky-500" color="text-sky-600" />
         <Slider label={ui.smooth} value={tone} min={500} max={16000} step={100} unit="Hz" onChange={setTone} accent="accent-sky-500" color="text-sky-600" />
         <div>
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.autoStop}</p>
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.autoStop}</p>
           <div className="grid grid-cols-4 gap-2">
             {TIMERS.map(t => (
               <button

@@ -69,7 +69,7 @@ export default function DecibelTool({ lang = 'ko' }: { lang?: SoundLang } = {}) 
   return (
     <div>
       <div className="rounded-lg bg-slate-900 px-6 py-10 text-center">
-        <p className="text-6xl font-black text-white tabular-nums">{db.toFixed(1)}</p>
+        <p className="text-6xl font-bold text-white tabular-nums">{db.toFixed(1)}</p>
         <p className="text-sm text-white/60 mt-1">dBFS · {ui.aboutLevel(ui.refs[REFERENCE.indexOf(nearest)])}</p>
 
         <div className="mt-6 h-4 rounded-full bg-white/10 overflow-hidden">
@@ -94,7 +94,7 @@ export default function DecibelTool({ lang = 'ko' }: { lang?: SoundLang } = {}) 
       </button>
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.refsTitle}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.refsTitle}</p>
         <div className="flex flex-col gap-1.5">
           {REFERENCE.map((r, i) => (
             <div key={r.db} className="flex items-center gap-3 text-sm">

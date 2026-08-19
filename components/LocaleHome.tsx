@@ -28,8 +28,8 @@ export default function LocaleHome({ lang }: { lang: Exclude<AnyLocale10, 'ko'> 
       <div className="relative max-w-6xl mx-auto px-4 py-10 sm:py-20">
         <div className="mb-8 sm:mb-14">
           <h1 className="inline-flex items-center gap-1 mb-4">
-            <span className="text-5xl sm:text-6xl font-black text-slate-900 dark:text-slate-100 tracking-tighter">vix</span>
-            <span className="text-5xl sm:text-6xl font-black text-blue-600 tracking-tighter">util</span>
+            <span className="text-5xl sm:text-6xl font-bold text-slate-900 dark:text-slate-100 tracking-tighter">vix</span>
+            <span className="text-5xl sm:text-6xl font-bold text-blue-600 tracking-tighter">util</span>
             <span className="sr-only">{ui.srTagline}</span>
           </h1>
           <p className="text-slate-400 dark:text-slate-500 text-base">{ui.tagline}</p>

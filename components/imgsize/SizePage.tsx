@@ -100,7 +100,7 @@ export default function SizePage({ slug, lang }: { slug: string; lang: Lang }) {
         <div className="hero-band ">
           <span className="bg-sec-soft inline-flex h-10 w-10 items-center justify-center rounded-lg"><ToolIcon emoji={IMG_SIZE_ICON} className="h-5 w-5" /></span>
           <h1 className="page-h1">{x.name}</h1>
-          <p className="text-3xl font-black text-pink-600 dark:text-pink-400 tabular-nums mb-1">{x.w} × {x.h}</p>
+          <p className="text-3xl font-bold text-pink-600 dark:text-pink-400 tabular-nums mb-1">{x.w} × {x.h}</p>
           <p className="text-xs text-slate-400 dark:text-slate-500">{kind} · {f.ratioLabel}</p>
         </div>
 
@@ -116,7 +116,7 @@ export default function SizePage({ slug, lang }: { slug: string; lang: Lang }) {
                   <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400 w-1/2">
                     {r.label}
                   </th>
-                  <td className="px-4 py-3 font-black text-slate-800 dark:text-slate-100 tabular-nums">{r.value}</td>
+                  <td className="px-4 py-3 font-bold text-slate-800 dark:text-slate-100 tabular-nums">{r.value}</td>
                 </tr>
               ))}
             </tbody>

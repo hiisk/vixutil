@@ -186,7 +186,7 @@ export default function SiteFooter({ lang = 'ko', referral = true, browse = true
         {/* 섹션 바로가기 — 통합 검색은 이 목록을 첫 화면 위쪽에 이미 그리므로 끈다 */}
         {browse && (
           <>
-            <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
+            <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
               {t.browse}
             </p>
             <div className="mb-8">
@@ -196,7 +196,7 @@ export default function SiteFooter({ lang = 'ko', referral = true, browse = true
         )}
 
         {/* 인기 도구 */}
-        <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
+        <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
           {t.popular}
         </p>
         <div className="flex flex-wrap gap-2 mb-8">
@@ -243,8 +243,8 @@ export default function SiteFooter({ lang = 'ko', referral = true, browse = true
           {/* 로고는 그 언어의 홈으로 — 푸터는 열 언어 모든 장에 있어서
               "/"로 굳혀 두면 일본어 사용자가 한국어 홈으로 튕긴다 */}
           <Link prefetch={false} href={localeHref(lang, '/')} className="flex items-center gap-0.5 shrink-0">
-            <span className="text-sm font-black text-slate-800 dark:text-slate-100 tracking-tighter">vix</span>
-            <span className="text-sm font-black text-blue-600 tracking-tighter">util</span>
+            <span className="text-sm font-bold text-slate-800 dark:text-slate-100 tracking-tighter">vix</span>
+            <span className="text-sm font-bold text-blue-600 tracking-tighter">util</span>
           </Link>
           <p className="text-xs text-slate-300 dark:text-slate-600 hidden sm:block">{t.tagline}</p>
           <ThemeToggle lang={lang} />

@@ -131,8 +131,8 @@ export default function DividendPage() {
             </div>
             {needInvest && (
               <Card className="p-4">
-                <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">목표 월 배당 달성을 위한 필요 투자금</p>
-                <p className="text-2xl font-black text-blue-600">{fmt(needInvest)}원</p>
+                <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">목표 월 배당 달성을 위한 필요 투자금</p>
+                <p className="text-2xl font-bold text-blue-600">{fmt(needInvest)}원</p>
               </Card>
             )}
           </>

@@ -25,7 +25,7 @@ const slugOf = (base: string) => COINS.find(c => c.base === base)?.slug ?? null;
 /** 연환산 값은 절대값이 커지므로 구간별로 강조한다 */
 function annualCls(v: number): string {
   const a = Math.abs(v);
-  if (a >= 100) return v >= 0 ? 'text-rose-600 dark:text-rose-400 font-black' : 'text-emerald-600 dark:text-emerald-400 font-black';
+  if (a >= 100) return v >= 0 ? 'text-rose-600 dark:text-rose-400 font-bold' : 'text-emerald-600 dark:text-emerald-400 font-bold';
   if (a >= 20) return v >= 0 ? 'text-rose-600/80 dark:text-rose-400/80' : 'text-emerald-600/80 dark:text-emerald-400/80';
   return 'text-slate-600 dark:text-slate-300';
 }
@@ -126,7 +126,7 @@ export default function FundingBoard() {
     <>
       {/* 정산 주기 분포 — 이 페이지의 존재 이유를 숫자로 먼저 보여준다 */}
       <div className="rounded-lg border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
-        <h2 className="text-sm font-black text-amber-900 dark:text-amber-200 mb-1.5">Not every coin settles every 8 hours</h2>
+        <h2 className="text-sm font-bold text-amber-900 dark:text-amber-200 mb-1.5">Not every coin settles every 8 hours</h2>
         <p className="text-xs text-amber-900/85 dark:text-amber-200/85 leading-relaxed mb-3">
           Funding tables almost always annualise by assuming three settlements a day. Right now
           {' '}<b>{offSchedule.toLocaleString()} of {rows.length.toLocaleString()}</b> USDT perpetuals on Binance
@@ -231,7 +231,7 @@ export default function FundingBoard() {
         <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-4">
           <div className="flex items-center gap-2 mb-4">
             <CoinLogo base={sel.base} size={24} />
-            <h2 className="text-sm font-black text-slate-900 dark:text-white">What {sel.base} funding costs you</h2>
+            <h2 className="text-sm font-bold text-slate-900 dark:text-white">What {sel.base} funding costs you</h2>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-4 mb-4">
@@ -286,7 +286,7 @@ export default function FundingBoard() {
 
       {/* 정직한 한계 */}
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
-        <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">Before treating a high rate as free money</h2>
+        <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-2">Before treating a high rate as free money</h2>
         <p className="mb-2">
           A large negative rate looks like it pays you to go long, and the &quot;funding arbitrage&quot; framing is to hold the perpetual and hedge
           it with the opposite spot position so the price move cancels and the funding is kept. Three things eat that in practice.

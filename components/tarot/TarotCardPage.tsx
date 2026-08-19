@@ -103,11 +103,11 @@ export default function TarotCardPage({ slug, lang }: { slug: string; lang: Lang
 
         <section className="grid gap-3 mb-6">
           <div className="rounded-lg border border-violet-200 dark:border-violet-900/50 bg-violet-50 dark:bg-violet-950/30 px-4 py-4">
-            <p className="text-[11px] font-black text-violet-700 dark:text-violet-300 mb-1">{ui.uprightLabel}</p>
+            <p className="text-[11px] font-bold text-violet-700 dark:text-violet-300 mb-1">{ui.uprightLabel}</p>
             <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{v.upright}</p>
           </div>
           <div className="rounded-lg border chip-off px-4 py-4">
-            <p className="text-[11px] font-black text-slate-500 dark:text-slate-400 mb-1">{ui.reversedLabel}</p>
+            <p className="text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1">{ui.reversedLabel}</p>
             <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{v.reversed}</p>
           </div>
         </section>
@@ -120,7 +120,7 @@ export default function TarotCardPage({ slug, lang }: { slug: string; lang: Lang
                   <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400 w-1/2">
                     {r.label}
                   </th>
-                  <td className="px-4 py-3 font-black text-slate-800 dark:text-slate-100">{r.value}</td>
+                  <td className="px-4 py-3 font-bold text-slate-800 dark:text-slate-100">{r.value}</td>
                 </tr>
               ))}
             </tbody>

@@ -101,7 +101,7 @@ export default function AveragePage() {
           <LangPicker current="ko" route="/calculator/average" available={ALL_LOCALES10} />
         </div>
         <Card className="p-5">
-          <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">숫자 입력</label>
+          <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">숫자 입력</label>
           <textarea
             value={text}
             onChange={e => setText(e.target.value)}
@@ -113,7 +113,7 @@ export default function AveragePage() {
             <p className="text-xs text-slate-400 dark:text-slate-500">쉼표·띄어쓰기·줄바꿈 모두 됩니다</p>
             <button
               onClick={() => setText('')}
-              className="text-xs font-bold text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"
+              className="text-xs font-medium text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"
             >
               지우기
             </button>
@@ -124,7 +124,7 @@ export default function AveragePage() {
           <>
             <div className="stat-pri text-center">
               <p className="stat-sub mb-2">평균</p>
-              <p className="text-slate-900 dark:text-slate-50 text-5xl font-black">{fmt(stats.mean)}</p>
+              <p className="text-slate-900 dark:text-slate-50 text-5xl font-bold">{fmt(stats.mean)}</p>
               <p className="stat-sub mt-3 opacity-90">
                 {stats.n}개 · 합계 {fmt(stats.sum)}
               </p>

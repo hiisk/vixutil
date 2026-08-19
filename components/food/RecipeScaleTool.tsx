@@ -58,7 +58,7 @@ export default function RecipeScaleTool({ lang = 'ko' }: { lang?: FoodLang } = {
       </p>
 
       <label className="block mt-4">
-        <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">{ui.pasteLabel}</span>
+        <span className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">{ui.pasteLabel}</span>
         <textarea
           value={text}
           onChange={e => setText(e.target.value)}
@@ -70,7 +70,7 @@ export default function RecipeScaleTool({ lang = 'ko' }: { lang?: FoodLang } = {
 
       <div className="mt-4">
         <div className="flex items-center justify-between mb-1.5">
-          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.resultLabel(to)}</span>
+          <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{ui.resultLabel(to)}</span>
           <button
             onClick={() => copy(result)}
             disabled={!result}
@@ -85,7 +85,7 @@ export default function RecipeScaleTool({ lang = 'ko' }: { lang?: FoodLang } = {
       </div>
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.noteTitle}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.noteTitle}</p>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           {ui.note}
         </p>

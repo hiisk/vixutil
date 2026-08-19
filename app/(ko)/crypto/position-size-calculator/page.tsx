@@ -68,7 +68,7 @@ export default function PositionSizeCalculatorPage() {
           자바스크립트를 실행하지 않는 크롤러에겐 빈 껍데기로 보인다.
         */}
         <section className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
-          <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">How position sizing works</h2>
+          <h2 className="text-base font-bold text-slate-900 dark:text-white mb-3">How position sizing works</h2>
           <p className="mb-3">
             Sizing by feel goes wrong in a specific way: with a tight stop the position ends up far too large, and with a wide one far too
             small. Reversing the order fixes it. Decide first what a losing trade may cost — your account multiplied by a risk percentage —

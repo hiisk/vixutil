@@ -107,12 +107,12 @@ export default function ProfitCalculator() {
             <div className="flex items-center gap-2.5">
               <CoinLogo base={coin.base} size={28} />
               <div>
-                <p className="text-lg font-black text-slate-900 dark:text-white tabular-nums leading-tight">${formatPrice(price)}</p>
+                <p className="text-lg font-bold text-slate-900 dark:text-white tabular-nums leading-tight">${formatPrice(price)}</p>
                 {chg24h != null && <p className="text-[11px]"><Pct value={chg24h} /> <span className="text-slate-500 dark:text-slate-400">24h</span></p>}
               </div>
             </div>
           )}
-          {state === 'loading' && <span role="status" className="text-xs font-bold text-slate-500 dark:text-slate-400">Loading price…</span>}
+          {state === 'loading' && <span role="status" className="text-xs font-medium text-slate-500 dark:text-slate-400">Loading price…</span>}
           {state === 'error' && (
             <span className="flex items-center gap-2 text-xs">
               <span className="font-bold text-rose-600 dark:text-rose-400">Couldn&apos;t load price</span>
@@ -192,8 +192,8 @@ export default function ProfitCalculator() {
             <p className="text-[11px] uppercase tracking-wide text-amber-600 dark:text-amber-400 mb-1">Net profit after fees</p>
             <div className="flex flex-wrap items-end gap-x-8 gap-y-3">
               <div>
-                <p className={`text-4xl font-black tabular-nums ${pnlCls(r.netPnl)}`}>{money(r.netPnl)}</p>
-                <p className={`text-sm font-black tabular-nums ${pnlCls(r.roiPct)}`}>
+                <p className={`text-4xl font-bold tabular-nums ${pnlCls(r.netPnl)}`}>{money(r.netPnl)}</p>
+                <p className={`text-sm font-bold tabular-nums ${pnlCls(r.roiPct)}`}>
                   {r.roiPct >= 0 ? '+' : ''}{r.roiPct.toFixed(2)}% on ${formatPrice(r.margin)} margin
                 </p>
               </div>
@@ -209,25 +209,25 @@ export default function ProfitCalculator() {
 
           {/* 본전 가격 — 이 페이지가 다른 수익 계산기와 갈리는 지점 */}
           <div className={`rounded-lg border p-5 mb-4 ${fooled ? 'border-rose-500/40 bg-rose-50 dark:bg-rose-500/[0.08]' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900'}`}>
-            <h2 className="text-sm font-black text-slate-900 dark:text-white mb-1">Your break-even is not your entry price</h2>
+            <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-1">Your break-even is not your entry price</h2>
             <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
               Fees are charged on the way in and on the way out, so the price has to move before you are level.
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               <div className="rounded-xl bg-slate-50 dark:bg-slate-950 p-3.5">
                 <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Entry</p>
-                <p className="text-base font-black text-slate-900 dark:text-white tabular-nums">${formatPrice(Number(entryValue))}</p>
+                <p className="text-base font-bold text-slate-900 dark:text-white tabular-nums">${formatPrice(Number(entryValue))}</p>
               </div>
               <div className="rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-500/30 p-3.5">
                 <p className="text-[11px] uppercase tracking-wide text-amber-700 dark:text-amber-400 mb-1">Break-even</p>
-                <p className="text-base font-black text-amber-700 dark:text-amber-300 tabular-nums">${formatPrice(r.breakevenPrice)}</p>
+                <p className="text-base font-bold text-amber-700 dark:text-amber-300 tabular-nums">${formatPrice(r.breakevenPrice)}</p>
                 <p className="text-[11px] text-amber-700/80 dark:text-amber-400/80 tabular-nums">
                   {side === 'long' ? '+' : '−'}{r.breakevenMovePct.toFixed(4)}%
                 </p>
               </div>
               <div className="rounded-xl bg-slate-50 dark:bg-slate-950 p-3.5">
                 <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Your exit</p>
-                <p className={`text-base font-black tabular-nums ${pnlCls(r.netPnl)}`}>${formatPrice(Number(exitValue))}</p>
+                <p className={`text-base font-bold tabular-nums ${pnlCls(r.netPnl)}`}>${formatPrice(Number(exitValue))}</p>
               </div>
             </div>
             {fooled && (
@@ -250,7 +250,7 @@ export default function ProfitCalculator() {
             ].map(([label, value, note]) => (
               <div key={label} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
                 <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">{label}</p>
-                <p className="text-base font-black text-slate-900 dark:text-white tabular-nums">{value}</p>
+                <p className="text-base font-bold text-slate-900 dark:text-white tabular-nums">{value}</p>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 truncate">{note}</p>
               </div>
             ))}
@@ -263,7 +263,7 @@ export default function ProfitCalculator() {
       )}
 
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
-        <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">What leverage does and does not change</h2>
+        <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-2">What leverage does and does not change</h2>
         <p className="mb-2">
           Leverage does not change the profit in dollars. Once the position size is fixed, a given price move produces the same gain or loss
           whatever the leverage; what changes is the margin locked up to hold it, and therefore the percentage return on that margin. A 10%

@@ -92,17 +92,17 @@ export default function CpsGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
       >
         {done ? (
           <>
-            <span className="text-5xl font-black tabular-nums">{cps.toFixed(1)}</span>
+            <span className="text-5xl font-bold tabular-nums">{cps.toFixed(1)}</span>
             <span className="text-sm text-white/70 mt-1">CPS · {ui.clicksSuffix(clicks)}</span>
           </>
         ) : running ? (
           <>
-            <span className="text-6xl font-black tabular-nums">{clicks}</span>
+            <span className="text-6xl font-bold tabular-nums">{clicks}</span>
             <span className="text-sm text-white/70 mt-1">{c.secLeft(left.toFixed(1))}</span>
           </>
         ) : (
           <>
-            <span className="text-2xl font-black">{ui.tapHere}</span>
+            <span className="text-2xl font-bold">{ui.tapHere}</span>
             <span className="text-sm text-white/70 mt-1">{ui.startsOnFirst(duration)}</span>
           </>
         )}

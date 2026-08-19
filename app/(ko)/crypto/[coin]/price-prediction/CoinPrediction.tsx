@@ -86,7 +86,7 @@ const ACTION_CLS: Record<Action, string> = {
   NEUTRAL: 'bg-slate-500/15 text-slate-500 dark:text-slate-400',
 };
 function ActionChip({ action }: { action: Action }) {
-  return <span className={`text-[10px] font-black px-2 py-0.5 rounded ${ACTION_CLS[action]}`}>{action}</span>;
+  return <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${ACTION_CLS[action]}`}>{action}</span>;
 }
 
 /** UTC 기준 날짜 라벨 (모든 시각은 UTC로 통일) */
@@ -102,7 +102,7 @@ function utcDayOffset(n: number): number {
 function Section({ id, title, sub, children }: { id: string; title: string; sub?: string; children: React.ReactNode }) {
   return (
     <section id={id} className="scroll-mt-28 mb-8">
-      <h2 className="text-lg font-black text-slate-900 dark:text-white mb-1">{title}</h2>
+      <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-1">{title}</h2>
       {sub && <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{sub}</p>}
       {children}
     </section>
@@ -339,7 +339,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           </div>
           <div className="flex items-center gap-4">
             <div className="text-right">
-              <p className="text-3xl font-black text-slate-900 dark:text-white tabular-nums">${formatPrice(s.price)}</p>
+              <p className="text-3xl font-bold text-slate-900 dark:text-white tabular-nums">${formatPrice(s.price)}</p>
               <p className="text-xs"><Pct value={s.chg24h} /> <span className="text-slate-500 dark:text-slate-400">24h</span></p>
             </div>
             <Sparkline points={s.closes.slice(-30).concat(s.price)} w={120} h={40} />
@@ -350,17 +350,17 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
         <div className="relative grid sm:grid-cols-3 gap-3">
           <div className="rounded-lg bg-slate-50/60 dark:bg-slate-950/60 border border-amber-500/25 p-4">
             <p className="text-[11px] uppercase tracking-wide text-amber-600 dark:text-amber-400/80 mb-1">Typical peak · 1 year</p>
-            <p className="text-2xl font-black text-amber-700 dark:text-amber-300 tabular-nums">${formatPrice(p1y.peak)}</p>
+            <p className="text-2xl font-bold text-amber-700 dark:text-amber-300 tabular-nums">${formatPrice(p1y.peak)}</p>
             <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">+{p1y.peakPct.toFixed(1)}% · touched at some point in half of all paths</p>
           </div>
           <div className="rounded-lg bg-slate-50/60 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-700 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Gain ≥10% in 30 days</p>
-            <p className="text-2xl font-black text-emerald-600 dark:text-emerald-400 tabular-nums">{p1m.pUp10.toFixed(1)}%</p>
+            <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">{p1m.pUp10.toFixed(1)}%</p>
             <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">probability · drop ≥10%: {p1m.pDown10.toFixed(1)}%</p>
           </div>
           <div className="rounded-lg bg-slate-50/60 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-700 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Volatility</p>
-            <p className={`text-2xl font-black tabular-nums ${VOL_CLR[volLabel]}`}>{m.annualVolPct.toFixed(0)}%</p>
+            <p className={`text-2xl font-bold tabular-nums ${VOL_CLR[volLabel]}`}>{m.annualVolPct.toFixed(0)}%</p>
             <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">{volLabel} · now {m.currentAnnualVolPct.toFixed(0)}%, {m.currentAnnualVolPct < m.annualVolPct ? 'calmer' : 'wilder'} than usual</p>
           </div>
         </div>
@@ -378,14 +378,14 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
               <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">All-time high · Binance daily closes</p>
               {ath.atHigh ? (
                 <>
-                  <p className="text-2xl font-black text-emerald-600 dark:text-emerald-400 tabular-nums">At its high</p>
+                  <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">At its high</p>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                     {coin.base} is trading at its highest daily close on record (${formatPrice(ath.ath)}).
                   </p>
                 </>
               ) : (
                 <>
-                  <p className="text-2xl font-black text-slate-900 dark:text-white tabular-nums">
+                  <p className="text-2xl font-bold text-slate-900 dark:text-white tabular-nums">
                     ${formatPrice(ath.ath)} <span className="text-base text-rose-600 dark:text-rose-400">−{ath.drawdownPct.toFixed(1)}%</span>
                   </p>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
@@ -402,7 +402,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                 {athProbs.map((p, i) => (
                   <div key={BARRIER_CHECKPOINTS[i]} className="text-center rounded-xl bg-slate-50 dark:bg-slate-950 px-3.5 py-2.5 min-w-[74px]">
                     <p className="text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400">{BARRIER_CHECKPOINTS[i] / 365}Y</p>
-                    <p className="text-lg font-black text-amber-600 dark:text-amber-400 tabular-nums">{isFinite(p) ? `${p.toFixed(0)}%` : '—'}</p>
+                    <p className="text-lg font-bold text-amber-600 dark:text-amber-400 tabular-nums">{isFinite(p) ? `${p.toFixed(0)}%` : '—'}</p>
                   </div>
                 ))}
               </div>
@@ -459,7 +459,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
         <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-5">
           <div className="flex flex-wrap items-end justify-between gap-4 mb-4">
             <div>
-              <h2 className="text-sm font-black text-slate-900 dark:text-white mb-0.5">If you invest today</h2>
+              <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-0.5">If you invest today</h2>
               <p className="text-[11px] text-slate-500 dark:text-slate-400">Most sites give one ROI number. The outcome is a distribution — here it is.</p>
             </div>
             <div className="flex flex-wrap items-center gap-3">
@@ -485,18 +485,18 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           <div className="grid grid-cols-3 gap-3 mb-3">
             <div className="rounded-xl bg-slate-50/60 dark:bg-slate-950/60 border border-rose-500/20 p-3 text-center">
               <p className="text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Worst 10%</p>
-              <p className="text-lg font-black text-rose-600 dark:text-rose-400 tabular-nums">${formatPrice(invest.p10)}</p>
+              <p className="text-lg font-bold text-rose-600 dark:text-rose-400 tabular-nums">${formatPrice(invest.p10)}</p>
             </div>
             <div className="rounded-xl bg-slate-50/60 dark:bg-slate-950/60 border border-amber-500/30 p-3 text-center">
               <p className="text-[10px] uppercase tracking-wide text-amber-500/80 mb-1">Median</p>
-              <p className="text-xl font-black text-slate-900 dark:text-white tabular-nums">${formatPrice(invest.median)}</p>
+              <p className="text-xl font-bold text-slate-900 dark:text-white tabular-nums">${formatPrice(invest.median)}</p>
               <p className={`text-[11px] font-bold tabular-nums ${invest.medianRoi >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
                 {invest.medianRoi >= 0 ? '+' : ''}{invest.medianRoi.toFixed(1)}%
               </p>
             </div>
             <div className="rounded-xl bg-slate-50/60 dark:bg-slate-950/60 border border-emerald-500/20 p-3 text-center">
               <p className="text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Best 10%</p>
-              <p className="text-lg font-black text-emerald-600 dark:text-emerald-400 tabular-nums">${formatPrice(invest.p90)}</p>
+              <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">${formatPrice(invest.p90)}</p>
             </div>
           </div>
 
@@ -514,19 +514,19 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">24h volume</p>
-            <p className="text-lg font-black text-slate-900 dark:text-white tabular-nums">{formatVolume(s.quoteVolume)}</p>
+            <p className="text-lg font-bold text-slate-900 dark:text-white tabular-nums">{formatVolume(s.quoteVolume)}</p>
           </div>
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Green days (30d)</p>
-            <p className="text-lg font-black tabular-nums text-slate-900 dark:text-white">{s.green.green}/{s.green.total} <span className="text-xs text-slate-500 dark:text-slate-400">{greenPct}%</span></p>
+            <p className="text-lg font-bold tabular-nums text-slate-900 dark:text-white">{s.green.green}/{s.green.total} <span className="text-xs text-slate-500 dark:text-slate-400">{greenPct}%</span></p>
           </div>
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Trend significance</p>
-            <p className="text-lg font-black text-slate-900 dark:text-white">{trendLabel} <span className="cell-sub">t={m.tStat.toFixed(2)}</span></p>
+            <p className="text-lg font-bold text-slate-900 dark:text-white">{trendLabel} <span className="cell-sub">t={m.tStat.toFixed(2)}</span></p>
           </div>
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">History used</p>
-            <p className="text-lg font-black tabular-nums text-slate-900 dark:text-white">{m.samples + 1} <span className="text-xs text-slate-500 dark:text-slate-400">daily closes</span></p>
+            <p className="text-lg font-bold tabular-nums text-slate-900 dark:text-white">{m.samples + 1} <span className="text-xs text-slate-500 dark:text-slate-400">daily closes</span></p>
           </div>
         </div>
 
@@ -534,7 +534,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-2">Technical consensus</p>
             <div className="flex flex-wrap items-center gap-3">
-              <span className={`inline-flex items-center gap-1.5 text-xs font-black px-2.5 py-1 rounded ${BIAS_STYLE[s.consensus.bias].cls}`}>
+              <span className={`inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded ${BIAS_STYLE[s.consensus.bias].cls}`}>
                 {BIAS_STYLE[s.consensus.bias].emoji} {BIAS_STYLE[s.consensus.bias].label}
                 {s.consensus.bias !== 'neutral' && <span className="opacity-80">{s.consensus.confidence}%</span>}
               </span>
@@ -579,19 +579,19 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
             <div className="grid grid-cols-3 gap-2 mb-2 text-center">
               <div className="rounded-lg bg-white/60 dark:bg-slate-900/60 p-2">
                 <p className="text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400">Market (β={m.beta.toFixed(2)})</p>
-                <p className={`text-sm font-black tabular-nums ${m.marketAnnualPct >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
+                <p className={`text-sm font-bold tabular-nums ${m.marketAnnualPct >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
                   {m.marketAnnualPct >= 0 ? '+' : ''}{m.marketAnnualPct.toFixed(1)}%/yr
                 </p>
               </div>
               <div className="rounded-lg bg-white/60 dark:bg-slate-900/60 p-2">
                 <p className="text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400">Coin-specific (α)</p>
-                <p className={`text-sm font-black tabular-nums ${m.alphaAnnualPct >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
+                <p className={`text-sm font-bold tabular-nums ${m.alphaAnnualPct >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
                   {m.alphaAnnualPct >= 0 ? '+' : ''}{m.alphaAnnualPct.toFixed(1)}%/yr
                 </p>
               </div>
               <div className="rounded-lg bg-white/60 dark:bg-slate-900/60 p-2">
                 <p className="text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400">Forecast drift</p>
-                <p className={`text-sm font-black tabular-nums ${m.annualDriftPct >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
+                <p className={`text-sm font-bold tabular-nums ${m.annualDriftPct >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
                   {m.annualDriftPct >= 0 ? '+' : ''}{m.annualDriftPct.toFixed(1)}%/yr
                 </p>
               </div>
@@ -611,24 +611,24 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Gain ≥10% in 30d</p>
-            <p className="text-xl font-black text-emerald-600 dark:text-emerald-400 tabular-nums">{p1m.pUp10.toFixed(1)}%</p>
+            <p className="text-xl font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">{p1m.pUp10.toFixed(1)}%</p>
             <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">probability</p>
           </div>
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Drop ≥10% in 30d</p>
-            <p className="text-xl font-black text-rose-600 dark:text-rose-400 tabular-nums">{p1m.pDown10.toFixed(1)}%</p>
+            <p className="text-xl font-bold text-rose-600 dark:text-rose-400 tabular-nums">{p1m.pDown10.toFixed(1)}%</p>
             <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">probability</p>
           </div>
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Gain ≥10% in 1y</p>
-            <p className="text-xl font-black text-emerald-600 dark:text-emerald-400 tabular-nums">{p1y.pUp10.toFixed(1)}%</p>
+            <p className="text-xl font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">{p1y.pUp10.toFixed(1)}%</p>
             <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">probability</p>
           </div>
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Hit TP before SL</p>
             {isFinite(pTp) ? (
               <>
-                <p className="text-xl font-black text-slate-900 dark:text-white tabular-nums">{pTp.toFixed(1)}%</p>
+                <p className="text-xl font-bold text-slate-900 dark:text-white tabular-nums">{pTp.toFixed(1)}%</p>
                 <p className={`text-[10px] mt-0.5 tabular-nums ${evR >= 0 ? 'text-emerald-600 dark:text-emerald-400/70' : 'text-rose-600/80 dark:text-rose-500/70'}`}>
                   {evR >= 0 ? '+' : ''}{evR.toFixed(2)}R expected · {rr.toFixed(2)}:1 reward
                 </p>
@@ -647,7 +647,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
 
         <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
           <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-700 flex flex-wrap items-center justify-between gap-3">
-            <h3 className="text-sm font-black text-slate-900 dark:text-white">{TIMEFRAMES[tf].label}</h3>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">{TIMEFRAMES[tf].label}</h3>
             <div className="inline-flex rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-0.5">
               {(Object.keys(TIMEFRAMES) as Timeframe[]).map(k => (
                 <button key={k} type="button" aria-pressed={tf === k} onClick={() => setTf(k)}
@@ -713,7 +713,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
         </div>
 
         <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
-          <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-700"><h3 className="text-sm font-black text-slate-900 dark:text-white">By horizon</h3></div>
+          <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-700"><h3 className="text-sm font-bold text-slate-900 dark:text-white">By horizon</h3></div>
           <div className="scroll-x overflow-x-auto">
             <table className="w-full text-sm whitespace-nowrap">
               <thead>
@@ -764,7 +764,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
         {/* 목표가 도달 확률 — "10만 갈까?" 같은 질문에 점 예측이 아니라 확률로 답한다 */}
         <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
           <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-700">
-            <h3 className="text-sm font-black text-slate-900 dark:text-white">Probability of reaching a price</h3>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">Probability of reaching a price</h3>
             <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
               The model does not claim {coin.base} will hit a round number — it assigns that number a probability.
             </p>
@@ -850,7 +850,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
         {s.scenarios.length > 0 && (
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
             <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-700">
-              <h3 className="text-sm font-black text-slate-900 dark:text-white">Historical scenarios — what {coin.base} actually did</h3>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">Historical scenarios — what {coin.base} actually did</h3>
               <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
                 Every overlapping window in {coin.base}&apos;s {s.fullCloses.toLocaleString()} days of history. No model, no drift — just what happened.
                 {flip && <span className="text-amber-600 dark:text-amber-400/90"> Note the median changes sign across horizons.</span>}
@@ -908,7 +908,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
         {months.length > 0 && (
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
             <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-700 flex flex-wrap items-center justify-between gap-3">
-              <h3 className="text-sm font-black text-slate-900 dark:text-white">Month by month</h3>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">Month by month</h3>
               <div className="inline-flex rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-0.5">
                 {YEARS.map(y => (
                   <button key={y} type="button" aria-pressed={year === y} onClick={() => setYear(y)}
@@ -961,7 +961,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
               <div>
                 <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400">Indicator tally</p>
-                <p className={`text-2xl font-black ${ta.s.label === 'Bullish' ? 'text-emerald-600 dark:text-emerald-400' : ta.s.label === 'Bearish' ? 'text-rose-600 dark:text-rose-400' : 'text-slate-700 dark:text-slate-200'}`}>
+                <p className={`text-2xl font-bold ${ta.s.label === 'Bullish' ? 'text-emerald-600 dark:text-emerald-400' : ta.s.label === 'Bearish' ? 'text-rose-600 dark:text-rose-400' : 'text-slate-700 dark:text-slate-200'}`}>
                   {ta.s.label}
                 </p>
               </div>
@@ -990,7 +990,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
               .map(([title, rows]) => (
                 <div key={title} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
                   <div className="px-4 py-2.5 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
-                    <h3 className="text-xs font-black text-slate-900 dark:text-white">{title}</h3>
+                    <h3 className="text-xs font-bold text-slate-900 dark:text-white">{title}</h3>
                     <span className="text-[10px] text-slate-500 dark:text-slate-400">price vs line</span>
                   </div>
                   <table className="w-full text-sm">
@@ -1015,7 +1015,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
 
           {/* Oscillators */}
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
-            <div className="px-4 py-2.5 border-b border-slate-200 dark:border-slate-700"><h3 className="text-xs font-black text-slate-900 dark:text-white">Oscillators</h3></div>
+            <div className="px-4 py-2.5 border-b border-slate-200 dark:border-slate-700"><h3 className="text-xs font-bold text-slate-900 dark:text-white">Oscillators</h3></div>
             <div className="scroll-x overflow-x-auto">
               <table className="w-full text-sm whitespace-nowrap">
                 <tbody>
@@ -1037,7 +1037,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
           {ta.pv && (
             <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
               <div className="px-4 py-2.5 border-b border-slate-200 dark:border-slate-700">
-                <h3 className="text-xs font-black text-slate-900 dark:text-white">Key price levels</h3>
+                <h3 className="text-xs font-bold text-slate-900 dark:text-white">Key price levels</h3>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
                   Classical pivot from the last closed candle: P = (high + low + close) / 3. A deterministic formula, not a prediction.
                 </p>
@@ -1066,7 +1066,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
               </div>
               <div className="px-4 py-2.5 border-t border-slate-200 dark:border-slate-700 text-center text-xs">
                 <span className="text-slate-500 dark:text-slate-400">Pivot </span>
-                <span className="text-slate-900 dark:text-white font-black tabular-nums">${formatPrice(ta.pv.p)}</span>
+                <span className="text-slate-900 dark:text-white font-bold tabular-nums">${formatPrice(ta.pv.p)}</span>
               </div>
             </div>
           )}
@@ -1112,7 +1112,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
 
       {/* 방법론 */}
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-4 mb-5 note-sm [&>p]:max-w-[72ch]">
-        <h2 className="text-sm font-black text-slate-700 dark:text-slate-200 mb-2">How this {coin.name} prediction is made</h2>
+        <h2 className="text-sm font-bold text-slate-700 dark:text-slate-200 mb-2">How this {coin.name} prediction is made</h2>
         <p className="mb-2">
           We take {m.samples + 1} daily closes from Binance and convert them to log returns, giving a drift (μ) and a volatility (σ).
           {' '}{coin.base}&apos;s measured annual volatility is <b className="text-slate-500 dark:text-slate-400">{m.annualVolPct.toFixed(1)}%</b>.
@@ -1185,7 +1185,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
       {/* 상관계수 — 저희는 이미 BTC 베타를 쓰므로 데이터가 있다 */}
       {corrs.length > 0 && (
         <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-5">
-          <h2 className="text-sm font-black text-slate-900 dark:text-white mb-1">How {coin.base} moves with other coins</h2>
+          <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-1">How {coin.base} moves with other coins</h2>
           <p className="text-[11px] text-slate-500 dark:text-slate-400 mb-4">
             Correlation of daily returns over the last {CORR_DAYS} days. 1.00 means they move in lockstep; 0 means unrelated.
             {m.hasMarket && <> {coin.base}&apos;s beta to Bitcoin is <b className="text-slate-500 dark:text-slate-400">{m.beta.toFixed(2)}</b>, which is what the forecast uses.</>}
@@ -1198,7 +1198,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
                 <>
                   <CoinLogo base={base} size={18} />
                   <span className="font-bold text-slate-900 dark:text-white text-xs">{base}</span>
-                  <span className={`text-xs font-black tabular-nums ${r >= 0.5 ? 'text-emerald-600 dark:text-emerald-400' : r >= 0 ? 'text-slate-700 dark:text-slate-200' : 'text-rose-600 dark:text-rose-400'}`}>
+                  <span className={`text-xs font-bold tabular-nums ${r >= 0.5 ? 'text-emerald-600 dark:text-emerald-400' : r >= 0 ? 'text-slate-700 dark:text-slate-200' : 'text-rose-600 dark:text-rose-400'}`}>
                     {r >= 0 ? '+' : ''}{r.toFixed(2)}
                   </span>
                   <span className="h-1 w-10 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
@@ -1220,7 +1220,7 @@ export default function CoinPrediction({ coin }: { coin: CoinMeta }) {
       )}
 
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-5">
-        <h2 className="text-sm font-black text-slate-900 dark:text-white mb-1">What this page will not tell you</h2>
+        <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-1">What this page will not tell you</h2>
         <p className="text-[11px] text-slate-500 dark:text-slate-400 mb-3">Every claim below is something we tested and could not support. The tests live in the code.</p>
         <ul className="space-y-2 text-xs text-slate-500 dark:text-slate-400">
           {[

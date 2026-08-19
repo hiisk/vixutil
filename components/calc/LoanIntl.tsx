@@ -92,7 +92,7 @@ export default function LoanIntl({ lang }: { lang: CalcLang }) {
             <p className="label-caps mb-2">
               {method === 'level' ? c.monthly : c.firstMonth}
             </p>
-            <p className="text-4xl font-black text-blue-600">{fmt(result.rows[0].payment)}</p>
+            <p className="text-4xl font-bold text-blue-600">{fmt(result.rows[0].payment)}</p>
             <div className="mt-3 flex justify-center gap-6 text-sm">
               <span className="text-slate-500 dark:text-slate-400">{c.totalInterest} <strong className="text-rose-600">{fmt(result.totalInterest)}</strong></span>
               <span className="text-slate-500 dark:text-slate-400">{c.totalPaid} <strong className="text-slate-800 dark:text-slate-100">{fmt(result.totalPaid)}</strong></span>

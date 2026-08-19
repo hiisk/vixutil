@@ -88,7 +88,7 @@ export default function PortPage({ slug, lang }: { slug: string; lang: Lang }) {
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
         <div className="mx-auto mb-5 w-52 rounded-lg border-2 border-fuchsia-400 dark:border-fuchsia-700 bg-fuchsia-50 dark:bg-fuchsia-950/40 px-4 py-4 text-center shadow-sm">
-          <div className="text-5xl font-black text-slate-900 dark:text-slate-100 leading-tight tabular-nums">{x.port}</div>
+          <div className="text-5xl font-bold text-slate-900 dark:text-slate-100 leading-tight tabular-nums">{x.port}</div>
           <div className="mt-1 text-sm font-bold text-fuchsia-700 dark:text-fuchsia-300 font-mono">{f.name}</div>
           <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{ui.protoLabel[f.proto]} · 0x{f.hex}</div>
         </div>
@@ -104,7 +104,7 @@ export default function PortPage({ slug, lang }: { slug: string; lang: Lang }) {
         </p>
 
         {f.custom && (
-          <p className="rounded-lg border border-amber-200 dark:border-amber-900/60 bg-amber-50 dark:bg-amber-950/30 px-4 py-3 text-sm text-amber-800 dark:text-amber-200 leading-relaxed mb-4">
+          <p className="note-warn mb-4">
             <span className="font-bold">{ui.customLabel}</span> · {ui.customNote}
           </p>
         )}
@@ -154,7 +154,7 @@ export default function PortPage({ slug, lang }: { slug: string; lang: Lang }) {
                 className="flex items-baseline gap-3 px-4 py-2.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
               >
                 <span className="text-[11px] text-slate-400 dark:text-slate-500 tabular-nums shrink-0 w-[44px] text-right">{o.port}</span>
-                <span className="text-sm font-black text-fuchsia-700 dark:text-fuchsia-400 font-mono shrink-0">{o.name}</span>
+                <span className="text-sm font-bold text-fuchsia-700 dark:text-fuchsia-400 font-mono shrink-0">{o.name}</span>
                 <span className="text-sm text-slate-700 dark:text-slate-200 truncate">{o.service}</span>
               </Link>
             ))}

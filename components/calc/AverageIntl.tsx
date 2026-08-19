@@ -73,7 +73,7 @@ export default function AverageIntl({ lang }: { lang: CalcLang }) {
   return (
     <div className="flex flex-col gap-4">
       <Card className="p-5">
-        <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{c.input}</label>
+        <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{c.input}</label>
         <textarea
           value={text}
           onChange={e => setText(e.target.value)}
@@ -85,7 +85,7 @@ export default function AverageIntl({ lang }: { lang: CalcLang }) {
           <p className="text-xs text-slate-400 dark:text-slate-500">{c.hint}</p>
           <button
             onClick={() => setText('')}
-            className="text-xs font-bold text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"
+            className="text-xs font-medium text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"
           >
             {c.clear}
           </button>
@@ -96,7 +96,7 @@ export default function AverageIntl({ lang }: { lang: CalcLang }) {
         <>
           <div className="stat-pri text-center">
             <p className="stat-sub mb-2">{c.mean}</p>
-            <p className="text-slate-900 dark:text-slate-50 text-5xl font-black">{fmt(stats.mean)}</p>
+            <p className="text-slate-900 dark:text-slate-50 text-5xl font-bold">{fmt(stats.mean)}</p>
             <p className="stat-sub mt-3 opacity-90">
               {c.count} {fmt(stats.n)} · {c.sum} {fmt(stats.sum)}
             </p>

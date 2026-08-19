@@ -151,10 +151,10 @@ export default function ChessPage({ slug, lang }: { slug: string; lang: Lang }) 
           <ol className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
             {f.steps.map((step, i) => (
               <li key={`${step.san}-${i}`} className="flex items-baseline gap-3 px-4 py-2.5 bg-white dark:bg-slate-900">
-                <span className="shrink-0 w-14 font-mono text-xs font-bold text-slate-400 dark:text-slate-500 tabular-nums">
+                <span className="shrink-0 w-14 font-mono text-xs font-medium text-slate-400 dark:text-slate-500 tabular-nums">
                   {step.no}{step.side === 'w' ? '.' : '…'}
                 </span>
-                <span className="shrink-0 w-16 font-mono text-sm font-black text-violet-700 dark:text-violet-400">{step.san}</span>
+                <span className="shrink-0 w-16 font-mono text-sm font-bold text-violet-700 dark:text-violet-400">{step.san}</span>
                 <span className="text-sm text-slate-600 dark:text-slate-300">
                   {step.side === 'w' ? ui.white : ui.black}: {ui.piece[step.piece]} {step.from}→{step.to}
                   {step.castle ? ` (${ui.castleTag})` : ''}

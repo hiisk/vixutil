@@ -52,7 +52,7 @@ export default function InitialTool() {
       {jamo && <CopyBox value={jamo} label="자모 분해" rows={3} mono />}
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">초성 퀴즈로 쓰기</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">초성 퀴즈로 쓰기</p>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           노래 제목이나 영화 제목을 넣고 초성만 남겨 문제로 내보세요. 띄어쓰기를 남겨 두면
           몇 글자짜리 단어인지가 힌트가 되어 난이도가 확 내려갑니다 — 어렵게 내려면 띄어쓰기를 끄세요.

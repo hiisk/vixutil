@@ -113,7 +113,7 @@ export default function HttpPage({ slug, lang }: { slug: string; lang: Lang }) {
                   <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400 w-2/5">
                     {r.label}
                   </th>
-                  <td className="px-4 py-3 font-black text-slate-800 dark:text-slate-100 break-all font-mono text-[13px]">{r.value}</td>
+                  <td className="px-4 py-3 font-bold text-slate-800 dark:text-slate-100 break-all font-mono text-[13px]">{r.value}</td>
                 </tr>
               ))}
             </tbody>
@@ -151,7 +151,7 @@ export default function HttpPage({ slug, lang }: { slug: string; lang: Lang }) {
         </section>
 
         <p className="mt-6 text-center">
-          <a href={f.docUrl} rel="nofollow noopener" target="_blank" className="text-xs font-bold text-slate-400 dark:text-slate-500 hover:text-teal-600 transition-colors">
+          <a href={f.docUrl} rel="nofollow noopener" target="_blank" className="text-xs font-medium text-slate-400 dark:text-slate-500 hover:text-teal-600 transition-colors">
             {ui.docLabel} ↗
           </a>
         </p>

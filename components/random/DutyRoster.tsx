@@ -36,14 +36,14 @@ export default function DutyRosterTool({ lang = 'ko' }: { lang?: RandomLang }) {
       />
       <div className="mt-2 mb-4 text-xs text-slate-400">{common.peopleCount(names.length)}</div>
 
-      <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.turns}</p>
+      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.turns}</p>
       <div className="grid grid-cols-4 gap-2">
         {TURNS.map(n => (
           <button key={n} onClick={() => { setTurns(n); setRoster(null); }} className={pill(turns === n)}>{n}</button>
         ))}
       </div>
 
-      <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.perTurn}</p>
+      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.perTurn}</p>
       <div className="grid grid-cols-3 gap-2">
         {PER.map(n => (
           <button key={n} onClick={() => { setPerTurn(n); setRoster(null); }} className={pill(perTurn === n)}>{n}</button>
@@ -53,7 +53,7 @@ export default function DutyRosterTool({ lang = 'ko' }: { lang?: RandomLang }) {
       <button
         onClick={() => setRoster(dutyRoster(names, turns, perTurn, Math.random))}
         disabled={names.length < 2}
-        className="w-full mt-4 mb-5 bg-sec font-black text-lg rounded-lg py-4 shadow-sm shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all disabled:opacity-50"
+        className="w-full mt-4 mb-5 bg-sec font-bold text-lg rounded-lg py-4 shadow-sm shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all disabled:opacity-50"
       >
         {ui.makeRoster} 📋
       </button>
@@ -67,7 +67,7 @@ export default function DutyRosterTool({ lang = 'ko' }: { lang?: RandomLang }) {
                 className="wc-slide flex items-center gap-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 px-4 py-3"
                 style={{ animationDelay: `${d.turn * 50}ms` }}
               >
-                <span className="shrink-0 w-9 h-8 rounded-lg bg-sec-soft text-xs font-black flex items-center justify-center">
+                <span className="shrink-0 w-9 h-8 rounded-lg bg-sec-soft text-xs font-bold flex items-center justify-center">
                   {d.turn + 1}{ui.turnNo}
                 </span>
                 <span className="font-bold text-slate-800 dark:text-slate-100 break-words">{d.people.join(' · ')}</span>
@@ -75,7 +75,7 @@ export default function DutyRosterTool({ lang = 'ko' }: { lang?: RandomLang }) {
             ))}
           </ol>
 
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-5 mb-2">{ui.timesEach}</p>
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-5 mb-2">{ui.timesEach}</p>
           <div className="flex flex-wrap gap-2">
             {Object.entries(counts).map(([who, n]) => (
               <span key={who} className="rounded-lg bg-slate-100 dark:bg-slate-800 px-2.5 py-1 text-xs font-bold text-slate-600 dark:text-slate-300">

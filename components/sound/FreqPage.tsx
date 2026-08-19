@@ -126,10 +126,10 @@ export default function FreqPage({ slug, lang }: { slug: string; lang: Lang }) {
           <section className="mb-6 flex flex-col gap-2">
             {freq.tags.map(t => (
               <div key={t} className="rounded-lg border chip-off px-4 py-3">
-                <p className="text-[11px] font-black text-emerald-600 dark:text-emerald-400 mb-0.5">{ui.tagLabel[t]}</p>
+                <p className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 mb-0.5">{ui.tagLabel[t]}</p>
                 <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{ui.tagNote[t]}</p>
                 {t === 'dtmf' && keys.length > 0 && (
-                  <p className="mt-1.5 text-sm font-black text-slate-700 dark:text-slate-200 tracking-widest">{keys.join(' · ')}</p>
+                  <p className="mt-1.5 text-sm font-bold text-slate-700 dark:text-slate-200 tracking-widest">{keys.join(' · ')}</p>
                 )}
               </div>
             ))}
@@ -144,7 +144,7 @@ export default function FreqPage({ slug, lang }: { slug: string; lang: Lang }) {
                   <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400 w-1/2">
                     {r.label}
                   </th>
-                  <td className="px-4 py-3 font-black text-slate-800 dark:text-slate-100 tabular-nums">{r.value}</td>
+                  <td className="px-4 py-3 font-bold text-slate-800 dark:text-slate-100 tabular-nums">{r.value}</td>
                 </tr>
               ))}
             </tbody>
@@ -174,7 +174,7 @@ export default function FreqPage({ slug, lang }: { slug: string; lang: Lang }) {
                   href={`${prefix}/sound/hz/${freqSlug(n.hz)}`}
                   className="rounded-xl border chip-off px-3 py-2.5 text-center hover:shadow-sm transition-all"
                 >
-                  <span className="block text-sm font-black text-slate-800 dark:text-slate-100 tabular-nums">{n.hz} Hz</span>
+                  <span className="block text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums">{n.hz} Hz</span>
                   <span className="block text-[11px] text-slate-400 dark:text-slate-500">{nf.note}</span>
                 </Link>
               );

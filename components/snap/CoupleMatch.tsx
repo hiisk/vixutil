@@ -203,7 +203,7 @@ export default function CoupleMatch({ lang }: { lang: SnapIntlLang }) {
           </div>
         </div>
 
-        <div className="bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/40 rounded-lg p-4 mb-6 text-xs text-rose-800 dark:text-rose-300 leading-relaxed">
+        <div className="note mb-6">
           <p className="font-bold mb-1">{lang === 'en' ? '🔒 Neither photo leaves this device' : '🔒 两张照片都不会离开这台设备'}</p>
           <p>{ui.privacy}</p>
         </div>
@@ -217,7 +217,7 @@ export default function CoupleMatch({ lang }: { lang: SnapIntlLang }) {
         <div className="grid grid-cols-2 gap-3 mb-6">
           {([0, 1] as Slot[]).map(slot => (
             <div key={slot}>
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2 text-center">
+              <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2 text-center">
                 {slot === 0 ? ui.photoA : ui.photoB}
               </p>
               <button
@@ -248,7 +248,7 @@ export default function CoupleMatch({ lang }: { lang: SnapIntlLang }) {
         </div>
 
         {error && (
-          <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 rounded-lg p-4 mb-6 text-center text-sm font-bold text-amber-700 dark:text-amber-300">
+          <div className="note-warn mb-6 text-center font-bold">
             🙈 {error}
           </div>
         )}
@@ -257,7 +257,7 @@ export default function CoupleMatch({ lang }: { lang: SnapIntlLang }) {
           <div className="space-y-4">
             <div className="bg-sec rounded-lg p-6 text-center">
               <p className="text-sm font-semibold text-white/80 mb-2">{ui.score}</p>
-              <p className="text-5xl font-black mb-3">{result.score}</p>
+              <p className="text-5xl font-bold mb-3">{result.score}</p>
               <p className="text-sm leading-relaxed">{result.headlineIntl}</p>
             </div>
 

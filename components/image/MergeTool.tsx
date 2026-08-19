@@ -110,13 +110,13 @@ export default function MergeTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
       </div>
 
       <div className="mt-4 rounded-lg border chip-off p-5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">
           {ui.countLine(imgs.length)}
         </p>
         <div className="flex flex-col gap-1.5 mb-5">
           {imgs.map((i, idx) => (
             <div key={`${i.name}-${idx}`} className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2">
-              <span className="w-6 h-6 shrink-0 rounded-md bg-violet-100 dark:bg-violet-950/50 text-violet-700 dark:text-violet-300 text-[11px] font-black flex items-center justify-center">
+              <span className="w-6 h-6 shrink-0 rounded-md bg-violet-100 dark:bg-violet-950/50 text-violet-700 dark:text-violet-300 text-[11px] font-bold flex items-center justify-center">
                 {idx + 1}
               </span>
               <span className="hub-card-body">
@@ -162,8 +162,8 @@ export default function MergeTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
         </label>
 
         <div className="flex items-baseline justify-between mt-4 mb-2">
-          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.gap}</span>
-          <span className="text-sm font-black text-violet-600 tabular-nums">{gap}px</span>
+          <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{ui.gap}</span>
+          <span className="text-sm font-bold text-violet-600 tabular-nums">{gap}px</span>
         </div>
         <input
           type="range" min={0} max={80} value={gap}
@@ -173,7 +173,7 @@ export default function MergeTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
 
         {(gap > 0 || !fit) && (
           <>
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.gapColor}</p>
+            <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.gapColor}</p>
             <div className="flex items-center gap-2">
               {GAP_BG.map(c => (
                 <button

@@ -61,7 +61,7 @@ export default function TimestampPage() {
         </div>
         <Card className="p-4">
           <p className="label-caps mb-1">현재 시각</p>
-          <p className="text-2xl font-black text-slate-800 dark:text-slate-100">{Math.floor(now / 1000)}</p>
+          <p className="text-2xl font-bold text-slate-800 dark:text-slate-100">{Math.floor(now / 1000)}</p>
           <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{formatKST(now)}</p>
         </Card>
 

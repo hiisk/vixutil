@@ -80,7 +80,7 @@ export default function RecorderTool({ lang = 'ko' }: { lang?: SoundLang } = {})
   return (
     <div>
       <div className={`rounded-lg px-6 py-10 text-center transition-colors ${state === 'recording' ? 'bg-rose-600' : 'bg-slate-900'}`}>
-        <p className="text-5xl font-black text-white tabular-nums">{formatDuration(elapsed)}</p>
+        <p className="text-5xl font-bold text-white tabular-nums">{formatDuration(elapsed)}</p>
         <p className="text-sm text-white/60 mt-2">
           {state === 'recording' ? ui.recording : state === 'done' ? ui.done : ui.idle}
         </p>
@@ -119,7 +119,7 @@ export default function RecorderTool({ lang = 'ko' }: { lang?: SoundLang } = {})
 
       {clip && (
         <div className="mt-4">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.listen}</p>
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.listen}</p>
           <audio src={clip} controls className="w-full" />
         </div>
       )}

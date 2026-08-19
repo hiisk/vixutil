@@ -81,7 +81,7 @@ export default function RefinanceIntl({ lang }: { lang: CalcLang }) {
         <>
           <div className={`${result.worthIt ? 'bg-emerald-600' : 'bg-rose-600'} rounded-lg p-6 text-center`}>
             <p className={`${result.worthIt ? 'text-emerald-200' : 'text-rose-200'} text-xs mb-1`}>{c.net}</p>
-            <p className="text-white text-4xl font-black">{fmt(result.netBenefit)}</p>
+            <p className="text-white text-4xl font-bold">{fmt(result.netBenefit)}</p>
             <p className={`${result.worthIt ? 'text-emerald-200' : 'text-rose-200'} text-xs mt-1`}>
               {result.worthIt ? c.worth : c.notWorth}
             </p>

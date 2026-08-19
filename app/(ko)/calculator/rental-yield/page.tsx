@@ -127,7 +127,7 @@ export default function RentalYieldPage() {
               </p>
               {result.investmentNonPositive ? (
                 <>
-                  <p className="text-2xl font-black text-amber-600 dark:text-amber-400">계산 불가</p>
+                  <p className="text-2xl font-bold text-amber-600 dark:text-amber-400">계산 불가</p>
                   <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
                     보증금과 대출이 매매가 이상이라 실제로 들어간 내 돈이 없습니다(무한 레버리지).
                     표면 수익률만 참고하세요.
@@ -135,7 +135,7 @@ export default function RentalYieldPage() {
                 </>
               ) : (
                 <>
-                  <p className={`text-3xl font-black ${result.netYield! < 0 ? 'text-red-500' : 'text-slate-900 dark:text-slate-100'}`}>
+                  <p className={`text-3xl font-bold ${result.netYield! < 0 ? 'text-red-500' : 'text-slate-900 dark:text-slate-100'}`}>
                     {result.netYield!.toFixed(2)}<span className="text-lg font-bold ml-1">%</span>
                   </p>
                   <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">

@@ -43,7 +43,7 @@ export default function HandGrid({ path, current }: { path: string; current?: st
               <Link
                 key={`${row}-${col}`}
                 href={`${path}/${hand.slug}`}
-                className={`flex aspect-square items-center justify-center rounded text-[10px] font-black tabular-nums transition-transform hover:scale-110 ${shade(chenScore(hand))} ${
+                className={`flex aspect-square items-center justify-center rounded text-[10px] font-bold tabular-nums transition-transform hover:scale-110 ${shade(chenScore(hand))} ${
                   here ? 'ring-2 ring-slate-900 dark:ring-white' : ''
                 }`}
               >

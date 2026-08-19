@@ -33,8 +33,8 @@ export default function MixerTool({ lang = 'ko' }: { lang?: ColorLang } = {}) {
 
       <div className="mt-4">
         <div className="flex items-baseline justify-between mb-1.5">
-          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.ratio}</span>
-          <span className="text-sm font-black text-teal-600 tabular-nums">{100 - ratio}% : {ratio}%</span>
+          <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{ui.ratio}</span>
+          <span className="text-sm font-bold text-teal-600 tabular-nums">{100 - ratio}% : {ratio}%</span>
         </div>
         <input
           type="range" min={0} max={100} value={ratio}
@@ -48,7 +48,7 @@ export default function MixerTool({ lang = 'ko' }: { lang?: ColorLang } = {}) {
         {blended && <ValueRow label="RGB" value={`rgb(${blended.r}, ${blended.g}, ${blended.b})`} lang={lang} />}
       </div>
 
-      <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-5 mb-2">{ui.stepsNote}</p>
+      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-5 mb-2">{ui.stepsNote}</p>
       <div className="grid grid-cols-9 gap-1.5">
         {steps.map((s, i) => (
           <Swatch key={i} hex={s} height="h-14" lang={lang} />

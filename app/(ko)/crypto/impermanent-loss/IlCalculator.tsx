@@ -24,7 +24,7 @@ function fmtIl(v: number): string {
 
 function ilTone(v: number): string {
   const a = Math.abs(v);
-  if (a >= 10) return 'text-rose-600 dark:text-rose-400 font-black';
+  if (a >= 10) return 'text-rose-600 dark:text-rose-400 font-bold';
   if (a >= 2) return 'text-orange-600 dark:text-orange-400 font-bold';
   if (a >= 0.5) return 'text-amber-600 dark:text-amber-400';
   return 'text-slate-500 dark:text-slate-400';
@@ -90,7 +90,7 @@ export default function IlCalculator() {
         <>
           <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 mb-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Impermanent loss</p>
-            <p className={`text-5xl font-black tabular-nums ${ilTone(pos.ilPct)}`}>{fmtIl(pos.ilPct)}</p>
+            <p className={`text-5xl font-bold tabular-nums ${ilTone(pos.ilPct)}`}>{fmtIl(pos.ilPct)}</p>
             <div className="grid sm:grid-cols-3 gap-3 mt-4">
               {([
                 ['If you had just held', pos.holdValue, 'text-slate-700 dark:text-slate-200'],
@@ -99,7 +99,7 @@ export default function IlCalculator() {
               ] as const).map(([label, v, cls]) => (
                 <div key={label} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-3 py-2.5">
                   <p className="text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400">{label}</p>
-                  <p className={`text-lg font-black tabular-nums ${cls}`}>{money(v)}</p>
+                  <p className={`text-lg font-bold tabular-nums ${cls}`}>{money(v)}</p>
                 </div>
               ))}
             </div>
@@ -115,7 +115,7 @@ export default function IlCalculator() {
 
           {/* 손익분기 거래량 — "APR 40%" 광고가 전제하는 것 */}
           <div className="rounded-lg border border-cyan-500/30 bg-cyan-50 dark:bg-cyan-500/[0.07] p-5 mb-4">
-            <h2 className="text-sm font-black text-cyan-900 dark:text-cyan-200 mb-2">How much trading it takes to break even</h2>
+            <h2 className="text-sm font-bold text-cyan-900 dark:text-cyan-200 mb-2">How much trading it takes to break even</h2>
             <div className="flex flex-wrap items-center gap-3 mb-3">
               <span className="text-xs font-semibold text-cyan-900/80 dark:text-cyan-200/80">Pool fee tier</span>
               <div className="inline-flex rounded-xl border border-cyan-500/30 bg-white/60 dark:bg-slate-900/60 p-1">
@@ -149,7 +149,7 @@ export default function IlCalculator() {
 
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
             <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
-              <h2 className="text-sm font-black text-slate-900 dark:text-white">Loss at every price move</h2>
+              <h2 className="text-sm font-bold text-slate-900 dark:text-white">Loss at every price move</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 Note the symmetry: a halving and a doubling cost exactly the same.
               </p>
@@ -202,7 +202,7 @@ export default function IlCalculator() {
       )}
 
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
-        <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">What this is and is not</h2>
+        <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-2">What this is and is not</h2>
         <p className="mb-2">
           The figure is exact, not an approximation. For a constant-product pool the value ratio against holding is 2√r ÷ (1 + r), where r is
           the price of one asset relative to the other at withdrawal. It follows from the pool rebalancing continuously: as one side rises the

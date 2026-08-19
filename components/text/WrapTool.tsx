@@ -23,7 +23,7 @@ export default function WrapTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
       <InputArea value={text} onChange={setText} rows={7} label={ui.inputLabel} lang={lang} placeholder={ui.placeholder} />
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.modeTitle}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.modeTitle}</p>
         <div className="grid grid-cols-2 gap-2">
           {(['wrap', 'unwrap'] as const).map((m, i) => (
             <button
@@ -42,7 +42,7 @@ export default function WrapTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
 
         {mode === 'wrap' && (
           <>
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.widthLabel}</p>
+            <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.widthLabel}</p>
             <div className="grid grid-cols-4 gap-2">
               {WIDTHS.map(w => (
                 <button

@@ -211,7 +211,7 @@ export default function CoupleMatchPage() {
           <p className="text-slate-500 dark:text-slate-400 text-sm">두 사람의 사진으로 인상이 얼마나 닮았는지 궁합을 봐드려요</p>
         </div>
 
-        <div className="bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/40 rounded-lg p-4 mb-6 text-xs text-rose-800 dark:text-rose-300 leading-relaxed">
+        <div className="note mb-6">
           <p className="font-bold mb-1">🔒 사진은 서버에 전송되지 않아요</p>
           <p>두 얼굴의 이목구비 비율은 이 브라우저 안에서 실제로 측정돼요. 사진은 어디에도 저장·전송되지 않으며, 궁합 해석은 참고용 오락 콘텐츠입니다.</p>
         </div>
@@ -246,7 +246,7 @@ export default function CoupleMatchPage() {
                     ) : (
                       <>
                         <span className="text-3xl">{slot === 0 ? '👤' : '👥'}</span>
-                        <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{slot + 1}번째 사진</span>
+                        <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{slot + 1}번째 사진</span>
                       </>
                     )}
                     {busy === slot && (
@@ -282,7 +282,7 @@ export default function CoupleMatchPage() {
               </div>
               <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="💘" className="h-6 w-6" /></span>
               <p className="text-sm font-semibold text-white/80 mb-1">커플 관상 궁합</p>
-              <p className="text-4xl font-black mb-3">{result.score}%</p>
+              <p className="text-4xl font-bold mb-3">{result.score}%</p>
               <p className="text-sm leading-relaxed">{result.headline}</p>
             </div>
 

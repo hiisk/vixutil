@@ -16,7 +16,7 @@ function Pan({
   const ui = PAN_UI[lang];
   return (
     <div className="rounded-lg border chip-off p-4">
-      <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{title}</p>
+      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{title}</p>
       <div className="grid grid-cols-2 gap-2 mb-3">
         {(['round', 'rect'] as const).map((v, i) => (
           <button
@@ -77,7 +77,7 @@ export default function BakingPanTool({ lang = 'ko' }: { lang?: FoodLang } = {})
       </div>
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.timeTitle}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.timeTitle}</p>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           {scale > 1.15
             ? ui.timeBigger

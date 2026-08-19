@@ -68,7 +68,7 @@ export default function SlippagePage() {
           자바스크립트를 실행하지 않는 크롤러에겐 아래 본문이 페이지의 내용이다.
         */}
         <section className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
-          <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">The fee is the small number</h2>
+          <h2 className="text-base font-bold text-slate-900 dark:text-white mb-3">The fee is the small number</h2>
           <p className="mb-3">
             Exchange fees are advertised, compared and argued about to the second decimal place. Slippage is neither advertised nor easy to
             look up, and on anything other than the deepest pairs it is the larger of the two by a wide margin. A market order does not

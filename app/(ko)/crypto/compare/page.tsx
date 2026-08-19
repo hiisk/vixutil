@@ -68,7 +68,7 @@ export default function ComparePage() {
           계산하므로 자바스크립트를 실행하지 않는 크롤러에겐 빈 껍데기로 보인다.
         */}
         <section className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
-          <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">Bitcoin vs Ethereum, and every other pairing</h2>
+          <h2 className="text-base font-bold text-slate-900 dark:text-white mb-3">Bitcoin vs Ethereum, and every other pairing</h2>
           <p className="mb-3">
             Pick two coins and this page puts their returns next to each other over 30 days, 90 days, one year and two years, alongside
             volatility, beta to Bitcoin, how far each sits below its all-time high, the worst drawdown in its history, and what each did on

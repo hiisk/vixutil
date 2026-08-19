@@ -96,7 +96,7 @@ export default function RunningPacePage() {
           <>
             <Card className="p-5">
               <p className="label-caps mb-3">km당 페이스</p>
-              <p className="text-3xl font-black text-slate-900 dark:text-slate-100 tabular-nums">
+              <p className="text-3xl font-bold text-slate-900 dark:text-slate-100 tabular-nums">
                 {fmtPace(result.paceKm)}<span className="text-lg font-bold ml-1">/km</span>
               </p>
               <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">

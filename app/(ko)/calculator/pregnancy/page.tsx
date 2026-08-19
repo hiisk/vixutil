@@ -170,12 +170,12 @@ export default function PregnancyPage() {
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <p className="text-xs text-rose-400 mb-1">출산 예정일</p>
-                  <p className="text-3xl font-black text-rose-700 dark:text-rose-300">{formatDateShort(result.dueDate)}</p>
+                  <p className="text-3xl font-bold text-rose-700 dark:text-rose-300">{formatDateShort(result.dueDate)}</p>
                   <p className="text-xs text-rose-400 mt-1">{formatDate(result.dueDate)}</p>
                 </div>
                 <div className="text-right">
                   <p className="text-xs text-rose-400 mb-1">현재 임신 주수</p>
-                  <p className="text-2xl font-black text-rose-700 dark:text-rose-300">{weekLabel(result.currentWeeks, result.currentDays)}</p>
+                  <p className="text-2xl font-bold text-rose-700 dark:text-rose-300">{weekLabel(result.currentWeeks, result.currentDays)}</p>
                   <p className="text-xs text-rose-400 mt-1">
                     {result.daysRemaining > 0 ? `D-${result.daysRemaining}` : '출산 예정일 경과'}
                   </p>
@@ -233,7 +233,7 @@ export default function PregnancyPage() {
                   const isCurrent = result.currentWeeks >= m.week && result.currentWeeks < m.week + 2;
                   return (
                     <div key={m.week} className={`flex items-start gap-3 py-3 ${isPast ? 'opacity-50' : ''}`}>
-                      <div className={`mt-0.5 w-6 h-6 rounded-full flex items-center justify-center text-xs font-black shrink-0 ${
+                      <div className={`mt-0.5 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
                         isCurrent ? 'bg-rose-500 text-white' : isPast ? 'bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
                       }`}>
                         {m.week}

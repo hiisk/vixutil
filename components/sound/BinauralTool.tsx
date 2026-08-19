@@ -70,13 +70,13 @@ export default function BinauralTool({ lang = 'ko' }: { lang?: SoundLang } = {})
   return (
     <div>
       <div className="rounded-lg bg-sec px-6 py-10 text-center ">
-        <p className="text-6xl font-black tabular-nums">{beat}<span className="text-2xl ml-1">Hz</span></p>
+        <p className="text-6xl font-bold tabular-nums">{beat}<span className="text-2xl ml-1">Hz</span></p>
         <p className="text-sm text-white/70 mt-2">
           {ui.channels(base, base + beat)}
         </p>
       </div>
 
-      <div className="rounded-lg border border-amber-200 dark:border-amber-900/50 bg-amber-50 dark:bg-amber-950/30 px-4 py-3 mt-3 text-xs text-amber-800 dark:text-amber-200 text-center">
+      <div className="note-warn mt-3 text-center">
         {ui.headphones}
       </div>
 
@@ -108,7 +108,7 @@ export default function BinauralTool({ lang = 'ko' }: { lang?: SoundLang } = {})
       </div>
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.disclaimerTitle}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.disclaimerTitle}</p>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           {ui.disclaimer}
         </p>

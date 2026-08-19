@@ -72,7 +72,7 @@ export default function FoodShellIntl({
       <main className="relative max-w-2xl mx-auto px-4 pb-10 tool-lift">
 
 
-        <div className="mb-5 rounded-lg border border-amber-100 dark:border-amber-900/40 bg-amber-50/70 dark:bg-amber-950/30 px-4 py-3 text-xs text-amber-800 dark:text-amber-200 leading-relaxed text-center">
+        <div className="note-warn mb-5 text-center">
           {ui.notice}
         </div>
 
@@ -122,7 +122,7 @@ export default function FoodShellIntl({
       </main>
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
-        <Link href={`/${lang}`} className="text-sm font-black text-amber-600">vixutil</Link>
+        <Link href={`/${lang}`} className="text-sm font-bold text-amber-600">vixutil</Link>
       </footer>
     </div>
   );

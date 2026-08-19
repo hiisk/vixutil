@@ -58,12 +58,12 @@ export default function NumberMemoryGame({ lang = 'ko' }: { lang?: GameLang } = 
       <div className="rounded-lg bg-slate-900 h-52 flex flex-col items-center justify-center px-6 text-center">
         {phase === 'idle' && (
           <>
-            <span className="text-white text-xl font-black mb-1">{ui.memorise}</span>
+            <span className="text-white text-xl font-bold mb-1">{ui.memorise}</span>
             <span className="text-white/60 text-sm">{ui.briefly}</span>
           </>
         )}
         {phase === 'show' && (
-          <span className="text-white text-4xl sm:text-5xl font-black tracking-[0.15em] tabular-nums">{answer}</span>
+          <span className="text-white text-4xl sm:text-5xl font-bold tracking-[0.15em] tabular-nums">{answer}</span>
         )}
         {phase === 'input' && (
           <>
@@ -74,13 +74,13 @@ export default function NumberMemoryGame({ lang = 'ko' }: { lang?: GameLang } = 
               onKeyDown={e => { if (e.key === 'Enter') check(); }}
               inputMode="numeric"
               autoFocus
-              className="w-full max-w-xs rounded-xl bg-white/10 border border-white/20 px-4 py-3 text-center text-2xl font-black text-white tracking-[0.15em] tabular-nums focus:outline-none focus:border-white/60"
+              className="w-full max-w-xs rounded-xl bg-white/10 border border-white/20 px-4 py-3 text-center text-2xl font-bold text-white tracking-[0.15em] tabular-nums focus:outline-none focus:border-white/60"
             />
           </>
         )}
         {phase === 'over' && (
           <>
-            <span className="text-white text-xl font-black mb-2">{ui.reached(digits - 1)}</span>
+            <span className="text-white text-xl font-bold mb-2">{ui.reached(digits - 1)}</span>
             <span className="text-white/60 text-sm font-mono">{ui.answerVs(answer, input || ui.nothing)}</span>
           </>
         )}

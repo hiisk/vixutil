@@ -76,7 +76,7 @@ export default function DotCountGame({ lang = 'ko' }: { lang?: GameLang } = {}) 
               value={guess}
               onChange={e => setGuess(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && check()}
-              className="w-32 rounded-xl border chip-off px-3 py-3 text-center text-2xl font-black text-slate-800 dark:text-slate-100 focus:outline-none focus:border-amber-400"
+              className="w-32 rounded-xl border chip-off px-3 py-3 text-center text-2xl font-bold text-slate-800 dark:text-slate-100 focus:outline-none focus:border-amber-400"
             />
           </div>
         ) : phase === 'result' && last ? (

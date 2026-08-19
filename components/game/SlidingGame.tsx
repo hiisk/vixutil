@@ -152,7 +152,7 @@ export default function SlidingGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
                 className="tile absolute left-0 top-0 p-[3px]"
               >
                 <span
-                  className={`flex h-full w-full items-center justify-center rounded-xl font-black tabular-nums shadow-sm ${FONT[size]} ${
+                  className={`flex h-full w-full items-center justify-center rounded-xl font-bold tabular-nums shadow-sm ${FONT[size]} ${
                     solved
                       ? 'bg-emerald-500 text-white'
                       : 'bg-white text-slate-700 hover:bg-sec-soft active:bg-emerald-100 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-700'

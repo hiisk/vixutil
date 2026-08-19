@@ -181,7 +181,7 @@ export default function TarotIntl({ mode, lang }: { mode: Mode; lang: TarotIntlL
           <div className="text-center py-10">
             <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">{ui.question}</p>
             <button type="button" onClick={draw}
-              className="w-full max-w-xs mx-auto block rounded-lg bg-sec font-black py-4 text-base hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all">
+              className="w-full max-w-xs mx-auto block rounded-lg bg-sec font-bold py-4 text-base hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all">
               {ui.draw}
             </button>
           </div>
@@ -197,7 +197,7 @@ export default function TarotIntl({ mode, lang }: { mode: Mode; lang: TarotIntlL
             {verdict && (
               <div className={`rounded-lg bg-gradient-to-br ${VERDICT_STYLE[verdict].gradient} p-6 text-white text-center`}>
                 <div className="text-5xl mb-2">{VERDICT_STYLE[verdict].emoji}</div>
-                <p className="text-2xl font-black mb-2">{VERDICT_LABEL[lang][verdict]}</p>
+                <p className="text-2xl font-bold mb-2">{VERDICT_LABEL[lang][verdict]}</p>
                 <p className="text-sm">{VERDICT_NOTE[lang][verdict]}</p>
               </div>
             )}
@@ -205,7 +205,7 @@ export default function TarotIntl({ mode, lang }: { mode: Mode; lang: TarotIntlL
             <div className="rounded-lg p-6 text-white text-center" style={{ background: `linear-gradient(135deg, ${card.color}, ${card.color}bb)` }}>
               <p className="text-xs font-bold text-white/80 mb-2">{ui.drawn}</p>
               <div className={`text-6xl mb-3 ${shown.reversed ? 'rotate-180' : ''} inline-block transition-transform`}>{card.emoji}</div>
-              <p className="text-2xl font-black mb-1">{cardName(shown.id, lang)}</p>
+              <p className="text-2xl font-bold mb-1">{cardName(shown.id, lang)}</p>
               <span className="inline-block text-xs font-bold bg-white/25 rounded-full px-4 py-1.5">
                 {shown.reversed ? ui.reversed : ui.upright}
               </span>
@@ -226,7 +226,7 @@ export default function TarotIntl({ mode, lang }: { mode: Mode; lang: TarotIntlL
                 </div>
                 <div>
                   <div className="w-10 h-10 rounded-full bg-amber-100 dark:bg-amber-950/40 flex items-center justify-center mx-auto mb-1">
-                    <span className="text-lg font-black text-amber-600">{daily.number}</span>
+                    <span className="text-lg font-bold text-amber-600">{daily.number}</span>
                   </div>
                   <p className="text-xs text-slate-400 dark:text-slate-500">{t('luckyNumber', lang)}</p>
                   <p className="text-sm font-bold text-slate-700 dark:text-slate-200">{daily.number}</p>

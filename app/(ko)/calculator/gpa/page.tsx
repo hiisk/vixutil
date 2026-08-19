@@ -365,7 +365,7 @@ export default function GpaPage() {
           <div className="grid grid-cols-5 gap-2">
             {gradeList.map(g => (
               <div key={g.label} className="bg-slate-50 dark:bg-slate-950 rounded-xl p-2.5 text-center border border-slate-100 dark:border-slate-800">
-                <p className="text-sm font-black text-slate-800 dark:text-slate-100">{g.label}</p>
+                <p className="text-sm font-bold text-slate-800 dark:text-slate-100">{g.label}</p>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{g.point.toFixed(1)}</p>
               </div>
             ))}

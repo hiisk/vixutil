@@ -38,7 +38,7 @@ function Card({ rank, suit }: { rank: string; suit: string }): ReactElement {
   // 판을 어둡게 하면 스페이드·클럽이 사라진다. 대신 순백은 눈부시므로 slate-100.
   return (
     <div className="flex w-16 flex-col items-center gap-1 rounded-xl border border-slate-300 bg-white px-2 py-3 shadow-sm dark:border-slate-600 dark:bg-slate-100">
-      <span className={`text-2xl font-black leading-none ${red ? 'text-red-600' : 'text-slate-800'}`}>{rank}</span>
+      <span className={`text-2xl font-bold leading-none ${red ? 'text-red-600' : 'text-slate-800'}`}>{rank}</span>
       <Pip suit={suit} size={22} />
     </div>
   );

@@ -309,7 +309,7 @@ export default function PersonalColorPage() {
           <p className="text-slate-500 dark:text-slate-400 text-sm">실제 얼굴 인식으로 피부 톤을 분석해 12가지 유형과 나만의 컬러 팔레트를 찾아드려요</p>
         </div>
 
-        <div className="bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/40 rounded-lg p-4 mb-6 text-xs text-rose-800 dark:text-rose-300 leading-relaxed">
+        <div className="note mb-6">
           <p className="font-bold mb-1">🔒 사진은 서버에 전송되지 않아요</p>
           <p>얼굴 인식과 피부 톤 측정은 이 브라우저 안에서만 실행되고, 사진은 어디에도 저장·전송되지 않습니다. 다만 사진 한 장의 조명·화질에 따라 결과가 달라질 수 있어 전문 드레이핑 진단을 대체하지는 않는 참고용 결과입니다.</p>
         </div>
@@ -393,7 +393,7 @@ export default function PersonalColorPage() {
               </div>
               <div className="text-4xl mb-2">{result.emoji}</div>
               <p className="text-sm font-semibold text-white/80 mb-1">{result.vibe}</p>
-              <p className="text-xl font-black mb-3">{result.label}</p>
+              <p className="text-xl font-bold mb-3">{result.label}</p>
               <p className="text-sm leading-relaxed">{result.text}</p>
             </div>
 
@@ -449,7 +449,7 @@ export default function PersonalColorPage() {
             </div>
 
             <div className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg p-5">
-              <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">🙅 피하면 좋은 컬러</p>
+              <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">🙅 피하면 좋은 컬러</p>
               <div className="grid grid-cols-3 gap-3">
                 {result.avoidPalette.map(c => (
                   <div key={c.hex} className="text-center opacity-70">

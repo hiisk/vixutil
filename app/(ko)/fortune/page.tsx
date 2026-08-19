@@ -123,7 +123,7 @@ export default function FortunePage() {
           <ToolIcon emoji="📸" className="w-9 h-9 text-slate-800 dark:text-slate-100" />
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-1">
-              <h2 className="text-base font-black text-slate-900 dark:text-slate-100">스냅테스트</h2>
+              <h2 className="text-base font-bold text-slate-900 dark:text-slate-100">스냅테스트</h2>
               <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-fuchsia-100 dark:bg-fuchsia-950/40 text-fuchsia-700 dark:text-fuchsia-300">사진으로 하는 테스트</span>
             </div>
             <p className="text-sm text-slate-500 dark:text-slate-400">관상·퍼스널컬러·감성 분석 등 사진 한 장으로 즐기는 참여형 테스트 모음</p>
@@ -144,7 +144,7 @@ export default function FortunePage() {
             <ToolIcon emoji={TAROT_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />
           </span>
           <span className="min-w-0">
-            <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{TAROT_UI.ko.hubTitle}</span>
+            <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">{TAROT_UI.ko.hubTitle}</span>
             <span className="block text-xs text-slate-500 dark:text-slate-400 mt-0.5">{TAROT_UI.ko.hubLead}</span>
           </span>
         </Link>

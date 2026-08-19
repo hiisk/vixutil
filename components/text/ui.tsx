@@ -46,11 +46,11 @@ export function InputArea({
   return (
     <div>
       <div className="flex items-center justify-between mb-1.5">
-        <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{label ?? c.input}</span>
+        <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{label ?? c.input}</span>
         {value && (
           <button
             onClick={() => (onClear ? onClear() : onChange(''))}
-            className="text-xs font-bold text-slate-400 dark:text-slate-500 hover:text-rose-500 transition-colors"
+            className="text-xs font-medium text-slate-400 dark:text-slate-500 hover:text-rose-500 transition-colors"
           >
             {c.clear}
           </button>
@@ -88,7 +88,7 @@ export function CopyBox({
   return (
     <div className="mt-4">
       <div className="flex items-center justify-between mb-1.5">
-        <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{label ?? c.output}</span>
+        <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{label ?? c.output}</span>
         <button
           onClick={() => copy(value)}
           disabled={!value}
@@ -155,7 +155,7 @@ export function CopyRow({
 export function Stat({ label, value, accent }: { label: string; value: string | number; accent?: string }) {
   return (
     <div className="rounded-xl border chip-off px-3 py-3 text-center">
-      <p className={`text-lg font-black tabular-nums ${accent ?? 'text-slate-800 dark:text-slate-100'}`}>{value}</p>
+      <p className={`text-lg font-bold tabular-nums ${accent ?? 'text-slate-800 dark:text-slate-100'}`}>{value}</p>
       <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{label}</p>
     </div>
   );

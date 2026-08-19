@@ -28,7 +28,7 @@ export default function FortuneHubPage({ lang }: { lang: FortuneIntlLang }) {
 
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
-          <Link prefetch={false} href={`/${lang}/fortune`} className="font-black text-violet-600 text-lg shrink-0">vixutil</Link>
+          <Link prefetch={false} href={`/${lang}/fortune`} className="font-bold text-violet-600 text-lg shrink-0">vixutil</Link>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{c.kicker}</span>
           <span className="ml-auto">
             <LangPicker current={lang} route="/fortune" available={ALL_LOCALES10} />
@@ -68,7 +68,7 @@ export default function FortuneHubPage({ lang }: { lang: FortuneIntlLang }) {
             <ToolIcon emoji={TAROT_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />
           </span>
           <span className="min-w-0">
-            <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{tarot.hubTitle}</span>
+            <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">{tarot.hubTitle}</span>
             <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5">{tarot.hubLead}</span>
           </span>
           <span className="ml-auto text-[11px] font-bold text-slate-400 dark:text-slate-500 shrink-0">78</span>
@@ -76,7 +76,7 @@ export default function FortuneHubPage({ lang }: { lang: FortuneIntlLang }) {
       </div>
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
-        <span className="text-sm font-black text-violet-600">vixutil</span>
+        <span className="text-sm font-bold text-violet-600">vixutil</span>
         <p className="text-xs text-slate-400 mt-1">{c.footer}</p>
       </footer>
     </div>

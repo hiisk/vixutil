@@ -71,7 +71,7 @@ export default function HttpHubPage({ lang }: { lang: Lang }) {
         <h2 className="sec-h2">{ui.statusTitle}</h2>
         {CLASSES.map(c => (
           <section key={c} className="mb-8">
-            <h3 className="text-sm font-black text-slate-700 dark:text-slate-200 mb-1">
+            <h3 className="text-sm font-bold text-slate-700 dark:text-slate-200 mb-1">
               {ui.classLabel[c]}
               <span className="ml-1.5 text-[11px] font-bold text-slate-400 dark:text-slate-500">{statusesOfClass(c).length}</span>
             </h3>
@@ -83,7 +83,7 @@ export default function HttpHubPage({ lang }: { lang: Lang }) {
                   href={`${path}/${x.slug}`}
                   className="flex items-baseline gap-3 px-4 py-2.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
                 >
-                  <span className="text-sm font-black text-teal-700 dark:text-teal-400 font-mono shrink-0 tabular-nums">{x.name}</span>
+                  <span className="text-sm font-bold text-teal-700 dark:text-teal-400 font-mono shrink-0 tabular-nums">{x.name}</span>
                   <span className="text-[11px] text-slate-500 dark:text-slate-400 truncate">{httpDesc(x.slug, lang)}</span>
                 </Link>
               ))}
@@ -94,7 +94,7 @@ export default function HttpHubPage({ lang }: { lang: Lang }) {
         <h2 className="sec-h2">{ui.headerTitle}</h2>
         {SIDES.map(s => (
           <section key={s} className="mb-8">
-            <h3 className="text-sm font-black text-slate-700 dark:text-slate-200 mb-1">
+            <h3 className="text-sm font-bold text-slate-700 dark:text-slate-200 mb-1">
               {ui.sideLabel[s]}
               <span className="ml-1.5 text-[11px] font-bold text-slate-400 dark:text-slate-500">{headersOfSide(s).length}</span>
             </h3>
@@ -106,7 +106,7 @@ export default function HttpHubPage({ lang }: { lang: Lang }) {
                   href={`${path}/${x.slug}`}
                   className="flex items-baseline gap-3 px-4 py-2.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
                 >
-                  <span className="text-sm font-black text-teal-700 dark:text-teal-400 font-mono shrink-0">{x.name}</span>
+                  <span className="text-sm font-bold text-teal-700 dark:text-teal-400 font-mono shrink-0">{x.name}</span>
                   <span className="text-[11px] text-slate-500 dark:text-slate-400 truncate">{httpDesc(x.slug, lang)}</span>
                 </Link>
               ))}

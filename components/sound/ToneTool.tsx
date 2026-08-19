@@ -72,7 +72,7 @@ export default function ToneTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
   return (
     <div>
       <div className="rounded-lg bg-slate-900 px-6 py-10 text-center">
-        <p className="text-6xl font-black text-white tabular-nums">
+        <p className="text-6xl font-bold text-white tabular-nums">
           {freq >= 1000 ? (freq / 1000).toFixed(freq % 1000 === 0 ? 0 : 1) : freq}
           <span className="text-2xl text-white/50 ml-1">{freq >= 1000 ? 'kHz' : 'Hz'}</span>
         </p>
@@ -94,7 +94,7 @@ export default function ToneTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
         </div>
 
         <div>
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.waveform}</p>
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.waveform}</p>
           <div className="grid grid-cols-4 gap-2">
             {WAVES.map(w => (
               <button
@@ -113,7 +113,7 @@ export default function ToneTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
         </div>
 
         <div>
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.channel}</p>
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.channel}</p>
           <div className="grid grid-cols-3 gap-2">
             {(['both', 'left', 'right'] as const).map((v, i) => (
               <button

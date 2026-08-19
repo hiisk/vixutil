@@ -69,7 +69,7 @@ export default function GlyphHubPage({ lang }: { lang: Lang }) {
           <section key={kind} className="mb-8">
             <h2 className="sec-h2-tight">
               {ui.kindLabel[kind]}
-              <span className="ml-1.5 text-xs font-bold text-slate-400 dark:text-slate-500">{glyphsOfKind(kind).length}</span>
+              <span className="ml-1.5 text-xs font-medium text-slate-400 dark:text-slate-500">{glyphsOfKind(kind).length}</span>
             </h2>
             <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.kindNote[kind]}</p>
             <div className="grid grid-cols-6 sm:grid-cols-8 gap-2">

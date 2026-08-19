@@ -169,7 +169,7 @@ function Picker({ value, onPick, label, options, cols, showEmoji }: {
 }) {
   return (
     <div>
-      <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{label}</p>
+      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{label}</p>
       <div className={`grid ${cols} gap-1.5`}>
         {options.map((o, i) => (
           <button
@@ -244,7 +244,7 @@ export default function MatchFortune({ kind, lang }: { kind: MatchKind; lang: In
                 <span>×</span>
                 <span>{options[b!].emoji} {options[b!].name}</span>
               </div>
-              <div className="text-5xl font-black drop-shadow">{result.score}</div>
+              <div className="text-5xl font-bold drop-shadow">{result.score}</div>
               <div className="text-xs font-bold text-white/85 mb-3">{ui.score}</div>
               <div className="inline-block text-xs font-bold bg-white/25 rounded-full px-4 py-1.5">{result.label}</div>
               <p className="text-sm text-white/90 mt-3">{result.headline}</p>
@@ -256,7 +256,7 @@ export default function MatchFortune({ kind, lang }: { kind: MatchKind; lang: In
               { label: ui.advice, body: result.advice, accent: 'text-amber-600' },
             ].map(sec => (
               <div key={sec.label} className="rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-5">
-                <div className={`text-xs font-black ${sec.accent} mb-2`}>{sec.label}</div>
+                <div className={`text-xs font-bold ${sec.accent} mb-2`}>{sec.label}</div>
                 <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{sec.body}</p>
               </div>
             ))}

@@ -15,11 +15,11 @@ import { ALL_LOCALES10 } from '@/lib/locales';
 function Ball({ n, bonus }: { n: number; bonus?: boolean }) {
   return (
     <span
-      className="relative inline-flex items-center justify-center w-11 h-11 rounded-full text-white font-black text-lg shadow"
+      className="relative inline-flex items-center justify-center w-11 h-11 rounded-full text-white font-bold text-lg shadow"
       style={{ background: ballColor(n) }}
     >
       {n}
-      {bonus && <span className="absolute -top-1.5 -right-1.5 text-[9px] font-black bg-white text-slate-700 rounded-full px-1 border border-slate-200">B</span>}
+      {bonus && <span className="absolute -top-1.5 -right-1.5 text-[9px] font-bold bg-white text-slate-700 rounded-full px-1 border border-slate-200">B</span>}
     </span>
   );
 }
@@ -75,7 +75,7 @@ export default function LuckyLottoPage() {
         </div>
 
         <form onSubmit={submit} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-6">
-          <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">생년월일</label>
+          <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">생년월일</label>
           <div className="grid grid-cols-3 gap-2">
             <input type="number" inputMode="numeric" placeholder="예) 1995" value={form.year}
               onChange={e => setForm({ ...form, year: e.target.value })}
@@ -88,7 +88,7 @@ export default function LuckyLottoPage() {
               className="fld focus:border-emerald-400" />
           </div>
           {error && <p className="text-xs text-rose-600 dark:text-rose-400 mt-2">{error}</p>}
-          <button type="submit" className="w-full mt-3 rounded-xl bg-sec text-sm font-black py-3.5 transition-all active:scale-[0.99] shadow-sm shadow-emerald-200 dark:shadow-none">
+          <button type="submit" className="w-full mt-3 rounded-xl bg-sec text-sm font-bold py-3.5 transition-all active:scale-[0.99] shadow-sm shadow-emerald-200 dark:shadow-none">
             행운 번호 뽑기 🍀
           </button>
         </form>
@@ -96,10 +96,10 @@ export default function LuckyLottoPage() {
         {result && (
           <div id="lotto-result">
             <div className="ll-pop rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-6 mb-4">
-              <div className="text-center text-xs font-black text-emerald-600 mb-4">오늘의 행운 번호 🍀</div>
+              <div className="text-center text-xs font-bold text-emerald-600 mb-4">오늘의 행운 번호 🍀</div>
               <div className="flex flex-wrap justify-center items-center gap-2 mb-4">
                 {result.numbers.map(n => <Ball key={n} n={n} />)}
-                <span className="text-2xl font-black text-slate-300 dark:text-slate-600 mx-1">+</span>
+                <span className="text-2xl font-bold text-slate-300 dark:text-slate-600 mx-1">+</span>
                 <Ball n={result.bonus} bonus />
               </div>
               <p className="text-center text-[11px] text-slate-400 dark:text-slate-500">6개 번호 + 보너스(B)</p>
@@ -109,17 +109,17 @@ export default function LuckyLottoPage() {
               <div className="rounded-lg bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 p-3 text-center">
                 <div className="text-[10px] font-bold text-slate-400 mb-1">판매점 방향</div>
                 <ToolIcon emoji="🧭" className="w-7 h-7 mb-0.5 text-slate-800 dark:text-slate-100" />
-                <div className="text-xs font-black text-slate-700 dark:text-slate-200">{result.direction}</div>
+                <div className="text-xs font-bold text-slate-700 dark:text-slate-200">{result.direction}</div>
               </div>
               <div className="rounded-lg bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 p-3 text-center">
                 <div className="text-[10px] font-bold text-slate-400 mb-1">행운의 요일</div>
                 <ToolIcon emoji="📅" className="w-7 h-7 mb-0.5 text-slate-800 dark:text-slate-100" />
-                <div className="text-xs font-black text-slate-700 dark:text-slate-200">{result.weekday}</div>
+                <div className="text-xs font-bold text-slate-700 dark:text-slate-200">{result.weekday}</div>
               </div>
               <div className="rounded-lg bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 p-3 text-center">
                 <div className="text-[10px] font-bold text-slate-400 mb-1">추천 시간대</div>
                 <ToolIcon emoji="⏰" className="w-7 h-7 mb-0.5 text-slate-800 dark:text-slate-100" />
-                <div className="text-[11px] font-black text-slate-700 dark:text-slate-200 leading-tight">{result.timeSlot}</div>
+                <div className="text-[11px] font-bold text-slate-700 dark:text-slate-200 leading-tight">{result.timeSlot}</div>
               </div>
             </div>
 

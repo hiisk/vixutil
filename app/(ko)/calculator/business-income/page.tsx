@@ -212,7 +212,7 @@ export default function BusinessIncomePage() {
                       </tr>
                       <tr className="bg-red-50 dark:bg-red-950/30">
                         <td className="px-5 py-3 font-bold text-slate-800 dark:text-slate-100">총 세금</td>
-                        <td className="px-5 py-3 text-right font-black text-red-500">{w(result.totalTax)}원</td>
+                        <td className="px-5 py-3 text-right font-bold text-red-500">{w(result.totalTax)}원</td>
                       </tr>
                     </tbody>
                   </table>

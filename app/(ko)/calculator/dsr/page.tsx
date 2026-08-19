@@ -136,7 +136,7 @@ export default function DsrPage() {
           <>
             <div className={`rounded-lg p-5 ${result.dsr <= 40 ? 'bg-blue-600' : result.dsr <= 50 ? 'bg-amber-500' : 'bg-rose-500'}`}>
               <p className="text-white/70 text-xs mb-1">DSR</p>
-              <p className="text-white text-3xl font-black">{result.dsr.toFixed(1)}%</p>
+              <p className="text-white text-3xl font-bold">{result.dsr.toFixed(1)}%</p>
               <p className="text-white/70 text-sm mt-1">
                 {result.dsr <= 40 ? '✓ 규제 기준(40%) 이하' : result.dsr <= 50 ? '⚠ 40% 초과 — 일반 대출 제한' : '✕ 50% 초과 — 대출 어려움'}
               </p>

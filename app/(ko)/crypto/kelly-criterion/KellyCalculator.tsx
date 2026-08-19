@@ -97,7 +97,7 @@ export default function KellyCalculator() {
         <>
           <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 mb-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Full Kelly</p>
-            <p className="text-5xl font-black tabular-nums text-violet-600 dark:text-violet-400">
+            <p className="text-5xl font-bold tabular-nums text-violet-600 dark:text-violet-400">
               {r.fullKellyPct.toFixed(1)}%
             </p>
             <p className="text-sm text-slate-600 dark:text-slate-300 mt-2">
@@ -120,7 +120,7 @@ export default function KellyCalculator() {
           {/* 본론 */}
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
             <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
-              <h2 className="text-sm font-black text-slate-900 dark:text-white">What you give up by betting less</h2>
+              <h2 className="text-sm font-bold text-slate-900 dark:text-white">What you give up by betting less</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 And what you buy with it. The last two columns depend only on the Kelly multiple — not on your edge.
               </p>
@@ -182,7 +182,7 @@ export default function KellyCalculator() {
           </div>
 
           <div className="rounded-lg border border-violet-200 dark:border-violet-500/30 bg-violet-50/50 dark:bg-violet-500/[0.06] p-5 mb-4">
-            <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">The drawdown columns ignore your edge entirely</h2>
+            <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-2">The drawdown columns ignore your edge entirely</h2>
             <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed max-w-[72ch]">
               Change the win rate or the reward ratio above and watch those two columns: they do not move. Under the standard
               approximation the chance of ever falling to a fraction α of your peak is{' '}
@@ -206,7 +206,7 @@ export default function KellyCalculator() {
       )}
 
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
-        <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">Why the answer is almost always &quot;less than this&quot;</h2>
+        <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-2">Why the answer is almost always &quot;less than this&quot;</h2>
         <p className="mb-2">
           Kelly assumes the win rate and the reward ratio are known exactly. In practice both are estimates from a limited number of trades,
           and the formula is asymmetric about that error: overstating your edge pushes the recommended size up, while the penalty for

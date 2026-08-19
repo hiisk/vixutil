@@ -101,7 +101,7 @@ export default function DreamPage() {
         {/* 인기 꿈 */}
         {!search && (
           <div className="pt-5 pb-2">
-            <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">많이 찾는 꿈</p>
+            <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">많이 찾는 꿈</p>
             <div className="flex flex-wrap gap-2">
               {POPULAR_KEYWORDS.map(k => (
                 <button
@@ -168,7 +168,7 @@ export default function DreamPage() {
                   }`}
                 >
                   <div className="text-3xl mb-2">{dream.emoji}</div>
-                  <div className="text-sm font-black text-slate-900 dark:text-slate-100 mb-1.5">{dream.keyword}</div>
+                  <div className="text-sm font-bold text-slate-900 dark:text-slate-100 mb-1.5">{dream.keyword}</div>
                   <span className={`inline-block text-xs font-bold px-2 py-0.5 rounded-full mb-2 border ${li.bg} ${li.color} ${li.border}`}>
                     {li.label}
                   </span>
@@ -210,7 +210,7 @@ export default function DreamPage() {
                 <div className="text-5xl">{selected.emoji}</div>
                 <div className="flex-1 min-w-0">
                   <div className="flex flex-wrap items-center gap-2 mb-1">
-                    <h2 className="text-2xl font-black text-slate-900 dark:text-slate-100">{selected.keyword} 꿈</h2>
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">{selected.keyword} 꿈</h2>
                     <span className={`text-sm font-bold px-2.5 py-1 rounded-full border ${info.bg} ${info.color} ${info.border}`}>
                       {info.label}
                     </span>
@@ -222,7 +222,7 @@ export default function DreamPage() {
 
               {/* 길흉 바 */}
               <div className="py-4 border-b border-slate-100 dark:border-slate-800">
-                <div className="flex items-center justify-between text-xs font-bold text-slate-400 dark:text-slate-500 mb-1.5">
+                <div className="flex items-center justify-between text-xs font-medium text-slate-400 dark:text-slate-500 mb-1.5">
                   <span>대흉</span><span>대길</span>
                 </div>
                 <div className="h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
@@ -243,7 +243,7 @@ export default function DreamPage() {
               {/* 관련 꿈 */}
               {selected.related && selected.related.length > 0 && (
                 <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
-                  <p className="text-xs font-bold text-slate-400 dark:text-slate-500 mb-3">관련 꿈 더 보기</p>
+                  <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mb-3">관련 꿈 더 보기</p>
                   <div className="flex flex-wrap gap-2">
                     {selected.related.map(rel => (
                       <button

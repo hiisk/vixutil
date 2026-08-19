@@ -183,7 +183,7 @@ export default function LiquidationCalculator() {
             <div className="flex items-center gap-2.5">
               <CoinLogo base={snap.coin.base} size={28} />
               <div>
-                <p className="text-lg font-black text-slate-900 dark:text-white tabular-nums leading-tight">
+                <p className="text-lg font-bold text-slate-900 dark:text-white tabular-nums leading-tight">
                   ${formatPrice(snap.price)}
                 </p>
                 <p className="text-[11px]"><Pct value={snap.chg24h} /> <span className="text-slate-500 dark:text-slate-400">24h</span></p>
@@ -191,7 +191,7 @@ export default function LiquidationCalculator() {
             </div>
           )}
           {state === 'loading' && (
-            <span role="status" className="text-xs font-bold text-slate-500 dark:text-slate-400">Loading price…</span>
+            <span role="status" className="text-xs font-medium text-slate-500 dark:text-slate-400">Loading price…</span>
           )}
           {(state === 'error' || state === 'nodata') && (
             <span className="flex items-center gap-2 text-xs">
@@ -303,14 +303,14 @@ export default function LiquidationCalculator() {
             <p className="text-[11px] uppercase tracking-wide text-rose-600 dark:text-rose-400 mb-1">Liquidation price</p>
             {calc.liquidatable ? (
               <>
-                <p className="text-4xl font-black text-rose-600 dark:text-rose-300 tabular-nums">${formatPrice(calc.liqPrice)}</p>
+                <p className="text-4xl font-bold text-rose-600 dark:text-rose-300 tabular-nums">${formatPrice(calc.liqPrice)}</p>
                 <p className="text-sm text-slate-600 dark:text-slate-300 mt-1.5">
                   A <b className="tabular-nums">{calc.moveToLiqPct >= 0 ? '+' : ''}{calc.moveToLiqPct.toFixed(2)}%</b> move from your entry liquidates the position.
                 </p>
               </>
             ) : (
               <>
-                <p className="text-2xl font-black text-emerald-600 dark:text-emerald-400">No liquidation</p>
+                <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">No liquidation</p>
                 <p className="text-sm text-slate-600 dark:text-slate-300 mt-1.5">
                   Your margin covers the whole position, so nothing short of the price reaching zero can liquidate it.
                 </p>
@@ -322,7 +322,7 @@ export default function LiquidationCalculator() {
           {calc.liquidatable && (
             <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
               <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
-                <h2 className="text-sm font-black text-slate-900 dark:text-white">Probability of being liquidated</h2>
+                <h2 className="text-sm font-bold text-slate-900 dark:text-white">Probability of being liquidated</h2>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                   Other calculators stop at the price. Without the odds of actually reaching it, the number alone tells you nothing about the risk.
                 </p>
@@ -334,7 +334,7 @@ export default function LiquidationCalculator() {
                     {liqProbs.map((p, i) => (
                       <div key={CHECKPOINTS[i]} className="p-4 text-center">
                         <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">within {CHECKPOINT_LABELS[i]}</p>
-                        <p className={`text-2xl font-black tabular-nums ${riskTone(p)}`}>{isFinite(p) ? `${p.toFixed(1)}%` : '—'}</p>
+                        <p className={`text-2xl font-bold tabular-nums ${riskTone(p)}`}>{isFinite(p) ? `${p.toFixed(1)}%` : '—'}</p>
                       </div>
                     ))}
                   </div>
@@ -367,7 +367,7 @@ export default function LiquidationCalculator() {
             ].map(([label, value, note]) => (
               <div key={label} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
                 <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">{label}</p>
-                <p className="text-base font-black text-slate-900 dark:text-white tabular-nums">{value}</p>
+                <p className="text-base font-bold text-slate-900 dark:text-white tabular-nums">{value}</p>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{note}</p>
               </div>
             ))}
@@ -375,7 +375,7 @@ export default function LiquidationCalculator() {
 
           {/* 역산 — 버티고 싶은 조정폭에서 배율을 구한다 */}
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-4">
-            <h2 className="text-sm font-black text-slate-900 dark:text-white mb-1">How much leverage survives a given drawdown?</h2>
+            <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-1">How much leverage survives a given drawdown?</h2>
             <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
               The most leverage you can take at a {mmr}% maintenance margin rate and still survive a {side === 'long' ? 'drop' : 'rise'} of that size.
             </p>
@@ -388,7 +388,7 @@ export default function LiquidationCalculator() {
                   className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-3 text-center hover:border-amber-400 dark:hover:border-amber-500/50 transition-colors"
                 >
                   <p className="text-[11px] text-slate-500 dark:text-slate-400 mb-0.5">Survive {buffer}%</p>
-                  <p className="text-lg font-black text-slate-900 dark:text-white tabular-nums">
+                  <p className="text-lg font-bold text-slate-900 dark:text-white tabular-nums">
                     {lev ? `${lev.toFixed(1)}×` : '—'}
                   </p>
                 </button>
@@ -406,8 +406,8 @@ export default function LiquidationCalculator() {
       )}
 
       {/* 정직한 한계 — 이 사이트의 방식대로, 빠진 것을 먼저 밝힌다 */}
-      <div className="rounded-lg border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4 text-xs text-amber-900 dark:text-amber-200/85 leading-relaxed">
-        <h2 className="text-sm font-black mb-2">What this calculation leaves out</h2>
+      <div className="note-warn mb-4">
+        <h2 className="text-sm font-bold mb-2">What this calculation leaves out</h2>
         <ul className="space-y-1.5">
           <li>· <b>Fees and funding.</b> Both eat into margin, so your real liquidation price sits <b>closer to entry</b> than this one. The longer you hold, the wider the gap.</li>
           <li>· <b>Maintenance margin tiers.</b> Exchanges raise the rate as position size grows. This uses a single rate, so a large position faces a higher one than assumed here.</li>
@@ -419,7 +419,7 @@ export default function LiquidationCalculator() {
       </div>
 
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
-        <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">How the liquidation price is derived</h2>
+        <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-2">How the liquidation price is derived</h2>
         <p className="mb-2">
           Liquidation is the moment remaining equity equals the maintenance margin. That margin is charged on the notional
           <b className="text-slate-700 dark:text-slate-200"> at the liquidation price</b>, not at entry, which gives — for a long —

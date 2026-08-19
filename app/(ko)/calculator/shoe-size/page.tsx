@@ -81,7 +81,7 @@ export default function ShoeSizePage() {
           <LangPicker current="ko" route="/calculator/shoe-size" available={ALL_LOCALES10} />
         </div>
         <Card className="p-5">
-          <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">발 길이</label>
+          <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">발 길이</label>
           <div className="relative">
             <input
               type="number"
@@ -130,7 +130,7 @@ export default function ShoeSizePage() {
             </Card>
 
             <Card>
-              <div className="px-5 py-3 border-b border-slate-100 dark:border-slate-800 grid grid-cols-5 text-xs font-bold text-slate-500 dark:text-slate-400">
+              <div className="px-5 py-3 border-b border-slate-100 dark:border-slate-800 grid grid-cols-5 text-xs font-medium text-slate-500 dark:text-slate-400">
                 <span>mm</span>
                 <span className="text-right">EU</span>
                 <span className="text-right">UK</span>

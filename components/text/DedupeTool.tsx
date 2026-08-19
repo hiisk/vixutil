@@ -34,7 +34,7 @@ export default function DedupeTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
         <Toggle checked={!!options.removeBlank} onChange={v => set({ removeBlank: v })} label={ui.removeBlank} />
         <Toggle checked={!!options.numbered} onChange={v => set({ numbered: v })} label={ui.numbered} hint={ui.numberedHint} />
 
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.sortTitle}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.sortTitle}</p>
         <div className="grid grid-cols-3 gap-2">
           {([
             { v: 'none' as const },

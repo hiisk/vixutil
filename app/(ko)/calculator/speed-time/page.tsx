@@ -104,19 +104,19 @@ export default function SpeedTimePage() {
         <Card className="p-5 flex flex-col gap-4">
           {solve !== 'distance' && (
             <div>
-              <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">거리 (km)</label>
+              <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">거리 (km)</label>
               <input type="number" value={dist} onChange={e => setDist(e.target.value)} placeholder="예: 42.195" min={0} className={inputCls} />
             </div>
           )}
           {solve !== 'speed' && (
             <div>
-              <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">속도 (km/h)</label>
+              <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">속도 (km/h)</label>
               <input type="number" value={speed} onChange={e => setSpeed(e.target.value)} placeholder="예: 60" min={0} className={inputCls} />
             </div>
           )}
           {solve !== 'time' && (
             <div>
-              <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">시간</label>
+              <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">시간</label>
               <div className="flex gap-2 items-center">
                 <input type="number" value={h} onChange={e => setH(e.target.value)} placeholder="0" min={0} className={inputCls} />
                 <span className="text-sm font-bold text-slate-400 dark:text-slate-500 shrink-0">시간</span>
@@ -133,7 +133,7 @@ export default function SpeedTimePage() {
               <p className="stat-sub mb-2">
                 {answer.kind === 'speed' ? '속도' : answer.kind === 'time' ? '걸리는 시간' : '거리'}
               </p>
-              <p className="text-slate-900 dark:text-slate-50 text-5xl font-black">
+              <p className="text-slate-900 dark:text-slate-50 text-5xl font-bold">
                 {answer.kind === 'speed'
                   ? answer.v.toFixed(2)
                   : answer.kind === 'distance'

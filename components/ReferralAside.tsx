@@ -81,7 +81,7 @@ export default function ReferralAside({ lang = 'ko', section }: { lang?: AnyLoca
         <span className="shrink-0 rounded bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">
           {t.ad}
         </span>
-        <p className="text-[13px] font-black text-slate-800 dark:text-slate-100">{t.rail}</p>
+        <p className="text-[13px] font-bold text-slate-800 dark:text-slate-100">{t.rail}</p>
       </div>
       {/* 무엇을 얻는지 한 줄 — 본문 카드와 같은 문구를 쓴다 */}
       <p className="mb-3 text-[11px] leading-relaxed text-slate-500 dark:text-slate-400">{t.why}</p>
@@ -105,7 +105,7 @@ export default function ReferralAside({ lang = 'ko', section }: { lang?: AnyLoca
                 <BrandMark id={r.id} />
               </span>
               {/* 금액은 카드에서 제일 큰 글자다. 색까지 셀 필요는 없다 — 색은 버튼 몫 */}
-              <span className="mt-3 block text-[25px] font-black leading-none tabular-nums text-slate-900 dark:text-slate-50">
+              <span className="mt-3 block text-[25px] font-bold leading-none tabular-nums text-slate-900 dark:text-slate-50">
                 {copy.bonus}
               </span>
               <span className="mt-2 block text-[11px] font-bold text-slate-700 dark:text-slate-300">

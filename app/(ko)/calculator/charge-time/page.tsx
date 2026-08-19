@@ -95,7 +95,7 @@ export default function ChargeTimePage() {
         />
 
         <Card className="p-5">
-          <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">배터리 용량</label>
+          <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">배터리 용량</label>
           <div className="flex gap-2">
             <input
               type="number"
@@ -118,7 +118,7 @@ export default function ChargeTimePage() {
             휴대전화는 보통 mAh, 노트북은 Wh로 적혀 있습니다
           </p>
 
-          <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mt-4 mb-2">충전기 출력 (W)</label>
+          <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mt-4 mb-2">충전기 출력 (W)</label>
           <input
             type="number"
             value={watt}

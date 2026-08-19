@@ -106,7 +106,7 @@ export default function EmojiPage({ slug, lang }: { slug: string; lang: Lang }) 
               <dt className="text-[11px] font-bold text-slate-400 dark:text-slate-500">{ui.officialLabel}</dt>
               <dd className="mb-2 font-mono text-slate-700 dark:text-slate-200">{x.unicodeName}</dd>
               <dt className="text-[11px] font-bold text-slate-400 dark:text-slate-500">{ui.commonLabel}</dt>
-              <dd className="font-black text-slate-900 dark:text-slate-100">{x.common}</dd>
+              <dd className="font-bold text-slate-900 dark:text-slate-100">{x.common}</dd>
             </dl>
           </section>
         )}

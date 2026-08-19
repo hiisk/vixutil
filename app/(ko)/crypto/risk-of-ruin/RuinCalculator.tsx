@@ -23,7 +23,7 @@ function fmtPct(v: number): string {
 }
 
 function tone(v: number): string {
-  if (v >= 50) return 'text-rose-600 dark:text-rose-400 font-black';
+  if (v >= 50) return 'text-rose-600 dark:text-rose-400 font-bold';
   if (v >= 20) return 'text-orange-600 dark:text-orange-400 font-bold';
   if (v >= 5) return 'text-amber-600 dark:text-amber-400 font-bold';
   if (v >= 1) return 'text-slate-700 dark:text-slate-200';
@@ -109,7 +109,7 @@ export default function RuinCalculator() {
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">
               Chance of losing {ruinThresholdPct}% of the account
             </p>
-            <p className={`text-5xl font-black tabular-nums ${tone(r.ruinPct)}`}>{fmtPct(r.ruinPct)}</p>
+            <p className={`text-5xl font-bold tabular-nums ${tone(r.ruinPct)}`}>{fmtPct(r.ruinPct)}</p>
             {!r.hasEdge ? (
               <p className="text-sm text-rose-700 dark:text-rose-300 mt-2">
                 At {winRatePct}% with {rMultiple}:1 the expectancy is {r.expectancyR.toFixed(3)}R — negative. Ruin is then a matter of time
@@ -127,7 +127,7 @@ export default function RuinCalculator() {
           {/* 같은 우위, 다른 리스크 */}
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
             <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
-              <h2 className="text-sm font-black text-slate-900 dark:text-white">Same edge, different bet size</h2>
+              <h2 className="text-sm font-bold text-slate-900 dark:text-white">Same edge, different bet size</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 Win rate and reward ratio are held at your inputs. Only the risk per trade changes.
               </p>
@@ -177,7 +177,7 @@ export default function RuinCalculator() {
       )}
 
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
-        <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">What this model assumes</h2>
+        <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-2">What this model assumes</h2>
         <p className="mb-2">
           Each trade is treated as independent with a fixed win rate and a fixed reward ratio, and the risk is a constant fraction of the
           account. The result is the classic gambler&apos;s ruin probability, solved in closed form rather than simulated — for a reward ratio

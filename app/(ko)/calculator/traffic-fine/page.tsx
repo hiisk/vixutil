@@ -342,7 +342,7 @@ export default function TrafficFinePage() {
                   <div className="grid grid-cols-2 divide-x divide-slate-100 dark:divide-slate-800">
                     <div className="p-5">
                       <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">범칙금 (운전자)</p>
-                      <p className="text-xl font-black text-slate-900 dark:text-slate-100">
+                      <p className="text-xl font-bold text-slate-900 dark:text-slate-100">
                         {money(result.finePayable)}
                       </p>
                       <p className="text-xs mt-1 text-red-500">
@@ -351,7 +351,7 @@ export default function TrafficFinePage() {
                     </div>
                     <div className="p-5">
                       <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">과태료 (차주)</p>
-                      <p className="text-xl font-black text-slate-900 dark:text-slate-100">
+                      <p className="text-xl font-bold text-slate-900 dark:text-slate-100">
                         {money(result.levyPayable)}
                       </p>
                       <p className="text-xs mt-1 text-emerald-600 dark:text-emerald-400">

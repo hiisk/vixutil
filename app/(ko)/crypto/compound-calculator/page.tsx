@@ -68,7 +68,7 @@ export default function CompoundCalculatorPage() {
           계산하므로 자바스크립트를 실행하지 않는 크롤러에겐 빈 껍데기로 보인다.
         */}
         <section className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
-          <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">Two things a yield number hides</h2>
+          <h2 className="text-base font-bold text-slate-900 dark:text-white mb-3">Two things a yield number hides</h2>
           <p className="mb-3">
             The first is the difference between APR and APY. APR is the rate before compounding, APY is what you actually receive once
             interest earns interest — 12% APR compounded daily is 12.75% APY. Products advertise whichever number looks better, so comparing

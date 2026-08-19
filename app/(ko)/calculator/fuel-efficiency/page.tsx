@@ -108,7 +108,7 @@ export default function FuelEfficiencyPage() {
         {result && (
           <div className="stat-pri text-center">
             <p className="stat-label">{mode === 'calc' ? '연비' : '주행 가능 거리'}</p>
-            <p className="text-slate-900 dark:text-slate-50 text-5xl font-black">{result.value.toFixed(1)}</p>
+            <p className="text-slate-900 dark:text-slate-50 text-5xl font-bold">{result.value.toFixed(1)}</p>
             <p className="text-slate-500 dark:text-slate-400 text-xl mt-1">{result.label}</p>
             {result.sub && <p className="text-slate-500 dark:text-slate-400 text-xs mt-2 opacity-70">{result.sub}</p>}
           </div>

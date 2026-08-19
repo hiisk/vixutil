@@ -120,14 +120,14 @@ export default function RouletteWheel({ lang = 'ko' }: { lang?: RandomLang }) {
       {winner && (
         <div className="wc-pop text-center rounded-lg bg-sec py-5 mb-6">
           <div className="text-xs font-bold text-rose-100 mb-1">{ui.winner}</div>
-          <div className="text-3xl font-black">{winner}</div>
+          <div className="text-3xl font-bold">{winner}</div>
         </div>
       )}
 
       <button
         onClick={spin}
         disabled={spinning || !filled}
-        className="w-full bg-sec font-black text-lg rounded-lg py-4 mb-6 shadow-sm shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all disabled:opacity-50 disabled:hover:translate-y-0"
+        className="w-full bg-sec font-bold text-lg rounded-lg py-4 mb-6 shadow-sm shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all disabled:opacity-50 disabled:hover:translate-y-0"
       >
         {spinning ? ui.spinning : ui.spin}
       </button>

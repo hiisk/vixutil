@@ -104,7 +104,7 @@ export default function AsciiHubPage({ lang }: { lang: Lang }) {
                    
                     className="flex items-baseline gap-3 px-4 py-2 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
                     <span className="text-[11px] text-slate-400 dark:text-slate-500 tabular-nums shrink-0 w-[26px] text-right">{x.code}</span>
-                    <span className="text-sm font-black text-teal-700 dark:text-teal-400 font-mono shrink-0 w-[38px]">{x.abbr}</span>
+                    <span className="text-sm font-bold text-teal-700 dark:text-teal-400 font-mono shrink-0 w-[38px]">{x.abbr}</span>
                     <span className="text-sm text-slate-700 dark:text-slate-200 truncate">{x.name}</span>
                     <span className="ml-auto text-[11px] font-mono text-slate-400 dark:text-slate-500 shrink-0">{asciiFacts(x.code).ctrl}</span>
                   </span>

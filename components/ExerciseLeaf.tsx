@@ -35,7 +35,7 @@ export default function ExerciseLeaf({ slug, lang }: { slug: string; lang: AnyLo
         <h1 className="page-h1">{t.h1(name)}</h1>
 
         <div className="mt-4 rounded-lg bg-sec p-6 ">
-          <p className="text-4xl font-black leading-none tabular-nums">{kcal(x.met, 70, 30)} kcal</p>
+          <p className="text-4xl font-bold leading-none tabular-nums">{kcal(x.met, 70, 30)} kcal</p>
           <p className="mt-2 text-sm text-emerald-100">{t.lead(name, String(kcal(x.met, 70, 30)))}</p>
           <p className="mt-1 text-sm text-emerald-100">{t.metLine(String(x.met))}</p>
         </div>
@@ -46,8 +46,8 @@ export default function ExerciseLeaf({ slug, lang }: { slug: string; lang: AnyLo
             <table className="w-full text-sm tabular-nums">
               <thead>
                 <tr className="bg-slate-50 dark:bg-slate-900">
-                  <th className="px-3 py-2 text-left text-xs font-bold text-slate-500 dark:text-slate-400">{t.weight}</th>
-                  {MINUTES.map(m => <th key={m} className="px-3 py-2 text-right text-xs font-bold text-slate-500 dark:text-slate-400">{m}{t.minutes}</th>)}
+                  <th className="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">{t.weight}</th>
+                  {MINUTES.map(m => <th key={m} className="px-3 py-2 text-right text-xs font-medium text-slate-500 dark:text-slate-400">{m}{t.minutes}</th>)}
                 </tr>
               </thead>
               <tbody>

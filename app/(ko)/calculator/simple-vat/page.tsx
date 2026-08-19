@@ -90,7 +90,7 @@ export default function SimpleVatPage() {
               <p className="label-caps mb-3">
                 예상 납부세액
               </p>
-              <p className={`text-3xl font-black ${result.exempt ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-900 dark:text-slate-100'}`}>
+              <p className={`text-3xl font-bold ${result.exempt ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-900 dark:text-slate-100'}`}>
                 {w(result.finalPayable)}<span className="text-lg font-bold ml-1">원</span>
               </p>
               {result.exempt && (

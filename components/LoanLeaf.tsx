@@ -51,7 +51,7 @@ export default function LoanLeaf({ principal, rate, term }: { principal: number;
 
         <div className="mt-4 rounded-lg bg-sec p-6 ">
           <p className="text-emerald-100 text-xs mb-1">원리금균등 월 상환액</p>
-          <p className="text-4xl font-black leading-none tabular-nums">{won(f.monthly)}원</p>
+          <p className="text-4xl font-bold leading-none tabular-nums">{won(f.monthly)}원</p>
           <p className="mt-2 text-sm text-emerald-100">
             {term}년({f.months}개월) 동안 이자만 {won(f.schedules[0].totalInterest)}원 —
             원금의 {f.interestPct.toFixed(0)}%입니다.

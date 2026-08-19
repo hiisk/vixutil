@@ -132,7 +132,7 @@ export default function StudentLoanPage() {
         </Card>
 
         <Card className="p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wide">
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wide">
             취업 후 상환 조건
           </p>
           <div className="flex flex-col gap-3">

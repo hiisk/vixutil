@@ -121,7 +121,7 @@ export default function SubscriptionScorePage() {
 
         <div className="stat-pri text-center">
           <p className="stat-sub mb-2">총 가점</p>
-          <p className="text-slate-900 dark:text-slate-50 text-6xl font-black">{total}</p>
+          <p className="text-slate-900 dark:text-slate-50 text-6xl font-bold">{total}</p>
           <p className="text-slate-500 dark:text-slate-400 text-base mt-1">/ 84점</p>
         </div>
 
@@ -149,7 +149,7 @@ function ScoreItem({ label, max, score, note, children }: {
           {/* note는 지금까지 prop으로 받기만 하고 그리지 않아 화면에 나오지 않았다 */}
           {note && <p className="text-xs text-slate-400 dark:text-slate-500 truncate">{note}</p>}
         </div>
-        <span className="text-blue-600 font-black text-sm shrink-0">{score}<span className="text-slate-300 dark:text-slate-600 font-normal">/{max}점</span></span>
+        <span className="text-blue-600 font-bold text-sm shrink-0">{score}<span className="text-slate-300 dark:text-slate-600 font-normal">/{max}점</span></span>
       </div>
       {children}
       <div className="mt-1.5 h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">

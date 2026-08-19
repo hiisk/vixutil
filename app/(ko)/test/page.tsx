@@ -44,7 +44,7 @@ export default function TestIndexPage() {
       <div className="h-1 topbar" />
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center gap-4">
-          <Link href="/" className="font-black text-violet-600 text-lg shrink-0">vix.</Link>
+          <Link href="/" className="font-bold text-violet-600 text-lg shrink-0">vix.</Link>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">심리 테스트</span>
           <span className="ml-auto flex items-center gap-3 shrink-0">
             <span className="text-xs text-slate-400 dark:text-slate-500">{TESTS.length}개</span>

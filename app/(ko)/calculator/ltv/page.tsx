@@ -120,7 +120,7 @@ export default function LtvPage() {
           <>
             <div className={`rounded-lg p-5 ${result.ltv <= result.limit ? 'bg-blue-600' : 'bg-rose-500'}`}>
               <p className="text-white/70 text-xs mb-1">현재 LTV</p>
-              <p className="text-white text-3xl font-black">{result.ltv.toFixed(1)}%</p>
+              <p className="text-white text-3xl font-bold">{result.ltv.toFixed(1)}%</p>
               <p className="text-white/70 text-sm mt-1">
                 {ZONE_LABEL[zone]} 한도 {result.limit}% ·{' '}
                 {result.ltv <= result.limit ? '한도 이하 ✓' : '한도 초과 ✕'}

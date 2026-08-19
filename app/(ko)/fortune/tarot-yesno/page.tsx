@@ -83,7 +83,7 @@ export default function TarotYesNoPage() {
       <div className="h-1 topbar" />
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-lg mx-auto px-4 h-14 flex items-center gap-3">
-          <Link href="/" className="font-black text-violet-600 text-lg shrink-0">vix.</Link>
+          <Link href="/" className="font-bold text-violet-600 text-lg shrink-0">vix.</Link>
           <Link href="/fortune" className="text-sm font-bold text-slate-700 dark:text-slate-200">🔮 타로 예스/노</Link>
           <span className="ml-auto shrink-0">
             <LangPicker current="ko" route="/fortune/tarot-yesno" available={ALL_LOCALES10} />
@@ -100,7 +100,7 @@ export default function TarotYesNoPage() {
           </p>
         </div>
 
-        <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">질문 (선택)</label>
+        <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">질문 (선택)</label>
         <input
           value={question}
           onChange={e => setQuestion(e.target.value)}
@@ -111,7 +111,7 @@ export default function TarotYesNoPage() {
         <button
           onClick={pull}
           disabled={drawing}
-          className="w-full bg-sec font-black text-lg rounded-lg py-4 mb-6 shadow-sm shadow-violet-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all disabled:opacity-70"
+          className="w-full bg-sec font-bold text-lg rounded-lg py-4 mb-6 shadow-sm shadow-violet-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all disabled:opacity-70"
         >
           {drawing ? '카드를 뽑는 중…' : result ? '🔮 다시 뽑기' : '🔮 카드 뽑기'}
         </button>
@@ -124,7 +124,7 @@ export default function TarotYesNoPage() {
             {/* 판정 히어로 */}
             <div className={`dt-flip rounded-xl bg-gradient-to-br ${v.gradient} text-white p-8 text-center mb-4`}>
               <div className="text-6xl mb-2">{v.emoji}</div>
-              <div className="text-3xl font-black drop-shadow">{v.label}</div>
+              <div className="text-3xl font-bold drop-shadow">{v.label}</div>
               <p className="text-sm text-white/90 mt-2">{v.note}</p>
             </div>
 
@@ -133,8 +133,8 @@ export default function TarotYesNoPage() {
               <div className="flex items-center gap-3 mb-2">
                 <span className="text-3xl" style={{ transform: result.reversed ? 'rotate(180deg)' : 'none', display: 'inline-block' }}>{result.card.emoji}</span>
                 <div>
-                  <div className="text-xs font-bold text-slate-400">{result.card.nameEn} · {result.reversed ? '역방향' : '정방향'}</div>
-                  <div className="text-base font-black text-slate-800 dark:text-slate-100">{result.card.name}</div>
+                  <div className="text-xs font-medium text-slate-400">{result.card.nameEn} · {result.reversed ? '역방향' : '정방향'}</div>
+                  <div className="text-base font-bold text-slate-800 dark:text-slate-100">{result.card.name}</div>
                 </div>
               </div>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">

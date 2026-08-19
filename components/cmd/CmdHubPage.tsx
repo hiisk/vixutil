@@ -73,7 +73,7 @@ export default function CmdHubPage({ lang }: { lang: Lang }) {
             <section key={cat} className="mb-9">
               <h2 className="sec-h2 flex items-baseline gap-2">
                 {ui.catLabel[cat]}
-                <span className="text-xs font-bold text-slate-400 dark:text-slate-500">{list.length}</span>
+                <span className="text-xs font-medium text-slate-400 dark:text-slate-500">{list.length}</span>
               </h2>
               <p className="mb-3 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{ui.catNote[cat]}</p>
               <div className="grid sm:grid-cols-2 gap-2">
@@ -83,7 +83,7 @@ export default function CmdHubPage({ lang }: { lang: Lang }) {
                     href={`${path}/${x.slug}`}
                     className="group rounded-xl border chip-off px-4 py-3 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm transition-all"
                   >
-                    <span className="block text-sm font-black text-slate-800 dark:text-slate-100 font-mono group-hover:text-sec transition-colors break-all">
+                    <span className="block text-sm font-bold text-slate-800 dark:text-slate-100 font-mono group-hover:text-sec transition-colors break-all">
                       {x.name}
                     </span>
                     <span className="block mt-0.5 text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">

@@ -72,7 +72,7 @@ export default function CubeHubPage({ lang }: { lang: Lang }) {
           <dl className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
             {ui.notation.map(n => (
               <div key={n.token} className="flex items-baseline gap-3 px-4 py-2 bg-white dark:bg-slate-900">
-                <dt className="text-sm font-black text-amber-700 dark:text-amber-400 font-mono shrink-0 w-[92px]">{n.token}</dt>
+                <dt className="text-sm font-bold text-amber-700 dark:text-amber-400 font-mono shrink-0 w-[92px]">{n.token}</dt>
                 <dd className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{n.text}</dd>
               </div>
             ))}
@@ -98,7 +98,7 @@ export default function CubeHubPage({ lang }: { lang: Lang }) {
                   >
                     <CubeTop state={diagram(f)} slot={step === 'f2l'} label={a.label} className="w-full max-w-[104px] mx-auto" />
                     <div className="mt-2 text-center">
-                      <div className="text-xs font-black text-slate-800 dark:text-slate-100">{a.label}</div>
+                      <div className="text-xs font-bold text-slate-800 dark:text-slate-100">{a.label}</div>
                       <div className="text-[10px] text-slate-400 dark:text-slate-500 font-mono truncate">{a.alg}</div>
                     </div>
                   </Link>

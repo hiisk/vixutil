@@ -27,46 +27,50 @@ import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
 
 /* ── 기둥 카드 ── */
-function PillarCard({ label, pillar, isDay, ilganIdx }: {
+/**
+ * 명식 한 기둥 — 표의 한 열.
+ *
+ * 전에는 칸마다 오행 색으로 배경을 칠하고 지지에 띠 이모지를 얹었다. 그래서
+ * 여덟 글자를 읽으러 온 화면에서 **여덟 글자가 제일 안 보였다.** 지금은 판을
+ * 걷고 한자를 키웠다. 오행은 정보이므로 버리지 않고 점 하나로 남긴다.
+ *
+ * 색으로 강조하는 것은 일주 하나뿐이다 — 넷을 다 칠하면 어느 것도 강조가 아니다.
+ */
+function PillarCol({ label, pillar, isDay, ilganIdx }: {
   label: string; pillar: Pillar | null; isDay?: boolean; ilganIdx?: number;
 }) {
   if (!pillar) return (
-    <div className="flex-1 min-w-0 flex flex-col gap-1">
-      <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 text-center tracking-wider">{label}</p>
-      <div className="rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 min-h-[140px] flex flex-col items-center justify-center">
-        <p className="text-xs text-slate-300 dark:text-slate-600 font-bold">생략</p>
-      </div>
+    <div className="ms-col">
+      <p className="ms-head">{label}</p>
+      <p className="ms-empty">생략</p>
     </div>
   );
   const stem   = STEMS[pillar.stemIdx];
   const branch = BRANCHES[pillar.branchIdx];
-  const stemEl   = ELEMENT_INFO[stem.element];
-  const branchEl = ELEMENT_INFO[branch.element];
   const sipseong = ilganIdx !== undefined && !isDay ? getSipseong(ilganIdx, pillar.stemIdx) : null;
-  const ssInfo   = sipseong ? SIPSEONG_INFO[sipseong] : null;
 
   return (
-    <div className="flex-1 min-w-0 flex flex-col gap-1">
-      <p className={`text-[10px] font-black text-center tracking-wider ${isDay ? 'text-indigo-600' : 'text-slate-400 dark:text-slate-500'}`}>{label}</p>
-      <div className={`rounded-xl border-2 overflow-hidden flex flex-col ${isDay ? 'border-indigo-300 shadow-sm shadow-indigo-100' : 'border-slate-200 dark:border-slate-700'}`}>
-        {/* 천간 */}
-        <div className="p-2 flex flex-col items-center border-b border-slate-200 dark:border-slate-800" style={{ background: stemEl.bg }}>
-          <span className="text-2xl font-black leading-none" style={{ color: stemEl.color }}>{stem.hanja}</span>
-          <span className="text-[9px] font-bold mt-0.5" style={{ color: stemEl.color }}>{stem.kor}({stem.element}·{stem.yinyang})</span>
-          {ssInfo && (
-            <span className="mt-1 text-[8px] font-black px-1.5 py-0.5 rounded-full" style={{ background: stemEl.color + '22', color: stemEl.color }}>
-              {ssInfo.emoji} {sipseong}
-            </span>
-          )}
-        </div>
-        {/* 지지 */}
-        <div className="p-2 flex flex-col items-center" style={{ background: branchEl.bg }}>
-          <span className="text-sm leading-none">{branch.emoji}</span>
-          <span className="text-2xl font-black leading-none mt-0.5" style={{ color: branchEl.color }}>{branch.hanja}</span>
-          <span className="text-[9px] font-bold" style={{ color: branchEl.color }}>{branch.kor}({branch.element})</span>
-        </div>
+    <div className={`ms-col${isDay ? ' ms-col-day' : ''}`}>
+      <p className="ms-head">{label}</p>
+      {/* 천간 */}
+      <div className="ms-cell">
+        <span className="ms-han">{stem.hanja}</span>
+        <span className="ms-sub">
+          <i className="ms-dot" style={{ background: ELEMENT_INFO[stem.element].color }} />
+          {stem.kor}·{stem.element}{stem.yinyang}
+        </span>
+        {/* 값이 없어도 그린다 — 일주만 한 줄 짧아지면 지지가 어긋난다 */}
+        <span className="ms-ss">{sipseong ?? '\u00A0'}</span>
       </div>
-      <p className="text-[9px] text-center text-slate-300 dark:text-slate-600 font-bold">{pillarHanja(pillar)}</p>
+      {/* 지지 */}
+      <div className="ms-cell">
+        <span className="ms-han">{branch.hanja}</span>
+        <span className="ms-sub">
+          <i className="ms-dot" style={{ background: ELEMENT_INFO[branch.element].color }} />
+          {branch.kor}·{branch.element}
+        </span>
+        <span className="ms-ss">{branch.animal}</span>
+      </div>
     </div>
   );
 }
@@ -83,7 +87,7 @@ function ElementBar({ counts, total }: { counts: Record<string,number>; total: n
           <div key={el}>
             <div className="flex items-center justify-between mb-1">
               <span className="text-xs font-bold" style={{ color:info.color }}>{info.emoji} {info.label}</span>
-              <span className="text-xs font-black" style={{ color:count===0?'#94a3b8':info.color }}>
+              <span className="text-xs font-bold" style={{ color:count===0?'#94a3b8':info.color }}>
                 {count}개{count===0?' ⚠️':''}
               </span>
             </div>
@@ -126,21 +130,20 @@ function DaewoonCard({ entry, isCurrent }: { entry: DaewoonEntry; isCurrent: boo
   const stemEl   = ELEMENT_INFO[stem.element];
   const branchEl = ELEMENT_INFO[branch.element];
   return (
-    <div className={`flex-shrink-0 w-[72px] rounded-xl border-2 overflow-hidden text-center transition-all
-      ${isCurrent ? 'border-indigo-400 shadow-sm shadow-indigo-100 scale-105' : 'border-slate-200 dark:border-slate-700'}`}>
+    <div className={`flex-shrink-0 w-[72px] rounded-xl border overflow-hidden text-center transition-all ${isCurrent ? 'border-indigo-400 shadow-sm shadow-indigo-100 scale-105' : 'border-slate-200 dark:border-slate-700'}`}>
       {isCurrent && (
-        <div className="bg-indigo-500 text-white text-[8px] font-black py-0.5">현재</div>
+        <div className="bg-indigo-500 text-white text-[8px] font-bold py-0.5">현재</div>
       )}
       <div className="p-1.5 border-b border-slate-200 dark:border-slate-800" style={{ background: stemEl.bg }}>
-        <p className="text-xs font-black" style={{ color:stemEl.color }}>{stem.hanja}</p>
+        <p className="text-xs font-bold" style={{ color:stemEl.color }}>{stem.hanja}</p>
         <p className="text-[8px] font-bold" style={{ color:stemEl.color }}>{stem.kor}({stem.element})</p>
       </div>
       <div className="p-1.5" style={{ background: branchEl.bg }}>
         <p className="text-sm">{branch.emoji}</p>
-        <p className="text-xs font-black" style={{ color:branchEl.color }}>{branch.hanja}</p>
+        <p className="text-xs font-bold" style={{ color:branchEl.color }}>{branch.hanja}</p>
         <p className="text-[8px] font-bold" style={{ color:branchEl.color }}>{branch.kor}</p>
       </div>
-      <div className={`py-1 text-[8px] font-black ${isCurrent?'bg-indigo-50 dark:bg-indigo-950/30 text-indigo-600':'bg-slate-50 dark:bg-slate-950 text-slate-400 dark:text-slate-500'}`}>
+      <div className={`py-1 text-[8px] font-bold ${isCurrent?'bg-sec-soft text-sec':'bg-slate-50 dark:bg-slate-950 text-slate-400 dark:text-slate-500'}`}>
         {entry.startAge}~{entry.endAge}세
       </div>
     </div>
@@ -251,28 +254,22 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
     : [];
 
   /* 스텝 목록 */
-  type StepType = { key: string; emoji: string; title: string; subtitle: string; grad: string };
+  /* 단계마다 있던 emoji·grad를 걷었다 — 머리에서 그라디언트 판과 5xl 이모지를
+     없애면서 아무데도 안 쓰이게 됐다. 남은 것은 제목과 한 줄 설명뿐이다. */
+  type StepType = { key: string; title: string; subtitle: string };
   const STATIC_STEPS: StepType[] = [
-    { key:'pillars',  emoji:'🎴', title:'나의 사주',       subtitle:'천간과 지지로 이루어진 네 기둥', grad:'from-indigo-600 to-violet-700' },
-    { key:'ilju',     emoji: dayStem?.emoji??'🔯', title:'일주 심층 해석', subtitle:'나를 이루는 핵심 에너지', grad:'from-slate-700 to-slate-900' },
-    { key:'singang',  emoji:'⚖️', title:'신강·신약 분석', subtitle:'일간 기운의 강약과 용신', grad:'from-rose-600 to-rose-800' },
-    { key:'ohaeng',   emoji:'🌊', title:'오행 균형',       subtitle:'다섯 원소의 분포와 보완법', grad:'from-cyan-600 to-blue-700' },
-    { key:'sipseong', emoji:'☯️', title:'십성(十星) 분석', subtitle:'일간과 다른 천간의 관계', grad:'from-purple-600 to-purple-800' },
+    { key:'pillars',  title:'나의 사주',       subtitle:'천간과 지지로 이루어진 네 기둥' },
+    { key:'ilju',     title:'일주 심층 해석',  subtitle:'나를 이루는 핵심 에너지' },
+    { key:'singang',  title:'신강·신약 분석',  subtitle:'일간 기운의 강약과 용신' },
+    { key:'ohaeng',   title:'오행 균형',       subtitle:'다섯 원소의 분포와 보완법' },
+    { key:'sipseong', title:'십성(十星) 분석', subtitle:'일간과 다른 천간의 관계' },
   ];
   const DOMAIN_STEPS: StepType[] = fortuneDomains.map(d => ({
-    key: `domain-${d.id}`, emoji: d.emoji, title: d.title,
-    subtitle: `${d.grade} · ${d.score}점`,
-    grad: {
-      rose:'from-rose-500 to-rose-700', pink:'from-pink-500 to-pink-700',
-      blue:'from-blue-500 to-blue-700', amber:'from-amber-500 to-amber-700',
-      indigo:'from-indigo-500 to-indigo-700', green:'from-green-600 to-green-800',
-      teal:'from-teal-500 to-teal-700', violet:'from-violet-500 to-violet-700',
-      purple:'from-purple-500 to-purple-700', orange:'from-orange-500 to-orange-700',
-    }[d.colorKey] ?? 'from-indigo-500 to-violet-600',
+    key: `domain-${d.id}`, title: d.title, subtitle: `${d.grade} · ${d.score}점`,
   }));
   const TAIL_STEPS: StepType[] = [
-    { key:'daewoon', emoji:'⏳', title:'대운(大運) 흐름', subtitle:'10년 단위 인생의 큰 흐름', grad:'from-violet-600 to-purple-800' },
-    { key:'seun', emoji:'📅', title:'세운(歲運) 연간 운세', subtitle:`${thisYear}년부터 3년간의 흐름`, grad:'from-cyan-600 to-blue-800' },
+    { key:'daewoon', title:'대운(大運) 흐름', subtitle:'10년 단위 인생의 큰 흐름' },
+    { key:'seun', title:'세운(歲運) 연간 운세', subtitle:`${thisYear}년부터 3년간의 흐름` },
   ];
   const allSteps = [...STATIC_STEPS, ...DOMAIN_STEPS, ...TAIL_STEPS];
 
@@ -315,7 +312,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
 
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-20">
         <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
-          <Link href="/fortune" className="flex items-center gap-1 text-sm text-slate-400 dark:text-slate-500 hover:text-indigo-600 transition-colors font-medium">
+          <Link href="/fortune" className="flex items-center gap-1 text-sm text-slate-400 dark:text-slate-500 hover:text-sec transition-colors font-medium">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -325,7 +322,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 flex-1">사주 분석</span>
           {result && (
             <button onClick={handleShare}
-              className="flex items-center gap-1.5 text-xs font-bold text-indigo-600 bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-900/50 px-3 py-1.5 rounded-full active:scale-95 transition-transform">
+              className="flex items-center gap-1.5 text-xs font-bold text-sec bg-sec-soft border px-3 py-1.5 rounded-full active:scale-95 transition-transform">
               <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186z" />
               </svg>
@@ -376,7 +373,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
 
             {/* ── 스텝 목차 (미니) ── */}
             <div className="flex items-center justify-between mb-3">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400">
+              <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
                 {safeStep + 1} <span className="text-slate-300 dark:text-slate-600">/ {allSteps.length}</span>
               </p>
               <div className="flex gap-1 overflow-hidden max-w-[200px]">
@@ -384,25 +381,39 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                   <button
                     key={s.key}
                     onClick={() => goStep(i)}
-                    className={`h-1.5 rounded-full transition-all flex-shrink-0 ${
-                      i === safeStep ? 'w-5 bg-indigo-500' : 'w-1.5 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300'
-                    }`}
+                    className={`h-1.5 rounded-full transition-all flex-shrink-0 ${ i === safeStep ? 'w-5 bg-indigo-500' : 'w-1.5 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300' }`}
                   />
                 ))}
               </div>
             </div>
 
             {/* ── 스텝 카드 ── */}
-            <div className="rounded-xl overflow-hidden shadow-sm border border-white">
+            <div className="surface overflow-hidden">
 
-              {/* 카드 헤더 */}
-              <div className={`bg-gradient-to-br ${currentStep?.grad ?? 'from-indigo-600 to-violet-700'} px-5 pt-6 pb-8 text-white relative overflow-hidden`}>
-                <p className="text-[10px] font-black opacity-60 tracking-widest uppercase mb-3">
-                  Step {safeStep + 1} / {allSteps.length}
-                </p>
-                <div className="text-5xl mb-3">{currentStep?.emoji}</div>
-                <h2 className="text-2xl font-black leading-tight mb-1">{currentStep?.title}</h2>
-                <p className="text-sm opacity-70">{currentStep?.subtitle}</p>
+              {/*
+                ── 머리를 걷어냈다 (2026-08-20) ──────────────────────────
+                단계마다 다른 보라·장미·청록 그라디언트 판에 5xl 이모지를 얹고
+                흰 글자를 쓰고 있었다. 사이트의 나머지는 이미 옅은 바탕에 갈래
+                색 하나로 정리됐는데 사주만 옛 꼴로 남아 있었고, 열여덟 단계가
+                각자 다른 색이라 «지금 몇 번째인가»보다 색이 먼저 읽혔다.
+
+                단계 표시는 글자 대신 **막대**로 바꿨다 — 열여덟 중 어디쯤인지는
+                숫자보다 길이가 빠르게 읽힌다.
+              */}
+              <div className="border-b border-slate-100 dark:border-slate-800 px-5 pt-5 pb-4">
+                <div className="mb-3 flex items-center gap-2">
+                  <div className="h-1 flex-1 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
+                    <div
+                      className="h-full rounded-full transition-all"
+                      style={{ width: `${((safeStep + 1) / allSteps.length) * 100}%`, background: 'var(--c-sec)' }}
+                    />
+                  </div>
+                  <span className="shrink-0 text-[11px] font-bold tabular-nums text-slate-400 dark:text-slate-500">
+                    {safeStep + 1}/{allSteps.length}
+                  </span>
+                </div>
+                <h2 className="text-lg font-bold leading-tight text-slate-900 dark:text-white">{currentStep?.title}</h2>
+                <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400">{currentStep?.subtitle}</p>
               </div>
 
               {/* 카드 본문 */}
@@ -411,36 +422,38 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                 {/* ── pillars ── */}
                 {currentStep?.key === 'pillars' && (
                   <div className="p-5 space-y-5">
-                    <div className="flex gap-1.5">
-                      <PillarCard label="년주(年柱)" pillar={result.year}  ilganIdx={result.day.stemIdx} />
-                      <PillarCard label="월주(月柱)" pillar={result.month} ilganIdx={result.day.stemIdx} />
-                      <PillarCard label="일주(日柱)" pillar={result.day}   isDay />
-                      <PillarCard label="시주(時柱)" pillar={result.hour}  ilganIdx={result.day.stemIdx} />
+                    <div className="ms-grid">
+                      <PillarCol label="년주" pillar={result.year}  ilganIdx={result.day.stemIdx} />
+                      <PillarCol label="월주" pillar={result.month} ilganIdx={result.day.stemIdx} />
+                      <PillarCol label="일주" pillar={result.day}   isDay />
+                      <PillarCol label="시주" pillar={result.hour}  ilganIdx={result.day.stemIdx} />
                     </div>
-                    <div className="grid grid-cols-2 gap-2">
+                    {/* 라벨의 이모지를 걷었다 — 📅출생·👤성별처럼 뜻이 이미 글자에 있는
+                        자리에 그림을 얹으면 장식이고, 사이트의 다른 표는 안 그런다 */}
+                    <div className="kv-table">
                       {[
-                        { label:'출생', value:`${result.inputYear}년 ${result.inputMonth}월 ${result.inputDay}일`, emoji:'📅' },
-                        { label:'성별', value:result.gender==='male'?'남성':'여성', emoji:'👤' },
-                        { label:'일주', value:`${pillarHanja(result.day)} 일주`, emoji:'🌟' },
-                        { label:'오행', value:`${dayStem.element}(${dayStem.yinyang}) 일간`, emoji:ELEMENT_INFO[dayStem.element].emoji },
-                      ].map(({ label, value, emoji }) => (
-                        <div key={label} className="bg-slate-50 dark:bg-slate-950 rounded-xl p-3">
-                          <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-0.5">{emoji} {label}</p>
-                          <p className="text-sm font-black text-slate-800 dark:text-slate-100">{value}</p>
+                        { label:'출생', value:`${result.inputYear}년 ${result.inputMonth}월 ${result.inputDay}일` },
+                        { label:'성별', value:result.gender==='male'?'남성':'여성' },
+                        { label:'일주', value:`${pillarHanja(result.day)} 일주` },
+                        { label:'일간', value:`${dayStem.element}(${dayStem.yinyang})` },
+                      ].map(({ label, value }) => (
+                        <div key={label} className="kv-row">
+                          <span>{label}</span>
+                          <span className="font-bold">{value}</span>
                         </div>
                       ))}
                     </div>
                     {result.solarHour && (
-                      <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900/40 rounded-xl p-3">
-                        <p className="text-[10px] font-black text-amber-700 dark:text-amber-300 mb-1">🕰️ 시주는 진태양시로 뽑았습니다</p>
-                        <p className="text-xs text-amber-800 dark:text-amber-300 leading-relaxed">
+                      <div className="rounded-lg border border-slate-200 dark:border-slate-700 p-3">
+                        <p className="text-[11px] font-bold text-slate-700 dark:text-slate-200 mb-1">시주는 진태양시로 뽑았습니다</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                           입력한 <b>{form.hour}</b> → 진태양시 <b>{String(result.solarHour.hour).padStart(2,'0')}:{String(result.solarHour.minute).padStart(2,'0')}</b>
                           {' '}({result.solarShiftMin >= 0 ? '+' : ''}{result.solarShiftMin}분).
                           한국 표준시는 동경 135도가 기준이라 서울(126.98도)보다 32분 이르고, 균시차와 서머타임까지 함께 보정합니다.
                         </p>
                       </div>
                     )}
-                    <p className="text-xs text-slate-400 dark:text-slate-500 text-center">각 기둥 천간 아래 작은 뱃지는 일간 기준 십성(十星)입니다</p>
+                    <p className="text-xs text-slate-400 dark:text-slate-500 text-center">천간 아래 작은 글자는 일간 기준 십성(十星), 색 점은 오행입니다</p>
                   </div>
                 )}
 
@@ -450,7 +463,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                     <div className="flex items-center gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
                       <span className="text-4xl">{dayStem.emoji}</span>
                       <div>
-                        <p className="text-2xl font-black text-slate-900 dark:text-slate-100">{pillarHanja(result.day)}</p>
+                        <p className="text-2xl font-bold text-slate-900 dark:text-slate-100">{pillarHanja(result.day)}</p>
                         <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{pillarLabel(result.day)} 일주 · {BRANCHES[result.day.branchIdx].animal}</p>
                       </div>
                     </div>
@@ -466,12 +479,12 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                       ].map(({ label, value, emoji }) => (
                         <div key={label} className="bg-slate-50 dark:bg-slate-950 rounded-xl p-2.5">
                           <p className="text-[9px] font-bold text-slate-400 dark:text-slate-500 mb-0.5">{emoji} {label}</p>
-                          <p className="text-xs font-black text-slate-700 dark:text-slate-200">{value}</p>
+                          <p className="text-xs font-bold text-slate-700 dark:text-slate-200">{value}</p>
                         </div>
                       ))}
                     </div>
-                    <div className="bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 rounded-xl p-3">
-                      <p className="text-[10px] font-black text-indigo-600 mb-1">💡 오늘의 운세</p>
+                    <div className="bg-sec-soft border rounded-xl p-3">
+                      <p className="text-[10px] font-bold text-sec mb-1">오늘의 운세</p>
                       <FortuneDisplay
                         subjectId={subjectId}
                         subjectName={`${result.inputYear}년생`}
@@ -490,19 +503,19 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                       <div className="flex items-center gap-2 mb-3">
                         <span className="text-2xl">{singang.strong ? '💪' : '🌱'}</span>
                         <div>
-                          <p className={`text-xl font-black ${singang.strong ? 'text-rose-700 dark:text-rose-300' : 'text-blue-700 dark:text-blue-300'}`}>{singang.label}</p>
+                          <p className={`text-xl font-bold ${singang.strong ? 'text-rose-700 dark:text-rose-300' : 'text-blue-700 dark:text-blue-300'}`}>{singang.label}</p>
                           <p className={`text-xs font-bold ${singang.strong ? 'text-rose-500' : 'text-blue-500'}`}>강약 지수 {singang.score > 0 ? '+' : ''}{singang.score}</p>
                         </div>
                       </div>
                       <p className={`text-sm leading-[1.85] ${singang.strong ? 'text-rose-800 dark:text-rose-300' : 'text-blue-800 dark:text-blue-300'}`}>{singang.desc}</p>
                     </div>
                     <div className="rounded-lg p-4 bg-amber-50 dark:bg-amber-950/30 border-2 border-amber-200 dark:border-amber-900/50">
-                      <p className="text-xs font-black text-amber-700 dark:text-amber-300 mb-2">🌟 용신(用神) — 내가 취해야 할 기운</p>
-                      <p className="text-lg font-black text-amber-800 dark:text-amber-200 mb-2">{singang.yongshin}</p>
+                      <p className="text-xs font-bold text-amber-700 dark:text-amber-300 mb-2">🌟 용신(用神) — 내가 취해야 할 기운</p>
+                      <p className="text-lg font-bold text-amber-800 dark:text-amber-200 mb-2">{singang.yongshin}</p>
                       <p className="text-sm text-amber-700 dark:text-amber-300 leading-[1.85]">{singang.yongshinDesc}</p>
                     </div>
                     <div className="space-y-2">
-                      <p className="text-xs font-black text-slate-500 dark:text-slate-400">활용 방법</p>
+                      <p className="text-xs font-medium text-slate-500 dark:text-slate-400">활용 방법</p>
                       {[
                         singang.strong
                           ? '신강한 사주는 에너지가 넘쳐 주변과 마찰이 생기기 쉽습니다. 이 힘을 외부 활동(운동, 사업, 창작)으로 발산하는 출구를 의식적으로 만드세요.'
@@ -510,7 +523,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                         `용신 기운(${singang.yongshin})의 색상과 방향을 생활 속에서 가까이 두면 운의 흐름이 강해집니다. 직업·주거·옷 색상 선택에 활용하세요.`,
                       ].map((t, i) => (
                         <div key={i} className="flex gap-2 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl p-3">
-                          <span className="text-amber-500 font-black shrink-0">·</span>
+                          <span className="text-amber-500 font-bold shrink-0">·</span>
                           <p className="text-xs text-slate-700 dark:text-slate-200 leading-relaxed">{t}</p>
                         </div>
                       ))}
@@ -523,7 +536,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                   <div className="p-5 space-y-4">
                     {dominantEl && (
                       <div className="rounded-lg p-4 border-2" style={{ background:ELEMENT_INFO[dominantEl].bg, borderColor:ELEMENT_INFO[dominantEl].border }}>
-                        <p className="text-xs font-black mb-2" style={{ color:ELEMENT_INFO[dominantEl].color }}>
+                        <p className="text-xs font-bold mb-2" style={{ color:ELEMENT_INFO[dominantEl].color }}>
                           {ELEMENT_INFO[dominantEl].emoji} {ELEMENT_INFO[dominantEl].label} 기운이 가장 강합니다
                         </p>
                         <p className="text-sm leading-[1.85]" style={{ color:ELEMENT_INFO[dominantEl].color+'dd' }}>{ELEMENT_INFO[dominantEl].advice}</p>
@@ -532,12 +545,12 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                     <ElementBar counts={counts} total={total} />
                     {missingEls.length > 0 && (
                       <div className="space-y-3">
-                        <p className="text-xs font-black text-slate-500 dark:text-slate-400">부족한 오행 보완법</p>
+                        <p className="text-xs font-medium text-slate-500 dark:text-slate-400">부족한 오행 보완법</p>
                         {missingEls.map(el => (
                           <div key={el} className="flex gap-3 bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900/40 rounded-xl p-3">
                             <span className="text-2xl leading-none shrink-0">{ELEMENT_INFO[el].emoji}</span>
                             <div>
-                              <p className="text-xs font-black mb-1" style={{ color:ELEMENT_INFO[el].color }}>{ELEMENT_INFO[el].label} 없음</p>
+                              <p className="text-xs font-bold mb-1" style={{ color:ELEMENT_INFO[el].color }}>{ELEMENT_INFO[el].label} 없음</p>
                               <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{ELEMENT_SHORTAGE[el]}</p>
                             </div>
                           </div>
@@ -545,7 +558,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                       </div>
                     )}
                     <div className="bg-slate-50 dark:bg-slate-950 rounded-lg p-4">
-                      <p className="text-xs font-black text-slate-500 dark:text-slate-400 mb-3">지장간(地藏干) — 숨겨진 기운</p>
+                      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-3">지장간(地藏干) — 숨겨진 기운</p>
                       <div className="space-y-2">
                         {[
                           { label:'년지', branch:result.year.branchIdx },
@@ -556,9 +569,9 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                           const b = BRANCHES[branch];
                           return (
                             <div key={label} className="flex items-center gap-2">
-                              <span className="text-xs font-black w-6 text-slate-400 dark:text-slate-500">{label}</span>
+                              <span className="text-xs font-medium w-6 text-slate-400 dark:text-slate-500">{label}</span>
                               <span className="text-base">{b.emoji}</span>
-                              <span className="text-sm font-black" style={{ color:ELEMENT_INFO[b.element].color }}>{b.hanja}</span>
+                              <span className="text-sm font-bold" style={{ color:ELEMENT_INFO[b.element].color }}>{b.hanja}</span>
                               <div className="flex gap-1 flex-wrap">
                                 {JIJANGGAN[branch].map(({ stemIdx, role }) => {
                                   const s = STEMS[stemIdx];
@@ -581,7 +594,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                 {/* ── sipseong ── */}
                 {currentStep?.key === 'sipseong' && (
                   <div className="p-5 space-y-3">
-                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">일간 <span className="font-black text-slate-800 dark:text-slate-100">{dayStem.hanja}({dayStem.kor})</span> 기준으로 다른 기둥의 천간과 맺는 관계를 분석합니다. 십성은 성격·직업·재물·인연을 결정하는 핵심 키입니다.</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">일간 <span className="font-bold text-slate-800 dark:text-slate-100">{dayStem.hanja}({dayStem.kor})</span> 기준으로 다른 기둥의 천간과 맺는 관계를 분석합니다. 십성은 성격·직업·재물·인연을 결정하는 핵심 키입니다.</p>
                     {[
                       { label:'년주 천간', pillar:result.year,   role:'조상·선천 기질' },
                       { label:'월주 천간', pillar:result.month,  role:'부모·직업 환경' },
@@ -595,12 +608,12 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                       return (
                         <div key={label} className="rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
                           <div className="flex items-center gap-2 px-4 py-3 bg-slate-50 dark:bg-slate-950">
-                            <span className="text-lg font-black" style={{ color:ELEMENT_INFO[stemInfo.element].color }}>{stemInfo.hanja}</span>
+                            <span className="text-lg font-bold" style={{ color:ELEMENT_INFO[stemInfo.element].color }}>{stemInfo.hanja}</span>
                             <span className="text-xs font-bold text-slate-700 dark:text-slate-200">{label}</span>
                             <span className="text-[10px] text-slate-400 dark:text-slate-500">({role})</span>
                             <div className="ml-auto flex items-center gap-1.5">
                               <span className="text-sm">{info.emoji}</span>
-                              <span className="text-xs font-black px-2 py-0.5 rounded-full" style={{ background:ELEMENT_INFO[stemInfo.element].bg, color:ELEMENT_INFO[stemInfo.element].color }}>{ss}</span>
+                              <span className="text-xs font-bold px-2 py-0.5 rounded-full" style={{ background:ELEMENT_INFO[stemInfo.element].bg, color:ELEMENT_INFO[stemInfo.element].color }}>{ss}</span>
                             </div>
                           </div>
                           <div className="px-4 py-3 space-y-2">
@@ -625,7 +638,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                       화면에 안 나오는 절반이 생긴다 — 지지는 지장간 본기로 십성을 본다.
                     */}
                     <div className="bg-slate-50 dark:bg-slate-950 rounded-lg p-4">
-                      <p className="text-xs font-black text-slate-500 dark:text-slate-400 mb-1">지지(地支)의 십성 — 지장간 본기 기준</p>
+                      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">지지(地支)의 십성 — 지장간 본기 기준</p>
                       <p className="text-[10px] text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">천간이 겉으로 드러난 기운이라면 지지는 뿌리입니다. 각 지지에 감춰진 지장간의 본기(本氣)로 십성을 봅니다.</p>
                       <div className="space-y-1.5">
                         {/* as const를 쓰면 열쇠가 리터럴로 좁아져 술어 타입이 안 맞는다 */}
@@ -641,12 +654,12 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                           const el = ELEMENT_INFO[bongi.element];
                           return (
                             <div key={label} className="flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl px-3 py-2">
-                              <span className="text-[10px] font-black w-7 text-slate-400 dark:text-slate-500">{label}</span>
-                              <span className="text-base font-black" style={{ color:ELEMENT_INFO[b.element].color }}>{b.hanja}</span>
+                              <span className="text-[10px] font-bold w-7 text-slate-400 dark:text-slate-500">{label}</span>
+                              <span className="text-base font-bold" style={{ color:ELEMENT_INFO[b.element].color }}>{b.hanja}</span>
                               <span className="text-[10px] text-slate-400 dark:text-slate-500">본기 {bongi.hanja}({bongi.kor})</span>
                               <span className="ml-auto flex items-center gap-1.5">
                                 {info && <span className="text-xs">{info.emoji}</span>}
-                                <span className="text-[11px] font-black px-2 py-0.5 rounded-full" style={{ background:el.bg, color:el.color }}>{ss}</span>
+                                <span className="text-[11px] font-bold px-2 py-0.5 rounded-full" style={{ background:el.bg, color:el.color }}>{ss}</span>
                                 {info && <span className="text-[10px] text-slate-400 dark:text-slate-500 w-14 text-right">{info.summary}</span>}
                               </span>
                             </div>
@@ -675,7 +688,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                               </div>
                             ))}
                           </div>
-                          <span className={`text-sm font-black px-3 py-1 rounded-full ${GRADE_BADGE[d.grade]}`}>{d.grade}</span>
+                          <span className={`text-sm font-bold px-3 py-1 rounded-full ${GRADE_BADGE[d.grade]}`}>{d.grade}</span>
                         </div>
                         <p className={`text-sm font-bold leading-relaxed ${c.accent}`}>{d.summary}</p>
                       </div>
@@ -691,7 +704,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                         const rows = topicEvidence(t, facts, result.day, result.month, currentDaewoon?.pillar ?? null);
                         return (
                           <div className={`rounded-lg border ${c.border} ${c.bg} p-4`}>
-                            <p className={`text-[10px] font-black uppercase tracking-wide mb-2.5 ${c.accent}`}>이 사주가 짚는 자리</p>
+                            <p className={`text-[10px] font-bold uppercase tracking-wide mb-2.5 ${c.accent}`}>이 사주가 짚는 자리</p>
                             <SajuEvidence lang="ko" rows={rows} />
                             {/* 앞으로 가는 길은 옆으로 가는 칩보다 커야 한다 — .next-step의 까닭 */}
                             <Link href={`/fortune/saju/${t}${topicQuery(form)}`} className="next-step">
@@ -707,14 +720,14 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                       <div className="space-y-3">
                         {d.points.map((pt, i) => (
                           <div key={i} className="flex gap-3 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl p-3.5">
-                            <span className={`shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black text-white ${c.dot}`}>{i+1}</span>
+                            <span className={`shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold text-white ${c.dot}`}>{i+1}</span>
                             <p className="text-sm text-slate-700 dark:text-slate-200 leading-[1.85]">{pt}</p>
                           </div>
                         ))}
                       </div>
                       {/* 조언 */}
                       <div className={`rounded-lg p-4 border-2 ${c.bg} ${c.border}`}>
-                        <p className={`text-xs font-black mb-2 ${c.accent}`}>💡 핵심 조언</p>
+                        <p className={`text-xs font-bold mb-2 ${c.accent}`}>💡 핵심 조언</p>
                         <p className="text-sm text-slate-700 dark:text-slate-200 leading-[1.85]">{d.advice}</p>
                       </div>
                     </div>
@@ -727,22 +740,22 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                     <div className="grid grid-cols-2 gap-3">
                       <div className="bg-slate-50 dark:bg-slate-950 rounded-xl p-3">
                         <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-1">대운 방향</p>
-                        <p className="text-base font-black text-slate-800 dark:text-slate-100">{direction==='forward'?'순행(順行)':'역행(逆行)'}</p>
+                        <p className="text-base font-bold text-slate-800 dark:text-slate-100">{direction==='forward'?'순행(順行)':'역행(逆行)'}</p>
                         <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">{direction==='forward'?'시간순 진행':'시간 역방향 진행'}</p>
                       </div>
                       <div className="bg-slate-50 dark:bg-slate-950 rounded-xl p-3">
                         <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-1">첫 대운 시작</p>
-                        <p className="text-base font-black text-slate-800 dark:text-slate-100">{startAge}세부터</p>
+                        <p className="text-base font-bold text-slate-800 dark:text-slate-100">{startAge}세부터</p>
                       </div>
                       {currentDaewoon && (
-                        <div className="col-span-2 rounded-xl p-3 border-2 border-indigo-200 dark:border-indigo-900/50 bg-indigo-50 dark:bg-indigo-950/30">
+                        <div className="col-span-2 rounded-xl p-3 border bg-sec-soft">
                           <p className="text-[10px] font-bold text-indigo-500 mb-1">현재 대운 ({currentAge}세)</p>
                           <div className="flex items-center gap-2">
-                            <span className="text-2xl font-black" style={{ color:ELEMENT_INFO[STEMS[currentDaewoon.pillar.stemIdx].element].color }}>
+                            <span className="text-2xl font-bold" style={{ color:ELEMENT_INFO[STEMS[currentDaewoon.pillar.stemIdx].element].color }}>
                               {STEMS[currentDaewoon.pillar.stemIdx].hanja}{BRANCHES[currentDaewoon.pillar.branchIdx].hanja}
                             </span>
                             <div>
-                              <p className="text-sm font-black text-indigo-700 dark:text-indigo-300">{pillarHanja(currentDaewoon.pillar)} 대운</p>
+                              <p className="text-sm font-bold text-sec">{pillarHanja(currentDaewoon.pillar)} 대운</p>
                               <p className="text-xs text-indigo-500">{currentDaewoon.startAge}~{currentDaewoon.endAge}세 · {currentDaewoon.endAge-currentAge+1}년 남음</p>
                             </div>
                           </div>
@@ -766,11 +779,11 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                         const ssInfo = SIPSEONG_INFO[ss];
                         return (
                           <div key={i} className={`rounded-xl border overflow-hidden ${isCurrent?'border-indigo-300':'border-slate-100 dark:border-slate-800'}`}>
-                            <div className={`flex items-center gap-2 px-3 py-2 ${isCurrent?'bg-indigo-50 dark:bg-indigo-950/30':'bg-slate-50 dark:bg-slate-950'}`}>
-                              <span className="text-sm font-black text-slate-700 dark:text-slate-200">{s.hanja}{b.hanja}</span>
+                            <div className={`flex items-center gap-2 px-3 py-2 ${isCurrent?'bg-sec-soft':'bg-slate-50 dark:bg-slate-950'}`}>
+                              <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{s.hanja}{b.hanja}</span>
                               <span className="text-xs font-bold text-slate-600 dark:text-slate-300">{pillarHanja(entry.pillar)}</span>
                               <span className="text-[10px] text-slate-400 dark:text-slate-500">{entry.startAge}~{entry.endAge}세</span>
-                              {isCurrent && <span className="ml-auto text-[10px] font-black text-indigo-600 bg-indigo-100 dark:bg-indigo-950/40 px-2 py-0.5 rounded-full">현재</span>}
+                              {isCurrent && <span className="ml-auto text-[10px] font-bold text-sec bg-indigo-100 dark:bg-indigo-950/40 px-2 py-0.5 rounded-full">현재</span>}
                             </div>
                             <div className="px-3 py-2">
                               <div className="flex gap-1.5 flex-wrap text-[10px] mb-1.5">
@@ -804,12 +817,12 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                       return (
                         <div key={year} className={`rounded-xl border overflow-hidden ${isThisYear?'border-cyan-300':'border-slate-100 dark:border-slate-800'}`}>
                           <div className={`flex items-center gap-2 px-3 py-2.5 ${isThisYear?'bg-cyan-50':'bg-slate-50 dark:bg-slate-950'}`}>
-                            <span className="text-lg font-black" style={{ color: se.color }}>{s.hanja}{b.hanja}</span>
+                            <span className="text-lg font-bold" style={{ color: se.color }}>{s.hanja}{b.hanja}</span>
                             <div>
-                              <p className="text-sm font-black text-slate-800 dark:text-slate-100">{year}년 · {pillarHanja(pillar)} 세운</p>
+                              <p className="text-sm font-bold text-slate-800 dark:text-slate-100">{year}년 · {pillarHanja(pillar)} 세운</p>
                               <p className="text-[10px] text-slate-400 dark:text-slate-500">{pillarLabel(pillar)}년</p>
                             </div>
-                            {isThisYear && <span className="ml-auto text-[10px] font-black text-cyan-700 bg-cyan-100 px-2 py-0.5 rounded-full">올해</span>}
+                            {isThisYear && <span className="note ml-auto text-[10px] font-bold">올해</span>}
                           </div>
                           <div className="px-3.5 py-3 bg-white dark:bg-slate-900">
                             <div className="flex gap-1.5 flex-wrap text-[10px] mb-2">
@@ -848,10 +861,10 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
               <button
                 onClick={() => goStep(i => i - 1)}
                 disabled={safeStep === 0}
-                className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-lg font-bold text-sm transition-all border-2 ${
+                className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-lg font-bold text-sm transition-all border ${
                   safeStep === 0
                     ? 'border-slate-100 dark:border-slate-800 text-slate-300 dark:text-slate-600 bg-white dark:bg-slate-900 cursor-not-allowed'
-                    : 'border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-900 hover:border-slate-300 dark:hover:border-slate-700 hover:text-indigo-600'
+                    : 'border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-900 hover:border-slate-300 dark:hover:border-slate-700 hover:text-sec'
                 }`}
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -862,15 +875,15 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
               <button
                 onClick={() => { goStep(i => i + 1); document.getElementById('saju-result')?.scrollIntoView({ behavior:'smooth', block:'start' }); }}
                 disabled={safeStep === allSteps.length - 1}
-                className={`flex-[2] flex items-center justify-center gap-2 py-3.5 rounded-lg font-black text-sm transition-all ${
+                className={`flex-[2] flex items-center justify-center gap-2 py-3.5 rounded-lg font-bold text-sm transition-all ${
                   safeStep === allSteps.length - 1
                     ? 'bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 cursor-not-allowed'
-                    : 'bg-sec shadow-sm shadow-indigo-200 hover:shadow-indigo-300 active:scale-[0.98]'
+                    : 'bg-sec shadow-sm active:scale-[0.98]'
                 }`}
               >
                 {safeStep === allSteps.length - 1 ? '마지막 페이지' : (
                   <>
-                    다음 — {allSteps[safeStep + 1]?.emoji} {allSteps[safeStep + 1]?.title}
+                    다음 — {allSteps[safeStep + 1]?.title}
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                     </svg>
@@ -881,14 +894,14 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
 
             {/* 공유 */}
             <div className="flex gap-2 mt-2">
-              <button onClick={handleShare} className="flex-1 flex items-center justify-center gap-2 py-3 bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-900/50 rounded-lg text-xs font-bold text-indigo-700 dark:text-indigo-300 hover:bg-sec-soft transition-colors">
+              <button onClick={handleShare} className="flex-1 flex items-center justify-center gap-2 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186z" />
                 </svg>
                 공유하기
               </button>
               <button onClick={handleCopyLink} className="flex-1 flex items-center justify-center gap-2 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-                {copied ? <><svg className="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg><span className="text-emerald-600">복사됨!</span></> : '🔗 링크 복사'}
+                {copied ? <><svg className="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg><span className="text-emerald-600">복사됨!</span></> : '링크 복사'}
               </button>
             </div>
 

@@ -78,7 +78,7 @@ export default function SecretSanta({ lang = 'ko' }: { lang?: RandomLang }) {
           <button
             onClick={run}
             disabled={names.length < 3 || dupWarning}
-            className="w-full bg-sec font-black text-lg rounded-lg py-4 shadow-sm shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all disabled:opacity-50 disabled:hover:translate-y-0"
+            className="w-full bg-sec font-bold text-lg rounded-lg py-4 shadow-sm shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all disabled:opacity-50 disabled:hover:translate-y-0"
           >
             {ui.santaDraw}
           </button>
@@ -91,7 +91,7 @@ export default function SecretSanta({ lang = 'ko' }: { lang?: RandomLang }) {
       {assign && (
         <>
           <div className="text-center mb-4">
-            <div className="text-sm font-black text-rose-600">{ui.santaMatched}</div>
+            <div className="text-sm font-bold text-rose-600">{ui.santaMatched}</div>
             <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">{ui.santaTapName}</p>
           </div>
 
@@ -124,14 +124,14 @@ export default function SecretSanta({ lang = 'ko' }: { lang?: RandomLang }) {
               {!revealed ? (
                 <button
                   onClick={() => setRevealed(true)}
-                  className="w-full bg-sec font-black rounded-xl py-3.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all"
+                  className="w-full bg-sec font-bold rounded-xl py-3.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all"
                 >
                   {ui.santaReveal}
                 </button>
               ) : (
                 <>
                   <div className="text-xs text-slate-400 mb-1">{ui.santaYourMatch}</div>
-                  <div className="text-3xl font-black text-rose-600 dark:text-rose-300 mb-4">{assign[openFor]}</div>
+                  <div className="text-3xl font-bold text-rose-600 dark:text-rose-300 mb-4">{assign[openFor]}</div>
                   <button
                     onClick={close}
                     className="w-full border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 font-bold rounded-xl py-2.5 hover:bg-white dark:hover:bg-slate-800 transition-colors"

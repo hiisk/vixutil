@@ -221,7 +221,7 @@ export default function Handwriting({ lang }: { lang: SnapIntlLang }) {
         <>
           <div className="bg-sec rounded-lg p-6 text-center">
             <p className="text-sm font-semibold text-white/80 mb-2">{c.result}</p>
-            <p className="text-4xl font-black mb-1">{result.slantDeg > 0 ? '+' : ''}{result.slantDeg}°</p>
+            <p className="text-4xl font-bold mb-1">{result.slantDeg > 0 ? '+' : ''}{result.slantDeg}°</p>
             <p className="text-xs text-white/80">{c.slant}</p>
           </div>
 

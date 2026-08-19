@@ -220,7 +220,7 @@ export default function CompareBoard() {
       <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5 mb-4">
         <div className="flex flex-wrap items-end gap-3">
           <CoinPicker label="First coin" id="cmp-a" coin={coinA} onPick={c => setSlugA(c.slug)} />
-          <span className="pb-3 text-sm font-black text-slate-400 dark:text-slate-500">vs</span>
+          <span className="pb-3 text-sm font-bold text-slate-400 dark:text-slate-500">vs</span>
           <CoinPicker label="Second coin" id="cmp-b" coin={coinB} onPick={c => setSlugB(c.slug)} />
         </div>
       </div>
@@ -232,13 +232,13 @@ export default function CompareBoard() {
             <div className="flex items-center gap-2.5 mb-2">
               <CoinLogo base={s.coin.base} size={28} />
               <div className="min-w-0">
-                <Link href={`/crypto/${s.coin.slug}/price-prediction`} className="block font-black text-slate-900 dark:text-white truncate hover:text-amber-600 dark:hover:text-amber-400">
+                <Link href={`/crypto/${s.coin.slug}/price-prediction`} className="block font-bold text-slate-900 dark:text-white truncate hover:text-amber-600 dark:hover:text-amber-400">
                   {s.coin.base}
                 </Link>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate">{s.coin.name}</p>
               </div>
             </div>
-            <p className="text-2xl font-black text-slate-900 dark:text-white tabular-nums">${formatPrice(s.price)}</p>
+            <p className="text-2xl font-bold text-slate-900 dark:text-white tabular-nums">${formatPrice(s.price)}</p>
             <p className="text-xs"><Pct value={s.chg24h} /> <span className="text-slate-500 dark:text-slate-400">24h</span></p>
             <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1.5">
               {s.model ? `${volatilityLabel(s.model.annualVolPct)} volatility · ${s.closes.length} days of data` : `${s.closes.length} days of data`}
@@ -250,7 +250,7 @@ export default function CompareBoard() {
       {/* 구간별 수익률 — 창을 바꾸면 승자가 바뀐다 */}
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
         <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
-          <h2 className="text-sm font-black text-slate-900 dark:text-white">Return over different windows</h2>
+          <h2 className="text-sm font-bold text-slate-900 dark:text-white">Return over different windows</h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             {flips
               ? 'The winner changes depending on the window — which is why a single "X vs Y" number decides nothing.'
@@ -290,7 +290,7 @@ export default function CompareBoard() {
       {/* 위험 지표 */}
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
         <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
-          <h2 className="text-sm font-black text-slate-900 dark:text-white">Risk side by side</h2>
+          <h2 className="text-sm font-bold text-slate-900 dark:text-white">Risk side by side</h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Return comparisons get all the attention; these are the numbers that decide whether you can hold the position.
           </p>
@@ -328,7 +328,7 @@ export default function CompareBoard() {
       {/* 상관계수 — 비교의 전제를 무너뜨리는 부분 */}
       {snap.corr != null && (
         <div className="rounded-lg border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
-          <h2 className="text-sm font-black text-amber-900 dark:text-amber-200 mb-1.5">
+          <h2 className="text-sm font-bold text-amber-900 dark:text-amber-200 mb-1.5">
             These two move together at {snap.corr.toFixed(2)} — {corrLabel(snap.corr)}
           </h2>
           <p className="text-xs text-amber-900/85 dark:text-amber-200/85 leading-relaxed">
@@ -344,7 +344,7 @@ export default function CompareBoard() {
       )}
 
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
-        <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">Why &quot;which is better&quot; has no answer here</h2>
+        <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-2">Why &quot;which is better&quot; has no answer here</h2>
         <p className="mb-2">
           Every comparison of two assets is a comparison over a window, and the window usually decides the result. That is why the returns
           table shows several rather than one: if the lead changes between 30 days and two years, then any single figure was a choice of

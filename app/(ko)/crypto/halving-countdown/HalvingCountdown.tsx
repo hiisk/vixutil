@@ -139,13 +139,13 @@ export default function HalvingCountdown() {
           <div className="flex justify-center gap-3 sm:gap-5 mb-3">
             {[['Days', left.days], ['Hours', left.hours], ['Minutes', left.minutes]].map(([label, v]) => (
               <div key={label as string} className="min-w-[76px]">
-                <p className="text-4xl sm:text-5xl font-black text-slate-900 dark:text-white tabular-nums">{v as number}</p>
+                <p className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-white tabular-nums">{v as number}</p>
                 <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400">{label as string}</p>
               </div>
             ))}
           </div>
         ) : (
-          <p className="text-3xl font-black text-slate-900 dark:text-white mb-3">—</p>
+          <p className="text-3xl font-bold text-slate-900 dark:text-white mb-3">—</p>
         )}
         {eta != null && (
           <p className="text-sm text-slate-600 dark:text-slate-300">
@@ -171,7 +171,7 @@ export default function HalvingCountdown() {
 
       {/* 기준 선택 — 사이트마다 날짜가 다른 이유를 그대로 보여준다 */}
       <div className="rounded-lg border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
-        <h2 className="text-sm font-black text-amber-900 dark:text-amber-200 mb-1.5">Why countdowns disagree</h2>
+        <h2 className="text-sm font-bold text-amber-900 dark:text-amber-200 mb-1.5">Why countdowns disagree</h2>
         <p className="text-xs text-amber-900/85 dark:text-amber-200/85 leading-relaxed mb-3">
           A halving happens at a block height, not on a date. Converting blocks to a date needs an assumed block time, and blocks do not
           arrive every 10 minutes — that is only the target the difficulty adjustment aims at. Pick the assumption and watch the date move.
@@ -216,7 +216,7 @@ export default function HalvingCountdown() {
         ].map(([label, v, note]) => (
           <div key={label} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">{label}</p>
-            <p className="text-lg font-black text-slate-900 dark:text-white tabular-nums">{v}</p>
+            <p className="text-lg font-bold text-slate-900 dark:text-white tabular-nums">{v}</p>
             <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{note}</p>
           </div>
         ))}
@@ -225,7 +225,7 @@ export default function HalvingCountdown() {
       {/* 다음 반감기들 */}
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
         <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
-          <h2 className="text-sm font-black text-slate-900 dark:text-white">The schedule from here</h2>
+          <h2 className="text-sm font-bold text-slate-900 dark:text-white">The schedule from here</h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Dates beyond the next one compound the block-time assumption, so they drift by months. The heights do not.
           </p>
@@ -259,7 +259,7 @@ export default function HalvingCountdown() {
       </div>
 
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
-        <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">What a halving does and does not do</h2>
+        <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-2">What a halving does and does not do</h2>
         <p className="mb-2">
           It halves the reward paid to miners for each block, which halves the rate of new supply. That is the whole mechanism. It is
           scheduled in the protocol, has happened on the same rule since 2009, and every participant has known the date range for years —

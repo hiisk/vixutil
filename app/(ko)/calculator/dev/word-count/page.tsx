@@ -47,7 +47,7 @@ export default function WordCountPage() {
           {STAT_ITEMS.slice(0, 4).map(item => (
             <div key={item.key} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
               <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">{item.label}</p>
-              <p className={`text-2xl font-black ${item.color}`}>
+              <p className={`text-2xl font-bold ${item.color}`}>
                 {stats[item.key].toLocaleString('ko-KR')}
               </p>
               <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{item.sub}</p>
@@ -58,7 +58,7 @@ export default function WordCountPage() {
           {STAT_ITEMS.slice(4).map(item => (
             <div key={item.key} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
               <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">{item.label}</p>
-              <p className={`text-2xl font-black ${item.color}`}>
+              <p className={`text-2xl font-bold ${item.color}`}>
                 {stats[item.key].toLocaleString('ko-KR')}
               </p>
               <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{item.sub}</p>
@@ -103,7 +103,7 @@ export default function WordCountPage() {
                     <span className="text-sm text-slate-700 dark:text-slate-200 font-semibold">{item.label}</span>
                     <span className="text-xs text-slate-400 dark:text-slate-500 ml-2">{item.sub}</span>
                   </div>
-                  <span className={`text-base font-black font-mono ${item.color}`}>
+                  <span className={`text-base font-bold font-mono ${item.color}`}>
                     {stats[item.key].toLocaleString('ko-KR')}
                     {item.key === 'bytes' ? ' B' : ''}
                   </span>

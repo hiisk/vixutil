@@ -262,7 +262,7 @@ export default function FirstImpressionPage() {
           <div id="impression-result" className="flex flex-col gap-4">
             <div className={`rounded-xl bg-gradient-to-br ${result.type.color} p-6 text-white text-center shadow-sm`}>
               <p className="text-6xl mb-3">{result.type.emoji}</p>
-              <h2 className="text-2xl font-black mb-2">{result.type.label}</h2>
+              <h2 className="text-2xl font-bold mb-2">{result.type.label}</h2>
               <div className="flex flex-wrap justify-center gap-1.5 mt-3">
                 {result.type.keywords.map(k => (
                   <span key={k} className="text-xs font-bold bg-white/20 px-2.5 py-1 rounded-full">{k}</span>
@@ -275,7 +275,7 @@ export default function FirstImpressionPage() {
             </div>
 
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-5 shadow-sm">
-              <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">실제 측정값</p>
+              <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">실제 측정값</p>
               {[
                 { label: '눈의 또렷함', value: result.eyeScore },
                 { label: '얼굴선 (갸름함)', value: result.faceScore },
@@ -284,7 +284,7 @@ export default function FirstImpressionPage() {
                 <div key={m.label} className="mb-3 last:mb-0">
                   <div className="flex justify-between items-center mb-1">
                     <span className="text-xs font-semibold text-slate-600 dark:text-slate-300">{m.label}</span>
-                    <span className="text-xs font-black text-indigo-600 dark:text-indigo-300">{m.value}</span>
+                    <span className="text-xs font-bold text-indigo-600 dark:text-indigo-300">{m.value}</span>
                   </div>
                   <div className="h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                     <div className="h-full bg-sec rounded-full transition-all duration-700" style={{ width: `${m.value}%` }} />
@@ -299,7 +299,7 @@ export default function FirstImpressionPage() {
             </div>
 
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-5 shadow-sm">
-              <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-1.5">💡 오늘의 팁</p>
+              <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-1.5">💡 오늘의 팁</p>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.tip}</p>
             </div>
 

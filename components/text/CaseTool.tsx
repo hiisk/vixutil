@@ -42,7 +42,7 @@ export default function CaseTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
       </div>
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.noteTitle}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.noteTitle}</p>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           {ui.note}
         </p>

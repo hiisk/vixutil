@@ -142,7 +142,7 @@ export default function TouchTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
         {points.map(p => (
           <div
             key={p.id}
-            className="absolute pointer-events-none rounded-full border-2 flex items-center justify-center text-[10px] font-black text-white"
+            className="absolute pointer-events-none rounded-full border-2 flex items-center justify-center text-[10px] font-bold text-white"
             style={{
               left: p.x,
               top: p.y,
@@ -160,22 +160,22 @@ export default function TouchTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
 
       <div className="grid grid-cols-3 gap-2 mt-4">
         <div className="rounded-xl border chip-off px-3 py-3 text-center">
-          <p className="text-lg font-black text-pink-600">{points.length}</p>
+          <p className="text-lg font-bold text-pink-600">{points.length}</p>
           <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{ui.nowTouching}</p>
         </div>
         <div className="rounded-xl border chip-off px-3 py-3 text-center">
-          <p className="text-lg font-black text-violet-600">{maxTouch}</p>
+          <p className="text-lg font-bold text-violet-600">{maxTouch}</p>
           <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{ui.maxSimul}</p>
         </div>
         <div className="rounded-xl border chip-off px-3 py-3 text-center">
-          <p className="text-lg font-black text-slate-700 dark:text-slate-200">{supported ?? '–'}</p>
+          <p className="text-lg font-bold text-slate-700 dark:text-slate-200">{supported ?? '–'}</p>
           <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{ui.deviceSupports}</p>
         </div>
       </div>
 
       {points.length > 0 && (
         <div className="mt-3 rounded-xl border chip-off px-4 py-3">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.detailTitle}</p>
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.detailTitle}</p>
           <div className="flex flex-wrap gap-1.5">
             {points.map(p => (
               <span

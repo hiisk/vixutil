@@ -399,20 +399,20 @@ export default function SignalsPage() {
               {stats.btc && (
                 <span className="flex items-center gap-2">
                   <span className="text-slate-500 dark:text-slate-400">BTC</span>
-                  <span className="font-black text-slate-900 dark:text-white tabular-nums">{formatPrice(stats.btc.lastPrice)}</span>
+                  <span className="font-bold text-slate-900 dark:text-white tabular-nums">{formatPrice(stats.btc.lastPrice)}</span>
                   <Pct value={stats.btc.priceChangePercent} />
                   {btcSpark.length > 1 && <Sparkline points={[...btcSpark, stats.btc.lastPrice]} w={54} h={18} />}
                 </span>
               )}
               <span className="flex items-center gap-2">
                 <span className="text-slate-500 dark:text-slate-400">24h volume</span>
-                <span className="font-black text-slate-900 dark:text-white tabular-nums">{formatVolume(stats.totalVol)}</span>
+                <span className="font-bold text-slate-900 dark:text-white tabular-nums">{formatVolume(stats.totalVol)}</span>
               </span>
               <span className="flex items-center gap-2">
                 <span className="text-slate-500 dark:text-slate-400">Advancing</span>
-                <span className="font-black text-emerald-600 dark:text-emerald-400 tabular-nums">{stats.up}</span>
+                <span className="font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">{stats.up}</span>
                 <span className="text-slate-700 dark:text-slate-200">/</span>
-                <span className="font-black text-rose-600 dark:text-rose-400 tabular-nums">{stats.down}</span>
+                <span className="font-bold text-rose-600 dark:text-rose-400 tabular-nums">{stats.down}</span>
                 <span className="inline-flex h-1.5 w-24 gap-[2px]" role="img" aria-label={`${stats.up} advancing, ${stats.down} declining`}>
                   <span className="bg-emerald-500 rounded-full" style={{ width: `${stats.upShare}%` }} />
                   <span className="bg-rose-500 rounded-full" style={{ width: `${100 - stats.upShare}%` }} />
@@ -435,7 +435,7 @@ export default function SignalsPage() {
               ]).map(card => (
                 <div key={card.key} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 flex flex-col">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="flex items-center gap-2 text-sm font-black text-slate-900 dark:text-white">
+                    <span className="flex items-center gap-2 text-sm font-bold text-slate-900 dark:text-white">
                       <ToolIcon emoji={card.icon} className="w-5 h-5 shrink-0" />{card.title}
                     </span>
                     <span className="text-[11px] text-slate-500 dark:text-slate-400">{card.hint}</span>
@@ -602,14 +602,14 @@ export default function SignalsPage() {
                             <CoinLogo base={t.base} />
                             <span className={`font-bold text-slate-900 dark:text-white ${meta ? 'group-hover:text-sec transition-colors' : ''}`}>{t.base}</span>
                             {c && market === 'futures' && (
-                              <span className={`text-[10px] font-black px-1.5 py-0.5 rounded ${c.side === 'long' ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400' : 'bg-rose-500/15 text-rose-700 dark:text-rose-400'}`}>
+                              <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${c.side === 'long' ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400' : 'bg-rose-500/15 text-rose-700 dark:text-rose-400'}`}>
                                 {c.side === 'long' ? 'LONG' : 'SHORT'}
                               </span>
                             )}
                           </div>
                           {c ? (
                             <span className="flex items-center gap-1.5 pl-7 mt-0.5">
-                              <span className={`inline-flex items-center gap-1 text-[10px] font-black px-1.5 py-0.5 rounded ${BIAS_STYLE[c.bias].cls}`}>
+                              <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded ${BIAS_STYLE[c.bias].cls}`}>
                                 {BIAS_STYLE[c.bias].emoji} {BIAS_STYLE[c.bias].label}
                                 {c.bias !== 'neutral' && <span className="opacity-80">{c.confidence}%</span>}
                               </span>
@@ -672,7 +672,7 @@ export default function SignalsPage() {
                                   </span>
                                 )}
                                 {hit && (
-                                  <span className={`mt-0.5 text-[9px] font-black px-1 py-0.5 rounded ${hit === 'tp' ? 'bg-emerald-500/20 text-emerald-700 dark:text-emerald-300' : 'bg-rose-500/20 text-rose-300'}`}>
+                                  <span className={`mt-0.5 text-[9px] font-bold px-1 py-0.5 rounded ${hit === 'tp' ? 'bg-emerald-500/20 text-emerald-700 dark:text-emerald-300' : 'bg-rose-500/20 text-rose-300'}`}>
                                     {hit === 'tp' ? '🎯 hit' : '🛑 stopped'}
                                   </span>
                                 )}
@@ -733,11 +733,11 @@ export default function SignalsPage() {
 
             {/* Pagination */}
             <div className="flex items-center justify-center gap-2 mt-4">
-              <button onClick={() => setPage(1)} disabled={page === 1} className="px-3 py-1.5 rounded-lg text-xs font-bold border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 disabled:opacity-30 hover:border-slate-600 transition-colors">« First</button>
-              <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} className="px-3 py-1.5 rounded-lg text-xs font-bold border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 disabled:opacity-30 hover:border-slate-600 transition-colors">‹ Prev</button>
+              <button onClick={() => setPage(1)} disabled={page === 1} className="px-3 py-1.5 rounded-lg text-xs font-medium border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 disabled:opacity-30 hover:border-slate-600 transition-colors">« First</button>
+              <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} className="px-3 py-1.5 rounded-lg text-xs font-medium border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 disabled:opacity-30 hover:border-slate-600 transition-colors">‹ Prev</button>
               <span className="px-3 text-sm font-bold text-slate-700 dark:text-slate-200 tabular-nums">{page} / {totalPages}</span>
-              <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages} className="px-3 py-1.5 rounded-lg text-xs font-bold border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 disabled:opacity-30 hover:border-slate-600 transition-colors">Next ›</button>
-              <button onClick={() => setPage(totalPages)} disabled={page === totalPages} className="px-3 py-1.5 rounded-lg text-xs font-bold border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 disabled:opacity-30 hover:border-slate-600 transition-colors">Last »</button>
+              <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages} className="px-3 py-1.5 rounded-lg text-xs font-medium border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 disabled:opacity-30 hover:border-slate-600 transition-colors">Next ›</button>
+              <button onClick={() => setPage(totalPages)} disabled={page === totalPages} className="px-3 py-1.5 rounded-lg text-xs font-medium border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 disabled:opacity-30 hover:border-slate-600 transition-colors">Last »</button>
             </div>
           </>
         )}

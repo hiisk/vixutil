@@ -247,7 +247,7 @@ export default function FourInsurancePage() {
                       <td className="px-4 py-2.5 font-bold text-slate-800 dark:text-slate-100" colSpan={2}>
                         {tab === 'employee' ? '근로자 합계' : tab === 'employer' ? '사업주 합계' : '총합계'}
                       </td>
-                      <td className="px-4 py-2.5 text-right font-black text-blue-600">{fmt(tabTotal)}원</td>
+                      <td className="px-4 py-2.5 text-right font-bold text-blue-600">{fmt(tabTotal)}원</td>
                     </tr>
                   </tbody>
                 </table>
@@ -277,7 +277,7 @@ export default function FourInsurancePage() {
                 </div>
                 <div className="flex justify-between border-t border-slate-100 dark:border-slate-800 pt-2 mt-1">
                   <span className="font-bold text-slate-700 dark:text-slate-200">소득세 합계</span>
-                  <span className="font-black text-red-500">-{fmt(result.totalTax)}원</span>
+                  <span className="font-bold text-red-500">-{fmt(result.totalTax)}원</span>
                 </div>
               </div>
             </Card>

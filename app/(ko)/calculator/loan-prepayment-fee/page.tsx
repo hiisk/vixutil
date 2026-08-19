@@ -162,7 +162,7 @@ export default function LoanPrepaymentFeePage() {
                 ].map((row, i) => (
                   <div key={i} className={`flex justify-between items-center py-2 ${i < 3 ? 'border-b border-slate-100 dark:border-slate-800' : ''}`}>
                     <span className="text-sm text-slate-500 dark:text-slate-400">{row.label}</span>
-                    <span className={`text-sm ${row.bold ? 'font-black text-slate-900 dark:text-slate-100' : 'text-slate-700 dark:text-slate-200'}`}>{row.value}</span>
+                    <span className={`text-sm ${row.bold ? 'font-bold text-slate-900 dark:text-slate-100' : 'text-slate-700 dark:text-slate-200'}`}>{row.value}</span>
                   </div>
                 ))}
               </div>

@@ -111,7 +111,7 @@ export default function InterestTaxPage() {
               <p className="label-caps mb-3">
                 세후 실수령 이자
               </p>
-              <p className="text-3xl font-black text-slate-900 dark:text-slate-100">
+              <p className="text-3xl font-bold text-slate-900 dark:text-slate-100">
                 {w(result.netInterest)}<span className="text-lg font-bold ml-1">원</span>
               </p>
               <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">

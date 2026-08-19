@@ -50,14 +50,14 @@ export default function TodayColorPage() {
         </div>
 
         <form onSubmit={run} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-6">
-          <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">이름 (선택 — 비우면 오늘 모두의 색)</label>
+          <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">이름 (선택 — 비우면 오늘 모두의 색)</label>
           <input
             value={name}
             onChange={e => setName(e.target.value)}
             placeholder="예) 홍길동"
             className="fld w-full focus:border-violet-400 mb-3"
           />
-          <button type="submit" className="w-full rounded-xl bg-sec text-sm font-black py-3.5 transition-all active:scale-[0.99] shadow-sm shadow-violet-200 dark:shadow-none">
+          <button type="submit" className="w-full rounded-xl bg-sec text-sm font-bold py-3.5 transition-all active:scale-[0.99] shadow-sm shadow-violet-200 dark:shadow-none">
             오늘의 행운 색 보기 🎨
           </button>
         </form>
@@ -70,7 +70,7 @@ export default function TodayColorPage() {
               style={{ background: `linear-gradient(135deg, ${result.lucky.hex}, ${result.lucky.hex}cc)` }}
             >
               <div className="text-xs font-bold text-white/80 mb-1 drop-shadow">오늘의 행운 색</div>
-              <div className="text-4xl font-black text-white drop-shadow mb-2">{result.lucky.name}</div>
+              <div className="text-4xl font-bold text-white drop-shadow mb-2">{result.lucky.name}</div>
               <div className="inline-block text-sm font-bold text-white bg-white/25 rounded-full px-4 py-1.5">
                 {result.lucky.meaning}
               </div>
@@ -83,7 +83,7 @@ export default function TodayColorPage() {
 
             {/* 활용 팁 */}
             <div className="rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-5 mb-4">
-              <div className="text-xs font-black text-violet-600 mb-1">오늘의 활용 팁 💡</div>
+              <div className="text-xs font-bold text-violet-600 mb-1">오늘의 활용 팁 💡</div>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.lucky.tip}</p>
             </div>
 
@@ -91,8 +91,8 @@ export default function TodayColorPage() {
             <div className="rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 p-4 mb-6 flex items-center gap-3">
               <span className="w-8 h-8 rounded-full shrink-0 border border-slate-200 dark:border-slate-600" style={{ background: result.avoid.hex }} />
               <div>
-                <div className="text-xs font-bold text-slate-400">오늘 피하면 좋은 색</div>
-                <div className="text-sm font-black text-slate-700 dark:text-slate-200">{result.avoid.name}</div>
+                <div className="text-xs font-medium text-slate-400">오늘 피하면 좋은 색</div>
+                <div className="text-sm font-bold text-slate-700 dark:text-slate-200">{result.avoid.name}</div>
               </div>
             </div>
 

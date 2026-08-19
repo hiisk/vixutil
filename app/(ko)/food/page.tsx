@@ -78,14 +78,14 @@ export default function FoodHubPage() {
           </p>
         </div>
 
-        <div className="rounded-lg border border-amber-100 dark:border-amber-900/40 bg-amber-50/70 dark:bg-amber-950/30 px-4 py-3.5 mb-7 text-xs text-amber-800 dark:text-amber-200 leading-relaxed text-center">
+        <div className="note-warn mb-7 text-center">
 🍳 한국 기준(1컵 200ml, 1큰술 15ml)으로 계산합니다. 미국 레시피는 1컵이 240ml입니다.
         </div>
 
         <div className="flex flex-col gap-7">
           {grouped.map(g => (
             <section key={g.category} aria-label={g.category}>
-              <h2 className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
+              <h2 className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
                 {g.category}
               </h2>
               <div className="grid sm:grid-cols-2 gap-3">
@@ -97,7 +97,7 @@ export default function FoodHubPage() {
                   >
                     <div className="relative">
                       <ToolIcon emoji={t.icon} color={t.og[0]} accent={t.og[1]} className="w-9 h-9 block mb-3" />
-                      <h3 className="text-base font-black text-slate-900 dark:text-slate-100 mb-1">{t.title}</h3>
+                      <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mb-1">{t.title}</h3>
                       <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-3">{t.desc}</p>
                       <span className="flex items-center gap-1 text-xs font-semibold text-amber-600">
                         바로 쓰기
@@ -123,7 +123,7 @@ export default function FoodHubPage() {
           <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{FOOD_UI.ko.hubLead}</p>
           {FOOD_CATEGORIES.map(cat => (
             <div key={cat} className="mb-4">
-              <h3 className="text-xs font-black text-slate-400 dark:text-slate-500 mb-1.5">
+              <h3 className="text-xs font-medium text-slate-400 dark:text-slate-500 mb-1.5">
                 {FOOD_UI.ko.categoryLabel[cat]}
               </h3>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -134,7 +134,7 @@ export default function FoodHubPage() {
                     className="flex items-center justify-between gap-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 hover:shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition-all"
                   >
                     <span className="text-[11px] font-bold text-slate-800 dark:text-slate-100 truncate">{i.name.ko}</span>
-                    <span className="text-[11px] font-black text-slate-500 dark:text-slate-400 tabular-nums shrink-0">
+                    <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 tabular-nums shrink-0">
                       {foodFacts(i).grams.cupUs}g
                     </span>
                   </Link>

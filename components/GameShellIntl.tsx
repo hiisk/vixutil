@@ -72,7 +72,7 @@ export default function GameShellIntl({
       <main className="relative max-w-2xl mx-auto px-4 pb-10 tool-lift">
 
 
-        <div className="mb-5 rounded-lg border border-emerald-100 dark:border-emerald-900/40 bg-emerald-50/70 dark:bg-emerald-950/30 px-4 py-3 text-xs text-emerald-800 dark:text-emerald-200 leading-relaxed text-center">
+        <div className="note mb-5 text-center">
           {ui.notice}
         </div>
 
@@ -122,7 +122,7 @@ export default function GameShellIntl({
       </main>
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
-        <Link href={`/${lang}`} className="text-sm font-black text-emerald-600">vixutil</Link>
+        <Link href={`/${lang}`} className="text-sm font-bold text-emerald-600">vixutil</Link>
       </footer>
     </div>
   );

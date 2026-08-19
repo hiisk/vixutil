@@ -55,7 +55,7 @@ export default function ContrastTool({ lang = 'ko' }: { lang?: ColorLang } = {})
       </div>
 
       <div className="mt-4 rounded-lg p-6 border border-slate-200 dark:border-slate-700" style={{ background: bg, color: fg }}>
-        <p className="text-2xl font-black mb-2">{ui.previewH}</p>
+        <p className="text-2xl font-bold mb-2">{ui.previewH}</p>
         <p className="text-base mb-1">{ui.previewBody}</p>
         <p className="text-xs opacity-90">{ui.previewSmall}</p>
       </div>
@@ -63,8 +63,8 @@ export default function ContrastTool({ lang = 'ko' }: { lang?: ColorLang } = {})
       {verdict && (
         <>
           <div className="mt-4 rounded-lg border chip-off p-5 text-center">
-            <p className="text-xs font-bold text-slate-400 dark:text-slate-500 mb-1">{ui.ratio}</p>
-            <p className={`text-5xl font-black tabular-nums ${verdict.aaNormal ? 'text-emerald-600' : 'text-rose-500'}`}>
+            <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mb-1">{ui.ratio}</p>
+            <p className={`text-5xl font-bold tabular-nums ${verdict.aaNormal ? 'text-emerald-600' : 'text-rose-500'}`}>
               {verdict.ratio}
               <span className="text-2xl text-slate-400 dark:text-slate-500"> : 1</span>
             </p>
@@ -86,7 +86,7 @@ export default function ContrastTool({ lang = 'ko' }: { lang?: ColorLang } = {})
                     : 'border-rose-200 dark:border-rose-900/60 bg-rose-50 dark:bg-rose-950/30'
                 }`}
               >
-                <p className={`text-lg font-black ${verdict[b.key] ? 'text-emerald-600' : 'text-rose-500'}`}>
+                <p className={`text-lg font-bold ${verdict[b.key] ? 'text-emerald-600' : 'text-rose-500'}`}>
                   {verdict[b.key] ? ui.pass : ui.fail}
                 </p>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{ui[b.labelKey as 'aaBody' | 'aaLarge' | 'aaaBody' | 'aaaLarge']}</p>
@@ -107,7 +107,7 @@ export default function ContrastTool({ lang = 'ko' }: { lang?: ColorLang } = {})
       )}
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.meaningTitle}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.meaningTitle}</p>
         <ul className="flex flex-col gap-1.5 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           <li>· <b className="text-slate-800 dark:text-slate-100">AA 4.5:1</b>{ui.aaNote}</li>
           <li>· <b className="text-slate-800 dark:text-slate-100">3:1</b>{ui.largeNote}</li>

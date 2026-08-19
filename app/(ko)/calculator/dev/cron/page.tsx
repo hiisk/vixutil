@@ -97,7 +97,7 @@ export default function CronPage() {
 
         <div className="bg-slate-900 rounded-lg p-5">
           <div className="flex items-center justify-between mb-2">
-            <p className="text-slate-400 dark:text-slate-500 text-xs uppercase tracking-wide font-bold">Cron 표현식</p>
+            <p className="text-slate-400 dark:text-slate-500 text-xs uppercase tracking-wide font-medium">Cron 표현식</p>
             <CopyBtn text={expr} />
           </div>
           <p className="text-green-400 font-mono text-2xl font-bold">{expr}</p>

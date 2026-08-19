@@ -46,13 +46,13 @@ export default function WorldClockTool({ lang = 'ko' }: { lang?: TimeLang } = {}
             <div key={id} className={`rounded-lg px-4 py-3.5 flex items-center gap-3 ${TONE[part]}`}>
               <span className="text-2xl shrink-0">{c.flag}</span>
               <span className="hub-card-body">
-                <span className="block text-sm font-black">{c.city}</span>
+                <span className="block text-sm font-bold">{c.city}</span>
                 <span className="block text-[11px] opacity-70">
                   {mounted && now ? dateIn(c.zone, now, lang) : '—'} · {partLabel[part]}
                   {diff !== 0 && ` · ${diff > 0 ? ui.ahead(baseLabel, diff) : ui.behind(baseLabel, -diff)}`}
                 </span>
               </span>
-              <span className="text-xl font-black tabular-nums shrink-0">
+              <span className="text-xl font-bold tabular-nums shrink-0">
                 {mounted && now ? timeIn(c.zone, now, lang) : '--:--:--'}
               </span>
             </div>
@@ -61,7 +61,7 @@ export default function WorldClockTool({ lang = 'ko' }: { lang?: TimeLang } = {}
       </div>
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.manage}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.manage}</p>
         <div className="flex flex-wrap gap-1.5">
           {cities.map(c => (
             <button

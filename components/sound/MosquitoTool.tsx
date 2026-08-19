@@ -63,7 +63,7 @@ export default function MosquitoTool({ lang = 'ko' }: { lang?: SoundLang } = {})
               {playing === s.hz ? '■' : '▶'}
             </button>
             <span className="hub-card-body">
-              <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{(s.hz / 1000).toFixed(0)}kHz</span>
+              <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">{(s.hz / 1000).toFixed(0)}kHz</span>
               <span className="block text-[11px] text-slate-400 dark:text-slate-500">{ui.ages[i]}</span>
             </span>
             <button
@@ -83,7 +83,7 @@ export default function MosquitoTool({ lang = 'ko' }: { lang?: SoundLang } = {})
       {top && (
         <div className="mt-4 rounded-lg bg-sec px-6 py-6 text-center">
           <p className="text-sm opacity-70 mb-1">{ui.highestHeard}</p>
-          <p className="text-4xl font-black">{(top / 1000).toFixed(0)}kHz</p>
+          <p className="text-4xl font-bold">{(top / 1000).toFixed(0)}kHz</p>
           <p className="text-sm opacity-80 mt-2">{ui.ages[STEPS.findIndex(s => s.hz === top)]}</p>
         </div>
       )}

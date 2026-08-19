@@ -68,7 +68,7 @@ export default function CorrelationPage() {
           계산하므로 자바스크립트를 실행하지 않는 크롤러에겐 빈 껍데기로 보인다.
         */}
         <section className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
-          <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">Correlation is a property of a window, not of a pair</h2>
+          <h2 className="text-base font-bold text-slate-900 dark:text-white mb-3">Correlation is a property of a window, not of a pair</h2>
           <p className="mb-3">
             The matrix reports the correlation of daily returns between the major cryptocurrencies over whichever window you select. That
             part is standard, and on its own it invites a mistake: reading a single number as if it described a stable relationship. Split

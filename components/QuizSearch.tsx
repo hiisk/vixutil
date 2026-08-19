@@ -88,7 +88,7 @@ export default function QuizSearch({ quizzes }: { quizzes: CardItem[] }) {
         <div className="flex flex-col gap-12">
           {grouped.map(group => (
             <section key={group.name}>
-              <h2 className="text-sm font-black text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-2">
+              <h2 className="text-sm font-bold text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-2">
                 {group.name}
                 <span className="text-xs font-bold text-amber-500 bg-amber-50 dark:bg-amber-950/30 px-2.5 py-0.5 rounded-full">{group.items.length}</span>
               </h2>
@@ -99,7 +99,7 @@ export default function QuizSearch({ quizzes }: { quizzes: CardItem[] }) {
           ))}
           {uncategorized.length > 0 && (
             <section>
-              <h2 className="text-sm font-black text-slate-700 dark:text-slate-200 mb-4">기타</h2>
+              <h2 className="text-sm font-bold text-slate-700 dark:text-slate-200 mb-4">기타</h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
                 {uncategorized.map(q => <QuizCard key={q.slug} q={q} />)}
               </div>

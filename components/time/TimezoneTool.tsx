@@ -43,7 +43,7 @@ export default function TimezoneTool({ lang = 'ko' }: { lang?: TimeLang } = {}) 
 
   const select = (value: string, onChange: (v: string) => void, label: string) => (
     <label className="block">
-      <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">{label}</span>
+      <span className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">{label}</span>
       <select
         value={value}
         onChange={e => onChange(e.target.value)}
@@ -65,7 +65,7 @@ export default function TimezoneTool({ lang = 'ko' }: { lang?: TimeLang } = {}) 
 
       <div className="mt-4 rounded-lg bg-slate-900 text-white px-6 py-8 text-center">
         <p className="text-sm text-white/60 mb-1">{ui.atIs(from.city, `${String(hour).padStart(2, '0')}:00`)}</p>
-        <p className="text-5xl font-black tabular-nums">
+        <p className="text-5xl font-bold tabular-nums">
           {String(converted).padStart(2, '0')}:00
         </p>
         <p className="text-sm text-white/70 mt-2">
@@ -76,8 +76,8 @@ export default function TimezoneTool({ lang = 'ko' }: { lang?: TimeLang } = {}) 
 
       <div className="mt-4">
         <div className="flex items-baseline justify-between mb-1.5">
-          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.cityTime(from.city)}</span>
-          <span className="text-sm font-black text-indigo-600 tabular-nums">{String(hour).padStart(2, '0')}:00</span>
+          <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{ui.cityTime(from.city)}</span>
+          <span className="text-sm font-bold text-indigo-600 tabular-nums">{String(hour).padStart(2, '0')}:00</span>
         </div>
         <input
           type="range" min={0} max={23} value={hour}
@@ -86,7 +86,7 @@ export default function TimezoneTool({ lang = 'ko' }: { lang?: TimeLang } = {}) 
         />
       </div>
 
-      <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-5 mb-2">
+      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-5 mb-2">
         {ui.dayCompare(overlap.length)}
       </p>
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">

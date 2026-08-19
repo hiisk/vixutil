@@ -77,14 +77,14 @@ export default function ImageHubPage() {
           </p>
         </div>
 
-        <div className="rounded-lg border border-violet-100 dark:border-violet-900/40 bg-violet-50/70 dark:bg-violet-950/30 px-4 py-3.5 mb-7 text-xs text-violet-800 dark:text-violet-200 leading-relaxed text-center">
+        <div className="note mb-7 text-center">
           🔒 모든 편집은 이 브라우저 안에서 끝납니다. 사진이 서버로 전송되지 않으니 신분증·계좌 캡처도 안심하고 쓰세요.
         </div>
 
         <div className="flex flex-col gap-7">
           {grouped.map(g => (
             <section key={g.category} aria-label={g.category}>
-              <h2 className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
+              <h2 className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
                 {g.category}
               </h2>
               <div className="grid sm:grid-cols-2 gap-3">
@@ -96,7 +96,7 @@ export default function ImageHubPage() {
                   >
                     <div className="relative">
                       <ToolIcon emoji={t.icon} color={t.og[0]} accent={t.og[1]} className="w-9 h-9 block mb-3" />
-                      <h3 className="text-base font-black text-slate-900 dark:text-slate-100 mb-1">{t.title}</h3>
+                      <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mb-1">{t.title}</h3>
                       <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-3">{t.desc}</p>
                       <span className="flex items-center gap-1 text-xs font-semibold text-violet-600">
                         바로 쓰기
@@ -140,7 +140,7 @@ export default function ImageHubPage() {
 
           <span className="min-w-0">
 
-            <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{IMG_SIZE_UI.ko.hubTitle}</span>
+            <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">{IMG_SIZE_UI.ko.hubTitle}</span>
 
             <span className="block text-xs text-slate-500 dark:text-slate-400 mt-0.5">{IMG_SIZE_UI.ko.hubLead}</span>
 

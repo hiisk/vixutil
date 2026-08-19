@@ -69,7 +69,7 @@ export default function ChmodHubPage({ lang }: { lang: Lang }) {
                   key={m}
                  
                   className="flex items-baseline gap-3 px-4 py-2.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
-                  <span className="text-sm font-black text-orange-700 dark:text-orange-400 tabular-nums shrink-0 w-[34px]">{m}</span>
+                  <span className="text-sm font-bold text-orange-700 dark:text-orange-400 tabular-nums shrink-0 w-[34px]">{m}</span>
                   <span className="text-xs font-mono text-slate-500 dark:text-slate-400 shrink-0 w-[76px]">{f.symbolic}</span>
                   <span className="text-xs text-slate-600 dark:text-slate-300 truncate">{ui.commonUse[m]}</span>
                 </span>

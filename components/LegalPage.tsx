@@ -69,7 +69,7 @@ export default function LegalPage({ kind, locale }: { kind: LegalKind; locale: A
 
         {copy.sections.map(s => (
           <section key={s.h2} className="mb-8">
-            <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-2">{s.h2}</h2>
+            <h2 className="text-base font-bold text-slate-800 dark:text-slate-100 mb-2">{s.h2}</h2>
             {s.body.map(p => (
               <p key={p} className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-2">{p}</p>
             ))}

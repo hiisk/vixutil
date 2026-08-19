@@ -73,7 +73,7 @@ export default function PomodoroTool({ lang = 'ko' }: { lang?: TimeLang } = {}) 
     <div>
       <div className={`rounded-lg px-6 py-12 text-center transition-colors ${PHASES[phase].bg}`}>
         <p className="text-sm font-bold text-white/80 mb-2">{phaseLabel[phase]}</p>
-        <p className="text-6xl sm:text-7xl font-black text-white tabular-nums tracking-tight">
+        <p className="text-6xl sm:text-7xl font-bold text-white tabular-nums tracking-tight">
           {formatDuration(left)}
         </p>
         <div className="flex items-center justify-center gap-1.5 mt-4">
@@ -112,7 +112,7 @@ export default function PomodoroTool({ lang = 'ko' }: { lang?: TimeLang } = {}) 
       </div>
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.whyTitle}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.whyTitle}</p>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           {ui.whyBody}
         </p>

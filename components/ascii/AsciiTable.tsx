@@ -37,7 +37,7 @@ export default function AsciiTable({ current }: { current?: number }) {
               aria-current={on ? 'page' : undefined}
               className={`rounded-[4px] border px-0.5 py-[3px] text-center leading-none transition-transform hover:scale-110 hover:z-10 ${COLOUR[kindOf(code)]} ${on ? 'ring-2 ring-slate-900 dark:ring-white' : ''}`}>
               <span className="block text-[7px] tabular-nums opacity-70">{code}</span>
-              <span className="block text-[11px] font-black">{f.label}</span>
+              <span className="block text-[11px] font-bold">{f.label}</span>
             </span>
           );
         })}

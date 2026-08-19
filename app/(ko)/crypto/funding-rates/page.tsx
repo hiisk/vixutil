@@ -68,7 +68,7 @@ export default function FundingRatesPage() {
           자바스크립트를 실행하지 않는 크롤러에겐 빈 껍데기로 보인다.
         */}
         <section className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
-          <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">What a funding rate is</h2>
+          <h2 className="text-base font-bold text-slate-900 dark:text-white mb-3">What a funding rate is</h2>
           <p className="mb-3">
             A perpetual futures contract never expires, so nothing forces its price back to spot. Funding is the mechanism that does it:
             at fixed intervals, one side pays the other in proportion to the gap between the perpetual and the index. When the perpetual

@@ -135,7 +135,7 @@ export default function GeneratorEngine({ gen, headerRight }: { gen: Generator; 
         {/* 생성 버튼 */}
         <button
           onClick={generate}
-          className="w-full bg-emerald-500 hover:bg-emerald-600 active:scale-[0.98] text-white rounded-lg py-4 font-black text-base transition-all shadow-sm shadow-emerald-200 mb-5"
+          className="w-full bg-emerald-500 hover:bg-emerald-600 active:scale-[0.98] text-white rounded-lg py-4 font-bold text-base transition-all shadow-sm shadow-emerald-200 mb-5"
         >
           {hasResults ? '🔄 다시 생성하기' : `✨ ${gen.title} 시작`}
         </button>
@@ -151,7 +151,7 @@ export default function GeneratorEngine({ gen, headerRight }: { gen: Generator; 
                   key={`${r}-${i}`}
                   className="group flex items-start gap-3 bg-white dark:bg-slate-900 rounded-lg px-4 py-3.5 border border-slate-100 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm transition-all"
                 >
-                  <span className="shrink-0 w-5 h-5 rounded-full bg-emerald-100 dark:bg-emerald-950/40 text-emerald-600 text-xs font-black flex items-center justify-center mt-0.5">
+                  <span className="shrink-0 w-5 h-5 rounded-full bg-emerald-100 dark:bg-emerald-950/40 text-emerald-600 text-xs font-bold flex items-center justify-center mt-0.5">
                     {i + 1}
                   </span>
                   <p className="flex-1 text-sm font-semibold text-slate-800 dark:text-slate-100 leading-relaxed whitespace-pre-line min-w-0">
@@ -187,7 +187,7 @@ export default function GeneratorEngine({ gen, headerRight }: { gen: Generator; 
             {/* 전체 복사 */}
             <button
               onClick={copyAll}
-              className="w-full text-xs font-bold text-slate-400 dark:text-slate-500 hover:text-emerald-600 py-2 transition-colors"
+              className="w-full text-xs font-medium text-slate-400 dark:text-slate-500 hover:text-emerald-600 py-2 transition-colors"
             >
               {copiedAll ? '✓ 전체 복사됨' : '전체 복사하기'}
             </button>
@@ -207,7 +207,7 @@ export default function GeneratorEngine({ gen, headerRight }: { gen: Generator; 
         {saved.length > 0 && (
           <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
             <div className="flex items-center justify-between mb-3">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400">❤️ 저장한 결과 <span className="text-slate-400 dark:text-slate-500 font-normal">({saved.length})</span></p>
+              <p className="text-xs font-medium text-slate-500 dark:text-slate-400">❤️ 저장한 결과 <span className="text-slate-400 dark:text-slate-500 font-normal">({saved.length})</span></p>
               <button onClick={() => setSaved([])} className="text-xs text-slate-400 dark:text-slate-500 hover:text-red-400 transition-colors">전체 삭제</button>
             </div>
             <div className="space-y-2">

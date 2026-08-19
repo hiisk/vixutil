@@ -92,7 +92,7 @@ export default function PortHubPage({ lang }: { lang: Lang }) {
                     href={`${path}/${x.port}`}
                     className="flex items-baseline gap-3 px-4 py-2.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
                   >
-                    <span className="text-sm font-black text-fuchsia-700 dark:text-fuchsia-400 tabular-nums shrink-0 w-[46px] text-right">{x.port}</span>
+                    <span className="text-sm font-bold text-fuchsia-700 dark:text-fuchsia-400 tabular-nums shrink-0 w-[46px] text-right">{x.port}</span>
                     <span className="text-sm font-mono text-slate-700 dark:text-slate-200 shrink-0">{x.name}</span>
                     <span className="cell-cut">{x.service}</span>
                     <span className="ml-auto text-[11px] text-slate-400 dark:text-slate-500 shrink-0">{ui.protoLabel[f.proto]}</span>

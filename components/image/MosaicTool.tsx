@@ -205,7 +205,7 @@ export default function MosaicTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
                   : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
               }`}
             >
-              <span className={`block text-sm font-black ${mode === b.m ? 'text-violet-700 dark:text-violet-300' : 'text-slate-700 dark:text-slate-200'}`}>
+              <span className={`block text-sm font-bold ${mode === b.m ? 'text-violet-700 dark:text-violet-300' : 'text-slate-700 dark:text-slate-200'}`}>
                 {ui.modes[i]}
               </span>
               <span className="block text-[11px] text-slate-400 dark:text-slate-500">{ui.modeHints[i]}</span>
@@ -214,8 +214,8 @@ export default function MosaicTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
         </div>
 
         <div className="flex items-baseline justify-between mt-5 mb-2">
-          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.brush}</span>
-          <span className="text-sm font-black text-violet-600 tabular-nums">{brush}px</span>
+          <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{ui.brush}</span>
+          <span className="text-sm font-bold text-violet-600 tabular-nums">{brush}px</span>
         </div>
         <input
           type="range" min={16} max={Math.max(64, Math.round(Math.max(img.width, img.height) / 5))}
@@ -226,8 +226,8 @@ export default function MosaicTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
         {mode === 'mosaic' && (
           <>
             <div className="flex items-baseline justify-between mt-4 mb-2">
-              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.cellSize}</span>
-              <span className="text-sm font-black text-violet-600 tabular-nums">{cell}px</span>
+              <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{ui.cellSize}</span>
+              <span className="text-sm font-bold text-violet-600 tabular-nums">{cell}px</span>
             </div>
             <input
               type="range" min={6} max={Math.max(24, Math.round(Math.max(img.width, img.height) / 20))}

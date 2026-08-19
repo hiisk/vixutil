@@ -205,7 +205,7 @@ export default function FaceSymmetryPage() {
           <p className="text-slate-500 dark:text-slate-400 text-sm">실제 얼굴 인식으로 좌우 밸런스를 측정해요</p>
         </div>
 
-        <div className="bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 rounded-lg p-4 mb-6 text-xs text-indigo-800 dark:text-indigo-300 leading-relaxed">
+        <div className="note mb-6">
           <p className="font-bold mb-1">🔒 사진은 서버에 전송되지 않아요</p>
           <p>좌우 밸런스는 이 브라우저 안에서 실제로 측정되지만, 완벽한 대칭인 얼굴은 실제로 거의 없고 자연스러운 비대칭이 오히려 매력적인 개성이 된다는 이야기가 많아요. 점수는 재미로만 봐주세요.</p>
         </div>
@@ -273,7 +273,7 @@ export default function FaceSymmetryPage() {
                 <ShareBtn />
               </div>
               <p className="text-sm font-semibold text-indigo-100 mb-2">⚖️ 종합 대칭 지수</p>
-              <p className="text-4xl font-black mb-3">{result.percent}%</p>
+              <p className="text-4xl font-bold mb-3">{result.percent}%</p>
               <p className="text-sm leading-relaxed">{result.text}</p>
             </div>
 

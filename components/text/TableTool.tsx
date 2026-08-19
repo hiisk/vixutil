@@ -33,14 +33,14 @@ export default function TableTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
       <InputArea value={text} onChange={setText} rows={7} label={ui.inputLabel} lang={lang} placeholder={ui.placeholder} />
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.inputTitle}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.inputTitle}</p>
         <div className="grid grid-cols-2 gap-2">
           {INPUTS.map((v, i) => (
             <button key={v} onClick={() => setInput(v)} className={pill(input === v)}>{ui.inputs[i]}</button>
           ))}
         </div>
 
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.formatTitle}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.formatTitle}</p>
         <div className="grid grid-cols-4 gap-2">
           {FORMATS.map((v, i) => (
             <button key={v} onClick={() => setFormat(v)} className={pill(format === v)}>{FORMAT_LABEL[i]}</button>

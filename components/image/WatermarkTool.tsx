@@ -98,14 +98,14 @@ export default function WatermarkTool({ lang = 'ko' }: { lang?: ImageLang } = {}
       </div>
 
       <div className="mt-4 rounded-lg border chip-off p-5">
-        <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">{ui.markText}</label>
+        <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">{ui.markText}</label>
         <input
           value={text}
           onChange={e => setText(e.target.value)}
           className="w-full rounded-xl border chip-off px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:border-violet-400"
         />
 
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.position}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.position}</p>
         <div className="grid grid-cols-3 gap-1.5 max-w-[9rem]">
           {ANCHORS.map(a => (
             <button
@@ -125,8 +125,8 @@ export default function WatermarkTool({ lang = 'ko' }: { lang?: ImageLang } = {}
         {([[ui.size, scale, setScale, 1, 20], [ui.opacity, opacity, setOpacity, 5, 100]] as const).map(([label, v, set, min, max]) => (
           <div key={label as string} className="mt-4">
             <div className="flex items-baseline justify-between mb-1.5">
-              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{label as string}</span>
-              <span className="text-sm font-black text-violet-600 tabular-nums">{v as number}%</span>
+              <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{label as string}</span>
+              <span className="text-sm font-bold text-violet-600 tabular-nums">{v as number}%</span>
             </div>
             <input
               type="range" min={min as number} max={max as number} value={v as number}
@@ -136,7 +136,7 @@ export default function WatermarkTool({ lang = 'ko' }: { lang?: ImageLang } = {}
           </div>
         ))}
 
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.markColor}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.markColor}</p>
         <div className="flex items-center gap-2">
           {COLORS.map(c => (
             <button

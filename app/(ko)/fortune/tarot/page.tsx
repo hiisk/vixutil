@@ -162,7 +162,7 @@ function OneLayout({ drawn, revealed, onReveal }: LayoutProps) {
         <TarotCardBack size="lg" label="오늘의 메시지" onClick={() => onReveal(0)} />
       ) : (
         <div className="flex flex-col items-center gap-2">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400">오늘의 메시지</p>
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400">오늘의 메시지</p>
           <TarotCardFront card={drawn[0].card} reversed={drawn[0].reversed} size="lg" />
         </div>
       )}
@@ -266,7 +266,7 @@ function CelticLayout({ drawn, revealed, spread, onReveal }: LayoutProps) {
       <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 max-w-xs mx-auto">
         {spread.positions.map((pos, i) => (
           <div key={i} className="flex items-center gap-1.5">
-            <span className={`text-[10px] font-black w-4 h-4 rounded flex items-center justify-center flex-shrink-0 ${
+            <span className={`text-[10px] font-bold w-4 h-4 rounded flex items-center justify-center flex-shrink-0 ${
               revealed[i] ? 'bg-amber-400 text-white' : 'bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400'
             }`}>{i + 1}</span>
             <span className="text-[10px] text-slate-500 dark:text-slate-400 truncate">{pos}</span>
@@ -299,7 +299,7 @@ function SpreadLayout(props: LayoutProps) {
 function CardInterpretation({ drawn, spread }: { drawn: DrawnSet; spread: Spread }) {
   return (
     <div className="space-y-3 mt-2">
-      <p className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest text-center">카드 해석</p>
+      <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-widest text-center">카드 해석</p>
       {drawn.map((item, i) => (
         <div key={i} className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-lg overflow-hidden">
           <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-50"
@@ -310,12 +310,12 @@ function CardInterpretation({ drawn, spread }: { drawn: DrawnSet; spread: Spread
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-[10px] font-black text-slate-400 dark:text-slate-500">#{i + 1} {spread.positions[i]}</span>
+                <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500">#{i + 1} {spread.positions[i]}</span>
                 <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${item.reversed ? 'bg-rose-50 dark:bg-rose-950/30 text-rose-500' : 'bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600'}`}>
                   {item.reversed ? '역방향' : '정방향'}
                 </span>
               </div>
-              <p className="text-sm font-black text-slate-900 dark:text-slate-100 mt-0.5">{item.card.name}</p>
+              <p className="text-sm font-bold text-slate-900 dark:text-slate-100 mt-0.5">{item.card.name}</p>
               <p className="text-[10px] text-slate-400 dark:text-slate-500">{item.card.nameEn}</p>
             </div>
           </div>
@@ -342,7 +342,7 @@ function CatalogTab() {
     <div className="space-y-4">
       {/* 메이저 아르카나 */}
       <div>
-        <p className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3">메이저 아르카나 — 22장</p>
+        <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3">메이저 아르카나 — 22장</p>
         <div className="grid grid-cols-3 gap-2">
           {majorCards.map(c => (
             <button key={c.id} onClick={() => setSelected(selected?.id === c.id ? null : c)}
@@ -362,7 +362,7 @@ function CatalogTab() {
 
       {/* 마이너 아르카나 */}
       <div>
-        <p className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3">마이너 아르카나 — 56장</p>
+        <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3">마이너 아르카나 — 56장</p>
         <div className="space-y-2">
           {(Object.entries(SUIT_INFO) as [keyof typeof SUIT_INFO, typeof SUIT_INFO[keyof typeof SUIT_INFO]][]).map(([suit, info]) => {
             const cards = MINOR_ARCANA.filter(c => c.suit === suit);
@@ -373,7 +373,7 @@ function CatalogTab() {
                   className="w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
                   <div className="w-8 h-8 rounded-xl flex items-center justify-center text-lg flex-shrink-0" style={{ background: info.color + '22' }}>{info.emoji}</div>
                   <div className="text-left flex-1">
-                    <p className="text-sm font-black text-slate-800 dark:text-slate-100">{info.name} <span className="text-slate-400 dark:text-slate-500 font-normal text-xs">({info.nameEn})</span></p>
+                    <p className="text-sm font-bold text-slate-800 dark:text-slate-100">{info.name} <span className="text-slate-400 dark:text-slate-500 font-normal text-xs">({info.nameEn})</span></p>
                     <p className="text-xs text-slate-400 dark:text-slate-500">{info.theme} · 14장</p>
                   </div>
                   <svg className={`w-4 h-4 text-slate-300 dark:text-slate-600 transition-transform ${open ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -414,7 +414,7 @@ function CatalogTab() {
           <div className="flex items-center gap-3 px-4 py-3" style={{ borderLeft: `4px solid ${selected.color}` }}>
             <div className="w-10 h-10 rounded-xl flex items-center justify-center text-2xl flex-shrink-0" style={{ background: selected.color + '22' }}>{selected.emoji}</div>
             <div className="flex-1">
-              <p className="font-black text-slate-900 dark:text-slate-100 text-sm">{selected.name}</p>
+              <p className="font-bold text-slate-900 dark:text-slate-100 text-sm">{selected.name}</p>
               <p className="text-xs text-slate-400 dark:text-slate-500">{selected.nameEn}</p>
             </div>
             <button onClick={() => setSelected(null)} className="text-slate-300 dark:text-slate-600 hover:text-slate-500 text-lg leading-none">×</button>
@@ -535,7 +535,7 @@ export default function TarotPage() {
           <div className="space-y-4">
             {/* 스프레드 선택 */}
             <div className="space-y-2">
-              <p className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">뽑기 방식</p>
+              <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-widest">뽑기 방식</p>
               <div className="grid grid-cols-2 gap-2">
                 {SPREADS.map(s => (
                   <button key={s.id} onClick={() => handleSpreadChange(s.id)}
@@ -546,9 +546,9 @@ export default function TarotPage() {
                     }`}>
                     <div className="flex items-center gap-2 mb-1">
                       <ToolIcon emoji={s.icon} className="w-4 h-4 text-slate-400 dark:text-slate-500" />
-                      <span className={`text-[10px] font-black px-1.5 py-0.5 rounded-full ${spreadId === s.id ? 'bg-white/25 dark:bg-slate-900/25 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'}`}>{s.count}장</span>
+                      <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${spreadId === s.id ? 'bg-white/25 dark:bg-slate-900/25 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'}`}>{s.count}장</span>
                     </div>
-                    <p className={`text-xs font-black leading-tight ${spreadId === s.id ? 'text-white' : 'text-slate-800 dark:text-slate-100'}`}>{s.label}</p>
+                    <p className={`text-xs font-bold leading-tight ${spreadId === s.id ? 'text-white' : 'text-slate-800 dark:text-slate-100'}`}>{s.label}</p>
                     <p className={`text-[10px] mt-0.5 leading-tight ${spreadId === s.id ? 'text-amber-100' : 'text-slate-400 dark:text-slate-500'}`}>{s.desc}</p>
                   </button>
                 ))}
@@ -557,7 +557,7 @@ export default function TarotPage() {
 
             {/* 덱 선택 */}
             <div className="flex items-center gap-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 flex-1">덱 선택</p>
+              <p className="text-xs font-medium text-slate-500 dark:text-slate-400 flex-1">덱 선택</p>
               <div className="flex gap-1.5">
                 {([false, true] as const).map(isFull => (
                   <button key={String(isFull)} onClick={() => { setFullDeck(isFull); handleReset(); }}
@@ -578,7 +578,7 @@ export default function TarotPage() {
               <div className="mt-4 space-y-2">
                 {!drawn ? (
                   <button onClick={handleDraw}
-                    className="w-full py-4 bg-sec font-black rounded-xl shadow active:scale-[0.98] transition-transform text-sm">
+                    className="w-full py-4 bg-sec font-bold rounded-xl shadow active:scale-[0.98] transition-transform text-sm">
                     ✦ {spread.label} 뽑기 ({spread.count}장)
                   </button>
                 ) : (

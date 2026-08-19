@@ -32,14 +32,14 @@ export default function RockPaperScissors({ lang = 'ko' }: { lang?: RandomLang }
         <div className="rounded-lg border chip-off p-6 mb-5 text-center">
           <div className="flex items-center justify-center gap-6">
             <span className="text-5xl" aria-label={label[mine!]}>{EMOJI[mine!]}</span>
-            <span className="text-sm font-black text-slate-300 dark:text-slate-600">VS</span>
+            <span className="text-sm font-bold text-slate-300 dark:text-slate-600">VS</span>
             <span className="text-5xl" aria-label={label[theirs!]}>{EMOJI[theirs!]}</span>
           </div>
-          <p className={`mt-4 text-xl font-black ${tone}`}>{text}</p>
+          <p className={`mt-4 text-xl font-bold ${tone}`}>{text}</p>
         </div>
       )}
 
-      <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.pickYours}</p>
+      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.pickYours}</p>
       <div className="grid grid-cols-3 gap-2">
         {(['rock', 'paper', 'scissors'] as Hand[]).map(h => (
           <button

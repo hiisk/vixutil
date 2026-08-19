@@ -223,9 +223,9 @@ export default function BodyFatPage() {
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">체지방률</p>
-                  <p className={`text-5xl font-black ${result.level.color}`}>{result.bf.toFixed(1)}%</p>
+                  <p className={`text-5xl font-bold ${result.level.color}`}>{result.bf.toFixed(1)}%</p>
                 </div>
-                <span className={`text-sm font-black px-4 py-2 rounded-xl bg-white dark:bg-slate-900 border ${result.level.color} border-current`}>
+                <span className={`text-sm font-bold px-4 py-2 rounded-xl bg-white dark:bg-slate-900 border ${result.level.color} border-current`}>
                   {result.level.label}
                 </span>
               </div>
@@ -235,11 +235,11 @@ export default function BodyFatPage() {
                   <div className="grid grid-cols-2 gap-x-4 gap-y-5 mb-4">
                     <div className="bg-white dark:bg-slate-900 rounded-xl p-3 border border-slate-100 dark:border-slate-800">
                       <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">체지방량</p>
-                      <p className="text-lg font-black text-slate-800 dark:text-slate-100">{result.fatMass.toFixed(1)} kg</p>
+                      <p className="text-lg font-bold text-slate-800 dark:text-slate-100">{result.fatMass.toFixed(1)} kg</p>
                     </div>
                     <div className="bg-white dark:bg-slate-900 rounded-xl p-3 border border-slate-100 dark:border-slate-800">
                       <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">근육·제지방량</p>
-                      <p className="text-lg font-black text-slate-800 dark:text-slate-100">{result.leanMass.toFixed(1)} kg</p>
+                      <p className="text-lg font-bold text-slate-800 dark:text-slate-100">{result.leanMass.toFixed(1)} kg</p>
                     </div>
                   </div>
                   <RatioBar a={result.leanMass} b={result.fatMass} labelA="근육·제지방" labelB="체지방" />

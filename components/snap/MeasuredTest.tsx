@@ -324,7 +324,7 @@ export default function MeasuredTest({ lang, slug }: { lang: SnapLang; slug: New
       {(r, reset) => (
         <div className="space-y-6">
           <div className="text-center">
-            <div className="text-5xl font-black tabular-nums text-slate-900 dark:text-slate-100">{r.percent}%</div>
+            <div className="text-5xl font-bold tabular-nums text-slate-900 dark:text-slate-100">{r.percent}%</div>
             <p className="mt-2 text-sm font-semibold text-slate-500 dark:text-slate-400">{r.headline}</p>
           </div>
 

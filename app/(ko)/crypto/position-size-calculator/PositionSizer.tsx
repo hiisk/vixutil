@@ -167,12 +167,12 @@ export default function PositionSizer() {
             <div className="flex items-center gap-2.5">
               <CoinLogo base={snap.coin.base} size={28} />
               <div>
-                <p className="text-lg font-black text-slate-900 dark:text-white tabular-nums leading-tight">${formatPrice(snap.price)}</p>
+                <p className="text-lg font-bold text-slate-900 dark:text-white tabular-nums leading-tight">${formatPrice(snap.price)}</p>
                 <p className="text-[11px]"><Pct value={snap.chg24h} /> <span className="text-slate-500 dark:text-slate-400">24h</span></p>
               </div>
             </div>
           )}
-          {state === 'loading' && <span role="status" className="text-xs font-bold text-slate-500 dark:text-slate-400">Loading price…</span>}
+          {state === 'loading' && <span role="status" className="text-xs font-medium text-slate-500 dark:text-slate-400">Loading price…</span>}
           {(state === 'error' || state === 'nodata') && (
             <span className="flex items-center gap-2 text-xs">
               <span className="font-bold text-rose-600 dark:text-rose-400">{state === 'nodata' ? 'Not enough history' : 'Couldn’t load price'}</span>
@@ -266,7 +266,7 @@ export default function PositionSizer() {
             <p className="text-[11px] uppercase tracking-wide text-amber-600 dark:text-amber-400 mb-1">Position size</p>
             <div className="flex flex-wrap items-end gap-x-8 gap-y-3">
               <div>
-                <p className="text-4xl font-black text-slate-900 dark:text-white tabular-nums">{formatPrice(pos.quantity)}</p>
+                <p className="text-4xl font-bold text-slate-900 dark:text-white tabular-nums">{formatPrice(pos.quantity)}</p>
                 <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{coin.base}</p>
               </div>
               <div className="text-sm text-slate-600 dark:text-slate-300">
@@ -278,7 +278,7 @@ export default function PositionSizer() {
               </div>
             </div>
             {pos.exceedsAccount && (
-              <p className="mt-3 text-xs text-amber-800 dark:text-amber-300 bg-amber-100/70 dark:bg-amber-500/10 rounded-xl px-3 py-2">
+              <p className="note-warn mt-3">
                 This notional exceeds your account, so it needs at least <b>{pos.leverageNeeded.toFixed(2)}×</b> leverage to hold.
                 That is a consequence of the stop being tight, not of taking more risk — the loss at stop is unchanged.
               </p>
@@ -288,7 +288,7 @@ export default function PositionSizer() {
           {/* 손절 도달 확률 — 사이즈 계산이 답하지 않는 절반 */}
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
             <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
-              <h2 className="text-sm font-black text-slate-900 dark:text-white">How likely is this stop to be hit anyway?</h2>
+              <h2 className="text-sm font-bold text-slate-900 dark:text-white">How likely is this stop to be hit anyway?</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 Sizing fixes what you lose if the stop is hit. It says nothing about how often that happens — which is the other half.
               </p>
@@ -299,7 +299,7 @@ export default function PositionSizer() {
                   {stopProbs.map((p, i) => (
                     <div key={CHECKPOINTS[i]} className="p-4 text-center">
                       <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">within {CHECKPOINT_LABELS[i]}</p>
-                      <p className={`text-2xl font-black tabular-nums ${riskTone(p)}`}>{isFinite(p) ? `${p.toFixed(1)}%` : '—'}</p>
+                      <p className={`text-2xl font-bold tabular-nums ${riskTone(p)}`}>{isFinite(p) ? `${p.toFixed(1)}%` : '—'}</p>
                     </div>
                   ))}
                 </div>
@@ -321,19 +321,19 @@ export default function PositionSizer() {
           {/* R 배수 */}
           {pos.rMultiple != null && bewr != null && (
             <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-4">
-              <h2 className="text-sm font-black text-slate-900 dark:text-white mb-3">Reward and the win rate it demands</h2>
+              <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-3">Reward and the win rate it demands</h2>
               <div className="grid grid-cols-3 gap-3">
                 <div className="rounded-xl bg-slate-50 dark:bg-slate-950 p-4 text-center">
                   <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Reward</p>
-                  <p className="text-xl font-black text-slate-900 dark:text-white tabular-nums">{pos.rMultiple.toFixed(2)}R</p>
+                  <p className="text-xl font-bold text-slate-900 dark:text-white tabular-nums">{pos.rMultiple.toFixed(2)}R</p>
                 </div>
                 <div className="rounded-xl bg-slate-50 dark:bg-slate-950 p-4 text-center">
                   <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Profit at target</p>
-                  <p className="text-xl font-black text-emerald-600 dark:text-emerald-400 tabular-nums">${formatPrice(pos.targetProfit!)}</p>
+                  <p className="text-xl font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">${formatPrice(pos.targetProfit!)}</p>
                 </div>
                 <div className="rounded-xl bg-slate-50 dark:bg-slate-950 p-4 text-center">
                   <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Breakeven win rate</p>
-                  <p className="text-xl font-black text-slate-900 dark:text-white tabular-nums">{bewr.toFixed(1)}%</p>
+                  <p className="text-xl font-bold text-slate-900 dark:text-white tabular-nums">{bewr.toFixed(1)}%</p>
                 </div>
               </div>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-3 leading-relaxed">
@@ -353,7 +353,7 @@ export default function PositionSizer() {
       )}
 
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
-        <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">Leverage does not set your size</h2>
+        <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-2">Leverage does not set your size</h2>
         <p className="mb-2">
           This is the most common confusion in position sizing. Your size comes from the distance to your stop and the amount you are
           willing to lose — nothing else. Leverage only changes how much margin is locked up to hold that same size. Doubling leverage

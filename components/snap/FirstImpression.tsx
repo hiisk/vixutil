@@ -203,7 +203,7 @@ export default function FirstImpression({ lang }: { lang: SnapIntlLang }) {
           <div className={`bg-gradient-to-br ${result.color} rounded-lg p-6 text-white text-center`}>
             <p className="text-sm font-semibold text-white/80 mb-2">{c.result}</p>
             <div className="text-5xl mb-2">{result.emoji}</div>
-            <p className="text-2xl font-black mb-3">{result.label}</p>
+            <p className="text-2xl font-bold mb-3">{result.label}</p>
             <p className="text-sm leading-relaxed">{result.desc}</p>
             <div className="flex flex-wrap justify-center gap-1.5 mt-4">
               {result.keywords.map(k => (

@@ -50,18 +50,18 @@ export default function AlarmTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
       <div className={`rounded-lg px-6 py-12 text-center transition-colors ${ringing ? 'bg-amber-500' : 'bg-slate-900'}`}>
         {ringing ? (
           <>
-            <p className="text-4xl font-black text-white mb-2">{ui.ringing}</p>
+            <p className="text-4xl font-bold text-white mb-2">{ui.ringing}</p>
             <p className="text-sm text-white/80">{ui.itIsNow(time)}</p>
           </>
         ) : target !== null ? (
           <>
             <p className="text-sm text-white/60 mb-2">{ui.until(tomorrow ? ui.tomorrow : ui.today, time)}</p>
-            <p className="text-5xl sm:text-6xl font-black text-white tabular-nums">{formatDuration(left)}</p>
+            <p className="text-5xl sm:text-6xl font-bold text-white tabular-nums">{formatDuration(left)}</p>
             <p className="text-sm text-white/60 mt-3">{ui.remaining}</p>
           </>
         ) : (
           <>
-            <p className="text-5xl font-black text-white tabular-nums">
+            <p className="text-5xl font-bold text-white tabular-nums">
               {mounted && now ? new Date(now).toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) : '--:--:--'}
             </p>
             <p className="text-sm text-white/60 mt-3">{ui.currentTime}</p>
@@ -70,12 +70,12 @@ export default function AlarmTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
       </div>
 
       <label className="block mt-4">
-        <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">{ui.alarmAt}</span>
+        <span className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">{ui.alarmAt}</span>
         <input
           type="time"
           value={time}
           onChange={e => setTime(e.target.value)}
-          className="w-full rounded-xl border chip-off px-3.5 py-3.5 text-2xl font-black text-slate-800 dark:text-slate-100 tabular-nums text-center focus:outline-none focus:border-amber-400"
+          className="w-full rounded-xl border chip-off px-3.5 py-3.5 text-2xl font-bold text-slate-800 dark:text-slate-100 tabular-nums text-center focus:outline-none focus:border-amber-400"
         />
       </label>
 

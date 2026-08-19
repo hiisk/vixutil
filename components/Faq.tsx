@@ -64,7 +64,7 @@ export default function Faq({
   return (
     <section className={className} aria-label="FAQ">
       <JsonLd data={faqJsonLd(items)} />
-      <h2 className={`text-base font-black mb-3 ${c.heading}`}>
+      <h2 className={`text-base font-bold mb-3 ${c.heading}`}>
         {title ?? (tone === 'dark' ? FAQ_TITLE.en : FAQ_TITLE[lang])}
       </h2>
       {/*

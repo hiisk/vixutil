@@ -180,17 +180,17 @@ export default function GoldBoard() {
           {state === 'ready' && snap && (
             <div className="flex items-center gap-2.5">
               <CoinLogo base={snap.coin.base} size={28} />
-              <span className="text-slate-300 dark:text-slate-600 font-black">vs</span>
+              <span className="text-slate-300 dark:text-slate-600 font-bold">vs</span>
               <span className="text-lg">🥇</span>
               <div>
-                <p className="text-sm font-black text-slate-900 dark:text-white leading-tight">{snap.coin.base} vs Gold</p>
+                <p className="text-sm font-bold text-slate-900 dark:text-white leading-tight">{snap.coin.base} vs Gold</p>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 tabular-nums">
                   {snap.days.toLocaleString()} shared days · {iso(snap.from)} → {iso(snap.to)}
                 </p>
               </div>
             </div>
           )}
-          {state === 'loading' && <span role="status" className="text-xs font-bold text-slate-500 dark:text-slate-400">Reading both histories…</span>}
+          {state === 'loading' && <span role="status" className="text-xs font-medium text-slate-500 dark:text-slate-400">Reading both histories…</span>}
           {(state === 'error' || state === 'nodata') && (
             <span className="flex items-center gap-2 text-xs">
               <span className="font-bold text-rose-600 dark:text-rose-400">
@@ -207,7 +207,7 @@ export default function GoldBoard() {
           {/* 주장 1 — 가치 저장 */}
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
             <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
-              <h2 className="text-sm font-black text-slate-900 dark:text-white">Claim 1 — &quot;a store of value, like gold&quot;</h2>
+              <h2 className="text-sm font-bold text-slate-900 dark:text-white">Claim 1 — &quot;a store of value, like gold&quot;</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Same {snap.days.toLocaleString()} days, same measurements.</p>
             </div>
             <div className="scroll-x overflow-x-auto">
@@ -228,7 +228,7 @@ export default function GoldBoard() {
                     </td>
                     <td className="px-3 py-3 text-right font-bold text-rose-600 dark:text-rose-400">{snap.asset.volPct.toFixed(1)}%</td>
                     <td className="px-3 py-3 text-right font-bold text-amber-600 dark:text-amber-400">{snap.gold.volPct.toFixed(1)}%</td>
-                    <td className="px-4 py-3 text-right font-black text-slate-900 dark:text-white border-l border-slate-200/40 dark:border-slate-700/40">
+                    <td className="px-4 py-3 text-right font-bold text-slate-900 dark:text-white border-l border-slate-200/40 dark:border-slate-700/40">
                       {volRatio.toFixed(1)}×
                     </td>
                   </tr>
@@ -239,7 +239,7 @@ export default function GoldBoard() {
                     </td>
                     <td className="px-3 py-3 text-right font-bold text-rose-600 dark:text-rose-400">−{snap.asset.maxDdPct.toFixed(1)}%</td>
                     <td className="px-3 py-3 text-right font-bold text-amber-600 dark:text-amber-400">−{snap.gold.maxDdPct.toFixed(1)}%</td>
-                    <td className="px-4 py-3 text-right font-black text-slate-900 dark:text-white border-l border-slate-200/40 dark:border-slate-700/40">
+                    <td className="px-4 py-3 text-right font-bold text-slate-900 dark:text-white border-l border-slate-200/40 dark:border-slate-700/40">
                       {snap.gold.maxDdPct !== 0 ? `${(snap.asset.maxDdPct / snap.gold.maxDdPct).toFixed(1)}×` : '—'}
                     </td>
                   </tr>
@@ -254,7 +254,7 @@ export default function GoldBoard() {
                     <td className={`px-3 py-3 text-right font-bold ${snap.gold.totalPct >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
                       {signed(snap.gold.totalPct, 0)}
                     </td>
-                    <td className="px-4 py-3 text-right font-black text-slate-900 dark:text-white border-l border-slate-200/40 dark:border-slate-700/40">
+                    <td className="px-4 py-3 text-right font-bold text-slate-900 dark:text-white border-l border-slate-200/40 dark:border-slate-700/40">
                       {snap.gold.totalPct !== 0 ? `${(snap.asset.totalPct / snap.gold.totalPct).toFixed(1)}×` : '—'}
                     </td>
                   </tr>
@@ -276,7 +276,7 @@ export default function GoldBoard() {
               : verdict === 'hedge' ? 'border-emerald-500/30 bg-emerald-50 dark:bg-emerald-500/[0.07]'
               : 'border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07]'
           }`}>
-            <h2 className={`text-sm font-black mb-1.5 ${
+            <h2 className={`text-sm font-bold mb-1.5 ${
               verdict === 'fails' ? 'text-rose-900 dark:text-rose-200'
                 : verdict === 'hedge' ? 'text-emerald-900 dark:text-emerald-200'
                 : 'text-amber-900 dark:text-amber-200'
@@ -348,7 +348,7 @@ export default function GoldBoard() {
           {/* 관계의 불안정성 */}
           {snap.roll && (
             <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-4">
-              <h2 className="text-sm font-black text-slate-900 dark:text-white mb-1">The relationship does not hold still</h2>
+              <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-1">The relationship does not hold still</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
                 Correlation measured over a rolling {ROLL_WINDOW}-day window, {snap.roll.values.length.toLocaleString()} windows in total.
               </p>
@@ -361,7 +361,7 @@ export default function GoldBoard() {
                 ] as const).map(([label, v]) => (
                   <div key={label} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-3 py-2.5">
                     <p className="text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400">{label}</p>
-                    <p className={`text-lg font-black tabular-nums ${
+                    <p className={`text-lg font-bold tabular-nums ${
                       v > 0.2 ? 'text-rose-600 dark:text-rose-400' : v < -0.2 ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-700 dark:text-slate-200'
                     }`}>
                       {sc(v)}
@@ -382,7 +382,7 @@ export default function GoldBoard() {
       )}
 
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
-        <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">Where the gold price comes from</h2>
+        <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-2">Where the gold price comes from</h2>
         <p className="mb-2">
           Gold here is PAXG, a token redeemable for allocated physical gold, priced on the same exchange and the same daily UTC candles as
           the crypto side. That matters for the comparison: a spot gold feed would close on weekends while crypto keeps trading, and the

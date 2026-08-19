@@ -141,7 +141,7 @@ export default function UnitTempPage() {
                       {UNIT_LABELS[k]}
                       {k === unit && <span className="ml-1 text-xs text-blue-400">(입력)</span>}
                     </span>
-                    <span className={`text-base font-mono ${k === unit ? 'text-blue-700 dark:text-blue-300 font-black' : 'text-slate-900 dark:text-slate-100 font-semibold'}`}>
+                    <span className={`text-base font-mono ${k === unit ? 'text-blue-700 dark:text-blue-300 font-bold' : 'text-slate-900 dark:text-slate-100 font-semibold'}`}>
                       {result[k].toFixed(4)}
                       {k !== 'K' && k !== 'R' ? `°${k}` : k}
                     </span>

@@ -37,7 +37,7 @@ export default function NumberPicker({ lang = 'ko' }: { lang?: RandomLang }) {
 
   const num = (v: number, set: (n: number) => void, label: string) => (
     <label className="flex-1">
-      <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">{label}</span>
+      <span className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">{label}</span>
       <input type="number" value={v} onChange={e => { set(Number(e.target.value) || 0); }}
         className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm text-center text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-400" />
     </label>
@@ -57,7 +57,7 @@ export default function NumberPicker({ lang = 'ko' }: { lang?: RandomLang }) {
 
       <button
         onClick={draw}
-        className="w-full bg-sec font-black text-lg rounded-lg py-4 mb-3 shadow-sm shadow-emerald-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all"
+        className="w-full bg-sec font-bold text-lg rounded-lg py-4 mb-3 shadow-sm shadow-emerald-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all"
       >
         {ui.generate}
       </button>
@@ -73,7 +73,7 @@ export default function NumberPicker({ lang = 'ko' }: { lang?: RandomLang }) {
           <div className="text-xs font-bold text-emerald-100 mb-3">{isLotto ? ui.luckyNumbers : ui.result}</div>
           <div className="flex flex-wrap justify-center gap-2">
             {result.map((n, i) => (
-              <span key={i} className="wc-pop flex items-center justify-center w-12 h-12 rounded-full bg-white text-emerald-700 text-lg font-black" style={{ animationDelay: `${i * 90}ms` }}>
+              <span key={i} className="wc-pop flex items-center justify-center w-12 h-12 rounded-full bg-white text-emerald-700 text-lg font-bold" style={{ animationDelay: `${i * 90}ms` }}>
                 {n}
               </span>
             ))}

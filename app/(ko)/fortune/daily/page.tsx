@@ -59,7 +59,7 @@ export default function DailyFortunePage() {
         </div>
 
         <form onSubmit={submit} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-6">
-          <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">생년월일</label>
+          <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">생년월일</label>
           <div className="grid grid-cols-3 gap-2">
             <input type="number" inputMode="numeric" placeholder="예) 1995" value={form.year}
               onChange={e => setForm({ ...form, year: e.target.value })}
@@ -72,7 +72,7 @@ export default function DailyFortunePage() {
               className="fld focus:border-violet-400" />
           </div>
           {error && <p className="text-xs text-rose-600 dark:text-rose-400 mt-2">{error}</p>}
-          <button type="submit" className="w-full mt-3 rounded-xl bg-sec text-sm font-black py-3.5 transition-all active:scale-[0.99] shadow-sm shadow-violet-200">
+          <button type="submit" className="w-full mt-3 rounded-xl bg-sec text-sm font-bold py-3.5 transition-all active:scale-[0.99] shadow-sm shadow-violet-200">
             오늘의 운세 보기
           </button>
         </form>
@@ -99,7 +99,7 @@ export default function DailyFortunePage() {
         )}
 
         <div className="mt-8 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
-          <h2 className="text-sm font-black text-slate-800 dark:text-slate-100 mb-2">운세는 어떻게 정해지나요?</h2>
+          <h2 className="text-sm font-bold text-slate-800 dark:text-slate-100 mb-2">운세는 어떻게 정해지나요?</h2>
           <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
             생년월일과 오늘 날짜를 섞은 값으로 준비된 운세 문장 중 하나를 고르는 방식이에요.
             그래서 <strong className="text-slate-800 dark:text-slate-100">같은 날, 같은 생일이면 몇 번을 새로고침해도 같은 결과</strong>가

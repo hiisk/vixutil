@@ -44,7 +44,7 @@ export function BrandMark({ id }: { id: string }) {
     return (
       <span className="flex items-center gap-1.5">
         <BinanceMark />
-        <span className="text-[15px] font-black tracking-tight text-slate-900 dark:text-slate-50">BINANCE</span>
+        <span className="text-[15px] font-bold tracking-tight text-slate-900 dark:text-slate-50">BINANCE</span>
       </span>
     );
   }
@@ -193,7 +193,7 @@ export default function ReferralCards({ lang = 'ko', heading, placement = 'secti
           {t.ad}
         </span>
         {/* 제목을 한 단계 키웠다. text-sm은 본문 글씨와 같아서 머리글로 안 읽혔다. */}
-        <h2 className="text-base font-black text-slate-800 dark:text-slate-100">{title}</h2>
+        <h2 className="text-base font-bold text-slate-800 dark:text-slate-100">{title}</h2>
       </div>
       {/* 무엇을 얻는지 한 줄 — 제목만 있으면 "그래서 뭘 얻는데?"에 답이 없다 */}
       <p className="mb-4 text-xs leading-relaxed text-slate-500 dark:text-slate-400">{t.why}</p>
@@ -251,7 +251,7 @@ export default function ReferralCards({ lang = 'ko', heading, placement = 'secti
                       🏆 {copy.rankLabel}
                     </span>
                   </span>
-                  <span className={`mt-1.5 block font-black leading-none tabular-nums text-slate-900 dark:text-slate-50 ${top ? 'text-[26px]' : 'text-[22px]'}`}>
+                  <span className={`mt-1.5 block font-bold leading-none tabular-nums text-slate-900 dark:text-slate-50 ${top ? 'text-[26px]' : 'text-[22px]'}`}>
                     {copy.bonus}
                   </span>
                   <span className="mt-1.5 block text-xs leading-relaxed text-slate-600 dark:text-slate-400">

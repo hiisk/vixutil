@@ -40,7 +40,7 @@ export default function SalaryLeaf({ manwon }: { manwon: number }) {
 
         <div className="mt-4 rounded-lg bg-sec p-6 ">
           <p className="text-blue-100 text-xs mb-1">월 실수령액</p>
-          <p className="text-4xl font-black leading-none tabular-nums">{won(r.netMonthly)}원</p>
+          <p className="text-4xl font-bold leading-none tabular-nums">{won(r.netMonthly)}원</p>
           <p className="mt-2 text-sm text-blue-100">
             세전 월 {won(r.monthly)}원에서 {won(r.totalDeduction)}원({r.effectiveRate.toFixed(1)}%)이 빠집니다.
           </p>

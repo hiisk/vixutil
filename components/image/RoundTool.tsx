@@ -87,8 +87,8 @@ export default function RoundTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
 
       <div className="mt-4 rounded-lg border chip-off p-5">
         <div className="flex items-baseline justify-between mb-1.5">
-          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.radius}</span>
-          <span className="text-sm font-black text-violet-600 tabular-nums">{radius}%</span>
+          <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{ui.radius}</span>
+          <span className="text-sm font-bold text-violet-600 tabular-nums">{radius}%</span>
         </div>
         <input
           type="range" min={0} max={100} value={radius}

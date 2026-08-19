@@ -107,7 +107,7 @@ export default function PokerHubPage({ lang }: { lang: Lang }) {
             return (
               <div key={tier} className="mb-7">
                 <div className="flex items-baseline gap-2 mb-1">
-                  <h3 className="text-sm font-black text-emerald-700 dark:text-emerald-400">{ui.tier[tier]}</h3>
+                  <h3 className="text-sm font-bold text-emerald-700 dark:text-emerald-400">{ui.tier[tier]}</h3>
                   <span className="text-[11px] text-slate-400 dark:text-slate-500 tabular-nums">{tiers[tier]}</span>
                 </div>
                 <p className="text-xs text-slate-400 dark:text-slate-500 mb-2 leading-relaxed">{ui.tierNote[tier]}</p>

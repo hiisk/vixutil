@@ -70,7 +70,7 @@ export default function SplitTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
   return (
     <div>
       <div className="rounded-lg border chip-off p-5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.grid}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.grid}</p>
         <div className="grid grid-cols-3 gap-2">
           {GRIDS.map(([c, r]) => (
             <button
@@ -99,7 +99,7 @@ export default function SplitTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
               <button key={p.index} onClick={() => saveOne(p)} className="relative group" aria-label={`${ui.saveOne} ${p.index + 1}`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={p.url} alt={`${p.index + 1}`} className="w-full h-full object-cover" />
-                <span className="absolute top-1 left-1 text-[10px] font-black text-white bg-black/50 rounded px-1.5 py-0.5">
+                <span className="absolute top-1 left-1 text-[10px] font-bold text-white bg-black/50 rounded px-1.5 py-0.5">
                   {p.index + 1}
                 </span>
                 <span className="absolute inset-0 bg-violet-600/0 group-hover:bg-violet-600/25 transition-colors" />
@@ -111,7 +111,7 @@ export default function SplitTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
             <button
               onClick={() => pieces.forEach(saveOne)}
               disabled={busy}
-              className="flex-1 rounded-xl bg-violet-600 hover:bg-violet-700 disabled:opacity-50 text-white py-3 text-sm font-black transition-colors"
+              className="flex-1 rounded-xl bg-violet-600 hover:bg-violet-700 disabled:opacity-50 text-white py-3 text-sm font-bold transition-colors"
             >
               {busy ? common.working : `${ui.saveAll} (${pieces.length}${ui.tiles})`}
             </button>

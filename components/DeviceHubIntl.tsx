@@ -31,7 +31,7 @@ export default function DeviceHubIntl({ lang }: { lang: DeviceIntlLang }) {
 
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center gap-4">
-          <Link href={`/${lang}`} className="font-black text-sky-600 text-lg shrink-0">vixutil</Link>
+          <Link href={`/${lang}`} className="font-bold text-sky-600 text-lg shrink-0">vixutil</Link>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{ui.section}</span>
           <span className="ml-auto shrink-0">
             <LangPicker current={lang} route="/device" />
@@ -62,7 +62,7 @@ export default function DeviceHubIntl({ lang }: { lang: DeviceIntlLang }) {
                     <ToolIcon emoji={t.icon} className="h-5 w-5" />
                   </span>
                   <span>
-                    <span className="block text-base font-black drop-shadow leading-tight">{t.title}</span>
+                    <span className="block text-base font-bold drop-shadow leading-tight">{t.title}</span>
                     <span className="block text-[11px] font-medium opacity-80 mt-1 line-clamp-2">{t.desc}</span>
                   </span>
                 </Link>
@@ -79,7 +79,7 @@ export default function DeviceHubIntl({ lang }: { lang: DeviceIntlLang }) {
             <ToolIcon emoji={SCREEN_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />
           </span>
           <span className="min-w-0">
-            <span className="block text-sm font-black text-slate-800 dark:text-slate-100">
+            <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">
               {screenUi.hubTitle}
             </span>
             <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5">{screenUi.hubLead}</span>
@@ -90,7 +90,7 @@ export default function DeviceHubIntl({ lang }: { lang: DeviceIntlLang }) {
       </div>
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
-        <span className="text-sm font-black text-sky-600">vixutil</span>
+        <span className="text-sm font-bold text-sky-600">vixutil</span>
         <p className="text-xs text-slate-400 mt-1">{ui.hubFoot}</p>
       </footer>
     </div>

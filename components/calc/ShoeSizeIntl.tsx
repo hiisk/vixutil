@@ -108,7 +108,7 @@ export default function ShoeSizeIntl({ lang }: { lang: CalcLang }) {
             <div className="px-5 py-3 border-b border-slate-100 dark:border-slate-800">
               <p className="label-caps">{c.chart}</p>
             </div>
-            <div className="px-5 py-3 border-b border-slate-100 dark:border-slate-800 grid grid-cols-6 text-xs font-bold text-slate-500 dark:text-slate-400">
+            <div className="px-5 py-3 border-b border-slate-100 dark:border-slate-800 grid grid-cols-6 text-xs font-medium text-slate-500 dark:text-slate-400">
               <span>mm</span>
               <span className="text-right">{c.cmCol}</span>
               <span className="text-right">EU</span>

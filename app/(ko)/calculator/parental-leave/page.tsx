@@ -197,7 +197,7 @@ export default function ParentalLeavePage() {
                   <span className="font-bold text-slate-900 dark:text-slate-100">월 {fmt(r.monthly)}원</span>
                 </div>
               ))}
-              <div className="flex justify-between items-center text-sm pt-1 font-black">
+              <div className="flex justify-between items-center text-sm pt-1 font-bold">
                 <span className="text-slate-700 dark:text-slate-200">합계</span>
                 <span className="text-violet-700 dark:text-violet-300">{fmt(result.total)}원</span>
               </div>

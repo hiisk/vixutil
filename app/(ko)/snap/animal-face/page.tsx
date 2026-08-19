@@ -220,7 +220,7 @@ export default function AnimalFacePage() {
           <p className="text-slate-500 dark:text-slate-400 text-sm">실제 얼굴 인식으로 눈매·얼굴형을 분석해 동물상을 찾아드려요</p>
         </div>
 
-        <div className="bg-orange-50 dark:bg-orange-950/30 border border-orange-100 dark:border-orange-900/40 rounded-lg p-4 mb-6 text-xs text-orange-800 dark:text-orange-300 leading-relaxed">
+        <div className="note-warn mb-6">
           <p className="font-bold mb-1">🔒 사진은 서버에 전송되지 않아요</p>
           <p>눈매·얼굴형·눈 크기·턱선은 이 브라우저 안에서 실제로 측정되고, 12가지 동물 기준값과 비교해 가장 가까운 동물상을 찾아드려요. 결과는 재미로만 봐주세요.</p>
         </div>
@@ -291,13 +291,13 @@ export default function AnimalFacePage() {
                 <ShareBtn />
               </div>
               <div className="text-5xl mb-2">{result.emoji}</div>
-              <p className="text-xl font-black mb-1">{result.label}</p>
+              <p className="text-xl font-bold mb-1">{result.label}</p>
               <p className="text-sm font-semibold text-white/80 mb-3">일치도 {result.matchPercent}%</p>
               <p className="text-sm leading-relaxed">{result.text}</p>
             </div>
 
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4 flex items-center justify-between">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400">두 번째로 가까운 상</p>
+              <p className="text-xs font-medium text-slate-500 dark:text-slate-400">두 번째로 가까운 상</p>
               <p className="text-sm font-bold text-slate-700 dark:text-slate-200">{result.runnerUp.emoji} {result.runnerUp.label} <span className="text-slate-400 dark:text-slate-500 font-semibold">{result.runnerUp.percent}%</span></p>
             </div>
 

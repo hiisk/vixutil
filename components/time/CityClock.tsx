@@ -35,7 +35,7 @@ export default function CityClock({ zone, locale }: { zone: string; locale: stri
 
   return (
     <div data-city-clock={zone}>
-      <p className="text-4xl sm:text-5xl font-black text-slate-900 dark:text-slate-100 tabular-nums tracking-tight">
+      <p className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-slate-100 tabular-nums tracking-tight">
         {time}
       </p>
       <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 min-h-[1rem]">{date}</p>

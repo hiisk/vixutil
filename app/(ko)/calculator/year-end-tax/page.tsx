@@ -185,7 +185,7 @@ export default function YearEndTaxPage() {
               <p className={`text-xs mb-1 ${refunding ? 'text-blue-200' : 'text-rose-200'}`}>
                 {refunding ? '예상 환급액' : '예상 추가납부액'}
               </p>
-              <p className="text-white text-3xl font-black">{fmt(Math.abs(result.totalRefund))}원</p>
+              <p className="text-white text-3xl font-bold">{fmt(Math.abs(result.totalRefund))}원</p>
               <p className={`text-xs mt-1 ${refunding ? 'text-blue-200' : 'text-rose-200'}`}>
                 소득세 {fmt(Math.abs(result.refund))}원 + 지방소득세 {fmt(Math.abs(result.localRefund))}원
               </p>

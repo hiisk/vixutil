@@ -55,7 +55,7 @@ export default function FormulaHub({ lang, section }: { lang: FormulaLang; secti
           <div className="hero-band">
             <PageHero title={meta.hubTitle} desc={meta.hubLead} />
           </div>
-          <p className="mt-4 inline-block rounded-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-2 text-xs font-bold text-slate-500 dark:text-slate-400">
+          <p className="mt-4 inline-block rounded-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-2 text-xs font-medium text-slate-500 dark:text-slate-400">
             {meta.hubNotice}
           </p>
         </div>

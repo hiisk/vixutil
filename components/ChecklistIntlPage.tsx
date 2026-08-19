@@ -75,7 +75,7 @@ export function ChecklistIntlHub({ lang }: { lang: ChecklistIntlLang }) {
       <div className="h-1 topbar" />
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center gap-4">
-          <Link prefetch={false} href={`/${lang}/checklist`} className="font-black text-sky-600 text-lg shrink-0">vixutil</Link>
+          <Link prefetch={false} href={`/${lang}/checklist`} className="font-bold text-sky-600 text-lg shrink-0">vixutil</Link>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{ui.nav}</span>
           <span className="ml-auto flex items-center gap-2">
             <LangPicker current={lang} route="/checklist" available={HUB_LANGS} />
@@ -111,7 +111,7 @@ export function ChecklistIntlHub({ lang }: { lang: ChecklistIntlLang }) {
       </div>
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
-        <span className="text-sm font-black text-sky-600">vixutil</span>
+        <span className="text-sm font-bold text-sky-600">vixutil</span>
         <p className="text-xs text-slate-400 mt-1">{ui.foot}</p>
       </footer>
     </div>
@@ -157,7 +157,7 @@ export function ChecklistIntlDetail({ lang, checklist }: { lang: ChecklistIntlLa
         <Faq items={checklistFaqIntl(lang, checklist)} lang={lang} className="" />
       </div>
       <div className="max-w-lg mx-auto px-4 w-full pb-10 pt-8">
-        <h2 className="text-sm font-black text-slate-700 dark:text-slate-200 mb-3">{ui.more}</h2>
+        <h2 className="text-sm font-bold text-slate-700 dark:text-slate-200 mb-3">{ui.more}</h2>
         <div className="grid grid-cols-2 gap-2">
           {others.map(o => (
             <Link prefetch={false} key={o.slug} href={`/${lang}/checklist/${o.slug}`}
@@ -169,7 +169,7 @@ export function ChecklistIntlDetail({ lang, checklist }: { lang: ChecklistIntlLa
         </div>
       </div>
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
-        <Link prefetch={false} href={`/${lang}/checklist`} className="text-sm font-black text-sky-600">vixutil</Link>
+        <Link prefetch={false} href={`/${lang}/checklist`} className="text-sm font-bold text-sky-600">vixutil</Link>
         <p className="text-xs text-slate-400 mt-1">{ui.foot}</p>
       </footer>
     </>

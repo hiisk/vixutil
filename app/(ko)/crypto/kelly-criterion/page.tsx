@@ -68,7 +68,7 @@ export default function KellyPage() {
           자바스크립트 없는 크롤러에겐 아래 본문이 페이지의 실질 내용이다.
         */}
         <section className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
-          <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">Optimal, and almost never advisable</h2>
+          <h2 className="text-base font-bold text-slate-900 dark:text-white mb-3">Optimal, and almost never advisable</h2>
           <p className="mb-3">
             The Kelly criterion answers a narrow question precisely: given a known edge, what fraction of capital maximises the long-run
             growth rate? The formula is (p·b − q) ÷ b, and betting more than it prescribes lowers growth rather than raising it. That much is

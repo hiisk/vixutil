@@ -70,7 +70,7 @@ export default function BloodTypePage() {
               }`}
             >
               <div className="text-xl mb-0.5">{t.emoji}</div>
-              <p className={`text-sm font-black ${selected === t.id ? 'text-white' : 'text-slate-800 dark:text-slate-100'}`}>{t.name}</p>
+              <p className={`text-sm font-bold ${selected === t.id ? 'text-white' : 'text-slate-800 dark:text-slate-100'}`}>{t.name}</p>
             </button>
           ))}
         </div>
@@ -102,7 +102,7 @@ export default function BloodTypePage() {
           앞뒤가 안 맞으니, 재미로 보라는 말을 눈에 띄는 자리에 적어둔다.
         */}
         <div className="mt-8 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
-          <h2 className="text-sm font-black text-slate-800 dark:text-slate-100 mb-2">혈액형으로 성격을 알 수 있나요?</h2>
+          <h2 className="text-sm font-bold text-slate-800 dark:text-slate-100 mb-2">혈액형으로 성격을 알 수 있나요?</h2>
           <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
             아닙니다. 혈액형과 성격의 관련성은 여러 차례 검증됐지만 일관된 연관은 확인되지 않았습니다.
             혈액형 성격론이 잘 들어맞는 것처럼 느껴지는 이유는 <strong className="text-slate-800 dark:text-slate-100">바넘 효과</strong> 때문입니다 —

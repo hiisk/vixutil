@@ -68,7 +68,7 @@ export default function FearGreedPage() {
           그리므로 자바스크립트를 실행하지 않는 크롤러에겐 빈 껍데기로 보인다.
         */}
         <section className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
-          <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">A number, and then the obvious question</h2>
+          <h2 className="text-base font-bold text-slate-900 dark:text-white mb-3">A number, and then the obvious question</h2>
           <p className="mb-3">
             The Fear &amp; Greed Index compresses volatility, momentum and volume, social activity, Bitcoin dominance and search interest into a
             single reading from 0 to 100. Plenty of sites display it. Almost none answer the question anybody actually has on seeing it, which is

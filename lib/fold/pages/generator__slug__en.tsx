@@ -58,7 +58,7 @@ export function build(lang: FoldLang) {
 
           {/* Simple English SEO copy */}
           <section className="prose-sm text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-8">
-            <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-2">About this {gen.title.toLowerCase()}</h2>
+            <h2 className="text-base font-bold text-slate-800 dark:text-slate-100 mb-2">About this {gen.title.toLowerCase()}</h2>
             <p>
               This free {gen.title.toLowerCase()} instantly creates unique, ready-to-use ideas.
               Tap <strong>Generate</strong> as many times as you like, reroll any single result,
@@ -67,7 +67,7 @@ export function build(lang: FoldLang) {
             </p>
           </section>
 
-          <h2 className="text-sm font-black text-slate-700 dark:text-slate-200 mb-3">More generators</h2>
+          <h2 className="text-sm font-bold text-slate-700 dark:text-slate-200 mb-3">More generators</h2>
           <div className="grid grid-cols-3 gap-2">
             {others.map(o => (
               <Link key={o.slug} href={`/en/generator/${o.slug}`} className="rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-3 text-center hover:-translate-y-0.5 hover:shadow transition-all">
@@ -79,7 +79,7 @@ export function build(lang: FoldLang) {
         </div>
 
         <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
-          <Link href="/en/generator" className="text-sm font-black text-emerald-600">vixutil</Link>
+          <Link href="/en/generator" className="text-sm font-bold text-emerald-600">vixutil</Link>
           <p className="text-xs text-slate-400 mt-1">Free online generators · <Link href={`/generator/${slug}`} className="hover:text-emerald-600" hrefLang="ko">한국어</Link></p>
         </footer>
       </>

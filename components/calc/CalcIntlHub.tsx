@@ -43,7 +43,7 @@ export default function CalcIntlHub({ lang }: { lang: CalcLang }) {
 
         <header className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-10">
           <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
-            <Link href={localeHref(lang, '/')} className="font-black text-blue-600 text-lg shrink-0">vixutil</Link>
+            <Link href={localeHref(lang, '/')} className="font-bold text-blue-600 text-lg shrink-0">vixutil</Link>
             <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{ui.calculators}</span>
             <span className="ml-auto shrink-0">
               <LangPicker current={lang} route="/calculator" available={ALL_LOCALES10} />

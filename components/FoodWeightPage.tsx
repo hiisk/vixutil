@@ -104,7 +104,7 @@ export default function FoodWeightPage({ ing, lang }: { ing: Ingredient; lang: L
           <div className="grid grid-cols-2 gap-2 max-w-md mx-auto">
             {volumes.filter(v => v.hero).map(v => (
               <div key={v.label} className="rounded-lg border border-amber-200 dark:border-amber-900/50 bg-amber-50 dark:bg-amber-950/30 px-3 py-3">
-                <p className="text-2xl font-black text-amber-900 dark:text-amber-200 tabular-nums">
+                <p className="text-2xl font-bold text-amber-900 dark:text-amber-200 tabular-nums">
                   {v.grams}
                   <span className="text-sm font-bold ml-0.5">{ui.gram}</span>
                 </p>
@@ -122,7 +122,7 @@ export default function FoodWeightPage({ ing, lang }: { ing: Ingredient; lang: L
                   <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400 w-3/5">
                     {v.label}
                   </th>
-                  <td className="px-4 py-3 font-black text-slate-800 dark:text-slate-100 tabular-nums">
+                  <td className="px-4 py-3 font-bold text-slate-800 dark:text-slate-100 tabular-nums">
                     {v.grams} {ui.gram}
                   </td>
                 </tr>
@@ -131,7 +131,7 @@ export default function FoodWeightPage({ ing, lang }: { ing: Ingredient; lang: L
                 <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400">
                   {ui.densityLabel}
                 </th>
-                <td className="px-4 py-3 font-black text-slate-800 dark:text-slate-100 tabular-nums">
+                <td className="px-4 py-3 font-bold text-slate-800 dark:text-slate-100 tabular-nums">
                   {f.gPerL} {ui.gram}/L
                 </td>
               </tr>
@@ -145,7 +145,7 @@ export default function FoodWeightPage({ ing, lang }: { ing: Ingredient; lang: L
             {f.cupTable.map(r => (
               <div key={r.label} className="rounded-xl border chip-off px-2 py-2.5 text-center">
                 <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500">{ui.cupOf(r.label)}</p>
-                <p className="text-sm font-black text-slate-800 dark:text-slate-100 tabular-nums mt-0.5">
+                <p className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums mt-0.5">
                   {r.grams}{ui.gram}
                 </p>
               </div>
@@ -154,7 +154,7 @@ export default function FoodWeightPage({ ing, lang }: { ing: Ingredient; lang: L
         </section>
 
         <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-3.5">
-          <h2 className="text-sm font-black text-slate-700 dark:text-slate-200 mb-1">{ui.per100gTitle}</h2>
+          <h2 className="text-sm font-bold text-slate-700 dark:text-slate-200 mb-1">{ui.per100gTitle}</h2>
           <p className="text-sm text-slate-600 dark:text-slate-300 tabular-nums">
             100 {ui.gram} = {ui.cupOf(String(f.cupsPer100g))} · {f.mlPer100g} ml
           </p>
@@ -183,7 +183,7 @@ export default function FoodWeightPage({ ing, lang }: { ing: Ingredient; lang: L
                   className="flex items-center justify-between gap-3 rounded-xl border chip-off px-4 py-3 hover:shadow-sm transition-all"
                 >
                   <span className="text-sm font-bold text-slate-800 dark:text-slate-100 truncate">{s.name[lang]}</span>
-                  <span className="text-xs font-black text-slate-500 dark:text-slate-400 tabular-nums shrink-0">
+                  <span className="text-xs font-medium text-slate-500 dark:text-slate-400 tabular-nums shrink-0">
                     {sf.grams.cupUs}{ui.gram}
                   </span>
                 </Link>

@@ -118,7 +118,7 @@ export default function SalaryPage() {
                 </Section>
                 <div className="px-5 py-3.5 bg-slate-50 dark:bg-slate-950 flex justify-between items-center">
                   <span className="text-sm font-bold text-slate-800 dark:text-slate-100">총 공제액</span>
-                  <span className="font-black text-red-500">-{fmt(result.totalDeduction)}원</span>
+                  <span className="font-bold text-red-500">-{fmt(result.totalDeduction)}원</span>
                 </div>
               </div>
               <div className="px-5 py-3 border-t border-slate-100 dark:border-slate-800">

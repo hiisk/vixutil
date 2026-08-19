@@ -128,12 +128,12 @@ export default function DcaCalculator() {
             <div className="flex items-center gap-2.5">
               <CoinLogo base={snap.coin.base} size={28} />
               <div>
-                <p className="text-lg font-black text-slate-900 dark:text-white tabular-nums leading-tight">${formatPrice(snap.price)}</p>
+                <p className="text-lg font-bold text-slate-900 dark:text-white tabular-nums leading-tight">${formatPrice(snap.price)}</p>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400">{snap.closes.length.toLocaleString()} daily closes</p>
               </div>
             </div>
           )}
-          {state === 'loading' && <span role="status" className="text-xs font-bold text-slate-500 dark:text-slate-400">Loading history…</span>}
+          {state === 'loading' && <span role="status" className="text-xs font-medium text-slate-500 dark:text-slate-400">Loading history…</span>}
           {(state === 'error' || state === 'nodata') && (
             <span className="flex items-center gap-2 text-xs">
               <span className="font-bold text-rose-600 dark:text-rose-400">
@@ -194,8 +194,8 @@ export default function DcaCalculator() {
             </p>
             <div className="flex flex-wrap items-end gap-x-8 gap-y-3">
               <div>
-                <p className="text-4xl font-black text-slate-900 dark:text-white tabular-nums">{money(recent.dca.finalValue)}</p>
-                <p className={`text-sm font-black tabular-nums ${roiCls(recent.dca.roiPct)}`}>{signed(recent.dca.roiPct)}</p>
+                <p className="text-4xl font-bold text-slate-900 dark:text-white tabular-nums">{money(recent.dca.finalValue)}</p>
+                <p className={`text-sm font-bold tabular-nums ${roiCls(recent.dca.roiPct)}`}>{signed(recent.dca.roiPct)}</p>
               </div>
               <div className="text-sm text-slate-600 dark:text-slate-300">
                 <p>You would have invested <b className="tabular-nums">{money(recent.dca.invested)}</b> over {recent.dca.buys} buys</p>
@@ -210,7 +210,7 @@ export default function DcaCalculator() {
           {dist && (
             <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
               <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
-                <h2 className="text-sm font-black text-slate-900 dark:text-white">Was that a lucky window?</h2>
+                <h2 className="text-sm font-bold text-slate-900 dark:text-white">Was that a lucky window?</h2>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                   The same strategy run from <b className="text-slate-700 dark:text-slate-200">every possible start date</b> in {coin.base}&apos;s history —
                   {' '}{dist.windows.toLocaleString()} of them. One start date is a story; the spread is the evidence.
@@ -235,7 +235,7 @@ export default function DcaCalculator() {
                 ].map(([label, v]) => (
                   <div key={label as string} className="p-4 text-center">
                     <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">{label as string}</p>
-                    <p className={`text-lg font-black tabular-nums ${roiCls(v as number)}`}>{signed(v as number)}</p>
+                    <p className={`text-lg font-bold tabular-nums ${roiCls(v as number)}`}>{signed(v as number)}</p>
                   </div>
                 ))}
               </div>
@@ -272,18 +272,18 @@ export default function DcaCalculator() {
           {/* DCA vs 일시불 */}
           {recent.lump != null && (
             <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-4">
-              <h2 className="text-sm font-black text-slate-900 dark:text-white mb-1">DCA vs putting it all in at the start</h2>
+              <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-1">DCA vs putting it all in at the start</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
                 Same total money, same window — one spread out, one invested on day one.
               </p>
               <div className="grid grid-cols-2 gap-3">
                 <div className="rounded-xl border border-amber-200 dark:border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-4">
                   <p className="text-[11px] uppercase tracking-wide text-amber-700 dark:text-amber-400 mb-1">DCA</p>
-                  <p className={`text-2xl font-black tabular-nums ${roiCls(recent.dca.roiPct)}`}>{signed(recent.dca.roiPct)}</p>
+                  <p className={`text-2xl font-bold tabular-nums ${roiCls(recent.dca.roiPct)}`}>{signed(recent.dca.roiPct)}</p>
                 </div>
                 <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-4">
                   <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Lump sum</p>
-                  <p className={`text-2xl font-black tabular-nums ${roiCls(recent.lump)}`}>{signed(recent.lump)}</p>
+                  <p className={`text-2xl font-bold tabular-nums ${roiCls(recent.lump)}`}>{signed(recent.lump)}</p>
                 </div>
               </div>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-3 leading-relaxed">
@@ -304,7 +304,7 @@ export default function DcaCalculator() {
       )}
 
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
-        <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">What this backtest does and does not include</h2>
+        <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-2">What this backtest does and does not include</h2>
         <p className="mb-2">
           Buys happen at the daily close from Binance, with no trading fees, no spread and no slippage. Real exchange fees would lower every
           figure here by roughly the fee rate. Past prices are also survivorship-filtered by definition: coins that collapsed and were delisted

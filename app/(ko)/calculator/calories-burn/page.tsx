@@ -150,12 +150,12 @@ export default function CaloriesBurnPage() {
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <p className="text-xs text-orange-400 mb-1">소모 칼로리</p>
-                  <p className="text-5xl font-black text-orange-600">{Math.round(result.kcal)}</p>
+                  <p className="text-5xl font-bold text-orange-600">{Math.round(result.kcal)}</p>
                   <p className="text-sm text-orange-400">kcal</p>
                 </div>
                 <div className="text-right">
                   <p className="text-xs text-orange-400 mb-1">지방 소모량</p>
-                  <p className="text-3xl font-black text-orange-500">{result.fatGram.toFixed(1)}</p>
+                  <p className="text-3xl font-bold text-orange-500">{result.fatGram.toFixed(1)}</p>
                   <p className="text-sm text-orange-400">g</p>
                 </div>
               </div>

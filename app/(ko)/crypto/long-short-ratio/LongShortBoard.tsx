@@ -105,7 +105,7 @@ export default function LongShortBoard() {
     <>
       {/* 세 가지가 다른 것을 잰다는 점을 먼저 밝힌다 */}
       <div className="rounded-lg border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
-        <h2 className="text-sm font-black text-amber-900 dark:text-amber-200 mb-1.5">Counting people is not counting money</h2>
+        <h2 className="text-sm font-bold text-amber-900 dark:text-amber-200 mb-1.5">Counting people is not counting money</h2>
         <p className="text-xs text-amber-900/85 dark:text-amber-200/85 leading-relaxed">
           Binance publishes three different ratios and most sites pick one and call it &quot;the&quot; long/short ratio. The account ratio counts
           how many traders sit on each side; the top-trader position ratio weights by how much money is actually there. When many small
@@ -165,7 +165,7 @@ export default function LongShortBoard() {
                         {slug ? (
                           <Link href={`/crypto/${slug}/price-prediction`} className="font-bold text-slate-800 dark:text-slate-100 hover:text-amber-600 dark:hover:text-amber-400">{r.base}</Link>
                         ) : <span className="font-bold text-slate-800 dark:text-slate-100">{r.base}</span>}
-                        <span className={`text-[10px] font-black px-1.5 py-0.5 rounded ${CROWD_UI[c].cls}`}>{CROWD_UI[c].label}</span>
+                        <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${CROWD_UI[c].cls}`}>{CROWD_UI[c].label}</span>
                       </span>
                     </td>
                     <td className="px-3 py-2.5 min-w-[150px]">
@@ -207,7 +207,7 @@ export default function LongShortBoard() {
 
       {/* 검증할 수 없다는 사실을 숨기지 않는다 */}
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
-        <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">Why there is no backtest on this page</h2>
+        <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-2">Why there is no backtest on this page</h2>
         <p className="mb-2">
           Other pages on this site test the popular claim rather than repeating it — the fear and greed index gets a direct measurement of whether
           buying the fear paid. The obvious equivalent here is &quot;fade the crowd&quot;: when accounts pile onto one side, does the price go the

@@ -78,7 +78,7 @@ export default function StroopGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
         }`}
       >
         {playing && trial ? (
-          <span className="text-5xl font-black" style={{ color: STROOP_HEX[trial.ink] }}>
+          <span className="text-5xl font-bold" style={{ color: STROOP_HEX[trial.ink] }}>
             {LABEL[trial.word]}
           </span>
         ) : left === 0 && right + wrong > 0 ? (
@@ -94,7 +94,7 @@ export default function StroopGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
             <button
               key={o}
               onClick={() => answer(o)}
-              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-4 text-base font-black text-slate-700 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-700 active:scale-[0.98] transition-all"
+              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-4 text-base font-bold text-slate-700 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-700 active:scale-[0.98] transition-all"
             >
               {LABEL[o]}
             </button>

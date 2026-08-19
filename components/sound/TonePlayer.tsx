@@ -99,7 +99,7 @@ export default function TonePlayer({
         type="button"
         onClick={playing ? stop : start}
         aria-pressed={playing}
-        className={`w-full max-w-xs h-14 rounded-lg font-black text-white text-base shadow-sm transition-all active:scale-95 ${
+        className={`w-full max-w-xs h-14 rounded-lg font-bold text-white text-base shadow-sm transition-all active:scale-95 ${
           playing
             ? 'bg-sec'
             : 'bg-sec hover:-translate-y-0.5'
@@ -127,7 +127,7 @@ export default function TonePlayer({
           className="flex-1 accent-emerald-500"
           data-volume
         />
-        <span className="text-[11px] font-black text-slate-500 dark:text-slate-400 tabular-nums w-8 text-right">
+        <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 tabular-nums w-8 text-right">
           {Math.round((volume / 0.5) * 100)}
         </span>
       </label>

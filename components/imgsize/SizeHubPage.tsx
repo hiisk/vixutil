@@ -69,7 +69,7 @@ export default function SizeHubPage({ lang }: { lang: Lang }) {
           <section key={kind} className="mb-8">
             <h2 className="sec-h2-tight">
               {ui.kindLabel[kind]}
-              <span className="ml-1.5 text-xs font-bold text-slate-400 dark:text-slate-500">{sizesOfKind(kind).length}</span>
+              <span className="ml-1.5 text-xs font-medium text-slate-400 dark:text-slate-500">{sizesOfKind(kind).length}</span>
             </h2>
             <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.kindNote[kind]}</p>
             <div className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
@@ -83,7 +83,7 @@ export default function SizeHubPage({ lang }: { lang: Lang }) {
                   >
                     <span className="text-sm font-bold text-slate-800 dark:text-slate-100 truncate">{x.name}</span>
                     <span className="text-right shrink-0">
-                      <span className="block text-sm font-black text-pink-600 dark:text-pink-400 tabular-nums">{x.w}×{x.h}</span>
+                      <span className="block text-sm font-bold text-pink-600 dark:text-pink-400 tabular-nums">{x.w}×{x.h}</span>
                       <span className="block text-[11px] text-slate-400 dark:text-slate-500">{f.ratioLabel}</span>
                     </span>
                   </Link>

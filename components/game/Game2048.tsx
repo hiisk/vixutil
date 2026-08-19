@@ -140,7 +140,7 @@ export default function Game2048({ lang = 'ko' }: { lang?: GameLang } = {}) {
                 <div
                   /* 수가 바뀔 때마다 새로 붙어야 짧은 움직임이 다시 돈다 */
                   key={`${game.moves}-${v}`}
-                  className={`flex h-full w-full items-center justify-center rounded-xl font-black tabular-nums ${tileClass(v)} ${sizeClass(v)} ${
+                  className={`flex h-full w-full items-center justify-center rounded-xl font-bold tabular-nums ${tileClass(v)} ${sizeClass(v)} ${
                     i === game.spawnAt ? 'tile-in' : game.merged.includes(i) ? 'tile-pop' : ''
                   }`}
                 >

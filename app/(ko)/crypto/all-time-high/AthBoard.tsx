@@ -26,7 +26,7 @@ const slugOf = (base: string) => COINS.find(c => c.base === base)?.slug ?? null;
 
 /** 하락 폭에 따라 강조 — 숫자와 함께 쓰고 색만으로 전달하지 않는다 */
 function ddCls(v: number): string {
-  if (v >= 90) return 'text-rose-600 dark:text-rose-400 font-black';
+  if (v >= 90) return 'text-rose-600 dark:text-rose-400 font-bold';
   if (v >= 70) return 'text-rose-600/80 dark:text-rose-400/80';
   if (v >= 40) return 'text-amber-600 dark:text-amber-400';
   if (v >= 10) return 'text-slate-600 dark:text-slate-300';
@@ -119,7 +119,7 @@ export default function AthBoard() {
     <>
       {/* 비대칭을 먼저 보여준다 — 이 페이지의 요점이다 */}
       <div className="rounded-lg border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
-        <h2 className="text-sm font-black text-amber-900 dark:text-amber-200 mb-1.5">A 50% drop needs a 100% gain</h2>
+        <h2 className="text-sm font-bold text-amber-900 dark:text-amber-200 mb-1.5">A 50% drop needs a 100% gain</h2>
         <p className="text-xs text-amber-900/85 dark:text-amber-200/85 leading-relaxed mb-3">
           Falling and recovering are not the same number, and the gap widens fast. This is the single most misread figure in a drawdown,
           so the table shows both: how far below the high a coin sits, and the gain required to get back.
@@ -143,7 +143,7 @@ export default function AthBoard() {
           ].map(([label, v, cls]) => (
             <div key={label as string} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
               <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">{label as string}</p>
-              <p className={`text-xl font-black tabular-nums ${cls as string}`}>{v as string | number}</p>
+              <p className={`text-xl font-bold tabular-nums ${cls as string}`}>{v as string | number}</p>
             </div>
           ))}
         </div>

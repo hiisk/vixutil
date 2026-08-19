@@ -37,7 +37,7 @@ export function ColorInput({
 }) {
   return (
     <label className="block">
-      <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">{label}</span>
+      <span className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">{label}</span>
       <div className="flex items-center gap-2">
         <input
           type="color"
@@ -84,7 +84,7 @@ export function Swatch({
       className={`relative w-full ${height} rounded-xl border border-slate-200 dark:border-slate-700 flex flex-col items-center justify-center transition-transform active:scale-95`}
       style={{ background: rgbToHex(rgb), color: fg }}
     >
-      <span className="text-xs font-black font-mono uppercase">{copied === hex.toUpperCase() ? COLOR_COMMON[lang].copied : hex.toUpperCase()}</span>
+      <span className="text-xs font-bold font-mono uppercase">{copied === hex.toUpperCase() ? COLOR_COMMON[lang].copied : hex.toUpperCase()}</span>
       {label && <span className="text-[10px] opacity-70 mt-0.5">{label}</span>}
       {sub && <span className="text-[10px] opacity-60">{sub}</span>}
     </button>

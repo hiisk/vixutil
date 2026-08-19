@@ -68,7 +68,7 @@ export default function SaltTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
       </p>
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.presetTitle}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.presetTitle}</p>
         <div className="grid grid-cols-2 gap-2">
           {USES.map((u, i) => (
             <button

@@ -32,7 +32,7 @@ function Snippet({ label, text, copied, onCopy, copyText, copiedText }: {
   return (
     <div className="mt-3">
       <div className="flex items-center justify-between mb-1.5">
-        <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{label}</span>
+        <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{label}</span>
         <button
           onClick={() => onCopy(label, text)}
           className={`text-xs font-bold transition-colors ${copied === label ? 'text-emerald-600' : 'text-violet-600 hover:text-violet-700'}`}
@@ -105,7 +105,7 @@ export default function FaviconTool({ lang = 'ko' }: { lang?: ImageLang } = {}) 
   return (
     <div>
       <div className="rounded-lg border chip-off p-5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3">{ui.sizes}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-3">{ui.sizes}</p>
         {busy && <p className="text-sm text-slate-400 dark:text-slate-500">{common.working}</p>}
         <div className="flex flex-col gap-2">
           {made.map(m => (
@@ -130,7 +130,7 @@ export default function FaviconTool({ lang = 'ko' }: { lang?: ImageLang } = {}) 
       </div>
 
       <div className="mt-4 rounded-lg border chip-off p-5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.snippet}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400">{ui.snippet}</p>
         <Snippet label={ui.headTitle} text={headTags()} copied={copied} onCopy={copy} copyText={ui.copy} copiedText={ui.copied} />
         <Snippet label={ui.manifest} text={manifestIcons()} copied={copied} onCopy={copy} copyText={ui.copy} copiedText={ui.copied} />
       </div>

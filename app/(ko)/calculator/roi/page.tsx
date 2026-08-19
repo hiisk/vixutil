@@ -119,7 +119,7 @@ export default function RoiPage() {
           <>
             <div className={`rounded-lg p-5 ${result.isGain ? 'bg-blue-600' : 'bg-rose-500'}`}>
               <p className="text-white/70 text-xs mb-1">순손익</p>
-              <p className="text-white text-3xl font-black">
+              <p className="text-white text-3xl font-bold">
                 {result.isGain ? '+' : ''}{fmt(result.profit)}원
               </p>
               <p className="text-white/70 text-sm mt-1">수익률 {pct(result.roi)}</p>

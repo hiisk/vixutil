@@ -73,7 +73,7 @@ export default function HanyoungTool() {
       )}
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2.5">이렇게 써보세요</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2.5">이렇게 써보세요</p>
         <div className="flex flex-col gap-2">
           {SAMPLES.map(s => (
             <button

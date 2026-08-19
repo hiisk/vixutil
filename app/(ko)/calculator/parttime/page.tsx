@@ -108,7 +108,7 @@ export default function ParttimePage() {
           <>
             <div className={`rounded-lg p-5 ${result.hasHoliday ? 'bg-blue-600' : 'bg-slate-700'}`}>
               <p className="text-blue-200 text-xs mb-1">월 급여 (주휴 {result.hasHoliday ? '포함' : '미포함'})</p>
-              <p className="text-white text-3xl font-black">{fmt(result.monthly)}원</p>
+              <p className="text-white text-3xl font-bold">{fmt(result.monthly)}원</p>
               {result.hasHoliday
                 ? <p className="text-blue-200 text-sm mt-1">주 {result.weeklyHours}h → 주휴수당 발생</p>
                 : <p className="text-red-300 text-sm mt-1">주 {result.weeklyHours}h · 주 15h 미만으로 주휴수당 미발생</p>

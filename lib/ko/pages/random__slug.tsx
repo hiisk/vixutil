@@ -97,7 +97,7 @@ export default async function RandomToolPage({ params }: { params: Promise<{ slu
         <Faq items={SECTION_FAQ[`random/${slug}`]} />
 
         <div className="mt-8">
-          <h2 className="text-sm font-black text-slate-700 dark:text-slate-200 mb-3">다른 도구</h2>
+          <h2 className="text-sm font-bold text-slate-700 dark:text-slate-200 mb-3">다른 도구</h2>
           <div className="grid grid-cols-3 gap-2">
             {others.map(o => (
               <Link

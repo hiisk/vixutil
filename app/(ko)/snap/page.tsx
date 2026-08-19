@@ -108,7 +108,7 @@ export default function SnapPage() {
                   <ToolIcon emoji={t.icon} className="text-slate-800 dark:text-slate-100 w-8 h-8" />
                   {t.badge && <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-fuchsia-50 dark:bg-fuchsia-950/30 text-fuchsia-600 border border-fuchsia-100 dark:border-fuchsia-900/40">{t.badge}</span>}
                 </div>
-                <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-1">{t.title}</h2>
+                <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-1">{t.title}</h2>
                 <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">{t.desc}</p>
                 <div className="flex items-center gap-1 text-xs font-semibold text-fuchsia-600">
                   테스트 하기
@@ -129,7 +129,7 @@ export default function SnapPage() {
             <ToolIcon emoji={LENS_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />
           </span>
           <span className="min-w-0">
-            <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{LENS_UI.ko.hubTitle}</span>
+            <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">{LENS_UI.ko.hubTitle}</span>
             <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5">{LENS_UI.ko.hubLead}</span>
           </span>
           <span className="ml-auto text-[11px] font-bold text-slate-400 dark:text-slate-500 shrink-0">{LENSES.length}</span>

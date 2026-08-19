@@ -85,7 +85,7 @@ export default function NumberHubPage({ lang }: { lang: Lang }) {
                   key={n}
                  
                   className="flex items-baseline gap-3 px-4 py-2.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
-                  <span className="text-sm font-black text-indigo-700 dark:text-indigo-400 tabular-nums shrink-0 w-[54px] text-right">{n}</span>
+                  <span className="text-sm font-bold text-indigo-700 dark:text-indigo-400 tabular-nums shrink-0 w-[54px] text-right">{n}</span>
                   <span className="text-xs font-mono text-slate-500 dark:text-slate-400 shrink-0">2^{f.power2}</span>
                   <span className="ml-auto text-[11px] text-slate-400 dark:text-slate-500 tabular-nums shrink-0">{ui.bitsValue(f.bits)}</span>
                 </span>

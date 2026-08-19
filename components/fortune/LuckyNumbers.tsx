@@ -173,7 +173,7 @@ export default function LuckyNumbers({ lang }: { lang: IntlLang }) {
         </div>
 
         <form onSubmit={submit} className="rounded-lg border chip-off p-5 mb-6">
-          <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{c.birthLabel}</label>
+          <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{c.birthLabel}</label>
           <div className="grid grid-cols-3 gap-2">
             <input type="number" inputMode="numeric" placeholder={c.yearPh} value={form.year}
               onChange={e => setForm({ ...form, year: e.target.value })}
@@ -186,7 +186,7 @@ export default function LuckyNumbers({ lang }: { lang: IntlLang }) {
               className="fld focus:border-emerald-400" />
           </div>
           {error && <p className="text-xs text-rose-600 dark:text-rose-400 mt-2">{error}</p>}
-          <button type="submit" className="w-full mt-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-black py-3 transition-colors">
+          <button type="submit" className="w-full mt-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold py-3 transition-colors">
             {c.submit}
           </button>
         </form>
@@ -196,13 +196,13 @@ export default function LuckyNumbers({ lang }: { lang: IntlLang }) {
             <div className="rounded-lg border chip-off p-6">
               <div className="flex flex-wrap items-center justify-center gap-2">
                 {result.numbers.map(n => (
-                  <span key={n} className="w-11 h-11 rounded-full flex items-center justify-center text-white text-base font-black shadow-sm"
+                  <span key={n} className="w-11 h-11 rounded-full flex items-center justify-center text-white text-base font-bold shadow-sm"
                     style={{ background: ballColor(n) }}>
                     {n}
                   </span>
                 ))}
-                <span className="text-slate-300 dark:text-slate-600 font-black px-1">+</span>
-                <span className="w-11 h-11 rounded-full flex items-center justify-center text-white text-base font-black shadow-sm ring-2 ring-offset-2 ring-slate-300 dark:ring-offset-slate-900"
+                <span className="text-slate-300 dark:text-slate-600 font-bold px-1">+</span>
+                <span className="w-11 h-11 rounded-full flex items-center justify-center text-white text-base font-bold shadow-sm ring-2 ring-offset-2 ring-slate-300 dark:ring-offset-slate-900"
                   style={{ background: ballColor(result.bonus) }}>
                   {result.bonus}
                 </span>

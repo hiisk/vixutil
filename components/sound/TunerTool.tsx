@@ -70,7 +70,7 @@ export default function TunerTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
   return (
     <div>
       <div className={`rounded-lg px-6 py-10 text-center transition-colors ${inTune ? 'bg-emerald-600' : 'bg-slate-900'}`}>
-        <p className="text-7xl font-black text-white">
+        <p className="text-7xl font-bold text-white">
           {reading ? reading.note : '—'}
           {reading && <span className="text-3xl text-white/60">{reading.octave}</span>}
         </p>
@@ -118,7 +118,7 @@ export default function TunerTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
             </button>
           ))}
         </div>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.openStrings}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.openStrings}</p>
         <div className="flex flex-wrap gap-2">
           {STRINGS[instrument].notes.map(([name, freq]) => (
             <button
@@ -132,7 +132,7 @@ export default function TunerTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
         </div>
 
         <div className="flex items-center gap-3 mt-4">
-          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.refA4}</span>
+          <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{ui.refA4}</span>
           <input
             type="number" min={430} max={450} value={a4}
             onChange={e => setA4(Math.min(450, Math.max(430, Number(e.target.value) || 440)))}

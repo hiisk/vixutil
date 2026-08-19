@@ -48,7 +48,7 @@ export default function HanjaHub({ lang }: { lang: FormulaLang }) {
           <div className="hero-band">
             <PageHero title={ui.hubTitle} desc={ui.hubLead} />
           </div>
-          <p className="mt-4 inline-block rounded-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-2 text-xs font-bold text-slate-500 dark:text-slate-400">
+          <p className="mt-4 inline-block rounded-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-2 text-xs font-medium text-slate-500 dark:text-slate-400">
             {ui.hubNotice}
           </p>
         </div>

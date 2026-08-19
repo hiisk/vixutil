@@ -86,12 +86,12 @@ export default function RandomToolPageIntl({ slug, lang }: { slug: string; lang:
         <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-6">{ui.privacyNote}</p>
 
         <section className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mt-8">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-2">{ui.aboutTitle(t.title)}</h2>
+          <h2 className="text-base font-bold text-slate-800 dark:text-slate-100 mb-2">{ui.aboutTitle(t.title)}</h2>
           <p>{t.long}</p>
         </section>
 
         <div className="mt-8">
-          <h2 className="text-sm font-black text-slate-700 dark:text-slate-200 mb-3">{ui.moreTools}</h2>
+          <h2 className="text-sm font-bold text-slate-700 dark:text-slate-200 mb-3">{ui.moreTools}</h2>
           <div className="grid grid-cols-3 gap-2">
             {others.map(o => (
               <Link
@@ -112,7 +112,7 @@ export default function RandomToolPageIntl({ slug, lang }: { slug: string; lang:
       </RandomToolShell>
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
-        <Link href={hub} className="text-sm font-black text-rose-600">vixutil</Link>
+        <Link href={hub} className="text-sm font-bold text-rose-600">vixutil</Link>
         <p className="text-xs text-slate-400 mt-1">{ui.hubFoot}</p>
       </footer>
     </>

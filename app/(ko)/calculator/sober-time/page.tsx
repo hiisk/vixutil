@@ -116,7 +116,7 @@ export default function SoberTimePage() {
               <p className="label-caps mb-2">
                 현재 추정 혈중알코올농도
               </p>
-              <p className={`text-3xl font-black ${result.overSuspendNow ? 'text-red-600 dark:text-red-400' : 'text-emerald-600 dark:text-emerald-400'}`}>
+              <p className={`text-3xl font-bold ${result.overSuspendNow ? 'text-red-600 dark:text-red-400' : 'text-emerald-600 dark:text-emerald-400'}`}>
                 {result.currentBac.toFixed(3)}%
               </p>
               <p className="text-sm font-semibold mt-2 text-slate-700 dark:text-slate-200">

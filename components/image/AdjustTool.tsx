@@ -80,7 +80,7 @@ export default function AdjustTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
       </div>
 
       <div className="mt-4 rounded-lg border chip-off p-5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.preset}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.preset}</p>
         <div className="grid grid-cols-3 gap-2">
           {PRESETS.map((p, i) => (
             <button
@@ -100,8 +100,8 @@ export default function AdjustTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
         {SLIDERS.map(([label, key, min, max]) => (
           <div key={key} className="mt-4">
             <div className="flex items-baseline justify-between mb-1.5">
-              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{label}</span>
-              <span className="text-sm font-black text-violet-600 tabular-nums">{adj[key]}</span>
+              <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{label}</span>
+              <span className="text-sm font-bold text-violet-600 tabular-nums">{adj[key]}</span>
             </div>
             <input
               type="range" min={min} max={max} value={adj[key]}

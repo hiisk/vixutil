@@ -181,7 +181,7 @@ export default function BirthStone({ lang }: { lang: Exclude<Lang, 'ko'> }) {
             >
               <div className="text-7xl mb-2 drop-shadow-sm">{result.emoji}</div>
               <div className="text-xs font-bold text-white/85">{c.stoneOf(result.month)}</div>
-              <div className="text-3xl font-black drop-shadow">{result.stone}</div>
+              <div className="text-3xl font-bold drop-shadow">{result.stone}</div>
               <div className="inline-block mt-3 text-xs font-bold bg-white/25 rounded-full px-4 py-1.5">
                 {result.stoneMeaning}
               </div>
@@ -191,15 +191,15 @@ export default function BirthStone({ lang }: { lang: Exclude<Lang, 'ko'> }) {
               <div className="flex items-center gap-3">
                 <ToolIcon emoji="🌸" className="w-9 h-9 text-slate-800 dark:text-slate-100" />
                 <div>
-                  <div className="text-xs font-bold text-slate-400">{c.flowerOf(result.month)}</div>
-                  <div className="text-lg font-black text-slate-800 dark:text-slate-100">{result.flower}</div>
+                  <div className="text-xs font-medium text-slate-400">{c.flowerOf(result.month)}</div>
+                  <div className="text-lg font-bold text-slate-800 dark:text-slate-100">{result.flower}</div>
                   <div className="text-sm text-fuchsia-600 dark:text-fuchsia-300 font-medium">{c.meaning} · {result.flowerMeaning}</div>
                 </div>
               </div>
             </div>
 
             <div className="rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 p-5 mb-6">
-              <div className="text-xs font-black text-fuchsia-600 mb-2">{c.bornIn(result.month)}</div>
+              <div className="text-xs font-bold text-fuchsia-600 mb-2">{c.bornIn(result.month)}</div>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.blurb}</p>
             </div>
 

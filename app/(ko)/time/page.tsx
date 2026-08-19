@@ -77,14 +77,14 @@ export default function TimeHubPage() {
           </p>
         </div>
 
-        <div className="rounded-lg border border-sky-100 dark:border-sky-900/40 bg-sky-50/70 dark:bg-sky-950/30 px-4 py-3.5 mb-7 text-xs text-sky-800 dark:text-sky-200 leading-relaxed text-center">
+        <div className="note mb-7 text-center">
 ⏱️ 타이머·알람은 이 탭이 열려 있는 동안 동작합니다. 설치도 회원가입도 없습니다.
         </div>
 
         <div className="flex flex-col gap-7">
           {grouped.map(g => (
             <section key={g.category} aria-label={g.category}>
-              <h2 className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
+              <h2 className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
                 {g.category}
               </h2>
               <div className="grid sm:grid-cols-2 gap-3">
@@ -96,7 +96,7 @@ export default function TimeHubPage() {
                   >
                     <div className="relative">
                       <ToolIcon emoji={t.icon} title={t.title} color={t.og[0]} accent={t.og[1]} className="w-9 h-9 block mb-3" />
-                      <h3 className="text-base font-black text-slate-900 dark:text-slate-100 mb-1">{t.title}</h3>
+                      <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mb-1">{t.title}</h3>
                       <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-3">{t.desc}</p>
                       <span className="flex items-center gap-1 text-xs font-semibold text-sky-600">
                         바로 쓰기
@@ -121,7 +121,7 @@ export default function TimeHubPage() {
           <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{TIME_UI.ko.hubLead}</p>
           {TIME_REGIONS.map(region => (
             <div key={region} className="mb-4">
-              <h3 className="text-xs font-black text-slate-400 dark:text-slate-500 mb-1.5">
+              <h3 className="text-xs font-medium text-slate-400 dark:text-slate-500 mb-1.5">
                 {TIME_UI.ko.regionLabel[region]}
               </h3>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">

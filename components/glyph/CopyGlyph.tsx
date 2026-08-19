@@ -57,7 +57,7 @@ export default function CopyGlyph({
       >
         {char}
         {done && (
-          <span className="absolute inset-0 flex items-center justify-center rounded-xl bg-emerald-500 text-white text-[10px] font-black">
+          <span className="absolute inset-0 flex items-center justify-center rounded-xl bg-emerald-500 text-white text-[10px] font-bold">
             {copiedLabel}
           </span>
         )}
@@ -75,7 +75,7 @@ export default function CopyGlyph({
     >
       <span className="block text-6xl sm:text-7xl text-slate-900 dark:text-slate-100 leading-none mb-4">{char}</span>
       <span
-        className={`inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-black transition-colors ${
+        className={`inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-bold transition-colors ${
           done ? 'bg-emerald-500 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'
         }`}
       >

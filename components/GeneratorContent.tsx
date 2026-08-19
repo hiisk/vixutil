@@ -63,7 +63,7 @@ export default function GeneratorContent({ gen }: { gen: Generator }) {
     // 배경은 GeneratorEngine·RelatedContent와 같은 slate-50으로 맞춘다.
     <div className="bg-slate-50 dark:bg-slate-950">
       <section className="max-w-lg mx-auto px-4 pb-10 w-full" aria-label="생성 방식 안내">
-        <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-1.5">
+        <h2 className="text-base font-bold text-slate-800 dark:text-slate-100 mb-1.5">
           {gen.title}는 어떻게 만들어지나요?
         </h2>
         <div className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
@@ -72,7 +72,7 @@ export default function GeneratorContent({ gen }: { gen: Generator }) {
 
         {items.length > 0 && (
           <>
-            <h3 className="text-sm font-black text-slate-800 dark:text-slate-100 mt-5 mb-2">
+            <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100 mt-5 mb-2">
               전체 목록 {items.length}개
             </h3>
             <ul className="flex flex-col gap-1.5">
@@ -90,13 +90,13 @@ export default function GeneratorContent({ gen }: { gen: Generator }) {
 
         {pools.length > 0 && (
           <>
-            <h3 className="text-sm font-black text-slate-800 dark:text-slate-100 mt-5 mb-2">
+            <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100 mt-5 mb-2">
               단어 묶음
             </h3>
             <ul className="flex flex-col gap-3">
               {pools.map((pool, i) => (
                 <li key={i}>
-                  <p className="text-xs font-bold text-slate-400 dark:text-slate-500 mb-1.5">
+                  <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mb-1.5">
                     {i + 1}번째 자리 · {pool.length}개
                   </p>
                   <ul className="flex flex-wrap gap-1.5">

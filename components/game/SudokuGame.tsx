@@ -244,7 +244,7 @@ export default function SudokuGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
                       : near ? 'bg-slate-50 dark:bg-slate-800/50'
                         : given ? 'bg-slate-50/60 dark:bg-slate-800/30' : '',
                 bad[i] ? 'text-rose-600 dark:text-rose-300 font-bold'
-                  : given ? 'text-slate-800 dark:text-slate-100 font-black'
+                  : given ? 'text-slate-800 dark:text-slate-100 font-bold'
                     : 'text-emerald-600 dark:text-emerald-400 font-bold',
               ].join(' ')}
             >

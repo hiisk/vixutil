@@ -26,11 +26,11 @@ export default function ReplaceTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
       <div className={`${CARD} mt-4`}>
         <div className="grid sm:grid-cols-2 gap-3">
           <label>
-            <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">{ui.findLabel}</span>
+            <span className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">{ui.findLabel}</span>
             <input value={find} onChange={e => setFind(e.target.value)} placeholder={ui.findPlaceholder} className={field} />
           </label>
           <label>
-            <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">{ui.toLabel}</span>
+            <span className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">{ui.toLabel}</span>
             <input value={to} onChange={e => setTo(e.target.value)} placeholder={ui.toPlaceholder} className={field} />
           </label>
         </div>
@@ -47,7 +47,7 @@ export default function ReplaceTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
         )}
 
         {result.error && (
-          <p className="mt-3 rounded-xl bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/50 px-4 py-2.5 text-xs text-rose-700 dark:text-rose-300">
+          <p className="note mt-3">
             {ui.regexError(result.error)}
           </p>
         )}

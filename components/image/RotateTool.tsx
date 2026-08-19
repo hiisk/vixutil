@@ -107,8 +107,8 @@ export default function RotateTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
         </div>
 
         <div className="flex items-baseline justify-between mt-5 mb-2">
-          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.fineAngle}</span>
-          <span className="text-sm font-black text-violet-600 tabular-nums">{angle}°</span>
+          <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{ui.fineAngle}</span>
+          <span className="text-sm font-bold text-violet-600 tabular-nums">{angle}°</span>
         </div>
         <input
           type="range" min={0} max={359} value={angle}
@@ -124,7 +124,7 @@ export default function RotateTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
 
         {angle % 90 !== 0 && (
           <>
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-5 mb-2">{ui.cornerColor}</p>
+            <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-5 mb-2">{ui.cornerColor}</p>
             <div className="flex items-center gap-2">
               {BG_COLORS.map(c => (
                 <button

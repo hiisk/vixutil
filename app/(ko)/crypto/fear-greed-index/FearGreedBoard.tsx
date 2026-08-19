@@ -124,8 +124,8 @@ export default function FearGreedBoard() {
       {/* 현재 값 */}
       <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 mb-4 text-center">
         <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Crypto Fear &amp; Greed Index</p>
-        <p className={`text-6xl font-black tabular-nums ${ui.cls}`}>{snap.current}</p>
-        <p className={`text-lg font-black mt-1 ${ui.cls}`}>{snap.currentBucket}</p>
+        <p className={`text-6xl font-bold tabular-nums ${ui.cls}`}>{snap.current}</p>
+        <p className={`text-lg font-bold mt-1 ${ui.cls}`}>{snap.currentBucket}</p>
         {pct != null && (
           <p className="text-sm text-slate-600 dark:text-slate-300 mt-2">
             Higher than <b className="tabular-nums">{pct.toFixed(0)}%</b> of the {snap.values.length.toLocaleString()} days since 2018
@@ -148,7 +148,7 @@ export default function FearGreedBoard() {
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
         <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700 flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h2 className="text-sm font-black text-slate-900 dark:text-white">Does &quot;buy when there&apos;s fear&quot; actually work?</h2>
+            <h2 className="text-sm font-bold text-slate-900 dark:text-white">Does &quot;buy when there&apos;s fear&quot; actually work?</h2>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
               Every day of the index joined to Bitcoin&apos;s close, grouped by reading. {snap.overlapDays.toLocaleString()} days overlap.
             </p>
@@ -190,7 +190,7 @@ export default function FearGreedBoard() {
                       <span className={`font-bold ${BUCKET_UI[s.bucket].cls}`}>{s.bucket}</span>
                     </span>
                   </td>
-                  <td className={`px-3 py-3 text-right tabular-nums font-black border-l border-slate-200/40 dark:border-slate-700/40 ${rCls(s.medianReturnPct)}`}>
+                  <td className={`px-3 py-3 text-right tabular-nums font-bold border-l border-slate-200/40 dark:border-slate-700/40 ${rCls(s.medianReturnPct)}`}>
                     {signed(s.medianReturnPct)}
                   </td>
                   <td className="px-3 py-3 text-right tabular-nums text-slate-600 dark:text-slate-300">{s.winRatePct.toFixed(0)}%</td>
@@ -232,7 +232,7 @@ export default function FearGreedBoard() {
       </div>
 
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
-        <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">What the index is made of</h2>
+        <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-2">What the index is made of</h2>
         <p className="mb-2">
           The index is published by alternative.me and blends volatility, market momentum and volume, social media activity, Bitcoin dominance
           and Google Trends into a single 0–100 number. Most of those inputs are themselves derived from price, so the index moves closely with

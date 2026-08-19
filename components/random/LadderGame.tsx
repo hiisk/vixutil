@@ -167,15 +167,15 @@ export default function LadderGame({ lang = 'ko' }: { lang?: RandomLang }) {
       {/* 결과 문구 */}
       {selected !== null && (
         <div className="wc-pop text-center rounded-lg bg-sec py-4 mb-6">
-          <span className="text-lg font-black">{names[selected]}</span>
+          <span className="text-lg font-bold">{names[selected]}</span>
           <span className="mx-2">→</span>
-          <span className="text-lg font-black">{results[revealed[selected]]}</span>
+          <span className="text-lg font-bold">{results[revealed[selected]]}</span>
         </div>
       )}
 
       <button
         onClick={() => reset(cols)}
-        className="w-full bg-sec font-black rounded-lg py-3.5 mb-6 hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all"
+        className="w-full bg-sec font-bold rounded-lg py-3.5 mb-6 hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all"
       >
         {ui.reshuffle}
       </button>
@@ -183,14 +183,14 @@ export default function LadderGame({ lang = 'ko' }: { lang?: RandomLang }) {
       {/* 편집 */}
       <div className="grid grid-cols-2 gap-3 mb-3">
         <div className="space-y-2">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.players}</p>
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400">{ui.players}</p>
           {names.map((v, i) => (
             <input key={i} value={v} onChange={e => setName(i, e.target.value)} placeholder={ui.playerPlaceholder(i + 1)}
               className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-2 py-1.5 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-violet-400" />
           ))}
         </div>
         <div className="space-y-2">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.results}</p>
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400">{ui.results}</p>
           {results.map((v, i) => (
             <input key={i} value={v} onChange={e => setResult(i, e.target.value)} placeholder={ui.resultPlaceholder(i + 1)}
               className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-2 py-1.5 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-violet-400" />

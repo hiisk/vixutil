@@ -29,7 +29,7 @@ export default function MaskTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
         <Toggle checked={!!options.card} onChange={v => set({ card: v })} label={ui.card} hint={ui.cardHint} />
         <Toggle checked={!!options.email} onChange={v => set({ email: v })} label={ui.email} hint={ui.emailHint} />
 
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.charTitle}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.charTitle}</p>
         <div className="grid grid-cols-4 gap-2">
           {CHARS.map(c => (
             <button

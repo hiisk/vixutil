@@ -123,10 +123,10 @@ export default function BmiPage() {
               <div className="flex justify-between items-start mb-5">
                 <div>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">BMI 지수</p>
-                  <p className={`text-5xl font-black ${result.level.color}`}>{result.bmi.toFixed(1)}</p>
+                  <p className={`text-5xl font-bold ${result.level.color}`}>{result.bmi.toFixed(1)}</p>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{result.level.desc}</p>
                 </div>
-                <span className={`text-base font-black px-4 py-2 rounded-xl bg-white dark:bg-slate-900 border ${result.level.color} border-current`}>
+                <span className={`text-base font-bold px-4 py-2 rounded-xl bg-white dark:bg-slate-900 border ${result.level.color} border-current`}>
                   {result.level.label}
                 </span>
               </div>
@@ -157,14 +157,14 @@ export default function BmiPage() {
             <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <Card className="p-4">
                 <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">표준체중 ({sex==='m'?'남':'여'})</p>
-                <p className="text-xl font-black text-slate-900 dark:text-slate-100">{result.std.toFixed(1)} kg</p>
+                <p className="text-xl font-bold text-slate-900 dark:text-slate-100">{result.std.toFixed(1)} kg</p>
                 <p className={`text-xs mt-1 font-semibold ${result.diff>0?'text-orange-500':result.diff<0?'text-blue-500':'text-emerald-600'}`}>
                   {result.diff>0?`+${result.diff.toFixed(1)}kg 초과`:result.diff<0?`${result.diff.toFixed(1)}kg 미달`:'정상 체중'}
                 </p>
               </Card>
               <Card className="p-4">
                 <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">정상 체중 범위</p>
-                <p className="text-base font-black text-slate-900 dark:text-slate-100">
+                <p className="text-base font-bold text-slate-900 dark:text-slate-100">
                   {result.idealMin.toFixed(1)} ~ {result.idealMax.toFixed(1)} kg
                 </p>
                 <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">BMI 18.5 ~ 22.9</p>

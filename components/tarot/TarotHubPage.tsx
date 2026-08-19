@@ -84,7 +84,7 @@ export default function TarotHubPage({ lang }: { lang: Lang }) {
                   className="rounded-xl border chip-off px-3 py-2.5 hover:shadow-sm hover:-translate-y-0.5 transition-all"
                 >
                   <span className="block text-[11px] font-bold text-violet-500 dark:text-violet-400 tabular-nums">{c.number}</span>
-                  <span className="block text-sm font-black text-slate-800 dark:text-slate-100 truncate">{v.name}</span>
+                  <span className="block text-sm font-bold text-slate-800 dark:text-slate-100 truncate">{v.name}</span>
                 </Link>
               );
             })}
@@ -94,7 +94,7 @@ export default function TarotHubPage({ lang }: { lang: Lang }) {
         <h2 className="sec-h2">{ui.minorTitle}</h2>
         {SUITS.map(suit => (
           <section key={suit} className="mb-8">
-            <h3 className="text-sm font-black text-slate-700 dark:text-slate-200 mb-1">
+            <h3 className="text-sm font-bold text-slate-700 dark:text-slate-200 mb-1">
               {ui.suitLabel[suit]}
               <span className="ml-1.5 text-[11px] font-bold text-slate-400 dark:text-slate-500">
                 {ui.elementLabel[SUIT_ELEMENT[suit]]}

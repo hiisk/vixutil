@@ -38,7 +38,7 @@ export default function PermGrid({
                 {[p.read, p.write, p.exec].map((on, i) => (
                   <td key={i} className="py-2">
                     <span
-                      className={`inline-flex h-7 w-7 items-center justify-center rounded-lg border text-xs font-black ${
+                      className={`inline-flex h-7 w-7 items-center justify-center rounded-lg border text-xs font-bold ${
                         on
                           ? 'border-orange-400 bg-orange-500 text-white dark:border-orange-600'
                           : 'border-slate-200 bg-white text-slate-300 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-600'

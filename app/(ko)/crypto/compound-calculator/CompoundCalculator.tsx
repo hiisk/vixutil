@@ -168,8 +168,8 @@ export default function CompoundCalculator() {
             <p className="text-[11px] uppercase tracking-wide text-amber-600 dark:text-amber-400 mb-1">Balance after {years} year{Number(years) === 1 ? '' : 's'}</p>
             <div className="flex flex-wrap items-end gap-x-8 gap-y-3">
               <div>
-                <p className="text-4xl font-black text-slate-900 dark:text-white tabular-nums">{num(r.finalBalance)}</p>
-                <p className="text-sm font-black text-emerald-600 dark:text-emerald-400 tabular-nums">
+                <p className="text-4xl font-bold text-slate-900 dark:text-white tabular-nums">{num(r.finalBalance)}</p>
+                <p className="text-sm font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">
                   +{num(r.interestEarned)} interest
                 </p>
               </div>
@@ -186,7 +186,7 @@ export default function CompoundCalculator() {
           {/* APR vs APY — 첫 번째 차별점 */}
           {gap != null && Math.abs(gap) > 0.005 && (
             <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-4">
-              <h2 className="text-sm font-black text-slate-900 dark:text-white mb-1">
+              <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-1">
                 {rateKind === 'apr' ? 'That APR is not the return you get' : 'That APY corresponds to a lower APR'}
               </h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
@@ -201,7 +201,7 @@ export default function CompoundCalculator() {
                 ].map(([l, v, note]) => (
                   <div key={l} className="rounded-xl bg-slate-50 dark:bg-slate-950 p-3.5 text-center">
                     <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">{l}</p>
-                    <p className="text-lg font-black text-slate-900 dark:text-white tabular-nums">{v}</p>
+                    <p className="text-lg font-bold text-slate-900 dark:text-white tabular-nums">{v}</p>
                     <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">{note}</p>
                   </div>
                 ))}
@@ -213,7 +213,7 @@ export default function CompoundCalculator() {
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
             <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700 flex flex-wrap items-start justify-between gap-3">
               <div className="min-w-0">
-                <h2 className="text-sm font-black text-slate-900 dark:text-white">Yield earns coins. Price decides what they are worth.</h2>
+                <h2 className="text-sm font-bold text-slate-900 dark:text-white">Yield earns coins. Price decides what they are worth.</h2>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                   A {r.totalReturnPct.toFixed(1)}% gain is erased by a {r.breakevenDropPct.toFixed(1)}% fall in the token — not a {r.totalReturnPct.toFixed(1)}% one.
                 </p>
@@ -243,23 +243,23 @@ export default function CompoundCalculator() {
                 <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y sm:divide-y-0 divide-slate-200 dark:divide-slate-700">
                   <div className="p-4 text-center">
                     <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Break-even drop</p>
-                    <p className="text-lg font-black text-slate-900 dark:text-white tabular-nums">−{r.breakevenDropPct.toFixed(1)}%</p>
+                    <p className="text-lg font-bold text-slate-900 dark:text-white tabular-nums">−{r.breakevenDropPct.toFixed(1)}%</p>
                   </div>
                   <div className="p-4 text-center">
                     <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">{snap.coin.base} volatility</p>
-                    <p className="text-lg font-black text-slate-900 dark:text-white tabular-nums">{snap.model.annualVolPct.toFixed(0)}%</p>
+                    <p className="text-lg font-bold text-slate-900 dark:text-white tabular-nums">{snap.model.annualVolPct.toFixed(0)}%</p>
                     <p className="text-[10px] text-slate-500 dark:text-slate-400">{volatilityLabel(snap.model.annualVolPct)} · annualised</p>
                   </div>
                   <div className="p-4 text-center">
                     <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Yield vs volatility</p>
-                    <p className="text-lg font-black text-slate-900 dark:text-white tabular-nums">
+                    <p className="text-lg font-bold text-slate-900 dark:text-white tabular-nums">
                       {yieldVsVol != null ? `${yieldVsVol.toFixed(0)}%` : '—'}
                     </p>
                     <p className="text-[10px] text-slate-500 dark:text-slate-400">of one year&apos;s swing</p>
                   </div>
                   <div className="p-4 text-center">
                     <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Chance it happens</p>
-                    <p className={`text-lg font-black tabular-nums ${wipeoutProb != null ? riskTone(wipeoutProb) : ''}`}>
+                    <p className={`text-lg font-bold tabular-nums ${wipeoutProb != null ? riskTone(wipeoutProb) : ''}`}>
                       {wipeoutProb != null ? `${wipeoutProb.toFixed(0)}%` : '—'}
                     </p>
                     <p className="text-[10px] text-slate-500 dark:text-slate-400">within a year</p>
@@ -294,7 +294,7 @@ export default function CompoundCalculator() {
       )}
 
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
-        <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">What a yield figure leaves out</h2>
+        <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-2">What a yield figure leaves out</h2>
         <p className="mb-2">
           Advertised rates in crypto are paid in the token, so the yield increases the number of coins you hold rather than the value of your
           position. Whether that ends up profitable is decided almost entirely by the token&apos;s price over the same period, and price moves

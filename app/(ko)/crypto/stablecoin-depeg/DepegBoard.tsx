@@ -30,7 +30,7 @@ const STATE_UI: Record<PegState, { label: string; cls: string; dot: string }> = 
 const bps = (v: number) => `${v >= 0 ? '+' : '−'}${Math.abs(v).toFixed(1)} bp`;
 const devCls = (v: number) => {
   const a = Math.abs(v);
-  if (a >= DEPEG_BPS) return 'text-rose-600 dark:text-rose-400 font-black';
+  if (a >= DEPEG_BPS) return 'text-rose-600 dark:text-rose-400 font-bold';
   if (a >= WATCH_BPS) return 'text-amber-600 dark:text-amber-400 font-bold';
   return 'text-slate-700 dark:text-slate-200';
 };
@@ -106,7 +106,7 @@ export default function DepegBoard() {
     <>
       {/* 기준이 USDT라는 사실을 먼저 밝힌다 */}
       <div className="rounded-lg border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
-        <h2 className="text-sm font-black text-amber-900 dark:text-amber-200 mb-1.5">These prices are against USDT, not against a dollar</h2>
+        <h2 className="text-sm font-bold text-amber-900 dark:text-amber-200 mb-1.5">These prices are against USDT, not against a dollar</h2>
         <p className="text-xs text-amber-900/85 dark:text-amber-200/85 leading-relaxed">
           Binance quotes stablecoins in USDT, so a reading of 0.999 means one tenth of a percent below <b>USDT</b> — not below a dollar. If
           USDT itself moves, every other row moves with it in the opposite direction. Boards that call this &quot;depeg&quot; without saying
@@ -122,7 +122,7 @@ export default function DepegBoard() {
         {([['pegged', counts.pegged], ['watch', counts.watch], ['depegged', counts.depegged]] as [PegState, number][]).map(([k, n]) => (
           <div key={k} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 text-center">
             <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">{STATE_UI[k].label}</p>
-            <p className="text-2xl font-black text-slate-900 dark:text-white tabular-nums">{n}</p>
+            <p className="text-2xl font-bold text-slate-900 dark:text-white tabular-nums">{n}</p>
           </div>
         ))}
       </div>
@@ -152,7 +152,7 @@ export default function DepegBoard() {
                     <span className="flex items-center gap-2">
                       <span className={`w-2 h-2 rounded-full ${STATE_UI[r.state].dot}`} aria-hidden="true" />
                       <span className="font-bold text-slate-800 dark:text-slate-100">{r.base}</span>
-                      <span className={`text-[10px] font-black px-1.5 py-0.5 rounded ${STATE_UI[r.state].cls}`}>{STATE_UI[r.state].label}</span>
+                      <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${STATE_UI[r.state].cls}`}>{STATE_UI[r.state].label}</span>
                     </span>
                   </td>
                   <td className="px-3 py-3 text-right tabular-nums text-slate-700 dark:text-slate-200">{r.price.toFixed(5)}</td>
@@ -181,7 +181,7 @@ export default function DepegBoard() {
       </div>
 
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
-        <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">What a small deviation does and does not mean</h2>
+        <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-2">What a small deviation does and does not mean</h2>
         <p className="mb-2">
           Stablecoins trade a few basis points either side of parity all the time. That is ordinary market-making, not distress: redemption
           takes hours and costs fees, so arbitrage does not close a five-basis-point gap instantly. A reading inside a few tens of basis points

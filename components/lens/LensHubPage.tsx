@@ -88,7 +88,7 @@ export default function LensHubPage({ lang }: { lang: Lang }) {
                     href={`${path}/${l.slug}`}
                     className="flex items-baseline gap-3 px-4 py-2.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
                   >
-                    <span className="text-sm font-black text-indigo-700 dark:text-indigo-400 font-mono shrink-0 tabular-nums w-[68px]">{f.focal}mm</span>
+                    <span className="text-sm font-bold text-indigo-700 dark:text-indigo-400 font-mono shrink-0 tabular-nums w-[68px]">{f.focal}mm</span>
                     <span className="text-sm font-bold text-slate-700 dark:text-slate-200 tabular-nums shrink-0 w-[64px]">{ui.degUnit(f.diagonal)}</span>
                     {/* 풀프레임은 환산값이 초점거리와 같아 줄마다 같은 말이 된다 — 그 자리에 담기는 폭을 둔다 */}
                     <span className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
@@ -107,7 +107,7 @@ export default function LensHubPage({ lang }: { lang: Lang }) {
           <ul className="list-card">
             {(['ultrawide', 'wide', 'standard', 'tele', 'supertele'] as const).map(k => (
               <li key={k} className="px-4 py-3">
-                <div className="text-sm font-black text-slate-800 dark:text-slate-100 mb-0.5">{ui.kindLabel[k]}</div>
+                <div className="text-sm font-bold text-slate-800 dark:text-slate-100 mb-0.5">{ui.kindLabel[k]}</div>
                 <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{ui.kindNote[k]}</p>
               </li>
             ))}

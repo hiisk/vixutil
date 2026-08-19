@@ -39,7 +39,7 @@ export const CARD = 'rounded-lg border chip-off p-5';
 export function Stat({ label, value, accent }: { label: string; value: string | number; accent?: string }) {
   return (
     <div className="rounded-xl border chip-off px-3 py-3 text-center">
-      <p className={`text-lg font-black tabular-nums ${accent ?? 'text-slate-800 dark:text-slate-100'}`}>{value}</p>
+      <p className={`text-lg font-bold tabular-nums ${accent ?? 'text-slate-800 dark:text-slate-100'}`}>{value}</p>
       <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{label}</p>
     </div>
   );

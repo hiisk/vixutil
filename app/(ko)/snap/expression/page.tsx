@@ -155,7 +155,7 @@ export default function ExpressionPage() {
           <p className="text-slate-500 dark:text-slate-400 text-sm">AI 감정 인식 모델로 사진 속 표정을 7가지 감정으로 분석해요</p>
         </div>
 
-        <div className="bg-pink-50 dark:bg-pink-950/30 border border-pink-100 dark:border-pink-900/40 rounded-lg p-4 mb-6 text-xs text-pink-800 dark:text-pink-300 leading-relaxed">
+        <div className="note mb-6">
           <p className="font-bold mb-1">🔒 사진은 서버에 전송되지 않아요</p>
           <p>감정 인식은 이 브라우저 안에서 실제 AI 모델로 실행되고, 사진은 어디에도 저장·전송되지 않습니다. 결과는 참고용 오락 콘텐츠입니다.</p>
         </div>
@@ -227,7 +227,7 @@ export default function ExpressionPage() {
               </div>
               <div className="text-5xl mb-2">{result.emoji}</div>
               <p className="text-sm font-semibold text-white/80 mb-1">가장 강한 감정</p>
-              <p className="text-xl font-black mb-3">{result.label} {result.scores[0].percent}%</p>
+              <p className="text-xl font-bold mb-3">{result.label} {result.scores[0].percent}%</p>
               <p className="text-sm leading-relaxed">{result.text}</p>
             </div>
 
@@ -238,7 +238,7 @@ export default function ExpressionPage() {
                   <div key={s.key}>
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-xs font-semibold text-slate-600 dark:text-slate-300">{s.emoji} {s.label}</span>
-                      <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{s.percent}%</span>
+                      <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{s.percent}%</span>
                     </div>
                     <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                       <div className="h-full bg-sec rounded-full" style={{ width: `${s.percent}%` }} />

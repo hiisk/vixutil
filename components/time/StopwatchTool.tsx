@@ -26,7 +26,7 @@ export default function StopwatchTool({ lang = 'ko' }: { lang?: TimeLang } = {})
   return (
     <div>
       <div className="rounded-lg bg-slate-900 px-6 py-12 text-center">
-        <p className="text-5xl sm:text-6xl font-black text-white tabular-nums tracking-tight">
+        <p className="text-5xl sm:text-6xl font-bold text-white tabular-nums tracking-tight">
           {formatDuration(elapsed, true)}
         </p>
         <p className="text-sm text-white/60 mt-3">
@@ -78,7 +78,7 @@ export default function StopwatchTool({ lang = 'ko' }: { lang?: TimeLang } = {})
                   key={i}
                   className="flex items-center gap-3 px-4 py-2.5 row-line bg-white dark:bg-slate-900"
                 >
-                  <span className="w-10 text-xs font-black text-slate-400 dark:text-slate-500">#{i + 1}</span>
+                  <span className="w-10 text-xs font-medium text-slate-400 dark:text-slate-500">#{i + 1}</span>
                   <span className={`flex-1 text-sm font-mono font-bold tabular-nums ${tone}`}>
                     {formatDuration(seg, true)}
                   </span>

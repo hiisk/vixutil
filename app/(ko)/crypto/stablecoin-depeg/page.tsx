@@ -68,7 +68,7 @@ export default function StablecoinDepegPage() {
           자바스크립트를 실행하지 않는 크롤러에겐 빈 껍데기로 보인다.
         */}
         <section className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
-          <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">Two things most depeg trackers get wrong</h2>
+          <h2 className="text-base font-bold text-slate-900 dark:text-white mb-3">Two things most depeg trackers get wrong</h2>
           <p className="mb-3">
             The first is the unit. A stablecoin at 0.9985 is 15 basis points from parity, which a percentage display rounds to 0.15% or, worse,
             to 0.00%. Fifteen basis points is routine market-making; a hundred and fifty is a different event entirely. Reporting in basis

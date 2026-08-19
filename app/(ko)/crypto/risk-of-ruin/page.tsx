@@ -68,7 +68,7 @@ export default function RiskOfRuinPage() {
           클라이언트 컴포넌트로 둔다. 아래 설명은 서버에서 정적으로 렌더된다.
         */}
         <section className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
-          <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">Bet size decides more than the edge does</h2>
+          <h2 className="text-base font-bold text-slate-900 dark:text-white mb-3">Bet size decides more than the edge does</h2>
           <p className="mb-3">
             Risk of ruin is the probability that a run of losses takes an account down to some level you would not continue from. It depends
             on three things: how often you win, how much a win pays relative to a loss, and what fraction of the account each trade risks.

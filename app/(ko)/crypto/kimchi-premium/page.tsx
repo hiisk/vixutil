@@ -74,7 +74,7 @@ export default function KimchiPremiumPage() {
         {/* 서버에서 정적으로 렌더된다 — 위 보드는 브라우저에서 시세를 받아 그리므로
             자바스크립트를 실행하지 않는 크롤러에게는 빈 껍데기로 보인다. */}
         <section className="mt-10 rounded-lg border border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-900/50 p-5 text-sm text-slate-600 dark:text-slate-300 leading-relaxed [&>p]:max-w-[80ch]">
-          <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">김치 프리미엄이란</h2>
+          <h2 className="text-base font-bold text-slate-900 dark:text-white mb-3">김치 프리미엄이란</h2>
           <p className="mb-3">
             김치 프리미엄(김프)은 같은 코인이 국내 거래소에서 해외 거래소보다 비싸게 거래되는 현상입니다.
             국내에서 코인 수요가 몰리는데 해외로 자금을 옮기기가 번거로우면, 그 마찰만큼 국내 가격이 위로 벌어집니다.

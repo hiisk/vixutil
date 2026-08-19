@@ -20,7 +20,7 @@ export default function RomanTable() {
               : 'chip-off',
           ].join(' ')}
         >
-          <div className="text-sm font-black text-slate-800 dark:text-slate-100">{letters}</div>
+          <div className="text-sm font-bold text-slate-800 dark:text-slate-100">{letters}</div>
           <div className="text-[11px] text-slate-500 dark:text-slate-400 tabular-nums">{value}</div>
         </div>
       ))}

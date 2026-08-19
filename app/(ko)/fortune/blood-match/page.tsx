@@ -16,7 +16,7 @@ function TypeRow({
 }: { label: string; value: BloodType | null; onChange: (t: BloodType) => void; accent: string }) {
   return (
     <div>
-      <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{label}</p>
+      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{label}</p>
       <div className="grid grid-cols-4 gap-2">
         {BLOOD_TYPES.map(t => {
           const on = value === t.id;
@@ -30,7 +30,7 @@ function TypeRow({
               }`}
             >
               <span className="text-xl leading-none">{t.emoji}</span>
-              <span className={`text-xs font-black mt-1 ${on ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>{t.name}</span>
+              <span className={`text-xs font-bold mt-1 ${on ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>{t.name}</span>
             </button>
           );
         })}
@@ -86,7 +86,7 @@ export default function BloodMatchPage() {
           <button
             onClick={calculate}
             disabled={!me || !partner}
-            className="w-full rounded-xl bg-sec disabled:from-slate-200 disabled:to-slate-200 dark:disabled:from-slate-800 dark:disabled:to-slate-800 disabled:text-slate-400 text-sm font-black py-3.5 transition-all active:scale-[0.99] shadow-sm shadow-rose-200 disabled:shadow-none"
+            className="w-full rounded-xl bg-sec disabled:from-slate-200 disabled:to-slate-200 dark:disabled:from-slate-800 dark:disabled:to-slate-800 disabled:text-slate-400 text-sm font-bold py-3.5 transition-all active:scale-[0.99] shadow-sm shadow-rose-200 disabled:shadow-none"
           >
             {!me || !partner ? '두 혈액형을 모두 골라주세요' : '궁합 보기 💘'}
           </button>
@@ -110,7 +110,7 @@ export default function BloodMatchPage() {
         )}
 
         <div className="mt-8 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
-          <h2 className="text-sm font-black text-slate-800 dark:text-slate-100 mb-2">혈액형 궁합, 믿어도 되나요?</h2>
+          <h2 className="text-sm font-bold text-slate-800 dark:text-slate-100 mb-2">혈액형 궁합, 믿어도 되나요?</h2>
           <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
             아니요, <strong className="text-slate-800 dark:text-slate-100">과학적 근거는 없습니다</strong>.
             혈액형과 성격·궁합의 관련성은 여러 차례 검증됐지만 일관된 연관은 확인되지 않았어요.

@@ -28,7 +28,7 @@ export default function RomanizeTool() {
   return (
     <div>
       <label className="block">
-        <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">한글 이름</span>
+        <span className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">한글 이름</span>
         <input
           value={name}
           onChange={e => { setName(e.target.value); setOverride(null); }}
@@ -53,7 +53,7 @@ export default function RomanizeTool() {
         <>
           {/* 성이 몇 글자인지 — 황보라(황보+라 / 황+보라)처럼 기계가 알 수 없는 경우가 있다 */}
           <div className={`${CARD} mt-4`}>
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">성이 몇 글자인가요?</p>
+            <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">성이 몇 글자인가요?</p>
             <div className="grid grid-cols-2 gap-2">
               {[1, 2].map(n => (
                 <button
@@ -92,7 +92,7 @@ export default function RomanizeTool() {
           </div>
 
           <div className={`${CARD} mt-4`}>
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">알아두면 좋은 것</p>
+            <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">알아두면 좋은 것</p>
             <ul className="flex flex-col gap-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
               <li>· 이름은 음운 변화를 반영하지 않습니다. 빛나는 [빈나]로 읽혀도 <b className="text-slate-800 dark:text-slate-100">Bitna</b>로 적습니다.</li>
               <li>· 여권을 한 번 만들면 영문 이름은 바꾸기 어렵습니다. 가족과 성 표기를 맞추는 편이 좋습니다.</li>

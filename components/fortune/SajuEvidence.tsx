@@ -38,7 +38,7 @@ export default function SajuEvidence({ lang, rows }: { lang: AnyLocale10; rows: 
       {rows.map(r => (
         <div key={r.term} className="rounded-xl bg-white/70 dark:bg-slate-900/60 px-3 py-2.5">
           <dt className="text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-0.5">{evidenceTerm(lang, r.term)}</dt>
-          <dd className="text-sm font-black text-slate-800 dark:text-slate-100 leading-snug">{evidenceValue(lang, r)}</dd>
+          <dd className="text-sm font-bold text-slate-800 dark:text-slate-100 leading-snug">{evidenceValue(lang, r)}</dd>
         </div>
       ))}
     </dl>

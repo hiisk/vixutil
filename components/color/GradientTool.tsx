@@ -49,8 +49,8 @@ export default function GradientTool({ lang = 'ko' }: { lang?: ColorLang } = {})
         {!radial && (
           <>
             <div className="flex items-baseline justify-between mt-4 mb-1.5">
-              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.angle}</span>
-              <span className="text-sm font-black text-fuchsia-600 tabular-nums">{angle}°</span>
+              <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{ui.angle}</span>
+              <span className="text-sm font-bold text-fuchsia-600 tabular-nums">{angle}°</span>
             </div>
             <input
               type="range" min={0} max={360} value={angle}
@@ -71,7 +71,7 @@ export default function GradientTool({ lang = 'ko' }: { lang?: ColorLang } = {})
           </>
         )}
 
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.presets}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.presets}</p>
         <div className="grid grid-cols-4 gap-2">
           {PRESETS.map((p, i) => (
             <button

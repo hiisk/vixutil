@@ -79,7 +79,7 @@ export default function FractionHubPage({ lang }: { lang: Lang }) {
                     key={slugOf(f)}
                    
                     className="flex items-baseline gap-3 px-4 py-2 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
-                    <span className="text-sm font-black text-lime-700 dark:text-lime-400 tabular-nums shrink-0 w-[52px] text-right">{f.n}/{f.d}</span>
+                    <span className="text-sm font-bold text-lime-700 dark:text-lime-400 tabular-nums shrink-0 w-[52px] text-right">{f.n}/{f.d}</span>
                     <span className="text-sm text-slate-700 dark:text-slate-200 tabular-nums">{ui.dec(g.decimal)}</span>
                     <span className="ml-auto text-[11px] text-slate-400 dark:text-slate-500 tabular-nums shrink-0">{ui.dec(g.percent)}%</span>
                   </span>

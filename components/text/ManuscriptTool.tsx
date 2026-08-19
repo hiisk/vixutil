@@ -40,7 +40,7 @@ export default function ManuscriptTool({ lang = 'ko' }: { lang?: TextLang } = {}
 
       <div className={`${CARD} mt-4`}>
         <div className="flex items-center justify-between mb-2">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.targetTitle}</p>
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400">{ui.targetTitle}</p>
           <button
             onClick={() => setCountSpace(v => !v)}
             className="text-xs font-bold text-indigo-600 hover:underline"
@@ -85,7 +85,7 @@ export default function ManuscriptTool({ lang = 'ko' }: { lang?: TextLang } = {}
       </div>
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.noteTitle}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.noteTitle}</p>
         <ul className="flex flex-col gap-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           {ui.notes.map(n => <li key={n}>{n}</li>)}
         </ul>

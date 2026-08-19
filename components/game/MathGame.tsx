@@ -96,13 +96,13 @@ export default function MathGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
     <div>
       {phase === 'idle' && (
         <div className="rounded-lg border chip-off p-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.opTitle}</p>
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.opTitle}</p>
           <div className="grid grid-cols-4 gap-2">
             {(['+', '-', '×', '÷'] as Op[]).map(op => (
               <button
                 key={op}
                 onClick={() => toggleOp(op)}
-                className={`rounded-xl border py-3 text-lg font-black transition-colors ${
+                className={`rounded-xl border py-3 text-lg font-bold transition-colors ${
                   ops.includes(op)
                     ? 'border-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300'
                     : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-400'
@@ -113,7 +113,7 @@ export default function MathGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
             ))}
           </div>
 
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.levelTitle}</p>
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.levelTitle}</p>
           <div className="grid grid-cols-3 gap-2">
             {(Object.keys(LEVELS) as LevelKey[]).map((k, i) => (
               <button
@@ -135,14 +135,14 @@ export default function MathGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
       {phase === 'run' && (
         <div className="rounded-lg bg-slate-900 text-white px-6 py-10 text-center">
           <p className="text-sm text-white/60 mb-3 tabular-nums">{ui.timeLeft(left.toFixed(1), solved)}</p>
-          <p className="text-4xl sm:text-5xl font-black tabular-nums mb-5">{question.text}</p>
+          <p className="text-4xl sm:text-5xl font-bold tabular-nums mb-5">{question.text}</p>
           <input
             value={input}
             onChange={e => answer(e.target.value.replace(/[^\d-]/g, ''))}
             inputMode="numeric"
             autoFocus
             placeholder={ui.answerPlaceholder}
-            className="w-full max-w-[10rem] mx-auto rounded-xl bg-white/10 border border-white/20 px-4 py-3 text-center text-2xl font-black text-white tabular-nums focus:outline-none focus:border-white/60"
+            className="w-full max-w-[10rem] mx-auto rounded-xl bg-white/10 border border-white/20 px-4 py-3 text-center text-2xl font-bold text-white tabular-nums focus:outline-none focus:border-white/60"
           />
           <button onClick={skip} className="block mx-auto mt-3 text-xs font-bold text-white/50 hover:text-white/80">
             {ui.skip}
@@ -152,7 +152,7 @@ export default function MathGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
 
       {phase === 'over' && (
         <div className="rounded-lg bg-slate-900 text-white px-6 py-10 text-center">
-          <p className="text-6xl font-black tabular-nums">{solved}</p>
+          <p className="text-6xl font-bold tabular-nums">{solved}</p>
           <p className="text-sm text-white/70 mt-1">{ui.solvedIn(DURATION)}</p>
         </div>
       )}
@@ -184,7 +184,7 @@ export default function MathGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
           />
           {wrong.length > 0 && (
             <div className={`${CARD} mt-4`}>
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.skippedTitle}</p>
+              <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.skippedTitle}</p>
               <div className="flex flex-wrap gap-1.5">
                 {wrong.map((w, i) => (
                   <span key={i} className="rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-2.5 py-1 text-xs font-mono text-slate-600 dark:text-slate-300">

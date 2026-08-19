@@ -45,7 +45,7 @@ export function GeneratorIntlHub({ lang }: { lang: GeneratorIntlLang }) {
       <div className="h-1 topbar" />
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center gap-4">
-          <Link prefetch={false} href={`/${lang}/generator`} className="font-black text-emerald-600 text-lg shrink-0">vixutil</Link>
+          <Link prefetch={false} href={`/${lang}/generator`} className="font-bold text-emerald-600 text-lg shrink-0">vixutil</Link>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{ui.nav}</span>
           <span className="ml-auto flex items-center gap-2">
             <LangPicker current={lang} route="/generator" available={GENERATOR_LANGS} />
@@ -64,7 +64,7 @@ export function GeneratorIntlHub({ lang }: { lang: GeneratorIntlLang }) {
               className={`group relative overflow-hidden rounded-lg ${thumbSurface(g.slug, 'generator')} p-5 min-h-[9.5rem] flex flex-col justify-between hover:-translate-y-1 hover:border-slate-300 dark:hover:border-slate-700 transition-all`}>
               <ToolIcon emoji={g.icon} className="w-9 h-9 drop-shadow-sm transition-transform group-hover:scale-110" />
               <div>
-                <div className="text-base font-black drop-shadow leading-tight">{g.title}</div>
+                <div className="text-base font-bold drop-shadow leading-tight">{g.title}</div>
                 <div className="text-[11px] font-medium opacity-80 mt-1 line-clamp-2">{g.desc}</div>
               </div>
             </Link>
@@ -73,7 +73,7 @@ export function GeneratorIntlHub({ lang }: { lang: GeneratorIntlLang }) {
       </div>
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
-        <span className="text-sm font-black text-emerald-600">vixutil</span>
+        <span className="text-sm font-bold text-emerald-600">vixutil</span>
         <p className="text-xs text-slate-400 mt-1">{ui.foot}</p>
       </footer>
     </div>
@@ -115,14 +115,14 @@ export function GeneratorIntlDetail({ lang, gen }: { lang: GeneratorIntlLang; ge
         </div>
 
         <section className="prose-sm text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-8">
-          <h2 className="text-base font-black text-slate-800 dark:text-slate-100 mb-2">{ui.about(gen.title)}</h2>
+          <h2 className="text-base font-bold text-slate-800 dark:text-slate-100 mb-2">{ui.about(gen.title)}</h2>
           <p>{ui.aboutBody(gen.title)}</p>
         </section>
 
         <Faq items={ui.faq({ title: gen.title, count: countOf(gen) })} lang={lang} className="" />
 
         <div className="pt-8">
-          <h2 className="text-sm font-black text-slate-700 dark:text-slate-200 mb-3">{ui.more}</h2>
+          <h2 className="text-sm font-bold text-slate-700 dark:text-slate-200 mb-3">{ui.more}</h2>
           <div className="grid grid-cols-2 gap-2">
             {others.map(o => (
               <Link prefetch={false} key={o.slug} href={`/${lang}/generator/${o.slug}`}
@@ -136,7 +136,7 @@ export function GeneratorIntlDetail({ lang, gen }: { lang: GeneratorIntlLang; ge
       </div>
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
-        <Link prefetch={false} href={`/${lang}/generator`} className="text-sm font-black text-emerald-600">vixutil</Link>
+        <Link prefetch={false} href={`/${lang}/generator`} className="text-sm font-bold text-emerald-600">vixutil</Link>
         <p className="text-xs text-slate-400 mt-1">{ui.foot}</p>
       </footer>
     </>

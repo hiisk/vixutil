@@ -59,7 +59,7 @@ export default function KeycodeHubPage({ lang }: { lang: Lang }) {
         </div>
 
         <section className="mb-9 rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-3">
-          <h2 className="text-sm font-black text-slate-800 dark:text-slate-100 mb-1">{ui.layoutTitle}</h2>
+          <h2 className="text-sm font-bold text-slate-800 dark:text-slate-100 mb-1">{ui.layoutTitle}</h2>
           <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{ui.layoutNote}</p>
           <p className="note-xs mt-2">{ui.deprecatedNote}</p>
         </section>

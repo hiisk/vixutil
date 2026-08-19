@@ -123,7 +123,7 @@ export default function NewYearMoneyPage() {
             {rows.map((r, i) => (
               <div key={r.key} className="px-5 py-4">
                 <div className="flex items-center justify-between mb-2">
-                  <p className="text-xs font-bold text-slate-400 dark:text-slate-500">{i + 1}번째 아이</p>
+                  <p className="text-xs font-medium text-slate-400 dark:text-slate-500">{i + 1}번째 아이</p>
                   <button
                     type="button"
                     onClick={() => setRows(rs => rs.filter(x => x.key !== r.key))}

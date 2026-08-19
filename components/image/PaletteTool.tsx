@@ -191,7 +191,7 @@ export default function PaletteTool({ lang = 'ko' }: { lang?: ImageLang } = {}) 
               style={{ background: s.hex }}
             />
             <span className="hub-card-body">
-              <span className="block text-sm font-black text-slate-800 dark:text-slate-100 font-mono uppercase">{s.hex}</span>
+              <span className="block text-sm font-bold text-slate-800 dark:text-slate-100 font-mono uppercase">{s.hex}</span>
               <span className="block text-[11px] text-slate-400 dark:text-slate-500 font-mono">
                 rgb({s.rgb.join(', ')})
                 {picked && i === 0 ? ui.pickedPoint : s.ratio > 0 ? ` · ${s.ratio}%` : ''}

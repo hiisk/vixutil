@@ -186,7 +186,7 @@ export default function JeonseSafetyPage() {
               <p className={`${GRADE_SUB[result.grade]} text-xs mb-1`}>
                 {result.shortfall > 0 ? '경매로 넘어가면 떼일 금액' : '떼일 금액 없음'}
               </p>
-              <p className="text-white text-3xl font-black">
+              <p className="text-white text-3xl font-bold">
                 {result.shortfall > 0 ? man(result.shortfall) : '0원'}
               </p>
               <p className={`${GRADE_SUB[result.grade]} text-xs mt-1`}>
@@ -242,7 +242,7 @@ export default function JeonseSafetyPage() {
             <Card>
               <CardHeader title="보증금을 얼마까지 낮추면 안전한가" sub="깎아 달라고 할 때 부를 숫자" />
               <div className="px-5 py-4">
-                <p className="text-2xl font-black">{man(result.safeDeposit)}</p>
+                <p className="text-2xl font-bold">{man(result.safeDeposit)}</p>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                   이 금액까지면 위 조건에서 떼이는 돈이 없습니다
                   {usedDeposit > result.safeDeposit && (

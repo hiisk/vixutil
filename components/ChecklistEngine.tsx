@@ -518,7 +518,7 @@ export default function ChecklistEngine({ checklist, lang = 'ko', headerRight }:
         {isAllDone && (
           <div className="bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/50 rounded-lg p-5 text-center mb-6">
             <p className="text-3xl mb-2">🎉</p>
-            <p className="font-black text-emerald-700 dark:text-emerald-300 text-lg">모든 항목 완료!</p>
+            <p className="font-bold text-emerald-700 dark:text-emerald-300 text-lg">모든 항목 완료!</p>
             <p className="text-sm text-emerald-600 mt-1">수고하셨습니다. 모든 준비를 마쳤어요.</p>
             <div className="flex gap-2 mt-4">
               <button

@@ -38,7 +38,7 @@ export default function CleanTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
       />
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">{ui.whatTitle}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">{ui.whatTitle}</p>
         <div className="grid sm:grid-cols-2 gap-x-4">
           {OPTIONS.map((o, i) => (
             <Toggle
@@ -54,7 +54,7 @@ export default function CleanTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
 
       {text && (
         <div className="mt-4 rounded-lg border chip-off px-4 py-3.5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">
             {entries.length === 0 ? ui.nothing : shrunk > 0 ? ui.shrunk(shrunk) : ui.cleaned}
           </p>
           {entries.length > 0 && (

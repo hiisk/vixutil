@@ -34,7 +34,7 @@ export default function MeasureTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
   return (
     <div>
       <label className="block">
-        <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">{ui.ingredient}</span>
+        <span className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">{ui.ingredient}</span>
         <select
           value={ingredientId}
           onChange={e => setIngredientId(e.target.value)}
@@ -60,7 +60,7 @@ export default function MeasureTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
         ))}
       </div>
 
-      <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.cupStandard}</p>
+      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.cupStandard}</p>
       <div className="grid grid-cols-2 gap-2">
         {[false, true].map((us, i) => (
           <button
@@ -103,7 +103,7 @@ export default function MeasureTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
       </Result>
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.whyTitle}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.whyTitle}</p>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           {ui.why}
           {names[ingredient.id]?.note && <><br /><b className="text-slate-800 dark:text-slate-100">{names[ingredient.id].name}</b> — {names[ingredient.id].note}</>}

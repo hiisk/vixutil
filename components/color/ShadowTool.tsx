@@ -38,8 +38,8 @@ export default function ShadowTool({ lang = 'ko' }: { lang?: ColorLang } = {}) {
   const slider = (label: string, value: number, min: number, max: number, set: (n: number) => void) => (
     <div>
       <div className="flex items-baseline justify-between mb-1">
-        <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{label}</span>
-        <span className="text-sm font-black text-indigo-600 tabular-nums">{value}px</span>
+        <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{label}</span>
+        <span className="text-sm font-bold text-indigo-600 tabular-nums">{value}px</span>
       </div>
       <input
         type="range" min={min} max={max} value={value}
@@ -83,8 +83,8 @@ export default function ShadowTool({ lang = 'ko' }: { lang?: ColorLang } = {}) {
 
         <div>
           <div className="flex items-baseline justify-between mb-1">
-            <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.opacity}</span>
-            <span className="text-sm font-black text-indigo-600 tabular-nums">{alpha}%</span>
+            <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{ui.opacity}</span>
+            <span className="text-sm font-bold text-indigo-600 tabular-nums">{alpha}%</span>
           </div>
           <input
             type="range" min={0} max={100} value={alpha}

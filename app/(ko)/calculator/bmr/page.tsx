@@ -112,7 +112,7 @@ export default function BmrPage() {
               </div>
             </div>
             <Card className="p-4">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">하루 소모 칼로리 환산 참고</p>
+              <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">하루 소모 칼로리 환산 참고</p>
               <div className="grid grid-cols-3 gap-2 text-center text-xs">
                 {[
                   { food: '밥 한 공기', kcal: 300 },

@@ -80,7 +80,7 @@ export default function ScHubPage({ lang }: { lang: Lang }) {
             <section key={app} className="mb-9">
               <h2 className="sec-h2 flex items-baseline gap-2">
                 {ui.appLabel[app]}
-                <span className="text-xs font-bold text-slate-400 dark:text-slate-500">{list.length}</span>
+                <span className="text-xs font-medium text-slate-400 dark:text-slate-500">{list.length}</span>
               </h2>
               <p className="mb-3 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{ui.appNote[app]}</p>
               <div className="rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">

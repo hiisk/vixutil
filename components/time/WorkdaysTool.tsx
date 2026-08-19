@@ -53,7 +53,7 @@ export default function WorkdaysTool({ lang = 'ko' }: { lang?: TimeLang } = {}) 
       )}
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.addHolidays}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.addHolidays}</p>
         <textarea
           value={holidays}
           onChange={e => setHolidays(e.target.value)}
@@ -70,16 +70,16 @@ export default function WorkdaysTool({ lang = 'ko' }: { lang?: TimeLang } = {}) 
 
       {result && (
         <div className={`${CARD} mt-4`}>
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.nAfterTitle}</p>
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.nAfterTitle}</p>
           <div className="flex items-center gap-3">
             <input
               type="number" min={1} max={365} value={addDays}
               onChange={e => setAddDays(Math.max(1, Number(e.target.value)))}
-              className="w-24 rounded-xl border chip-off px-3 py-2.5 text-sm font-black text-slate-800 dark:text-slate-100 tabular-nums focus:outline-none focus:border-emerald-400"
+              className="w-24 rounded-xl border chip-off px-3 py-2.5 text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums focus:outline-none focus:border-emerald-400"
             />
             <span className="text-sm text-slate-500 dark:text-slate-400">{ui.nAfterResult}</span>
           </div>
-          <p className="mt-3 text-lg font-black text-emerald-600">{formatKo(result.after)}</p>
+          <p className="mt-3 text-lg font-bold text-emerald-600">{formatKo(result.after)}</p>
           <p className="mt-1 text-[11px] text-slate-400 dark:text-slate-500">
             {ui.nAfterNote}
           </p>

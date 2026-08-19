@@ -53,7 +53,7 @@ export default function AgePage() {
           <>
             <div className="stat-pri text-center">
               <p className="stat-label">만 나이 (법적 기준)</p>
-              <p className="text-slate-900 dark:text-slate-50 text-5xl font-black">{result.internationalAge}세</p>
+              <p className="text-slate-900 dark:text-slate-50 text-5xl font-bold">{result.internationalAge}세</p>
             </div>
             <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <SummaryCard label="한국 나이" value={`${result.koreanAge}세`} />

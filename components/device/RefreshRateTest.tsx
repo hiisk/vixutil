@@ -81,10 +81,10 @@ export default function RefreshRateTest({ lang = 'ko' }: { lang?: DeviceLang } =
   return (
     <div>
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-6 text-center">
-        <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-2">
+        <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-2">
           {running ? ui.measuring : result ? ui.resultLabel : ui.ready}
         </p>
-        <p className="text-6xl font-black bg-sec bg-clip-text text-transparent tabular-nums">
+        <p className="text-6xl font-bold bg-sec bg-clip-text text-transparent tabular-nums">
           {result ? result.hz : running ? live || '–' : '–'}
           <span className="text-2xl ml-1.5 text-slate-400 dark:text-slate-500">Hz</span>
         </p>
@@ -118,7 +118,7 @@ export default function RefreshRateTest({ lang = 'ko' }: { lang?: DeviceLang } =
               { label: ui.jitter, val: `${result.jitter}ms` },
             ].map(s => (
               <div key={s.label} className="rounded-xl border chip-off px-3 py-3 text-center">
-                <p className="text-base font-black text-slate-800 dark:text-slate-100 tabular-nums">{s.val}</p>
+                <p className="text-base font-bold text-slate-800 dark:text-slate-100 tabular-nums">{s.val}</p>
                 <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{s.label}</p>
               </div>
             ))}
@@ -147,7 +147,7 @@ export default function RefreshRateTest({ lang = 'ko' }: { lang?: DeviceLang } =
       {/* 눈으로 비교하는 부분 — 숫자보다 이쪽이 체감에 가깝다 */}
       <div className="mt-4 rounded-lg border chip-off p-5">
         <div className="flex items-center justify-between mb-3">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.motionTitle}</p>
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400">{ui.motionTitle}</p>
           <button
             onClick={() => setMotion(m => !m)}
             className="text-xs font-bold text-amber-600 hover:underline"

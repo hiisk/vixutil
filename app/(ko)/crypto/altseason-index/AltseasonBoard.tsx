@@ -115,8 +115,8 @@ export default function AltseasonBoard() {
         <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">
           Altcoin Season Index · {idx.days} days
         </p>
-        <p className={`text-6xl font-black tabular-nums ${ui.cls}`}>{idx.index.toFixed(0)}</p>
-        <p className={`text-lg font-black mt-1 ${ui.cls}`}>{ui.text}</p>
+        <p className={`text-6xl font-bold tabular-nums ${ui.cls}`}>{idx.index.toFixed(0)}</p>
+        <p className={`text-lg font-bold mt-1 ${ui.cls}`}>{ui.text}</p>
         <p className="text-sm text-slate-600 dark:text-slate-300 mt-2">
           <b className="tabular-nums">{idx.outperformers}</b> of <b className="tabular-nums">{idx.total}</b> coins beat Bitcoin,
           which returned <b className={`tabular-nums ${roiCls(idx.btcReturnPct)}`}>{signed(idx.btcReturnPct)}</b> over this period.
@@ -160,7 +160,7 @@ export default function AltseasonBoard() {
       {/* 구성 종목 — 지수는 이 표의 요약일 뿐이다 */}
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
         <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
-          <h2 className="text-sm font-black text-slate-900 dark:text-white">Every coin behind that number</h2>
+          <h2 className="text-sm font-bold text-slate-900 dark:text-white">Every coin behind that number</h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             The index is just the share of this list above zero. Sites that publish only the headline number ask you to trust the list you cannot see.
           </p>
@@ -210,7 +210,7 @@ export default function AltseasonBoard() {
 
       {/* 정직한 한계 */}
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
-        <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">What this index is not</h2>
+        <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-2">What this index is not</h2>
         <p className="mb-2">
           <b className="text-slate-700 dark:text-slate-200">The 75 and 25 thresholds are conventions, not findings.</b> Nothing changes in the market
           between 74 and 76. They are round numbers that became standard because they are easy to say, so treat a reading near either line as

@@ -162,15 +162,15 @@ export default function WebcamTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) 
         <>
           <div className="grid grid-cols-3 gap-2 mt-4">
             <div className="rounded-xl border chip-off px-3 py-3 text-center">
-              <p className="text-base font-black text-cyan-600">{info.w}×{info.h}</p>
+              <p className="text-base font-bold text-cyan-600">{info.w}×{info.h}</p>
               <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{ui.resolution}</p>
             </div>
             <div className="rounded-xl border chip-off px-3 py-3 text-center">
-              <p className="text-base font-black text-blue-600">{measured || info.fps || '–'}</p>
+              <p className="text-base font-bold text-blue-600">{measured || info.fps || '–'}</p>
               <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{ui.measuredFps}</p>
             </div>
             <div className="rounded-xl border chip-off px-3 py-3 text-center">
-              <p className="text-base font-black text-indigo-600">{info.fps ?? '–'}</p>
+              <p className="text-base font-bold text-indigo-600">{info.fps ?? '–'}</p>
               <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{ui.setFps}</p>
             </div>
           </div>
@@ -179,7 +179,7 @@ export default function WebcamTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) 
 
           {devices.length > 1 && (
             <label className="mt-4 block">
-              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.deviceLabel}</span>
+              <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{ui.deviceLabel}</span>
               <select
                 value={deviceId}
                 onChange={e => { setDeviceId(e.target.value); start(e.target.value); }}
@@ -216,7 +216,7 @@ export default function WebcamTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) 
           {shot && (
             <div className="mt-4">
               <div className="flex items-center justify-between mb-2">
-                <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.snapshotTitle}</p>
+                <p className="text-xs font-medium text-slate-500 dark:text-slate-400">{ui.snapshotTitle}</p>
                 <a
                   href={shot}
                   download="webcam-test.png"

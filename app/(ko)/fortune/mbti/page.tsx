@@ -83,7 +83,7 @@ export default function MbtiPage() {
                       }`}
                     >
                       <div className="text-lg mb-0.5">{t.emoji}</div>
-                      <p className={`text-xs font-black ${selected === id ? 'text-white' : 'text-slate-800 dark:text-slate-100'}`}>{id}</p>
+                      <p className={`text-xs font-bold ${selected === id ? 'text-white' : 'text-slate-800 dark:text-slate-100'}`}>{id}</p>
                     </button>
                   );
                 })}

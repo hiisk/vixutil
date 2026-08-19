@@ -201,7 +201,7 @@ export default function MicTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
 
           {devices.length > 1 && (
             <label className="mt-5 block">
-              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.deviceLabel}</span>
+              <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{ui.deviceLabel}</span>
               <select
                 value={deviceId}
                 onChange={e => { setDeviceId(e.target.value); start(e.target.value); }}
@@ -232,7 +232,7 @@ export default function MicTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
 
           {clip && (
             <div className="mt-4">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.resultTitle}</p>
+              <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.resultTitle}</p>
               <audio src={clip} controls className="w-full" />
             </div>
           )}

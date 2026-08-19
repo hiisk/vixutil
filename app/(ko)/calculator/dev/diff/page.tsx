@@ -151,15 +151,15 @@ export default function DiffPage() {
             {/* 통계 */}
             <div className="grid grid-cols-3 gap-3">
               <div className="bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/50 rounded-lg p-4 text-center">
-                <p className="text-2xl font-black text-emerald-700 dark:text-emerald-300">+{stats.added}</p>
+                <p className="text-2xl font-bold text-emerald-700 dark:text-emerald-300">+{stats.added}</p>
                 <p className="text-xs text-emerald-600 mt-1">추가된 줄</p>
               </div>
               <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-lg p-4 text-center">
-                <p className="text-2xl font-black text-red-600">-{stats.deleted}</p>
+                <p className="text-2xl font-bold text-red-600">-{stats.deleted}</p>
                 <p className="text-xs text-red-500 mt-1">삭제된 줄</p>
               </div>
               <div className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg p-4 text-center">
-                <p className="text-2xl font-black text-slate-500 dark:text-slate-400">{stats.equal}</p>
+                <p className="text-2xl font-bold text-slate-500 dark:text-slate-400">{stats.equal}</p>
                 <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">동일한 줄</p>
               </div>
             </div>

@@ -26,7 +26,7 @@ function Steps({ result }: { result: MatchResult }) {
       <div className="inline-flex flex-col items-center gap-1 min-w-full py-1">
         <div className="flex gap-1.5">
           {labels.map((ch, i) => (
-            <span key={i} className="w-8 text-center text-xs font-bold text-slate-400 dark:text-slate-500">{ch}</span>
+            <span key={i} className="w-8 text-center text-xs font-medium text-slate-400 dark:text-slate-500">{ch}</span>
           ))}
         </div>
         {result.steps.map((row, si) => (
@@ -34,7 +34,7 @@ function Steps({ result }: { result: MatchResult }) {
             {row.map((n, i) => (
               <span
                 key={i}
-                className={`w-8 h-8 flex items-center justify-center rounded-lg text-sm font-black ${
+                className={`w-8 h-8 flex items-center justify-center rounded-lg text-sm font-bold ${
                   si === result.steps.length - 1
                     ? 'bg-rose-500 text-white'
                     : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'
@@ -100,18 +100,18 @@ export default function NameMatchPage() {
         <form onSubmit={submit} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-6">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">내 이름</label>
+              <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">내 이름</label>
               <input value={nameA} onChange={e => setNameA(e.target.value)} placeholder="김민수" maxLength={10}
                 className="fld w-full focus:border-rose-400" />
             </div>
             <div>
-              <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">상대 이름</label>
+              <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">상대 이름</label>
               <input value={nameB} onChange={e => setNameB(e.target.value)} placeholder="이지은" maxLength={10}
                 className="fld w-full focus:border-rose-400" />
             </div>
           </div>
           {error && <p className="text-xs text-rose-600 dark:text-rose-400 mt-2">{error}</p>}
-          <button type="submit" className="w-full mt-3 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-sm font-black py-3 transition-colors">
+          <button type="submit" className="w-full mt-3 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-sm font-bold py-3 transition-colors">
             궁합 보기
           </button>
         </form>
@@ -123,13 +123,13 @@ export default function NameMatchPage() {
                 {result.nameA} <span className="text-rose-400">×</span> {result.nameB}
               </p>
               <div className="text-5xl my-2">{verdict.emoji}</div>
-              <p className="text-5xl font-black text-rose-600 dark:text-rose-400 leading-none">{result.score}%</p>
-              <p className="text-base font-black text-slate-800 dark:text-slate-100 mt-3">{verdict.label}</p>
+              <p className="text-5xl font-bold text-rose-600 dark:text-rose-400 leading-none">{result.score}%</p>
+              <p className="text-base font-bold text-slate-800 dark:text-slate-100 mt-3">{verdict.label}</p>
               <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mt-2">{verdict.comment}</p>
             </div>
 
             <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
-              <h2 className="text-sm font-black text-slate-800 dark:text-slate-100 mb-3">계산 과정</h2>
+              <h2 className="text-sm font-bold text-slate-800 dark:text-slate-100 mb-3">계산 과정</h2>
               <Steps result={result} />
               <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-3 leading-relaxed">
                 이름을 한 글자씩 번갈아 놓고 각 글자의 획수를 적은 뒤, 이웃한 두 수를 더해 일의 자리만 남기는 과정을
@@ -150,7 +150,7 @@ export default function NameMatchPage() {
           기준 차이라는 걸 알려주는 편이 낫다.
         */}
         <div className="mt-8 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
-          <h2 className="text-sm font-black text-slate-800 dark:text-slate-100 mb-2">다른 사이트와 결과가 달라요</h2>
+          <h2 className="text-sm font-bold text-slate-800 dark:text-slate-100 mb-2">다른 사이트와 결과가 달라요</h2>
           <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
             한글 획수를 세는 기준이 하나로 정해져 있지 않기 때문입니다. 예를 들어 ㄱ을 1획으로 보는 표도 있고 2획으로 보는 표도 있어서,
             어느 표를 쓰느냐에 따라 같은 이름도 다른 숫자가 나옵니다. 이 페이지는 널리 쓰이는 표 하나를 골라 쓰고 있을 뿐이고,

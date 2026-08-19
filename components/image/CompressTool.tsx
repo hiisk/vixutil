@@ -100,8 +100,8 @@ export default function CompressTool({ lang = 'ko' }: { lang?: ImageLang } = {})
 
       <div className="mt-4 rounded-lg border chip-off p-5">
         <div className="flex items-baseline justify-between mb-2">
-          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{c.quality}</span>
-          <span className="text-sm font-black text-violet-600 tabular-nums">{Math.round(quality * 100)}%</span>
+          <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{c.quality}</span>
+          <span className="text-sm font-bold text-violet-600 tabular-nums">{Math.round(quality * 100)}%</span>
         </div>
         <input
           type="range"
@@ -117,7 +117,7 @@ export default function CompressTool({ lang = 'ko' }: { lang?: ImageLang } = {})
           <span>{c.sharper}</span>
         </div>
 
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-5 mb-2">{ui.saveAs}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-5 mb-2">{ui.saveAs}</p>
         <div className="grid grid-cols-2 gap-2">
           {FORMATS.map((f, i) => (
             <button
@@ -129,7 +129,7 @@ export default function CompressTool({ lang = 'ko' }: { lang?: ImageLang } = {})
                   : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
               }`}
             >
-              <span className={`block text-sm font-black ${mime === f.mime ? 'text-violet-700 dark:text-violet-300' : 'text-slate-700 dark:text-slate-200'}`}>
+              <span className={`block text-sm font-bold ${mime === f.mime ? 'text-violet-700 dark:text-violet-300' : 'text-slate-700 dark:text-slate-200'}`}>
                 {ui.formats[i]}
               </span>
               <span className="block text-[11px] text-slate-400 dark:text-slate-500">{ui.formatHints[i]}</span>

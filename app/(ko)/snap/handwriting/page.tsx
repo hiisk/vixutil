@@ -193,7 +193,7 @@ export default function HandwritingPage() {
           <p className="text-slate-500 dark:text-slate-400 text-sm">손글씨 사진 한 장으로 기울기·필압을 분석해요</p>
         </div>
 
-        <div className="bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 rounded-lg p-4 mb-6 text-xs text-indigo-800 dark:text-indigo-300 leading-relaxed">
+        <div className="note mb-6">
           <p className="font-bold mb-1">🔒 사진은 서버에 전송되지 않아요</p>
           <p>글씨의 기울기와 필압은 이 브라우저 안에서 실제로 측정되고, 사진은 어디에도 저장·전송되지 않습니다. 성격 해석은 필적학에 근거한 참고용 오락 콘텐츠입니다.</p>
         </div>

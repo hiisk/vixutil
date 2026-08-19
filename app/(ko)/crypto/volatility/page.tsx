@@ -68,7 +68,7 @@ export default function VolatilityPage() {
           계산하므로 자바스크립트를 실행하지 않는 크롤러에겐 빈 껍데기로 보인다.
         */}
         <section className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
-          <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">The one thing about price that is genuinely forecastable</h2>
+          <h2 className="text-base font-bold text-slate-900 dark:text-white mb-3">The one thing about price that is genuinely forecastable</h2>
           <p className="mb-3">
             Direction cannot be predicted from past prices to any useful degree — this site measures that repeatedly and reports the coin-flip
             results. Volatility is the exception. It clusters: a week of violent moves is followed by more violent moves more often than not,

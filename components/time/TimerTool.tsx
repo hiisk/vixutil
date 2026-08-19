@@ -54,7 +54,7 @@ export default function TimerTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
   return (
     <div>
       <div className={`rounded-lg px-6 py-12 text-center transition-colors ${done ? 'bg-rose-500' : 'bg-slate-900'}`}>
-        <p className="text-6xl sm:text-7xl font-black text-white tabular-nums tracking-tight">
+        <p className="text-6xl sm:text-7xl font-bold text-white tabular-nums tracking-tight">
           {formatDuration(left)}
         </p>
         <p className="text-sm text-white/60 mt-3">
@@ -72,19 +72,19 @@ export default function TimerTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
       {!running && (
         <div className="grid grid-cols-2 gap-3 mt-4">
           <label>
-            <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">{ui.min}</span>
+            <span className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">{ui.min}</span>
             <input
               type="number" min={0} max={180} value={minutes}
               onChange={e => { setMinutes(Math.max(0, Number(e.target.value))); reset(); }}
-              className="w-full rounded-xl border chip-off px-3.5 py-3 text-lg font-black text-slate-800 dark:text-slate-100 tabular-nums focus:outline-none focus:border-rose-400"
+              className="w-full rounded-xl border chip-off px-3.5 py-3 text-lg font-bold text-slate-800 dark:text-slate-100 tabular-nums focus:outline-none focus:border-rose-400"
             />
           </label>
           <label>
-            <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">{ui.sec}</span>
+            <span className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">{ui.sec}</span>
             <input
               type="number" min={0} max={59} value={seconds}
               onChange={e => { setSeconds(Math.min(59, Math.max(0, Number(e.target.value)))); reset(); }}
-              className="w-full rounded-xl border chip-off px-3.5 py-3 text-lg font-black text-slate-800 dark:text-slate-100 tabular-nums focus:outline-none focus:border-rose-400"
+              className="w-full rounded-xl border chip-off px-3.5 py-3 text-lg font-bold text-slate-800 dark:text-slate-100 tabular-nums focus:outline-none focus:border-rose-400"
             />
           </label>
         </div>
@@ -105,7 +105,7 @@ export default function TimerTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
         </button>
       </div>
 
-      <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-5 mb-2">{ui.presets}</p>
+      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-5 mb-2">{ui.presets}</p>
       <div className="grid grid-cols-6 gap-2">
         {PRESETS.map(m => (
           <button

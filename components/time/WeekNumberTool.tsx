@@ -38,7 +38,7 @@ export default function WeekNumberTool({ lang = 'ko' }: { lang?: TimeLang } = {}
         <>
           <div className="mt-4 rounded-lg bg-sec px-6 py-8 text-center">
             <p className="text-sm text-white/70 mb-1">{formatKo(info.date)}</p>
-            <p className="text-5xl font-black tabular-nums">{ui.weekBig(info.week)}</p>
+            <p className="text-5xl font-bold tabular-nums">{ui.weekBig(info.week)}</p>
             <p className="text-sm text-white/70 mt-2">{ui.yearQuarter(info.year, info.quarter)}</p>
           </div>
 
@@ -51,8 +51,8 @@ export default function WeekNumberTool({ lang = 'ko' }: { lang?: TimeLang } = {}
 
           <div className="mt-4">
             <div className="flex items-baseline justify-between mb-1.5">
-              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.progress}</span>
-              <span className="text-sm font-black text-indigo-600 tabular-nums">{info.progress}%</span>
+              <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{ui.progress}</span>
+              <span className="text-sm font-bold text-indigo-600 tabular-nums">{info.progress}%</span>
             </div>
             <div className="h-2.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
               <div className="h-full bg-sec" style={{ width: `${info.progress}%` }} />
@@ -60,7 +60,7 @@ export default function WeekNumberTool({ lang = 'ko' }: { lang?: TimeLang } = {}
           </div>
 
           <div className={`${CARD} mt-4`}>
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.rangeTitle}</p>
+            <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.rangeTitle}</p>
             <p className="text-sm text-slate-700 dark:text-slate-200 font-bold">
               {formatKo(info.monday)} ~ {formatKo(info.sunday)}
             </p>
@@ -69,7 +69,7 @@ export default function WeekNumberTool({ lang = 'ko' }: { lang?: TimeLang } = {}
       )}
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.isoNote}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.isoNote}</p>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           {ui.isoBody}
         </p>

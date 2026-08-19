@@ -266,13 +266,13 @@ export default function TestEngine({ test, lang = 'ko', headerRight }: { test: T
           </div>
         </header>
         <div key={current} className="flex-1 px-4 py-10 max-w-lg mx-auto w-full te-fade">
-          <span className="inline-block text-xs font-black text-violet-500 bg-violet-50 dark:bg-violet-950/40 px-2.5 py-1 rounded-full mb-4">Q{current + 1}</span>
-          <h2 className="text-xl font-black text-slate-900 dark:text-slate-100 mb-8 leading-relaxed whitespace-pre-line tracking-tight">{q.q}</h2>
+          <span className="inline-block text-xs font-bold text-violet-500 bg-violet-50 dark:bg-violet-950/40 px-2.5 py-1 rounded-full mb-4">Q{current + 1}</span>
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-8 leading-relaxed whitespace-pre-line tracking-tight">{q.q}</h2>
           <div className="flex flex-col gap-2.5">
             {q.opts.map((opt, i) => (
               <button key={i} onClick={() => pick(i)}
                 className="group w-full text-left flex items-center gap-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg pl-3 pr-4 py-3.5 text-sm font-medium text-slate-700 dark:text-slate-200 hover:border-violet-400 hover:bg-sec-soft hover:text-violet-700 hover:shadow-sm active:scale-[0.99] transition-all">
-                <span className="shrink-0 w-7 h-7 rounded-full border-2 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 text-xs font-black flex items-center justify-center transition-colors group-hover:border-violet-500 group-hover:bg-violet-500 group-hover:text-white">
+                <span className="shrink-0 w-7 h-7 rounded-full border-2 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 text-xs font-medium flex items-center justify-center transition-colors group-hover:border-violet-500 group-hover:bg-violet-500 group-hover:text-white">
                   {['A', 'B', 'C', 'D', 'E'][i] ?? i + 1}
                 </span>
                 <span className="flex-1 leading-snug">{opt.text}</span>
@@ -312,16 +312,16 @@ export default function TestEngine({ test, lang = 'ko', headerRight }: { test: T
           <div className="te-pop-emoji text-7xl mb-4 filter drop-shadow-sm relative z-10">{result.emoji}</div>
           <span className="relative z-10 text-xs font-bold bg-white/20 dark:bg-slate-900/20 px-3 py-1 rounded-full">{ui.resultOf(test.category)}</span>
           {mbtiType && (
-            <p className="relative z-10 text-4xl font-black mt-4 tracking-widest">{mbtiType}</p>
+            <p className="relative z-10 text-4xl font-bold mt-4 tracking-widest">{mbtiType}</p>
           )}
-          <h2 className="relative z-10 text-2xl font-black mt-2 mb-3">{result.title}</h2>
+          <h2 className="relative z-10 text-2xl font-bold mt-2 mb-3">{result.title}</h2>
           <p className="relative z-10 text-sm leading-relaxed opacity-90">{result.desc}</p>
         </div>
 
         {/* Traits */}
         {result.traits && result.traits.length > 0 && (
           <div className="bg-slate-50 dark:bg-slate-950 rounded-lg p-5 mb-5">
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wide">{ui.traits}</p>
+            <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wide">{ui.traits}</p>
             <div className="flex flex-wrap gap-2">
               {result.traits.map((t, i) => (
                 <span key={i} className="text-xs font-bold px-3 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-full text-slate-700 dark:text-slate-200 shadow-sm">

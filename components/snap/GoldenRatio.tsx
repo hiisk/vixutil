@@ -194,7 +194,7 @@ export default function GoldenRatio({ lang }: { lang: SnapIntlLang }) {
         <>
           <div className="bg-sec rounded-lg p-6 text-center">
             <p className="text-sm font-semibold text-white/80 mb-2">{c.overall}</p>
-            <p className="text-4xl font-black mb-3">{result.totalScore}</p>
+            <p className="text-4xl font-bold mb-3">{result.totalScore}</p>
             <p className="text-sm leading-relaxed">{result.overall}</p>
           </div>
 

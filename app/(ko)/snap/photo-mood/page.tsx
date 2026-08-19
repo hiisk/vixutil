@@ -202,7 +202,7 @@ export default function PhotoMoodPage() {
           <p className="text-slate-500 dark:text-slate-400 text-sm">아무 사진이나 올려도 돼요 — 실제 색감을 분석해드려요</p>
         </div>
 
-        <div className="bg-violet-50 dark:bg-violet-950/30 border border-violet-100 dark:border-violet-900/40 rounded-lg p-4 mb-6 text-xs text-violet-800 dark:text-violet-300 leading-relaxed">
+        <div className="note mb-6">
           <p className="font-bold mb-1">🔒 사진은 서버에 전송되지 않아요</p>
           <p>얼굴 인식이 필요 없는 기능이라 인물·풍경·음식 등 어떤 사진이든 올릴 수 있어요. 밝기·채도·대비·색감은 이 브라우저 안에서 실제로 측정되고, 사진은 어디에도 저장·전송되지 않습니다.</p>
         </div>
@@ -271,7 +271,7 @@ export default function PhotoMoodPage() {
               </div>
               <div className="text-4xl mb-2">{result.emoji}</div>
               <p className="text-sm font-semibold text-white/80 mb-1">{result.vibe}</p>
-              <p className="text-xl font-black mb-3">{result.label}</p>
+              <p className="text-xl font-bold mb-3">{result.label}</p>
               <p className="text-sm leading-relaxed">{result.text}</p>
             </div>
 
@@ -292,7 +292,7 @@ export default function PhotoMoodPage() {
             <div className="grid grid-cols-2 gap-3">
               <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
                 <div className="flex items-center justify-between mb-1.5">
-                  <p className="text-xs font-bold text-slate-500 dark:text-slate-400">☀️ 밝기</p>
+                  <p className="text-xs font-medium text-slate-500 dark:text-slate-400">☀️ 밝기</p>
                   <span className="text-[11px] font-bold text-slate-600 dark:text-slate-300">{result.brightnessPercent}%</span>
                 </div>
                 <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
@@ -301,7 +301,7 @@ export default function PhotoMoodPage() {
               </div>
               <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
                 <div className="flex items-center justify-between mb-1.5">
-                  <p className="text-xs font-bold text-slate-500 dark:text-slate-400">🌈 채도</p>
+                  <p className="text-xs font-medium text-slate-500 dark:text-slate-400">🌈 채도</p>
                   <span className="text-[11px] font-bold text-slate-600 dark:text-slate-300">{result.saturationPercent}%</span>
                 </div>
                 <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
@@ -310,7 +310,7 @@ export default function PhotoMoodPage() {
               </div>
               <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
                 <div className="flex items-center justify-between mb-1.5">
-                  <p className="text-xs font-bold text-slate-500 dark:text-slate-400">🌡️ 웜/쿨</p>
+                  <p className="text-xs font-medium text-slate-500 dark:text-slate-400">🌡️ 웜/쿨</p>
                   <span className="text-[11px] font-bold text-slate-600 dark:text-slate-300">{result.warmthPercent}% {result.warmthPercent >= 50 ? '웜' : '쿨'}</span>
                 </div>
                 <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
@@ -319,7 +319,7 @@ export default function PhotoMoodPage() {
               </div>
               <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
                 <div className="flex items-center justify-between mb-1.5">
-                  <p className="text-xs font-bold text-slate-500 dark:text-slate-400">◐ 대비</p>
+                  <p className="text-xs font-medium text-slate-500 dark:text-slate-400">◐ 대비</p>
                   <span className="text-[11px] font-bold text-slate-600 dark:text-slate-300">{result.contrastPercent}%</span>
                 </div>
                 <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">

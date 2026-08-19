@@ -97,7 +97,7 @@ export default function HearingGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
     <div>
       <div className="rounded-lg bg-sec px-6 py-10 text-center">
         <p className="text-sm text-white/70 mb-1">{ui.nowPlaying}</p>
-        <p className="text-5xl font-black tabular-nums">
+        <p className="text-5xl font-bold tabular-nums">
           {hz >= 1000 ? `${(hz / 1000).toFixed(hz % 1000 === 0 ? 0 : 1)}k` : hz}
           <span className="text-2xl ml-1">Hz</span>
         </p>
@@ -130,8 +130,8 @@ export default function HearingGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
       ) : (
         <>
           <div className="mt-4 rounded-lg border chip-off p-5 text-center">
-            <p className="text-xs font-bold text-slate-400 dark:text-slate-500 mb-1">{ui.limitLabel}</p>
-            <p className="text-3xl font-black text-cyan-600 tabular-nums">
+            <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mb-1">{ui.limitLabel}</p>
+            <p className="text-3xl font-bold text-cyan-600 tabular-nums">
               {limit === 0 ? ui.belowOne : `${(limit / 1000).toFixed(limit % 1000 === 0 ? 0 : 1)}kHz`}
             </p>
             <p className="text-sm text-slate-600 dark:text-slate-300 mt-2">{hint}</p>
@@ -152,7 +152,7 @@ export default function HearingGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
       </div>
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.tipsTitle}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.tipsTitle}</p>
         <ul className="flex flex-col gap-1.5 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           {ui.tips.map(t => <li key={t}>{t}</li>)}
         </ul>

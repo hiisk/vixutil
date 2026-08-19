@@ -120,7 +120,7 @@ export default async function CoinPredictionPage({ params }: { params: Promise<{
           자바스크립트를 실행하지 않는 크롤러에겐 빈 껍데기로 보인다. 실제 문장을 여기 둔다.
         */}
         <section className="mt-10 rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 note-sm [&>p]:max-w-[72ch]">
-          <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">About the {coin.name} ({coin.base}) price prediction</h2>
+          <h2 className="text-base font-bold text-slate-900 dark:text-white mb-3">About the {coin.name} ({coin.base}) price prediction</h2>
           <p className="mb-3">
             This page projects the {coin.name} price over seven horizons — 3 days, 1 week, 1 month, 3 months, 6 months, 1 year and 3 years — with daily,
             weekly and monthly views. It shows two complementary things: a conservative statistical forecast, and a <b className="text-slate-700 dark:text-slate-200">historical
@@ -149,7 +149,7 @@ export default async function CoinPredictionPage({ params }: { params: Promise<{
         </section>
 
         <section className="mt-5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 [&_dd]:max-w-[72ch]">
-          <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">{coin.name} price prediction FAQ</h2>
+          <h2 className="text-base font-bold text-slate-900 dark:text-white mb-3">{coin.name} price prediction FAQ</h2>
           <dl className="space-y-4 text-sm">
             {faqs(coin.name, coin.base).map(qa => (
               <div key={qa.q}>

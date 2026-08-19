@@ -138,7 +138,7 @@ export default function CorrelationBoard() {
       {/* 매트릭스 */}
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
         <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
-          <h2 className="text-sm font-black text-slate-900 dark:text-white">Daily return correlation · last {days} days</h2>
+          <h2 className="text-sm font-bold text-slate-900 dark:text-white">Daily return correlation · last {days} days</h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             1.00 means the two moved together every day; 0 means no linear relationship.
           </p>
@@ -179,7 +179,7 @@ export default function CorrelationBoard() {
 
       {/* 불안정성 — 이 페이지의 요점 */}
       <div className="rounded-lg border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
-        <h2 className="text-sm font-black text-amber-900 dark:text-amber-200 mb-1.5">That matrix is one number for a moving target</h2>
+        <h2 className="text-sm font-bold text-amber-900 dark:text-amber-200 mb-1.5">That matrix is one number for a moving target</h2>
         <p className="text-xs text-amber-900/85 dark:text-amber-200/85 leading-relaxed">
           Correlation is not a property of a pair; it is a property of a pair over a window. Split the same {days} days into {CHUNKS} equal
           parts and the figure moves — sometimes a lot.
@@ -193,7 +193,7 @@ export default function CorrelationBoard() {
 
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
         <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
-          <h2 className="text-sm font-black text-slate-900 dark:text-white">Against Bitcoin, and on the days that matter</h2>
+          <h2 className="text-sm font-bold text-slate-900 dark:text-white">Against Bitcoin, and on the days that matter</h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Diversification is only tested when things fall. The last column reports what each coin actually did on days BTC dropped more than {CRASH_PCT}%.
           </p>
@@ -228,7 +228,7 @@ export default function CorrelationBoard() {
                         ) : <span className="font-bold text-slate-800 dark:text-slate-100">{v.base}</span>}
                       </span>
                     </td>
-                    <td className="px-3 py-2.5 text-right tabular-nums font-black text-slate-900 dark:text-white">
+                    <td className="px-3 py-2.5 text-right tabular-nums font-bold text-slate-900 dark:text-white">
                       {v.corr != null ? v.corr.toFixed(2) : '—'}
                     </td>
                     <td className="px-3 py-2.5 text-slate-500 dark:text-slate-400 text-[12px]">
@@ -269,7 +269,7 @@ export default function CorrelationBoard() {
       </div>
 
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
-        <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">What a correlation matrix cannot tell you</h2>
+        <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-2">What a correlation matrix cannot tell you</h2>
         <p className="mb-2">
           It measures linear co-movement of daily returns over one chosen window, and nothing else. It does not say the pair will keep
           behaving that way, does not capture relationships that are not linear, and gives equal weight to a quiet Tuesday and a liquidation

@@ -198,7 +198,7 @@ export default function TimeDiffPage() {
             {addResult && (
               <div className="rounded-lg border border-blue-200 dark:border-blue-900/50 bg-blue-50 dark:bg-blue-950/30 p-5">
                 <p className="text-xs text-blue-400 mb-2">결과 시각</p>
-                <p className="text-2xl font-black text-blue-700 dark:text-blue-300">{addResult}</p>
+                <p className="text-2xl font-bold text-blue-700 dark:text-blue-300">{addResult}</p>
                 <p className="text-xs text-blue-400 mt-2">
                   기준: {base ? new Date(base).toLocaleString('ko-KR') : ''} {operation === 'add' ? '+' : '-'} {addDays}일 {addHours}시간 {addMins}분 {addSecs}초
                 </p>

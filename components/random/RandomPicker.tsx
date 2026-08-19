@@ -78,14 +78,14 @@ export default function RandomPicker({ lang = 'ko' }: { lang?: RandomLang }) {
         {rolling ? (
           <>
             <div className="text-xs font-bold text-amber-100 mb-1 tracking-widest">🥁 {ui.drumroll}</div>
-            <div className="rp-shake text-3xl font-black drop-shadow">{flash || '?'}</div>
+            <div className="rp-shake text-3xl font-bold drop-shadow">{flash || '?'}</div>
           </>
         ) : winners ? (
           <>
             <div className="text-xs font-bold text-amber-100 mb-2">{ui.winner}</div>
             <div className="flex flex-wrap justify-center gap-2">
               {winners.map((w, i) => (
-                <span key={i} className="rp-pop relative inline-block bg-white/25 rounded-full px-4 py-2 text-lg font-black" style={{ animationDelay: `${i * 120}ms` }}>
+                <span key={i} className="rp-pop relative inline-block bg-white/25 rounded-full px-4 py-2 text-lg font-bold" style={{ animationDelay: `${i * 120}ms` }}>
                   <span className="absolute -top-2 -right-1 text-sm">{CONFETTI[i % CONFETTI.length]}</span>
                   {w}
                 </span>
@@ -93,14 +93,14 @@ export default function RandomPicker({ lang = 'ko' }: { lang?: RandomLang }) {
             </div>
           </>
         ) : (
-          <div className="text-lg font-black text-white/90">{ui.whoWillIt}</div>
+          <div className="text-lg font-bold text-white/90">{ui.whoWillIt}</div>
         )}
       </div>
 
       <button
         onClick={draw}
         disabled={items.length === 0 || rolling}
-        className="w-full bg-sec font-black text-lg rounded-lg py-4 shadow-sm shadow-amber-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all disabled:opacity-50 disabled:hover:translate-y-0"
+        className="w-full bg-sec font-bold text-lg rounded-lg py-4 shadow-sm shadow-amber-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all disabled:opacity-50 disabled:hover:translate-y-0"
       >
         {rolling ? ui.drawing : winners ? ui.drawAgain : ui.draw}
       </button>

@@ -130,7 +130,7 @@ export default function PetAgePage() {
           <>
             <div className="stat-pri text-center">
               <p className="stat-sub mb-2">사람 나이로</p>
-              <p className="text-slate-900 dark:text-slate-50 text-5xl font-black">{Math.round(result)}</p>
+              <p className="text-slate-900 dark:text-slate-50 text-5xl font-bold">{Math.round(result)}</p>
               <p className="text-slate-500 dark:text-slate-400 text-xl mt-1">살</p>
               {stage && <p className="stat-sub mt-3 font-semibold">{stage.label}</p>}
             </div>

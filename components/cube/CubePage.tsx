@@ -112,7 +112,7 @@ export default function CubePage({ slug, lang }: { slug: string; lang: Lang }) {
 
         <div className="rounded-lg border-2 border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/30 px-4 py-4 mb-4">
           <div className="text-[11px] font-bold text-amber-700 dark:text-amber-400 mb-1">{ui.algLabel}</div>
-          <p className="text-lg sm:text-xl font-black text-slate-900 dark:text-slate-100 font-mono leading-snug break-words">{item.alg}</p>
+          <p className="text-lg sm:text-xl font-bold text-slate-900 dark:text-slate-100 font-mono leading-snug break-words">{item.alg}</p>
         </div>
 
         <dl className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden mb-8">
@@ -140,7 +140,7 @@ export default function CubePage({ slug, lang }: { slug: string; lang: Lang }) {
                   className="rounded-lg border chip-off p-2.5 hover:border-amber-400 hover:border-slate-300 dark:hover:border-slate-700 transition-all"
                 >
                   <CubeTop state={diagram(of_)} slot={o.step === 'f2l'} label={o.label} className="w-full max-w-[84px] mx-auto" />
-                  <div className="mt-1.5 text-center text-[11px] font-black text-slate-700 dark:text-slate-200">{o.label}</div>
+                  <div className="mt-1.5 text-center text-[11px] font-bold text-slate-700 dark:text-slate-200">{o.label}</div>
                 </Link>
               );
             })}

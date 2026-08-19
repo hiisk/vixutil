@@ -28,7 +28,7 @@ const ymd = (ms: number) => new Date(ms).toLocaleDateString('en-US', { year: 'nu
 const days = (n: number | null) => (n == null ? '—' : n >= 365 ? `${(n / 365).toFixed(1)} yr` : `${n} d`);
 
 function depthCls(v: number): string {
-  if (v >= 80) return 'text-rose-600 dark:text-rose-400 font-black';
+  if (v >= 80) return 'text-rose-600 dark:text-rose-400 font-bold';
   if (v >= 50) return 'text-rose-600/85 dark:text-rose-400/85 font-bold';
   if (v >= 30) return 'text-amber-600 dark:text-amber-400 font-bold';
   return 'text-slate-700 dark:text-slate-200';
@@ -102,12 +102,12 @@ export default function DrawdownBoard() {
             <div className="flex items-center gap-2.5">
               <CoinLogo base={snap.coin.base} size={28} />
               <div>
-                <p className="text-sm font-black text-slate-900 dark:text-white leading-tight">{snap.coin.base}</p>
+                <p className="text-sm font-bold text-slate-900 dark:text-white leading-tight">{snap.coin.base}</p>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 tabular-nums">{s.totalDays.toLocaleString()} days of history</p>
               </div>
             </div>
           )}
-          {state === 'loading' && <span role="status" className="text-xs font-bold text-slate-500 dark:text-slate-400">Reading full history…</span>}
+          {state === 'loading' && <span role="status" className="text-xs font-medium text-slate-500 dark:text-slate-400">Reading full history…</span>}
           {(state === 'error' || state === 'nodata') && (
             <span className="flex items-center gap-2 text-xs">
               <span className="font-bold text-rose-600 dark:text-rose-400">{state === 'nodata' ? 'Not enough history' : 'Couldn’t load history'}</span>
@@ -121,7 +121,7 @@ export default function DrawdownBoard() {
         <>
           {/* 수중 기간 — 가장 자주 빠지고 가장 놀라운 숫자 */}
           <div className="rounded-lg border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
-            <h2 className="text-sm font-black text-amber-900 dark:text-amber-200 mb-1.5">
+            <h2 className="text-sm font-bold text-amber-900 dark:text-amber-200 mb-1.5">
               {snap.coin.base} has spent {s.underwaterPct.toFixed(0)}% of its life below a previous high
             </h2>
             <p className="text-xs text-amber-900/85 dark:text-amber-200/85 leading-relaxed">
@@ -141,7 +141,7 @@ export default function DrawdownBoard() {
             ].map(([label, v, note]) => (
               <div key={label} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
                 <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">{label}</p>
-                <p className="text-lg font-black text-slate-900 dark:text-white tabular-nums">{v}</p>
+                <p className="text-lg font-bold text-slate-900 dark:text-white tabular-nums">{v}</p>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{note}</p>
               </div>
             ))}
@@ -149,7 +149,7 @@ export default function DrawdownBoard() {
 
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
             <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
-              <h2 className="text-sm font-black text-slate-900 dark:text-white">Every drawdown of 10% or more</h2>
+              <h2 className="text-sm font-bold text-slate-900 dark:text-white">Every drawdown of 10% or more</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 Deepest first. Note how often the deepest and the longest are not the same episode.
               </p>
@@ -199,7 +199,7 @@ export default function DrawdownBoard() {
       )}
 
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
-        <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">Duration is the part that gets left out</h2>
+        <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-2">Duration is the part that gets left out</h2>
         <p className="mb-2">
           Backtests and rankings quote maximum drawdown as a single depth, which makes two very different histories look identical. What
           actually removes people from a position is how long it stays down: the cost of a drawdown is paid in months of watching, not in the

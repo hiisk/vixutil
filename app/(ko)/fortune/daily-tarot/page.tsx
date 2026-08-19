@@ -56,7 +56,7 @@ export default function DailyTarotPage() {
       <div className="h-1 topbar" />
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-lg mx-auto px-4 h-14 flex items-center gap-3">
-          <Link href="/" className="font-black text-amber-600 text-lg shrink-0">vix.</Link>
+          <Link href="/" className="font-bold text-amber-600 text-lg shrink-0">vix.</Link>
           <Link href="/fortune" className="text-sm font-bold text-slate-700 dark:text-slate-200">🃏 오늘의 타로</Link>
           <span className="ml-auto shrink-0">
             <LangPicker current="ko" route="/fortune/daily-tarot" available={ALL_LOCALES10} />
@@ -77,7 +77,7 @@ export default function DailyTarotPage() {
           <div className="animate-pulse rounded-xl bg-slate-100 dark:bg-slate-800 h-80 mb-6" />
         ) : (
           <>
-            <p className="text-center text-xs font-bold text-slate-400 dark:text-slate-500 mb-3">{daily.dateLabel}</p>
+            <p className="text-center text-xs font-medium text-slate-400 dark:text-slate-500 mb-3">{daily.dateLabel}</p>
 
             {/* 카드 히어로 */}
             <div
@@ -88,7 +88,7 @@ export default function DailyTarotPage() {
                 {daily.card.emoji}
               </div>
               <div className="text-xs font-bold text-white/80">{daily.card.nameEn}</div>
-              <div className="text-3xl font-black drop-shadow">{daily.card.name}</div>
+              <div className="text-3xl font-bold drop-shadow">{daily.card.name}</div>
               <div className="inline-block mt-3 text-xs font-bold bg-white/25 rounded-full px-3 py-1">
                 {daily.reversed ? '역방향 ⟲' : '정방향 ⟰'}
               </div>
@@ -96,7 +96,7 @@ export default function DailyTarotPage() {
 
             {/* 의미 */}
             <div className="rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 p-5 mb-4">
-              <div className="text-xs font-black text-amber-600 mb-2">오늘의 메시지</div>
+              <div className="text-xs font-bold text-amber-600 mb-2">오늘의 메시지</div>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">
                 {daily.reversed ? daily.card.reversed : daily.card.upright}
               </p>
@@ -107,17 +107,17 @@ export default function DailyTarotPage() {
               <div className="rounded-lg bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 p-3 text-center">
                 <div className="text-[10px] font-bold text-slate-400 mb-1">행운의 색</div>
                 <div className="w-6 h-6 rounded-full mx-auto mb-1 border border-slate-200 dark:border-slate-600" style={{ background: daily.color[1] }} />
-                <div className="text-xs font-black text-slate-700 dark:text-slate-200">{daily.color[0]}</div>
+                <div className="text-xs font-bold text-slate-700 dark:text-slate-200">{daily.color[0]}</div>
               </div>
               <div className="rounded-lg bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 p-3 text-center">
                 <div className="text-[10px] font-bold text-slate-400 mb-1">행운의 방향</div>
                 <ToolIcon emoji="🧭" className="w-7 h-7 mb-0.5 text-slate-800 dark:text-slate-100" />
-                <div className="text-xs font-black text-slate-700 dark:text-slate-200">{daily.direction}</div>
+                <div className="text-xs font-bold text-slate-700 dark:text-slate-200">{daily.direction}</div>
               </div>
               <div className="rounded-lg bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 p-3 text-center">
                 <div className="text-[10px] font-bold text-slate-400 mb-1">행운의 숫자</div>
                 <ToolIcon emoji="🍀" className="w-7 h-7 mb-0.5 text-slate-800 dark:text-slate-100" />
-                <div className="text-xs font-black text-slate-700 dark:text-slate-200">{daily.number}</div>
+                <div className="text-xs font-bold text-slate-700 dark:text-slate-200">{daily.number}</div>
               </div>
             </div>
 

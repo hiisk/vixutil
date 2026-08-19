@@ -204,7 +204,7 @@ export default function AnimalFace({ lang }: { lang: SnapIntlLang }) {
           <div className="rounded-lg p-6 text-white text-center" style={{ background: `linear-gradient(135deg, ${result.from}, ${result.to})` }}>
             <p className="text-sm font-semibold text-white/80 mb-2">{c.result}</p>
             <div className="text-6xl mb-2">{result.emoji}</div>
-            <p className="text-2xl font-black mb-1">{result.label}</p>
+            <p className="text-2xl font-bold mb-1">{result.label}</p>
             <p className="text-sm font-bold text-white/80 mb-3">{result.matchPercent}%</p>
             <p className="text-sm leading-relaxed">{result.text}</p>
           </div>
@@ -213,7 +213,7 @@ export default function AnimalFace({ lang }: { lang: SnapIntlLang }) {
             <span className="text-3xl">{result.runnerUp.emoji}</span>
             <div className="flex-1">
               <p className="text-xs text-slate-400 dark:text-slate-500">{c.runnerUp}</p>
-              <p className="text-base font-black text-slate-800 dark:text-slate-100">{result.runnerUp.label}</p>
+              <p className="text-base font-bold text-slate-800 dark:text-slate-100">{result.runnerUp.label}</p>
             </div>
             <span className="text-sm font-bold text-orange-600">{result.runnerUp.percent}%</span>
           </div>

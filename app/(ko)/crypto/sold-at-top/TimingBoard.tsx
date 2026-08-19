@@ -137,14 +137,14 @@ export default function TimingBoard() {
             <div className="flex items-center gap-2.5">
               <CoinLogo base={snap.coin.base} size={28} />
               <div>
-                <p className="text-sm font-black text-slate-900 dark:text-white leading-tight">{snap.coin.base}</p>
+                <p className="text-sm font-bold text-slate-900 dark:text-white leading-tight">{snap.coin.base}</p>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 tabular-nums">
                   {snap.rets.length.toLocaleString()} days · {iso(snap.from)} → {iso(snap.to)}
                 </p>
               </div>
             </div>
           )}
-          {state === 'loading' && <span role="status" className="text-xs font-bold text-slate-500 dark:text-slate-400">Reading full history…</span>}
+          {state === 'loading' && <span role="status" className="text-xs font-medium text-slate-500 dark:text-slate-400">Reading full history…</span>}
           {(state === 'error' || state === 'nodata') && (
             <span className="flex items-center gap-2 text-xs">
               <span className="font-bold text-rose-600 dark:text-rose-400">{state === 'nodata' ? 'Not enough history' : 'Couldn’t load history'}</span>
@@ -173,7 +173,7 @@ export default function TimingBoard() {
           {/* 근접성 — 이 페이지가 존재하는 이유 */}
           {scen.pairs.length > 0 && (
             <div className="rounded-lg border border-rose-500/30 bg-rose-50 dark:bg-rose-500/[0.07] p-5 mb-4">
-              <h2 className="text-sm font-black text-rose-900 dark:text-rose-200 mb-1.5">
+              <h2 className="text-sm font-bold text-rose-900 dark:text-rose-200 mb-1.5">
                 The best day and the worst day were {scen.pairs.length === 1 ? 'next to each other' : 'neighbours'}
               </h2>
               <p className="text-xs text-rose-900/85 dark:text-rose-200/85 leading-relaxed">
@@ -193,7 +193,7 @@ export default function TimingBoard() {
 
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
             <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
-              <h2 className="text-sm font-black text-slate-900 dark:text-white">
+              <h2 className="text-sm font-bold text-slate-900 dark:text-white">
                 {snap.coin.name}, {iso(snap.from)} → {iso(snap.to)}
               </h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
@@ -268,7 +268,7 @@ export default function TimingBoard() {
             {([['Best days', scen.best, 'emerald'], ['Worst days', scen.worst, 'rose']] as const).map(([title, list, hue]) => (
               <div key={title} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
                 <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-700">
-                  <h3 className="text-xs font-black text-slate-900 dark:text-white">{title}</h3>
+                  <h3 className="text-xs font-bold text-slate-900 dark:text-white">{title}</h3>
                 </div>
                 <ul className="divide-y divide-slate-200/50 dark:divide-slate-700/50">
                   {list.slice(0, 10).map(d => (
@@ -293,7 +293,7 @@ export default function TimingBoard() {
       ) : null}
 
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
-        <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">How each row is built</h2>
+        <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-2">How each row is built</h2>
         <p className="mb-2">
           Every scenario compounds the same daily closes. Sitting out a day means that day earns zero rather than being removed from the
           series, so the periods stay identical in length and only the participation differs. Perfect timing holds on every day that

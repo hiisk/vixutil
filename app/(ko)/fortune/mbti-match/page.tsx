@@ -16,7 +16,7 @@ function MbtiPicker({
 }: { label: string; value: MbtiType | null; onChange: (t: MbtiType) => void; accent: string }) {
   return (
     <div>
-      <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{label}</p>
+      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{label}</p>
       <div className="grid grid-cols-4 gap-1.5">
         {MBTI_TYPES.map(t => {
           const on = value === t;
@@ -24,7 +24,7 @@ function MbtiPicker({
             <button
               key={t}
               onClick={() => onChange(t)}
-              className={`rounded-lg py-2 text-xs font-black transition-all border ${
+              className={`rounded-lg py-2 text-xs font-bold transition-all border ${
                 on ? `${accent} border-transparent text-white shadow-sm scale-105`
                    : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700'
               }`}
@@ -83,7 +83,7 @@ export default function MbtiMatchPage() {
           <button
             onClick={calculate}
             disabled={!me || !partner}
-            className="w-full rounded-xl bg-sec disabled:from-slate-200 disabled:to-slate-200 dark:disabled:from-slate-800 dark:disabled:to-slate-800 disabled:text-slate-400 text-sm font-black py-3.5 transition-all active:scale-[0.99] shadow-sm shadow-violet-200 disabled:shadow-none"
+            className="w-full rounded-xl bg-sec disabled:from-slate-200 disabled:to-slate-200 dark:disabled:from-slate-800 dark:disabled:to-slate-800 disabled:text-slate-400 text-sm font-bold py-3.5 transition-all active:scale-[0.99] shadow-sm shadow-violet-200 disabled:shadow-none"
           >
             {!me || !partner ? '두 MBTI를 모두 골라주세요' : '궁합 보기 ✨'}
           </button>
@@ -107,7 +107,7 @@ export default function MbtiMatchPage() {
         )}
 
         <div className="mt-8 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
-          <h2 className="text-sm font-black text-slate-800 dark:text-slate-100 mb-2">MBTI 궁합은 어떻게 정해지나요?</h2>
+          <h2 className="text-sm font-bold text-slate-800 dark:text-slate-100 mb-2">MBTI 궁합은 어떻게 정해지나요?</h2>
           <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
             공식 기준은 없지만, 널리 통용되는 통념을 규칙으로 옮겼어요. 세상을 보는 방식(N/S)과
             판단하는 방식(T/F)이 <strong className="text-slate-800 dark:text-slate-100">같으면 대화가 잘 통하고</strong>,

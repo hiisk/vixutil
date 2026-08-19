@@ -93,7 +93,7 @@ export default function ChessHubPage({ lang }: { lang: Lang }) {
             {openers.map(o => (
               <Link prefetch={false} key={o.move} href={`${path}/${o.slug}`} className="group flex flex-col items-center gap-1.5">
                 <Board board={o.board} size={140} label={`1.${o.move}`} />
-                <span className="font-mono text-sm font-black text-slate-700 dark:text-slate-200 group-hover:text-sec transition-colors">
+                <span className="font-mono text-sm font-bold text-slate-700 dark:text-slate-200 group-hover:text-sec transition-colors">
                   1.{o.move}
                 </span>
                 <span className="text-[11px] text-slate-400 dark:text-slate-500">{fill(ui.countLabel, { n: o.count })}</span>
@@ -110,7 +110,7 @@ export default function ChessHubPage({ lang }: { lang: Lang }) {
             return (
               <div key={group} className="mb-7">
                 <div className="flex items-baseline gap-2 mb-1">
-                  <h3 className="text-sm font-black text-violet-700 dark:text-violet-400">{ui.group[group]}</h3>
+                  <h3 className="text-sm font-bold text-violet-700 dark:text-violet-400">{ui.group[group]}</h3>
                   <span className="text-[11px] text-slate-400 dark:text-slate-500">{fill(ui.countLabel, { n: counts[group] })}</span>
                 </div>
                 <p className="text-xs text-slate-400 dark:text-slate-500 mb-2 leading-relaxed">{ui.groupNote[group]}</p>

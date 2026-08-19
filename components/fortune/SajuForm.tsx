@@ -121,7 +121,7 @@ export default function SajuForm({
             <option key={h} value={h}>{h}</option>
           ))}
         </select>
-        <span className="text-slate-300 dark:text-slate-600 font-black">:</span>
+        <span className="text-slate-300 dark:text-slate-600 font-bold">:</span>
         <select aria-label={fc.hourLabel} className="fld fld-sel w-full" value={mm} disabled={hh === ''}
           onChange={e => set({ hour: `${hh}:${e.target.value}` })}>
           {Array.from({ length: 60 }, (_, i) => String(i).padStart(2, '0')).map(m => (
@@ -135,7 +135,7 @@ export default function SajuForm({
 
       {error && <p className="text-xs text-rose-600 dark:text-rose-400 mb-2">{error}</p>}
       <button type="submit"
-        className={`w-full rounded-xl bg-gradient-to-r ${submitClass ?? 'from-indigo-600 to-violet-600'} text-white text-sm font-black py-3.5 hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all`}>
+        className={`w-full rounded-xl bg-gradient-to-r ${submitClass ?? 'from-indigo-600 to-violet-600'} text-white text-sm font-bold py-3.5 hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all`}>
         {submitLabel}
       </button>
       </div>

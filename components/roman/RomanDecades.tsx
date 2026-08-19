@@ -29,7 +29,7 @@ export default function RomanDecades({ current,
                     ? 'bg-amber-600 text-white'
                     : 'border chip-off text-slate-600 dark:text-slate-300 hover:border-amber-400 hover:text-amber-700 dark:hover:text-amber-400',
                 ].join(' ')}>
-                {y} <span className="font-black">{toRoman(y)}</span>
+                {y} <span className="font-bold">{toRoman(y)}</span>
               </span>
             ))}
           </div>

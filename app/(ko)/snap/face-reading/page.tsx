@@ -260,7 +260,7 @@ export default function FaceReadingPage() {
         </div>
 
         {/* 안내 · 개인정보 보호 고지 */}
-        <div className="bg-teal-50 dark:bg-teal-950/30 border border-teal-100 dark:border-teal-900/40 rounded-lg p-4 mb-6 text-xs text-teal-800 dark:text-teal-300 leading-relaxed">
+        <div className="note mb-6">
           <p className="font-bold mb-1">🔒 사진은 서버에 전송되지 않아요</p>
           <p>얼굴 인식은 이 브라우저 안에서만 실행되고, 사진은 어디에도 저장·전송되지 않습니다. 이목구비 비율은 실제로 측정하지만, 여기에 붙는 성격·운세 해석은 관상학에 근거한 오락 콘텐츠입니다.</p>
         </div>

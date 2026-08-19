@@ -66,7 +66,7 @@ function Result({ result, points }: { result: BiorhythmResult; points: ChartPoin
     <div className="space-y-4">
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
         <div className="flex items-baseline justify-between mb-1">
-          <h2 className="text-sm font-black text-slate-800 dark:text-slate-100">오늘의 리듬</h2>
+          <h2 className="text-sm font-bold text-slate-800 dark:text-slate-100">오늘의 리듬</h2>
           <span className="text-xs text-slate-400 dark:text-slate-500">태어난 지 {result.days.toLocaleString()}일째</span>
         </div>
         <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{overallComment(result)}</p>
@@ -92,12 +92,12 @@ function Result({ result, points }: { result: BiorhythmResult; points: ChartPoin
             <div key={state.key} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-lg">{meta.emoji}</span>
-                <span className="text-sm font-black text-slate-800 dark:text-slate-100">{meta.label}</span>
+                <span className="text-sm font-bold text-slate-800 dark:text-slate-100">{meta.label}</span>
                 <span className={`ml-auto text-[11px] font-bold px-2 py-0.5 rounded-full border ${PHASE_STYLE[state.phase]}`}>
                   {PHASE_LABEL[state.phase]}
                 </span>
               </div>
-              <p className="text-3xl font-black leading-none" style={{ color: CYCLE_COLOR[state.key] }}>
+              <p className="text-3xl font-bold leading-none" style={{ color: CYCLE_COLOR[state.key] }}>
                 {state.percent > 0 ? '+' : ''}{state.percent}%
               </p>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">{meta.desc} · {meta.period}일 주기</p>
@@ -167,7 +167,7 @@ export default function BiorhythmPage() {
         </div>
 
         <form onSubmit={submit} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-6">
-          <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">생년월일</label>
+          <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">생년월일</label>
           <div className="grid grid-cols-3 gap-2">
             <input type="number" inputMode="numeric" placeholder="예) 1995" value={form.year}
               onChange={e => setForm({ ...form, year: e.target.value })}
@@ -180,7 +180,7 @@ export default function BiorhythmPage() {
               className="fld focus:border-emerald-400" />
           </div>
           {error && <p className="text-xs text-rose-600 dark:text-rose-400 mt-2">{error}</p>}
-          <button type="submit" className="w-full mt-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-black py-3 transition-colors">
+          <button type="submit" className="w-full mt-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold py-3 transition-colors">
             리듬 보기
           </button>
         </form>
@@ -200,7 +200,7 @@ export default function BiorhythmPage() {
           점은 분명히 적어둔다. 계산이 정확한 것과 예측이 맞는 것은 다른 얘기다.
         */}
         <div className="mt-8 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
-          <h2 className="text-sm font-black text-slate-800 dark:text-slate-100 mb-2">바이오리듬은 과학인가요?</h2>
+          <h2 className="text-sm font-bold text-slate-800 dark:text-slate-100 mb-2">바이오리듬은 과학인가요?</h2>
           <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
             아닙니다. 신체 23일·감성 28일·지성 33일이라는 주기는 20세기 초에 제안된 뒤 그대로 굳어진 값이고,
             이 주기가 실제 컨디션이나 사고를 예측한다는 근거는 확인되지 않았습니다.

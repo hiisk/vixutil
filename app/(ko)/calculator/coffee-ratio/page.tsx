@@ -107,7 +107,7 @@ export default function CoffeeRatioPage() {
             </span>
           </div>
           <div className="mt-3">
-            <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">
+            <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">
               비율 1: <span className="font-normal">— 비우면 {m.label} 기본값 {m.ratio} ({m.range})</span>
             </label>
             <input

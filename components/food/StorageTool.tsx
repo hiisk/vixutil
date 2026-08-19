@@ -53,7 +53,7 @@ export default function StorageTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
           <div key={s.name} className="rounded-lg border chip-off px-4 py-3.5">
             <div className="flex items-center gap-3">
               <span className="hub-card-body">
-                <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{s.name}</span>
+                <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">{s.name}</span>
                 <span className="block text-[11px] text-slate-400 dark:text-slate-500">{s.category}</span>
               </span>
               <span className="shrink-0 text-right">
@@ -70,7 +70,7 @@ export default function StorageTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
       </div>
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.noteTitle}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.noteTitle}</p>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           {ui.note}<b className="text-slate-800 dark:text-slate-100">{ui.noteBold}</b>
         </p>

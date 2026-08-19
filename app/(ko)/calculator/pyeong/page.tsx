@@ -86,7 +86,7 @@ export default function PyeongPage() {
           <>
             <div className="stat-pri text-center">
               <p className="stat-sub mb-2">변환 결과</p>
-              <p className="text-slate-900 dark:text-slate-50 text-5xl font-black">
+              <p className="text-slate-900 dark:text-slate-50 text-5xl font-bold">
                 {converted.result.toFixed(2)}
               </p>
               <p className="text-slate-500 dark:text-slate-400 text-xl mt-1">{converted.unit}</p>

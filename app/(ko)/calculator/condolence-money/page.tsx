@@ -294,7 +294,7 @@ export default function CondolenceMoneyPage() {
               ['전할 곳', '방명록을 쓰고 호상소 또는 부의함에'],
             ].map(([k, v]) => (
               <div key={k} className="px-5 py-3">
-                <p className="text-xs font-bold text-slate-400 dark:text-slate-500 mb-0.5">{k}</p>
+                <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mb-0.5">{k}</p>
                 <p className="text-slate-700 dark:text-slate-200">{v}</p>
               </div>
             ))}

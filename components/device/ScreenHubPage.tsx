@@ -76,7 +76,7 @@ export default function ScreenHubPage({ lang }: { lang: Lang }) {
           <section key={kind} className="mb-8">
             <h2 className="sec-h2">
               {ui.kindLabel[kind]}
-              <span className="ml-1.5 text-xs font-bold text-slate-400 dark:text-slate-500">{screensOfKind(kind).length}</span>
+              <span className="ml-1.5 text-xs font-medium text-slate-400 dark:text-slate-500">{screensOfKind(kind).length}</span>
             </h2>
             <div className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
               {screensOfKind(kind).map(s => {
@@ -94,7 +94,7 @@ export default function ScreenHubPage({ lang }: { lang: Lang }) {
                       </span>
                     </span>
                     <span className="text-right shrink-0">
-                      <span className="block text-sm font-black text-slate-700 dark:text-slate-200 tabular-nums">{f.ppi} ppi</span>
+                      <span className="block text-sm font-bold text-slate-700 dark:text-slate-200 tabular-nums">{f.ppi} ppi</span>
                       <span className="block text-[11px] text-slate-400 dark:text-slate-500 tabular-nums">{ui.inchUnit(s.inch)}</span>
                     </span>
                   </Link>

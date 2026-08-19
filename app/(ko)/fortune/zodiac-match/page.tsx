@@ -19,7 +19,7 @@ function AnimalPicker({
 }: { label: string; value: number | null; onChange: (i: number) => void; accent: string }) {
   return (
     <div>
-      <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{label}</p>
+      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{label}</p>
       <div className="grid grid-cols-6 gap-1.5">
         {ANIMALS.map((a, i) => {
           const on = value === i;
@@ -108,7 +108,7 @@ export default function ZodiacMatchPage() {
           <button
             onClick={calculate}
             disabled={me === null || partner === null}
-            className="w-full rounded-xl bg-sec disabled:from-slate-200 disabled:to-slate-200 dark:disabled:from-slate-800 dark:disabled:to-slate-800 disabled:text-slate-400 text-sm font-black py-3.5 transition-all active:scale-[0.99] shadow-sm shadow-rose-200 disabled:shadow-none"
+            className="w-full rounded-xl bg-sec disabled:from-slate-200 disabled:to-slate-200 dark:disabled:from-slate-800 dark:disabled:to-slate-800 disabled:text-slate-400 text-sm font-bold py-3.5 transition-all active:scale-[0.99] shadow-sm shadow-rose-200 disabled:shadow-none"
           >
             {me === null || partner === null ? '두 띠를 모두 골라주세요' : '궁합 보기 💘'}
           </button>
@@ -131,27 +131,27 @@ export default function ZodiacMatchPage() {
                     <span className="text-[11px] font-bold mt-1">{partnerAnimal.name}</span>
                   </div>
                 </div>
-                <p className="text-6xl font-black leading-none tracking-tight">{result.score}<span className="text-2xl">점</span></p>
+                <p className="text-6xl font-bold leading-none tracking-tight">{result.score}<span className="text-2xl">점</span></p>
                 <div className="mt-4 max-w-[220px] mx-auto"><HeartGauge score={result.score} /></div>
-                <p className="text-base font-black mt-4">{result.info.emoji} {result.info.label}</p>
+                <p className="text-base font-bold mt-4">{result.info.emoji} {result.info.label}</p>
                 <p className="text-sm text-white/90 mt-1">{result.info.headline}</p>
               </div>
             </div>
 
             {/* 관계 원리 */}
             <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
-              <p className="text-xs font-black text-rose-500 uppercase tracking-wide mb-2">왜 이렇게 나왔나요?</p>
+              <p className="text-xs font-bold text-rose-500 uppercase tracking-wide mb-2">왜 이렇게 나왔나요?</p>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.reason}</p>
             </div>
 
             {/* 연애·조언 */}
             <div className="grid gap-3">
               <div className="rounded-lg border border-rose-100 dark:border-rose-900/40 bg-rose-50/60 dark:bg-rose-950/20 p-5">
-                <p className="text-xs font-black text-rose-600 dark:text-rose-400 mb-1.5">💕 연애 궁합</p>
+                <p className="text-xs font-bold text-rose-600 dark:text-rose-400 mb-1.5">💕 연애 궁합</p>
                 <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.loveComment}</p>
               </div>
               <div className="rounded-lg border border-amber-100 dark:border-amber-900/40 bg-amber-50/60 dark:bg-amber-950/20 p-5">
-                <p className="text-xs font-black text-amber-600 dark:text-amber-400 mb-1.5">💡 관계 조언</p>
+                <p className="text-xs font-bold text-amber-600 dark:text-amber-400 mb-1.5">💡 관계 조언</p>
                 <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.adviceComment}</p>
               </div>
             </div>
@@ -175,7 +175,7 @@ export default function ZodiacMatchPage() {
 
         {/* 설명 */}
         <div className="mt-8 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
-          <h2 className="text-sm font-black text-slate-800 dark:text-slate-100 mb-2">띠 궁합은 어떻게 정해지나요?</h2>
+          <h2 className="text-sm font-bold text-slate-800 dark:text-slate-100 mb-2">띠 궁합은 어떻게 정해지나요?</h2>
           <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
             십이지(띠)에는 예로부터 잘 어울리는 관계와 부딪치기 쉬운 관계가 정해져 있습니다.
             짝을 이루는 <strong className="text-slate-800 dark:text-slate-100">육합</strong>, 셋이 무리 짓는{' '}

@@ -68,7 +68,7 @@ export default function DcaCalculatorPage() {
           자바스크립트를 실행하지 않는 크롤러에겐 빈 껍데기로 보인다.
         */}
         <section className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
-          <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">What this DCA calculator answers</h2>
+          <h2 className="text-base font-bold text-slate-900 dark:text-white mb-3">What this DCA calculator answers</h2>
           <p className="mb-3">
             Dollar-cost averaging means buying a fixed amount on a fixed schedule regardless of price. Put in an amount, a frequency and a
             period, and this page replays it against real Binance daily closes: how much you would have put in, how many coins you would hold,

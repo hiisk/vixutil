@@ -118,7 +118,7 @@ export default function MaintenanceFeePage() {
               <p className="label-caps mb-3">
                 합계
               </p>
-              <p className="text-3xl font-black text-slate-900 dark:text-slate-100">
+              <p className="text-3xl font-bold text-slate-900 dark:text-slate-100">
                 {w(result.total)}<span className="text-lg font-bold ml-1">원</span>
               </p>
               <div className="mt-4" />

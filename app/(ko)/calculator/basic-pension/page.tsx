@@ -185,7 +185,7 @@ export default function BasicPensionPage() {
               <p className="text-blue-200 text-xs mb-1">
                 {result.r.eligible ? '예상 월 수령액' : '선정기준액을 넘었습니다'}
               </p>
-              <p className="text-white text-3xl font-black">
+              <p className="text-white text-3xl font-bold">
                 {result.r.eligible ? `${fmt(result.r.monthly)}원` : '수급 대상 아님'}
               </p>
               <p className="text-blue-200 text-xs mt-1">

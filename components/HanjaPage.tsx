@@ -91,11 +91,11 @@ export default function HanjaPage({ idiom: i, lang }: { idiom: Idiom; lang: Form
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
-          <p className="text-xs font-bold text-slate-400 dark:text-slate-500 mb-3">
+          <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mb-3">
             {hanjaCategories(lang)[i.category] ?? i.category}
           </p>
           <div className={`rounded-lg bg-gradient-to-br ${s.grad} text-white px-6 py-7`}>
-            <p className="text-4xl sm:text-5xl font-black tracking-[0.15em]">{i.hanja}</p>
+            <p className="text-4xl sm:text-5xl font-bold tracking-[0.15em]">{i.hanja}</p>
             <p className="text-base font-bold text-white/85 mt-3">{i.reading}</p>
             <p className="text-xs text-white/65 mt-1">{i.pinyin}</p>
           </div>
@@ -107,7 +107,7 @@ export default function HanjaPage({ idiom: i, lang }: { idiom: Idiom; lang: Form
         <div className="grid grid-cols-4 gap-2">
           {chars.map((ch, n) => (
             <div key={n} className="rounded-xl border chip-off px-2 py-3 text-center">
-              <p className="text-2xl font-black text-slate-800 dark:text-slate-100">{ch}</p>
+              <p className="text-2xl font-bold text-slate-800 dark:text-slate-100">{ch}</p>
               <p className="mt-1.5 text-[11px] font-bold text-slate-500 dark:text-slate-400 leading-tight">
                 {glossOf(n)}
               </p>
@@ -123,7 +123,7 @@ export default function HanjaPage({ idiom: i, lang }: { idiom: Idiom; lang: Form
         <div className="mt-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 overflow-hidden">
           {([[ui.hanjaLabel, i.hanja], [ui.simplified, i.simplified], [ui.reading, i.reading], [ui.pinyin, i.pinyin]] as const).map(([label, value]) => (
             <div key={label} className="flex items-baseline gap-3 px-4 py-2.5 border-b border-slate-200/70 dark:border-slate-700/70 last:border-0">
-              <span className="w-20 shrink-0 text-xs font-bold text-slate-400 dark:text-slate-500">{label}</span>
+              <span className="w-20 shrink-0 text-xs font-medium text-slate-400 dark:text-slate-500">{label}</span>
               <span className="flex-1 text-sm font-bold text-slate-800 dark:text-slate-100">{value}</span>
             </div>
           ))}

@@ -77,14 +77,14 @@ export default function ConvertTool({ lang = 'ko' }: { lang?: ImageLang } = {}) 
 
       <div className="mt-4 rounded-lg border chip-off p-5">
         <div className="flex items-center justify-center gap-3 mb-5">
-          <span className="rounded-xl bg-slate-100 dark:bg-slate-800 px-4 py-2 text-sm font-black text-slate-600 dark:text-slate-300">{from}</span>
+          <span className="rounded-xl bg-slate-100 dark:bg-slate-800 px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-300">{from}</span>
           <span className="text-slate-300 dark:text-slate-600">→</span>
-          <span className="rounded-xl bg-violet-100 dark:bg-violet-950/50 px-4 py-2 text-sm font-black text-violet-700 dark:text-violet-300">
+          <span className="rounded-xl bg-violet-100 dark:bg-violet-950/50 px-4 py-2 text-sm font-bold text-violet-700 dark:text-violet-300">
             {MIME_LABEL[mime]}
           </span>
         </div>
 
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.targetFormat}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.targetFormat}</p>
         <div className="grid grid-cols-3 gap-2">
           {TARGETS.map(t => (
             <button
@@ -104,8 +104,8 @@ export default function ConvertTool({ lang = 'ko' }: { lang?: ImageLang } = {}) 
         {isLossy(mime) && (
           <>
             <div className="flex items-baseline justify-between mt-5 mb-2">
-              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{c2.quality}</span>
-              <span className="text-sm font-black text-violet-600 tabular-nums">{Math.round(quality * 100)}%</span>
+              <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{c2.quality}</span>
+              <span className="text-sm font-bold text-violet-600 tabular-nums">{Math.round(quality * 100)}%</span>
             </div>
             <input
               type="range" min={30} max={100}
@@ -119,7 +119,7 @@ export default function ConvertTool({ lang = 'ko' }: { lang?: ImageLang } = {}) 
 
         {mime !== 'image/png' && (
           <>
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-5 mb-2">
+            <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-5 mb-2">
               {c2.bgFill}
             </p>
             <div className="flex items-center gap-2">

@@ -25,17 +25,17 @@ export default function TemperatureTool({ lang = 'ko' }: { lang?: ColorLang } = 
     <div>
       <div className="flex rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 h-40">
         <div className="flex-1 flex flex-col items-center justify-center" style={{ background: rgbToHex(a) }}>
-          <span className="text-2xl font-black text-slate-900/70">{kelvin}K</span>
+          <span className="text-2xl font-bold text-slate-900/70">{kelvin}K</span>
         </div>
         <div className="flex-1 flex flex-col items-center justify-center" style={{ background: rgbToHex(b) }}>
-          <span className="text-2xl font-black text-slate-900/70">{compare}K</span>
+          <span className="text-2xl font-bold text-slate-900/70">{compare}K</span>
         </div>
       </div>
 
       <div className="mt-4">
         <div className="flex items-baseline justify-between mb-1.5">
-          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.left}</span>
-          <span className="text-sm font-black text-orange-600 tabular-nums">{kelvin}K</span>
+          <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{ui.left}</span>
+          <span className="text-sm font-bold text-orange-600 tabular-nums">{kelvin}K</span>
         </div>
         <input
           type="range" min={1000} max={12000} step={100} value={kelvin}
@@ -43,8 +43,8 @@ export default function TemperatureTool({ lang = 'ko' }: { lang?: ColorLang } = 
           className="w-full accent-orange-500" aria-label={ui.left}
         />
         <div className="flex items-baseline justify-between mt-3 mb-1.5">
-          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.rightCompare}</span>
-          <span className="text-sm font-black text-cyan-600 tabular-nums">{compare}K</span>
+          <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{ui.rightCompare}</span>
+          <span className="text-sm font-bold text-cyan-600 tabular-nums">{compare}K</span>
         </div>
         <input
           type="range" min={1000} max={12000} step={100} value={compare}
@@ -53,7 +53,7 @@ export default function TemperatureTool({ lang = 'ko' }: { lang?: ColorLang } = 
         />
       </div>
 
-      <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-5 mb-2">{ui.commonTitle}</p>
+      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-5 mb-2">{ui.commonTitle}</p>
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
         {PRESETS.map(p => (
           <button
@@ -80,7 +80,7 @@ export default function TemperatureTool({ lang = 'ko' }: { lang?: ColorLang } = 
       </div>
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.colderTitle}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.colderTitle}</p>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           {ui.colderBody}
         </p>

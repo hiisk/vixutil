@@ -81,7 +81,7 @@ export default function RegexHubPage({ lang }: { lang: Lang }) {
                   href={`${path}/${x.slug}`}
                   className="block px-4 py-2.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
                 >
-                  <code className="block text-sm font-black text-sky-700 dark:text-sky-400 font-mono break-all">{x.re}</code>
+                  <code className="block text-sm font-bold text-sky-700 dark:text-sky-400 font-mono break-all">{x.re}</code>
                   <span className="block text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{whatOf(x.slug, lang)}</span>
                 </Link>
               ))}

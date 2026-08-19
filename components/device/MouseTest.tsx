@@ -152,15 +152,15 @@ export default function MouseTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
 
       <div className="grid grid-cols-3 gap-2 mt-4">
         <div className="rounded-xl border chip-off px-3 py-3 text-center">
-          <p className="text-lg font-black text-sky-600">{totalClicks}</p>
+          <p className="text-lg font-bold text-sky-600">{totalClicks}</p>
           <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{ui.totalClicks}</p>
         </div>
         <div className="rounded-xl border chip-off px-3 py-3 text-center">
-          <p className={`text-lg font-black ${totalChatter > 0 ? 'text-rose-500' : 'text-emerald-600'}`}>{totalChatter}</p>
+          <p className={`text-lg font-bold ${totalChatter > 0 ? 'text-rose-500' : 'text-emerald-600'}`}>{totalChatter}</p>
           <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{ui.chatterTotal}</p>
         </div>
         <div className="rounded-xl border chip-off px-3 py-3 text-center">
-          <p className="text-lg font-black text-indigo-600">{wheel?.count ?? 0}</p>
+          <p className="text-lg font-bold text-indigo-600">{wheel?.count ?? 0}</p>
           <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">
             {ui.wheelWord} {wheel ? `${wheel.dir} ${wheel.delta}` : ui.scrollWord}
           </p>
@@ -168,7 +168,7 @@ export default function MouseTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
       </div>
 
       {totalChatter > 0 && (
-        <p className="mt-3 rounded-xl bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/50 px-4 py-3 text-xs text-rose-700 dark:text-rose-300 leading-relaxed">
+        <p className="note mt-3">
           {ui.chatterNote(CHATTER_MS, totalChatter)}
         </p>
       )}

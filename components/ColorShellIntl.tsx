@@ -72,7 +72,7 @@ export default function ColorShellIntl({
       <main className="relative max-w-2xl mx-auto px-4 pb-10 tool-lift">
 
 
-        <div className="mb-5 rounded-lg border border-violet-100 dark:border-violet-900/40 bg-violet-50/70 dark:bg-violet-950/30 px-4 py-3 text-xs text-violet-800 dark:text-violet-200 leading-relaxed text-center">
+        <div className="note mb-5 text-center">
           {ui.notice}
         </div>
 
@@ -122,7 +122,7 @@ export default function ColorShellIntl({
       </main>
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
-        <Link href={`/${lang}`} className="text-sm font-black text-violet-600">vixutil</Link>
+        <Link href={`/${lang}`} className="text-sm font-bold text-violet-600">vixutil</Link>
       </footer>
     </div>
   );

@@ -112,7 +112,7 @@ export default function JeonseWolsePage() {
               <p className="label-caps mb-3">
                 비교 결과
               </p>
-              <p className={`text-3xl font-black ${
+              <p className={`text-3xl font-bold ${
                 result.cheaper === 'jeonse' ? 'text-blue-600 dark:text-blue-400'
                 : result.cheaper === 'wolse' ? 'text-emerald-600 dark:text-emerald-400'
                 : 'text-slate-900 dark:text-slate-100'

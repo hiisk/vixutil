@@ -21,11 +21,11 @@ export default function WeightedDraw({ lang = 'ko' }: { lang?: RandomLang }) {
       {won !== null && (
         <div className="rounded-lg border-2 border-rose-300 bg-sec p-6 mb-5 text-center">
           <p className="text-xs font-bold text-white/70">{common.winner}</p>
-          <p className="mt-1 text-2xl font-black text-white break-words">{won}</p>
+          <p className="mt-1 text-2xl font-bold text-white break-words">{won}</p>
         </div>
       )}
 
-      <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.weightTitle}</p>
+      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.weightTitle}</p>
       <div className="flex flex-col gap-2">
         {items.map((it, i) => (
           <div key={i} className="flex items-center gap-2">
@@ -41,7 +41,7 @@ export default function WeightedDraw({ lang = 'ko' }: { lang?: RandomLang }) {
               aria-label={ui.weight}
               className="w-16 shrink-0 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-2 py-2.5 text-sm text-center font-bold text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-rose-400"
             />
-            <span className="w-14 shrink-0 text-right text-xs font-black text-rose-600 tabular-nums">{percents[i]}%</span>
+            <span className="w-14 shrink-0 text-right text-xs font-bold text-rose-600 tabular-nums">{percents[i]}%</span>
             <button
               onClick={() => setItems(prev => prev.filter((_, n) => n !== i))}
               disabled={items.length <= 2}
@@ -66,7 +66,7 @@ export default function WeightedDraw({ lang = 'ko' }: { lang?: RandomLang }) {
           const hit = weightedPick(items.filter(i => i.label.trim()), Math.random);
           setWon(hit ? hit.label : null);
         }}
-        className="w-full mt-4 bg-sec font-black text-lg rounded-lg py-4 shadow-sm shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all"
+        className="w-full mt-4 bg-sec font-bold text-lg rounded-lg py-4 shadow-sm shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all"
       >
         {ui.drawWeighted} 🎯
       </button>

@@ -37,14 +37,14 @@ export default function RiceTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
     <div>
       <NumberField label={ui.riceCups} value={cups} onChange={setCups} unit={ui.cupUnit} step={0.5} min={0.5} />
 
-      <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.grainTitle}</p>
+      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.grainTitle}</p>
       <Choice
         options={GRAINS.map((g, i) => ({ id: g.id, label: ui.grains[i], note: ui.waterTimes(g.ratio) }))}
         value={grain}
         onChange={setGrain}
       />
 
-      <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.textureTitle}</p>
+      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.textureTitle}</p>
       <Choice options={TEXTURES.map((t, i) => ({ id: t.id, label: ui.textures[i] }))} value={texture} onChange={setTexture} />
 
       <Result sub={ui.ratioSub(water.ratio, water.cups)}>
@@ -58,7 +58,7 @@ export default function RiceTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
       </div>
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.tipTitle(ui.grains[GRAINS.indexOf(info)])}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.tipTitle(ui.grains[GRAINS.indexOf(info)])}</p>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{ui.grainNotes[GRAINS.indexOf(info)]}</p>
         <p className="mt-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           {ui.knuckle}

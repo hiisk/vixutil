@@ -74,8 +74,8 @@ function PillarCard({ label, p, stems, branches }: {
   return (
     <div className="rounded-xl border chip-off p-3 text-center">
       <p className="text-[10px] text-slate-400 dark:text-slate-500 mb-1">{label}</p>
-      <p className="text-2xl font-black leading-tight" style={{ color: ELEMENT_COLOR[stem.element] }}>{stem.hanja}</p>
-      <p className="text-2xl font-black leading-tight" style={{ color: ELEMENT_COLOR[branch.element] }}>{branch.hanja}</p>
+      <p className="text-2xl font-bold leading-tight" style={{ color: ELEMENT_COLOR[stem.element] }}>{stem.hanja}</p>
+      <p className="text-2xl font-bold leading-tight" style={{ color: ELEMENT_COLOR[branch.element] }}>{branch.hanja}</p>
       <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-1">
         {stems[stem.hanja]?.kor} {branches[branch.hanja]?.kor}
       </p>
@@ -218,7 +218,7 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
 
             <div className="rounded-lg bg-sec p-6 ">
               <p className="text-xs font-semibold text-white/80 mb-1">{ui.dayMaster}</p>
-              <p className="text-3xl font-black mb-1">{dayStem.hanja} · {dayStemIntl.kor}</p>
+              <p className="text-3xl font-bold mb-1">{dayStem.hanja} · {dayStemIntl.kor}</p>
               <p className="text-xs text-white/80 mb-3">{dayStemIntl.nature} · {elements[dayStem.element].label}</p>
               <p className="text-sm leading-relaxed">{dayStemIntl.personality}</p>
               <div className="grid grid-cols-3 gap-2 mt-4 text-center">
@@ -269,7 +269,7 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
                 <div className="space-y-3">
                   {missing.map(el => (
                     <div key={el} className={`rounded-xl p-3 ${ELEMENT_BG[el]}`}>
-                      <p className="text-xs font-black mb-1" style={{ color: ELEMENT_COLOR[el] }}>{elements[el].label}</p>
+                      <p className="text-xs font-bold mb-1" style={{ color: ELEMENT_COLOR[el] }}>{elements[el].label}</p>
                       <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{elements[el].shortage}</p>
                     </div>
                   ))}
@@ -290,7 +290,7 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
                       <div key={label} className="rounded-xl bg-slate-50 dark:bg-slate-800/60 p-3">
                         <div className="flex items-center gap-2 mb-1">
                           <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500">{label}</span>
-                          <span className="text-xs font-black text-indigo-600">{info.name}</span>
+                          <span className="text-xs font-bold text-indigo-600">{info.name}</span>
                           <span className="text-[10px] text-slate-400 dark:text-slate-500">{info.summary}</span>
                         </div>
                         <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
@@ -311,8 +311,8 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
                   return (
                     <div key={w.age} className="rounded-xl border border-slate-200 dark:border-slate-700 p-2 text-center">
                       <p className="text-[10px] text-slate-400 dark:text-slate-500">{w.age}{''}</p>
-                      <p className="text-base font-black leading-tight" style={{ color: ELEMENT_COLOR[s.element] }}>{s.hanja}</p>
-                      <p className="text-base font-black leading-tight" style={{ color: ELEMENT_COLOR[b.element] }}>{b.hanja}</p>
+                      <p className="text-base font-bold leading-tight" style={{ color: ELEMENT_COLOR[s.element] }}>{s.hanja}</p>
+                      <p className="text-base font-bold leading-tight" style={{ color: ELEMENT_COLOR[b.element] }}>{b.hanja}</p>
                     </div>
                   );
                 })}
@@ -333,10 +333,10 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
                     : 'border-slate-200 dark:border-slate-700'}`}>
                     <div className="flex items-center gap-2 mb-1.5">
                       <span className="text-lg">{d.emoji}</span>
-                      <span className="text-sm font-black text-slate-800 dark:text-slate-100">{d.title}</span>
+                      <span className="text-sm font-bold text-slate-800 dark:text-slate-100">{d.title}</span>
                       <span className="ml-auto flex items-center gap-1.5">
                         <span className="text-[11px] font-bold text-slate-400 dark:text-slate-500 tabular-nums">{du.scoreOf(d.score)}</span>
-                        <span className={`text-[11px] font-black px-2 py-0.5 rounded-full ${
+                        <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${
                           d.score >= 4
                             ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300'
                             : d.score === 3
@@ -364,7 +364,7 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
               {/* 주제로 들어오면 이미 다 펼쳐져 있어 이 단추가 할 일이 없다 */}
               {openTopic === null && <button
                 onClick={() => setAllDomains(v => !v)}
-                className="w-full mt-3 rounded-xl border border-slate-200 dark:border-slate-700 py-2.5 text-xs font-bold text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
+                className="w-full mt-3 rounded-xl border border-slate-200 dark:border-slate-700 py-2.5 text-xs font-medium text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
               >
                 {allDomains ? du.collapse : du.showAll}
               </button>}

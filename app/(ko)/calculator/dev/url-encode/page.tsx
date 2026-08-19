@@ -67,7 +67,7 @@ export default function UrlEncodePage() {
         )}
 
         <Card className="p-4">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-wide">자주 쓰는 문자 변환표</p>
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-wide">자주 쓰는 문자 변환표</p>
           <div className="grid grid-cols-4 gap-2">
             {COMMON_CHARS.map(c => (
               <div key={c.char} className="bg-slate-50 dark:bg-slate-950 rounded-lg p-2 text-center text-xs">

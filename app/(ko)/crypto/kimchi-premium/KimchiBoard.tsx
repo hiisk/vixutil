@@ -9,11 +9,11 @@ type SortKey = 'volume' | 'premium' | 'spread';
 
 /** 프리미엄 값 색상 — 색만으로 방향을 전달하지 않도록 부호도 항상 함께 쓴다 */
 const TONE_CLS: Record<ReturnType<typeof premiumTone>, string> = {
-  high: 'text-rose-600 dark:text-rose-400 font-black',
+  high: 'text-rose-600 dark:text-rose-400 font-bold',
   up: 'text-rose-600/80 dark:text-rose-400/80',
   flat: 'text-slate-500 dark:text-slate-400',
   down: 'text-blue-600/80 dark:text-blue-400/80',
-  low: 'text-blue-600 dark:text-blue-400 font-black',
+  low: 'text-blue-600 dark:text-blue-400 font-bold',
   none: 'text-slate-300 dark:text-slate-600',
 };
 
@@ -179,7 +179,7 @@ export default function KimchiBoard() {
             <p className="text-[11px] uppercase tracking-wide text-slate-400 dark:text-slate-500 mb-1">
               지금 김치 프리미엄 · {basis === 'fx' ? '공식 환율 기준' : 'USDT 기준'}
             </p>
-            <p className={`text-5xl font-black tabular-nums ${TONE_CLS[premiumTone(market)]}`}>
+            <p className={`text-5xl font-bold tabular-nums ${TONE_CLS[premiumTone(market)]}`}>
               {market != null ? `${market >= 0 ? '+' : ''}${market.toFixed(2)}%` : '—'}
             </p>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5">
@@ -214,31 +214,31 @@ export default function KimchiBoard() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-5 pt-5 border-t border-slate-100 dark:border-slate-800">
           <div>
             <p className="text-[11px] text-slate-400 dark:text-slate-500 mb-0.5">공식 환율</p>
-            <p className="text-base font-black text-slate-900 dark:text-white tabular-nums">
+            <p className="text-base font-bold text-slate-900 dark:text-white tabular-nums">
               {snap.fxRate != null ? `${snap.fxRate.toFixed(2)}원` : <span className="text-slate-400 dark:text-slate-500">—</span>}
             </p>
           </div>
           <div>
             <p className="text-[11px] text-slate-400 dark:text-slate-500 mb-0.5">USDT 시세</p>
-            <p className="text-base font-black text-slate-900 dark:text-white tabular-nums">
+            <p className="text-base font-bold text-slate-900 dark:text-white tabular-nums">
               {snap.usdtKrw != null ? `${snap.usdtKrw.toLocaleString()}원` : <span className="text-slate-400 dark:text-slate-500">—</span>}
             </p>
           </div>
           <div>
             <p className="text-[11px] text-slate-400 dark:text-slate-500 mb-0.5">USDT 프리미엄</p>
-            <p className="text-base font-black tabular-nums">
+            <p className="text-base font-bold tabular-nums">
               {snap.usdtPremium != null ? <Pm value={snap.usdtPremium} /> : <span className="text-slate-400 dark:text-slate-500">—</span>}
             </p>
           </div>
           <div>
             <p className="text-[11px] text-slate-400 dark:text-slate-500 mb-0.5">비교 코인</p>
-            <p className="text-base font-black text-slate-900 dark:text-white tabular-nums">{snap.rows.length}개</p>
+            <p className="text-base font-bold text-slate-900 dark:text-white tabular-nums">{snap.rows.length}개</p>
           </div>
         </div>
       </div>
 
       {/* 두 기준의 차이를 설명 — 이걸 모르면 숫자가 왜 다른지 알 수 없다 */}
-      <div className="rounded-lg border border-amber-500/25 bg-amber-50 dark:bg-amber-500/[0.06] p-4 mb-4 text-xs text-amber-900 dark:text-amber-200/80 leading-relaxed">
+      <div className="note-warn mb-4">
         {basis === 'fx' ? (
           <>
             <b>환율 기준</b>은 뉴스와 커뮤니티에서 인용하는 그 김프입니다. 국내 원화 가격을 공식 USD/KRW 환율로 환산해 비교합니다.

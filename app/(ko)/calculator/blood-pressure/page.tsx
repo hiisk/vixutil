@@ -188,12 +188,12 @@ export default function BloodPressurePage() {
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">혈압 판정</p>
-                  <p className={`text-4xl font-black ${result.level.color}`}>
+                  <p className={`text-4xl font-bold ${result.level.color}`}>
                     {result.systolic} / {result.diastolic}
                   </p>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">mmHg (수축기 / 이완기)</p>
                 </div>
-                <span className={`text-sm font-black px-4 py-2 rounded-xl bg-white dark:bg-slate-900 border ${result.level.color} ${result.level.border}`}>
+                <span className={`text-sm font-bold px-4 py-2 rounded-xl bg-white dark:bg-slate-900 border ${result.level.color} ${result.level.border}`}>
                   {result.level.label}
                 </span>
               </div>

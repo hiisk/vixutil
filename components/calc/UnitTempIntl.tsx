@@ -108,7 +108,7 @@ export default function UnitTempIntl({ lang }: { lang: CalcLang }) {
                     {UNIT_LABELS[k]}
                     {k === unit && <span className="ml-1 text-xs text-blue-400">{c.entered}</span>}
                   </span>
-                  <span className={`text-base font-mono ${k === unit ? 'text-blue-700 dark:text-blue-300 font-black' : 'text-slate-900 dark:text-slate-100 font-semibold'}`}>
+                  <span className={`text-base font-mono ${k === unit ? 'text-blue-700 dark:text-blue-300 font-bold' : 'text-slate-900 dark:text-slate-100 font-semibold'}`}>
                     {result[k].toFixed(4)} {UNIT_LABELS[k]}
                   </span>
                 </div>

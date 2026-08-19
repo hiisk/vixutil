@@ -100,7 +100,7 @@ export default function FormulaArticle({
           ].map((s, i) => (
             <div key={s.k} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3">
               <span className="shrink-0 text-[11px] font-bold text-slate-400 dark:text-slate-500 sm:w-28">{s.k}</span>
-              <span className={`text-sm font-mono tabular-nums leading-relaxed break-words ${i === 2 ? `font-black ${section.textAccent}` : 'text-slate-700 dark:text-slate-200'}`}>
+              <span className={`text-sm font-mono tabular-nums leading-relaxed break-words ${i === 2 ? `font-bold ${section.textAccent}` : 'text-slate-700 dark:text-slate-200'}`}>
                 {s.v}
               </span>
             </div>
@@ -124,7 +124,7 @@ export default function FormulaArticle({
               {table.rows.map(row => (
                 <tr key={row[0]} className="row-line">
                   {row.map((cell, i) => (
-                    <td key={i} className={`${TD} tabular-nums whitespace-nowrap ${i === 0 ? 'font-bold' : i === 1 ? `font-black ${section.textAccent}` : ''}`}>
+                    <td key={i} className={`${TD} tabular-nums whitespace-nowrap ${i === 0 ? 'font-bold' : i === 1 ? `font-bold ${section.textAccent}` : ''}`}>
                       {cell}
                     </td>
                   ))}

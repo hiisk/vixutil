@@ -108,14 +108,14 @@ export default function CopyPicker({
 
       {recent.length > 0 && !found && (
         <div className="mb-5">
-          <p className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-2">{ui.recentTitle}</p>
+          <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-2">{ui.recentTitle}</p>
           <div className={gridClass}>{recent.map((ch, i) => cell({ ch }, `recent-${ch}-${i}`))}</div>
         </div>
       )}
 
       {found ? (
         <div>
-          <p className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-2">
+          <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-2">
             {ui.foundCount(found.length)}
           </p>
           {found.length === 0 ? (
@@ -130,7 +130,7 @@ export default function CopyPicker({
         <div className="flex flex-col gap-6">
           {groups.map(g => (
             <section key={g.id}>
-              <p className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-2">
+              <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-2">
                 {g.icon} {g.label}
               </p>
               <div className={gridClass}>{g.items.map((item, i) => cell(item, `${g.id}-${item.ch}-${i}`))}</div>

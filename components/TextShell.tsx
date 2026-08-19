@@ -83,7 +83,7 @@ export default function TextShell({
       <main className="relative max-w-2xl mx-auto px-4 pb-10 tool-lift">
 
 
-        <div className="mb-5 rounded-lg border border-indigo-100 dark:border-indigo-900/40 bg-indigo-50/70 dark:bg-indigo-950/30 px-4 py-3 text-xs text-indigo-800 dark:text-indigo-200 leading-relaxed text-center">
+        <div className="note mb-5 text-center">
           🔒 입력한 글은 이 브라우저 안에서만 처리됩니다. 서버로 전송되거나 저장되지 않습니다.
         </div>
 

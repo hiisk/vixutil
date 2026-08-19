@@ -173,7 +173,7 @@ export default function YouthSavingsPage() {
           <div className="p-5 flex flex-col gap-4">
             {rows.map((row, i) => (
               <div key={i} className="rounded-xl border border-slate-200 dark:border-slate-700 p-4 flex flex-col gap-3">
-                <p className="text-xs font-bold text-slate-400 dark:text-slate-500">{i + 1}번째 구간</p>
+                <p className="text-xs font-medium text-slate-400 dark:text-slate-500">{i + 1}번째 구간</p>
                 <div>
                   <Label>연소득 상한 <span className="dial-opt">만원, 비우면 소득 무관</span></Label>
                   <input type="number" value={row.ceiling} onChange={e => setRow(i, { ceiling: e.target.value })}

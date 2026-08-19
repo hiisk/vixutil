@@ -76,7 +76,7 @@ export default function FrameTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
       </div>
 
       <div className="mt-4 rounded-lg border chip-off p-5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.ratio}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.ratio}</p>
         <div className="grid grid-cols-3 gap-2">
           {RATIOS.map(r => (
             <button
@@ -94,8 +94,8 @@ export default function FrameTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
         </div>
 
         <div className="flex items-baseline justify-between mt-4 mb-1.5">
-          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.thickness}</span>
-          <span className="text-sm font-black text-violet-600 tabular-nums">{thick}%</span>
+          <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{ui.thickness}</span>
+          <span className="text-sm font-bold text-violet-600 tabular-nums">{thick}%</span>
         </div>
         <input
           type="range" min={0} max={20} value={thick}
@@ -103,7 +103,7 @@ export default function FrameTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
           className="w-full accent-violet-500" aria-label={ui.thickness}
         />
 
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.frameColor}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-4 mb-2">{ui.frameColor}</p>
         <div className="flex items-center gap-2">
           {COLORS.map(c => (
             <button

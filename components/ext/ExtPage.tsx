@@ -101,7 +101,7 @@ export default function ExtPage({ slug, lang }: { slug: string; lang: Lang }) {
 
         {/* 이 화면에 오는 이유가 이것이다 — 무엇으로 여는가 */}
         <section className="rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-4 mb-6">
-          <p className="text-[11px] font-black text-indigo-600 dark:text-indigo-400 mb-2">{ui.openWith}</p>
+          <p className="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 mb-2">{ui.openWith}</p>
           <div className="flex flex-wrap gap-1.5">
             {f.apps.map(a => (
               <span key={a} className="rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-2.5 py-1 text-xs font-bold text-slate-700 dark:text-slate-200">
@@ -120,7 +120,7 @@ export default function ExtPage({ slug, lang }: { slug: string; lang: Lang }) {
                   <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400 w-1/2">
                     {r.label}
                   </th>
-                  <td className="px-4 py-3 font-black text-slate-800 dark:text-slate-100 break-all">{r.value}</td>
+                  <td className="px-4 py-3 font-bold text-slate-800 dark:text-slate-100 break-all">{r.value}</td>
                 </tr>
               ))}
             </tbody>
@@ -136,7 +136,7 @@ export default function ExtPage({ slug, lang }: { slug: string; lang: Lang }) {
                 <Link prefetch={false}
                   key={t}
                   href={`${prefix}/ext/${t}`}
-                  className="rounded-xl border chip-off px-3 py-2 text-sm font-black text-slate-800 dark:text-slate-100 hover:shadow-sm transition-all"
+                  className="rounded-xl border chip-off px-3 py-2 text-sm font-bold text-slate-800 dark:text-slate-100 hover:shadow-sm transition-all"
                 >
                   .{t}
                 </Link>

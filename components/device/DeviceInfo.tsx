@@ -142,7 +142,7 @@ export default function DeviceInfo({ lang = 'ko' }: { lang?: DeviceLang } = {}) 
     <div className="flex flex-col gap-4">
       {data.groups.map(g => (
         <div key={g.title} className="rounded-lg border chip-off overflow-hidden">
-          <p className="px-4 py-2.5 text-xs font-black text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-950 border-b border-slate-100 dark:border-slate-800">
+          <p className="px-4 py-2.5 text-xs font-medium text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-950 border-b border-slate-100 dark:border-slate-800">
             {g.title}
           </p>
           <dl>
@@ -165,7 +165,7 @@ export default function DeviceInfo({ lang = 'ko' }: { lang?: DeviceLang } = {}) 
       ))}
 
       <div className="rounded-lg border chip-off p-4">
-        <p className="text-xs font-black text-slate-500 dark:text-slate-400 mb-2">User-Agent</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">User-Agent</p>
         <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 break-all leading-relaxed">{data.ua}</p>
       </div>
 

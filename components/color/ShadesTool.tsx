@@ -41,7 +41,7 @@ export default function ShadesTool({ lang = 'ko' }: { lang?: ColorLang } = {}) {
             className="w-full flex items-center gap-3 px-4 py-3 text-left transition-opacity hover:opacity-95"
             style={{ background: s.hex, color: s.whiteOk ? '#ffffff' : '#0f172a' }}
           >
-            <span className="w-12 text-xs font-black tabular-nums">{s.step}</span>
+            <span className="w-12 text-xs font-bold tabular-nums">{s.step}</span>
             <span className="flex-1 text-sm font-mono font-bold uppercase">{s.hex}</span>
             <span className="text-[10px] opacity-80">
               {s.whiteOk && s.blackOk ? ui.bothOk : s.whiteOk ? ui.whiteOk : s.blackOk ? ui.blackOk : ui.lowContrast}
@@ -61,7 +61,7 @@ export default function ShadesTool({ lang = 'ko' }: { lang?: ColorLang } = {}) {
       </button>
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.whereTitle}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.whereTitle}</p>
         <ul className="flex flex-col gap-1.5 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           <li>· <b className="text-slate-800 dark:text-slate-100">50~200</b> {ui.useLight}</li>
           <li>· <b className="text-slate-800 dark:text-slate-100">400~600</b> {ui.useMid}</li>

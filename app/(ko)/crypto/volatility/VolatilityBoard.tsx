@@ -35,7 +35,7 @@ const SORTS: [SortKey, string][] = [
 /** 변동성 크기에 따라 강조 */
 function volCls(v: number | null): string {
   if (v == null) return 'text-slate-400 dark:text-slate-500';
-  if (v >= 150) return 'text-rose-600 dark:text-rose-400 font-black';
+  if (v >= 150) return 'text-rose-600 dark:text-rose-400 font-bold';
   if (v >= 100) return 'text-orange-600 dark:text-orange-400 font-bold';
   if (v >= 60) return 'text-amber-600 dark:text-amber-400';
   return 'text-slate-700 dark:text-slate-200';
@@ -138,7 +138,7 @@ export default function VolatilityBoard() {
   return (
     <>
       <div className="rounded-lg border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
-        <h2 className="text-sm font-black text-amber-900 dark:text-amber-200 mb-1.5">Volatility is the one thing here that does predict</h2>
+        <h2 className="text-sm font-bold text-amber-900 dark:text-amber-200 mb-1.5">Volatility is the one thing here that does predict</h2>
         <p className="text-xs text-amber-900/85 dark:text-amber-200/85 leading-relaxed">
           Direction is not forecastable from price, but volatility is: a coin that has been violent this week is more likely than not to be
           violent next week. That makes this the most useful ranking on the site — and the reason four windows are shown rather than one.
@@ -232,7 +232,7 @@ export default function VolatilityBoard() {
       </div>
 
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
-        <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">Why four windows instead of one</h2>
+        <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-2">Why four windows instead of one</h2>
         <p className="mb-2">
           A single volatility figure conflates two different questions: how wild is this coin, and how wild is it being at the moment. The
           one-year number answers the first and the one-week number answers the second, and the ratio between them is the interesting part.

@@ -43,7 +43,7 @@ export default function RandomIndexPage() {
       <div className="h-1 topbar" />
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center gap-4">
-          <Link href="/" className="font-black text-rose-600 text-lg shrink-0">vix.</Link>
+          <Link href="/" className="font-bold text-rose-600 text-lg shrink-0">vix.</Link>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">랜덤 뽑기</span>
           <span className="ml-auto flex items-center gap-3 shrink-0 text-xs text-slate-400 dark:text-slate-500">
             {RANDOM_TOOLS.length}개
@@ -83,7 +83,7 @@ export default function RandomIndexPage() {
             <ToolIcon emoji={DICE_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />
           </span>
           <span className="min-w-0">
-            <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{DICE_UI.ko.hubTitle}</span>
+            <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">{DICE_UI.ko.hubTitle}</span>
             <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5">{DICE_UI.ko.hubLead}</span>
           </span>
           <span className="ml-auto text-[11px] font-bold text-slate-400 dark:text-slate-500 shrink-0">{ROLLS.length}</span>

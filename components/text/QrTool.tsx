@@ -58,7 +58,7 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">{label}</span>
+      <span className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">{label}</span>
       <input
         type={type}
         value={value}
@@ -83,7 +83,7 @@ function Picker<T extends string | number>({
 }) {
   return (
     <div>
-      <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{title}</p>
+      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{title}</p>
       <div className={`grid gap-2 ${cols}`}>
         {options.map((option, i) => (
           <button
@@ -342,7 +342,7 @@ export default function QrTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
         />
 
         <div>
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.colorTitle}</p>
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.colorTitle}</p>
           <div className="grid grid-cols-2 gap-3">
             {([[ui.darkColor, dark, setDark], [ui.lightColor, light, setLight]] as const).map(([label, value, set]) => (
               <label key={label} className="flex items-center gap-2.5 rounded-xl border border-slate-200 dark:border-slate-700 px-3 py-2 cursor-pointer">
@@ -367,7 +367,7 @@ export default function QrTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
       </div>
 
       {made && 'problem' in made && (
-        <div className="mt-4 rounded-lg border border-rose-200 dark:border-rose-900/60 bg-rose-50/70 dark:bg-rose-950/30 px-4 py-3 text-sm text-rose-800 dark:text-rose-200 leading-relaxed">
+        <div className="note mt-4">
           {made.problem}
         </div>
       )}

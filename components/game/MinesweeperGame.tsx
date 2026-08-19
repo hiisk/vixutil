@@ -198,7 +198,7 @@ export default function MinesweeperGame({ lang = 'ko' }: { lang?: GameLang } = {
                 disabled={done}
                 aria-label={label}
                 style={{ width: size, height: size, fontSize: Math.round(size * 0.52) }}
-                className={`flex items-center justify-center font-black tabular-nums touch-manipulation ${
+                className={`flex items-center justify-center font-bold tabular-nums touch-manipulation ${
                   i === board.blast
                     ? 'bg-rose-500 text-white'
                     : isOpen

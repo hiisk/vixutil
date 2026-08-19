@@ -40,7 +40,7 @@ export default function BingoBoardTool({ lang = 'ko' }: { lang?: RandomLang }) {
 
   return (
     <div>
-      <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.boardSize}</p>
+      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.boardSize}</p>
       <div className="grid grid-cols-3 gap-2">
         {SIZES.map(n => (
           <button
@@ -71,7 +71,7 @@ export default function BingoBoardTool({ lang = 'ko' }: { lang?: RandomLang }) {
 
       <button
         onClick={() => reset(() => setNonce(n => n + 1))}
-        className="w-full mt-4 mb-5 bg-sec font-black text-lg rounded-lg py-4 shadow-sm shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all"
+        className="w-full mt-4 mb-5 bg-sec font-bold text-lg rounded-lg py-4 shadow-sm shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all"
       >
         {ui.newBoard} 🎲
       </button>
@@ -85,7 +85,7 @@ export default function BingoBoardTool({ lang = 'ko' }: { lang?: RandomLang }) {
           <button
             key={i}
             onClick={() => board && v !== null && toggle(i)}
-            className={`aspect-square rounded-xl border-2 flex items-center justify-center font-black transition-all ${
+            className={`aspect-square rounded-xl border-2 flex items-center justify-center font-bold transition-all ${
               (board?.size ?? size) >= 5 ? 'text-base' : 'text-xl'
             } ${
               isMarked(i)
@@ -100,7 +100,7 @@ export default function BingoBoardTool({ lang = 'ko' }: { lang?: RandomLang }) {
 
       <div className="mt-5 flex items-center justify-center gap-2">
         <span className="text-sm font-bold text-slate-400 dark:text-slate-500">{ui.bingoCount}</span>
-        <span className="text-2xl font-black text-rose-600 tabular-nums">{lines}</span>
+        <span className="text-2xl font-bold text-rose-600 tabular-nums">{lines}</span>
       </div>
       <p className="text-xs text-slate-400 dark:text-slate-500 mt-2 text-center">{ui.tapToMark}</p>
     </div>

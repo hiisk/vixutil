@@ -131,7 +131,7 @@ export default function ColorNamePage({ color, lang, lead, nearby: nearbyProp, f
         >
           <h1 className="page-h1">{name}</h1>
           {/* 이 화면에 오는 사람이 가지러 온 것 — 눌러서 가져간다. `cv` 두 글자다 */}
-          <p className="cv text-lg font-black tabular-nums opacity-90">{f.hex.toUpperCase()}</p>
+          <p className="cv text-lg font-bold tabular-nums opacity-90">{f.hex.toUpperCase()}</p>
         </div>
 
         {lead && <p className="mt-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{lead}</p>}
@@ -144,7 +144,7 @@ export default function ColorNamePage({ color, lang, lead, nearby: nearbyProp, f
                   <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400 w-2/5">
                     {r.label}
                   </th>
-                  <td className="cv px-4 py-3 font-black text-slate-800 dark:text-slate-100 tabular-nums">{r.value}</td>
+                  <td className="cv px-4 py-3 font-bold text-slate-800 dark:text-slate-100 tabular-nums">{r.value}</td>
                 </tr>
               ))}
             </tbody>
@@ -164,11 +164,11 @@ export default function ColorNamePage({ color, lang, lead, nearby: nearbyProp, f
             ].map(c => (
               <div key={c.label} className="rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
                 <div className="px-4 py-5 text-center" style={{ background: c.bg, color: c.fg }}>
-                  <span className="text-base font-black">Aa</span>
+                  <span className="text-base font-bold">Aa</span>
                 </div>
                 <div className="px-3 py-2.5 bg-white dark:bg-slate-900">
-                  <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{c.label}</p>
-                  <p className="text-sm font-black text-slate-800 dark:text-slate-100 tabular-nums">
+                  <p className="text-xs font-medium text-slate-500 dark:text-slate-400">{c.label}</p>
+                  <p className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums">
                     {c.ratio}:1{' '}
                     <span className={c.pass ? 'text-emerald-600' : 'text-rose-500'}>
                       {c.pass ? ui.passAa : ui.failAa}
@@ -184,13 +184,13 @@ export default function ColorNamePage({ color, lang, lead, nearby: nearbyProp, f
         {f.chromatic && (
         <section className="mt-6">
           <h2 className="sec-h2">{ui.harmonyTitle}</h2>
-          <p className="text-xs font-bold text-slate-400 dark:text-slate-500 mb-1.5">{ui.complementLabel}</p>
+          <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mb-1.5">{ui.complementLabel}</p>
           <div className="grid grid-cols-4 gap-2 mb-3">{swatch(f.complement, f.complement.toUpperCase())}</div>
-          <p className="text-xs font-bold text-slate-400 dark:text-slate-500 mb-1.5">{ui.analogousLabel}</p>
+          <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mb-1.5">{ui.analogousLabel}</p>
           <div className="grid grid-cols-4 gap-2 mb-3">
             {f.analogous.map(h => swatch(h, h.toUpperCase()))}
           </div>
-          <p className="text-xs font-bold text-slate-400 dark:text-slate-500 mb-1.5">{ui.triadLabel}</p>
+          <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mb-1.5">{ui.triadLabel}</p>
           <div className="grid grid-cols-4 gap-2">{f.triad.map(h => swatch(h, h.toUpperCase()))}</div>
         </section>
         )}

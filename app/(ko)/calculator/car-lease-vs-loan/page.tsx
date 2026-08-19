@@ -242,7 +242,7 @@ export default function CarLeaseVsLoanPage() {
                         <span className="text-slate-400 dark:text-slate-500 mr-2">{p.rank}위</span>
                         {p.label}
                       </span>
-                      <span className="font-black">
+                      <span className="font-bold">
                         {fmt(p.total)}원
                         {p.gap > 0 && (
                           <span className="ml-2 text-xs font-normal text-red-500">+{fmt(p.gap)}</span>

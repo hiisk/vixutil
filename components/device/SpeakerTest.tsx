@@ -136,7 +136,7 @@ export default function SpeakerTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
                 >
                   {s === 'left' ? '🔈' : '🔊'}
                 </div>
-                <span className={`text-sm font-black ${on ? 'text-emerald-600' : 'text-slate-400 dark:text-slate-500'}`}>
+                <span className={`text-sm font-bold ${on ? 'text-emerald-600' : 'text-slate-400 dark:text-slate-500'}`}>
                   {s === 'left' ? ui.leftSide : ui.rightSide}
                 </span>
               </div>
@@ -173,8 +173,8 @@ export default function SpeakerTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
 
       <div className="mt-5 rounded-lg border chip-off p-5">
         <div className="flex items-baseline justify-between mb-2">
-          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.freq}</span>
-          <span className="text-lg font-black text-emerald-600 font-mono">
+          <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{ui.freq}</span>
+          <span className="text-lg font-bold text-emerald-600 font-mono">
             {hz >= 1000 ? `${(hz / 1000).toFixed(hz % 1000 === 0 ? 0 : 1)}kHz` : `${hz}Hz`}
           </span>
         </div>
@@ -206,8 +206,8 @@ export default function SpeakerTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
         </div>
 
         <div className="flex items-baseline justify-between mt-5 mb-2">
-          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.volume}</span>
-          <span className="text-sm font-black text-slate-600 dark:text-slate-300 font-mono">{vol}%</span>
+          <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{ui.volume}</span>
+          <span className="text-sm font-bold text-slate-600 dark:text-slate-300 font-mono">{vol}%</span>
         </div>
         <input
           type="range"
@@ -225,7 +225,7 @@ export default function SpeakerTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
 
       {/* 스스로 체크하는 항목 — 브라우저가 대신 판정할 수 없는 부분이다 */}
       <div className="mt-4 rounded-lg border chip-off p-5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3">{ui.checkTitle}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-3">{ui.checkTitle}</p>
         <div className="flex flex-col gap-2">
           {[
             ...ui.checkItems,

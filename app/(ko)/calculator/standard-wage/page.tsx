@@ -135,7 +135,7 @@ export default function StandardWagePage() {
               </div>
             </Card>
             <Card className="p-4">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">수당 단가 참고</p>
+              <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">수당 단가 참고</p>
               <div className="grid grid-cols-3 gap-2 text-xs text-center">
                 {[
                   { label: '연장근로', rate: '×1.5', value: result.hourly * 1.5 },

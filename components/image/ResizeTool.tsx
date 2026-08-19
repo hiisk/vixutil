@@ -96,7 +96,7 @@ export default function ResizeTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
       <div className="mt-4 rounded-lg border chip-off p-5">
         <div className="flex items-end gap-2">
           <label className="flex-1">
-            <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">{ui.width}</span>
+            <span className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">{ui.width}</span>
             <input type="number" min={1} max={12000} value={w} onChange={e => setWidth(Number(e.target.value))} className={field} />
           </label>
           <button
@@ -111,12 +111,12 @@ export default function ResizeTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
             {lock ? '🔒' : '🔓'}
           </button>
           <label className="flex-1">
-            <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">{ui.height}</span>
+            <span className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">{ui.height}</span>
             <input type="number" min={1} max={12000} value={h} onChange={e => setHeight(Number(e.target.value))} className={field} />
           </label>
         </div>
 
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-5 mb-2">{ui.byRatio}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-5 mb-2">{ui.byRatio}</p>
         <div className="grid grid-cols-4 gap-2">
           {[0.75, 0.5, 0.25, 1].map(p => (
             <button
@@ -129,7 +129,7 @@ export default function ResizeTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
           ))}
         </div>
 
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-5 mb-2">{ui.presetsTitle}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-5 mb-2">{ui.presetsTitle}</p>
         <div className="grid grid-cols-2 gap-2">
           {PRESETS.map((p, i) => (
             <button

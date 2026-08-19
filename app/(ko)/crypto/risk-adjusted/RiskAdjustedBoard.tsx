@@ -137,7 +137,7 @@ export default function RiskAdjustedBoard() {
     <>
       {/* 세 지표가 다른 것을 잰다 */}
       <div className="rounded-lg border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
-        <h2 className="text-sm font-black text-amber-900 dark:text-amber-200 mb-1.5">Three ratios, three definitions of risk</h2>
+        <h2 className="text-sm font-bold text-amber-900 dark:text-amber-200 mb-1.5">Three ratios, three definitions of risk</h2>
         <p className="text-xs text-amber-900/85 dark:text-amber-200/85 leading-relaxed">
           Sharpe divides by total standard deviation, which punishes large gains as heavily as large losses and assumes a normal distribution
           that crypto returns plainly violate. Sortino divides only by downside deviation. Calmar divides by the worst drawdown actually
@@ -235,7 +235,7 @@ export default function RiskAdjustedBoard() {
       </div>
 
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
-        <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">Why a single risk-adjusted number is not enough</h2>
+        <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-2">Why a single risk-adjusted number is not enough</h2>
         <p className="mb-2">
           Sharpe assumes returns are normally distributed. Crypto returns are not — they have fat tails, so the standard deviation understates
           how bad the worst days get and the ratio flatters assets whose losses arrive in rare large chunks. It also treats a violent rally as

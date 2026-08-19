@@ -43,7 +43,7 @@ export default function PastaTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
         <Stat label={ui.timeLabel} value={ui.minSuffix(result.minutes)} accent="text-orange-600" />
       </div>
 
-      <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-5 mb-2">{ui.shapeTitle}</p>
+      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-5 mb-2">{ui.shapeTitle}</p>
       <div className="grid grid-cols-3 gap-2">
         {SHAPES.map((s, i) => (
           <button
@@ -69,7 +69,7 @@ export default function PastaTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
       </label>
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.saltTitle}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.saltTitle}</p>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           {ui.saltNote}
         </p>

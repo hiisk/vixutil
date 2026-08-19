@@ -77,14 +77,14 @@ export default function SoundHubPage() {
           </p>
         </div>
 
-        <div className="rounded-lg border border-violet-100 dark:border-violet-900/40 bg-violet-50/70 dark:bg-violet-950/30 px-4 py-3.5 mb-7 text-xs text-violet-800 dark:text-violet-200 leading-relaxed text-center">
+        <div className="note mb-7 text-center">
 🔊 소리는 계산으로 만들고, 마이크 입력은 브라우저 안에서만 분석합니다. 전송되지 않습니다.
         </div>
 
         <div className="flex flex-col gap-7">
           {grouped.map(g => (
             <section key={g.category} aria-label={g.category}>
-              <h2 className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
+              <h2 className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
                 {g.category}
               </h2>
               <div className="grid sm:grid-cols-2 gap-3">
@@ -96,7 +96,7 @@ export default function SoundHubPage() {
                   >
                     <div className="relative">
                       <ToolIcon emoji={t.icon} color={t.og[0]} accent={t.og[1]} className="w-9 h-9 block mb-3" />
-                      <h3 className="text-base font-black text-slate-900 dark:text-slate-100 mb-1">{t.title}</h3>
+                      <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mb-1">{t.title}</h3>
                       <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-3">{t.desc}</p>
                       <span className="flex items-center gap-1 text-xs font-semibold text-violet-600">
                         바로 쓰기
@@ -131,7 +131,7 @@ export default function SoundHubPage() {
             <ToolIcon emoji={FREQ_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />
           </span>
           <span className="min-w-0">
-            <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{SOUND_UI.ko.hubTitle}</span>
+            <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">{SOUND_UI.ko.hubTitle}</span>
             <span className="block text-xs text-slate-500 dark:text-slate-400 mt-0.5">{SOUND_UI.ko.hubLead}</span>
           </span>
         </Link>

@@ -34,11 +34,11 @@ export default function DateAddTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
 
   const field = (label: string, value: number, set: (n: number) => void) => (
     <label className="block">
-      <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">{label}</span>
+      <span className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">{label}</span>
       <input
         type="number" value={value}
         onChange={e => set(Number(e.target.value) || 0)}
-        className="w-full rounded-xl border chip-off px-3 py-2.5 text-sm font-black text-slate-800 dark:text-slate-100 tabular-nums text-center focus:outline-none focus:border-violet-400"
+        className="w-full rounded-xl border chip-off px-3 py-2.5 text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums text-center focus:outline-none focus:border-violet-400"
       />
     </label>
   );
@@ -59,7 +59,7 @@ export default function DateAddTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
         <>
           <div className="mt-4 rounded-lg bg-sec px-6 py-8 text-center">
             <p className="text-sm text-white/70 mb-1">{ui.result}</p>
-            <p className="text-3xl font-black">{formatKo(result.date)}</p>
+            <p className="text-3xl font-bold">{formatKo(result.date)}</p>
             <p className="text-sm text-white/70 mt-2">
               {result.gap >= 0 ? ui.gapAfter(result.gap) : ui.gapBefore(-result.gap)}
             </p>
@@ -86,7 +86,7 @@ export default function DateAddTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
       </div>
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.monthEndTitle}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.monthEndTitle}</p>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           {ui.monthEndBody}
         </p>

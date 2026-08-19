@@ -71,7 +71,7 @@ export default function MetronomeTool({ lang = 'ko' }: { lang?: SoundLang } = {}
   return (
     <div>
       <div className="rounded-lg bg-slate-900 px-6 py-10 text-center">
-        <p className="text-6xl font-black text-white tabular-nums">{bpm}</p>
+        <p className="text-6xl font-bold text-white tabular-nums">{bpm}</p>
         <p className="text-sm text-white/60 mt-1">BPM · {tempoName}</p>
 
         <div className="flex items-center justify-center gap-2 mt-6">

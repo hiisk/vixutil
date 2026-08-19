@@ -196,7 +196,7 @@ export default function SmileScorePage() {
           <p className="text-slate-500 dark:text-slate-400 text-sm">실제 얼굴 인식으로 입꼬리를 분석해요</p>
         </div>
 
-        <div className="bg-orange-50 dark:bg-orange-950/30 border border-orange-100 dark:border-orange-900/40 rounded-lg p-4 mb-6 text-xs text-orange-800 dark:text-orange-300 leading-relaxed">
+        <div className="note-warn mb-6">
           <p className="font-bold mb-1">🔒 사진은 서버에 전송되지 않아요</p>
           <p>입꼬리 위치는 이 브라우저 안에서 실제로 측정되지만, 무표정 사진이라고 나쁜 게 아니에요! 표정과 상관없이 매력적인 사진은 얼마든지 있으니 재미로만 봐주세요.</p>
         </div>
@@ -264,7 +264,7 @@ export default function SmileScorePage() {
                 <ShareBtn />
               </div>
               <p className="text-sm font-semibold text-white/80 mb-2">😊 종합 미소 지수</p>
-              <p className="text-4xl font-black mb-3">{result.percent}%</p>
+              <p className="text-4xl font-bold mb-3">{result.percent}%</p>
               <p className="text-sm leading-relaxed">{result.text}</p>
             </div>
 

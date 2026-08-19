@@ -141,7 +141,7 @@ export default function OvertimePage() {
               </div>
               <div className="px-5 py-3 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 flex justify-between">
                 <span className="font-bold text-sm text-slate-800 dark:text-slate-100">합계</span>
-                <span className="font-black text-blue-600">{fmt(result.total)}원</span>
+                <span className="font-bold text-blue-600">{fmt(result.total)}원</span>
               </div>
             </Card>
           </>

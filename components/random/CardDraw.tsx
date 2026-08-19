@@ -14,7 +14,7 @@ export default function CardDraw({ lang = 'ko' }: { lang?: RandomLang }) {
 
   return (
     <div>
-      <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.howManyCards}</p>
+      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.howManyCards}</p>
       <div className="grid grid-cols-4 gap-2 mb-4">
         {COUNTS.map(n => (
           <button
@@ -33,7 +33,7 @@ export default function CardDraw({ lang = 'ko' }: { lang?: RandomLang }) {
 
       <button
         onClick={() => setHand(drawCards(count, Math.random))}
-        className="w-full bg-sec font-black text-lg rounded-lg py-4 mb-6 shadow-sm shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all"
+        className="w-full bg-sec font-bold text-lg rounded-lg py-4 mb-6 shadow-sm shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all"
       >
         {hand ? ui.again : ui.drawCard} 🃏
       </button>
@@ -46,7 +46,7 @@ export default function CardDraw({ lang = 'ko' }: { lang?: RandomLang }) {
               className="wc-flip w-20 h-28 rounded-xl border-2 chip-off flex flex-col items-center justify-center shadow-sm"
               style={{ animationDelay: `${i * 90}ms` }}
             >
-              <span className={`text-3xl font-black ${c.red ? 'text-rose-500' : 'text-slate-800 dark:text-slate-100'}`}>{c.rank}</span>
+              <span className={`text-3xl font-bold ${c.red ? 'text-rose-500' : 'text-slate-800 dark:text-slate-100'}`}>{c.rank}</span>
               <span className={`text-2xl ${c.red ? 'text-rose-500' : 'text-slate-800 dark:text-slate-100'}`}>{c.suit}</span>
             </div>
           ))}

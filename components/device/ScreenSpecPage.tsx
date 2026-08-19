@@ -120,7 +120,7 @@ export default function ScreenSpecPage({ slug, lang }: { slug: string; lang: Lan
           ].map(x => (
             <div key={x.k} className="rounded-lg border chip-off px-2 py-3 text-center">
               <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 truncate">{x.k}</p>
-              <p className="text-sm sm:text-base font-black text-slate-800 dark:text-slate-100 tabular-nums mt-1 break-all">
+              <p className="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-100 tabular-nums mt-1 break-all">
                 {x.val}
                 {x.unit ? <span className="text-[11px] font-bold text-slate-400 ml-0.5">{x.unit}</span> : null}
               </p>
@@ -146,7 +146,7 @@ export default function ScreenSpecPage({ slug, lang }: { slug: string; lang: Lan
                   <th scope="row" className="text-left px-4 py-3 font-bold text-slate-500 dark:text-slate-400 w-1/2">
                     {r.label}
                   </th>
-                  <td className="px-4 py-3 font-black text-slate-800 dark:text-slate-100 tabular-nums">{r.value}</td>
+                  <td className="px-4 py-3 font-bold text-slate-800 dark:text-slate-100 tabular-nums">{r.value}</td>
                 </tr>
               ))}
             </tbody>
@@ -188,7 +188,7 @@ export default function ScreenSpecPage({ slug, lang }: { slug: string; lang: Lan
                       </td>
                       <td className="px-3 py-2.5 tabular-nums text-slate-500 dark:text-slate-400 whitespace-nowrap">{o.w}×{o.h}</td>
                       <td className="px-3 py-2.5 tabular-nums text-slate-500 dark:text-slate-400 whitespace-nowrap">{ui.inchUnit(o.inch)}</td>
-                      <td className="px-3 py-2.5 tabular-nums font-black text-slate-700 dark:text-slate-200 whitespace-nowrap">{of_.ppi} ppi</td>
+                      <td className="px-3 py-2.5 tabular-nums font-bold text-slate-700 dark:text-slate-200 whitespace-nowrap">{of_.ppi} ppi</td>
                     </tr>
                   );
                 })}

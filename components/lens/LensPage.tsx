@@ -107,7 +107,7 @@ export default function LensPage({ slug, lang }: { slug: string; lang: Lang }) {
           {rows.map(([k, v]) => (
             <div key={k} className="row-pair">
               <dt className="text-xs text-slate-500 dark:text-slate-400">{k}</dt>
-              <dd className="text-sm font-black text-slate-800 dark:text-slate-100 tabular-nums">{v}</dd>
+              <dd className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums">{v}</dd>
             </div>
           ))}
         </dl>
@@ -133,7 +133,7 @@ export default function LensPage({ slug, lang }: { slug: string; lang: Lang }) {
                   href={`${hub}/${o.slug}`}
                   className="flex items-baseline gap-3 px-4 py-2.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
                 >
-                  <span className="text-sm font-black text-indigo-700 dark:text-indigo-400 font-mono shrink-0 tabular-nums w-[68px]">{of_.focal}mm</span>
+                  <span className="text-sm font-bold text-indigo-700 dark:text-indigo-400 font-mono shrink-0 tabular-nums w-[68px]">{of_.focal}mm</span>
                   <span className="text-sm text-slate-700 dark:text-slate-200 truncate">{of_.sensorName}</span>
                   <span className="ml-auto text-[11px] text-slate-400 dark:text-slate-500 shrink-0 tabular-nums">{ui.degUnit(of_.diagonal)}</span>
                 </Link>

@@ -76,7 +76,7 @@ export default function PercentIntl({ lang }: { lang: CalcLang }) {
       {result && (
         <Card className="p-5 text-center">
           <p className="label-caps mb-2">{c.result}</p>
-          <p className={`text-4xl font-black ${result.up === undefined ? 'text-blue-600' : result.up ? 'text-rose-600' : 'text-sky-600'}`}>
+          <p className={`text-4xl font-bold ${result.up === undefined ? 'text-blue-600' : result.up ? 'text-rose-600' : 'text-sky-600'}`}>
             {fmt(result.value)}{result.suffix}
           </p>
           {result.up !== undefined && (

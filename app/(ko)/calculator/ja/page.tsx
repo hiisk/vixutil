@@ -189,7 +189,7 @@ export default function JaHome() {
       <header className="sticky top-0 z-20 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-5xl mx-auto px-4">
           <div className="h-14 flex items-center gap-4">
-            <span className="font-black text-blue-600 text-lg shrink-0">計算機まとめ</span>
+            <span className="font-bold text-blue-600 text-lg shrink-0">計算機まとめ</span>
             {/* カテゴリタブ — 横スクロール */}
             <nav className="flex items-center gap-1 overflow-x-auto scrollbar-none flex-1 min-w-0">
               {CATS.map(c => (
@@ -251,7 +251,7 @@ export default function JaHome() {
               <div className="flex items-center gap-3 mb-5">
                 <ToolIcon emoji={cat.icon} className="text-slate-800 dark:text-slate-100 w-7 h-7" />
                 <div>
-                  <h2 className="font-black text-slate-900 dark:text-slate-100 text-lg leading-tight">{cat.label}</h2>
+                  <h2 className="font-bold text-slate-900 dark:text-slate-100 text-lg leading-tight">{cat.label}</h2>
                   <p className="text-xs text-slate-400 dark:text-slate-500">{cat.desc}</p>
                 </div>
                 <span className={`ml-auto shrink-0 text-xs font-bold px-2.5 py-1 rounded-full border ${cat.accent}`}>

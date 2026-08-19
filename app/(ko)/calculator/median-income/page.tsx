@@ -165,7 +165,7 @@ export default function MedianIncomePage() {
           <>
             <div className={`rounded-lg p-5 ${result.r.eligible.length > 0 ? 'bg-blue-600' : 'bg-slate-600'}`}>
               <p className="text-blue-200 text-xs mb-1">내 소득인정액은 기준 중위소득의</p>
-              <p className="text-white text-3xl font-black">{result.r.percent.toFixed(1)}%</p>
+              <p className="text-white text-3xl font-bold">{result.r.percent.toFixed(1)}%</p>
               <p className="text-blue-200 text-xs mt-1">
                 {SIZE_LABELS[result.size - 1]} 가구 기준 중위소득 {fmt(result.r.median)}원 ·
                 소득인정액 {fmt(result.r.recognized)}원

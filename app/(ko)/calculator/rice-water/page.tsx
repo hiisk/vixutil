@@ -97,7 +97,7 @@ export default function RiceWaterPage() {
           <>
             <div className="stat-pri text-center">
               <p className="stat-sub mb-2">물</p>
-              <p className="text-slate-900 dark:text-slate-50 text-5xl font-black">{Math.round(water)}</p>
+              <p className="text-slate-900 dark:text-slate-50 text-5xl font-bold">{Math.round(water)}</p>
               <p className="text-slate-500 dark:text-slate-400 text-xl mt-1">ml</p>
               <p className="stat-sub mt-3 opacity-90">
                 계량컵으로 약 {(water / CUP_ML).toFixed(1)}컵 · 밥 약 {bowls}공기

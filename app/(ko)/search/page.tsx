@@ -22,7 +22,7 @@ export default function SearchPage() {
 
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
-          <Link href="/" className="font-black text-indigo-600 text-lg shrink-0">vix.</Link>
+          <Link href="/" className="font-bold text-indigo-600 text-lg shrink-0">vix.</Link>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">통합 검색</span>
           <span className="ml-auto flex items-center gap-3 shrink-0">
             <span className="text-xs text-slate-400 dark:text-slate-500">{SEARCH_INDEX.length}개</span>

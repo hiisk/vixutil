@@ -64,7 +64,7 @@ export default function DdayPage() {
               result.diff>0 ? 'bg-blue-600' : result.diff===0 ? 'bg-emerald-600' : 'bg-slate-700'
             }`}>
               <p className="text-white/70 text-sm mb-2">{result.label}</p>
-              <p className="text-white text-6xl font-black tracking-tight mb-2">
+              <p className="text-white text-6xl font-bold tracking-tight mb-2">
                 {result.diff>0 ? `D-${result.diff}` : result.diff===0 ? 'D-Day!' : `D+${Math.abs(result.diff)}`}
               </p>
               <p className="text-white/70 text-sm">
@@ -82,7 +82,7 @@ export default function DdayPage() {
               ].map(item=>(
                 <Card key={item.l} className="p-4 text-center">
                   <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">{item.l}</p>
-                  <p className="font-black text-slate-900 dark:text-slate-100 text-base">{item.v}</p>
+                  <p className="font-bold text-slate-900 dark:text-slate-100 text-base">{item.v}</p>
                 </Card>
               ))}
             </div>
@@ -137,7 +137,7 @@ function TwoDate() {
             {l:'평일',v:res.weekdays.toLocaleString()},
           ].map(i=>(
             <div key={i.l} className="bg-blue-50 dark:bg-blue-950/30 border border-blue-100 dark:border-blue-900/40 rounded-xl py-3">
-              <p className="font-black text-blue-700 dark:text-blue-300 text-lg leading-tight">{i.v}</p>
+              <p className="font-bold text-blue-700 dark:text-blue-300 text-lg leading-tight">{i.v}</p>
               <p className="text-blue-400 text-xs mt-0.5">{i.l}</p>
             </div>
           ))}

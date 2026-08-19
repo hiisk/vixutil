@@ -118,7 +118,7 @@ export default function CmdPage({ slug, lang }: { slug: string; lang: Lang }) {
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
               {x.flags.map(fl => (
                 <tr key={fl.flag}>
-                  <th scope="row" className="text-left px-4 py-3 font-black text-slate-800 dark:text-slate-100 font-mono text-[13px] align-top">
+                  <th scope="row" className="text-left px-4 py-3 font-bold text-slate-800 dark:text-slate-100 font-mono text-[13px] align-top">
                     {fl.flag}
                   </th>
                   <td className="px-4 py-3 text-slate-600 dark:text-slate-300 leading-relaxed">{fl.en}</td>
@@ -171,7 +171,7 @@ export default function CmdPage({ slug, lang }: { slug: string; lang: Lang }) {
         </section>
 
         <p className="mt-6 text-center">
-          <span className="text-xs font-bold text-slate-400 dark:text-slate-500 font-mono">
+          <span className="text-xs font-medium text-slate-400 dark:text-slate-500 font-mono">
             {ui.manLabel}: man {manName}
           </span>
         </p>

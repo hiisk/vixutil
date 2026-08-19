@@ -60,7 +60,7 @@ export default function BloodPressureIntl({ lang }: { lang: CalcLang }) {
       {result && (
         <div className={`rounded-lg p-6 text-center ${TONES[result.tone]}`}>
           <p className="text-white/70 text-xs mb-1">{c.result}</p>
-          <p className="text-white text-3xl font-black">{labels[result.key]}</p>
+          <p className="text-white text-3xl font-bold">{labels[result.key]}</p>
           <p className="text-white/80 text-sm mt-1">{result.sys} / {result.dia} {c.unit}</p>
           <p className="text-white/80 text-sm mt-3 leading-relaxed">{details[result.key]}</p>
         </div>

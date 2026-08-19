@@ -52,8 +52,8 @@ export default function OvenTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
       </div>
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.airTitle}</p>
-        <p className="text-2xl font-black text-red-600">
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.airTitle}</p>
+        <p className="text-2xl font-bold text-red-600">
           {ui.airValue(air.celsius, air.minutes)}
         </p>
         <p className="mt-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">

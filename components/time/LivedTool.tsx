@@ -34,7 +34,7 @@ export default function LivedTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
   return (
     <div>
       <label className="block">
-        <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">{ui.birth}</span>
+        <span className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">{ui.birth}</span>
         <input
           type="date"
           value={birth}
@@ -47,7 +47,7 @@ export default function LivedTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
         <>
           <div className="mt-4 rounded-lg bg-sec px-6 py-8 text-center">
             <p className="text-sm text-white/70 mb-1">{ui.livedFor}</p>
-            <p className="text-4xl font-black">
+            <p className="text-4xl font-bold">
               {ui.ymd(info.years, info.months, info.days)}
             </p>
             <p className="text-sm text-white/80 mt-2 tabular-nums">
@@ -63,8 +63,8 @@ export default function LivedTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
           </div>
 
           <div className={`${CARD} mt-4`}>
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.milestones}</p>
-            <p className="text-lg font-black text-slate-800 dark:text-slate-100">
+            <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.milestones}</p>
+            <p className="text-lg font-bold text-slate-800 dark:text-slate-100">
               {ui.milestoneLine(info.nextMilestone.toLocaleString(), info.milestoneDate.toLocaleDateString(ui.locale, { year: 'numeric', month: 'long', day: 'numeric' }))}
             </p>
             <p className="text-sm text-pink-600 font-bold mt-1">{ui.milestoneLeft(info.milestoneLeft)}</p>

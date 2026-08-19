@@ -90,7 +90,7 @@ export default function WaterPage() {
           <>
             <div className="stat-pri text-center">
               <p className="stat-label">하루 권장 수분 섭취량</p>
-              <p className="text-slate-900 dark:text-slate-50 text-5xl font-black">{result.ml.toLocaleString()}</p>
+              <p className="text-slate-900 dark:text-slate-50 text-5xl font-bold">{result.ml.toLocaleString()}</p>
               <p className="text-slate-500 dark:text-slate-400 text-xl mt-1">ml</p>
             </div>
             <div className="grid grid-cols-2 gap-x-4 gap-y-5">
@@ -102,7 +102,7 @@ export default function WaterPage() {
               ].map(r => (
                 <div key={r.label} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
                   <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">{r.label}</p>
-                  <p className="font-black text-slate-900 dark:text-slate-100 text-lg">{r.value}</p>
+                  <p className="font-bold text-slate-900 dark:text-slate-100 text-lg">{r.value}</p>
                 </div>
               ))}
             </div>

@@ -86,7 +86,7 @@ export default function RentalYieldIntl({ lang }: { lang: CalcLang }) {
             <p className="label-caps mb-3">{c.netTitle}</p>
             {result.investmentNonPositive ? (
               <>
-                <p className="text-2xl font-black text-amber-600 dark:text-amber-400">{c.undef}</p>
+                <p className="text-2xl font-bold text-amber-600 dark:text-amber-400">{c.undef}</p>
                 <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">{c.undefNote}</p>
                 <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
                   {c.grossLabel} <strong className="text-slate-800 dark:text-slate-100">{result.grossYield.toFixed(2)}%</strong>
@@ -94,7 +94,7 @@ export default function RentalYieldIntl({ lang }: { lang: CalcLang }) {
               </>
             ) : (
               <>
-                <p className={`text-3xl font-black ${result.netYield! < 0 ? 'text-red-500' : 'text-slate-900 dark:text-slate-100'}`}>
+                <p className={`text-3xl font-bold ${result.netYield! < 0 ? 'text-red-500' : 'text-slate-900 dark:text-slate-100'}`}>
                   {result.netYield!.toFixed(2)}<span className="text-lg font-bold ml-1">%</span>
                 </p>
                 <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">

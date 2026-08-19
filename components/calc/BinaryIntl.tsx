@@ -98,7 +98,7 @@ export default function BinaryIntl({ lang }: { lang: CalcLang }) {
                   {c[r.key]}
                   {r.base === base && <span className="ml-1 text-xs text-blue-400">{c.entered}</span>}
                 </span>
-                <span className={`text-sm font-mono break-all text-right ${r.base === base ? 'text-blue-700 dark:text-blue-300 font-black' : 'text-slate-800 dark:text-slate-100'}`}>
+                <span className={`text-sm font-mono break-all text-right ${r.base === base ? 'text-blue-700 dark:text-blue-300 font-bold' : 'text-slate-800 dark:text-slate-100'}`}>
                   {r.display}
                 </span>
               </div>

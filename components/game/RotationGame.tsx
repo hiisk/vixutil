@@ -70,7 +70,7 @@ export default function RotationGame({ lang = 'ko' }: { lang?: GameLang } = {}) 
         ) : puzzle ? (
           <div className="flex items-center gap-6">
             <Grid shape={puzzle.left} size={puzzle.size} />
-            <span className="text-sm font-black text-slate-300 dark:text-slate-600">?</span>
+            <span className="text-sm font-bold text-slate-300 dark:text-slate-600">?</span>
             <Grid shape={puzzle.right} size={puzzle.size} />
           </div>
         ) : null}
@@ -84,13 +84,13 @@ export default function RotationGame({ lang = 'ko' }: { lang?: GameLang } = {}) 
         <div className="grid grid-cols-2 gap-2 mt-4">
           <button
             onClick={() => answer(true)}
-            className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-4 text-base font-black text-slate-700 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-700 active:scale-[0.98] transition-all"
+            className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-4 text-base font-bold text-slate-700 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-700 active:scale-[0.98] transition-all"
           >
             {ui.sameShape}
           </button>
           <button
             onClick={() => answer(false)}
-            className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-4 text-base font-black text-slate-700 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-700 active:scale-[0.98] transition-all"
+            className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-4 text-base font-bold text-slate-700 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-700 active:scale-[0.98] transition-all"
           >
             {ui.diffShape}
           </button>

@@ -72,7 +72,7 @@ export default function FreqHubPage({ lang }: { lang: Lang }) {
           <p className="note-sm">{ui.hubLead}</p>
         </div>
 
-        <p className="rounded-lg border border-amber-200 dark:border-amber-900/60 bg-amber-50 dark:bg-amber-950/30 px-4 py-3 text-xs text-amber-800 dark:text-amber-200 leading-relaxed mb-8">
+        <p className="note-warn mb-8">
           {ui.safety}
         </p>
 
@@ -83,7 +83,7 @@ export default function FreqHubPage({ lang }: { lang: Lang }) {
             <section key={range} className="mb-8">
               <h2 className="sec-h2">
                 {ui.rangeLabel[range]}
-                <span className="ml-1.5 text-xs font-bold text-slate-400 dark:text-slate-500">{list.length}</span>
+                <span className="ml-1.5 text-xs font-medium text-slate-400 dark:text-slate-500">{list.length}</span>
               </h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                 {list.map(x => {
@@ -94,7 +94,7 @@ export default function FreqHubPage({ lang }: { lang: Lang }) {
                       href={`${path}/${freqSlug(x.hz)}`}
                       className="rounded-xl border chip-off px-3 py-2.5 hover:shadow-sm hover:-translate-y-0.5 transition-all"
                     >
-                      <span className="block text-sm font-black text-slate-800 dark:text-slate-100 tabular-nums">{x.hz} Hz</span>
+                      <span className="block text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums">{x.hz} Hz</span>
                       <span className="block text-[11px] text-slate-400 dark:text-slate-500 tabular-nums truncate">
                         {f.note} · {f.wavelengthLabel}
                       </span>

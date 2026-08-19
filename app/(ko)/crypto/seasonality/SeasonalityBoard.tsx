@@ -121,14 +121,14 @@ export default function SeasonalityBoard() {
             <div className="flex items-center gap-2.5">
               <CoinLogo base={snap.coin.base} size={28} />
               <div>
-                <p className="text-sm font-black text-slate-900 dark:text-white leading-tight">{snap.coin.base}</p>
+                <p className="text-sm font-bold text-slate-900 dark:text-white leading-tight">{snap.coin.base}</p>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 tabular-nums">
                   {snap.firstYear}–{snap.lastYear} · {snap.totalDays.toLocaleString()} days
                 </p>
               </div>
             </div>
           )}
-          {state === 'loading' && <span role="status" className="text-xs font-bold text-slate-500 dark:text-slate-400">Reading full history…</span>}
+          {state === 'loading' && <span role="status" className="text-xs font-medium text-slate-500 dark:text-slate-400">Reading full history…</span>}
           {(state === 'error' || state === 'nodata') && (
             <span className="flex items-center gap-2 text-xs">
               <span className="font-bold text-rose-600 dark:text-rose-400">{state === 'nodata' ? 'Not enough history' : 'Couldn’t load history'}</span>
@@ -141,7 +141,7 @@ export default function SeasonalityBoard() {
       {/* 표본 경고를 표보다 먼저 놓는다 — 순서가 곧 강조다 */}
       {snap && (
         <div className={`rounded-lg border p-5 mb-4 ${maxYears < MIN_YEARS ? 'border-rose-500/40 bg-rose-50 dark:bg-rose-500/[0.08]' : 'border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07]'}`}>
-          <h2 className={`text-sm font-black mb-1.5 ${maxYears < MIN_YEARS ? 'text-rose-800 dark:text-rose-300' : 'text-amber-900 dark:text-amber-200'}`}>
+          <h2 className={`text-sm font-bold mb-1.5 ${maxYears < MIN_YEARS ? 'text-rose-800 dark:text-rose-300' : 'text-amber-900 dark:text-amber-200'}`}>
             Each month has {maxYears} observations, not {snap.totalDays.toLocaleString()}
           </h2>
           <p className={`text-xs leading-relaxed ${maxYears < MIN_YEARS ? 'text-rose-800/85 dark:text-rose-300/85' : 'text-amber-900/85 dark:text-amber-200/85'}`}>
@@ -160,7 +160,7 @@ export default function SeasonalityBoard() {
         <>
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
             <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
-              <h2 className="text-sm font-black text-slate-900 dark:text-white">{snap.coin.name} by calendar month</h2>
+              <h2 className="text-sm font-bold text-slate-900 dark:text-white">{snap.coin.name} by calendar month</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 Each row is the same month across every year of history. The bar shows the median.
               </p>
@@ -190,7 +190,7 @@ export default function SeasonalityBoard() {
                           {MONTH_SHORT[r.month]}
                           <span className="block text-[10px] font-normal text-slate-500 dark:text-slate-400 tabular-nums">{r.years} yrs</span>
                         </td>
-                        <td className={`px-3 py-2.5 text-right tabular-nums font-black ${rCls(r.medianPct)}`}>{signed(r.medianPct)}</td>
+                        <td className={`px-3 py-2.5 text-right tabular-nums font-bold ${rCls(r.medianPct)}`}>{signed(r.medianPct)}</td>
                         <td className="px-3 py-2.5">
                           {/* 0을 가운데 두고 좌우로 뻗는 막대 */}
                           <span className="relative block h-2 rounded-full bg-slate-100 dark:bg-slate-800" aria-hidden="true">
@@ -232,7 +232,7 @@ export default function SeasonalityBoard() {
             ].map(([label, v, note]) => (
               <div key={label} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
                 <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">{label}</p>
-                <p className="text-base font-black text-slate-900 dark:text-white tabular-nums">{v}</p>
+                <p className="text-base font-bold text-slate-900 dark:text-white tabular-nums">{v}</p>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{note}</p>
               </div>
             ))}
@@ -241,7 +241,7 @@ export default function SeasonalityBoard() {
       )}
 
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
-        <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">Why &quot;Uptober&quot; is not evidence</h2>
+        <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-2">Why &quot;Uptober&quot; is not evidence</h2>
         <p className="mb-2">
           Named seasonal patterns get repeated because they are memorable, and the arithmetic that would deflate them is rarely shown.
           Nine Octobers is nine observations. Seven of nine going up sounds convincing until you work out how often a fair coin does that —

@@ -240,7 +240,7 @@ export default function QuizEngine({ quiz, lang = 'ko', headerRight }: { quiz: Q
           </div>
         <p className="text-xs text-slate-400 dark:text-slate-500 mb-8">{ui.meta(quiz.questions.length)}</p>
         <button onClick={() => setPhase('question')}
-          className="w-full max-w-xs bg-amber-500 hover:bg-amber-600 text-white font-black py-4 rounded-lg text-base transition-colors shadow-sm shadow-amber-200">
+          className="w-full max-w-xs bg-amber-500 hover:bg-amber-600 text-white font-bold py-4 rounded-lg text-base transition-colors shadow-sm shadow-amber-200">
           {ui.start}
         </button>
       </div>
@@ -261,21 +261,21 @@ export default function QuizEngine({ quiz, lang = 'ko', headerRight }: { quiz: Q
       </header>
       <div key={current} className="flex-1 px-4 py-8 max-w-lg mx-auto w-full qz-fade">
         <div className="flex items-center gap-2 mb-5">
-          <span className="text-xs font-black text-amber-500 bg-amber-50 dark:bg-amber-950/30 px-2.5 py-1 rounded-full">Q{current + 1}</span>
+          <span className="text-xs font-bold text-amber-500 bg-amber-50 dark:bg-amber-950/30 px-2.5 py-1 rounded-full">Q{current + 1}</span>
           {phase === 'answer' && (
-            <span className={`text-xs font-black px-2.5 py-1 rounded-full ${isCorrect ? 'bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600' : 'bg-red-50 dark:bg-red-950/30 text-red-500'}`}>
+            <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${isCorrect ? 'bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600' : 'bg-red-50 dark:bg-red-950/30 text-red-500'}`}>
               {isCorrect ? ui.correct : ui.wrong}
             </span>
           )}
         </div>
-        <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-6 leading-relaxed tracking-tight">{q.q}</h2>
+        <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-6 leading-relaxed tracking-tight">{q.q}</h2>
         <div className="flex flex-col gap-2.5">
           {q.opts.map((opt, i) => {
             const answered = phase === 'answer';
             const isRight = i === q.correct;
             const isChosen = i === selected;
             let cls = 'group w-full text-left flex items-center gap-3 border rounded-lg pl-3 pr-4 py-3.5 text-sm font-medium transition-all ';
-            let badgeCls = 'shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-black transition-colors ';
+            let badgeCls = 'shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-colors ';
             if (answered) {
               if (isRight) { cls += 'bg-emerald-50 dark:bg-emerald-950/30 border-2 border-emerald-400 text-emerald-800 dark:text-emerald-300 font-bold'; badgeCls += 'bg-emerald-500 text-white'; }
               else if (isChosen) { cls += 'bg-red-50 dark:bg-red-950/30 border-2 border-red-400 text-red-700 dark:text-red-300'; badgeCls += 'bg-red-500 text-white'; }
@@ -324,8 +324,8 @@ export default function QuizEngine({ quiz, lang = 'ko', headerRight }: { quiz: Q
         {/* Score hero card */}
         <div className={`relative overflow-hidden rounded-xl bg-gradient-to-br ${g.color} p-8 text-white text-center mb-6 shadow-sm`}>
           <div className="text-7xl mb-3 filter drop-shadow-sm">{medal(pct)}</div>
-          <div className="text-5xl font-black mb-1">{correct}<span className="text-2xl font-normal opacity-70"> / {total}</span></div>
-          <div className={`text-2xl font-black ${g.textColor} mb-2`}>{ui.score(pct)} · {g.label}</div>
+          <div className="text-5xl font-bold mb-1">{correct}<span className="text-2xl font-normal opacity-70"> / {total}</span></div>
+          <div className={`text-2xl font-bold ${g.textColor} mb-2`}>{ui.score(pct)} · {g.label}</div>
           <p className={`text-sm ${g.textColor}`}>{msg}</p>
           {/* progress bar */}
           <div className="mt-4 bg-black/20 rounded-full h-2 overflow-hidden">

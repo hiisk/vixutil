@@ -218,7 +218,7 @@ export default function DtiPage() {
           <>
             <div className={`rounded-lg p-5 ${over ? 'bg-rose-500' : 'bg-blue-600'}`}>
               <p className="text-white/70 text-xs mb-1">현재 DTI</p>
-              <p className="text-white text-3xl font-black">{result.now.dti.toFixed(1)}%</p>
+              <p className="text-white text-3xl font-bold">{result.now.dti.toFixed(1)}%</p>
               <p className="text-white/70 text-sm mt-1">
                 한도 {result.limitPercent}% · {over ? '한도 초과 ✕' : '한도 이하 ✓'}
               </p>
@@ -232,7 +232,7 @@ export default function DtiPage() {
 
             <div className="bg-slate-900 dark:bg-slate-800 rounded-lg p-5">
               <p className="text-slate-400 text-xs mb-1">DTI {result.limitPercent}%에서 빌릴 수 있는 최대 원금</p>
-              <p className="text-white text-3xl font-black">{man(result.max.principal)}</p>
+              <p className="text-white text-3xl font-bold">{man(result.max.principal)}</p>
               <p className="text-slate-400 text-xs mt-1">
                 {result.max.principal > 0
                   ? `월 상환액 ${fmt(result.max.monthly)}원 · ${years}년${Number(graceYears) > 0 ? ` (거치 ${graceYears}년)` : ''}`

@@ -664,8 +664,8 @@ export default function HubPage() {
             무슨 사이트인지 설명이 안 되므로 설명을 sr-only로 h1 안에 넣는다.
           */}
           <h1 className="inline-flex items-center gap-1 mb-4">
-            <span className="text-5xl sm:text-6xl font-black text-slate-900 dark:text-slate-100 tracking-tighter">vix</span>
-            <span className="text-5xl sm:text-6xl font-black text-blue-600 tracking-tighter">util</span>
+            <span className="text-5xl sm:text-6xl font-bold text-slate-900 dark:text-slate-100 tracking-tighter">vix</span>
+            <span className="text-5xl sm:text-6xl font-bold text-blue-600 tracking-tighter">util</span>
             <span className="sr-only"> — 계산기·심리테스트·퀴즈·생성기·체크리스트·운세 모음</span>
           </h1>
           <p className="text-slate-400 dark:text-slate-500 text-base">일상에 필요한 실용 도구 모음</p>
@@ -754,7 +754,7 @@ export default function HubPage() {
             { label: '운세', val: '6종' },
           ].map(item => (
             <div key={item.label}>
-              <p className="text-xl font-black text-slate-900 dark:text-slate-100">{item.val}</p>
+              <p className="text-xl font-bold text-slate-900 dark:text-slate-100">{item.val}</p>
               <p className="text-xs text-slate-400 dark:text-slate-500">{item.label}</p>
             </div>
           ))}

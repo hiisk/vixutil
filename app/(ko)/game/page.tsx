@@ -81,14 +81,14 @@ export default function GameHubPage() {
           </p>
         </div>
 
-        <div className="rounded-lg border border-emerald-100 dark:border-emerald-900/40 bg-emerald-50/70 dark:bg-emerald-950/30 px-4 py-3.5 mb-7 text-xs text-emerald-800 dark:text-emerald-200 leading-relaxed text-center">
+        <div className="note mb-7 text-center">
 🎮 기록은 이 브라우저에만 저장됩니다. 회원가입도, 순위표 등록도 없습니다.
         </div>
 
         <div className="flex flex-col gap-7">
           {grouped.map(g => (
             <section key={g.category} aria-label={g.category}>
-              <h2 className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
+              <h2 className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
                 {g.category}
               </h2>
               <div className="grid sm:grid-cols-2 gap-3">
@@ -100,7 +100,7 @@ export default function GameHubPage() {
                   >
                     <div className="relative">
                       <ToolIcon emoji={t.icon} color={t.og[0]} accent={t.og[1]} className="w-9 h-9 block mb-3" />
-                      <h3 className="text-base font-black text-slate-900 dark:text-slate-100 mb-1">{t.title}</h3>
+                      <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mb-1">{t.title}</h3>
                       <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-3">{t.desc}</p>
                       <span className="flex items-center gap-1 text-xs font-semibold text-emerald-600">
                         바로 쓰기
@@ -124,7 +124,7 @@ export default function GameHubPage() {
             <ToolIcon emoji={CUBE_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />
           </span>
           <span className="min-w-0">
-            <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{CUBE_UI.ko.hubTitle}</span>
+            <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">{CUBE_UI.ko.hubTitle}</span>
             <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5">{CUBE_UI.ko.hubLead}</span>
           </span>
           <span className="ml-auto text-[11px] font-bold text-slate-400 dark:text-slate-500 shrink-0">{ALGS.length}</span>
@@ -138,7 +138,7 @@ export default function GameHubPage() {
             <ToolIcon emoji={CHESS_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />
           </span>
           <span className="min-w-0">
-            <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{fill(chessUi('ko').hubTitle, { n: OPENINGS.length })}</span>
+            <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">{fill(chessUi('ko').hubTitle, { n: OPENINGS.length })}</span>
             <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5">{chessUi('ko').hubLead}</span>
           </span>
           <span className="ml-auto text-[11px] font-bold text-slate-400 dark:text-slate-500 shrink-0">{OPENINGS.length}</span>
@@ -152,7 +152,7 @@ export default function GameHubPage() {
             <ToolIcon emoji={POKER_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />
           </span>
           <span className="min-w-0">
-            <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{pokerFill(pokerUi('ko').hubTitle, { n: HANDS.length })}</span>
+            <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">{pokerFill(pokerUi('ko').hubTitle, { n: HANDS.length })}</span>
             <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5">{pokerFill(pokerUi('ko').hubLead, { n: HANDS.length })}</span>
           </span>
           <span className="ml-auto text-[11px] font-bold text-slate-400 dark:text-slate-500 shrink-0">{HANDS.length}</span>

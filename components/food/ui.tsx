@@ -20,7 +20,7 @@ export function useCopy() {
 export function Stat({ label, value, accent }: { label: string; value: string | number; accent?: string }) {
   return (
     <div className="rounded-xl border chip-off px-3 py-3 text-center">
-      <p className={`text-lg font-black tabular-nums ${accent ?? 'text-slate-800 dark:text-slate-100'}`}>{value}</p>
+      <p className={`text-lg font-bold tabular-nums ${accent ?? 'text-slate-800 dark:text-slate-100'}`}>{value}</p>
       <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{label}</p>
     </div>
   );
@@ -33,12 +33,12 @@ export function NumberField({
 }) {
   return (
     <label className="block">
-      <span className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">{label}</span>
+      <span className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">{label}</span>
       <div className="relative">
         <input
           type="number" value={value} step={step} min={min}
           onChange={e => onChange(Number(e.target.value))}
-          className="w-full rounded-xl border chip-off px-3.5 py-3 pr-12 text-lg font-black text-slate-800 dark:text-slate-100 tabular-nums focus:outline-none focus:border-amber-400 transition-colors"
+          className="w-full rounded-xl border chip-off px-3.5 py-3 pr-12 text-lg font-bold text-slate-800 dark:text-slate-100 tabular-nums focus:outline-none focus:border-amber-400 transition-colors"
         />
         {unit && <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-sm font-bold text-slate-400 dark:text-slate-500">{unit}</span>}
       </div>
@@ -49,7 +49,7 @@ export function NumberField({
 export function Result({ children, sub }: { children: React.ReactNode; sub?: string }) {
   return (
     <div className="mt-4 rounded-lg bg-sec px-6 py-8 text-center">
-      <div className="text-3xl sm:text-4xl font-black">{children}</div>
+      <div className="text-3xl sm:text-4xl font-bold">{children}</div>
       {sub && <p className="text-sm text-white/80 mt-2">{sub}</p>}
     </div>
   );

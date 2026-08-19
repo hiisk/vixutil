@@ -139,7 +139,7 @@ export default function DataUsagePage() {
           <>
             <div className="stat-pri text-center">
               <p className="stat-sub mb-2">{mode === 'howlong' ? `${a.label} 가능 시간` : `${a.label} ${h}시간이면`}</p>
-              <p className="text-slate-900 dark:text-slate-50 text-5xl font-black">
+              <p className="text-slate-900 dark:text-slate-50 text-5xl font-bold">
                 {mode === 'howlong' ? fmtHours(g / a.gbPerHour) : (h * a.gbPerHour).toFixed(1)}
               </p>
               {mode === 'howmuch' && <p className="text-slate-500 dark:text-slate-400 text-xl mt-1">GB</p>}

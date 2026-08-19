@@ -230,7 +230,7 @@ export default function DutchPayPage() {
                       <td className={r.extra > 0 ? 'text-orange-600 font-semibold' : 'text-slate-400 dark:text-slate-500'}>
                         {r.extra > 0 ? `+${w(r.extra)}원` : '-'}
                       </td>
-                      <td className="font-black text-slate-900 dark:text-slate-100">{w(r.total)}원</td>
+                      <td className="font-bold text-slate-900 dark:text-slate-100">{w(r.total)}원</td>
                     </tr>
                   ))}
                 </tbody>
@@ -238,7 +238,7 @@ export default function DutchPayPage() {
             </TableWrap>
             <div className="px-5 py-3 bg-slate-50 dark:bg-slate-950 rounded-b-2xl flex justify-between items-center">
               <span className="text-xs text-slate-500 dark:text-slate-400">총합 확인</span>
-              <span className="text-sm font-black text-slate-900 dark:text-slate-100">
+              <span className="text-sm font-bold text-slate-900 dark:text-slate-100">
                 {w(result.reduce((s, r) => s + r.total, 0))}원
               </span>
             </div>

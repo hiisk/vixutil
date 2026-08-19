@@ -64,7 +64,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
           <Link href={`/${lang}/fortune`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-violet-600 font-medium">
             {ui.section}
           </Link>
-          <span className="ml-auto flex items-center gap-2 text-xs font-bold text-slate-400">
+          <span className="ml-auto flex items-center gap-2 text-xs font-medium text-slate-400">
             <Link href="/fortune/tarot" className="hover:text-violet-600" hrefLang="ko">한국어</Link>
           </span>
           <span className="ml-auto shrink-0">
@@ -101,7 +101,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
 
         {tab === 'draw' ? (
           <>
-            <p className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">{ui.spreadTitle}</p>
+            <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">{ui.spreadTitle}</p>
             <div className="grid grid-cols-2 gap-2 mb-5">
               {SPREAD_SHAPE.map(s => (
                 <button
@@ -115,10 +115,10 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
                 >
                   <span className="flex items-center gap-1.5">
                     <ToolIcon emoji={s.icon} className="w-4 h-4 text-slate-400 dark:text-slate-500" />
-                    <span className={`text-sm font-black ${spreadId === s.id ? 'text-violet-700 dark:text-violet-300' : 'text-slate-700 dark:text-slate-200'}`}>
+                    <span className={`text-sm font-bold ${spreadId === s.id ? 'text-violet-700 dark:text-violet-300' : 'text-slate-700 dark:text-slate-200'}`}>
                       {spreads[s.id].label}
                     </span>
-                    <span className="ml-auto text-[10px] font-black px-1.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400">
+                    <span className="ml-auto text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400">
                       {ui.cardCount(s.count)}
                     </span>
                   </span>
@@ -128,7 +128,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
             </div>
 
             <div className="flex items-center gap-2 mb-5">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 flex-1">{ui.deckTitle}</p>
+              <p className="text-xs font-medium text-slate-500 dark:text-slate-400 flex-1">{ui.deckTitle}</p>
               {[true, false].map(full => (
                 <button
                   key={String(full)}
@@ -159,11 +159,11 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
                     const reading = TAROT_READINGS[lang][d.card.id];
                     return (
                       <div key={`${d.card.id}-${i}`} className="rounded-lg border chip-off p-3.5">
-                        <p className="text-[10px] font-black text-violet-500 uppercase tracking-wide mb-1.5">{copy.positions[i]}</p>
+                        <p className="text-[10px] font-bold text-violet-500 uppercase tracking-wide mb-1.5">{copy.positions[i]}</p>
                         {open ? (
                           <>
                             <p className="text-2xl mb-1">{d.card.emoji}</p>
-                            <p className="text-sm font-black text-slate-800 dark:text-slate-100 leading-tight">
+                            <p className="text-sm font-bold text-slate-800 dark:text-slate-100 leading-tight">
                               {cardName(d.card, lang)}
                             </p>
                             <p className={`text-[11px] font-bold mt-0.5 ${d.reversed ? 'text-amber-600' : 'text-emerald-600'}`}>
@@ -189,7 +189,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
 
                 <div className="grid grid-cols-2 gap-2 mt-4">
                   {allShown ? (
-                    <p className="col-span-1 flex items-center justify-center text-xs font-bold text-slate-400 dark:text-slate-500">
+                    <p className="col-span-1 flex items-center justify-center text-xs font-medium text-slate-400 dark:text-slate-500">
                       {ui.revealed(shown.length, drawn.length)}
                     </p>
                   ) : (
@@ -229,7 +229,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
             <h2 className="sec-h2">{ui.minorHeading}</h2>
             {(Object.keys(SUIT_INFO) as (keyof typeof SUIT_INFO)[]).map(suit => (
               <section key={suit} className="mb-6">
-                <p className="text-xs font-black uppercase tracking-widest mb-2" style={{ color: SUIT_INFO[suit].color }}>
+                <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: SUIT_INFO[suit].color }}>
                   {SUIT_INFO[suit].emoji} {suits[suit].name} — {suits[suit].theme}
                 </p>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -255,7 +255,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
       </main>
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
-        <Link href={`/${lang}`} className="text-sm font-black text-violet-600">vixutil</Link>
+        <Link href={`/${lang}`} className="text-sm font-bold text-violet-600">vixutil</Link>
       </footer>
     </div>
   );

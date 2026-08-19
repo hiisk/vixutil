@@ -30,8 +30,8 @@ export default function YesNo({ lang = 'ko' }: { lang?: RandomLang }) {
       />
 
       <div className="flex items-baseline justify-between mt-5 mb-1.5">
-        <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{ui.lean}</span>
-        <span className="text-sm font-black text-rose-600 tabular-nums">{lean}%</span>
+        <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{ui.lean}</span>
+        <span className="text-sm font-bold text-rose-600 tabular-nums">{lean}%</span>
       </div>
       <input
         type="range" min={0} max={100} step={5} value={lean}
@@ -42,7 +42,7 @@ export default function YesNo({ lang = 'ko' }: { lang?: RandomLang }) {
       <button
         onClick={go}
         disabled={spinning}
-        className="w-full mt-5 bg-sec font-black text-lg rounded-lg py-4 shadow-sm shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all disabled:opacity-60"
+        className="w-full mt-5 bg-sec font-bold text-lg rounded-lg py-4 shadow-sm shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all disabled:opacity-60"
       >
         {ui.decide} 🪙
       </button>
@@ -55,7 +55,7 @@ export default function YesNo({ lang = 'ko' }: { lang?: RandomLang }) {
             {question.trim() && (
               <p className="text-sm text-slate-400 dark:text-slate-500 mb-2 break-words">{question}</p>
             )}
-            <p className={`text-6xl font-black ${answer ? 'text-emerald-600' : 'text-rose-500'}`}>
+            <p className={`text-6xl font-bold ${answer ? 'text-emerald-600' : 'text-rose-500'}`}>
               {answer ? ui.yes : ui.no}
             </p>
           </div>

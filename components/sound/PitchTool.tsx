@@ -88,14 +88,14 @@ export default function PitchTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
               {ui.replay}
             </button>
             {answered !== null && (
-              <p className={`mt-4 text-lg font-black ${answered === question.semi ? 'text-emerald-400' : 'text-rose-400'}`}>
+              <p className={`mt-4 text-lg font-bold ${answered === question.semi ? 'text-emerald-400' : 'text-rose-400'}`}>
                 {answered === question.semi ? ui.correct : `${ui.wrongPrefix}${ui.intervals[INTERVALS.findIndex(i => i.semi === question.semi)]}`}
               </p>
             )}
           </>
         ) : (
           <>
-            <p className="text-2xl font-black text-white mb-1">{ui.introTitle}</p>
+            <p className="text-2xl font-bold text-white mb-1">{ui.introTitle}</p>
             <p className="text-sm text-white/60">{ui.introNote}</p>
           </>
         )}

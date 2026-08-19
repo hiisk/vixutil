@@ -27,8 +27,8 @@ export default function LoremTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
   const slider = (label: string, value: number, min: number, max: number, onChange: (n: number) => void, unit: string) => (
     <div>
       <div className="flex items-baseline justify-between mb-1.5">
-        <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{label}</span>
-        <span className="text-sm font-black text-indigo-600 tabular-nums">
+        <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{label}</span>
+        <span className="text-sm font-bold text-indigo-600 tabular-nums">
           {value === 0 ? ui.noLimit : `${value}${unit}`}
         </span>
       </div>
@@ -85,7 +85,7 @@ export default function LoremTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
       <CopyBox value={text} label={ui.outputLabel} rows={10} lang={lang} />
 
       <div className={`${CARD} mt-4`}>
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.noteTitle}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.noteTitle}</p>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           {ui.note}
         </p>

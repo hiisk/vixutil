@@ -68,7 +68,7 @@ export default function LiquidationCalculatorPage() {
           자바스크립트를 실행하지 않는 크롤러에겐 빈 껍데기로 보인다.
         */}
         <section className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
-          <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">How to use this liquidation calculator</h2>
+          <h2 className="text-base font-bold text-slate-900 dark:text-white mb-3">How to use this liquidation calculator</h2>
           <p className="mb-3">
             A leveraged position is closed by the exchange when losses eat into the margin far enough that what is left equals the
             <b className="text-slate-700 dark:text-slate-200"> maintenance margin</b>. This calculator finds that price from your entry, leverage, margin and

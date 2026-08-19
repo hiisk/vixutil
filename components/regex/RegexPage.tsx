@@ -101,7 +101,7 @@ export default function RegexPage({ slug, lang }: { slug: string; lang: Lang }) 
 
         <div className="rounded-lg border-2 border-sky-300 dark:border-sky-800 bg-sky-50 dark:bg-sky-950/30 px-4 py-4 mb-4">
           <div className="text-[11px] font-bold text-sky-700 dark:text-sky-400 mb-1">{ui.patternLabel}</div>
-          <code className="block text-base sm:text-lg font-black text-slate-900 dark:text-slate-100 font-mono leading-snug break-all">
+          <code className="block text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 font-mono leading-snug break-all">
             /{x.re}/{x.flags}
           </code>
         </div>
@@ -148,7 +148,7 @@ export default function RegexPage({ slug, lang }: { slug: string; lang: Lang }) 
 
         <div className="grid sm:grid-cols-2 gap-4 mb-8">
           <section>
-            <h2 className="text-sm font-black text-emerald-700 dark:text-emerald-400 mb-2">{ui.okTitle}</h2>
+            <h2 className="text-sm font-bold text-emerald-700 dark:text-emerald-400 mb-2">{ui.okTitle}</h2>
             <ul className="rounded-lg border border-emerald-200 dark:border-emerald-900/60 divide-y divide-emerald-100 dark:divide-emerald-900/40 overflow-hidden">
               {x.ok.map(s => (
                 <li key={s} className="px-3 py-2 bg-emerald-50/60 dark:bg-emerald-950/20 text-xs font-mono text-slate-700 dark:text-slate-200 break-all">{show(s)}</li>
@@ -156,7 +156,7 @@ export default function RegexPage({ slug, lang }: { slug: string; lang: Lang }) 
             </ul>
           </section>
           <section>
-            <h2 className="text-sm font-black text-rose-700 dark:text-rose-400 mb-2">{ui.noTitle}</h2>
+            <h2 className="text-sm font-bold text-rose-700 dark:text-rose-400 mb-2">{ui.noTitle}</h2>
             <ul className="rounded-lg border border-rose-200 dark:border-rose-900/60 divide-y divide-rose-100 dark:divide-rose-900/40 overflow-hidden">
               {x.no.map(s => (
                 <li key={s} className="px-3 py-2 bg-rose-50/60 dark:bg-rose-950/20 text-xs font-mono text-slate-700 dark:text-slate-200 break-all">{show(s)}</li>
@@ -174,7 +174,7 @@ export default function RegexPage({ slug, lang }: { slug: string; lang: Lang }) 
                 href={`${hub}/${o.slug}`}
                 className="block px-4 py-2.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
               >
-                <code className="block text-xs font-black text-sky-700 dark:text-sky-400 font-mono break-all">{o.re}</code>
+                <code className="block text-xs font-bold text-sky-700 dark:text-sky-400 font-mono break-all">{o.re}</code>
                 <span className="block text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{whatOf(o.slug, lang)}</span>
               </Link>
             ))}

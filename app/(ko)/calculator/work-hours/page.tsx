@@ -88,7 +88,7 @@ export default function WorkHoursPage() {
         <Card className="p-5">
           <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div>
-              <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">출근</label>
+              <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">출근</label>
               <input
                 type="time"
                 value={start}
@@ -97,7 +97,7 @@ export default function WorkHoursPage() {
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">퇴근</label>
+              <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">퇴근</label>
               <input
                 type="time"
                 value={end}
@@ -107,7 +107,7 @@ export default function WorkHoursPage() {
             </div>
           </div>
           <div className="mt-3">
-            <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">
+            <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">
               휴게시간(분){result && breakMin === '' && <span className="font-normal"> — 비우면 법정 최소 {result.suggested}분</span>}
             </label>
             <input
@@ -125,7 +125,7 @@ export default function WorkHoursPage() {
           <>
             <div className="stat-pri text-center">
               <p className="stat-sub mb-2">근무시간</p>
-              <p className="text-slate-900 dark:text-slate-50 text-5xl font-black">{fmt(result.work)}</p>
+              <p className="text-slate-900 dark:text-slate-50 text-5xl font-bold">{fmt(result.work)}</p>
               {result.overnight && <p className="stat-sub mt-3">자정을 넘긴 근무로 계산했습니다</p>}
             </div>
 

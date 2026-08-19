@@ -49,7 +49,7 @@ function fmtBps(v: number): string {
 }
 
 function bpsTone(bps: number): string {
-  if (bps >= 200) return 'text-rose-600 dark:text-rose-400 font-black';
+  if (bps >= 200) return 'text-rose-600 dark:text-rose-400 font-bold';
   if (bps >= 50) return 'text-orange-600 dark:text-orange-400 font-bold';
   if (bps >= TAKER_FEE_BPS) return 'text-amber-600 dark:text-amber-400 font-bold';
   return 'text-emerald-600 dark:text-emerald-400';
@@ -147,7 +147,7 @@ export default function DepthBoard() {
             <div className="flex items-center gap-2.5">
               <CoinLogo base={snap.coin.base} size={28} />
               <div>
-                <p className="text-sm font-black text-slate-900 dark:text-white leading-tight tabular-nums">
+                <p className="text-sm font-bold text-slate-900 dark:text-white leading-tight tabular-nums">
                   {px(snap.mid)}
                 </p>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 tabular-nums">
@@ -160,7 +160,7 @@ export default function DepthBoard() {
               </button>
             </div>
           )}
-          {state === 'loading' && <span role="status" className="text-xs font-bold text-slate-500 dark:text-slate-400">Reading the order book…</span>}
+          {state === 'loading' && <span role="status" className="text-xs font-medium text-slate-500 dark:text-slate-400">Reading the order book…</span>}
           {(state === 'error' || state === 'nodata') && (
             <span className="flex items-center gap-2 text-xs">
               <span className="font-bold text-rose-600 dark:text-rose-400">{state === 'nodata' ? 'No order book' : 'Couldn’t load the book'}</span>
@@ -196,7 +196,7 @@ export default function DepthBoard() {
             ] as const).map(([label, v, cls]) => (
               <div key={label} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3">
                 <p className="text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400">{label}</p>
-                <p className={`text-xl font-black tabular-nums ${cls}`}>{v}</p>
+                <p className={`text-xl font-bold tabular-nums ${cls}`}>{v}</p>
               </div>
             ))}
           </div>
@@ -204,7 +204,7 @@ export default function DepthBoard() {
           {/* 본론 — 주문 크기별 슬리피지 */}
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
             <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
-              <h2 className="text-sm font-black text-slate-900 dark:text-white">
+              <h2 className="text-sm font-bold text-slate-900 dark:text-white">
                 What a market {side} costs, by size
               </h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
@@ -270,7 +270,7 @@ export default function DepthBoard() {
           {/* 깊이 밴드 */}
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
             <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
-              <h2 className="text-sm font-black text-slate-900 dark:text-white">How much money sits near the price</h2>
+              <h2 className="text-sm font-bold text-slate-900 dark:text-white">How much money sits near the price</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 Resting orders within each band of the mid, and what it would take to push through it.
               </p>
@@ -328,7 +328,7 @@ export default function DepthBoard() {
       ) : null}
 
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
-        <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">This is a snapshot, and it flatters you</h2>
+        <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-2">This is a snapshot, and it flatters you</h2>
         <p className="mb-2">
           The figures come from a single order-book snapshot taken when the page loaded, and they assume every resting order stays put while
           your order consumes it. Neither holds in practice. Market makers pull quotes when they see size arriving, so a large order often

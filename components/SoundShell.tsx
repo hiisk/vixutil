@@ -72,7 +72,7 @@ export default function SoundShell({
       <main className="relative max-w-2xl mx-auto px-4 pb-10 tool-lift">
 
 
-        <div className="mb-5 rounded-lg border border-violet-100 dark:border-violet-900/40 bg-violet-50/70 dark:bg-violet-950/30 px-4 py-3 text-xs text-violet-800 dark:text-violet-200 leading-relaxed text-center">
+        <div className="note mb-5 text-center">
           🔊 소리는 계산으로 만들고, 마이크 입력은 브라우저 안에서만 분석합니다.
         </div>
 

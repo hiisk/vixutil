@@ -117,7 +117,7 @@ export default function GamepadTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
           <div key={pad.index} className="rounded-lg border chip-off p-5">
             <div className="flex items-start justify-between gap-3 mb-4">
               <div className="min-w-0">
-                <p className="text-sm font-black text-slate-800 dark:text-slate-100 truncate">🎮 {pad.id}</p>
+                <p className="text-sm font-bold text-slate-800 dark:text-slate-100 truncate">🎮 {pad.id}</p>
                 <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">
                   {ui.padInfo(pad.index, pad.buttons.length, pad.axes.length)}
                   {pad.mapping === 'standard' && ui.standardMapping}
@@ -159,7 +159,7 @@ export default function GamepadTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
             </div>
 
             {drifting && (
-              <p className="mb-4 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900/50 px-4 py-3 text-xs text-amber-800 dark:text-amber-200 leading-relaxed">
+              <p className="note-warn mb-4">
                 {ui.driftNote}
               </p>
             )}

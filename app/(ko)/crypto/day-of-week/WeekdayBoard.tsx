@@ -102,14 +102,14 @@ export default function WeekdayBoard() {
             <div className="flex items-center gap-2.5">
               <CoinLogo base={snap.coin.base} size={28} />
               <div>
-                <p className="text-sm font-black text-slate-900 dark:text-white leading-tight">{snap.coin.base}</p>
+                <p className="text-sm font-bold text-slate-900 dark:text-white leading-tight">{snap.coin.base}</p>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 tabular-nums">
                   {snap.totalDays.toLocaleString()} days · ~{Math.round(snap.totalDays / 7)} of each weekday
                 </p>
               </div>
             </div>
           )}
-          {state === 'loading' && <span role="status" className="text-xs font-bold text-slate-500 dark:text-slate-400">Reading full history…</span>}
+          {state === 'loading' && <span role="status" className="text-xs font-medium text-slate-500 dark:text-slate-400">Reading full history…</span>}
           {(state === 'error' || state === 'nodata') && (
             <span className="flex items-center gap-2 text-xs">
               <span className="font-bold text-rose-600 dark:text-rose-400">{state === 'nodata' ? 'Not enough history' : 'Couldn’t load history'}</span>
@@ -122,7 +122,7 @@ export default function WeekdayBoard() {
       {snap && (
         <>
           <div className="rounded-lg border border-amber-500/30 bg-amber-50 dark:bg-amber-500/[0.07] p-5 mb-4">
-            <h2 className="text-sm font-black text-amber-900 dark:text-amber-200 mb-1.5">
+            <h2 className="text-sm font-bold text-amber-900 dark:text-amber-200 mb-1.5">
               {sig === 0
                 ? 'No weekday clears the significance bar'
                 : `${sig} of ${WEEKDAYS_TESTED} weekdays clear |t| ≥ 2 — read the next paragraph before believing it`}
@@ -144,7 +144,7 @@ export default function WeekdayBoard() {
 
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-4">
             <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
-              <h2 className="text-sm font-black text-slate-900 dark:text-white">{snap.coin.name} by weekday, UTC</h2>
+              <h2 className="text-sm font-bold text-slate-900 dark:text-white">{snap.coin.name} by weekday, UTC</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 Compare the mean and median columns. When they disagree, the mean is being driven by outliers.
               </p>
@@ -206,7 +206,7 @@ export default function WeekdayBoard() {
       )}
 
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-5 mb-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed [&>p]:max-w-[72ch]">
-        <h2 className="text-sm font-black text-slate-900 dark:text-white mb-2">Why weekday effects are weak in crypto specifically</h2>
+        <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-2">Why weekday effects are weak in crypto specifically</h2>
         <p className="mb-2">
           Weekday patterns in traditional markets come from structure: exchanges close, settlement takes days, funds report on schedules, and
           news is released at set times. Crypto trades continuously with none of that machinery, so there is little mechanism for a

@@ -68,7 +68,7 @@ export default function AllTimeHighPage() {
           자바스크립트를 실행하지 않는 크롤러에겐 빈 껍데기로 보인다.
         */}
         <section className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 p-5 mb-4 note-sm [&>p]:max-w-[72ch]">
-          <h2 className="text-base font-black text-slate-900 dark:text-white mb-3">Why a drop and its recovery are different numbers</h2>
+          <h2 className="text-base font-bold text-slate-900 dark:text-white mb-3">Why a drop and its recovery are different numbers</h2>
           <p className="mb-3">
             Losing half your money means the remaining half has to double to break even. Down 50% requires up 100%; down 80% requires up 400%;
             down 95% requires up 1,900%. The two figures are not symmetric because the loss is measured against the old price and the recovery

@@ -63,14 +63,14 @@ export default function ConvertHub({ lang, faq }: { lang: ConvertLang; faq?: { q
           </p>
         </div>
 
-        <div className="rounded-lg border border-blue-100 dark:border-blue-900/40 bg-blue-50/70 dark:bg-blue-950/30 px-4 py-3.5 mb-7 text-xs text-blue-800 dark:text-blue-200 leading-relaxed text-center">
+        <div className="note mb-7 text-center">
           {ui.hubNotice}
         </div>
 
         <div className="flex flex-col gap-7">
           {grouped.map(g => (
             <section key={g.category} aria-label={categoryLabel(g.category)}>
-              <h2 className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
+              <h2 className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
                 {categoryLabel(g.category)} <span className="text-slate-300 dark:text-slate-600">{g.tools.length}</span>
               </h2>
               <div className="grid sm:grid-cols-2 gap-2">
