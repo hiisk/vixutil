@@ -232,7 +232,7 @@ export default function ExpressionPage() {
             </div>
 
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5">
-              <p className="label-caps mb-3">😀 감정 분포</p>
+              <p className="label-caps mb-3">감정 분포</p>
               <div className="flex flex-col gap-2.5">
                 {result.scores.map(s => (
                   <div key={s.key}>
@@ -249,12 +249,11 @@ export default function ExpressionPage() {
             </div>
 
             <div className="bg-amber-50 border border-amber-100 dark:border-amber-900/40 rounded-lg p-5">
-              <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">💡 오늘의 표정 팁</p>
+              <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">오늘의 표정 팁</p>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.tip}</p>
             </div>
 
-            <button onClick={handleReset} className="w-full py-3.5 rounded-lg font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 hover:text-pink-600 transition-colors">
-              🔄 다른 사진으로 다시 해보기
+            <button onClick={handleReset} className="w-full py-3.5 rounded-lg font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 hover:text-pink-600 transition-colors">다른 사진으로 다시 해보기
             </button>
 
             <SaveResultCard

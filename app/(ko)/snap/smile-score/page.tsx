@@ -196,7 +196,7 @@ export default function SmileScorePage() {
           <p className="text-slate-500 dark:text-slate-400 text-sm">실제 얼굴 인식으로 입꼬리를 분석해요</p>
         </div>
 
-        <div className="note-warn mb-6">
+        <div className="note mb-6">
           <p className="font-bold mb-1">🔒 사진은 서버에 전송되지 않아요</p>
           <p>입꼬리 위치는 이 브라우저 안에서 실제로 측정되지만, 무표정 사진이라고 나쁜 게 아니에요! 표정과 상관없이 매력적인 사진은 얼마든지 있으니 재미로만 봐주세요.</p>
         </div>
@@ -263,13 +263,13 @@ export default function SmileScorePage() {
               <div className="flex justify-end mb-2">
                 <ShareBtn />
               </div>
-              <p className="text-sm font-semibold text-white/80 mb-2">😊 종합 미소 지수</p>
+              <p className="text-sm font-semibold text-white/80 mb-2">종합 미소 지수</p>
               <p className="text-4xl font-bold mb-3">{result.percent}%</p>
               <p className="text-sm leading-relaxed">{result.text}</p>
             </div>
 
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5">
-              <p className="label-caps mb-3">📊 미소 세부 분석</p>
+              <p className="label-caps mb-3">미소 세부 분석</p>
               <div className="flex flex-col gap-3">
                 {result.metrics.map(m => (
                   <div key={m.key}>
@@ -286,12 +286,11 @@ export default function SmileScorePage() {
             </div>
 
             <div className="bg-amber-50 border border-amber-100 dark:border-amber-900/40 rounded-lg p-5">
-              <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">📸 표정 팁</p>
+              <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">표정 팁</p>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.tip}</p>
             </div>
 
-            <button onClick={handleReset} className="w-full py-3.5 rounded-lg font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 hover:text-orange-600 transition-colors">
-              🔄 다른 사진으로 다시 해보기
+            <button onClick={handleReset} className="w-full py-3.5 rounded-lg font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 hover:text-orange-600 transition-colors">다른 사진으로 다시 해보기
             </button>
 
             <SaveResultCard

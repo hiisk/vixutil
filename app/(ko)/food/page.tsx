@@ -78,8 +78,8 @@ export default function FoodHubPage() {
           </p>
         </div>
 
-        <div className="note-warn mb-7 text-center">
-🍳 한국 기준(1컵 200ml, 1큰술 15ml)으로 계산합니다. 미국 레시피는 1컵이 240ml입니다.
+        <div className="note mb-7 ">
+한국 기준(1컵 200ml, 1큰술 15ml)으로 계산합니다. 미국 레시피는 1컵이 240ml입니다.
         </div>
 
         <div className="flex flex-col gap-7">

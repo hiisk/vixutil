@@ -55,7 +55,7 @@ export default function AnimalPage() {
 
       <div className="hero-band max-w-xl mx-auto px-4 py-6">
         <div className="mb-6">
-          <h1 className="page-h1">🐉 사주·띠 운세</h1>
+          <h1 className="page-h1">사주·띠 운세</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">내 띠를 선택하세요</p>
         </div>
 

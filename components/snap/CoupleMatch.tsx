@@ -248,8 +248,8 @@ export default function CoupleMatch({ lang }: { lang: SnapIntlLang }) {
         </div>
 
         {error && (
-          <div className="note-warn mb-6 text-center font-bold">
-            🙈 {error}
+          <div className="note-warn mb-6  font-bold">
+            {error}
           </div>
         )}
 

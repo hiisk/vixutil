@@ -97,7 +97,7 @@ export default function ZodiacMatchPage() {
 
       <div className="hero-band max-w-xl mx-auto px-4 py-6">
         <div className="mb-6">
-          <h1 className="page-h1">🐲 띠 궁합</h1>
+          <h1 className="page-h1">띠 궁합</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">두 사람의 띠로 보는 전통 궁합</p>
         </div>
 
@@ -147,11 +147,11 @@ export default function ZodiacMatchPage() {
             {/* 연애·조언 */}
             <div className="grid gap-3">
               <div className="rounded-lg border border-rose-100 dark:border-rose-900/40 bg-rose-50/60 dark:bg-rose-950/20 p-5">
-                <p className="text-xs font-bold text-rose-600 dark:text-rose-400 mb-1.5">💕 연애 궁합</p>
+                <p className="text-xs font-bold text-rose-600 dark:text-rose-400 mb-1.5">연애 궁합</p>
                 <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.loveComment}</p>
               </div>
               <div className="rounded-lg border border-amber-100 dark:border-amber-900/40 bg-amber-50/60 dark:bg-amber-950/20 p-5">
-                <p className="text-xs font-bold text-amber-600 dark:text-amber-400 mb-1.5">💡 관계 조언</p>
+                <p className="text-xs font-bold text-amber-600 dark:text-amber-400 mb-1.5">관계 조언</p>
                 <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.adviceComment}</p>
               </div>
             </div>

@@ -72,8 +72,7 @@ export default function SoundShell({
       <main className="relative max-w-2xl mx-auto px-4 pb-10 tool-lift">
 
 
-        <div className="note mb-5 text-center">
-          🔊 소리는 계산으로 만들고, 마이크 입력은 브라우저 안에서만 분석합니다.
+        <div className="note mb-5 ">소리는 계산으로 만들고, 마이크 입력은 브라우저 안에서만 분석합니다.
         </div>
 
         {children}

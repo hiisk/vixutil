@@ -238,7 +238,7 @@ export default function KimchiBoard() {
       </div>
 
       {/* 두 기준의 차이를 설명 — 이걸 모르면 숫자가 왜 다른지 알 수 없다 */}
-      <div className="note-warn mb-4">
+      <div className="note mb-4">
         {basis === 'fx' ? (
           <>
             <b>환율 기준</b>은 뉴스와 커뮤니티에서 인용하는 그 김프입니다. 국내 원화 가격을 공식 USD/KRW 환율로 환산해 비교합니다.

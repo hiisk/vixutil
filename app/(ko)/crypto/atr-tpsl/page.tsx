@@ -241,12 +241,12 @@ export default function AtrTpslPage() {
             {calc && (
               <div className="mt-2 grid grid-cols-2 gap-3">
                 <div className="rounded-lg border border-emerald-200 dark:border-emerald-500/30 bg-emerald-50 dark:bg-emerald-500/10 p-4">
-                  <p className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold mb-1">🎯 Take Profit (TP)</p>
+                  <p className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold mb-1">Take Profit (TP)</p>
                   <p className="text-lg font-bold text-emerald-700 dark:text-emerald-300">{formatPrice(calc.tp)}</p>
                   <p className="text-xs text-emerald-600 dark:text-emerald-400 mt-0.5">{direction === 'long' ? '+' : '-'}{calc.tpDistPct.toFixed(2)}%</p>
                 </div>
                 <div className="rounded-lg border border-rose-200 dark:border-rose-500/30 bg-rose-50 dark:bg-rose-500/10 p-4">
-                  <p className="text-xs text-rose-600 dark:text-rose-400 font-semibold mb-1">🛑 Stop Loss (SL)</p>
+                  <p className="text-xs text-rose-600 dark:text-rose-400 font-semibold mb-1">Stop Loss (SL)</p>
                   <p className="text-lg font-bold text-rose-600 dark:text-rose-300">{formatPrice(calc.sl)}</p>
                   <p className="text-xs text-rose-600 dark:text-rose-400 mt-0.5">{direction === 'long' ? '-' : '+'}{calc.slDistPct.toFixed(2)}%</p>
                 </div>

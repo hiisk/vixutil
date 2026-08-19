@@ -77,7 +77,7 @@ export default function ImageHubPage() {
           </p>
         </div>
 
-        <div className="note mb-7 text-center">
+        <div className="note mb-7 ">
           🔒 모든 편집은 이 브라우저 안에서 끝납니다. 사진이 서버로 전송되지 않으니 신분증·계좌 캡처도 안심하고 쓰세요.
         </div>
 

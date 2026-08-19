@@ -79,7 +79,7 @@ export default function TextHubPage() {
           </p>
         </div>
 
-        <div className="note mb-7 text-center">
+        <div className="note mb-7 ">
           🔒 입력한 글은 브라우저 안에서만 처리됩니다. 서버로 전송되지 않으니 계약서나 자기소개서도 안심하고 넣으세요.
         </div>
 

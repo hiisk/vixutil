@@ -302,8 +302,7 @@ export default function CondolenceMoneyPage() {
         </Card>
 
         <Card className="p-5 bg-slate-50 dark:bg-slate-950">
-          <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-            💡 부의금에는 <strong>법도 고시도 표준도 없습니다.</strong>{' '}
+          <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">부의금에는 <strong>법도 고시도 표준도 없습니다.</strong>{' '}
             위 금액은 널리 오간다고 이야기되는
             금액대를 <strong>이 계산기가 어림한 참고값</strong>이며, 지역·집안·직장 관례에 따라 크게
             달라집니다. 회사 경조사비 규정이 있으면 그것이 먼저이고, 부모·형제자매 등 직계 가족은 관습이

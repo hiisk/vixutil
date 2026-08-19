@@ -299,7 +299,7 @@ export default function FirstImpressionPage() {
             </div>
 
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-5 shadow-sm">
-              <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-1.5">💡 오늘의 팁</p>
+              <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-1.5">오늘의 팁</p>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.tip}</p>
             </div>
 

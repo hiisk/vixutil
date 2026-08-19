@@ -72,8 +72,8 @@ export default function FoodShell({
       <main className="relative max-w-2xl mx-auto px-4 pb-10 tool-lift">
 
 
-        <div className="note-warn mb-5 text-center">
-          🍳 한국 기준(1컵 200ml, 1큰술 15ml)으로 계산합니다.
+        <div className="note mb-5 ">
+          한국 기준(1컵 200ml, 1큰술 15ml)으로 계산합니다.
         </div>
 
         {children}

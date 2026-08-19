@@ -76,8 +76,7 @@ export default function ColorHubPage() {
           </p>
         </div>
 
-        <div className="note mb-7 text-center">
-🎨 계산은 전부 브라우저 안에서 끝납니다. 회원가입도 저장도 없습니다.
+        <div className="note mb-7 ">계산은 전부 브라우저 안에서 끝납니다. 회원가입도 저장도 없습니다.
         </div>
 
         <div className="flex flex-col gap-7">

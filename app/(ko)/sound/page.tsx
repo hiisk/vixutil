@@ -77,8 +77,7 @@ export default function SoundHubPage() {
           </p>
         </div>
 
-        <div className="note mb-7 text-center">
-🔊 소리는 계산으로 만들고, 마이크 입력은 브라우저 안에서만 분석합니다. 전송되지 않습니다.
+        <div className="note mb-7 ">소리는 계산으로 만들고, 마이크 입력은 브라우저 안에서만 분석합니다. 전송되지 않습니다.
         </div>
 
         <div className="flex flex-col gap-7">

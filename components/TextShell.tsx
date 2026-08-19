@@ -83,7 +83,7 @@ export default function TextShell({
       <main className="relative max-w-2xl mx-auto px-4 pb-10 tool-lift">
 
 
-        <div className="note mb-5 text-center">
+        <div className="note mb-5 ">
           🔒 입력한 글은 이 브라우저 안에서만 처리됩니다. 서버로 전송되거나 저장되지 않습니다.
         </div>
 

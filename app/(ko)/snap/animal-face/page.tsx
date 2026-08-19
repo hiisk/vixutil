@@ -220,7 +220,7 @@ export default function AnimalFacePage() {
           <p className="text-slate-500 dark:text-slate-400 text-sm">실제 얼굴 인식으로 눈매·얼굴형을 분석해 동물상을 찾아드려요</p>
         </div>
 
-        <div className="note-warn mb-6">
+        <div className="note mb-6">
           <p className="font-bold mb-1">🔒 사진은 서버에 전송되지 않아요</p>
           <p>눈매·얼굴형·눈 크기·턱선은 이 브라우저 안에서 실제로 측정되고, 12가지 동물 기준값과 비교해 가장 가까운 동물상을 찾아드려요. 결과는 재미로만 봐주세요.</p>
         </div>
@@ -302,12 +302,11 @@ export default function AnimalFacePage() {
             </div>
 
             <div className="bg-amber-50 border border-amber-100 dark:border-amber-900/40 rounded-lg p-5">
-              <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">💡 오늘의 매력 팁</p>
+              <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">오늘의 매력 팁</p>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.tip}</p>
             </div>
 
-            <button onClick={handleReset} className="w-full py-3.5 rounded-lg font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 hover:text-orange-600 transition-colors">
-              🔄 다른 사진으로 다시 해보기
+            <button onClick={handleReset} className="w-full py-3.5 rounded-lg font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 hover:text-orange-600 transition-colors">다른 사진으로 다시 해보기
             </button>
 
             <SaveResultCard

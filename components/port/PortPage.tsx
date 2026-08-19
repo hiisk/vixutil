@@ -104,7 +104,7 @@ export default function PortPage({ slug, lang }: { slug: string; lang: Lang }) {
         </p>
 
         {f.custom && (
-          <p className="note-warn mb-4">
+          <p className="note mb-4">
             <span className="font-bold">{ui.customLabel}</span> · {ui.customNote}
           </p>
         )}

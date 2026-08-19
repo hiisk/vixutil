@@ -171,8 +171,7 @@ export default function GpaPage() {
               </button>
             ))}
           </div>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mt-3">
-            💡 P/F 과목은 각 과목의 <strong>P/F 토글</strong>로 표시하세요. 이수 학점에는 포함되지만 GPA 산정에서는 제외됩니다.
+          <p className="text-xs text-slate-400 dark:text-slate-500 mt-3">P/F 과목은 각 과목의 <strong>P/F 토글</strong>로 표시하세요. 이수 학점에는 포함되지만 GPA 산정에서는 제외됩니다.
           </p>
         </Card>
 

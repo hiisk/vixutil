@@ -76,7 +76,7 @@ export default function BinauralTool({ lang = 'ko' }: { lang?: SoundLang } = {})
         </p>
       </div>
 
-      <div className="note-warn mt-3 text-center">
+      <div className="note mt-3 ">
         {ui.headphones}
       </div>
 

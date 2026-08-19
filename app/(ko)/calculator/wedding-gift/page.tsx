@@ -146,8 +146,7 @@ export default function WeddingGiftPage() {
         </SummaryGrid>
 
         <Card className="p-5 bg-slate-50 dark:bg-slate-950">
-          <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-            💡 이 금액은 통상적인 경향을 참고용으로 안내하는 것으로, 지역·문화·개인 사정에 따라 크게 달라질 수
+          <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">이 금액은 통상적인 경향을 참고용으로 안내하는 것으로, 지역·문화·개인 사정에 따라 크게 달라질 수
             있습니다. 특히 가족·친척 사이는 집안 관례를 따르는 경우가 많으니 참고만 해주세요.
           </p>
         </Card>

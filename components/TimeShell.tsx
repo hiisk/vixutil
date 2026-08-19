@@ -72,7 +72,7 @@ export default function TimeShell({
       <main className="relative max-w-2xl mx-auto px-4 pb-10 tool-lift">
 
 
-        <div className="note mb-5 text-center">
+        <div className="note mb-5 ">
           ⏱️ 이 탭이 열려 있는 동안 동작합니다. 설치도 회원가입도 없습니다.
         </div>
 

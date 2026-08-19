@@ -152,8 +152,7 @@ export default function TargetSalaryPage() {
 
             <div className="px-5 pb-5">
               <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-100 dark:border-blue-900/40 rounded-xl p-4">
-                <p className="text-sm font-bold text-blue-800 dark:text-blue-200 mb-1">
-                  💡 연봉의 {(100 - result.result.effectiveRate).toFixed(0)}%만 손에 들어옵니다
+                <p className="text-sm font-bold text-blue-800 dark:text-blue-200 mb-1">연봉의 {(100 - result.result.effectiveRate).toFixed(0)}%만 손에 들어옵니다
                 </p>
                 <p className="text-xs text-blue-700 dark:text-blue-300 leading-relaxed">
                   연봉 {man(result.annual)}을 받아도 매달 {w(result.result.totalDeduction)}원이 공제됩니다.

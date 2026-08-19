@@ -63,7 +63,7 @@ export default function ConvertHub({ lang, faq }: { lang: ConvertLang; faq?: { q
           </p>
         </div>
 
-        <div className="note mb-7 text-center">
+        <div className="note mb-7 ">
           {ui.hubNotice}
         </div>
 

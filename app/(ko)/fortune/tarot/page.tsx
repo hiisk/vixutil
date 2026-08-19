@@ -421,7 +421,7 @@ function CatalogTab() {
           </div>
           <div className="px-4 pb-4 space-y-2">
             <div className="flex gap-2">
-              <span className="text-xs bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 font-bold px-2 py-1 rounded-lg">✨ 정방향</span>
+              <span className="text-xs bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 font-bold px-2 py-1 rounded-lg">정방향</span>
               <span className="text-xs bg-rose-50 dark:bg-rose-950/30 text-rose-500 font-bold px-2 py-1 rounded-lg">⚠️ 역방향</span>
             </div>
             <p className="text-sm text-slate-700 dark:text-slate-200">{selected.upright}</p>

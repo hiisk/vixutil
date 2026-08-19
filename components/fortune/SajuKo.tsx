@@ -510,7 +510,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                       <p className={`text-sm leading-[1.85] ${singang.strong ? 'text-rose-800 dark:text-rose-300' : 'text-blue-800 dark:text-blue-300'}`}>{singang.desc}</p>
                     </div>
                     <div className="rounded-lg p-4 bg-amber-50 dark:bg-amber-950/30 border-2 border-amber-200 dark:border-amber-900/50">
-                      <p className="text-xs font-bold text-amber-700 dark:text-amber-300 mb-2">🌟 용신(用神) — 내가 취해야 할 기운</p>
+                      <p className="text-xs font-bold text-amber-700 dark:text-amber-300 mb-2">용신(用神) — 내가 취해야 할 기운</p>
                       <p className="text-lg font-bold text-amber-800 dark:text-amber-200 mb-2">{singang.yongshin}</p>
                       <p className="text-sm text-amber-700 dark:text-amber-300 leading-[1.85]">{singang.yongshinDesc}</p>
                     </div>
@@ -620,11 +620,11 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                             <p className="text-sm text-slate-700 dark:text-slate-200 leading-[1.85]">{result.gender==='male' ? info.male : info.female}</p>
                             <div className="grid grid-cols-2 gap-2 mt-2">
                               <div className="bg-slate-50 dark:bg-slate-950 rounded-xl p-2.5">
-                                <p className="text-[9px] font-bold text-slate-400 dark:text-slate-500 mb-1">💼 직업 영향</p>
+                                <p className="text-[9px] font-bold text-slate-400 dark:text-slate-500 mb-1">직업 영향</p>
                                 <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{info.career}</p>
                               </div>
                               <div className="bg-slate-50 dark:bg-slate-950 rounded-xl p-2.5">
-                                <p className="text-[9px] font-bold text-slate-400 dark:text-slate-500 mb-1">💰 재물 영향</p>
+                                <p className="text-[9px] font-bold text-slate-400 dark:text-slate-500 mb-1">재물 영향</p>
                                 <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{info.wealth}</p>
                               </div>
                             </div>
@@ -727,7 +727,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                       </div>
                       {/* 조언 */}
                       <div className={`rounded-lg p-4 border-2 ${c.bg} ${c.border}`}>
-                        <p className={`text-xs font-bold mb-2 ${c.accent}`}>💡 핵심 조언</p>
+                        <p className={`text-xs font-bold mb-2 ${c.accent}`}>핵심 조언</p>
                         <p className="text-sm text-slate-700 dark:text-slate-200 leading-[1.85]">{d.advice}</p>
                       </div>
                     </div>
@@ -836,11 +836,11 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                                 </p>
                                 <div className="grid grid-cols-2 gap-2">
                                   <div className="bg-slate-50 dark:bg-slate-950 rounded-lg p-2.5">
-                                    <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-1">💼 커리어</p>
+                                    <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-1">커리어</p>
                                     <p className="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">{ssInfo.career}</p>
                                   </div>
                                   <div className="bg-slate-50 dark:bg-slate-950 rounded-lg p-2.5">
-                                    <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-1">💰 재물</p>
+                                    <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-1">재물</p>
                                     <p className="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">{ssInfo.wealth}</p>
                                   </div>
                                 </div>

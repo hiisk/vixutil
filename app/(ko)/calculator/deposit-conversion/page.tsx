@@ -149,8 +149,7 @@ export default function DepositConversionPage() {
             {result.withinThreshold ? (
               <div className="px-5 pb-5">
                 <div className="bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/40 rounded-xl p-4">
-                  <p className="text-sm font-bold text-emerald-800 dark:text-emerald-200 mb-1">
-                    ✅ 지역 기준금액 이하입니다
+                  <p className="text-sm font-bold text-emerald-800 dark:text-emerald-200 mb-1">지역 기준금액 이하입니다
                   </p>
                   <p className="text-xs text-emerald-700 dark:text-emerald-300 leading-relaxed">
                     환산보증금이 기준금액({eok(result.threshold)}) 이하이면 상가건물임대차보호법의

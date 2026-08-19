@@ -54,7 +54,7 @@ export default function DailyFortunePage() {
 
       <div className="hero-band max-w-xl mx-auto px-4 py-6">
         <div className="mb-6">
-          <h1 className="page-h1">🔮 오늘의 종합운세</h1>
+          <h1 className="page-h1">오늘의 종합운세</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">생년월일로 보는 오늘의 총운·연애·금전·직업·건강운</p>
         </div>
 

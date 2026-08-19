@@ -72,7 +72,7 @@ export default function ColorShellIntl({
       <main className="relative max-w-2xl mx-auto px-4 pb-10 tool-lift">
 
 
-        <div className="note mb-5 text-center">
+        <div className="note mb-5 ">
           {ui.notice}
         </div>
 

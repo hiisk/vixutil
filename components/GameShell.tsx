@@ -72,8 +72,7 @@ export default function GameShell({
       <main className="relative max-w-2xl mx-auto px-4 pb-10 tool-lift">
 
 
-        <div className="note mb-5 text-center">
-          🎮 기록은 이 브라우저에만 저장됩니다. 회원가입도, 순위표 등록도 없습니다.
+        <div className="note mb-5 ">기록은 이 브라우저에만 저장됩니다. 회원가입도, 순위표 등록도 없습니다.
         </div>
 
         {children}

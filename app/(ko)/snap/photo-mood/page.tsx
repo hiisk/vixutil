@@ -277,7 +277,7 @@ export default function PhotoMoodPage() {
 
             {palette.length > 0 && (
               <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5">
-                <p className="label-caps mb-3">🎨 이 사진의 컬러 팔레트</p>
+                <p className="label-caps mb-3">이 사진의 컬러 팔레트</p>
                 <div className="flex gap-2">
                   {palette.map(hex => (
                     <div key={hex} className="flex-1 text-center">
@@ -301,7 +301,7 @@ export default function PhotoMoodPage() {
               </div>
               <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
                 <div className="flex items-center justify-between mb-1.5">
-                  <p className="text-xs font-medium text-slate-500 dark:text-slate-400">🌈 채도</p>
+                  <p className="text-xs font-medium text-slate-500 dark:text-slate-400">채도</p>
                   <span className="text-[11px] font-bold text-slate-600 dark:text-slate-300">{result.saturationPercent}%</span>
                 </div>
                 <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
@@ -329,15 +329,14 @@ export default function PhotoMoodPage() {
             </div>
 
             <div className="bg-amber-50 border border-amber-100 dark:border-amber-900/40 rounded-lg p-5">
-              <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">💬 캡션 팁</p>
+              <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">캡션 팁</p>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.captionTip}</p>
             </div>
 
             <button
               onClick={handleReset}
               className="w-full py-3.5 rounded-lg font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-fuchsia-300 hover:text-fuchsia-600 transition-colors"
-            >
-              🔄 다른 사진으로 다시 해보기
+            >다른 사진으로 다시 해보기
             </button>
 
             <SaveResultCard

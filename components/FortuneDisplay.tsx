@@ -114,7 +114,7 @@ export default function FortuneDisplay({ subjectId, subjectName, subjectEmoji, b
 
       {/* 종합운 */}
       <div className="bg-white dark:bg-slate-900 border border-violet-100 dark:border-violet-900/40 rounded-lg p-5">
-        <p className="text-xs font-bold text-violet-600 uppercase tracking-wide mb-2">✨ 오늘의 총운</p>
+        <p className="text-xs font-bold text-violet-600 uppercase tracking-wide mb-2">오늘의 총운</p>
         <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{f.overall}</p>
         <div className="mt-3 flex flex-wrap items-center gap-1.5">
           {f.keywords.map(k => (
@@ -127,7 +127,7 @@ export default function FortuneDisplay({ subjectId, subjectName, subjectEmoji, b
 
       {/* 오늘의 조언 */}
       <div className="bg-amber-50 border border-amber-100 dark:border-amber-900/40 rounded-lg p-5">
-        <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">💡 오늘의 조언</p>
+        <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">오늘의 조언</p>
         <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{f.advice}</p>
       </div>
 
@@ -142,7 +142,7 @@ export default function FortuneDisplay({ subjectId, subjectName, subjectEmoji, b
 
       {/* 행운 정보 */}
       <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5">
-        <p className="label-caps mb-3">🍀 오늘의 행운</p>
+        <p className="label-caps mb-3">오늘의 행운</p>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div className="text-center">
             <div className="w-10 h-10 rounded-full mx-auto mb-1 border-2 border-white shadow-sm"

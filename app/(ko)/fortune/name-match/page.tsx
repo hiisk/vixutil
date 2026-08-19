@@ -93,7 +93,7 @@ export default function NameMatchPage() {
 
       <div className="hero-band max-w-xl mx-auto px-4 py-6">
         <div className="mb-6">
-          <h1 className="page-h1">💕 이름 궁합</h1>
+          <h1 className="page-h1">이름 궁합</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">두 사람 이름의 획수로 보는 궁합</p>
         </div>
 

@@ -77,7 +77,7 @@ export default function TimeHubPage() {
           </p>
         </div>
 
-        <div className="note mb-7 text-center">
+        <div className="note mb-7 ">
 ⏱️ 타이머·알람은 이 탭이 열려 있는 동안 동작합니다. 설치도 회원가입도 없습니다.
         </div>
 

@@ -414,7 +414,7 @@ export default function PersonalColorPage() {
 
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
               <div className="flex items-center justify-between mb-1.5">
-                <p className="label-caps">✨ 선명도 지수</p>
+                <p className="label-caps">선명도 지수</p>
                 <span className="text-[11px] font-bold text-rose-600 bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/40 rounded-full px-2 py-0.5">
                   {result.clarityPercent}% {result.clarityPercent >= 50 ? '클리어' : '뮤트'}
                 </span>
@@ -437,7 +437,7 @@ export default function PersonalColorPage() {
             </div>
 
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5">
-              <p className="label-caps mb-3">🎨 추천 컬러 팔레트</p>
+              <p className="label-caps mb-3">추천 컬러 팔레트</p>
               <div className="grid grid-cols-3 gap-3">
                 {result.palette.map(c => (
                   <div key={c.hex} className="text-center">
@@ -449,7 +449,7 @@ export default function PersonalColorPage() {
             </div>
 
             <div className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg p-5">
-              <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">🙅 피하면 좋은 컬러</p>
+              <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">피하면 좋은 컬러</p>
               <div className="grid grid-cols-3 gap-3">
                 {result.avoidPalette.map(c => (
                   <div key={c.hex} className="text-center opacity-70">
@@ -461,15 +461,14 @@ export default function PersonalColorPage() {
             </div>
 
             <div className="bg-amber-50 border border-amber-100 dark:border-amber-900/40 rounded-lg p-5">
-              <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">💡 오늘의 스타일 팁</p>
+              <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">오늘의 스타일 팁</p>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.styleTip}</p>
             </div>
 
             <button
               onClick={handleReset}
               className="w-full py-3.5 rounded-lg font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 hover:text-rose-600 transition-colors"
-            >
-              🔄 다른 사진으로 다시 해보기
+            >다른 사진으로 다시 해보기
             </button>
 
             <SaveResultCard

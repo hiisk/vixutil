@@ -343,7 +343,7 @@ export default function FaceReadingPage() {
               <div className="flex justify-end mb-2">
                 <ShareBtn />
               </div>
-              <p className="text-sm font-semibold text-teal-100 mb-2">✨ 전체 인상</p>
+              <p className="text-sm font-semibold text-teal-100 mb-2">전체 인상</p>
               <p className="text-sm leading-relaxed">{result.overall}</p>
             </div>
 
@@ -365,15 +365,14 @@ export default function FaceReadingPage() {
             </div>
 
             <div className="bg-amber-50 border border-amber-100 dark:border-amber-900/40 rounded-lg p-5">
-              <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">🔮 오늘의 관상운</p>
+              <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">오늘의 관상운</p>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.todayLuck}</p>
             </div>
 
             <button
               onClick={handleReset}
               className="w-full py-3.5 rounded-lg font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 hover:text-teal-600 transition-colors"
-            >
-              🔄 다른 사진으로 다시 해보기
+            >다른 사진으로 다시 해보기
             </button>
 
             <SaveResultCard

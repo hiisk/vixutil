@@ -389,7 +389,7 @@ export default function SignalsPage() {
           <ToolIcon emoji="📈" className="w-9 h-9 mx-auto mb-2 text-slate-800 dark:text-slate-100" />
           <h1 className="page-h1">Crypto Signal Board</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">Consensus of 4 strategies (Trend · Bollinger · RSI · ATR) → direction, entry / TP / SL, live P&amp;L, and 3D–3Y price projections</p>
-          <p className="text-slate-400 dark:text-slate-500 text-xs mt-1.5">🕛 All times in UTC · strategy resets at <span className="text-amber-500/80 font-semibold tabular-nums">00:00 UTC</span>{resetIn ? <> · <span className="text-amber-500/80 font-semibold tabular-nums">{resetIn}</span> from now</> : null}</p>
+          <p className="text-slate-400 dark:text-slate-500 text-xs mt-1.5">All times in UTC · strategy resets at <span className="text-amber-500/80 font-semibold tabular-nums">00:00 UTC</span>{resetIn ? <> · <span className="text-amber-500/80 font-semibold tabular-nums">{resetIn}</span> from now</> : null}</p>
         </div>
 
         {/* Market summary strip + highlight cards */}
@@ -489,8 +489,7 @@ export default function SignalsPage() {
               Sort by signal{sortKey === 'signal' && <span className="ml-1">{sortDir === 'desc' ? '▼' : '▲'}</span>}
             </button>
             <button onClick={toggleHitOnly}
-              className={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-colors ${hitOnly ? 'bg-amber-500 border-amber-500 text-slate-950' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:text-slate-200'}`}>
-              🎯 TP/SL hit
+              className={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-colors ${hitOnly ? 'bg-amber-500 border-amber-500 text-slate-950' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:text-slate-200'}`}>TP/SL hit
             </button>
             <button onClick={() => loadList(market)} className="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-amber-400 transition-colors">↻ Refresh</button>
           </div>
@@ -774,7 +773,7 @@ export default function SignalsPage() {
           <p>Projections (3D–3Y) fit a geometric Brownian motion to {FORECAST_DAYS} days of log returns. The trend is split into a market component (beta to BTC) and a coin-specific alpha, each shrunk toward zero as a Bayesian posterior mean; no technical tilt is applied. Coins with under two years of history use a conservative prior, and the drift is capped at ±0.5 in annual log terms. Ranges use a fat-tailed Student-t whose degrees of freedom rise with the horizon, and each horizon uses its own measured blend of current and long-run volatility.</p>
         </div>
 
-        <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-6">🔄 Refresh to recalculate with the latest prices · Binance public market data</p>
+        <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-6">Refresh to recalculate with the latest prices · Binance public market data</p>
       </div>
     </div>
   );
