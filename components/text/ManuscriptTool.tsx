@@ -65,7 +65,7 @@ export default function ManuscriptTool({ lang = 'ko' }: { lang?: TextLang } = {}
 
         <div className="mt-4 h-2.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
           <div
-            className={`h-full rounded-full transition-[width] ${left < 0 ? 'bg-rose-500' : 'bg-gradient-to-r from-indigo-500 to-violet-600'}`}
+            className={`h-full rounded-full transition-[width] ${left < 0 ? 'bg-rose-500' : 'bg-sec'}`}
             style={{ width: `${ratio}%` }}
           />
         </div>

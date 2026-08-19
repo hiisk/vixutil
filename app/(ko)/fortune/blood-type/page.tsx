@@ -33,7 +33,7 @@ export default function BloodTypePage() {
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
       <PageGlow accent="rose" />
-      <div className="h-1 bg-gradient-to-r from-rose-500 to-red-600" />
+      <div className="h-1 topbar" />
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
           <Link href="/fortune" className="page-back hover:text-rose-600">

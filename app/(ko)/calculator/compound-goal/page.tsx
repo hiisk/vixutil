@@ -123,19 +123,19 @@ export default function CompoundGoalPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
+            <div className="stat-pri">
               {mode === 'period' && result.years !== undefined ? (
                 <>
-                  <p className="text-blue-200 text-xs mb-1">목표 달성까지</p>
-                  <p className="text-white text-3xl font-black">
+                  <p className="stat-label">목표 달성까지</p>
+                  <p className="stat-value">
                     {Math.floor(result.years)}년 {Math.round((result.years % 1) * 12)}개월
                   </p>
                 </>
               ) : (
                 <>
-                  <p className="text-blue-200 text-xs mb-1">필요 월 투자액</p>
-                  <p className="text-white text-3xl font-black">{fmt(result.monthlyPmt ?? 0)}원</p>
-                  <p className="text-blue-200 text-sm mt-1">{targetYears}년 후 목표 {fmt(Number(goal))}원 달성</p>
+                  <p className="stat-label">필요 월 투자액</p>
+                  <p className="stat-value">{fmt(result.monthlyPmt ?? 0)}원</p>
+                  <p className="stat-sub">{targetYears}년 후 목표 {fmt(Number(goal))}원 달성</p>
                 </>
               )}
             </div>

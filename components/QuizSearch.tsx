@@ -3,16 +3,16 @@ import { ToolIconDefs, ToolIconRef } from '@/components/ToolIconSprite';
 import { useState } from 'react';
 import Link from 'next/link';
 import type { CardItem } from '@/lib/card';
-import { thumbGradient } from '@/lib/thumbnail';
+import { thumbSurface } from '@/lib/thumbnail';
 
 const CATEGORIES = ['상식', '역사', '세계지리', '언어', '기술·IT', '스포츠', '과학', '엔터테인먼트', '영화', '트렌드', '추억', '생활', '생활·건강', '환경·경제'];
 
 function QuizCard({ q }: { q: CardItem }) {
   return (
     <Link href={`/quiz/${q.slug}`}
-      className="group bg-white/85 dark:bg-slate-900/85 backdrop-blur-xl border border-white/70 dark:border-slate-700/70 rounded-xl shadow-[0_8px_24px_-12px_rgba(245,158,11,0.22)] overflow-hidden hover:border-amber-300 hover:shadow-md transition-all">
+      className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden hover:border-amber-300 hover:shadow-md transition-all">
       {/* OG 이미지를 썸네일로 쓰던 자리 — TestSearch와 같은 이유로 그라데이션+이모지로 대체했다. */}
-      <div className={`card-thumb bg-gradient-to-br ${thumbGradient(q.slug, 'quiz')}`}>
+      <div className={`card-thumb ${thumbSurface(q.slug, 'quiz')}`}>
         <ToolIconRef
           emoji={q.icon}
           className="card-thumb-icon"
@@ -44,7 +44,7 @@ export default function QuizSearch({ quizzes }: { quizzes: CardItem[] }) {
   return (
     <>
       {/* 도형은 여기 한 번만 — 카드는 <use>로 가리킨다 */}
-      <ToolIconDefs emojis={quizzes.map(x => x.icon)} accent="rgba(255,255,255,0.6)" />
+      <ToolIconDefs emojis={quizzes.map(x => x.icon)} />
 
       <div className="relative mb-10">
         <svg className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400 dark:text-slate-500 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

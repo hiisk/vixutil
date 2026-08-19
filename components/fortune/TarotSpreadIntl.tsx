@@ -1,5 +1,6 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import PageHero from '@/components/PageHero';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
 import { useCallback, useState } from 'react';
@@ -52,7 +53,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
   return (
     <div className="page-wrap">
       <PageGlow accent="violet" />
-      <div className="h-1 bg-gradient-to-r from-violet-500 to-purple-700" />
+      <div className="h-1 topbar" />
 
       <header className="page-head">
         <div className="max-w-3xl mx-auto px-4 h-14 flex items-center gap-2">
@@ -74,11 +75,10 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
 
       <main className="relative max-w-3xl mx-auto px-4 py-8">
         <div className="text-center mb-7">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 text-3xl bg-gradient-to-br from-violet-500 to-purple-700 shadow-lg">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 text-3xl bg-sec-soft shadow-lg">
             <span>🃏</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-2.5">{ui.h1}</h1>
-          <p className="note-sm max-w-xl mx-auto">{ui.lead}</p>
+          <PageHero title={ui.h1} desc={ui.lead} />
         </div>
 
         <div className="grid grid-cols-2 gap-2 mb-6">
@@ -145,7 +145,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
             {drawn === null ? (
               <button
                 onClick={draw}
-                className="w-full rounded-xl bg-gradient-to-r from-violet-500 to-purple-700 text-white font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
+                className="w-full rounded-xl bg-sec font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
               >
                 {ui.drawBtn(copy.label, shape.count)}
               </button>
@@ -200,7 +200,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
                   )}
                   <button
                     onClick={draw}
-                    className="rounded-xl bg-gradient-to-r from-violet-500 to-purple-700 text-white font-bold py-3 text-sm shadow hover:opacity-90 transition-opacity"
+                    className="rounded-xl bg-sec font-bold py-3 text-sm shadow hover:opacity-90 transition-opacity"
                   >
                     🔄 {ui.drawAgain}
                   </button>

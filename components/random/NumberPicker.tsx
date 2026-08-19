@@ -57,7 +57,7 @@ export default function NumberPicker({ lang = 'ko' }: { lang?: RandomLang }) {
 
       <button
         onClick={draw}
-        className="w-full bg-gradient-to-r from-emerald-400 to-teal-600 text-white font-black text-lg rounded-2xl py-4 mb-3 shadow-lg shadow-emerald-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all"
+        className="w-full bg-sec font-black text-lg rounded-2xl py-4 mb-3 shadow-lg shadow-emerald-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all"
       >
         {ui.generate}
       </button>

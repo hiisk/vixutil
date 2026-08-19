@@ -82,9 +82,9 @@ export default function PercentPage() {
         </Card>
 
         {result && (
-          <div className="bg-blue-600 rounded-2xl p-6 text-center">
-            <p className="text-blue-200 text-sm mb-2">{result.label}</p>
-            <p className="text-white text-4xl font-black">
+          <div className="stat-pri text-center">
+            <p className="stat-sub mb-2">{result.label}</p>
+            <p className="stat-value">
               {mode === 'ratio'
                 ? `${result.value.toFixed(4)}%`
                 : result.value.toLocaleString(undefined, { maximumFractionDigits: 2 })

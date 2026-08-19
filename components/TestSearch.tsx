@@ -3,21 +3,21 @@ import { ToolIconDefs, ToolIconRef } from '@/components/ToolIconSprite';
 import { useState } from 'react';
 import Link from 'next/link';
 import type { CardItem } from '@/lib/card';
-import { thumbGradient } from '@/lib/thumbnail';
+import { thumbSurface } from '@/lib/thumbnail';
 
 const CATEGORIES = ['성격', '연애·결혼', '직장·커리어', '금융·재테크', '건강·생활', '자기계발', '취미·라이프스타일'];
 
 function TestCard({ t }: { t: CardItem }) {
   return (
     <Link href={`/test/${t.slug}`}
-      className="group bg-white/85 dark:bg-slate-900/85 backdrop-blur-xl border border-white/70 dark:border-slate-700/70 rounded-xl shadow-[0_8px_24px_-12px_rgba(139,92,246,0.22)] overflow-hidden hover:border-violet-300 hover:shadow-md transition-all">
+      className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden hover:border-violet-300 hover:shadow-md transition-all">
       {/*
         예전에는 여기서 OG 이미지(1200×630 PNG, 개당 ~90KB)를 썸네일로 썼다.
         200px로 줄여 보여주니 이미지 안의 글씨는 어차피 안 읽히고, 제목·설명은
         바로 아래 텍스트로 또 나온다 — 순수 장식에 194개 × 90KB를 쓰고 있었다.
         그라데이션과 이모지로 대체해 이미지 요청을 0으로 만든다.
       */}
-      <div className={`card-thumb bg-gradient-to-br ${thumbGradient(t.slug, 'test')}`}>
+      <div className={`card-thumb ${thumbSurface(t.slug, 'test')}`}>
         <ToolIconRef
           emoji={t.icon}
           className="card-thumb-icon"
@@ -49,7 +49,7 @@ export default function TestSearch({ tests }: { tests: CardItem[] }) {
   return (
     <>
       {/* 도형은 여기 한 번만 — 카드는 <use>로 가리킨다 */}
-      <ToolIconDefs emojis={tests.map(t => t.icon)} accent="rgba(255,255,255,0.6)" />
+      <ToolIconDefs emojis={tests.map(t => t.icon)} />
 
       <div className="relative mb-10">
         <svg className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400 dark:text-slate-500 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

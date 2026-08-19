@@ -1,4 +1,5 @@
 import { UI } from '@/lib/meta/test-hub-ui';
+import PageHero from '@/components/PageHero';
 import ToolIcon from '@/components/ToolIcon';
 import { localesWithItem } from '@/lib/locale-alternates';
 import { ALL_LOCALES10 } from '@/lib/locales';
@@ -10,7 +11,7 @@ import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ_INTL } from '@/lib/section-faq-intl';
 import { testFaqIntl } from '@/lib/content-faq-intl';
-import { thumbGradient } from '@/lib/thumbnail';
+import { thumbSurface } from '@/lib/thumbnail';
 import { TESTS_INTL, TESTS_INTL_MAP, type TestIntlLang } from '@/lib/test-l10n/index';
 import { localeAlternates, hubAlternates } from '@/lib/locale-alternates';
 import type { Test } from '@/lib/types';
@@ -68,7 +69,7 @@ export function TestIntlHub({ lang }: { lang: TestIntlLang }) {
         )}
       />
       <PageGlow accent="violet" />
-      <div className="h-1 bg-gradient-to-r from-violet-500 to-pink-600" />
+      <div className="h-1 topbar" />
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center gap-4">
           <Link prefetch={false} href={`/${lang}/test`} className="font-black text-violet-600 text-lg shrink-0">vixutil</Link>
@@ -80,21 +81,19 @@ export function TestIntlHub({ lang }: { lang: TestIntlLang }) {
       </header>
 
       <div className="max-w-5xl mx-auto px-4 py-10">
-        <p className="text-xs font-bold text-violet-600 tracking-widest uppercase mb-2">{ui.eyebrow}</p>
-        <h1 className="text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">{ui.h1}</h1>
-        <p className="text-slate-500 dark:text-slate-400 text-sm mb-8">{ui.lead}</p>
+        <PageHero title={ui.h1} desc={ui.lead} />
 
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {tests.map(t => (
             <Link prefetch={false} key={t.slug} href={`/${lang}/test/${t.slug}`}
-              className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${thumbGradient(t.slug, 'test')} text-white p-5 min-h-[9.5rem] flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl transition-all`}>
+              className={`group relative overflow-hidden rounded-2xl ${thumbSurface(t.slug, 'test')} p-5 min-h-[9.5rem] flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl transition-all`}>
               <div className="flex items-start justify-between">
-                <ToolIcon emoji={t.icon} accent="rgba(255,255,255,0.55)" className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
+                <ToolIcon emoji={t.icon} className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
                 <span className="text-[10px] font-bold bg-white/25 rounded-full px-2 py-0.5">{t.questions.length}</span>
               </div>
               <div>
                 <div className="text-base font-black drop-shadow leading-tight">{t.title}</div>
-                <div className="text-[11px] font-medium text-white/80 mt-1 line-clamp-2">{t.desc}</div>
+                <div className="text-[11px] font-medium opacity-80 mt-1 line-clamp-2">{t.desc}</div>
               </div>
             </Link>
           ))}

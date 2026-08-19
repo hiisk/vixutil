@@ -115,7 +115,7 @@ export default function HearingGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
           <div className="grid grid-cols-2 gap-2 mt-3">
             <button
               onClick={heard}
-              className="rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold py-3.5 text-sm shadow hover:opacity-90 transition-opacity"
+              className="rounded-xl bg-sec font-bold py-3.5 text-sm shadow hover:opacity-90 transition-opacity"
             >
               {ui.canHear}
             </button>

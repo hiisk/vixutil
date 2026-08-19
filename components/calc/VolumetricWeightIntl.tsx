@@ -68,10 +68,10 @@ export default function VolumetricWeightIntl({ lang }: { lang: CalcLang }) {
 
       {result && (
         <>
-          <div className="bg-blue-600 rounded-2xl p-5">
-            <p className="text-blue-200 text-xs mb-1">{c.billable}</p>
-            <p className="text-white text-3xl font-black">{fmt(result.billable)} kg</p>
-            <p className="text-blue-200 text-xs mt-1">
+          <div className="stat-pri">
+            <p className="stat-label">{c.billable}</p>
+            <p className="stat-value">{fmt(result.billable)} kg</p>
+            <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
               {result.byVolume ? c.byVolume : c.byActual}
             </p>
           </div>

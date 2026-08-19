@@ -129,11 +129,11 @@ export default function SpeedTimePage() {
 
         {answer && (
           <>
-            <div className="bg-rose-600 rounded-2xl p-6 text-center">
-              <p className="text-rose-200 text-sm mb-2">
+            <div className="stat-pri text-center">
+              <p className="stat-sub mb-2">
                 {answer.kind === 'speed' ? '속도' : answer.kind === 'time' ? '걸리는 시간' : '거리'}
               </p>
-              <p className="text-white text-5xl font-black">
+              <p className="text-slate-900 dark:text-slate-50 text-5xl font-black">
                 {answer.kind === 'speed'
                   ? answer.v.toFixed(2)
                   : answer.kind === 'distance'

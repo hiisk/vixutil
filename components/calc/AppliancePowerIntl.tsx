@@ -57,10 +57,10 @@ export default function AppliancePowerIntl({ lang }: { lang: CalcLang }) {
 
       {result && (
         <>
-          <div className="bg-blue-600 rounded-2xl p-6 text-center">
-            <p className="text-blue-200 text-xs mb-1">{c.costMonth}</p>
-            <p className="text-white text-4xl font-black">{fmt(result.costDay * 30)}</p>
-            <p className="text-blue-200 text-xs mt-2">{fmt(result.kwhDay * 30)} kWh</p>
+          <div className="stat-pri text-center">
+            <p className="stat-label">{c.costMonth}</p>
+            <p className="stat-value">{fmt(result.costDay * 30)}</p>
+            <p className="text-slate-500 dark:text-slate-400 text-xs mt-2">{fmt(result.kwhDay * 30)} kWh</p>
           </div>
 
           <Card className="p-5">

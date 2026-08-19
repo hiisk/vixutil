@@ -40,7 +40,7 @@ export default function OrderShuffler({ lang = 'ko' }: { lang?: RandomLang }) {
       <button
         onClick={run}
         disabled={items.length < 2}
-        className="w-full bg-gradient-to-r from-cyan-500 to-sky-600 text-white font-black text-lg rounded-2xl py-4 mb-6 shadow-lg shadow-cyan-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all disabled:opacity-50"
+        className="w-full bg-sec font-black text-lg rounded-2xl py-4 mb-6 shadow-lg shadow-cyan-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all disabled:opacity-50"
       >
         {ui.shuffleOrder}
       </button>
@@ -53,7 +53,7 @@ export default function OrderShuffler({ lang = 'ko' }: { lang?: RandomLang }) {
               className="wc-slide flex items-center gap-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 px-4 py-3"
               style={{ animationDelay: `${i * 60}ms` }}
             >
-              <span className="flex items-center justify-center w-8 h-8 shrink-0 rounded-full bg-gradient-to-br from-cyan-500 to-sky-600 text-white text-sm font-black">{i + 1}</span>
+              <span className="flex items-center justify-center w-8 h-8 shrink-0 rounded-full bg-sec-soft text-sm font-black">{i + 1}</span>
               <span className="font-bold text-slate-800 dark:text-slate-100">{item}</span>
             </li>
           ))}

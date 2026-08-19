@@ -1,5 +1,6 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import PageHero from '@/components/PageHero';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
 import { useState, useSyncExternalStore } from 'react';
@@ -148,7 +149,7 @@ export default function TarotIntl({ mode, lang }: { mode: Mode; lang: TarotIntlL
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
       <PageGlow accent="violet" />
-      <div className="h-1 bg-gradient-to-r from-amber-500 via-orange-500 to-violet-600" />
+      <div className="h-1 topbar" />
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
           <Link href={`/${lang}/fortune`} className="page-back hover:text-amber-600">
@@ -168,8 +169,7 @@ export default function TarotIntl({ mode, lang }: { mode: Mode; lang: TarotIntlL
       <div className="max-w-xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
           <ToolIcon emoji="🃏" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
-          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-1.5">{title}</h1>
-          <p className="text-slate-500 dark:text-slate-400 text-sm">{lead}</p>
+          <PageHero title={title} desc={lead} />
           {daily && (
             <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">{daily.dateLabel}</p>
           )}
@@ -179,7 +179,7 @@ export default function TarotIntl({ mode, lang }: { mode: Mode; lang: TarotIntlL
           <div className="text-center py-10">
             <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">{ui.question}</p>
             <button type="button" onClick={draw}
-              className="w-full max-w-xs mx-auto block rounded-2xl bg-gradient-to-r from-amber-500 to-orange-600 text-white font-black py-4 text-base hover:-translate-y-0.5 hover:shadow-xl transition-all">
+              className="w-full max-w-xs mx-auto block rounded-2xl bg-sec font-black py-4 text-base hover:-translate-y-0.5 hover:shadow-xl transition-all">
               {ui.draw}
             </button>
           </div>

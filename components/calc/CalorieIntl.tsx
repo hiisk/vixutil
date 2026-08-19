@@ -93,12 +93,12 @@ export default function CalorieIntl({ lang }: { lang: CalcLang }) {
 
       {result && (
         <>
-          <div className="bg-blue-600 rounded-2xl p-6 text-center">
-            <p className="text-blue-200 text-xs mb-1">{c.tdee}</p>
-            <p className="text-white text-4xl font-black">{fmt(result.tdee)}</p>
-            <p className="text-blue-200 text-xs mt-1">{c.unit}</p>
+          <div className="stat-pri text-center">
+            <p className="stat-label">{c.tdee}</p>
+            <p className="stat-value">{fmt(result.tdee)}</p>
+            <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">{c.unit}</p>
           </div>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <SummaryCard label={c.bmr} value={fmt(result.bmr)} />
             <SummaryCard label={c.lose} value={fmt(result.tdee - 500)} sub={c.slow} variant="green" />
             <SummaryCard label={c.gain} value={fmt(result.tdee + 500)} sub={c.fast} />

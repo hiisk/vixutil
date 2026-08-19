@@ -33,7 +33,7 @@ export default function CardDraw({ lang = 'ko' }: { lang?: RandomLang }) {
 
       <button
         onClick={() => setHand(drawCards(count, Math.random))}
-        className="w-full bg-gradient-to-r from-rose-500 to-pink-600 text-white font-black text-lg rounded-2xl py-4 mb-6 shadow-lg shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all"
+        className="w-full bg-sec font-black text-lg rounded-2xl py-4 mb-6 shadow-lg shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all"
       >
         {hand ? ui.again : ui.drawCard} 🃏
       </button>

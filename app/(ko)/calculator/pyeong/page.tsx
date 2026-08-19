@@ -84,14 +84,14 @@ export default function PyeongPage() {
 
         {converted && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-6 text-center">
-              <p className="text-blue-200 text-sm mb-2">변환 결과</p>
-              <p className="text-white text-5xl font-black">
+            <div className="stat-pri text-center">
+              <p className="stat-sub mb-2">변환 결과</p>
+              <p className="text-slate-900 dark:text-slate-50 text-5xl font-black">
                 {converted.result.toFixed(2)}
               </p>
-              <p className="text-blue-200 text-xl mt-1">{converted.unit}</p>
+              <p className="text-slate-500 dark:text-slate-400 text-xl mt-1">{converted.unit}</p>
               {nearest && (
-                <p className="text-blue-200 text-sm mt-3 opacity-80">
+                <p className="stat-sub mt-3 opacity-80">
                   ≈ {nearest.label}에 가장 가깝습니다
                 </p>
               )}

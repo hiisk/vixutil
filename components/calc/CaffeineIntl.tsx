@@ -83,9 +83,9 @@ export default function CaffeineIntl({ lang }: { lang: CalcLang }) {
 
       {result && (
         <>
-          <div className="bg-blue-600 rounded-2xl p-6 text-center">
-            <p className="text-blue-200 text-xs mb-1">{c.remaining} · {result.at} {c.at}</p>
-            <p className="text-white text-4xl font-black">{fmt(result.mg)} {c.unit}</p>
+          <div className="stat-pri text-center">
+            <p className="stat-label">{c.remaining} · {result.at} {c.at}</p>
+            <p className="stat-value">{fmt(result.mg)} {c.unit}</p>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <SummaryCard label={c.belowThreshold} value={result.below} variant="green" />

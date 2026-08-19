@@ -16,6 +16,7 @@
  * 실측: /laundry 낱장이 gzip 27.8KB → 14.0KB (RSC 61% → 17%).
  */
 import ToolIcon from '@/components/ToolIcon';
+import PageHero from '@/components/PageHero';
 import Link from 'next/link';
 import ConvertEngine from '@/components/ConvertEngine';
 import SiteFooter from '@/components/SiteFooter';
@@ -58,7 +59,7 @@ export default function ConvertPage({ tool, lang }: { tool: ConvertTool; lang: C
       <JsonLd data={webAppJsonLd(text.title, text.long, path)} />
 
       <PageGlow accent="blue" />
-      <div className="h-1 bg-gradient-to-r from-blue-500 to-indigo-600" />
+      <div className="h-1 topbar" />
 
       <header className="page-head">
         <div className="page-bar">
@@ -80,13 +81,10 @@ export default function ConvertPage({ tool, lang }: { tool: ConvertTool; lang: C
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
         <div className="text-center mb-7">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 text-3xl bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg">
-            <ToolIcon emoji={tool.icon} accent="rgba(255,255,255,0.55)" className="w-8 h-8 text-white" />
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 text-3xl bg-sec-soft shadow-lg">
+            <ToolIcon emoji={tool.icon} className="w-8 h-8" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-2.5">
-            {text.title}
-          </h1>
-          <p className="note-sm max-w-xl mx-auto">{text.long}</p>
+          <PageHero title={text.title} desc={text.long} />
         </div>
 
         <ConvertEngine tool={{ ...tool, note: text.note, from: text.from, to: text.to }} lang={lang} />

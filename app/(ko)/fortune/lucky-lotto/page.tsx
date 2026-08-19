@@ -48,7 +48,7 @@ export default function LuckyLottoPage() {
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
       <PageGlow accent="emerald" />
-      <div className="h-1 bg-gradient-to-r from-emerald-500 via-teal-500 to-green-500" />
+      <div className="h-1 topbar" />
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
           <Link href="/fortune" className="page-back hover:text-emerald-600">
@@ -88,7 +88,7 @@ export default function LuckyLottoPage() {
               className="fld focus:border-emerald-400" />
           </div>
           {error && <p className="text-xs text-rose-600 dark:text-rose-400 mt-2">{error}</p>}
-          <button type="submit" className="w-full mt-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white text-sm font-black py-3.5 transition-all active:scale-[0.99] shadow-md shadow-emerald-200 dark:shadow-none">
+          <button type="submit" className="w-full mt-3 rounded-xl bg-sec text-sm font-black py-3.5 transition-all active:scale-[0.99] shadow-md shadow-emerald-200 dark:shadow-none">
             행운 번호 뽑기 🍀
           </button>
         </form>

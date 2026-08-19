@@ -60,7 +60,7 @@ export default function PeripheralGame({ lang = 'ko' }: { lang?: GameLang } = {}
           <button
             onClick={hit}
             aria-label={ui.tapHere}
-            className="absolute w-11 h-11 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 active:scale-90 transition-transform"
+            className="absolute w-11 h-11 rounded-full bg-sec-soft active:scale-90 transition-transform"
             style={{ left: `calc(50% + ${target.x * 44}% - 1.375rem)`, top: `calc(50% + ${target.y * 44}% - 1.375rem)` }}
           />
         )}

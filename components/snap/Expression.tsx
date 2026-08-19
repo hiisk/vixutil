@@ -187,7 +187,7 @@ export default function Expression({ lang }: { lang: SnapIntlLang }) {
                     <span className="text-xs font-bold text-indigo-600">{s.percent}%</span>
                   </div>
                   <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                    <div className="h-full bg-gradient-to-r from-indigo-500 to-violet-500 rounded-full" style={{ width: `${s.percent}%` }} />
+                    <div className="h-full bg-sec rounded-full" style={{ width: `${s.percent}%` }} />
                   </div>
                 </div>
               ))}

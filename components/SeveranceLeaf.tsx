@@ -22,7 +22,7 @@ export default function SeveranceLeaf({ wage, years }: { wage: number; years: nu
         { name: `월급 ${wage}만원 · ${years}년`, path },
       ])} />
       <PageGlow accent="amber" />
-      <div className="h-1 bg-gradient-to-r from-amber-500 to-orange-600" />
+      <div className="h-1 topbar" />
 
       <header className="page-head">
         <div className="page-bar">

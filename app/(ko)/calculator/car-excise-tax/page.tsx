@@ -150,10 +150,10 @@ export default function CarExciseTaxPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">출고가에 든 세금</p>
-              <p className="text-white text-3xl font-black">{w(result.now.taxTotal)}원</p>
-              <p className="text-blue-200 text-xs mt-1">
+            <div className="stat-pri">
+              <p className="stat-label">출고가에 든 세금</p>
+              <p className="stat-value">{w(result.now.taxTotal)}원</p>
+              <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
                 출고가 {man(result.now.releasePrice)}의 {result.now.taxRatio.toFixed(1)}% ·
                 공장도가 {man(result.now.base)}
               </p>

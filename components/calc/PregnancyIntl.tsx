@@ -71,14 +71,14 @@ export default function PregnancyIntl({ lang }: { lang: CalcLang }) {
 
       {result && (
         <>
-          <div className="bg-blue-600 rounded-2xl p-6 text-center">
-            <p className="text-blue-200 text-xs mb-1">{c.dueDate}</p>
-            <p className="text-white text-2xl font-black">{fmtDate(result.due)}</p>
-            <p className="text-blue-200 text-sm mt-2">
+          <div className="stat-pri text-center">
+            <p className="stat-label">{c.dueDate}</p>
+            <p className="stat-value">{fmtDate(result.due)}</p>
+            <p className="stat-sub mt-2">
               {c.current} {result.weeks} {c.weeks} {result.days} {c.days}
             </p>
           </div>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <SummaryCard label={c.trimester} value={trimesterLabel} />
             <SummaryCard label={c.remaining} value={fmt(Math.max(0, result.remaining))} variant="green" />
             <SummaryCard label={c.conception} value={result.conception.toLocaleDateString(tag, { month: 'short', day: 'numeric' })} />

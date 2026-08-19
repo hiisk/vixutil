@@ -98,7 +98,7 @@ export default function ContrastTool({ lang = 'ko' }: { lang?: ColorLang } = {})
           {!verdict.aaNormal && (
             <button
               onClick={suggest}
-              className="mt-3 w-full rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold py-3 text-sm shadow hover:opacity-90 transition-opacity"
+              className="mt-3 w-full rounded-xl bg-sec font-bold py-3 text-sm shadow hover:opacity-90 transition-opacity"
             >
               {ui.autoFix}
             </button>

@@ -1,4 +1,5 @@
 import ToolIcon from '@/components/ToolIcon';
+import PageHero from '@/components/PageHero';
 import Link from 'next/link';
 import { idiomText } from '@/lib/hanja/types';
 import { localeHref } from '@/lib/locales';
@@ -26,7 +27,7 @@ export default function HanjaHub({ lang }: { lang: FormulaLang }) {
       />
 
       <PageGlow accent={s.accent} />
-      <div className={`h-1 bg-gradient-to-r ${s.grad}`} />
+      <div className={`h-1 topbar`} />
 
       <header className="page-head">
         <div className="max-w-3xl mx-auto px-4 h-14 flex items-center gap-2">
@@ -44,8 +45,7 @@ export default function HanjaHub({ lang }: { lang: FormulaLang }) {
 
       <main className="relative max-w-3xl mx-auto px-4 py-9">
         <div className="text-center mb-8">
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-2.5">{ui.hubTitle}</h1>
-          <p className="note-sm">{ui.hubLead}</p>
+          <PageHero title={ui.hubTitle} desc={ui.hubLead} />
           <p className="mt-4 inline-block rounded-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-2 text-xs font-bold text-slate-500 dark:text-slate-400">
             {ui.hubNotice}
           </p>

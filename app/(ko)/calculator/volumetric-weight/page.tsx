@@ -92,10 +92,10 @@ export default function VolumetricWeightPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">요금이 매겨지는 무게</p>
-              <p className="text-white text-3xl font-black">{num(result.billable)}kg</p>
-              <p className="text-blue-200 text-xs mt-1">
+            <div className="stat-pri">
+              <p className="stat-label">요금이 매겨지는 무게</p>
+              <p className="stat-value">{num(result.billable)}kg</p>
+              <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
                 {result.byVolume ? '부피무게가 커서 부피로 매겨집니다' : '실제 무게로 매겨집니다'}
               </p>
             </div>

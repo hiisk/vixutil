@@ -71,26 +71,26 @@ export default function ShoeSizeIntl({ lang }: { lang: CalcLang }) {
 
       {row && reco && (
         <>
-          <div className="bg-blue-600 rounded-2xl p-6">
-            <p className="text-blue-200 text-xs text-center mb-4">
+          <div className="stat-pri">
+            <p className="text-slate-500 dark:text-slate-400 text-xs text-center mb-4">
               {c.footLen} {fmt(mm)} mm · {fmt(mm / 10)} cm
             </p>
-            <div className="grid grid-cols-4 gap-2 text-center">
+            <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 text-center">
               <div>
-                <p className="text-blue-200 text-xs mb-1">EU</p>
-                <p className="text-white text-2xl font-black">{fmt(row.eu)}</p>
+                <p className="stat-label">EU</p>
+                <p className="stat-value">{fmt(row.eu)}</p>
               </div>
               <div>
-                <p className="text-blue-200 text-xs mb-1">UK</p>
-                <p className="text-white text-2xl font-black">{fmt(row.usM - 1)}</p>
+                <p className="stat-label">UK</p>
+                <p className="stat-value">{fmt(row.usM - 1)}</p>
               </div>
               <div>
-                <p className="text-blue-200 text-xs mb-1">{c.usM}</p>
-                <p className="text-white text-2xl font-black">{fmt(row.usM)}</p>
+                <p className="stat-label">{c.usM}</p>
+                <p className="stat-value">{fmt(row.usM)}</p>
               </div>
               <div>
-                <p className="text-blue-200 text-xs mb-1">{c.usW}</p>
-                <p className="text-white text-2xl font-black">{fmt(row.usM + 1.5)}</p>
+                <p className="stat-label">{c.usW}</p>
+                <p className="stat-value">{fmt(row.usM + 1.5)}</p>
               </div>
             </div>
           </div>

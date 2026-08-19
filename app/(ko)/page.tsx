@@ -1,5 +1,6 @@
 import ToolIcon from '@/components/ToolIcon';
 import Link from 'next/link';
+import Image from 'next/image';
 import type { Metadata } from 'next';
 import { SECTION_COUNTS } from '@/lib/search-index';
 import { LENSES } from '@/lib/lens/list';
@@ -26,7 +27,7 @@ import { OPENINGS } from '@/lib/chess/list';
 import { HANDS } from '@/lib/poker/list';
 import PageGlow from '@/components/PageGlow';
 import { alternateLanguages10 } from '@/lib/locales';
-import { withCard } from '@/lib/og-cards';
+import { withCard, thumbUrl } from '@/lib/og-cards';
 
 export const metadata: Metadata = withCard({
   title: 'vixutil — 실용 도구 모음',
@@ -651,9 +652,9 @@ export default function HubPage() {
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
       <PageGlow accent="indigo" />
-      <div className="h-1 bg-gradient-to-r from-blue-600 via-violet-500 via-amber-400 via-emerald-500 to-sky-400" />
+      <div className="h-1 topbar" />
 
-      <div className="relative max-w-3xl mx-auto px-4 py-10 sm:py-24">
+      <div className="relative max-w-6xl mx-auto px-4 py-10 sm:py-20">
         {/* Brand */}
         <div className="mb-8 sm:mb-14 text-center">
           {/*
@@ -677,7 +678,7 @@ export default function HubPage() {
         */}
         <Link
           href="/search"
-          className="group flex items-center gap-3 mb-10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-2 border-white/70 dark:border-slate-700/70 rounded-2xl px-4 py-3.5 shadow-[0_8px_24px_-12px_rgba(99,102,241,0.2)] hover:border-indigo-300 hover:shadow-lg transition-all"
+          className="group flex items-center gap-3 mb-10 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 rounded-2xl px-4 py-3.5 shadow-sm hover:border-indigo-300 hover:shadow-lg transition-all"
         >
           <svg className="w-5 h-5 text-slate-400 dark:text-slate-500 group-hover:text-indigo-500 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
@@ -690,37 +691,56 @@ export default function HubPage() {
           </span>
         </Link>
 
-        {/* Section grid — 모바일 두 칸, 카드 생김새는 globals.css의 .home-card */}
-        <div className="home-grid">
-          {SECTIONS.map((s) => (
-            <Link
-              key={s.href}
-              href={s.href}
-              className={`group home-card ${s.borderAccent} ${s.bgLight} dark:bg-slate-900/70 ${s.shadow}`}
-            >
-              {/* Background gradient decoration */}
-              <div className={`absolute -right-8 -top-8 w-20 h-20 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br ${s.color} opacity-10 group-hover:opacity-20 transition-opacity`} />
+        {/*
+          Section grid — 칸의 그림이 곧 공유 카드다(globals.css의 .home-card 머리말).
+          주소는 thumbUrl이 만들고, 그 안은 cardUrl과 한 글자만 다르다.
 
-              <div className="relative z-10">
-                <div className="flex items-start justify-between gap-1.5 mb-2 sm:mb-4">
-                  <ToolIcon emoji={s.icon} className="text-slate-800 dark:text-slate-100 w-6 h-6 sm:w-8 sm:h-8 shrink-0" />
-                  {s.badge && (
-                    <span className={`shrink-0 text-[10px] sm:text-xs font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-white/90 dark:bg-slate-800/90 ${s.textAccent} border ${s.borderAccent} dark:border-slate-700`}>
-                      {s.badge}
-                    </span>
-                  )}
+          그림에 alt를 안 준다. 바로 아래 h2가 같은 말을 하고 있어서, alt를 채우면
+          스크린리더가 섹션 이름을 두 번 읽는다 — 장식이 아니라 **중복**이다.
+
+          loading="lazy"라 첫 화면에 든 서너 장만 받는다. 폭·높이를 박아 두어
+          그림이 늦게 와도 격자가 안 밀린다.
+        */}
+        <div className="home-grid">
+          {SECTIONS.map((s) => {
+            const thumb = thumbUrl(s.href);
+            return (
+              <Link key={s.href} href={s.href} className="group home-card">
+                {thumb ? (
+                  /*
+                    next/image를 쓴다. 그림은 공유 카드 **그대로**이고 바이트만 준다 —
+                    Satori는 PNG밖에 못 내는데, 어두운 그라디언트 PNG는 절반 크기로
+                    그려도 한 장 48KB다. 첫 화면에서 실제로 받는 양을 재 보니
+
+                      <img> 그대로   모바일 26장 1,228KB · PC 35장 1,789KB
+                      next/image     모바일 26장    73KB · PC 35장   148KB
+
+                    이다(같은 그림, WebP·AVIF로 폭에 맞춰 다시 인코딩). loading="lazy"는
+                    거의 안 먹었다 — 크롬이 화면 아래 것도 미리 받는다.
+
+                    변환 횟수는 갈래 마흔 × 열 언어 = 원본 400장이라 한도 안이다.
+                    원본이 늘지 않는 자리라서 쓴다.
+                  */
+                  <Image src={thumb} alt="" width={600} height={315} sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 22vw" className="home-thumb" />
+                ) : (
+                  <span className="home-thumb flex items-center justify-center">
+                    <ToolIcon emoji={s.icon} className="w-7 h-7 text-slate-400 dark:text-slate-500" />
+                  </span>
+                )}
+                <div className="home-card-body">
+                  <div className="flex items-baseline justify-between gap-1.5">
+                    <h2 className="home-card-title">{s.title}</h2>
+                    {s.badge && (
+                      <span className="shrink-0 text-[10px] font-bold text-slate-400 dark:text-slate-500 tabular-nums">
+                        {s.badge}
+                      </span>
+                    )}
+                  </div>
+                  <p className="home-card-desc">{s.desc}</p>
                 </div>
-                <h2 className={`home-card-title ${s.textAccent}`}>{s.title}</h2>
-                <p className="home-card-desc">{s.desc}</p>
-                <div className={`home-card-go ${s.textAccent}`}>
-                  바로가기
-                  <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                  </svg>
-                </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            );
+          })}
         </div>
 
         {/* Stats bar — 숫자는 데이터에서 뽑는다. 손으로 적으면 콘텐츠가 늘 때마다 낡는다 */}

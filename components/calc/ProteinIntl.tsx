@@ -67,9 +67,9 @@ export default function ProteinIntl({ lang }: { lang: CalcLang }) {
 
       {result && (
         <>
-          <div className="bg-blue-600 rounded-2xl p-6 text-center">
-            <p className="text-blue-200 text-xs mb-1">{c.perDay}</p>
-            <p className="text-white text-4xl font-black">{fmt(result.min)}–{fmt(result.max)} {c.unit}</p>
+          <div className="stat-pri text-center">
+            <p className="stat-label">{c.perDay}</p>
+            <p className="stat-value">{fmt(result.min)}–{fmt(result.max)} {c.unit}</p>
           </div>
           <SummaryCard
             label={c.perMeal}

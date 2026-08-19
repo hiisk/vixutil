@@ -1,5 +1,6 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import PageHero from '@/components/PageHero';
 import { useState } from 'react';
 import Link from 'next/link';
 import type { Quiz } from '@/lib/types';
@@ -8,7 +9,7 @@ import ShareButton from './ShareButton';
 import SaveResultCard from './SaveResultCard';
 import PageGlow from './PageGlow';
 import ReferralCards from './ReferralCards';
-import { thumbGradient } from '@/lib/thumbnail';
+import { thumbSurface } from '@/lib/thumbnail';
 
 type Phase = 'start' | 'question' | 'answer' | 'result';
 
@@ -204,7 +205,7 @@ export default function QuizEngine({ quiz, lang = 'ko' }: { quiz: Quiz; lang?: Q
   if (phase === 'start') return (
     <div className="page-wrap flex flex-col">
       <PageGlow accent="amber" />
-      <div className="h-1 bg-gradient-to-r from-amber-400 to-orange-500" />
+      <div className="h-1 topbar" />
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-lg mx-auto px-4 h-14 flex items-center">
           <Link href={hubHref} className="text-sm text-slate-400 dark:text-slate-500 hover:text-amber-600 flex items-center gap-1.5 font-medium">
@@ -217,12 +218,13 @@ export default function QuizEngine({ quiz, lang = 'ko' }: { quiz: Quiz; lang?: Q
       </header>
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-14 max-w-lg mx-auto w-full text-center">
         {/* 목록 카드와 같은 그라데이션·이모지 — 텍스트만 있으면 허전하다 */}
-        <div className={`w-32 h-32 rounded-3xl mb-6 flex items-center justify-center bg-gradient-to-br ${thumbGradient(quiz.slug, 'quiz')} shadow-xl shadow-amber-500/20`}>
-          <ToolIcon emoji={quiz.icon} accent="rgba(255,255,255,0.55)" className="w-14 h-14 drop-shadow-md" />
+        <div className={`w-32 h-32 rounded-3xl mb-6 flex items-center justify-center bg-sec-soft shadow-xl`}>
+          <ToolIcon emoji={quiz.icon} className="w-14 h-14 drop-shadow-md" />
         </div>
         <span className="text-xs font-bold text-amber-600 bg-amber-50 dark:bg-amber-950/30 px-3 py-1 rounded-full mb-3">{quiz.category}</span>
-        <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-3">{quiz.title}</h1>
-        <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6 max-w-sm">{quiz.desc}</p>
+        <div className="w-full max-w-sm mb-6">
+          <PageHero title={quiz.title} desc={quiz.desc} />
+        </div>
         <p className="text-xs text-slate-400 dark:text-slate-500 mb-8">{ui.meta(quiz.questions.length)}</p>
         <button onClick={() => setPhase('question')}
           className="w-full max-w-xs bg-amber-500 hover:bg-amber-600 text-white font-black py-4 rounded-2xl text-base transition-colors shadow-md shadow-amber-200">
@@ -236,7 +238,7 @@ export default function QuizEngine({ quiz, lang = 'ko' }: { quiz: Quiz; lang?: Q
   if (phase === 'question' || phase === 'answer') return (
     <div className="min-h-screen bg-white dark:bg-slate-900 flex flex-col">
       <div className="h-1.5 bg-amber-100 dark:bg-amber-950/40">
-        <div className="h-full bg-gradient-to-r from-amber-400 to-orange-500 transition-all duration-500" style={{ width: `${progress}%` }} />
+        <div className="h-full bg-sec transition-all duration-500" style={{ width: `${progress}%` }} />
       </div>
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-lg mx-auto px-4 h-14 flex items-center justify-between">
@@ -304,7 +306,7 @@ export default function QuizEngine({ quiz, lang = 'ko' }: { quiz: Quiz; lang?: Q
   /* ── RESULT ── */
   return (
     <div className="min-h-screen bg-white dark:bg-slate-900 flex flex-col">
-      <div className="h-1 bg-gradient-to-r from-amber-400 to-orange-500" />
+      <div className="h-1 topbar" />
       <div className="flex-1 px-4 py-8 max-w-lg mx-auto w-full">
         {/* Score hero card */}
         <div className={`relative overflow-hidden rounded-3xl bg-gradient-to-br ${g.color} p-8 text-white text-center mb-6 shadow-lg`}>

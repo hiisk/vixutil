@@ -185,25 +185,25 @@ export default function EvVsGasPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">차값 차이를 유지비로 회수하는 시점</p>
+            <div className="stat-pri">
+              <p className="stat-label">차값 차이를 유지비로 회수하는 시점</p>
               {be === null ? (
                 <>
-                  <p className="text-white text-3xl font-black">유지비로는 못 뽑습니다</p>
-                  <p className="text-blue-200 text-xs mt-1">
+                  <p className="stat-value">유지비로는 못 뽑습니다</p>
+                  <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
                     전기차가 해마다 {man(result.yearlySaving)} 더 듭니다 · 타는 만큼 차이가 벌어집니다
                   </p>
                 </>
               ) : be === 0 ? (
                 <>
-                  <p className="text-white text-3xl font-black">처음부터 전기차가 앞섭니다</p>
+                  <p className="stat-value">처음부터 전기차가 앞섭니다</p>
                   <p className="text-blue-200 text-xs mt-1">
                     감면까지 넣으면 처음 내는 돈이 {man(result.upfrontGap)} 적어 회수할 차액이 없습니다
                   </p>
                 </>
               ) : (
                 <>
-                  <p className="text-white text-3xl font-black">{be.toFixed(1)}년</p>
+                  <p className="stat-value">{be.toFixed(1)}년</p>
                   <p className="text-blue-200 text-xs mt-1">
                     처음 더 내는 {man(result.upfrontGap)}을 해마다 {man(result.yearlySaving)}씩 회수
                   </p>

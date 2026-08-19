@@ -104,9 +104,9 @@ export default function TimeDiffIntl({ lang }: { lang: CalcLang }) {
       </Card>
 
       {result && 'moment' in result && (
-        <div className="bg-blue-600 rounded-2xl p-6 text-center">
-          <p className="text-blue-200 text-xs mb-1">{c.result}</p>
-          <p className="text-white text-2xl font-black">
+        <div className="stat-pri text-center">
+          <p className="stat-label">{c.result}</p>
+          <p className="stat-value">
             {result.moment.toLocaleString(tag, { dateStyle: 'full', timeStyle: 'short' })}
           </p>
         </div>
@@ -114,9 +114,9 @@ export default function TimeDiffIntl({ lang }: { lang: CalcLang }) {
 
       {span && (
         <>
-          <div className="bg-blue-600 rounded-2xl p-6 text-center">
-            <p className="text-blue-200 text-xs mb-1">{c.gap}</p>
-            <p className="text-white text-3xl font-black">
+          <div className="stat-pri text-center">
+            <p className="stat-label">{c.gap}</p>
+            <p className="stat-value">
               {Math.floor(abs / 86400)}{c.d} {Math.floor((abs % 86400) / 3600)}{c.h} {Math.floor((abs % 3600) / 60)}{c.m}
             </p>
           </div>

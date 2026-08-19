@@ -127,7 +127,7 @@ export default function ExpressionPage() {
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
       <PageGlow accent="indigo" />
-      <div className="h-1 bg-gradient-to-r from-amber-400 via-pink-500 to-violet-500" />
+      <div className="h-1 topbar" />
 
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
@@ -238,7 +238,7 @@ export default function ExpressionPage() {
                       <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{s.percent}%</span>
                     </div>
                     <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                      <div className="h-full bg-gradient-to-r from-pink-400 to-violet-500 rounded-full" style={{ width: `${s.percent}%` }} />
+                      <div className="h-full bg-sec rounded-full" style={{ width: `${s.percent}%` }} />
                     </div>
                   </div>
                 ))}

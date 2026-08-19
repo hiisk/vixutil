@@ -53,7 +53,7 @@ export default function GameHubPage() {
       />
 
       <PageGlow accent="emerald" />
-      <div className="h-1 bg-gradient-to-r from-blue-500 via-emerald-500 to-fuchsia-500" />
+      <div className="h-1 topbar" />
 
       <header className="bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
@@ -98,7 +98,7 @@ export default function GameHubPage() {
                     href={`/game/${t.slug}`}
                     className="group relative overflow-hidden rounded-2xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 hover:shadow-md hover:border-emerald-200 transition-all"
                   >
-                    <div className={`absolute -right-6 -top-6 w-24 h-24 rounded-full bg-gradient-to-br ${t.gradient} opacity-10 group-hover:opacity-20 transition-opacity`} />
+                    <div className={`absolute -right-6 -top-6 w-24 h-24 rounded-full bg-sec-soft opacity-10 group-hover:opacity-20 transition-opacity`} />
                     <div className="relative">
                       <ToolIcon emoji={t.icon} color={t.og[0]} accent={t.og[1]} className="w-9 h-9 block mb-3" />
                       <h3 className="text-base font-black text-slate-900 dark:text-slate-100 mb-1">{t.title}</h3>
@@ -121,8 +121,8 @@ export default function GameHubPage() {
           href="/game/cube"
           className="group mt-8 flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
         >
-          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-gradient-to-br from-amber-500 to-rose-500">
-            <ToolIcon emoji={CUBE_ICON} accent="rgba(255,255,255,0.55)" className="w-6 h-6 text-white transition-transform group-hover:scale-110" />
+          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-sec-soft">
+            <ToolIcon emoji={CUBE_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />
           </span>
           <span className="min-w-0">
             <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{CUBE_UI.ko.hubTitle}</span>
@@ -135,8 +135,8 @@ export default function GameHubPage() {
           href="/game/chess"
           className="group mt-3 flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
         >
-          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-gradient-to-br from-violet-600 to-indigo-500">
-            <ToolIcon emoji={CHESS_ICON} accent="rgba(255,255,255,0.55)" className="w-6 h-6 text-white transition-transform group-hover:scale-110" />
+          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-sec-soft">
+            <ToolIcon emoji={CHESS_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />
           </span>
           <span className="min-w-0">
             <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{fill(chessUi('ko').hubTitle, { n: OPENINGS.length })}</span>
@@ -149,8 +149,8 @@ export default function GameHubPage() {
           href="/game/poker"
           className="group mt-3 flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
         >
-          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-gradient-to-br from-emerald-600 to-teal-500">
-            <ToolIcon emoji={POKER_ICON} accent="rgba(255,255,255,0.55)" className="w-6 h-6 text-white transition-transform group-hover:scale-110" />
+          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-sec-soft">
+            <ToolIcon emoji={POKER_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />
           </span>
           <span className="min-w-0">
             <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{pokerFill(pokerUi('ko').hubTitle, { n: HANDS.length })}</span>

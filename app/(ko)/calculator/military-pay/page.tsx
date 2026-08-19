@@ -99,10 +99,10 @@ export default function MilitaryPayPage() {
 
         {result && (
           <>
-            <div className="bg-emerald-600 rounded-2xl p-5">
-              <p className="text-emerald-100 text-xs mb-1">복무 {result.months}개월 동안 받는 봉급</p>
-              <p className="text-white text-3xl font-black">{fmt(result.pay)}원</p>
-              <p className="text-emerald-100 text-xs mt-1">
+            <div className="stat-pri">
+              <p className="stat-label">복무 {result.months}개월 동안 받는 봉급</p>
+              <p className="stat-value">{fmt(result.pay)}원</p>
+              <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
                 적금까지 더하면 {man(result.pay + result.plan.total)}
               </p>
             </div>

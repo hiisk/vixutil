@@ -485,7 +485,7 @@ export default function TarotPage() {
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
       <PageGlow accent="violet" />
-      <div className="h-1 bg-gradient-to-r from-amber-400 via-orange-500 to-rose-500" />
+      <div className="h-1 topbar" />
 
       {/* 헤더 */}
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-20">
@@ -578,7 +578,7 @@ export default function TarotPage() {
               <div className="mt-4 space-y-2">
                 {!drawn ? (
                   <button onClick={handleDraw}
-                    className="w-full py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-black rounded-xl shadow active:scale-[0.98] transition-transform text-sm">
+                    className="w-full py-4 bg-sec font-black rounded-xl shadow active:scale-[0.98] transition-transform text-sm">
                     ✦ {spread.label} 뽑기 ({spread.count}장)
                   </button>
                 ) : (

@@ -55,7 +55,7 @@ export default function WeekNumberTool({ lang = 'ko' }: { lang?: TimeLang } = {}
               <span className="text-sm font-black text-indigo-600 tabular-nums">{info.progress}%</span>
             </div>
             <div className="h-2.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-slate-600 to-indigo-700" style={{ width: `${info.progress}%` }} />
+              <div className="h-full bg-sec" style={{ width: `${info.progress}%` }} />
             </div>
           </div>
 

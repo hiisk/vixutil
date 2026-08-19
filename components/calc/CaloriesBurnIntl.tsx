@@ -62,11 +62,11 @@ export default function CaloriesBurnIntl({ lang }: { lang: CalcLang }) {
 
       {result && (
         <>
-          <div className="bg-blue-600 rounded-2xl p-6 text-center">
-            <p className="text-blue-200 text-xs mb-1">{c.result}</p>
-            <p className="text-white text-4xl font-black">{fmt(result.kcal)} {c.unit}</p>
+          <div className="stat-pri text-center">
+            <p className="stat-label">{c.result}</p>
+            <p className="stat-value">{fmt(result.kcal)} {c.unit}</p>
             {/* 지방 1g은 대략 7.7kcal — 체지방 1kg에 7,700kcal이라는 흔한 어림값과 같은 근거다. */}
-            <p className="text-blue-200 text-sm mt-2">
+            <p className="stat-sub mt-2">
               {c.fat} {fmt(result.kcal / 7.7)} {c.fatUnit}
             </p>
           </div>

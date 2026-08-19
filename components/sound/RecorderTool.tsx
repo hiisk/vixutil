@@ -96,8 +96,8 @@ export default function RecorderTool({ lang = 'ko' }: { lang?: SoundLang } = {})
       <div className="grid grid-cols-2 gap-2 mt-4">
         <button
           onClick={state === 'recording' ? stop : start}
-          className={`rounded-xl font-bold py-3.5 text-sm shadow-lg text-white transition-opacity hover:opacity-90 ${
-            state === 'recording' ? 'bg-slate-700' : 'bg-gradient-to-r from-fuchsia-500 to-violet-600'
+          className={`rounded-xl font-bold py-3.5 text-sm shadow-lg transition-opacity hover:opacity-90 ${
+            state === 'recording' ? 'bg-slate-700' : 'bg-sec'
           }`}
         >
           {state === 'recording' ? ui.stopRec : state === 'done' ? ui.again : ui.startRec}

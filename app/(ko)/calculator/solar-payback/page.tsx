@@ -161,17 +161,17 @@ export default function SolarPaybackPage() {
         {out && (
           <>
             {out.paybackYears !== null ? (
-              <div className="bg-blue-600 rounded-2xl p-5">
-                <p className="text-blue-200 text-xs mb-1">설치비 회수 기간</p>
-                <p className="text-white text-3xl font-black">{yearsText(out.paybackYears)}</p>
-                <p className="text-blue-200 text-xs mt-1">
+              <div className="stat-pri">
+                <p className="stat-label">설치비 회수 기간</p>
+                <p className="stat-value">{yearsText(out.paybackYears)}</p>
+                <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
                   1년차 절감액 {w(out.firstYearSaving)}원 · 설치비 {w(installCost)}원
                 </p>
               </div>
             ) : (
-              <div className="bg-slate-700 rounded-2xl p-5">
-                <p className="text-slate-300 text-xs mb-1">설치비 회수 기간</p>
-                <p className="text-white text-2xl font-black">보유 {rows.length}년 안에는 회수되지 않습니다</p>
+              <div className="stat-pri">
+                <p className="stat-label">설치비 회수 기간</p>
+                <p className="stat-value">보유 {rows.length}년 안에는 회수되지 않습니다</p>
                 <p className="text-slate-300 text-xs mt-1">
                   {rows.length}년 누적 절감액 {w(out.totalSaving)}원 · 설치비 {w(installCost)}원 —
                   없는 회수 시점을 지어내지 않습니다

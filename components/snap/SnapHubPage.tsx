@@ -1,4 +1,5 @@
 import ToolIcon from '@/components/ToolIcon';
+import PageHero from '@/components/PageHero';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
@@ -29,7 +30,7 @@ export default function SnapHubPage({ lang }: { lang: SnapIntlLang }) {
   return (
     <div className="page-wrap">
       <PageGlow accent="violet" />
-      <div className="h-1 bg-gradient-to-r from-fuchsia-500 via-violet-500 to-sky-500" />
+      <div className="h-1 topbar" />
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-3xl mx-auto px-4 h-14 flex items-center gap-4">
           <Link prefetch={false} href={`/${lang}/snap`} className="font-black text-fuchsia-600 text-lg shrink-0">vixutil</Link>
@@ -43,18 +44,17 @@ export default function SnapHubPage({ lang }: { lang: SnapIntlLang }) {
       <div className="max-w-3xl mx-auto px-4 py-10">
         <div className="text-center mb-10">
           <ToolIcon emoji="📸" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
-          <h1 className="text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">{c.title}</h1>
-          <p className="text-slate-500 dark:text-slate-400 text-sm">{c.lead}</p>
+          <PageHero title={c.title} desc={c.lead} />
         </div>
 
         <div className="grid sm:grid-cols-2 gap-4">
           {cards.map(t => (
             <Link prefetch={false} key={t.href} href={t.href}
               className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${t.color} text-white p-6 min-h-[10rem] flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl transition-all`}>
-              <ToolIcon emoji={t.icon} accent="rgba(255,255,255,0.55)" className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
+              <ToolIcon emoji={t.icon} className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
               <div>
                 <div className="text-lg font-black drop-shadow leading-tight">{t.title}</div>
-                <div className="text-xs font-medium text-white/80 mt-1">{t.desc}</div>
+                <div className="text-xs font-medium opacity-80 mt-1">{t.desc}</div>
               </div>
             </Link>
           ))}
@@ -64,8 +64,8 @@ export default function SnapHubPage({ lang }: { lang: SnapIntlLang }) {
           href={`/${lang}/snap/lens`}
           className="group mt-6 flex items-center gap-4 rounded-2xl border chip-off px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
         >
-          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-gradient-to-br from-indigo-600 to-violet-500">
-            <ToolIcon emoji={LENS_ICON} accent="rgba(255,255,255,0.55)" className="w-6 h-6 text-white transition-transform group-hover:scale-110" />
+          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-sec-soft">
+            <ToolIcon emoji={LENS_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />
           </span>
           <span className="min-w-0">
             <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{lensUi.hubTitle}</span>

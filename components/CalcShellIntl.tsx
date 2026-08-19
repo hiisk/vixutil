@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import PageHero from '@/components/PageHero';
 import CalcShareBtn from './CalcShareBtn';
 import SiteFooter from './SiteFooter';
 import PageGlow from './PageGlow';
@@ -27,6 +28,17 @@ import { localeHref } from '@/lib/locales';
  * SiteFooter·ReferralCards·CalcShareBtn은 lang을 받으므로 넘겨 준다 — 안 넘기면
  * 기본값이 'ko'라 조용히 한국어가 나온다. 실제로 처음에 그렇게 나왔다.
  */
+/**
+ * 본문 기둥 — 머리 띠와 본문이 **이 하나를** 나눠 쓴다.
+ *
+ * 폭이 두 곳에 적히면 한쪽만 고쳤을 때 제목이 본문과 다른 자리에서 시작한다.
+ * 실제로 그랬던 적이 있어 tests/referral-placement.test.ts가 붙들고 있다.
+ * 렌더 밖에 두는 것은 안에서 만들면 렌더마다 새 컴포넌트가 되기 때문이다.
+ */
+function Column({ width, children }: { width: string; children: React.ReactNode }) {
+  return <div className={`${width} mx-auto w-full min-w-0 xl:mx-0`}>{children}</div>;
+}
+
 export default function CalcShellIntl({
   lang,
   slug,
@@ -60,6 +72,7 @@ export default function CalcShellIntl({
   */
   const width = wide ? 'max-w-3xl lg:max-w-4xl' : 'max-w-xl lg:max-w-2xl';
 
+
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
       <PageGlow accent="blue" />
@@ -74,9 +87,9 @@ export default function CalcShellIntl({
         />
         <JsonLd data={webAppJsonLd(title, description, path)} />
 
-        <div className="h-1 bg-gradient-to-r from-blue-600 via-indigo-500 to-emerald-400" />
+        <div className="h-1 topbar" />
 
-        <header className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border-b border-white/60 dark:border-slate-700/60 sticky top-0 z-10">
+        <header className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-10">
           <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
             <Link href={hub} className="page-back hover:text-blue-600 shrink-0">
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -95,18 +108,14 @@ export default function CalcShellIntl({
           </div>
         </header>
 
-        {/*
-          본문 기둥 + 옆 제휴 레일. 한국어 CalcShell과 같은 짜임이다 —
-          까닭과 잃는 것은 ReferralAside 머리 주석에 적어 두었다.
-        */}
         <div className={wide ? RAIL_WRAP.wide : RAIL_WRAP.narrow}>
-          <div className={`${width} mx-auto w-full min-w-0 xl:mx-0`}>
-            <div className="px-4 pt-8 pb-2">
-              <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight">{title}</h1>
-              <p className="text-sm text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">{description}</p>
+          <Column width={width}>
+            {/* 머리 — 기둥 안에 있고 실선만 화면 폭으로 나간다(globals.css .hero-band) */}
+            <div className="hero-band px-4">
+              <PageHero className="hero-flat" title={title} desc={description} icon="🧮" />
             </div>
 
-            <main className="px-4 py-6 pb-8">
+            <main className="tool-body tool-lift px-4 pb-8">
               {children}
 
               {/*
@@ -148,7 +157,7 @@ export default function CalcShellIntl({
 
               <Faq items={faq} lang={lang} />
             </main>
-          </div>
+          </Column>
 
           {/* 문구는 lang을 따라간다 — 안 넘기면 기본값이 'ko'라 독일어 화면에 한국어가 뜬다 */}
           <ReferralAside lang={lang} section="calc" />

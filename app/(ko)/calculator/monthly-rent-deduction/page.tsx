@@ -170,12 +170,12 @@ export default function MonthlyRentDeductionPage() {
           </div>
         </Card>
 
-        <div className="rounded-2xl bg-blue-600 p-5">
-          <p className="mb-1 text-xs text-blue-200">
+        <div className="stat-pri">
+          <p className="mb-1 text-xs text-slate-500 dark:text-slate-400">
             실제로 돌려받는 월세 세액공제 (지방소득세 포함 {fmt(r.creditRoute.totalSaved)}원)
           </p>
-          <p className="text-3xl font-black text-white">{fmt(r.credit)}원</p>
-          <p className="mt-1 text-sm text-blue-200">
+          <p className="stat-value">{fmt(r.credit)}원</p>
+          <p className="mt-1 stat-sub">
             {r.rate > 0
               ? `공제 대상 월세 ${fmt(r.eligibleRent)}원 × ${pct(r.rate)} = ${fmt(r.rawCredit)}원`
               : '지금 입력으로는 이 공제를 받을 수 없습니다'}

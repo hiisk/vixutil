@@ -88,7 +88,7 @@ export default function GradientTool({ lang = 'ko' }: { lang?: ColorLang } = {})
 
       <button
         onClick={() => copy(`background: ${css};`)}
-        className="mt-3 w-full rounded-xl bg-gradient-to-r from-fuchsia-500 to-sky-500 text-white font-bold py-3 text-sm shadow hover:opacity-90 transition-opacity"
+        className="mt-3 w-full rounded-xl bg-sec font-bold py-3 text-sm shadow hover:opacity-90 transition-opacity"
       >
         {copied ? ui.copiedCss : ui.copyCss}
       </button>

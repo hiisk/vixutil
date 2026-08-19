@@ -133,7 +133,7 @@ export default function FearGreedBoard() {
         )}
 
         <div className="mt-5 max-w-md mx-auto">
-          <div className="relative h-2.5 rounded-full bg-gradient-to-r from-rose-500 via-slate-300 to-emerald-500 dark:via-slate-600">
+          <div className="relative h-2.5 rounded-full bg-sec dark:via-slate-600">
             <span className="absolute rounded-full border-2 border-white dark:border-slate-900 bg-slate-900 dark:bg-white shadow"
               style={{ left: `calc(${Math.min(100, Math.max(0, snap.current))}% - 9px)`, top: -4, width: 18, height: 18 }} aria-hidden="true" />
           </div>

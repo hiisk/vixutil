@@ -16,6 +16,7 @@
  * 실측: /laundry 낱장이 gzip 27.8KB → 14.0KB (RSC 61% → 17%).
  */
 import Link from 'next/link';
+import PageHero from '@/components/PageHero';
 import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
@@ -72,7 +73,7 @@ export default function TarotCardPage({ slug, lang }: { slug: string; lang: Lang
       <JsonLd data={webAppJsonLd(v.name, ui.metaDesc(v.name, v.upright), path)} />
 
       <PageGlow accent="violet" />
-      <div className="h-1 bg-gradient-to-r from-violet-500 to-fuchsia-500" />
+      <div className="h-1 topbar" />
 
       <header className="page-head">
         <div className="page-bar">
@@ -94,11 +95,10 @@ export default function TarotCardPage({ slug, lang }: { slug: string; lang: Lang
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-3 shadow-lg bg-gradient-to-br from-violet-500 to-fuchsia-500">
-            <ToolIcon emoji={TAROT_ICON} accent="rgba(255,255,255,0.55)" className="w-7 h-7 text-white" />
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-3 shadow-lg bg-sec-soft">
+            <ToolIcon emoji={TAROT_ICON} className="w-7 h-7" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-1">{v.name}</h1>
-          <p className="text-xs text-slate-400 dark:text-slate-500">{v.kindLine}</p>
+          <PageHero title={v.name} desc={v.kindLine} />
         </div>
 
         <section className="grid gap-3 mb-6">

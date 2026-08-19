@@ -182,10 +182,10 @@ export default function HealthInsuranceLocalPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">월 납부액 (전액 본인 부담)</p>
-              <p className="text-white text-3xl font-black">{fmt(result.r.total)}원</p>
-              <p className="text-blue-200 text-xs mt-1">
+            <div className="stat-pri">
+              <p className="stat-label">월 납부액 (전액 본인 부담)</p>
+              <p className="stat-value">{fmt(result.r.total)}원</p>
+              <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
                 건강보험료 {fmt(result.r.health)}원 · 장기요양보험료 {fmt(result.r.longCare)}원
               </p>
             </div>

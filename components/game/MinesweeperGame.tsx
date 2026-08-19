@@ -164,7 +164,7 @@ export default function MinesweeperGame({ lang = 'ko' }: { lang?: GameLang } = {
         </div>
         <button
           onClick={() => reset(level)}
-          className="rounded-xl bg-gradient-to-r from-slate-600 to-emerald-700 text-white font-bold px-5 text-xs shadow-lg hover:opacity-90 transition-opacity"
+          className="rounded-xl bg-sec font-bold px-5 text-xs shadow-lg hover:opacity-90 transition-opacity"
         >
           {done ? ui.restart : ui.newGame}
         </button>

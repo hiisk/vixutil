@@ -128,7 +128,7 @@ export default function AltseasonBoard() {
           자리에, 75가 59% 자리에 가서 눈금이 거짓말을 한다 — 절대 위치로 고정한다.
         */}
         <div className="mt-5 max-w-md mx-auto">
-          <div className="relative h-2.5 rounded-full bg-gradient-to-r from-amber-400 via-slate-300 to-violet-500 dark:via-slate-600">
+          <div className="relative h-2.5 rounded-full bg-sec dark:via-slate-600">
             {[BITCOIN_SEASON_THRESHOLD, ALTSEASON_THRESHOLD].map(t => (
               <span key={t} aria-hidden="true"
                 className="absolute top-0 h-full w-px bg-white/80 dark:bg-slate-900/70"

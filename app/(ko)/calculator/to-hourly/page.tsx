@@ -82,10 +82,10 @@ export default function ToHourlyPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">시급</p>
-              <p className="text-white text-3xl font-black">{fmt(result.hourly)}원</p>
-              <p className={`text-sm mt-1 ${result.vsMin >= 0 ? 'text-blue-200' : 'text-red-300'}`}>
+            <div className="stat-pri">
+              <p className="stat-label">시급</p>
+              <p className="stat-value">{fmt(result.hourly)}원</p>
+              <p className={`text-sm mt-1 ${result.vsMin >= 0 ? 'text-slate-500 dark:text-slate-400' : 'text-slate-500 dark:text-slate-400'}`}>
                 최저시급 대비 {result.vsMin >= 0 ? '+' : ''}{result.vsMin.toFixed(1)}%
                 ({result.vsMin >= 0 ? '기준 이상' : '최저시급 미달 ⚠️'})
               </p>

@@ -69,9 +69,9 @@ export default function OvulationIntl({ lang }: { lang: CalcLang }) {
 
       {result && (
         <>
-          <div className="bg-blue-600 rounded-2xl p-6 text-center">
-            <p className="text-blue-200 text-xs mb-1">{c.ovulation}</p>
-            <p className="text-white text-2xl font-black">{fmt(result.ovulation)}</p>
+          <div className="stat-pri text-center">
+            <p className="stat-label">{c.ovulation}</p>
+            <p className="stat-value">{fmt(result.ovulation)}</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <SummaryCard

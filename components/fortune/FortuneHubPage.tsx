@@ -1,4 +1,5 @@
 import ToolIcon from '@/components/ToolIcon';
+import PageHero from '@/components/PageHero';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
@@ -23,7 +24,7 @@ export default function FortuneHubPage({ lang }: { lang: FortuneIntlLang }) {
   return (
     <div className="page-wrap">
       <PageGlow accent="violet" />
-      <div className="h-1 bg-gradient-to-r from-violet-600 via-purple-500 to-pink-500" />
+      <div className="h-1 topbar" />
 
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
@@ -38,8 +39,7 @@ export default function FortuneHubPage({ lang }: { lang: FortuneIntlLang }) {
       <div className="max-w-2xl mx-auto px-4 py-10">
         <div className="text-center mb-10">
           <ToolIcon emoji="🔮" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
-          <h1 className="text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">{c.title}</h1>
-          <p className="text-slate-500 dark:text-slate-400 text-sm">{c.lead}</p>
+          <PageHero title={c.title} desc={c.lead} />
         </div>
 
         <div className="grid sm:grid-cols-2 gap-4">
@@ -47,12 +47,12 @@ export default function FortuneHubPage({ lang }: { lang: FortuneIntlLang }) {
             <Link prefetch={false} key={t.href} href={t.href}
               className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${t.color} text-white p-5 min-h-[9rem] flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl transition-all`}>
               <div className="flex items-start justify-between gap-2">
-                <ToolIcon emoji={t.icon} accent="rgba(255,255,255,0.55)" className="w-8 h-8 drop-shadow-lg transition-transform group-hover:scale-110" />
+                <ToolIcon emoji={t.icon} className="w-8 h-8 drop-shadow-lg transition-transform group-hover:scale-110" />
                 <span className="text-[10px] font-bold bg-white/20 rounded-full px-2 py-0.5 shrink-0">{t.badge}</span>
               </div>
               <div>
                 <div className="text-base font-black drop-shadow leading-tight">{t.title}</div>
-                <div className="text-xs font-medium text-white/80 mt-1">{t.desc}</div>
+                <div className="text-xs font-medium opacity-80 mt-1">{t.desc}</div>
               </div>
             </Link>
           ))}
@@ -63,8 +63,8 @@ export default function FortuneHubPage({ lang }: { lang: FortuneIntlLang }) {
           href={`/${lang}/fortune/card`}
           className="group mt-6 flex items-center gap-4 rounded-2xl border chip-off px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
         >
-          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-gradient-to-br from-violet-600 to-purple-500">
-            <ToolIcon emoji={TAROT_ICON} accent="rgba(255,255,255,0.55)" className="w-6 h-6 text-white transition-transform group-hover:scale-110" />
+          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-sec-soft">
+            <ToolIcon emoji={TAROT_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />
           </span>
           <span className="min-w-0">
             <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{tarot.hubTitle}</span>

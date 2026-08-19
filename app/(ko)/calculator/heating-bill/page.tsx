@@ -103,10 +103,10 @@ export default function HeatingBillPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">이번 달 난방비</p>
-              <p className="text-white text-3xl font-black">{fmt(result.bill.total)}원</p>
-              <p className="text-blue-200 text-xs mt-1">
+            <div className="stat-pri">
+              <p className="stat-label">이번 달 난방비</p>
+              <p className="stat-value">{fmt(result.bill.total)}원</p>
+              <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
                 하루 {fmt(result.bill.perDay)}원 · ㎡당 {fmt(result.bill.perSquareMetre)}원 · 평당 {fmt(result.bill.perPyeong)}원
               </p>
             </div>

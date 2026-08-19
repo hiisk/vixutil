@@ -43,7 +43,7 @@ export default function DreamPage() {
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
       <PageGlow accent="violet" />
-      <div className="h-1 bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-600" />
+      <div className="h-1 topbar" />
 
       {/* 헤더 */}
       <header className="bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
@@ -186,7 +186,7 @@ export default function DreamPage() {
         >
           {/* 딤 배경 */}
           <div
-            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/50"
             onClick={() => setSelected(null)}
           />
 

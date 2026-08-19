@@ -55,16 +55,16 @@ export default function LtvIntl({ lang }: { lang: CalcLang }) {
 
       {result && (
         <>
-          <div className="bg-blue-600 rounded-2xl p-6 text-center">
-            <p className="text-blue-200 text-xs mb-1">{c.ltv}</p>
-            <p className="text-white text-4xl font-black">{fmt(result.ltv, 1)}%</p>
+          <div className="stat-pri text-center">
+            <p className="stat-label">{c.ltv}</p>
+            <p className="stat-value">{fmt(result.ltv, 1)}%</p>
             {result.limit > 0 && (
-              <p className="text-blue-200 text-xs mt-1">
+              <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
                 {c.limitShort} {fmt(result.limit)}% · {result.ltv <= result.limit ? c.within : c.over}
               </p>
             )}
           </div>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <SummaryCard label={c.equity} value={fmt(result.equity)} />
             <SummaryCard label={c.maxLoan} value={fmt(result.maxLoan)} />
             <SummaryCard label={c.headroom} value={fmt(result.headroom)} />

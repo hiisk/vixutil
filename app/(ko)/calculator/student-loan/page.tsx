@@ -166,7 +166,7 @@ export default function StudentLoanPage() {
             {/* 갚지 못하는 경우가 먼저다 — 총액 비교보다 이 사실이 중요하다 */}
             {icl.finishYear === null ? (
               <div className="rounded-2xl border-2 border-red-300 dark:border-red-900/60 bg-red-50 dark:bg-red-950/30 p-5">
-                <p className="text-red-800 dark:text-red-300 text-sm font-bold mb-1">
+                <p className="text-red-800 dark:stat-sub font-bold mb-1">
                   이 소득으로는 취업 후 상환이 끝나지 않습니다
                 </p>
                 <p className="text-xs leading-relaxed text-red-700 dark:text-red-300/90">
@@ -180,12 +180,12 @@ export default function StudentLoanPage() {
                 </p>
               </div>
             ) : (
-              <div className="bg-blue-600 rounded-2xl p-5">
-                <p className="text-blue-200 text-xs mb-1">총 상환액이 적은 쪽</p>
-                <p className="text-white text-3xl font-black">
+              <div className="stat-pri">
+                <p className="stat-label">총 상환액이 적은 쪽</p>
+                <p className="stat-value">
                   {result.cheaper === 'standard' ? '일반 상환' : '취업 후 상환'}
                 </p>
-                <p className="text-blue-200 text-xs mt-1">
+                <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
                   차액 {man(Math.abs(result.totalDiff))} · 취업 후 상환은 {icl.finishYear}년째에 끝납니다
                 </p>
               </div>

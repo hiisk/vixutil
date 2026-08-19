@@ -154,10 +154,10 @@ export default function AcquisitionTaxPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">총 납부세액</p>
-              <p className="text-white text-3xl font-black">{fmt(result.total)}원</p>
-              <p className="text-blue-200 text-sm mt-1">취득세율 {result.rate.toFixed(2)}%</p>
+            <div className="stat-pri">
+              <p className="stat-label">총 납부세액</p>
+              <p className="stat-value">{fmt(result.total)}원</p>
+              <p className="stat-sub">취득세율 {result.rate.toFixed(2)}%</p>
             </div>
             <Card>
               <CardHeader title="세금 내역" />

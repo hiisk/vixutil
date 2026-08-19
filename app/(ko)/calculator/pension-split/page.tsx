@@ -167,10 +167,10 @@ export default function PensionSplitPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">받는 쪽의 분할연금 월액</p>
-              <p className="text-white text-3xl font-black">{man(result.r.spouseMonthly)}</p>
-              <p className="text-blue-200 text-xs mt-1">
+            <div className="stat-pri">
+              <p className="stat-label">받는 쪽의 분할연금 월액</p>
+              <p className="stat-value">{man(result.r.spouseMonthly)}</p>
+              <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
                 원래 노령연금의 {result.r.sharePercent.toFixed(1)}% · 혼인기간 몫{' '}
                 {(result.r.marriageShare * 100).toFixed(1)}%의 {(result.r.ratio * 100).toFixed(0)}%
               </p>

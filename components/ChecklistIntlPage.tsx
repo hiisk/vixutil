@@ -76,7 +76,7 @@ export function ChecklistIntlHub({ lang }: { lang: ChecklistIntlLang }) {
         )}
       />
       <PageGlow accent="sky" />
-      <div className="h-1 bg-gradient-to-r from-sky-400 to-cyan-600" />
+      <div className="h-1 topbar" />
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center gap-4">
           <Link prefetch={false} href={`/${lang}/checklist`} className="font-black text-sky-600 text-lg shrink-0">vixutil</Link>
@@ -99,7 +99,7 @@ export function ChecklistIntlHub({ lang }: { lang: ChecklistIntlLang }) {
             <Link prefetch={false} key={c.slug} href={`/${lang}/checklist/${c.slug}`}
               className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${CARD_GRADIENTS[i % CARD_GRADIENTS.length]} text-white p-5 min-h-[9.5rem] flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl transition-all`}>
               <div className="flex items-start justify-between">
-                <ToolIcon emoji={c.icon} accent="rgba(255,255,255,0.55)" className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
+                <ToolIcon emoji={c.icon} className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
                 <span className="text-[10px] font-bold bg-white/25 rounded-full px-2 py-0.5">{countOf(c)}</span>
               </div>
               <div>

@@ -216,8 +216,35 @@ test('머리글과 본문이 같은 폭을 쓴다', () => {
     assert.equal(uses, 1, `${s}: 본문 폭이 ${uses}곳에 적혀 있다 — 기둥 하나만 폭을 갖는다`);
     assert.match(src, /className=\{`\$\{width\} mx-auto w-full min-w-0 xl:mx-0`\}/,
       `${s}: 본문 기둥의 클래스가 예상과 다르다 (min-w-0가 없으면 flex 안에서 넘칠 수 있다)`);
-    assert.match(src, /<main className="px-4 py-6 pb-8">/, `${s}: 본문이 자기 폭을 다시 정하고 있다`);
-    assert.match(src, /<div className="px-4 pt-8 pb-2">/, `${s}: 머리글이 자기 폭을 다시 정하고 있다`);
+    /*
+      ── 문자열 대조에서 «폭을 안 정한다»로 바꿨다 (2026-08-19) ──
+      전에는 머리글·본문의 클래스 문자열을 통째로 대조했다. 그래서 여백을 한
+      단계 조이거나 머리 타일을 붙이는 것처럼 **폭과 무관한 변경**에도 검사가
+      깨졌고, 깨질 때마다 검사를 따라 고치게 되어 검사가 지키려던 것이 흐려졌다.
+
+      지키려던 것은 하나다 — 폭을 정하는 자리가 기둥 하나뿐이어야 한다. 그러니
+      머리글과 본문이 «자기 폭을 안 갖는지»를 직접 본다. max-w-가 그 안에
+      들어오면 기둥이 둘이 된다.
+    */
+    const head = src.match(/<div className="[^"]*">\s*\n\s*<PageHero/)?.[0] ?? '';
+    assert.ok(head, `${s}: 머리글 자리를 찾지 못했다 — PageHero가 기둥 안에 있어야 한다`);
+    assert.doesNotMatch(head, /max-w-/, `${s}: 머리글이 자기 폭을 정하고 있다`);
+
+    const main = src.match(/<main className="[^"]*">/)?.[0] ?? '';
+    assert.ok(main, `${s}: <main>을 찾지 못했다`);
+    assert.doesNotMatch(main, /max-w-/, `${s}: 본문이 자기 폭을 다시 정하고 있다`);
+
+    /*
+      머리는 본문과 **같은 기둥 안**에 있어야 한다. 기둥 밖에 두면 옆 레일 자리만큼
+      오른쪽으로 밀려서 제목이 본문과 다른 자리에서 시작한다 — 실제로 그렇게 밀렸고
+      화면으로만 보였다. 그래서 기둥은 한 번만 그린다.
+    */
+    assert.match(src, /function Column\(/, `${s}: 기둥이 한 곳에 없다`);
+    assert.equal([...src.matchAll(/<Column[\s>]/g)].length, 1,
+      `${s}: 기둥은 하나여야 한다 — 머리도 그 안에 들어간다`);
+    const heroIdx = src.indexOf('<PageHero');
+    const colIdx = src.indexOf('<Column');
+    assert.ok(colIdx >= 0 && heroIdx > colIdx, `${s}: 머리가 기둥 밖에 있다`);
   }
 });
 

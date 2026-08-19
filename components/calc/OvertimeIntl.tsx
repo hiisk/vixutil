@@ -47,9 +47,9 @@ export default function OvertimeIntl({ lang }: { lang: CalcLang }) {
 
       {result && (
         <>
-          <div className="bg-blue-600 rounded-2xl p-6 text-center">
-            <p className="text-blue-200 text-xs mb-1">{c.pay}</p>
-            <p className="text-white text-4xl font-black">{fmt(result.pay)}</p>
+          <div className="stat-pri text-center">
+            <p className="stat-label">{c.pay}</p>
+            <p className="stat-value">{fmt(result.pay)}</p>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <SummaryCard label={c.otRate} value={fmt(result.rate)} />

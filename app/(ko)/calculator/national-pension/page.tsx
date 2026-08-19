@@ -138,14 +138,14 @@ export default function NationalPensionPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">
+            <div className="stat-pri">
+              <p className="stat-label">
                 {result.r.eligible ? '월 예상 연금액' : '가입기간이 10년에 못 미칩니다'}
               </p>
-              <p className="text-white text-3xl font-black">
+              <p className="stat-value">
                 {result.r.eligible ? man(result.r.monthly) : '반환일시금 대상'}
               </p>
-              <p className="text-blue-200 text-xs mt-1">
+              <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
                 {result.r.eligible
                   ? `연 ${man(result.r.annual)} · 내 소득의 ${result.r.ownReplacementRate.toFixed(1)}%`
                   : `노령연금은 ${MIN_MONTHS}개월(10년) 이상 가입해야 받습니다`}

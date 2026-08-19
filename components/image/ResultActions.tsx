@@ -64,7 +64,7 @@ export default function ResultActions({
         <button
           onClick={onDownload}
           disabled={busy || resultSize === undefined}
-          className="col-span-2 rounded-xl bg-gradient-to-r from-violet-500 to-indigo-600 text-white font-bold py-3 text-sm shadow hover:opacity-90 disabled:opacity-50 transition-opacity"
+          className="col-span-2 rounded-xl bg-sec font-bold py-3 text-sm shadow hover:opacity-90 disabled:opacity-50 transition-opacity"
         >
           {busy ? c.working : `⬇ ${downloadLabel ?? c.save}`}
         </button>

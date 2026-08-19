@@ -160,7 +160,7 @@ export default function MathGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
       <button
         onClick={start}
         disabled={phase === 'run'}
-        className="mt-4 w-full rounded-xl bg-gradient-to-r from-emerald-500 to-lime-600 text-white font-bold py-3.5 text-sm shadow-lg hover:opacity-90 disabled:opacity-50 transition-opacity"
+        className="mt-4 w-full rounded-xl bg-sec font-bold py-3.5 text-sm shadow-lg hover:opacity-90 disabled:opacity-50 transition-opacity"
       >
         {phase === 'over' ? c.retry : phase === 'run' ? c.running : ui.startIn(DURATION)}
       </button>

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import PageHero from '@/components/PageHero';
 import ToolIcon from '@/components/ToolIcon';
 import { ALGS, CUBE_ICON } from '@/lib/cube/list';
 import { langOfLocale } from '@/lib/i18n/lang';
@@ -33,7 +34,7 @@ export default function GameHubIntl({ lang }: { lang: GameIntlLang }) {
   return (
     <div className="page-wrap">
       <PageGlow accent="emerald" />
-      <div className="h-1 bg-gradient-to-r from-emerald-500 to-teal-600" />
+      <div className="h-1 topbar" />
 
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center gap-4">
@@ -45,10 +46,14 @@ export default function GameHubIntl({ lang }: { lang: GameIntlLang }) {
         </div>
       </header>
 
-      <div className="max-w-5xl mx-auto px-4 py-10">
-        <p className="text-xs font-bold text-emerald-600 tracking-widest uppercase mb-2">{ui.eyebrow}</p>
-        <h1 className="text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">{ui.section}</h1>
-        <p className="text-slate-500 dark:text-slate-400 text-sm mb-8">{ui.hubLead}</p>
+      {/* 머리 띠 — 화면을 가로지르고 안의 글만 본문 폭에 맞춘다 */}
+      <div className="hero-band">
+        <div className="max-w-5xl mx-auto px-4">
+          <PageHero className="hero-flat" title={ui.section} desc={ui.hubLead} />
+        </div>
+      </div>
+
+      <div className="max-w-5xl mx-auto px-4 tool-lift pb-10">
 
         {grouped.map(g => (
           <section key={g.category} className="mb-8">
@@ -60,10 +65,10 @@ export default function GameHubIntl({ lang }: { lang: GameIntlLang }) {
                   href={`/${lang}/game/${t.slug}`}
                   className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${t.gradient} text-white p-5 min-h-[9rem] flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl transition-all`}
                 >
-                  <ToolIcon emoji={t.icon} accent="rgba(255,255,255,0.55)" className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
+                  <ToolIcon emoji={t.icon} className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
                   <span>
                     <span className="block text-base font-black drop-shadow leading-tight">{t.title}</span>
-                    <span className="block text-[11px] font-medium text-white/80 mt-1 line-clamp-2">{t.desc}</span>
+                    <span className="block text-[11px] font-medium opacity-80 mt-1 line-clamp-2">{t.desc}</span>
                   </span>
                 </Link>
               ))}
@@ -75,8 +80,8 @@ export default function GameHubIntl({ lang }: { lang: GameIntlLang }) {
           href={`/${lang}/game/cube`}
           className="group flex items-center gap-4 rounded-2xl border chip-off px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
         >
-          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-gradient-to-br from-amber-500 to-rose-500">
-            <ToolIcon emoji={CUBE_ICON} accent="rgba(255,255,255,0.55)" className="w-6 h-6 text-white transition-transform group-hover:scale-110" />
+          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-sec-soft">
+            <ToolIcon emoji={CUBE_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />
           </span>
           <span className="min-w-0">
             <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{cube.hubTitle}</span>
@@ -89,8 +94,8 @@ export default function GameHubIntl({ lang }: { lang: GameIntlLang }) {
           href={`/${lang}/game/chess`}
           className="group mt-3 flex items-center gap-4 rounded-2xl border chip-off px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
         >
-          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-gradient-to-br from-violet-600 to-indigo-500">
-            <ToolIcon emoji={CHESS_ICON} accent="rgba(255,255,255,0.55)" className="w-6 h-6 text-white transition-transform group-hover:scale-110" />
+          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-sec-soft">
+            <ToolIcon emoji={CHESS_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />
           </span>
           <span className="min-w-0">
             <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{fill(chess.hubTitle, { n: OPENINGS.length })}</span>
@@ -103,8 +108,8 @@ export default function GameHubIntl({ lang }: { lang: GameIntlLang }) {
           href={`/${lang}/game/poker`}
           className="group mt-3 flex items-center gap-4 rounded-2xl border chip-off px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
         >
-          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-gradient-to-br from-emerald-600 to-teal-500">
-            <ToolIcon emoji={POKER_ICON} accent="rgba(255,255,255,0.55)" className="w-6 h-6 text-white transition-transform group-hover:scale-110" />
+          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-sec-soft">
+            <ToolIcon emoji={POKER_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />
           </span>
           <span className="min-w-0">
             <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{pokerFill(poker.hubTitle, { n: HANDS.length })}</span>

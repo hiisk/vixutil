@@ -76,7 +76,7 @@ export default function ConvertEngine({ tool, lang = 'ko' }: { tool: ConvertTool
       <button
         onClick={() => copy(`${left}${tool.from} = ${right}${tool.to}`)}
         disabled={!left || !right}
-        className="mt-3 w-full rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold py-3 text-sm shadow hover:opacity-90 disabled:opacity-40 transition-opacity"
+        className="mt-3 w-full rounded-xl bg-sec font-bold py-3 text-sm shadow hover:opacity-90 disabled:opacity-40 transition-opacity"
       >
         {copied ? ui.copied : ui.copy(left || '—', tool.from, right || '—', tool.to)}
       </button>

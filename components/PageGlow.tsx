@@ -7,28 +7,32 @@
  *
  * fixed라 스크롤과 무관하게 고정되고, pointer-events-none이라 클릭을 막지 않는다.
  */
+/*
+ * ── 파스텔 얼룩을 걷었다 (2026-08-19) ────────────────────────────
+ * 예전에는 화면 구석에 지름 28rem짜리 컬러 원 두 개를 blur로 깔았다. 반투명
+ * 유리 카드가 «유리»로 보이게 하려던 장치인데, 판이 전부 단색으로 바뀌면서
+ * 받쳐 줄 대상이 없어졌다. 남은 것은 어느 AI가 만든 화면에나 있는 그 배경뿐이다.
+ *
+ * 대신 위쪽에 갈래 색을 아주 옅게 한 겹 깐다. 지면이 흰 판과 붙어 보이지 않게
+ * 하는 최소한이고, 원이 아니라 화면 폭을 가로지르는 띠라 «얼룩»으로 안 읽힌다.
+ *
+ * acc-* 클래스는 그대로 둔다 — globals.css가 :has(> .acc-*)로 그 부모에
+ * --c-sec를 얹고, 페이지 전체의 색이 거기서 나온다. 이 파일이 색을 정하는
+ * 유일한 자리라는 성질은 안 바뀐다. tests/design-consistency.test.ts가
+ * 이 목록을 읽어 지원하는 accent를 센다.
+ */
 const ACCENT = {
-  blue:    ['bg-blue-400/10',    'bg-emerald-400/10'],
-  violet:  ['bg-violet-400/12',  'bg-pink-400/10'],
-  amber:   ['bg-amber-400/12',   'bg-orange-400/10'],
-  emerald: ['bg-emerald-400/12', 'bg-teal-400/10'],
-  sky:     ['bg-sky-400/12',     'bg-cyan-400/10'],
-  indigo:  ['bg-indigo-400/12',  'bg-violet-400/10'],
-  rose:    ['bg-rose-400/12',    'bg-pink-400/10'],
+  blue:    ['blue'],
+  violet:  ['violet'],
+  amber:   ['amber'],
+  emerald: ['emerald'],
+  sky:     ['sky'],
+  indigo:  ['indigo'],
+  rose:    ['rose'],
 } as const;
 
 export default function PageGlow({ accent = 'blue' }: { accent?: keyof typeof ACCENT }) {
-  const [a, b] = ACCENT[accent];
-  /*
-    acc-*는 그리는 것이 없다. globals.css가 `:has(> .acc-*)`로 이 div의 **부모**를
-    골라 --c-sec를 얹고, 그 아래 본문 전체(제목 막대·표 줄무늬·칩·초점 테두리)가
-    같은 색을 물려받는다. 낱장마다 style=을 박으면 십사만 장 × 세 벌
-    (HTML·.rsc·.segments)이 되므로 클래스 한 낱말로 끝낸다.
-  */
   return (
-    <div aria-hidden className={`acc-${accent} pointer-events-none fixed inset-0 overflow-hidden`}>
-      <div className={`absolute -top-32 -left-24 w-[28rem] h-[28rem] rounded-full blur-3xl ${a}`} />
-      <div className={`absolute top-1/3 -right-32 w-[26rem] h-[26rem] rounded-full blur-3xl ${b}`} />
-    </div>
+    <div aria-hidden className={`acc-${accent} page-wash pointer-events-none fixed inset-x-0 top-0 h-72`} />
   );
 }

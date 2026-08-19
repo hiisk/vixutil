@@ -66,7 +66,7 @@ export default function WeightedDraw({ lang = 'ko' }: { lang?: RandomLang }) {
           const hit = weightedPick(items.filter(i => i.label.trim()), Math.random);
           setWon(hit ? hit.label : null);
         }}
-        className="w-full mt-4 bg-gradient-to-r from-rose-500 to-pink-600 text-white font-black text-lg rounded-2xl py-4 shadow-lg shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all"
+        className="w-full mt-4 bg-sec font-black text-lg rounded-2xl py-4 shadow-lg shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all"
       >
         {ui.drawWeighted} 🎯
       </button>

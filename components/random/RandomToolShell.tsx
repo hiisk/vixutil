@@ -1,4 +1,5 @@
 import ToolIcon from '@/components/ToolIcon';
+import PageHero from '@/components/PageHero';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import type { RandomTool } from '@/lib/random-tools';
@@ -15,7 +16,7 @@ export default function RandomToolShell({ tool, children, lang = 'ko' }: { tool:
   return (
     <div className="page-wrap">
       <PageGlow accent="rose" />
-      <div className={`h-1 bg-gradient-to-r ${tool.gradient}`} />
+      <div className={`h-1 topbar`} />
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-lg mx-auto px-4 h-14 flex items-center gap-3">
           <Link prefetch={false} href={hubHref} className="font-black text-rose-600 text-lg shrink-0">{lang === 'ko' ? 'vix.' : 'vixutil'}</Link>
@@ -33,8 +34,7 @@ export default function RandomToolShell({ tool, children, lang = 'ko' }: { tool:
       <div className="max-w-lg mx-auto px-4 py-8">
         <div className="text-center mb-6">
           <ToolIcon emoji={tool.icon} className="text-slate-800 dark:text-slate-100 w-14 h-14 mx-auto mb-2" />
-          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100">{t.title}</h1>
-          <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">{t.desc}</p>
+          <PageHero title={t.title} desc={t.desc} />
         </div>
         {children}
       </div>

@@ -100,9 +100,9 @@ export default function GpaIntl({ lang }: { lang: CalcLang }) {
 
       {result && (
         <>
-          <div className="bg-blue-600 rounded-2xl p-6 text-center">
-            <p className="text-blue-200 text-xs mb-1">{c.gpa}</p>
-            <p className="text-white text-4xl font-black">
+          <div className="stat-pri text-center">
+            <p className="stat-label">{c.gpa}</p>
+            <p className="stat-value">
               {result.gpa.toLocaleString(tag, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} / {scale}
             </p>
           </div>

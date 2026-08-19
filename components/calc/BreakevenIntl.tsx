@@ -103,18 +103,18 @@ export default function BreakevenIntl({ lang }: { lang: CalcLang }) {
       </Card>
 
       {mode === 'invest' && invest && (
-        <div className="bg-blue-600 rounded-2xl p-5">
-          <p className="text-blue-200 text-xs mb-1">{c.bepPrice}</p>
-          <p className="text-white text-3xl font-black">{fmt(invest.price)}</p>
-          <p className="text-blue-200 text-sm mt-1">{c.needRise} {fmt(invest.rise)}%</p>
+        <div className="stat-pri">
+          <p className="stat-label">{c.bepPrice}</p>
+          <p className="stat-value">{fmt(invest.price)}</p>
+          <p className="stat-sub">{c.needRise} {fmt(invest.rise)}%</p>
         </div>
       )}
 
       {mode === 'biz' && biz && (
         <>
-          <div className="bg-blue-600 rounded-2xl p-5">
-            <p className="text-blue-200 text-xs mb-1">{c.bepQty}</p>
-            <p className="text-white text-3xl font-black">{fmt(Math.ceil(biz.qty), 0)} {c.units}</p>
+          <div className="stat-pri">
+            <p className="stat-label">{c.bepQty}</p>
+            <p className="stat-value">{fmt(Math.ceil(biz.qty), 0)} {c.units}</p>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <SummaryCard label={c.bepSales} value={fmt(Math.ceil(biz.qty) * (parseFloat(unitPrice) || 0), 0)} />

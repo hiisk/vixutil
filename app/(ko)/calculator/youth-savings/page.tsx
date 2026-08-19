@@ -215,10 +215,10 @@ export default function YouthSavingsPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">만기 수령액</p>
-              <p className="text-white text-3xl font-black">{fmt(result.maturity)}원</p>
-              <p className="text-blue-200 text-xs mt-1">
+            <div className="stat-pri">
+              <p className="stat-label">만기 수령액</p>
+              <p className="stat-value">{fmt(result.maturity)}원</p>
+              <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
                 {result.gap > 0
                   ? `일반 적금보다 ${fmt(result.gap)}원 더 받습니다`
                   : '기여금이 없어 일반 적금과 결과가 같습니다'}

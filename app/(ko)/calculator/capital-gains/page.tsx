@@ -134,9 +134,9 @@ export default function CapitalGainsPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">예상 양도소득세 (지방세 포함)</p>
-              <p className="text-white text-3xl font-black">{fmt(result.total)}원</p>
+            <div className="stat-pri">
+              <p className="stat-label">예상 양도소득세 (지방세 포함)</p>
+              <p className="stat-value">{fmt(result.total)}원</p>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <SummaryCard label="양도차익" value={`${fmt(result.gain)}원`} />

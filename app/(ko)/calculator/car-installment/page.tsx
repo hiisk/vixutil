@@ -107,10 +107,10 @@ export default function CarInstallmentPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">월 할부금</p>
-              <p className="text-white text-3xl font-black">{fmt(result.monthly)}원</p>
-              <p className="text-blue-200 text-sm mt-1">총 {months}개월 납부</p>
+            <div className="stat-pri">
+              <p className="stat-label">월 할부금</p>
+              <p className="stat-value">{fmt(result.monthly)}원</p>
+              <p className="stat-sub">총 {months}개월 납부</p>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <SummaryCard label="대출 원금" value={`${fmt(result.loan)}원`} />

@@ -1,5 +1,6 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import PageHero from '@/components/PageHero';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
 import { useState, useEffect } from 'react';
@@ -119,7 +120,7 @@ export default function SubjectFortune({ kind, lang }: { kind: SubjectKind; lang
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
       <PageGlow accent="violet" />
-      <div className="h-1 bg-gradient-to-r from-violet-600 to-purple-500" />
+      <div className="h-1 topbar" />
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
           <Link href={hubHref} className="page-back hover:text-violet-600">
@@ -140,8 +141,7 @@ export default function SubjectFortune({ kind, lang }: { kind: SubjectKind; lang
 
       <div className="max-w-xl mx-auto px-4 py-6">
         <div className="text-center mb-6">
-          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100">{meta.icon} {title}</h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{PROMPTS[kind][lang]}</p>
+          <PageHero icon={meta.icon} title={title} desc={PROMPTS[kind][lang]} />
         </div>
 
         <div className={`grid ${meta.cols} gap-2 mb-6`}>

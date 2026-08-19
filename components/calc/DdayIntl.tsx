@@ -64,17 +64,17 @@ export default function DdayIntl({ lang }: { lang: CalcLang }) {
 
       {result && (
         <>
-          <div className="bg-blue-600 rounded-2xl p-6 text-center">
-            <p className="text-blue-200 text-xs mb-1">{result.label}</p>
+          <div className="stat-pri text-center">
+            <p className="stat-label">{result.label}</p>
             {result.diff === 0 ? (
-              <p className="text-white text-3xl font-black">{c.today}</p>
+              <p className="stat-value">{c.today}</p>
             ) : (
-              <p className="text-white text-4xl font-black">
+              <p className="stat-value">
                 {fmt(Math.abs(result.diff))} <span className="text-2xl">{result.diff > 0 ? c.until : c.since}</span>
               </p>
             )}
           </div>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <SummaryCard label={c.totalDays} value={fmt(Math.abs(result.diff))} />
             <SummaryCard label={c.weeks} value={fmt(Math.floor(Math.abs(result.diff) / 7))} />
             <SummaryCard label={c.workdays} value={fmt(result.weekdays)} variant="green" />

@@ -282,7 +282,7 @@ export default function PersonalColorPage() {
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
       <PageGlow accent="indigo" />
-      <div className="h-1 bg-gradient-to-r from-orange-400 via-rose-400 to-indigo-500" />
+      <div className="h-1 topbar" />
 
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
@@ -403,7 +403,7 @@ export default function PersonalColorPage() {
                 </span>
               </div>
               <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                <div className="h-full bg-gradient-to-r from-sky-400 via-slate-300 to-orange-400 rounded-full" style={{ width: '100%' }} />
+                <div className="h-full bg-sec rounded-full" style={{ width: '100%' }} />
               </div>
               <div className="relative h-3">
                 <div className="absolute top-0 w-2 h-2 rounded-full bg-slate-700 border-2 border-white shadow" style={{ left: `calc(${result.warmthPercent}% - 4px)` }} />
@@ -418,7 +418,7 @@ export default function PersonalColorPage() {
                 </span>
               </div>
               <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mb-1">
-                <div className="h-full bg-gradient-to-r from-rose-400 to-fuchsia-500 rounded-full" style={{ width: `${result.clarityPercent}%` }} />
+                <div className="h-full bg-sec rounded-full" style={{ width: `${result.clarityPercent}%` }} />
               </div>
             </div>
 
@@ -430,7 +430,7 @@ export default function PersonalColorPage() {
                 </span>
               </div>
               <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mb-1">
-                <div className="h-full bg-gradient-to-r from-slate-700 to-amber-200 rounded-full" style={{ width: `${result.valuePercent}%` }} />
+                <div className="h-full bg-sec rounded-full" style={{ width: `${result.valuePercent}%` }} />
               </div>
             </div>
 

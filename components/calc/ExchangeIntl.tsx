@@ -87,11 +87,11 @@ export default function ExchangeIntl({ lang }: { lang: CalcLang }) {
         </div>
       )}
       {state === 'ready' && value !== null && rate !== null && (
-        <div className="bg-blue-600 rounded-2xl p-5">
-          <p className="text-blue-200 text-xs mb-1">{c.result}</p>
-          <p className="text-white text-3xl font-black">{fmt(value)} {to}</p>
-          <p className="text-blue-200 text-sm mt-1">{c.rateLine} 1 {from} = {fmt(rate)} {to}</p>
-          {date && <p className="text-blue-200/70 text-xs mt-1">{c.updated} {date}</p>}
+        <div className="stat-pri">
+          <p className="stat-label">{c.result}</p>
+          <p className="stat-value">{fmt(value)} {to}</p>
+          <p className="stat-sub">{c.rateLine} 1 {from} = {fmt(rate)} {to}</p>
+          {date && <p className="text-slate-500 dark:text-slate-400/70 text-xs mt-1">{c.updated} {date}</p>}
         </div>
       )}
     </div>

@@ -124,10 +124,10 @@ export default function CarTaxPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">연간 자동차세 합계</p>
-              <p className="text-white text-3xl font-black">{fmt(result.total)}원</p>
-              <p className="text-blue-200 text-sm mt-1">1월 연납 시 {fmt(result.earlyDiscount)}원 절약 (9.15% 할인)</p>
+            <div className="stat-pri">
+              <p className="stat-label">연간 자동차세 합계</p>
+              <p className="stat-value">{fmt(result.total)}원</p>
+              <p className="stat-sub">1월 연납 시 {fmt(result.earlyDiscount)}원 절약 (9.15% 할인)</p>
             </div>
             <Card>
               <CardHeader title="세금 내역" />

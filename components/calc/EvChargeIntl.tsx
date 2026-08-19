@@ -65,11 +65,11 @@ export default function EvChargeIntl({ lang }: { lang: CalcLang }) {
 
       {result && (
         <>
-          <div className="bg-blue-600 rounded-2xl p-6 text-center">
-            <p className="text-blue-200 text-xs mb-1">{c.cost}</p>
-            <p className="text-white text-4xl font-black">{fmt(result.cost, 0)}</p>
+          <div className="stat-pri text-center">
+            <p className="stat-label">{c.cost}</p>
+            <p className="stat-value">{fmt(result.cost, 0)}</p>
           </div>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <SummaryCard label={c.energy} value={`${fmt(result.kWh, 1)} kWh`} />
             <SummaryCard label={c.range} value={`${fmt(result.range, 0)} km`} variant="green" />
             <SummaryCard label={c.per100} value={fmt((result.cost / result.range) * 100, 2)} />

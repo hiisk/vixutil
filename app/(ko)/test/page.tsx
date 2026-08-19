@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import PageHero from '@/components/PageHero';
 import type { Metadata } from 'next';
 import { hubAlternates } from '@/lib/locale-alternates';
 import { TESTS } from '@/lib/test-data';
@@ -40,7 +41,7 @@ export default function TestIndexPage() {
         )}
       />
       <PageGlow accent="violet" />
-      <div className="h-1 bg-gradient-to-r from-violet-500 to-pink-500" />
+      <div className="h-1 topbar" />
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center gap-4">
           <Link href="/" className="font-black text-violet-600 text-lg shrink-0">vix.</Link>
@@ -52,12 +53,14 @@ export default function TestIndexPage() {
         </div>
       </header>
 
-      <div className="max-w-5xl mx-auto px-4 py-10">
-        <p className="text-xs font-bold text-violet-600 tracking-widest uppercase mb-2">Personality Test</p>
-        <h1 className="text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">심리 테스트</h1>
-        <p className="text-slate-500 dark:text-slate-400 text-sm mb-8">
-          나를 알아가는 다양한 테스트 — <strong className="text-slate-700 dark:text-slate-200">{TESTS.length}개</strong>
-        </p>
+      {/* 머리 띠 — 화면을 가로지르고 안의 글만 본문 폭에 맞춘다 */}
+      <div className="hero-band">
+        <div className="max-w-5xl mx-auto px-4">
+          <PageHero className="hero-flat" title="심리 테스트" desc={`나를 알아가는 다양한 테스트 — ${TESTS.length}개`} />
+        </div>
+      </div>
+
+      <div className="max-w-5xl mx-auto px-4 tool-lift pb-10">
 
         <TestSearch tests={TESTS.map(toCard)} />
 

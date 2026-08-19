@@ -93,14 +93,14 @@ export default function BmrPage() {
         {result && (
           <>
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-blue-600 rounded-2xl p-5">
-                <p className="text-blue-200 text-xs mb-1">Harris-Benedict</p>
-                <p className="text-white text-2xl font-black">{fmt(result.harris)}</p>
-                <p className="text-blue-200 text-xs mt-1">kcal/일</p>
+              <div className="stat-pri">
+                <p className="stat-label">Harris-Benedict</p>
+                <p className="stat-value">{fmt(result.harris)}</p>
+                <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">kcal/일</p>
               </div>
               <div className="bg-slate-800 rounded-2xl p-5">
                 <p className="text-slate-400 dark:text-slate-500 text-xs mb-1">Mifflin-St Jeor</p>
-                <p className="text-white text-2xl font-black">{fmt(result.mifflin)}</p>
+                <p className="stat-value">{fmt(result.mifflin)}</p>
                 <p className="text-slate-400 dark:text-slate-500 text-xs mt-1">kcal/일</p>
               </div>
             </div>

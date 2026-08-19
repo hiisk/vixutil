@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect, useCallback } from 'react';
+import PageHero from '@/components/PageHero';
 import ToolIcon from '@/components/ToolIcon';
 import Faq from '@/components/Faq';
 import { type AnyLocale10 } from '@/lib/locales';
@@ -63,8 +64,7 @@ export default function SajuTopicPage({ lang, topic }: { lang: AnyLocale10; topi
   const head = (
     <div className="text-center mb-6">
       <ToolIcon emoji={TOPIC_EMOJI[topic]} className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
-      <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-1.5">{heading}</h1>
-      <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">{c.lead[topic]}</p>
+      <PageHero title={heading} desc={c.lead[topic]} />
     </div>
   );
 

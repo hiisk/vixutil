@@ -145,7 +145,7 @@ export default function MonitorTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
 
         <button
           onClick={() => { setAuto(true); open(0); }}
-          className="mt-4 w-full rounded-xl bg-gradient-to-r from-slate-600 to-indigo-700 text-white font-bold py-3 text-sm shadow hover:opacity-90 transition-opacity"
+          className="mt-4 w-full rounded-xl bg-sec font-bold py-3 text-sm shadow hover:opacity-90 transition-opacity"
         >
           {ui.autoCycle}
         </button>

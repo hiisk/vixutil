@@ -18,27 +18,41 @@
 
    값은 글자에 써도 흰 바탕에서 4.5:1을 넘는 단계로 골랐다(amber·emerald·sky·rose는
    500단계가 3:1대라 700단계를 쓴다). 다크는 slate-900 위에서 6:1을 넘는 400단계다. */
+/* ── 왜 색을 채널로도 적어 두는가 (2026-08-19) ────────────────────
+   이 저장소는 옅은 자리를 color-mix로 냈다 — 초점 후광 18%, 드래그 선택 24%.
+   그런데 **Next 16의 CSS 처리기가 color-mix(… var(…) …)를 계산하지 못하고
+   var만 남긴 채 버린다.** 그래서 부드러워야 할 후광이 3px짜리 불투명한 색
+   덩어리로 나가고 있었다. 컴파일된 CSS를 열기 전에는 안 보이는 종류의 고장이다.
+
+     원문   box-shadow: 0 0 0 3px color-mix(in oklch, var(--c-sec) 18%, transparent)
+     결과   box-shadow: 0 0 0 3px var(--c-sec)
+
+   채널 값(`37 99 235`)을 따로 두면 rgb(var(--x) / .18)로 알파를 얹을 수 있다.
+   이건 처리기가 건드리지 않는다. -lt는 어두운 판 위에 글자를 얹을 때 쓴다 —
+   라이트 토큰은 잉크 위에서 대비가 2.5:1이라 못 읽는다. */
 :root {
-  --c-blue:    #2563eb;
-  --c-violet:  #7c3aed;
-  --c-amber:   #b45309;
-  --c-emerald: #047857;
-  --c-sky:     #0369a1;
-  --c-indigo:  #4f46e5;
-  --c-rose:    #be123c;
+  --c-blue:    #2563eb;  --c-blue-rgb:     37  99 235;  --c-blue-lt:    #93c5fd;
+  --c-violet:  #7c3aed;  --c-violet-rgb:  124  58 237;  --c-violet-lt:  #c4b5fd;
+  --c-amber:   #b45309;  --c-amber-rgb:   180  83   9;  --c-amber-lt:   #fcd34d;
+  --c-emerald: #047857;  --c-emerald-rgb:   4 120  87;  --c-emerald-lt: #6ee7b7;
+  --c-sky:     #0369a1;  --c-sky-rgb:       3 105 161;  --c-sky-lt:     #7dd3fc;
+  --c-indigo:  #4f46e5;  --c-indigo-rgb:   79  70 229;  --c-indigo-lt:  #a5b4fc;
+  --c-rose:    #be123c;  --c-rose-rgb:    190  18  60;  --c-rose-lt:    #fda4af;
   /* 섹션을 모르는 페이지의 기본값 — 로고와 같은 파랑 */
   --c-sec: var(--c-blue);
+  --c-sec-rgb: var(--c-blue-rgb);
+  --c-sec-lt: var(--c-blue-lt);
 }
 
 html.dark {
   color-scheme: dark;
-  --c-blue:    #60a5fa;
-  --c-violet:  #a78bfa;
-  --c-amber:   #fbbf24;
-  --c-emerald: #34d399;
-  --c-sky:     #38bdf8;
-  --c-indigo:  #818cf8;
-  --c-rose:    #fb7185;
+  --c-blue:    #60a5fa;  --c-blue-rgb:     96 165 250;
+  --c-violet:  #a78bfa;  --c-violet-rgb:  167 139 250;
+  --c-amber:   #fbbf24;  --c-amber-rgb:   251 191  36;
+  --c-emerald: #34d399;  --c-emerald-rgb:  52 211 153;
+  --c-sky:     #38bdf8;  --c-sky-rgb:      56 189 248;
+  --c-indigo:  #818cf8;  --c-indigo-rgb:  129 140 248;
+  --c-rose:    #fb7185;  --c-rose-rgb:    251 113 133;
 }
 
 /* 섹션색을 페이지에 얹는 자리 — PageGlow가 자기 뿌리 div에 acc-* 를 달고,
@@ -48,13 +62,13 @@ html.dark {
 
    :has(> ...)라 PageGlow가 몇 번째 자식이든 상관없고, 못 찾으면 :root의 파랑이
    그대로 남는다 — 깨지지 않고 색만 안 바뀐다. */
-:has(> .acc-blue)    { --c-sec: var(--c-blue); }
-:has(> .acc-violet)  { --c-sec: var(--c-violet); }
-:has(> .acc-amber)   { --c-sec: var(--c-amber); }
-:has(> .acc-emerald) { --c-sec: var(--c-emerald); }
-:has(> .acc-sky)     { --c-sec: var(--c-sky); }
-:has(> .acc-indigo)  { --c-sec: var(--c-indigo); }
-:has(> .acc-rose)    { --c-sec: var(--c-rose); }
+:has(> .acc-blue) { --c-sec: var(--c-blue); --c-sec-rgb: var(--c-blue-rgb); --c-sec-lt: var(--c-blue-lt); }
+:has(> .acc-violet) { --c-sec: var(--c-violet); --c-sec-rgb: var(--c-violet-rgb); --c-sec-lt: var(--c-violet-lt); }
+:has(> .acc-amber) { --c-sec: var(--c-amber); --c-sec-rgb: var(--c-amber-rgb); --c-sec-lt: var(--c-amber-lt); }
+:has(> .acc-emerald) { --c-sec: var(--c-emerald); --c-sec-rgb: var(--c-emerald-rgb); --c-sec-lt: var(--c-emerald-lt); }
+:has(> .acc-sky) { --c-sec: var(--c-sky); --c-sec-rgb: var(--c-sky-rgb); --c-sec-lt: var(--c-sky-lt); }
+:has(> .acc-indigo) { --c-sec: var(--c-indigo); --c-sec-rgb: var(--c-indigo-rgb); --c-sec-lt: var(--c-indigo-lt); }
+:has(> .acc-rose) { --c-sec: var(--c-rose); --c-sec-rgb: var(--c-rose-rgb); --c-sec-lt: var(--c-rose-lt); }
 
 /* 키보드 초점 — 링크와 <summary>는 브라우저 기본 테두리에 맡겨져 있어 다크에서
    거의 안 보인다. 섹션색으로 바꾼다. input·button은 이미 focus:ring이 붙어 있어
@@ -66,16 +80,60 @@ summary:focus-visible {
 }
 
 ::selection {
-  background: color-mix(in oklab, var(--c-sec) 24%, transparent);
+  background: rgb(var(--c-sec-rgb) / 0.24);
+}
+
+/* ── 바탕을 갈았다 (2026-08-19) ───────────────────────────────────
+   부품을 아무리 고쳐도 페이지가 같아 보이던 이유는 바탕이 그대로여서다.
+   폰트는 시스템 기본, 지면은 Tailwind 기본 slate(푸른 회색), 먹색도 기본값.
+   그 셋이 그대로면 무엇을 얹어도 «어디서 본 화면»이 된다.
+
+   ── 왜 팔레트를 통째로 바꾸나 ──────────────────────────────────
+   저장소 전체가 text-slate-*·bg-slate-*를 쓴다(수천 곳). 그 자리를 하나씩
+   고치는 것은 불가능하고, 새 이름을 만들면 두 체계가 공존한다. Tailwind v4는
+   팔레트 자체를 다시 정할 수 있으므로 **slate의 값을 바꾼다** — 마크업은 한
+   글자도 안 건드리고 사이트의 모든 회색이 한 번에 바뀐다.
+
+   푸른 기가 도는 기본 slate에서 중성 회색으로 옮겼다. 50은 흰 판이 지면에서
+   떠 보이도록 한 단계 낮췄고(#f5f5f7), 900·950은 더 깊게 잡아 글자가 무겁게
+   앉게 했다. */
+@theme {
+  --color-slate-50:  #f5f5f7;
+  --color-slate-100: #ececf0;
+  --color-slate-200: #e0e0e6;
+  --color-slate-300: #c9c9d2;
+  --color-slate-400: #96969f;
+  --color-slate-500: #6e6e78;
+  --color-slate-600: #52525b;
+  --color-slate-700: #3d3d45;
+  --color-slate-800: #26262c;
+  --color-slate-900: #16161a;
+  --color-slate-950: #0b0b0e;
 }
 
 @theme inline {
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  /*
+   * 라틴은 Geist(가변, 라틴만 28.6KB)가 그린다. 한글은 시스템 글꼴에 맡긴다 —
+   * 한글 웹폰트는 부분집합을 떠도 메가바이트 단위라, 이 저장소의 전송량
+   * 예산에 안 맞는다(lib/prerender.ts). 숫자·영문 라벨·제목이 Geist로
+   * 그려지는 것만으로 화면의 인상이 바뀐다.
+   *
+   * 파일은 저장소에 심었다(app/fonts). 빌드에서 구글 폰트로 나가면
+   * ETIMEDOUT으로 빌드가 죽은 전례가 있다(lib/og-image.ts 머리말).
+   */
+  --font-sans: var(--font-geist), -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
 }
 
 body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  /* 라틴 자간을 살짝 조인다 — 기본값은 화면 글씨에서 헐거워 보인다 */
+  letter-spacing: -0.011em;
+}
+
+/* 제목은 더 조인다. 크게 쓸수록 기본 자간이 벌어져 보인다 */
+h1, h2, .hero-title, .stat-value {
+  letter-spacing: -0.028em;
 }
 
 /* iOS zoom 방지 */
@@ -91,62 +149,56 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 input[type="number"] { -moz-appearance: textfield; }
 
-/* ── 계산기 테이블 ── */
+/* ── 계산기 표 (2026-08-19 다시 씀) ──────────────────────────────
+   머리줄이 진한 파랑(#1e40af) 판에 흰 대문자였다. 색이 갈래마다 다른데 표만
+   늘 파랬고, 판이 진해서 표가 페이지에서 혼자 무거웠다. 상환 스케줄은 360줄
+   짜리라 그 무게가 화면의 절반을 차지한다.
+
+   이제 머리줄은 판을 깔지 않고 밑줄 하나로 선다. 색은 갈래 색이고, 글자는
+   작고 굵게. 숫자는 tabular-nums라 자릿수가 달라도 열이 흔들리지 않는다. */
 .calc-table {
   width: 100%;
   border-collapse: collapse;
   min-width: 480px;
 }
 
-.calc-table thead tr {
-  background: #1e40af;
-}
-
 .calc-table th {
-  color: white;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.7rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  padding: 0.65rem 1rem;
+  letter-spacing: 0.02em;
+  padding: 0.7rem 1rem;
   text-align: right;
   white-space: nowrap;
+  color: var(--c-sec);
+  border-bottom: 2px solid rgb(var(--c-sec-rgb) / 0.35);
 }
 
-.calc-table th:first-child { text-align: center; }
+.calc-table th:first-child { text-align: left; }
 
 .calc-table td {
-  padding: 0.6rem 1rem;
+  padding: 0.62rem 1rem;
   text-align: right;
   font-size: 0.82rem;
-  color: #334155;
-  border-bottom: 1px solid #f1f5f9;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-slate-700);
+  border-bottom: 1px solid var(--color-slate-100);
   white-space: nowrap;
 }
 
+/* 첫 칸은 «몇 번째 줄인가»라 판을 깔지 않고 글자만 갈래 색으로 둔다 */
 .calc-table td:first-child {
-  text-align: center;
+  text-align: left;
   font-weight: 700;
-  color: #1d4ed8;
-  background: #eff6ff;
+  color: var(--c-sec);
 }
 
-.calc-table tbody tr:hover td { background: #f8faff; }
-.calc-table tbody tr:hover td:first-child { background: #dbeafe; }
+.calc-table tbody tr:hover td { background: rgb(var(--c-sec-rgb) / 0.045); }
 .calc-table tbody tr:last-child td { border-bottom: none; }
 
-/* 계산기 테이블은 색을 CSS에 직접 박아 써서 Tailwind dark: 변형이 닿지 않는다 */
-html.dark .calc-table thead tr { background: #1e3a8a; }
 html.dark .calc-table td {
-  color: #cbd5e1;
-  border-bottom-color: #1e293b;
+  color: var(--color-slate-300);
+  border-bottom-color: var(--color-slate-800);
 }
-html.dark .calc-table td:first-child {
-  color: #93c5fd;
-  background: #172554;
-}
-html.dark .calc-table tbody tr:hover td { background: #1e293b; }
-html.dark .calc-table tbody tr:hover td:first-child { background: #1e3a8a; }
 
 /* ── 카드 공통 ── */
 .calc-card {
@@ -302,8 +354,24 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 /* FAQ도 모든 페이지에 있고 항목마다 같은 묶음을 세 번 쓴다(카드·질문·화살표).
    색만 tone에 따라 달라지므로 그 부분은 그대로 두고 뼈대만 뺀다. */
 /* group은 표시용 클래스라 @apply가 안 받는다 — 마크업에 그대로 둔다 */
-.faq-card {
-  @apply border rounded-xl px-4 py-3 [&_summary::-webkit-details-marker]:hidden;
+/* ── FAQ를 한 판으로 묶었다 (2026-08-18) ────────────────────────
+   전에는 항목마다 테두리 카드가 따로였다. 여섯 항목이면 가로줄이 열두 개다 —
+   답을 읽으러 온 사람에게 테두리가 내용보다 많았다. 판은 하나로 두고 항목
+   사이만 실선으로 가른다.
+
+   Q 글자는 섹션색을 쓴다. 색은 이미 --c-sec로 페이지에 깔려 있어서(PageGlow),
+   마크업에는 한 글자도 안 는다. */
+.faq-list {
+  @apply rounded-2xl border border-slate-200 dark:border-slate-800
+         bg-white dark:bg-slate-900 divide-y divide-slate-100 dark:divide-slate-800
+         [&_summary::-webkit-details-marker]:hidden overflow-hidden;
+}
+.faq-item {
+  @apply px-4 first:pt-1 last:pb-1;
+}
+.faq-mark {
+  color: var(--c-sec);
+  @apply font-black mr-1.5;
 }
 /* 여는 손잡이는 <summary>뿐이다 — 카드의 py-3은 눌러도 아무 일이 안 일어난다.
    글자는 20px이라 실제 겨눌 자리가 20px이었다. 44px로 벌린다(2026-08-18). */
@@ -418,7 +486,7 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 @media (hover: hover) {
   .hub-card:hover {
     box-shadow: inset 3px 0 0 var(--c-sec);
-    border-color: color-mix(in oklab, var(--c-sec) 45%, transparent);
+    border-color: rgb(var(--c-sec-rgb) / 0.45);
     transform: translateY(-1px);
   }
 }
@@ -442,25 +510,51 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
    그 줄은 손가락에게 아무것도 더해 주지 않는다. 설명은 두 줄에서 자른다
    (자르는 것은 보이는 데까지고 글자는 마크업에 그대로 있다). sm 위로는 예전
    그대로다. */
+/* ── 카드 그림을 공유 카드로 바꿨다 (2026-08-18) ─────────────
+   전에는 칸마다 파스텔 배경 + 그라디언트 얼룩이었다. 색이 일곱 갈래라 격자가
+   사탕처럼 보였고, 무엇보다 **공유했을 때 나오는 그림과 아무 관계가 없었다** —
+   같은 섹션인데 사이트에서는 연한 하늘색, 트위터에서는 짙은 남색이었다.
+
+   이제 칸의 그림이 `/og/t/<언어>/<키>`다. 공유 카드를 절반 크기로 그린 바로 그
+   그림이라 둘이 어긋날 수가 없다(lib/og-image.ts의 ogThumb). 카드 껍데기는
+   색을 뺀 흰 판으로 두고 **색은 그림이 낸다** — 얼룩과 파스텔 배경이 사라진
+   자리다.
+
+   모바일은 그림 + 제목 + 배지까지만이다. 설명 두 줄을 빼서, 그림이 들어와도
+   격자 높이가 예전과 거의 같다(재 보니 130px 대 130px). 손가락으로 훑는 화면에서
+   설명은 어차피 안 읽힌다 — 그림이 그 일을 더 잘한다. */
 .home-grid {
-  @apply grid grid-cols-2 gap-2.5 sm:gap-4;
+  @apply grid grid-cols-2 gap-2.5 sm:gap-4 md:grid-cols-3 lg:grid-cols-4;
 }
+/* min-w-0가 없으면 격자 칸이 가로로 넘친다. 칸의 기본값은 min-width:auto라
+   안에 든 <img>의 **원본 폭(600px)**이 칸의 최소폭이 된다 — 390px 화면에서
+   두 칸이 1,200px을 요구해 페이지 전체가 옆으로 밀렸다. w-full로는 못 막는다. */
 .home-card {
-  @apply relative overflow-hidden rounded-2xl border backdrop-blur-xl
-         p-3.5 sm:p-6 shadow-sm transition-all duration-200;
+  @apply relative min-w-0 overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800
+         bg-white dark:bg-slate-900 shadow-sm transition-all duration-200;
 }
 @media (hover: hover) {
-  .home-card:hover { @apply shadow-lg; transform: translateY(-2px); }
+  .home-card:hover { @apply shadow-lg border-slate-300 dark:border-slate-700; transform: translateY(-2px); }
+}
+/* 공유 카드의 가로세로비 그대로 — 1200:630. 비를 박아 두어야 그림이 늦게 와도
+   격자가 안 밀린다(CLS). */
+.home-thumb {
+  @apply block w-full aspect-[40/21] object-cover bg-slate-100 dark:bg-slate-800;
+}
+.home-card-body {
+  @apply p-3 sm:p-4;
 }
 .home-card-title {
-  @apply text-sm sm:text-lg font-black leading-tight mb-1 text-balance;
+  @apply text-sm sm:text-base font-black leading-tight text-balance
+         text-slate-900 dark:text-slate-100;
 }
+/* 설명은 넓은 화면에서만 — 모바일에서 격자를 두 배로 늘리던 자리다 */
 .home-card-desc {
-  @apply text-xs sm:text-sm text-slate-500 dark:text-slate-400 line-clamp-2 sm:mb-4;
+  @apply hidden sm:line-clamp-2 sm:block mt-1 text-xs text-slate-500 dark:text-slate-400;
 }
-/* 카드가 통째로 링크다 — 모바일에서는 이 줄을 안 그린다 */
+/* 카드가 통째로 링크다 — 「바로가기」 줄은 아무것도 더해 주지 않아 뺐다 */
 .home-card-go {
-  @apply hidden sm:flex items-center gap-1 text-xs font-semibold;
+  @apply hidden;
 }
 
 /* ── 그림 카드의 썸네일 (2026-08-18) ───────────────────────
@@ -471,8 +565,11 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 .card-thumb {
   @apply relative overflow-hidden flex items-center justify-center h-16 sm:h-auto sm:aspect-video;
 }
+/* 아이콘 색은 판이 정한다(lib/thumbnail.ts가 판·글자색을 한 벌로 낸다).
+   판이 진한 그라디언트였을 때는 흰색이 맞았지만, 옅은 단색이 된 뒤로는
+   흰 아이콘이 판에 묻혀 사라진다. drop-shadow도 같은 이유로 뺐다. */
 .card-thumb-icon {
-  @apply w-8 h-8 sm:w-14 sm:h-14 text-white drop-shadow-md transition-transform duration-300 group-hover:scale-110;
+  @apply w-8 h-8 sm:w-14 sm:h-14 transition-transform duration-300 group-hover:scale-110;
 }
 
 /* 갈래 머리 — 허브마다 대여섯 번 나온다 */
@@ -548,9 +645,6 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
    빼고 dark는 마크업에 그대로 둔다 — 한 장에 여섯 항목 × 네 자리다.
 
    푸터의 섹션 칩은 168자짜리가 **모든 장에** 놓인다. */
-.faq-card-light {
-  @apply bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700;
-}
 .faq-q-light {
   @apply text-slate-700 dark:text-slate-200;
 }
@@ -570,7 +664,7 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 }
 @media (hover: hover) {
   .foot-chip:hover {
-    background: color-mix(in oklab, var(--c-sec) 14%, transparent);
+    background: rgb(var(--c-sec-rgb) / 0.14);
     color: var(--c-sec);
   }
 }
@@ -621,16 +715,16 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
    표는 숫자를 읽는 자리라 대비를 깎을 이유가 없다.
    transparent와 섞어 부모가 흰 카드든 컬러 카드든 그 위에 얹히게 한다. */
 .row-pair:nth-child(even) {
-  background: color-mix(in oklab, var(--c-sec) 5%, transparent);
+  background: rgb(var(--c-sec-rgb) / 0.05);
 }
 html.dark .row-pair:nth-child(even) {
-  background: color-mix(in oklab, var(--c-sec) 14%, transparent);
+  background: rgb(var(--c-sec-rgb) / 0.14);
 }
 /* 스무 줄짜리 표에서 지금 보는 줄을 잡아 준다 */
 @media (hover: hover) {
   .row-pair:hover,
   html.dark .row-pair:hover {
-    background: color-mix(in oklab, var(--c-sec) 11%, transparent);
+    background: rgb(var(--c-sec-rgb) / 0.11);
   }
 }
 
@@ -651,12 +745,12 @@ html.dark .row-pair:nth-child(even) {
    AA(4.5:1)에 못 미친다. 지금 줄은 굵게 읽히는 편이 맞기도 하다. */
 .row-now,
 .row-pair.row-now {
-  background-color: color-mix(in oklab, var(--c-sec) 12%, transparent);
+  background-color: rgb(var(--c-sec-rgb) / 0.12);
   background-image: linear-gradient(to right, var(--c-sec) 0 3px, transparent 3px);
 }
 html.dark .row-now,
 html.dark .row-pair.row-now {
-  background-color: color-mix(in oklab, var(--c-sec) 20%, transparent);
+  background-color: rgb(var(--c-sec-rgb) / 0.20);
 }
 .row-now .row-label,
 .row-now > th {
@@ -676,8 +770,8 @@ html.dark .row-pair.row-now {
   .chip:hover,
   .chip-mono:hover,
   .chip-v:not(.chip-now):hover {
-    border-color: color-mix(in oklab, var(--c-sec) 50%, transparent);
-    background: color-mix(in oklab, var(--c-sec) 7%, transparent);
+    border-color: rgb(var(--c-sec-rgb) / 0.50);
+    background: rgb(var(--c-sec-rgb) / 0.07);
     transform: translateY(-1px);
   }
   .chip-now:hover { transform: translateY(-1px); }
@@ -712,7 +806,7 @@ html.dark .row-pair.row-now {
 }
 .fld:focus {
   border-color: var(--c-sec, oklch(0.62 0.19 275));
-  box-shadow: 0 0 0 3px color-mix(in oklch, var(--c-sec, oklch(0.62 0.19 275)) 18%, transparent);
+  box-shadow: 0 0 0 3px rgb(var(--c-sec-rgb) / 0.22);
 }
 .fld:hover:not(:focus) { @apply border-slate-300 dark:border-slate-600; }
 
@@ -733,6 +827,267 @@ html.dark .row-pair.row-now {
 .fld-note {
   @apply text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed;
 }
+
+/* ── 판·단추·칸을 섹션색으로 (2026-08-18) ────────────────────────
+   계산기 껍데기(CalcShell)가 계산기 159장이 함께 쓰는 부품을 내보내는데, 그 안에
+   파랑이 그대로 박혀 있었다 — from-blue-600 to-indigo-600. 그래서 색 도구도
+   운세도 게임도 **버튼만은 파랬다.** PageGlow가 섹션마다 다른 색을 이미 깔고
+   있고 입력칸(.fld)은 그 색을 쓰고 있었는데, 단추와 판만 안 따라가고 있었다.
+
+   여기서 --c-sec를 쓰면 마크업은 한 글자도 안 늘고 갈래마다 색이 갈린다.
+
+   다크에서 글자를 어둡게 뒤집는 이유: --c-sec는 라이트에서 500~700단계(어둡다)
+   지만 다크에서는 400단계(밝다). 같은 흰 글자를 쓰면 다크에서 밝은 판에 흰 글씨가
+   되어 대비가 무너진다. 판 색은 그대로 두고 글자만 뒤집는다.
+
+   그라디언트와 backdrop-blur도 걷어냈다. 홈이 단색 판으로 바뀌어 계열이 갈렸고,
+   blur는 스크롤하는 화면에서 모바일 GPU를 계속 태운다. */
+/* 판은 그림자 없이 실선 하나로 선다. 그림자는 «떠 있다»는 뜻인데 계산기의
+   입력칸·결과·표는 전부 같은 층에 있다 — 전부 떠 있으면 아무것도 안 뜬다. */
+.surface {
+  @apply rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900;
+}
+
+/* ── 낱장의 골격을 바꿨다 (2026-08-19) ───────────────────────────
+   전에는 머리도 도구도 결과도 전부 같은 폭의 판이 세로로 쌓인 것이었다. 색을
+   바꾸고 그림자를 걷어도 «상자를 쌓았다»는 인상이 남던 이유가 그 골격이다.
+
+   이제 머리는 **화면을 가로지르는 띠**다. 지면과 도구 사이에 층이 하나 생기고,
+   도구 판이 그 띠 위로 올라타 겹친다(-mt). 겹침이 있어야 «떠 있는 물건»으로
+   읽힌다 — 나란히 놓기만 하면 아무리 색을 써도 평평하다.
+
+   띠는 화면 폭을 다 쓰지만 **안의 글은 본문 기둥과 같은 자리에서 시작한다.**
+   그래서 제목과 본문이 어긋나지 않는다(그 어긋남을 tests/referral-placement가
+   붙들고 있다). 기둥을 두 번 그리지 않으려고 껍데기가 Column 하나를 두 번 쓴다. */
+/* ── 어두운 띠를 버렸다 (2026-08-19) ─────────────────────────────
+   짙은 남색 그라디언트 위에 흰 큰 제목 — AI가 만든 화면의 대표 문법이고,
+   흰 사이트 한가운데 검은 판이 박히는 그림이기도 하다. 머리는 이제 지면
+   그대로다. 판도 상자도 없이 **글자만** 선다.
+
+   ── 실선만 화면 폭으로 뺀다 ────────────────────────────────────
+   머리는 본문 기둥 **안**에 있다. 그래야 제목과 본문이 같은 자리에서 시작한다
+   (기둥 밖에 두면 옆 레일 자리만큼 오른쪽으로 밀린다 — 실제로 그렇게 밀렸다).
+   기둥 안에 있으면서 선만 화면을 가로지르게 하려고, 선을 ::before로 그리고
+   100vw로 편다. */
+.hero-band {
+  position: relative;
+  padding-bottom: 2.25rem;
+  margin-bottom: 1.75rem;
+}
+.hero-band::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  bottom: 0;
+  border-bottom: 1px solid var(--color-slate-200);
+}
+html.dark .hero-band::before { border-bottom-color: var(--color-slate-800); }
+
+/* 띠 안에서는 상자가 아니다. .hero보다 뒤에 오도록 두 클래스로 붙여 우선순위를 올린다 */
+.hero.hero-flat {
+  background: none;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+}
+.hero.hero-flat .hero-in { @apply px-0 py-8 sm:py-12; }
+/* 잘린 큰 아이콘은 바탕 그림이 아니라 얼룩이다 — 띠에서는 안 그린다 */
+.hero.hero-flat .hero-art { display: none; }
+
+/* 머리가 아래 여백을 스스로 갖는다 — .tool-lift는 어두운 판이 있을 때 겹침을
+   만들던 장치였고, 판이 없어져 층만 남긴다. */
+.tool-lift { position: relative; z-index: 1; }
+
+/* ── 도구를 한 덩어리로 (2026-08-19) ─────────────────────────────
+   낱장이 «머리 타일 / 탭 / 폼»으로 상자 셋이 따로 떠 있었다. 셋 다 같은 도구
+   하나를 말하는데 사이가 벌어져 있으니, 페이지가 «상자를 쌓은 것»으로 읽힌다.
+   그게 무엇을 얹어도 남던 그 인상의 뿌리다.
+
+   붙이는 일을 CSS로 한다 — 계산기 159장의 본문은 저마다 다른 마크업이고, 그걸
+   전부 고치는 것은 불가능하다. 머리 타일의 아래 모서리를 각지게 하고, 본문의
+   **첫 판**만 위 모서리와 윗선을 지운다. 그러면 둘이 하나로 이어진다. 나머지
+   판들은 그대로 떨어져 있어 «도구 / 결과 / 해설»의 층이 살아 있다.
+
+   첫 판이 무엇인지는 낱장마다 다르다(탭이기도 하고 폼이기도 하다). 둘 다
+   .surface라서 선택자 하나로 잡힌다. 아무것도 안 잡히면 예전 그대로 보인다 —
+   깨지지 않고 안 붙을 뿐이다. */
+.hero-attached {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.tool-body > .surface:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-top: 0;
+}
+
+/* 지면 위쪽에 깔리는 아주 옅은 갈래 색 한 겹 — components/PageGlow.tsx가 쓴다.
+   흰 판이 지면과 붙어 보이지 않게 하는 최소한이고, 스크롤과 무관하게 고정이다. */
+.page-wash {
+  background: linear-gradient(to bottom, rgb(var(--c-sec-rgb) / 0.07), transparent);
+}
+
+/* 갈래 색으로 채우는 판 — 그라디언트 버튼을 걷어낸 자리 (2026-08-19).
+   `text-white`를 마크업에서 함께 뺀다. 유틸리티가 클래스를 이기기 때문에
+   여기서 글자색을 정하려면 마크업 쪽에 색이 남아 있으면 안 된다. */
+.bg-sec { background: var(--c-sec); color: #fff; }
+/* 아이콘이 앉는 옅은 판 — 컬러 그라디언트 사각형에 흰 아이콘을 얹던 자리다.
+   그 꼴은 어느 AI가 만든 화면에나 있어서, 갈래가 달라도 전부 같아 보였다.
+   여기서는 판이 옅고 아이콘이 갈래 색이라 색이 정보를 나른다. */
+.bg-sec-soft { background: rgb(var(--c-sec-rgb) / 0.10); color: var(--c-sec); }
+html.dark .bg-sec { color: #0b1220; }
+
+.btn-pri {
+  background: var(--c-sec);
+  @apply w-full inline-flex items-center justify-center gap-1.5 rounded-xl py-3.5
+         text-sm font-bold text-white transition-[filter,transform] duration-150;
+}
+html.dark .btn-pri { color: #0b1220; }
+.btn-pri:active { transform: scale(0.99); }
+@media (hover: hover) { .btn-pri:hover { filter: brightness(1.08); } }
+
+/* 값을 고르는 띠 — 고른 칸만 섹션색으로 찬다 */
+.tab-on {
+  background: var(--c-sec);
+  @apply flex-1 py-3 text-sm font-bold leading-tight text-white;
+}
+html.dark .tab-on { color: #0b1220; }
+.tab-off {
+  @apply flex-1 py-3 text-sm font-semibold leading-tight text-slate-500 dark:text-slate-400
+         transition-colors;
+}
+@media (hover: hover) {
+  .tab-off:hover { background: rgb(var(--c-sec-rgb) / 0.08); }
+}
+
+/* ── 결과 칸 (2026-08-19) ────────────────────────────────────────
+   계산기는 숫자를 보러 오는 화면인데, 결과가 본문과 같은 크기·같은 흰 판에
+   놓여 있어서 «답»이 어디인지 눈으로 안 잡혔다. 판에 옅은 색을 깔고 숫자를
+   두 단계 키운다.
+
+   주인공 칸을 **단색으로 채우지 않고 옅게 깐다.** 꽉 찬 색 위 흰 글씨는
+   다크에서 글자색을 뒤집어야 하고(--c-sec가 다크에서 밝아진다), 옆 칸들과
+   무게 차이가 너무 커서 나머지가 안 읽힌다. 옅은 판 + 진한 숫자가 둘 다 산다.
+
+   숫자는 tabular-nums다. 비례폭이면 자릿수가 바뀔 때 칸이 흔들린다 —
+   계산기는 입력할 때마다 숫자가 갱신되는 화면이라 그 흔들림이 계속 보인다. */
+.stat {
+  @apply rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4;
+}
+.stat-pri {
+  background: rgb(var(--c-sec-rgb) / 0.10);
+  border-color: rgb(var(--c-sec-rgb) / 0.22);
+  @apply rounded-2xl border p-4;
+}
+.stat-up {
+  @apply rounded-2xl border border-emerald-200 dark:border-emerald-900/60
+         bg-emerald-50 dark:bg-emerald-950/30 p-4;
+}
+.stat-down {
+  @apply rounded-2xl border border-rose-200 dark:border-rose-900/60
+         bg-rose-50 dark:bg-rose-950/30 p-4;
+}
+.stat-label {
+  @apply text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5;
+}
+.stat-value {
+  @apply text-xl sm:text-2xl font-black leading-none tabular-nums
+         text-slate-900 dark:text-slate-50;
+}
+/* 답은 답의 크기로 둔다. 옆 칸과 같은 크기면 «어느 것이 답인가»를 색 하나로만
+   말하게 되고, 색은 훑는 눈이 제일 늦게 읽는 신호다. */
+.stat-pri .stat-value {
+  font-size: clamp(1.75rem, 4.4vw, 2.5rem);
+  letter-spacing: -0.03em;
+}
+.stat-pri .stat-label {
+  @apply text-slate-600 dark:text-slate-300;
+}
+/* 주인공 칸의 숫자만 갈래 색 — 어느 칸이 답인지 색으로도 말한다 */
+.stat-pri .stat-value { color: var(--c-sec); }
+.stat-up .stat-value  { @apply text-emerald-700 dark:text-emerald-300; }
+.stat-down .stat-value{ @apply text-rose-700 dark:text-rose-300; }
+.stat-sub {
+  @apply text-xs mt-1.5 text-slate-500 dark:text-slate-400 tabular-nums;
+}
+
+/* 목록을 더 펴는 단추 — 섹션색 엷은 판 */
+.btn-more {
+  color: var(--c-sec);
+  border-color: rgb(var(--c-sec-rgb) / 0.3);
+  background: rgb(var(--c-sec-rgb) / 0.07);
+  @apply w-full mt-3 py-2.5 text-sm font-semibold border rounded-xl transition-colors;
+}
+@media (hover: hover) {
+  .btn-more:hover { background: rgb(var(--c-sec-rgb) / 0.14); }
+}
+
+/* ── 페이지 머리 (2026-08-18) ────────────────────────────────────
+   components/PageHero.tsx의 생김새. 왜 이렇게 그리는지는 그 파일 머리말에 있다.
+
+   배경은 공유 카드와 같은 잉크색이고, 오른쪽에 갈래색 후광이 하나 뜬다 —
+   카드의 궤도·후광 자리다. 그라디언트를 계단으로 쪼개지 않는 것은 여기가 PNG가
+   아니라 CSS라서다(카드는 파일 크기 때문에 열여섯 계단으로 쪼갠다).
+
+   제목이 카드에서 66~86px이라 화면에서도 그만큼 크게 둔다. 예전 text-2xl은
+   본문 h2와 두 단계밖에 차이가 안 나서, 도구 한 개가 전부인 페이지에서 그
+   도구의 이름이 안 보였다.
+
+   ── 화면을 가로지르는 띠가 아니라 둥근 타일이다 ────────────────
+   처음에는 full-bleed 띠로 만들었다. 그런데 본문 기둥은 읽기 좋은 폭(576px)이라
+   띠 안의 제목과 본문이 서로 다른 자리에서 시작했다(160px 대 128px). 그 어긋남을
+   막으라고 tests/referral-placement.test.ts가 서 있고, 실제로 그 검사가 잡았다.
+
+   타일로 두면 기둥 안에 들어가 정렬이 저절로 맞고, **홈에서 누른 그 칸과 같은
+   모양**이 페이지 머리에 다시 나온다 — 홈 격자·공유 카드·페이지가 한 줄로 이어진다. */
+.hero {
+  background: rgb(var(--c-sec-rgb) / 0.05);
+  border: 1px solid rgb(var(--c-sec-rgb) / 0.14);
+  border-radius: 1rem;
+  overflow: hidden;
+  position: relative;
+}
+.hero-in {
+  position: relative;
+  z-index: 1;
+  @apply px-5 py-8 sm:px-7 sm:py-10;
+}
+/* 도구 하나가 전부인 페이지다. 그 도구의 이름이 본문 소제목과 두 단계 차이면
+   무엇을 보러 온 화면인지 눈으로 안 잡힌다. 다섯 단계 위로 올린다. */
+.hero-title {
+  font-size: clamp(1.9rem, 5.2vw, 3.25rem);
+  line-height: 1.04;
+  @apply font-extrabold text-slate-900 dark:text-slate-50 text-balance;
+}
+.hero-desc {
+  @apply mt-3 text-sm sm:text-base leading-relaxed text-slate-500 dark:text-slate-400;
+  max-width: 46ch;
+}
+/* 바탕 그림 — 크게 깔고 오른쪽으로 흘려보낸다. 가장자리가 잘려 화면 밖으로
+   이어지는 느낌을 만든다. 96px짜리가 넓은 어둠에 혼자 떠 있으면 구성이 아니라
+   그냥 빈자리다. 좁은 화면에서는 글이 설 자리를 뺏으므로 안 그린다. */
+.hero-art {
+  position: absolute;
+  right: -3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 17rem;
+  height: 17rem;
+  color: var(--c-sec);
+  opacity: 0.07;
+  pointer-events: none;
+  @apply hidden sm:block;
+}
+
+/* 페이지 맨 위 한 줄 띠 — 갈래 색을 한 줄로 알린다.
+   예전에는 파랑→인디고→에메랄드 무지개였다. 색 일곱을 정보로 쓰기로 한 뒤
+   (섹션색 토큰 머리말) 무지개 띠는 그 규칙 밖에 혼자 남아 있었다. */
+.topbar { background: var(--c-sec); }
+
+/* 비율 막대의 앞 칸 — 뒤 칸은 대비색(rose)이라 그대로 둔다 */
+.bar-a { background: var(--c-sec); }
 
 .chip-v {
   @apply rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900

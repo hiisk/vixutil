@@ -110,10 +110,10 @@ export default function OvertimePage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">추가 수당 합계</p>
-              <p className="text-white text-3xl font-black">{fmt(result.total)}원</p>
-              <p className="text-blue-200 text-sm mt-1">통상시급 {fmt(result.hourly)}원 기준</p>
+            <div className="stat-pri">
+              <p className="stat-label">추가 수당 합계</p>
+              <p className="stat-value">{fmt(result.total)}원</p>
+              <p className="stat-sub">통상시급 {fmt(result.hourly)}원 기준</p>
             </div>
             <Card>
               <CardHeader title="수당 내역" />

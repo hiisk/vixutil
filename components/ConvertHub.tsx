@@ -36,7 +36,7 @@ export default function ConvertHub({ lang, faq }: { lang: ConvertLang; faq?: { q
       />
 
       <PageGlow accent="blue" />
-      <div className="h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-500" />
+      <div className="h-1 topbar" />
 
       <header className="bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">

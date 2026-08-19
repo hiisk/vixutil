@@ -60,11 +60,11 @@ export default function CarInstallmentIntl({ lang }: { lang: CalcLang }) {
 
       {result && (
         <>
-          <div className="bg-blue-600 rounded-2xl p-6 text-center">
-            <p className="text-blue-200 text-xs mb-1">{c.monthly}</p>
-            <p className="text-white text-4xl font-black">{fmt(result.monthly)}</p>
+          <div className="stat-pri text-center">
+            <p className="stat-label">{c.monthly}</p>
+            <p className="stat-value">{fmt(result.monthly)}</p>
           </div>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <SummaryCard label={c.borrowed} value={fmt(result.loan)} />
             <SummaryCard label={c.totalPaid} value={fmt(result.paid)} />
             <SummaryCard label={c.totalInterest} value={fmt(result.interest)} variant="red" />

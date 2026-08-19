@@ -297,15 +297,15 @@ export default function TrafficFinePage() {
               </Card>
             ) : (
               <>
-                <div className="bg-blue-600 rounded-2xl p-5">
-                  <p className="text-blue-200 text-xs mb-1">
+                <div className="stat-pri">
+                  <p className="stat-label">
                     {result.choice === 'unknown'
                       ? '한쪽 금액을 몰라 비교할 수 없습니다'
                       : result.choice === 'levy'
                         ? '과태료로 내는 쪽이 낫습니다'
                         : '범칙금으로 내는 쪽이 낫습니다'}
                   </p>
-                  <p className="text-white text-3xl font-black">
+                  <p className="stat-value">
                     {result.choice === 'levy' ? money(result.levyPayable)
                       : result.choice === 'fine' ? money(result.finePayable)
                       : '—'}

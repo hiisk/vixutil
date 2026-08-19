@@ -105,10 +105,10 @@ export default function FreelancePage() {
         {result && (
           <>
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-blue-600 rounded-2xl p-5 col-span-2 sm:col-span-1">
-                <p className="text-blue-200 text-xs mb-1">이번 건 실수령액</p>
-                <p className="text-white text-3xl font-black">{fmt(result.net)}원</p>
-                <p className="text-blue-200 text-sm mt-1">원천징수 후</p>
+              <div className="stat-pri col-span-2 sm:col-span-1">
+                <p className="stat-label">이번 건 실수령액</p>
+                <p className="stat-value">{fmt(result.net)}원</p>
+                <p className="stat-sub">원천징수 후</p>
               </div>
               <div className="flex flex-col gap-2">
                 <SummaryCard label="수입금액" value={`${fmt(result.base)}원`}/>

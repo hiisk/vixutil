@@ -110,7 +110,7 @@ export default function CpsGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
 
       <div className="mt-3 h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
         <div
-          className="h-full bg-gradient-to-r from-sky-500 to-indigo-600 transition-[width] duration-75"
+          className="h-full bg-sec transition-[width] duration-75"
           style={{ width: running ? `${(left / duration) * 100}%` : done ? '0%' : '100%' }}
         />
       </div>

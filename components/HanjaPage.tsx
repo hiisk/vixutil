@@ -69,7 +69,7 @@ export default function HanjaPage({ idiom: i, lang }: { idiom: Idiom; lang: Form
       <JsonLd data={webAppJsonLd(idiomHeading(i, lang), t.meaning, path)} />
 
       <PageGlow accent={s.accent} />
-      <div className={`h-1 bg-gradient-to-r ${s.grad}`} />
+      <div className={`h-1 topbar`} />
 
       <header className="page-head">
         <div className="page-bar">

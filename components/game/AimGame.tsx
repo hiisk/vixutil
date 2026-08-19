@@ -130,7 +130,7 @@ export default function AimGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
       <button
         onClick={start}
         disabled={running}
-        className="mt-4 w-full rounded-xl bg-gradient-to-r from-rose-500 to-orange-500 text-white font-bold py-3.5 text-sm shadow-lg hover:opacity-90 disabled:opacity-50 transition-opacity"
+        className="mt-4 w-full rounded-xl bg-sec font-bold py-3.5 text-sm shadow-lg hover:opacity-90 disabled:opacity-50 transition-opacity"
       >
         {done ? c.retry : running ? c.running : c.start}
       </button>

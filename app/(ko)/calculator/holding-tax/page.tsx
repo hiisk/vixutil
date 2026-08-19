@@ -108,9 +108,9 @@ export default function HoldingTaxPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">총 보유세</p>
-              <p className="text-white text-3xl font-black">{fmt(result.totalHolding)}원</p>
+            <div className="stat-pri">
+              <p className="stat-label">총 보유세</p>
+              <p className="stat-value">{fmt(result.totalHolding)}원</p>
             </div>
             <Card>
               <CardHeader title="보유세 구성" />

@@ -43,7 +43,7 @@ export default function HttpHubPage({ lang }: { lang: Lang }) {
       <JsonLd data={itemListJsonLd(ui.hubTitle, path, HTTP_ITEMS.map(x => ({ name: x.name, path: `${path}/${x.slug}` })))} />
 
       <PageGlow accent="emerald" />
-      <div className="h-1 bg-gradient-to-r from-teal-600 to-emerald-500" />
+      <div className="h-1 topbar" />
 
       <header className="page-head">
         <div className="page-bar">
@@ -63,8 +63,8 @@ export default function HttpHubPage({ lang }: { lang: Lang }) {
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-3 shadow-lg bg-gradient-to-br from-teal-600 to-emerald-500">
-            <ToolIcon emoji={HTTP_ICON} accent="rgba(255,255,255,0.55)" className="w-7 h-7 text-white" />
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-3 shadow-lg bg-sec-soft">
+            <ToolIcon emoji={HTTP_ICON} className="w-7 h-7" />
           </div>
           <h1 className="page-h1">{ui.hubTitle}</h1>
           <p className="note-sm">{ui.hubLead}</p>

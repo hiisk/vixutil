@@ -124,18 +124,18 @@ export default function CoffeeRatioPage() {
 
         {result && (
           <>
-            <div className="bg-amber-600 rounded-2xl p-6">
-              <p className="text-amber-100 text-sm mb-3 text-center">1 : {r} 비율</p>
+            <div className="stat-pri">
+              <p className="stat-sub mb-3 text-center">1 : {r} 비율</p>
               <div className="grid grid-cols-2 gap-4">
                 <div className="text-center">
-                  <p className="text-amber-200 text-xs mb-1">원두</p>
-                  <p className="text-white text-4xl font-black">{result.bean.toFixed(1)}</p>
-                  <p className="text-amber-200 text-sm">g</p>
+                  <p className="stat-label">원두</p>
+                  <p className="stat-value">{result.bean.toFixed(1)}</p>
+                  <p className="stat-sub">g</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-amber-200 text-xs mb-1">물</p>
-                  <p className="text-white text-4xl font-black">{Math.round(result.water)}</p>
-                  <p className="text-amber-200 text-sm">ml</p>
+                  <p className="stat-label">물</p>
+                  <p className="stat-value">{Math.round(result.water)}</p>
+                  <p className="stat-sub">ml</p>
                 </div>
               </div>
             </div>

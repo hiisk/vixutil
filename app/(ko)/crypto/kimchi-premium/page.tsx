@@ -43,7 +43,7 @@ export default function KimchiPremiumPage() {
     <div className="page-wrap">
       <JsonLd data={structuredData} />
       <PageGlow accent="amber" />
-      <div className="h-1 bg-gradient-to-r from-amber-400 via-yellow-500 to-orange-500" />
+      <div className="h-1 topbar" />
 
       <header className="relative bg-white/80 dark:bg-slate-900/80 backdrop-blur border-b border-slate-100 dark:border-slate-800 sticky top-0 z-30">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center gap-3">

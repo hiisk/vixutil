@@ -52,13 +52,13 @@ export default function CoinDice({ lang = 'ko' }: { lang?: RandomLang }) {
 
       {tab === 'coin' && (
         <div className="text-center">
-          <div className={`mx-auto mb-6 flex items-center justify-center w-32 h-32 rounded-full bg-gradient-to-br from-amber-300 to-yellow-500 text-white text-4xl font-black shadow-lg ${flipping ? 'coin-spin' : ''}`}>
+          <div className={`mx-auto mb-6 flex items-center justify-center w-32 h-32 rounded-full bg-sec-soft text-4xl font-black shadow-lg ${flipping ? 'coin-spin' : ''}`}>
             {flipping || !coinFace ? '🪙' : coinFace}
           </div>
           {coinFace && !flipping && (
             <div className="wc-pop text-2xl font-black text-slate-800 dark:text-slate-100 mb-6">{ui.coinResult(coinFace)}</div>
           )}
-          <button onClick={flip} disabled={flipping} className="w-full bg-gradient-to-r from-fuchsia-500 to-rose-500 text-white font-black text-lg rounded-2xl py-4 hover:-translate-y-0.5 hover:shadow-xl transition-all disabled:opacity-60">
+          <button onClick={flip} disabled={flipping} className="w-full bg-sec font-black text-lg rounded-2xl py-4 hover:-translate-y-0.5 hover:shadow-xl transition-all disabled:opacity-60">
             {flipping ? ui.flipping : ui.flip}
           </button>
         </div>
@@ -85,7 +85,7 @@ export default function CoinDice({ lang = 'ko' }: { lang?: RandomLang }) {
           {dice && !rolling && dice.length > 1 && (
             <div className="text-sm font-bold text-slate-500 dark:text-slate-400 mb-4">{ui.diceTotal(dice.reduce((a, b) => a + b, 0))}</div>
           )}
-          <button onClick={roll} disabled={rolling} className="w-full bg-gradient-to-r from-fuchsia-500 to-rose-500 text-white font-black text-lg rounded-2xl py-4 hover:-translate-y-0.5 hover:shadow-xl transition-all disabled:opacity-60">
+          <button onClick={roll} disabled={rolling} className="w-full bg-sec font-black text-lg rounded-2xl py-4 hover:-translate-y-0.5 hover:shadow-xl transition-all disabled:opacity-60">
             {rolling ? ui.rolling : ui.roll}
           </button>
         </div>

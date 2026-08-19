@@ -86,9 +86,9 @@ export default function WaterBillPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">이번 달 수도요금</p>
-              <p className="text-white text-3xl font-black">{fmt(result.total)}원</p>
+            <div className="stat-pri">
+              <p className="stat-label">이번 달 수도요금</p>
+              <p className="stat-value">{fmt(result.total)}원</p>
             </div>
             <Card>
               <CardHeader title="요금 내역" />

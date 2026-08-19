@@ -99,11 +99,11 @@ export default function FuelEfficiencyPage() {
         </Card>
 
         {result && (
-          <div className="bg-blue-600 rounded-2xl p-6 text-center">
-            <p className="text-blue-200 text-xs mb-1">{mode === 'calc' ? '연비' : '주행 가능 거리'}</p>
-            <p className="text-white text-5xl font-black">{result.value.toFixed(1)}</p>
-            <p className="text-blue-200 text-xl mt-1">{result.label}</p>
-            {result.sub && <p className="text-blue-200 text-xs mt-2 opacity-70">{result.sub}</p>}
+          <div className="stat-pri text-center">
+            <p className="stat-label">{mode === 'calc' ? '연비' : '주행 가능 거리'}</p>
+            <p className="text-slate-900 dark:text-slate-50 text-5xl font-black">{result.value.toFixed(1)}</p>
+            <p className="text-slate-500 dark:text-slate-400 text-xl mt-1">{result.label}</p>
+            {result.sub && <p className="text-slate-500 dark:text-slate-400 text-xs mt-2 opacity-70">{result.sub}</p>}
           </div>
         )}
       </div>

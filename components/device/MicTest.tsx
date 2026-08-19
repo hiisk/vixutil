@@ -151,7 +151,7 @@ export default function MicTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
           <button
             onClick={() => start()}
             disabled={state === 'starting'}
-            className="rounded-xl bg-gradient-to-r from-rose-500 to-orange-500 text-white font-bold px-7 py-3 text-sm shadow-lg hover:opacity-90 disabled:opacity-60 transition-opacity"
+            className="rounded-xl bg-sec font-bold px-7 py-3 text-sm shadow-lg hover:opacity-90 disabled:opacity-60 transition-opacity"
           >
             {state === 'starting' ? ui.opening : ui.startTest}
           </button>

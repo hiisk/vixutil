@@ -49,7 +49,7 @@ export default function ImageHubPage() {
       />
 
       <PageGlow accent="violet" />
-      <div className="h-1 bg-gradient-to-r from-violet-500 via-fuchsia-500 to-sky-500" />
+      <div className="h-1 topbar" />
 
       <header className="bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
@@ -94,7 +94,7 @@ export default function ImageHubPage() {
                     href={`/image/${t.slug}`}
                     className="group relative overflow-hidden rounded-2xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 hover:shadow-md hover:border-violet-200 transition-all"
                   >
-                    <div className={`absolute -right-6 -top-6 w-24 h-24 rounded-full bg-gradient-to-br ${t.gradient} opacity-10 group-hover:opacity-20 transition-opacity`} />
+                    <div className={`absolute -right-6 -top-6 w-24 h-24 rounded-full bg-sec-soft opacity-10 group-hover:opacity-20 transition-opacity`} />
                     <div className="relative">
                       <ToolIcon emoji={t.icon} color={t.og[0]} accent={t.og[1]} className="w-9 h-9 block mb-3" />
                       <h3 className="text-base font-black text-slate-900 dark:text-slate-100 mb-1">{t.title}</h3>
@@ -133,9 +133,9 @@ export default function ImageHubPage() {
 
         >
 
-          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-gradient-to-br from-pink-500 to-rose-500">
+          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-sec-soft">
 
-            <ToolIcon emoji={IMG_SIZE_ICON} accent="rgba(255,255,255,0.55)" className="w-6 h-6 text-white transition-transform group-hover:scale-110" />
+            <ToolIcon emoji={IMG_SIZE_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />
 
           </span>
 

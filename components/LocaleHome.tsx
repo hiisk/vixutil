@@ -1,9 +1,11 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import ToolIcon from '@/components/ToolIcon';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
 import { HOME_UI, homeSections } from '@/lib/locale-home';
 import { ALL_LOCALES10, localeHref, type AnyLocale10 } from '@/lib/locales';
+import { thumbUrl } from '@/lib/og-cards';
 
 /**
  * 번역 언어의 첫 화면 — 일곱 언어가 이 하나를 쓴다.
@@ -21,9 +23,9 @@ export default function LocaleHome({ lang }: { lang: Exclude<AnyLocale10, 'ko'> 
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
       <PageGlow accent="indigo" />
-      <div className="h-1 bg-gradient-to-r from-blue-600 via-violet-500 to-emerald-500" />
+      <div className="h-1 topbar" />
 
-      <div className="relative max-w-3xl mx-auto px-4 py-10 sm:py-24">
+      <div className="relative max-w-6xl mx-auto px-4 py-10 sm:py-20">
         <div className="mb-8 sm:mb-14 text-center">
           <h1 className="inline-flex items-center gap-1 mb-4">
             <span className="text-5xl sm:text-6xl font-black text-slate-900 dark:text-slate-100 tracking-tighter">vix</span>
@@ -41,7 +43,7 @@ export default function LocaleHome({ lang }: { lang: Exclude<AnyLocale10, 'ko'> 
         {ui.search && (
           <Link
             href={localeHref(lang, '/search')}
-            className="group flex items-center gap-3 mb-6 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-2 border-white/70 dark:border-slate-700/70 rounded-2xl px-4 py-3.5 shadow-sm hover:border-indigo-300 hover:shadow-lg transition-all"
+            className="group flex items-center gap-3 mb-6 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 rounded-2xl px-4 py-3.5 shadow-sm hover:border-indigo-300 hover:shadow-lg transition-all"
           >
             <svg aria-hidden="true" className="w-5 h-5 text-slate-400 dark:text-slate-500 group-hover:text-indigo-500 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
@@ -51,27 +53,28 @@ export default function LocaleHome({ lang }: { lang: Exclude<AnyLocale10, 'ko'> 
           </Link>
         )}
 
+        {/* 칸의 그림이 곧 공유 카드다 — globals.css의 .home-card 머리말에 적었다 */}
         <div className="home-grid">
-          {sections.map(s => (
-            <Link
-              key={s.route}
-              href={localeHref(lang, s.route)}
-              className={`group home-card ${s.border} ${s.bg}`}
-            >
-              <div className={`absolute -right-8 -top-8 w-20 h-20 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br ${s.color} opacity-10 group-hover:opacity-20 transition-opacity`} />
-              <div className="relative z-10">
-                <ToolIcon emoji={s.icon} className="text-slate-800 dark:text-slate-100 w-6 h-6 sm:w-9 sm:h-9 block mb-2 sm:mb-4" />
-                <h2 className={`home-card-title ${s.accent}`}>{s.title}</h2>
-                <p className="home-card-desc">{s.desc}</p>
-                <div className={`home-card-go ${s.accent}`}>
-                  {ui.open}
-                  <svg aria-hidden="true" className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                  </svg>
+          {sections.map(s => {
+            const href = localeHref(lang, s.route);
+            const thumb = thumbUrl(href);
+            return (
+              <Link key={s.route} href={href} className="group home-card">
+                {thumb ? (
+                  /* next/image를 쓰는 이유와 실측은 app/(ko)/page.tsx에 적었다 */
+                  <Image src={thumb} alt="" width={600} height={315} sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 22vw" className="home-thumb" />
+                ) : (
+                  <span className="home-thumb flex items-center justify-center">
+                    <ToolIcon emoji={s.icon} className="w-7 h-7 text-slate-400 dark:text-slate-500" />
+                  </span>
+                )}
+                <div className="home-card-body">
+                  <h2 className="home-card-title">{s.title}</h2>
+                  <p className="home-card-desc">{s.desc}</p>
                 </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            );
+          })}
         </div>
 
         <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-10 leading-relaxed">{ui.notice}</p>

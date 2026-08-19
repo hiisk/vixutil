@@ -1,5 +1,6 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import PageHero from '@/components/PageHero';
 import { useState, useRef, useCallback, useEffect, type ReactNode } from 'react';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
@@ -382,7 +383,7 @@ export default function SnapShell<T>({
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
       <PageGlow accent={glow} />
-      <div className={`h-1 bg-gradient-to-r ${bar}`} />
+      <div className={`h-1 topbar`} />
 
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
@@ -403,8 +404,7 @@ export default function SnapShell<T>({
       <div className="max-w-xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
           <div className="text-5xl mb-3">{icon}</div>
-          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-1.5">{title}</h1>
-          <p className="text-slate-500 dark:text-slate-400 text-sm">{lead}</p>
+          <PageHero title={title} desc={lead} />
         </div>
 
         <div className={`${theme.notice} rounded-2xl p-4 mb-6 text-xs leading-relaxed`}>

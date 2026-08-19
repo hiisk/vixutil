@@ -70,7 +70,7 @@ export default function StarMatchPage() {
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
       <PageGlow accent="violet" />
-      <div className="h-1 bg-gradient-to-r from-violet-500 via-purple-500 to-fuchsia-500" />
+      <div className="h-1 topbar" />
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
           <Link href="/fortune" className="page-back hover:text-violet-600">
@@ -99,7 +99,7 @@ export default function StarMatchPage() {
           <button
             onClick={calculate}
             disabled={me === null || partner === null}
-            className="w-full rounded-xl bg-gradient-to-r from-violet-500 to-purple-600 disabled:from-slate-200 disabled:to-slate-200 dark:disabled:from-slate-800 dark:disabled:to-slate-800 disabled:text-slate-400 text-white text-sm font-black py-3.5 transition-all active:scale-[0.99] shadow-md shadow-violet-200 disabled:shadow-none"
+            className="w-full rounded-xl bg-sec disabled:from-slate-200 disabled:to-slate-200 dark:disabled:from-slate-800 dark:disabled:to-slate-800 disabled:text-slate-400 text-sm font-black py-3.5 transition-all active:scale-[0.99] shadow-md shadow-violet-200 disabled:shadow-none"
           >
             {me === null || partner === null ? '두 별자리를 모두 골라주세요' : '궁합 보기 ✨'}
           </button>

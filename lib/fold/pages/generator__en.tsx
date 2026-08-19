@@ -32,7 +32,7 @@ export function build(lang: FoldLang) {
     return (
       <div className="page-wrap">
         <PageGlow accent="emerald" />
-        <div className="h-1 bg-gradient-to-r from-emerald-400 to-teal-500" />
+        <div className="h-1 topbar" />
         <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
           <div className="max-w-5xl mx-auto px-4 h-14 flex items-center gap-4">
             <Link href="/en/generator" className="font-black text-emerald-600 text-lg shrink-0">vixutil</Link>

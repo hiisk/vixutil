@@ -110,10 +110,10 @@ export default function MaxLoanPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">최대 대출 가능 금액</p>
-              <p className="text-white text-3xl font-black">{fmt(result.maxLoan)}원</p>
-              <p className="text-blue-200 text-sm mt-1">월 상환액 {fmt(result.monthlyPayment)}원</p>
+            <div className="stat-pri">
+              <p className="stat-label">최대 대출 가능 금액</p>
+              <p className="stat-value">{fmt(result.maxLoan)}원</p>
+              <p className="stat-sub">월 상환액 {fmt(result.monthlyPayment)}원</p>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <SummaryCard label="월 허용 상환액" value={`${fmt(result.allowableMonthly)}원`} />

@@ -4,7 +4,7 @@ import ToolIcon from '@/components/ToolIcon';
 import { useState } from 'react';
 import Link from 'next/link';
 import type { CardItem } from '@/lib/card';
-import { thumbGradient } from '@/lib/thumbnail';
+import { thumbSurface } from '@/lib/thumbnail';
 
 const CATEGORIES = ['추천', '이름·브랜드', '문구·아이디어', '랜덤', '계획', '재미', '생활'];
 
@@ -22,10 +22,10 @@ function GenCard({ g }: { g: CardItem }) {
   return (
     <Link
       href={`/generator/${g.slug}`}
-      className="group bg-white/85 dark:bg-slate-900/85 backdrop-blur-xl border border-white/70 dark:border-slate-700/70 rounded-xl shadow-[0_8px_24px_-12px_rgba(16,185,129,0.22)] overflow-hidden hover:border-emerald-300 hover:shadow-md transition-all"
+      className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden hover:border-emerald-300 hover:shadow-md transition-all"
     >
       {/* OG 이미지를 썸네일로 쓰던 자리 — TestSearch와 같은 이유로 그라데이션+이모지로 대체했다. */}
-      <div className={`card-thumb bg-gradient-to-br ${thumbGradient(g.slug, 'generator')}`}>
+      <div className={`card-thumb ${thumbSurface(g.slug, 'generator')}`}>
         <ToolIconRef
           emoji={g.icon}
           className="card-thumb-icon"
@@ -56,7 +56,7 @@ export default function GeneratorSearch({ generators }: { generators: CardItem[]
   return (
     <>
       {/* 도형은 여기 한 번만 — 카드는 <use>로 가리킨다 */}
-      <ToolIconDefs emojis={generators.map(x => x.icon)} accent="rgba(255,255,255,0.6)" />
+      <ToolIconDefs emojis={generators.map(x => x.icon)} />
 
       {/* 검색 */}
       <div className="relative mb-5">

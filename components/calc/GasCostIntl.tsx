@@ -54,9 +54,9 @@ export default function GasCostIntl({ lang }: { lang: CalcLang }) {
 
       {result && (
         <>
-          <div className="bg-blue-600 rounded-2xl p-6 text-center">
-            <p className="text-blue-200 text-xs mb-1">{c.cost}</p>
-            <p className="text-white text-4xl font-black">{fmt(result.cost, 0)}</p>
+          <div className="stat-pri text-center">
+            <p className="stat-label">{c.cost}</p>
+            <p className="stat-value">{fmt(result.cost, 0)}</p>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <SummaryCard label={c.fuelNeeded} value={`${fmt(result.fuel)} ${c.litres}`} />

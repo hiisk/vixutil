@@ -85,10 +85,10 @@ export default function CarCostPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">한 해 유지비</p>
-              <p className="text-white text-3xl font-black">{fmt(result.yearly)}원</p>
-              <p className="text-blue-200 text-xs mt-1">
+            <div className="stat-pri">
+              <p className="stat-label">한 해 유지비</p>
+              <p className="stat-value">{fmt(result.yearly)}원</p>
+              <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
                 월 {fmt(result.monthly)}원 · 1km당 {fmt(result.perKm)}원
               </p>
             </div>

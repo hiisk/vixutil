@@ -211,13 +211,13 @@ export default function NewYearMoneyPage() {
           </div>
         </Card>
 
-        <div className="bg-blue-600 rounded-2xl p-5">
-          <p className="text-blue-200 text-xs mb-1">합계 (아이 {result.children.length}명)</p>
-          <p className="text-white text-3xl font-black">
+        <div className="stat-pri">
+          <p className="stat-label">합계 (아이 {result.children.length}명)</p>
+          <p className="stat-value">
             {fmt(result.totalMin)}
             {result.totalMax !== result.totalMin && <>~{fmt(result.totalMax)}</>}원
           </p>
-          <p className="text-blue-200 text-xs mt-1">
+          <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
             하나의 금액이 아니라 범위입니다 · 이 계산기가 정한 어림
           </p>
         </div>

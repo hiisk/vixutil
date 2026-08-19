@@ -75,10 +75,10 @@ export default function BirthdayIntl({ lang }: { lang: CalcLang }) {
 
       {result && (
         <>
-          <div className="bg-blue-600 rounded-2xl p-6 text-center">
-            <p className="text-blue-200 text-xs mb-1">{c.daysLived}</p>
-            <p className="text-white text-4xl font-black">{fmt(result.days)}</p>
-            <p className="text-blue-200 text-sm mt-2">{c.age} {result.age}</p>
+          <div className="stat-pri text-center">
+            <p className="stat-label">{c.daysLived}</p>
+            <p className="stat-value">{fmt(result.days)}</p>
+            <p className="stat-sub mt-2">{c.age} {result.age}</p>
           </div>
 
           <div className="grid grid-cols-2 gap-3">

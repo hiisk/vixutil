@@ -231,7 +231,7 @@ export default function Handwriting({ lang }: { lang: SnapIntlLang }) {
               <span className="text-xs font-bold text-teal-600">{result.slantPercent}%</span>
             </div>
             <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mb-3">
-              <div className="h-full bg-gradient-to-r from-teal-400 to-cyan-500 rounded-full" style={{ width: `${result.slantPercent}%` }} />
+              <div className="h-full bg-sec rounded-full" style={{ width: `${result.slantPercent}%` }} />
             </div>
             <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.slantText}</p>
           </div>
@@ -242,7 +242,7 @@ export default function Handwriting({ lang }: { lang: SnapIntlLang }) {
               <span className="text-xs font-bold text-emerald-600">{result.pressurePercent}%</span>
             </div>
             <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mb-3">
-              <div className="h-full bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full" style={{ width: `${result.pressurePercent}%` }} />
+              <div className="h-full bg-sec rounded-full" style={{ width: `${result.pressurePercent}%` }} />
             </div>
             <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.pressureText}</p>
           </div>

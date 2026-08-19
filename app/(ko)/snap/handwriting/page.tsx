@@ -164,7 +164,7 @@ export default function HandwritingPage() {
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
       <PageGlow accent="indigo" />
-      <div className="h-1 bg-gradient-to-r from-slate-600 via-indigo-500 to-violet-500" />
+      <div className="h-1 topbar" />
 
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
@@ -266,7 +266,7 @@ export default function HandwritingPage() {
                 </span>
               </div>
               <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                <div className="h-full bg-gradient-to-r from-sky-400 via-slate-300 to-rose-400 rounded-full" style={{ width: '100%' }} />
+                <div className="h-full bg-sec rounded-full" style={{ width: '100%' }} />
               </div>
               <div className="relative h-3">
                 <div className="absolute top-0 w-2 h-2 rounded-full bg-slate-700 border-2 border-white shadow" style={{ left: `calc(${result.slantPercent}% - 4px)` }} />
@@ -276,7 +276,7 @@ export default function HandwritingPage() {
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5">
               <p className="label-caps mb-2">✏️ 필압 — {result.pressurePercent}%</p>
               <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mb-3">
-                <div className="h-full bg-gradient-to-r from-slate-200 to-slate-800 rounded-full" style={{ width: `${result.pressurePercent}%` }} />
+                <div className="h-full bg-sec rounded-full" style={{ width: `${result.pressurePercent}%` }} />
               </div>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.pressureText}</p>
             </div>

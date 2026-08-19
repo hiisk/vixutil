@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import PageHero from '@/components/PageHero';
 import PageGlow from '@/components/PageGlow';
 import SiteFooter from '@/components/SiteFooter';
 import LangPicker from '@/components/LangPicker';
@@ -38,9 +39,9 @@ export default function CalcIntlHub({ lang }: { lang: CalcLang }) {
       })))} />
 
       <div className="relative">
-        <div className="h-1 bg-gradient-to-r from-blue-600 via-indigo-500 to-emerald-400" />
+        <div className="h-1 topbar" />
 
-        <header className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border-b border-white/60 dark:border-slate-700/60 sticky top-0 z-10">
+        <header className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-10">
           <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
             <Link href={localeHref(lang, '/')} className="font-black text-blue-600 text-lg shrink-0">vixutil</Link>
             <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{ui.calculators}</span>
@@ -51,8 +52,7 @@ export default function CalcIntlHub({ lang }: { lang: CalcLang }) {
         </header>
 
         <main className="max-w-2xl mx-auto px-4 py-10">
-          <h1 className="text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">{ui.hubTitle}</h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mb-8 leading-relaxed">{ui.hubLead}</p>
+          <PageHero title={ui.hubTitle} desc={ui.hubLead} />
 
           {CALC_GROUPS.map(g => (
             <section key={g.id} className="mb-8">

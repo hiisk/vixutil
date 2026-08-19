@@ -29,14 +29,14 @@ const TONE = {
   light: {
     heading: 'text-slate-800 dark:text-slate-100',
     // 낱장은 거의 전부 이 톤이다 — 한 장에 여섯 항목 × 네 자리라 CSS로 뺐다
-    card: 'faq-card-light',
+    list: 'faq-list',
     question: 'faq-q-light',
     chevron: 'faq-chevron-light',
     answer: 'faq-a-light',
   },
   dark: {
     heading: 'text-slate-100',
-    card: 'bg-slate-900/50 border-slate-800',
+    list: 'faq-list border-slate-800 bg-slate-900/50 divide-slate-800',
     question: 'text-slate-200',
     chevron: 'text-slate-500 dark:text-slate-400',
     answer: 'text-slate-400 dark:text-slate-500',
@@ -67,19 +67,21 @@ export default function Faq({
       <h2 className={`text-base font-black mb-3 ${c.heading}`}>
         {title ?? (tone === 'dark' ? FAQ_TITLE.en : FAQ_TITLE[lang])}
       </h2>
-      <div className="flex flex-col gap-2.5">
+      {/*
+        첫 항목만 펴 둔다. 전부 접혀 있으면 이 자리가 «질문 목록»으로만 보여서,
+        답이 실제로 여기 있다는 것을 아무도 모른다 — 하나가 펴져 있으면 나머지도
+        열어 본다. 검색엔진에도 접힌 글보다 편 글이 낫다.
+      */}
+      <div className={c.list}>
         {items.map((item, i) => (
-          <details
-            key={i}
-            className={`group faq-card ${c.card}`}
-          >
+          <details key={i} open={i === 0} className="group faq-item">
             <summary className={`faq-q ${c.question}`}>
-              <span className="flex-1 pr-2">Q. {item.q}</span>
+              <span className="flex-1 pr-2"><span className="faq-mark">Q</span>{item.q}</span>
               <svg className={`faq-chevron ${c.chevron}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
               </svg>
             </summary>
-            <p className={`body-p ${c.answer}`}>{item.a}</p>
+            <p className={`body-p pb-3 ${c.answer}`}>{item.a}</p>
           </details>
         ))}
       </div>

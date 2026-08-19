@@ -1,5 +1,6 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import PageHero from '@/components/PageHero';
 import { useState } from 'react';
 import Link from 'next/link';
 import type { Test, TestOpt, TestResult } from '@/lib/types';
@@ -8,7 +9,7 @@ import ShareButton from './ShareButton';
 import SaveResultCard from './SaveResultCard';
 import PageGlow from './PageGlow';
 import ReferralCards from './ReferralCards';
-import { thumbGradient } from '@/lib/thumbnail';
+import { thumbSurface } from '@/lib/thumbnail';
 
 const DEFAULT_GRADIENT = 'from-violet-500 to-pink-600';
 
@@ -208,7 +209,7 @@ export default function TestEngine({ test, lang = 'ko' }: { test: Test; lang?: T
   if (phase === 'start') return (
     <div className="page-wrap flex flex-col">
       <PageGlow accent="violet" />
-      <div className="h-1 bg-gradient-to-r from-violet-500 to-pink-500" />
+      <div className="h-1 topbar" />
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-lg mx-auto px-4 h-14 flex items-center gap-2">
           <Link href={hubHref} className="text-sm text-slate-400 dark:text-slate-500 hover:text-violet-600 flex items-center gap-1.5 font-medium">
@@ -224,15 +225,16 @@ export default function TestEngine({ test, lang = 'ko' }: { test: Test; lang?: T
           목록 카드와 같은 그라데이션·이모지를 크게 다시 보여준다. 들어오자마자
           텍스트만 있으면 허전하고, 어떤 카드를 눌렀는지도 이어지지 않는다.
         */}
-        <div className={`w-32 h-32 rounded-3xl mb-6 flex items-center justify-center bg-gradient-to-br ${thumbGradient(test.slug, 'test')} shadow-xl shadow-violet-500/20`}>
-          <ToolIcon emoji={test.icon} accent="rgba(255,255,255,0.55)" className="w-14 h-14 drop-shadow-md" />
+        <div className={`w-32 h-32 rounded-3xl mb-6 flex items-center justify-center bg-sec-soft shadow-xl`}>
+          <ToolIcon emoji={test.icon} className="w-14 h-14 drop-shadow-md" />
         </div>
         <span className="text-xs font-bold text-violet-500 bg-violet-50 dark:bg-violet-950/30 px-3 py-1 rounded-full mb-3">{test.category}</span>
-        <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-3">{test.title}</h1>
-        <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6 max-w-sm">{test.desc}</p>
+        <div className="w-full max-w-sm mb-6">
+          <PageHero title={test.title} desc={test.desc} />
+        </div>
         <p className="text-xs text-slate-400 dark:text-slate-500 mb-8">{ui.meta(test.questions.length)}</p>
         <button onClick={() => setPhase('question')}
-          className="w-full max-w-xs bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 active:scale-[0.99] text-white font-black py-4 rounded-2xl text-base transition-all shadow-lg shadow-violet-500/25">
+          className="w-full max-w-xs bg-sec active:scale-[0.99] font-black py-4 rounded-2xl text-base transition-all shadow-lg">
           {ui.start}
         </button>
       </div>
@@ -245,7 +247,7 @@ export default function TestEngine({ test, lang = 'ko' }: { test: Test; lang?: T
     return (
       <div className="min-h-screen bg-white dark:bg-slate-900 flex flex-col">
         <div className="h-1.5 bg-violet-100 dark:bg-violet-950/40">
-          <div className="h-full bg-gradient-to-r from-violet-500 to-pink-500 transition-all duration-500" style={{ width: `${progress}%` }} />
+          <div className="h-full bg-sec transition-all duration-500" style={{ width: `${progress}%` }} />
         </div>
         <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800">
           <div className="max-w-lg mx-auto px-4 h-14 flex items-center justify-between">
@@ -282,7 +284,7 @@ export default function TestEngine({ test, lang = 'ko' }: { test: Test; lang?: T
   /* ── RESULT ── */
   return (
     <div className="min-h-screen bg-white dark:bg-slate-900 flex flex-col">
-      <div className="h-1 bg-gradient-to-r from-violet-500 to-pink-500" />
+      <div className="h-1 topbar" />
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-lg mx-auto px-4 h-14 flex items-center">
           <button onClick={restart} className="text-sm text-slate-400 dark:text-slate-500 hover:text-violet-600 flex items-center gap-1.5 font-medium">
@@ -308,7 +310,7 @@ export default function TestEngine({ test, lang = 'ko' }: { test: Test; lang?: T
             <p className="relative z-10 text-4xl font-black mt-4 tracking-widest">{mbtiType}</p>
           )}
           <h2 className="relative z-10 text-2xl font-black mt-2 mb-3">{result.title}</h2>
-          <p className="relative z-10 text-sm leading-relaxed text-white/90">{result.desc}</p>
+          <p className="relative z-10 text-sm leading-relaxed opacity-90">{result.desc}</p>
         </div>
 
         {/* Traits */}

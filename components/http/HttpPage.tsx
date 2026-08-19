@@ -16,6 +16,7 @@
  * 실측: /laundry 낱장이 gzip 27.8KB → 14.0KB (RSC 61% → 17%).
  */
 import Link from 'next/link';
+import PageHero from '@/components/PageHero';
 import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
@@ -72,7 +73,7 @@ export default function HttpPage({ slug, lang }: { slug: string; lang: Lang }) {
       <JsonLd data={webAppJsonLd(x.name, ui.metaDesc(x.name, desc), path)} />
 
       <PageGlow accent="emerald" />
-      <div className="h-1 bg-gradient-to-r from-teal-600 to-emerald-500" />
+      <div className="h-1 topbar" />
 
       <header className="page-head">
         <div className="page-bar">
@@ -94,11 +95,10 @@ export default function HttpPage({ slug, lang }: { slug: string; lang: Lang }) {
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl mb-3 shadow-lg bg-gradient-to-br from-teal-600 to-emerald-500">
-            <ToolIcon emoji={HTTP_ICON} accent="rgba(255,255,255,0.55)" className="w-6 h-6 text-white" />
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl mb-3 shadow-lg bg-sec-soft">
+            <ToolIcon emoji={HTTP_ICON} className="w-6 h-6" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-1 font-mono break-all">{x.name}</h1>
-          <p className="text-xs text-slate-400 dark:text-slate-500">{kind}</p>
+          <PageHero title={x.name} desc={kind} />
         </div>
 
         <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 px-4 py-4 mb-6">

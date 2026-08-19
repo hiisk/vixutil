@@ -129,12 +129,12 @@ export default function SurvivorPensionPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">
+            <div className="stat-pri">
+              <p className="stat-label">
                 {result.r.choice === 'own' ? '내 노령연금을 고를 때' : '유족연금을 고를 때'} 받는 월 금액
               </p>
-              <p className="text-white text-3xl font-black">{fmt(result.r.monthly)}원</p>
-              <p className="text-blue-200 text-xs mt-1">
+              <p className="stat-value">{fmt(result.r.monthly)}원</p>
+              <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
                 지급률 {(result.r.rate * 100).toFixed(0)}% · 가입 {Math.floor(result.months / 12)}년
                 {' '}{result.months % 12}개월
               </p>

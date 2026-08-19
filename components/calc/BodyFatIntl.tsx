@@ -131,10 +131,10 @@ export default function BodyFatIntl({ lang }: { lang: CalcLang }) {
 
       {result && (
         <>
-          <div className="bg-blue-600 rounded-2xl p-6 text-center">
-            <p className="text-blue-200 text-xs mb-1">{c.result}</p>
-            <p className="text-white text-4xl font-black">{fmt(result.bf)}%</p>
-            <p className="text-blue-200 text-sm mt-2">{level}</p>
+          <div className="stat-pri text-center">
+            <p className="stat-label">{c.result}</p>
+            <p className="stat-value">{fmt(result.bf)}%</p>
+            <p className="stat-sub mt-2">{level}</p>
           </div>
 
           {result.fat > 0 && (

@@ -68,7 +68,7 @@ export default function PortPage({ slug, lang }: { slug: string; lang: Lang }) {
       />
 
       <PageGlow accent="violet" />
-      <div className="h-1 bg-gradient-to-r from-fuchsia-600 to-purple-500" />
+      <div className="h-1 topbar" />
 
       <header className="page-head">
         <div className="page-bar">

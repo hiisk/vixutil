@@ -35,7 +35,7 @@ export default function DailyFortunePage() {
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
       <PageGlow accent="violet" />
-      <div className="h-1 bg-gradient-to-r from-violet-600 via-purple-500 to-pink-500" />
+      <div className="h-1 topbar" />
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
           <Link href="/fortune" className="page-back hover:text-violet-600">
@@ -72,7 +72,7 @@ export default function DailyFortunePage() {
               className="fld focus:border-violet-400" />
           </div>
           {error && <p className="text-xs text-rose-600 dark:text-rose-400 mt-2">{error}</p>}
-          <button type="submit" className="w-full mt-3 rounded-xl bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white text-sm font-black py-3.5 transition-all active:scale-[0.99] shadow-md shadow-violet-200">
+          <button type="submit" className="w-full mt-3 rounded-xl bg-sec text-sm font-black py-3.5 transition-all active:scale-[0.99] shadow-md shadow-violet-200">
             오늘의 운세 보기
           </button>
         </form>

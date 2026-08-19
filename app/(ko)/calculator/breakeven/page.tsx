@@ -133,14 +133,14 @@ export default function BreakevenPage() {
         </Card>
 
         {result && (
-          <div className="bg-blue-600 rounded-2xl p-5">
-            <p className="text-blue-200 text-xs mb-1">
+          <div className="stat-pri">
+            <p className="stat-label">
               {mode === 'invest' ? '손익분기 가격' : 'BEP 판매량'}
             </p>
-            <p className="text-white text-3xl font-black">
+            <p className="stat-value">
               {mode === 'invest' ? `${fmt(result.bep)}원` : `${Math.ceil(result.bep).toLocaleString()}개`}
             </p>
-            <p className="text-blue-200 text-sm mt-1">{result.extra}</p>
+            <p className="stat-sub">{result.extra}</p>
           </div>
         )}
       </div>

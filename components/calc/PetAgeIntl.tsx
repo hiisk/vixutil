@@ -87,11 +87,11 @@ export default function PetAgeIntl({ lang }: { lang: CalcLang }) {
 
       {result !== null && (
         <>
-          <div className="bg-blue-600 rounded-2xl p-6 text-center">
-            <p className="text-blue-200 text-sm mb-2">{c.humanLabel}</p>
-            <p className="text-white text-5xl font-black">{Math.round(result)}</p>
-            <p className="text-blue-200 text-xl mt-1">{c.yearsUnit}</p>
-            {stageIdx >= 0 && <p className="text-blue-100 text-sm mt-3 font-semibold">{stageLabels[stageIdx]}</p>}
+          <div className="stat-pri text-center">
+            <p className="stat-sub mb-2">{c.humanLabel}</p>
+            <p className="text-slate-900 dark:text-slate-50 text-5xl font-black">{Math.round(result)}</p>
+            <p className="text-slate-500 dark:text-slate-400 text-xl mt-1">{c.yearsUnit}</p>
+            {stageIdx >= 0 && <p className="stat-sub mt-3 font-semibold">{stageLabels[stageIdx]}</p>}
           </div>
 
           {stageIdx >= 0 && (

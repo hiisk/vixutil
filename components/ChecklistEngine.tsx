@@ -1,12 +1,13 @@
 'use client';
 import { shareOne } from '@/lib/share/ui';
+import PageHero from '@/components/PageHero';
 import ToolIcon from '@/components/ToolIcon';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import type { Checklist } from '@/lib/types';
 import type { AnyLocale10 } from '@/lib/locales';
 import PageGlow from './PageGlow';
-import { thumbGradient } from '@/lib/thumbnail';
+import { thumbSurface } from '@/lib/thumbnail';
 import ReferralCards from './ReferralCards';
 
 // Korean-aware text wrapping (splits by character since Korean has no spaces between words)
@@ -451,7 +452,7 @@ export default function ChecklistEngine({ checklist, lang = 'ko' }: { checklist:
       {/* 상단 진행바 */}
       <div className="h-1.5 bg-sky-100 dark:bg-sky-950/40">
         <div
-          className={`h-full transition-all duration-500 ${isAllDone ? 'bg-emerald-400' : 'bg-gradient-to-r from-sky-400 to-cyan-500'}`}
+          className={`h-full transition-all duration-500 ${isAllDone ? 'bg-emerald-400' : 'bg-sec'}`}
           style={{ width: `${pct}%` }}
         />
       </div>
@@ -485,14 +486,11 @@ export default function ChecklistEngine({ checklist, lang = 'ko' }: { checklist:
         {/* 타이틀 */}
         <div className="mb-6">
           {/* 목록 카드와 같은 그라데이션·이모지 — 제목 옆 작은 이모지보다 눈에 들어온다 */}
-          <div className={`w-20 h-20 rounded-2xl mb-4 flex items-center justify-center bg-gradient-to-br ${thumbGradient(checklist.slug, 'checklist')} shadow-lg shadow-sky-500/20`}>
-            <ToolIcon emoji={checklist.icon} accent="rgba(255,255,255,0.55)" className="w-10 h-10 drop-shadow-md" />
+          <div className={`w-20 h-20 rounded-2xl mb-4 flex items-center justify-center bg-sec-soft shadow-lg`}>
+            <ToolIcon emoji={checklist.icon} className="w-10 h-10 drop-shadow-md" />
           </div>
           <span className="text-xs font-bold text-sky-600 bg-sky-50 dark:bg-sky-950/30 px-3 py-1 rounded-full">{checklist.category}</span>
-          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mt-3 mb-1">
-            {checklist.title}
-          </h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">{checklist.desc}</p>
+          <PageHero title={checklist.title} desc={checklist.desc} />
 
           <div className="bg-slate-100 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden mb-1.5">
             <div

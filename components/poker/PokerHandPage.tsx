@@ -16,6 +16,7 @@
  * 실측: /laundry 낱장이 gzip 27.8KB → 14.0KB (RSC 61% → 17%).
  */
 import Link from 'next/link';
+import PageHero from '@/components/PageHero';
 import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
@@ -77,7 +78,7 @@ export default function PokerHandPage({ slug, lang }: { slug: string; lang: Lang
       />
 
       <PageGlow accent="emerald" />
-      <div className="h-1 bg-gradient-to-r from-emerald-600 to-teal-500" />
+      <div className="h-1 topbar" />
 
       <header className="page-head">
         <div className="page-bar">
@@ -102,8 +103,7 @@ export default function PokerHandPage({ slug, lang }: { slug: string; lang: Lang
 
         <div className="text-center mb-6">
           <p className="text-xs font-bold text-emerald-700 dark:text-emerald-400 mb-1">{ui.kind[f.kind]} · {ui.tier[f.tier]}</p>
-          <h1 className="text-3xl font-black text-slate-900 dark:text-slate-100 mb-2 font-mono">{f.label}</h1>
-          <p className="note-sm">{ui.tierNote[f.tier]}</p>
+          <PageHero title={f.label} desc={ui.tierNote[f.tier]} />
         </div>
 
         <dl className="rounded-2xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden mb-8">

@@ -175,7 +175,7 @@ export default function LadderGame({ lang = 'ko' }: { lang?: RandomLang }) {
 
       <button
         onClick={() => reset(cols)}
-        className="w-full bg-gradient-to-r from-violet-500 to-purple-600 text-white font-black rounded-2xl py-3.5 mb-6 hover:-translate-y-0.5 hover:shadow-xl transition-all"
+        className="w-full bg-sec font-black rounded-2xl py-3.5 mb-6 hover:-translate-y-0.5 hover:shadow-xl transition-all"
       >
         {ui.reshuffle}
       </button>

@@ -67,10 +67,10 @@ export default function WorkHours209Page() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">월 소정근로시간</p>
-              <p className="text-white text-3xl font-black">{result.hoursRounded}시간</p>
-              <p className="text-blue-200 text-xs mt-1">
+            <div className="stat-pri">
+              <p className="stat-label">월 소정근로시간</p>
+              <p className="stat-value">{result.hoursRounded}시간</p>
+              <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
                 올리기 전 {result.raw.toFixed(2)}시간 · 통상시급 {fmt(result.hourly)}원
               </p>
             </div>

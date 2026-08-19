@@ -131,12 +131,12 @@ export default function LoanPage() {
 
         {rows && (
           <>
-            <div className="grid grid-cols-3 gap-3">
-              <div className="bg-blue-600 rounded-2xl p-4">
-                <p className="text-blue-200 text-xs mb-1">{mode==='ep'?'월 납입액':'첫 달 납입액'}</p>
-                <p className="text-white font-black text-lg leading-tight">{fmt(rows[0].payment)}원</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div className="stat-pri">
+                <p className="stat-label">{mode==='ep'?'월 납입액':'첫 달 납입액'}</p>
+                <p className="stat-value">{fmt(rows[0].payment)}원</p>
                 {mode==='eprin' && (
-                  <p className="text-blue-200 text-xs mt-1">마지막 달 {fmt(rows[rows.length-1].payment)}원</p>
+                  <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">마지막 달 {fmt(rows[rows.length-1].payment)}원</p>
                 )}
               </div>
               <SummaryCard label="총 상환액" value={`${fmt(totalRepay)}원`}/>

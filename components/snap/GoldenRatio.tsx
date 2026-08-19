@@ -216,7 +216,7 @@ export default function GoldenRatio({ lang }: { lang: SnapIntlLang }) {
                     </span>
                   </div>
                   <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                    <div className="h-full bg-gradient-to-r from-amber-400 to-orange-500 rounded-full" style={{ width: `${m.score}%` }} />
+                    <div className="h-full bg-sec rounded-full" style={{ width: `${m.score}%` }} />
                   </div>
                 </div>
               ))}

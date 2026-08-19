@@ -102,9 +102,9 @@ export default function OvulationPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">배란 예정일</p>
-              <p className="text-white text-2xl font-black">{formatDate(result.ovulation)}</p>
+            <div className="stat-pri">
+              <p className="stat-label">배란 예정일</p>
+              <p className="stat-value">{formatDate(result.ovulation)}</p>
             </div>
             <Card>
               <div className="divide-y divide-slate-100">

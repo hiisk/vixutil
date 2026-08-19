@@ -46,7 +46,7 @@ export default function LegalPage({ kind, locale }: { kind: LegalKind; locale: A
       />
 
       <PageGlow accent={look.accent} />
-      <div className={`h-1 bg-gradient-to-r ${look.grad}`} />
+      <div className={`h-1 topbar`} />
 
       <header className="page-head">
         <div className="max-w-3xl mx-auto px-4 h-14 flex items-center gap-2">

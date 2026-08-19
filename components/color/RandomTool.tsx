@@ -71,7 +71,7 @@ export default function RandomTool({ lang = 'ko' }: { lang?: ColorLang } = {}) {
 
       <button
         onClick={roll}
-        className="mt-4 w-full rounded-xl bg-gradient-to-r from-rose-500 to-orange-500 text-white font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
+        className="mt-4 w-full rounded-xl bg-sec font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
       >
         {ui.reroll}
       </button>

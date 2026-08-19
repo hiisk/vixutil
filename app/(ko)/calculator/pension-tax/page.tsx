@@ -136,10 +136,10 @@ export default function PensionTaxPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">세후 월 수령액</p>
-              <p className="text-white text-3xl font-black">{fmt(result.r.netMonthly)}원</p>
-              <p className="text-blue-200 text-xs mt-1">
+            <div className="stat-pri">
+              <p className="stat-label">세후 월 수령액</p>
+              <p className="stat-value">{fmt(result.r.netMonthly)}원</p>
+              <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
                 연 세금 {fmt(result.r.totalTax)}원 · 실효세율 {result.r.effectiveRate.toFixed(2)}%
               </p>
             </div>

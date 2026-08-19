@@ -216,10 +216,10 @@ export default function CarLeaseVsLoanPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">{months}개월 총비용이 가장 적은 방식</p>
-              <p className="text-white text-3xl font-black">{result.best.label}</p>
-              <p className="text-blue-200 text-sm mt-1">
+            <div className="stat-pri">
+              <p className="stat-label">{months}개월 총비용이 가장 적은 방식</p>
+              <p className="stat-value">{result.best.label}</p>
+              <p className="stat-sub">
                 총비용 {fmt(result.best.total)}원 · 2위와 {fmt(result.ranked[1].gap)}원 차이
               </p>
             </div>

@@ -1,5 +1,6 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import PageHero from '@/components/PageHero';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
 import { snapHubCopy } from '@/lib/snap-tools-intl';
@@ -174,7 +175,7 @@ export default function CoupleMatch({ lang }: { lang: SnapIntlLang }) {
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
       <PageGlow accent="rose" />
-      <div className="h-1 bg-gradient-to-r from-rose-400 via-pink-500 to-fuchsia-500" />
+      <div className="h-1 topbar" />
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
           <Link href={`/${lang}/snap`} className="page-back hover:text-rose-600">
@@ -194,8 +195,7 @@ export default function CoupleMatch({ lang }: { lang: SnapIntlLang }) {
       <div className="max-w-xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
           <ToolIcon emoji="💞" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
-          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-1.5">{ui.title}</h1>
-          <p className="text-slate-500 dark:text-slate-400 text-sm">{ui.lead}</p>
+          <PageHero title={ui.title} desc={ui.lead} />
         </div>
 
         <div className="bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/40 rounded-2xl p-4 mb-6 text-xs text-rose-800 dark:text-rose-300 leading-relaxed">
@@ -266,7 +266,7 @@ export default function CoupleMatch({ lang }: { lang: SnapIntlLang }) {
                       <span className="text-xs font-bold text-rose-500">{m.score}%</span>
                     </div>
                     <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                      <div className="h-full bg-gradient-to-r from-rose-400 to-fuchsia-500 rounded-full" style={{ width: `${m.score}%` }} />
+                      <div className="h-full bg-sec rounded-full" style={{ width: `${m.score}%` }} />
                     </div>
                   </div>
                 ))}

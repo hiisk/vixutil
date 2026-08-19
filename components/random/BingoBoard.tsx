@@ -71,7 +71,7 @@ export default function BingoBoardTool({ lang = 'ko' }: { lang?: RandomLang }) {
 
       <button
         onClick={() => reset(() => setNonce(n => n + 1))}
-        className="w-full mt-4 mb-5 bg-gradient-to-r from-rose-500 to-pink-600 text-white font-black text-lg rounded-2xl py-4 shadow-lg shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all"
+        className="w-full mt-4 mb-5 bg-sec font-black text-lg rounded-2xl py-4 shadow-lg shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all"
       >
         {ui.newBoard} 🎲
       </button>

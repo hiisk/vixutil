@@ -1,4 +1,5 @@
 import { UI } from '@/lib/meta/quiz-hub-ui';
+import PageHero from '@/components/PageHero';
 import ToolIcon from '@/components/ToolIcon';
 import { localesWithItem } from '@/lib/locale-alternates';
 import { ALL_LOCALES10 } from '@/lib/locales';
@@ -10,7 +11,7 @@ import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ_INTL } from '@/lib/section-faq-intl';
 import { quizFaqIntl } from '@/lib/content-faq-intl';
-import { thumbGradient } from '@/lib/thumbnail';
+import { thumbSurface } from '@/lib/thumbnail';
 import { QUIZZES_INTL, QUIZZES_INTL_MAP, type QuizIntlLang } from '@/lib/quiz-l10n/index';
 import { localeAlternates, hubAlternates } from '@/lib/locale-alternates';
 import type { Quiz } from '@/lib/types';
@@ -63,7 +64,7 @@ export function QuizIntlHub({ lang }: { lang: QuizIntlLang }) {
         )}
       />
       <PageGlow accent="amber" />
-      <div className="h-1 bg-gradient-to-r from-amber-400 to-orange-500" />
+      <div className="h-1 topbar" />
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center gap-4">
           <Link prefetch={false} href={`/${lang}/quiz`} className="font-black text-amber-600 text-lg shrink-0">vixutil</Link>
@@ -75,21 +76,19 @@ export function QuizIntlHub({ lang }: { lang: QuizIntlLang }) {
       </header>
 
       <div className="max-w-5xl mx-auto px-4 py-10">
-        <p className="text-xs font-bold text-amber-600 tracking-widest uppercase mb-2">{ui.eyebrow}</p>
-        <h1 className="text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">{ui.h1}</h1>
-        <p className="text-slate-500 dark:text-slate-400 text-sm mb-8">{ui.lead}</p>
+        <PageHero title={ui.h1} desc={ui.lead} />
 
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {quizzes.map(q => (
             <Link prefetch={false} key={q.slug} href={`/${lang}/quiz/${q.slug}`}
-              className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${thumbGradient(q.slug, 'quiz')} text-white p-5 min-h-[9.5rem] flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl transition-all`}>
+              className={`group relative overflow-hidden rounded-2xl ${thumbSurface(q.slug, 'quiz')} p-5 min-h-[9.5rem] flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl transition-all`}>
               <div className="flex items-start justify-between">
-                <ToolIcon emoji={q.icon} accent="rgba(255,255,255,0.55)" className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
+                <ToolIcon emoji={q.icon} className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
                 <span className="text-[10px] font-bold bg-white/25 rounded-full px-2 py-0.5">{q.questions.length}</span>
               </div>
               <div>
                 <div className="text-base font-black drop-shadow leading-tight">{q.title}</div>
-                <div className="text-[11px] font-medium text-white/80 mt-1 line-clamp-2">{q.desc}</div>
+                <div className="text-[11px] font-medium opacity-80 mt-1 line-clamp-2">{q.desc}</div>
               </div>
             </Link>
           ))}

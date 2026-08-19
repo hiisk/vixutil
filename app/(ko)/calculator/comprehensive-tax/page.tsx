@@ -138,10 +138,10 @@ export default function ComprehensiveTaxPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">납부 예상 세금 합계</p>
-              <p className="text-white text-3xl font-black">{fmt(result.total)}원</p>
-              <p className="text-blue-200 text-sm mt-1">실효세율 {result.rate.toFixed(1)}%</p>
+            <div className="stat-pri">
+              <p className="stat-label">납부 예상 세금 합계</p>
+              <p className="stat-value">{fmt(result.total)}원</p>
+              <p className="stat-sub">실효세율 {result.rate.toFixed(1)}%</p>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <SummaryCard label="소득세" value={`${fmt(result.incomeTax)}원`} variant="red" />

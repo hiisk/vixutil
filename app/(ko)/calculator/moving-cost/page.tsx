@@ -357,10 +357,10 @@ export default function MovingCostPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">넣은 단가로 낸 이사비 합계</p>
-              <p className="text-white text-3xl font-black">{man(result.total)}</p>
-              <p className="text-blue-200 text-xs mt-1">
+            <div className="stat-pri">
+              <p className="stat-label">넣은 단가로 낸 이사비 합계</p>
+              <p className="stat-value">{man(result.total)}</p>
+              <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
                 {fmt(result.total)}원 · 요금표가 아니라 <strong>견적 비교용 내역</strong>입니다
               </p>
             </div>

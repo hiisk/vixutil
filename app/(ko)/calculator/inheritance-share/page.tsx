@@ -231,22 +231,22 @@ export default function InheritanceSharePage() {
         {result && (
           <>
             {result.d.escheat ? (
-              <div className="bg-slate-700 rounded-2xl p-5">
-                <p className="text-slate-300 text-xs mb-1">법정상속인</p>
-                <p className="text-white text-3xl font-black">없음</p>
+              <div className="stat-pri">
+                <p className="stat-label">법정상속인</p>
+                <p className="stat-value">없음</p>
                 <p className="text-slate-300 text-xs mt-1">
                   4순위까지 상속인이 없으면 상속재산은 특별연고자 분여 절차를 거쳐 국가에 귀속됩니다
                 </p>
               </div>
             ) : (
-              <div className="bg-blue-600 rounded-2xl p-5">
-                <p className="text-blue-200 text-xs mb-1">{result.d.heirs[0].label}의 법정상속분</p>
-                <p className="text-white text-3xl font-black">
+              <div className="stat-pri">
+                <p className="stat-label">{result.d.heirs[0].label}의 법정상속분</p>
+                <p className="stat-value">
                   {result.d.estate > 0
                     ? man(result.d.heirs[0].amount)
                     : pct(result.d.heirs[0].share)}
                 </p>
-                <p className="text-blue-200 text-xs mt-1">
+                <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
                   {result.d.estate > 0 && `${pct(result.d.heirs[0].share)} · `}
                   {RANK_LABEL[result.d.rank]} · 상속인 {result.d.heirs.length}명
                 </p>

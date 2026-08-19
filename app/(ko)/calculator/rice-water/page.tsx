@@ -95,11 +95,11 @@ export default function RiceWaterPage() {
 
         {water !== null && (
           <>
-            <div className="bg-emerald-600 rounded-2xl p-6 text-center">
-              <p className="text-emerald-100 text-sm mb-2">물</p>
-              <p className="text-white text-5xl font-black">{Math.round(water)}</p>
-              <p className="text-emerald-100 text-xl mt-1">ml</p>
-              <p className="text-emerald-100 text-sm mt-3 opacity-90">
+            <div className="stat-pri text-center">
+              <p className="stat-sub mb-2">물</p>
+              <p className="text-slate-900 dark:text-slate-50 text-5xl font-black">{Math.round(water)}</p>
+              <p className="text-slate-500 dark:text-slate-400 text-xl mt-1">ml</p>
+              <p className="stat-sub mt-3 opacity-90">
                 계량컵으로 약 {(water / CUP_ML).toFixed(1)}컵 · 밥 약 {bowls}공기
               </p>
             </div>

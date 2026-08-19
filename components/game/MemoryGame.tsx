@@ -103,7 +103,7 @@ export default function MemoryGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
       {(phase === 'idle' || phase === 'over') && (
         <button
           onClick={start}
-          className="mt-4 w-full rounded-xl bg-gradient-to-r from-amber-500 to-rose-500 text-white font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
+          className="mt-4 w-full rounded-xl bg-sec font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
         >
           {phase === 'over' ? c.retry : c.start}
         </button>

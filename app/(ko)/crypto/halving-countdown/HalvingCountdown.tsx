@@ -159,7 +159,7 @@ export default function HalvingCountdown() {
 
         <div className="mt-5 max-w-lg mx-auto">
           <div className="relative h-2.5 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
-            <span className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-amber-400 to-orange-500" style={{ width: `${i.progressPct}%` }} aria-hidden="true" />
+            <span className="absolute inset-y-0 left-0 rounded-full bg-sec" style={{ width: `${i.progressPct}%` }} aria-hidden="true" />
           </div>
           <div className="flex justify-between text-[10px] text-slate-500 dark:text-slate-400 mt-1.5 tabular-nums">
             <span>block {(i.epoch * HALVING_INTERVAL).toLocaleString()}</span>

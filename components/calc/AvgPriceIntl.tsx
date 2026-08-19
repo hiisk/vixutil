@@ -79,10 +79,10 @@ export default function AvgPriceIntl({ lang }: { lang: CalcLang }) {
 
       {result && (
         <>
-          <div className="bg-blue-600 rounded-2xl p-5">
-            <p className="text-blue-200 text-xs mb-1">{c.avgPrice}</p>
-            <p className="text-white text-3xl font-black">{fmt(result.avg)}</p>
-            <p className="text-blue-200 text-sm mt-1">
+          <div className="stat-pri">
+            <p className="stat-label">{c.avgPrice}</p>
+            <p className="stat-value">{fmt(result.avg)}</p>
+            <p className="stat-sub">
               {fmt(result.qty)} {c.totalQty} · {fmt(result.cost)} {c.totalCost}
             </p>
           </div>

@@ -145,15 +145,15 @@ export default function ChargeTimePage() {
 
         {result && (
           <>
-            <div className="bg-teal-600 rounded-2xl p-6">
+            <div className="stat-pri">
               <div className="grid grid-cols-2 gap-4">
                 <div className="text-center">
-                  <p className="text-teal-200 text-xs mb-1">80%까지</p>
-                  <p className="text-white text-3xl font-black">{fmt(result.to80)}</p>
+                  <p className="stat-label">80%까지</p>
+                  <p className="stat-value">{fmt(result.to80)}</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-teal-200 text-xs mb-1">100%까지</p>
-                  <p className="text-white text-3xl font-black">{fmt(result.full)}</p>
+                  <p className="stat-label">100%까지</p>
+                  <p className="stat-value">{fmt(result.full)}</p>
                 </div>
               </div>
               <p className="text-teal-100 text-xs text-center mt-4 opacity-90">

@@ -1,11 +1,12 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import PageHero from '@/components/PageHero';
 import { useState } from 'react';
 import Link from 'next/link';
 import type { Generator } from '@/lib/types';
 import type { GeneratorIntlLang } from '@/lib/generator-l10n';
 import PageGlow from './PageGlow';
-import { thumbGradient } from '@/lib/thumbnail';
+import { thumbSurface } from '@/lib/thumbnail';
 
 function pickFrom<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
@@ -92,7 +93,7 @@ export default function EnGeneratorEngine({ gen, lang = 'en' }: { gen: Generator
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col">
       <PageGlow accent="emerald" />
-      <div className="h-1 bg-gradient-to-r from-emerald-400 to-teal-500" />
+      <div className="h-1 topbar" />
 
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-lg mx-auto px-4 h-14 flex items-center gap-3">
@@ -110,12 +111,11 @@ export default function EnGeneratorEngine({ gen, lang = 'en' }: { gen: Generator
 
       <div className="flex-1 px-4 py-8 max-w-lg mx-auto w-full">
         <div className="text-center mb-7">
-          <div className={`w-24 h-24 rounded-3xl mx-auto mb-4 flex items-center justify-center bg-gradient-to-br ${thumbGradient(gen.slug, 'generator')} shadow-xl shadow-emerald-500/20`}>
-            <ToolIcon emoji={gen.icon} accent="rgba(255,255,255,0.55)" className="w-12 h-12 drop-shadow-md" />
+          <div className={`w-24 h-24 rounded-3xl mx-auto mb-4 flex items-center justify-center bg-sec-soft shadow-xl`}>
+            <ToolIcon emoji={gen.icon} className="w-12 h-12 drop-shadow-md" />
           </div>
           <span className="text-xs font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950/30 px-3 py-1 rounded-full">{gen.category}</span>
-          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mt-3 mb-1.5">{gen.title}</h1>
-          <p className="text-slate-500 dark:text-slate-400 text-sm">{gen.desc}</p>
+          <PageHero title={gen.title} desc={gen.desc} />
         </div>
 
         <button

@@ -55,12 +55,12 @@ export default function WorkHoursIntl({ lang }: { lang: CalcLang }) {
 
       {result && (
         <>
-          <div className="bg-blue-600 rounded-2xl p-6 text-center">
-            <p className="text-blue-200 text-xs mb-1">{c.worked}</p>
-            <p className="text-white text-4xl font-black">{fmt(result.work)}</p>
-            {result.overnight && <p className="text-blue-100 text-sm mt-3">{c.overnight}</p>}
+          <div className="stat-pri text-center">
+            <p className="stat-label">{c.worked}</p>
+            <p className="stat-value">{fmt(result.work)}</p>
+            {result.overnight && <p className="stat-sub mt-3">{c.overnight}</p>}
           </div>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <SummaryCard label={c.atWork} value={fmt(result.span)} />
             <SummaryCard label={c.breakRow} value={`${result.br}${c.m}`} />
             <SummaryCard label={c.weekly} value={fmt(result.work * 5)} />

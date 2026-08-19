@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import PageHero from '@/components/PageHero';
 import type { Metadata } from 'next';
 import { hubAlternates } from '@/lib/locale-alternates';
 import { QUIZZES } from '@/lib/quiz-data';
@@ -40,7 +41,7 @@ export default function QuizIndexPage() {
         )}
       />
       <PageGlow accent="amber" />
-      <div className="h-1 bg-gradient-to-r from-amber-400 to-orange-500" />
+      <div className="h-1 topbar" />
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center gap-4">
           <Link href="/" className="font-black text-amber-600 text-lg shrink-0">vix.</Link>
@@ -52,12 +53,14 @@ export default function QuizIndexPage() {
         </div>
       </header>
 
-      <div className="max-w-5xl mx-auto px-4 py-10">
-        <p className="text-xs font-bold text-amber-600 tracking-widest uppercase mb-2">Knowledge Quiz</p>
-        <h1 className="text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">지식 퀴즈</h1>
-        <p className="text-slate-500 dark:text-slate-400 text-sm mb-8">
-          상식부터 전문 지식까지 — <strong className="text-slate-700 dark:text-slate-200">{QUIZZES.length}개</strong>
-        </p>
+      {/* 머리 띠 — 화면을 가로지르고 안의 글만 본문 폭에 맞춘다 */}
+      <div className="hero-band">
+        <div className="max-w-5xl mx-auto px-4">
+          <PageHero className="hero-flat" title="지식 퀴즈" desc={`상식부터 전문 지식까지 — ${QUIZZES.length}개`} />
+        </div>
+      </div>
+
+      <div className="max-w-5xl mx-auto px-4 tool-lift pb-10">
 
         <QuizSearch quizzes={QUIZZES.map(toCard)} />
 

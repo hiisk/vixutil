@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og';
+import { createElement } from 'react';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { ReactElement } from 'react';
@@ -117,4 +118,45 @@ export function ogFonts(el: ReactElement): Font[] {
 /** 카드 한 장 — 크기와 폰트를 함께 건다 */
 export function ogImage(el: ReactElement): ImageResponse {
   return new ImageResponse(el, { ...OG_SIZE, fonts: ogFonts(el) });
+}
+
+/**
+ * 사이트 안 썸네일 — 같은 카드를 절반 크기로 그린다 (2026-08-18).
+ *
+ * 홈 격자가 카드 그림을 그대로 쓰면서 생긴 자리다. 1200×630 원본은 한 장 90KB라
+ * 마흔 장이면 3.6MB다 — 이 저장소가 Origin Transfer 한도의 348%에서 한 번 멈춘
+ * 적이 있는 만큼(lib/prerender.ts) 첫 화면에 그대로 붓지 않는다.
+ *
+ * Satori는 넘겨받은 크기로 **다시 레이아웃할 뿐 축소하지 않는다** — 카드 JSX는
+ * 좌표가 1200 기준으로 박혀 있어(og-template.tsx의 ART_X·GLYPH) 작은 화폭을 주면
+ * 그림이 화폭 밖으로 나간다. 그래서 원본 크기 그대로 그린 뒤 transform으로 줄인다.
+ *
+ * 이 주소는 allCardParams에 넣지 않는다 — 빌드에서 한 장도 더 굽지 않고,
+ * 실제로 불린 것만 요청 때 만들어져 캐시에 남는다(dynamicParams).
+ */
+const THUMB = 0.5;
+
+export function ogThumb(el: ReactElement): ImageResponse {
+  const w = Math.round(OG_SIZE.width * THUMB);
+  const h = Math.round(OG_SIZE.height * THUMB);
+  /* .ts 파일이라 JSX를 못 쓴다 — 이 파일이 검사 사슬에 들어와 있다(og-size.ts 머리말) */
+  const scaled = createElement(
+    'div',
+    {
+      style: {
+        display: 'flex',
+        width: OG_SIZE.width,
+        height: OG_SIZE.height,
+        transform: `scale(${THUMB})`,
+        transformOrigin: 'top left',
+      },
+    },
+    el,
+  );
+  const root = createElement(
+    'div',
+    { style: { display: 'flex', overflow: 'hidden', width: w, height: h } },
+    scaled,
+  );
+  return new ImageResponse(root, { width: w, height: h, fonts: ogFonts(el) });
 }

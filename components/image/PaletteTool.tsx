@@ -220,7 +220,7 @@ export default function PaletteTool({ lang = 'ko' }: { lang?: ImageLang } = {}) 
         </button>
         <button
           onClick={savePalette}
-          className="col-span-2 rounded-xl bg-gradient-to-r from-pink-500 to-violet-600 text-white font-bold py-3 text-sm shadow hover:opacity-90 transition-opacity"
+          className="col-span-2 rounded-xl bg-sec font-bold py-3 text-sm shadow hover:opacity-90 transition-opacity"
         >
           {ui.savePalette}
         </button>

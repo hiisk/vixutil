@@ -57,7 +57,7 @@ export default function TeamMaker({ lang = 'ko' }: { lang?: RandomLang }) {
       <button
         onClick={make}
         disabled={members.length < 2}
-        className="w-full bg-gradient-to-r from-sky-500 to-blue-600 text-white font-black text-lg rounded-2xl py-4 mb-6 shadow-lg shadow-sky-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all disabled:opacity-50"
+        className="w-full bg-sec font-black text-lg rounded-2xl py-4 mb-6 shadow-lg shadow-sky-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all disabled:opacity-50"
       >
         {ui.makeTeams}
       </button>

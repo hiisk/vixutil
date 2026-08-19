@@ -50,7 +50,7 @@ function PillarCard({ label, pillar, isDay, ilganIdx }: {
       <p className={`text-[10px] font-black text-center tracking-wider ${isDay ? 'text-indigo-600' : 'text-slate-400 dark:text-slate-500'}`}>{label}</p>
       <div className={`rounded-xl border-2 overflow-hidden flex flex-col ${isDay ? 'border-indigo-300 shadow-md shadow-indigo-100' : 'border-slate-200 dark:border-slate-700'}`}>
         {/* 천간 */}
-        <div className="p-2 flex flex-col items-center border-b border-white/50 dark:border-slate-700/50" style={{ background: stemEl.bg }}>
+        <div className="p-2 flex flex-col items-center border-b border-slate-200 dark:border-slate-800" style={{ background: stemEl.bg }}>
           <span className="text-2xl font-black leading-none" style={{ color: stemEl.color }}>{stem.hanja}</span>
           <span className="text-[9px] font-bold mt-0.5" style={{ color: stemEl.color }}>{stem.kor}({stem.element}·{stem.yinyang})</span>
           {ssInfo && (
@@ -131,7 +131,7 @@ function DaewoonCard({ entry, isCurrent }: { entry: DaewoonEntry; isCurrent: boo
       {isCurrent && (
         <div className="bg-indigo-500 text-white text-[8px] font-black py-0.5">현재</div>
       )}
-      <div className="p-1.5 border-b border-white/50 dark:border-slate-700/50" style={{ background: stemEl.bg }}>
+      <div className="p-1.5 border-b border-slate-200 dark:border-slate-800" style={{ background: stemEl.bg }}>
         <p className="text-xs font-black" style={{ color:stemEl.color }}>{stem.hanja}</p>
         <p className="text-[8px] font-bold" style={{ color:stemEl.color }}>{stem.kor}({stem.element})</p>
       </div>
@@ -311,7 +311,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
       <PageGlow accent="violet" />
-      <div className="h-1 bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-600" />
+      <div className="h-1 topbar" />
 
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-20">
         <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
@@ -346,13 +346,13 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
           lang="ko" value={form} onChange={setForm} onSubmit={handleCalc} error={error}
           /* 컬러 이모지는 보라 단추 위에서 혼자 튄다 — 머리글과 같은 단색 아이콘을 쓴다 */
           submitLabel={<span className="inline-flex items-center justify-center gap-2">
-            <ToolIcon emoji="🔯" accent="rgba(255,255,255,0.55)" className="w-4 h-4 text-white" />
+            <ToolIcon emoji="🔯" className="w-4 h-4 text-white" />
             사주 분석하기
           </span>}
           header={
             <div className="bg-gradient-to-br from-indigo-600 to-violet-700 px-5 py-6 text-center text-white">
               {/* 보라 머리글 위다 — text-slate-800이면 아이콘이 배경에 묻힌다 */}
-              <ToolIcon emoji="🔯" accent="rgba(255,255,255,0.55)" className="w-9 h-9 mx-auto mb-2 text-white" />
+              <ToolIcon emoji="🔯" className="w-9 h-9 mx-auto mb-2 text-white" />
               {initialTopic
                 ? <p className="text-xl font-black">사주 분석</p>
                 : <h1 className="text-xl font-black">사주 분석</h1>}
@@ -386,7 +386,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
             </div>
 
             {/* ── 스텝 카드 ── */}
-            <div className="rounded-3xl overflow-hidden shadow-lg shadow-indigo-100/60 border border-white">
+            <div className="rounded-3xl overflow-hidden shadow-lg border border-white">
 
               {/* 카드 헤더 */}
               <div className={`bg-gradient-to-br ${currentStep?.grad ?? 'from-indigo-600 to-violet-700'} px-5 pt-6 pb-8 text-white relative overflow-hidden`}>
@@ -859,7 +859,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                 className={`flex-[2] flex items-center justify-center gap-2 py-3.5 rounded-2xl font-black text-sm transition-all ${
                   safeStep === allSteps.length - 1
                     ? 'bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 cursor-not-allowed'
-                    : 'bg-gradient-to-r from-indigo-500 to-violet-600 text-white shadow-lg shadow-indigo-200 hover:shadow-indigo-300 active:scale-[0.98]'
+                    : 'bg-sec shadow-lg shadow-indigo-200 hover:shadow-indigo-300 active:scale-[0.98]'
                 }`}
               >
                 {safeStep === allSteps.length - 1 ? '마지막 페이지' : (

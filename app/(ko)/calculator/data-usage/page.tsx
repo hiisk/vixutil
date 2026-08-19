@@ -137,14 +137,14 @@ export default function DataUsagePage() {
 
         {(canHours || canGb) && (
           <>
-            <div className="bg-violet-600 rounded-2xl p-6 text-center">
-              <p className="text-violet-200 text-sm mb-2">{mode === 'howlong' ? `${a.label} 가능 시간` : `${a.label} ${h}시간이면`}</p>
-              <p className="text-white text-5xl font-black">
+            <div className="stat-pri text-center">
+              <p className="stat-sub mb-2">{mode === 'howlong' ? `${a.label} 가능 시간` : `${a.label} ${h}시간이면`}</p>
+              <p className="text-slate-900 dark:text-slate-50 text-5xl font-black">
                 {mode === 'howlong' ? fmtHours(g / a.gbPerHour) : (h * a.gbPerHour).toFixed(1)}
               </p>
-              {mode === 'howmuch' && <p className="text-violet-200 text-xl mt-1">GB</p>}
+              {mode === 'howmuch' && <p className="text-slate-500 dark:text-slate-400 text-xl mt-1">GB</p>}
               {mode === 'howlong' && (
-                <p className="text-violet-100 text-sm mt-3 opacity-90">
+                <p className="stat-sub mt-3 opacity-90">
                   하루 {fmtHours(g / a.gbPerHour / 30)}씩 쓰면 한 달을 씁니다
                 </p>
               )}

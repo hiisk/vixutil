@@ -209,7 +209,7 @@ export default function FaceSymmetry({ lang }: { lang: SnapIntlLang }) {
                     </span>
                   </div>
                   <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                    <div className="h-full bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-full" style={{ width: `${r.percent}%` }} />
+                    <div className="h-full bg-sec rounded-full" style={{ width: `${r.percent}%` }} />
                   </div>
                 </div>
               ))}

@@ -159,14 +159,14 @@ export default function Game2048({ lang = 'ko' }: { lang?: GameLang } = {}) {
       <div className="mt-2 grid grid-cols-2 gap-2">
         <button
           onClick={restart}
-          className="rounded-xl bg-gradient-to-r from-orange-500 to-amber-600 py-3 text-sm font-bold text-white shadow-lg transition-opacity hover:opacity-90"
+          className="rounded-xl bg-sec py-3 text-sm font-bold shadow-lg transition-opacity hover:opacity-90"
         >
           {ui.newGame}
         </button>
         {showWin ? (
           <button
             onClick={() => setKept(true)}
-            className="rounded-xl bg-gradient-to-r from-indigo-500 to-violet-600 py-3 text-sm font-bold text-white shadow-lg transition-opacity hover:opacity-90"
+            className="rounded-xl bg-sec py-3 text-sm font-bold shadow-lg transition-opacity hover:opacity-90"
           >
             {ui.keepGoing}
           </button>

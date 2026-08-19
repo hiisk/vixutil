@@ -16,6 +16,7 @@
  * 실측: /laundry 낱장이 gzip 27.8KB → 14.0KB (RSC 61% → 17%).
  */
 import Link from 'next/link';
+import PageHero from '@/components/PageHero';
 import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
@@ -60,7 +61,7 @@ export default function EmojiPage({ slug, lang }: { slug: string; lang: Lang }) 
       <JsonLd data={webAppJsonLd(`${x.char} ${x.common}`, ui.metaDesc(x.char, desc), path)} />
 
       <PageGlow accent="amber" />
-      <div className="h-1 bg-gradient-to-r from-amber-700 to-amber-400" />
+      <div className="h-1 topbar" />
 
       <header className="page-head">
         <div className="page-bar">
@@ -85,8 +86,7 @@ export default function EmojiPage({ slug, lang }: { slug: string; lang: Lang }) 
         <CopyChar char={x.char} label={ui.copyLabel} copiedLabel={ui.copiedLabel} />
 
         <div className="text-center mt-5 mb-6">
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-1">{x.common}</h1>
-          <p className="text-xs text-slate-400 dark:text-slate-500">{group}</p>
+          <PageHero title={x.common} desc={group} />
         </div>
 
         <section className="mb-6" aria-label={ui.meaningTitle}>

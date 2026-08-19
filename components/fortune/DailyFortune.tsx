@@ -1,5 +1,6 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import PageHero from '@/components/PageHero';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
 import { useState } from 'react';
@@ -142,7 +143,7 @@ export default function DailyFortune({ lang }: { lang: IntlLang }) {
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
       <PageGlow accent="violet" />
-      <div className="h-1 bg-gradient-to-r from-violet-600 via-purple-500 to-pink-500" />
+      <div className="h-1 topbar" />
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
           <Link href={`/${lang}/fortune`} className="page-back hover:text-violet-600">
@@ -161,8 +162,7 @@ export default function DailyFortune({ lang }: { lang: IntlLang }) {
 
       <div className="max-w-xl mx-auto px-4 py-6">
         <div className="text-center mb-6">
-          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100">🔮 {c.title}</h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{c.lead}</p>
+          <PageHero icon="🔮" title={c.title} desc={c.lead} />
         </div>
 
         <form onSubmit={submit} className="rounded-2xl border chip-off p-5 mb-6">
@@ -179,7 +179,7 @@ export default function DailyFortune({ lang }: { lang: IntlLang }) {
               className="fld focus:border-violet-400" />
           </div>
           {error && <p className="text-xs text-rose-600 dark:text-rose-400 mt-2">{error}</p>}
-          <button type="submit" className="w-full mt-3 rounded-xl bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white text-sm font-black py-3.5 transition-all active:scale-[0.99] shadow-md shadow-violet-200 dark:shadow-none">
+          <button type="submit" className="w-full mt-3 rounded-xl bg-sec text-sm font-black py-3.5 transition-all active:scale-[0.99] shadow-md shadow-violet-200 dark:shadow-none">
             {c.submit}
           </button>
         </form>

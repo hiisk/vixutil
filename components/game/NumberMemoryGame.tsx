@@ -95,7 +95,7 @@ export default function NumberMemoryGame({ lang = 'ko' }: { lang?: GameLang } = 
       {phase === 'input' && (
         <button
           onClick={check}
-          className="mt-4 w-full rounded-xl bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
+          className="mt-4 w-full rounded-xl bg-sec font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
         >
           {ui.confirm}
         </button>
@@ -104,7 +104,7 @@ export default function NumberMemoryGame({ lang = 'ko' }: { lang?: GameLang } = 
       {(phase === 'idle' || phase === 'over') && (
         <button
           onClick={start}
-          className="mt-4 w-full rounded-xl bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
+          className="mt-4 w-full rounded-xl bg-sec font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
         >
           {phase === 'over' ? c.retry : c.start}
         </button>

@@ -84,14 +84,14 @@ export default function RefreshRateTest({ lang = 'ko' }: { lang?: DeviceLang } =
         <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-2">
           {running ? ui.measuring : result ? ui.resultLabel : ui.ready}
         </p>
-        <p className="text-6xl font-black bg-gradient-to-r from-amber-500 to-rose-500 bg-clip-text text-transparent tabular-nums">
+        <p className="text-6xl font-black bg-sec bg-clip-text text-transparent tabular-nums">
           {result ? result.hz : running ? live || '–' : '–'}
           <span className="text-2xl ml-1.5 text-slate-400 dark:text-slate-500">Hz</span>
         </p>
 
         <div className="mt-5 h-2 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
           <div
-            className="h-full rounded-full bg-gradient-to-r from-amber-500 to-rose-500 transition-[width] duration-150"
+            className="h-full rounded-full bg-sec transition-[width] duration-150"
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -99,7 +99,7 @@ export default function RefreshRateTest({ lang = 'ko' }: { lang?: DeviceLang } =
         <button
           onClick={run}
           disabled={running}
-          className="mt-5 rounded-xl bg-gradient-to-r from-amber-500 to-rose-500 text-white font-bold px-8 py-3 text-sm shadow-lg hover:opacity-90 disabled:opacity-60 transition-opacity"
+          className="mt-5 rounded-xl bg-sec font-bold px-8 py-3 text-sm shadow-lg hover:opacity-90 disabled:opacity-60 transition-opacity"
         >
           {running ? ui.measuringBtn : result ? ui.again : ui.startBtn}
         </button>
@@ -157,7 +157,7 @@ export default function RefreshRateTest({ lang = 'ko' }: { lang?: DeviceLang } =
         </div>
         <div className="relative h-12 rounded-xl bg-slate-100 dark:bg-slate-800 overflow-hidden">
           <div
-            className="absolute top-1/2 w-10 h-10 rounded-lg bg-gradient-to-br from-amber-400 to-rose-500 shadow-lg"
+            className="absolute top-1/2 w-10 h-10 rounded-lg bg-sec-soft shadow-lg"
             style={{
               transform: 'translateY(-50%)',
               left: 0,

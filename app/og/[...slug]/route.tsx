@@ -7,7 +7,7 @@
  * 주소는 `/og/<언어>/<경로>`다 — `/og/ko`, `/og/en/color/name`.
  * 메타데이터에 이 주소를 넣는 것은 lib/og-cards의 withCard가 한다.
  */
-import { ogImage } from '@/lib/og-image';
+import { ogImage, ogThumb } from '@/lib/og-image';
 import { allCardParams } from '@/lib/og-cards';
 import { cardAt } from '@/lib/og-cards/render';
 import { prerender } from '@/lib/prerender';
@@ -35,9 +35,15 @@ export function generateStaticParams() {
   return prerender(allCardParams());
 }
 
+/*
+ * 첫 칸이 't'면 사이트 안 썸네일 — 같은 카드를 절반 크기로 낸다.
+ * 언어 칸('ko'·'en'…)과 겹치지 않는 한 글자라 앞에 두어도 헷갈리지 않는다.
+ * 같은 캐치올이 받으므로 **라우팅 표는 한 칸도 안 는다**(Vercel 2,048 한도).
+ */
 export async function GET(_req: Request, ctx: { params: Promise<{ slug: string[] }> }) {
   const { slug } = await ctx.params;
-  const card = cardAt(slug);
+  const thumb = slug[0] === 't';
+  const card = cardAt(thumb ? slug.slice(1) : slug);
   if (!card) return new Response('Not Found', { status: 404 });
-  return ogImage(card);
+  return thumb ? ogThumb(card) : ogImage(card);
 }

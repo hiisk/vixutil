@@ -72,10 +72,10 @@ export default function DischargePage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">전역일</p>
-              <p className="text-white text-3xl font-black">{fmt(result.discharge)}</p>
-              <p className="text-blue-200 text-xs mt-1">
+            <div className="stat-pri">
+              <p className="stat-label">전역일</p>
+              <p className="stat-value">{fmt(result.discharge)}</p>
+              <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
                 {result.left > 0
                   ? `${result.left.toLocaleString()}일 남음 · ${result.percent}% 진행`
                   : '전역했습니다'}

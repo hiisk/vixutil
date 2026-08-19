@@ -140,7 +140,7 @@ export default function PitchTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
 
       <button
         onClick={next}
-        className="mt-3 w-full rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-600 text-white font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
+        className="mt-3 w-full rounded-xl bg-sec font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
       >
         {question ? ui.next : ui.start}
       </button>

@@ -1,5 +1,6 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import PageHero from '@/components/PageHero';
 import Link from 'next/link';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
@@ -31,7 +32,7 @@ export default function CalculatorHub() {
   return (
     <div className="page-wrap">
       <PageGlow accent="blue" />
-      <div className="h-1 bg-gradient-to-r from-blue-700 via-blue-500 to-blue-400" />
+      <div className="h-1 topbar" />
 
       {/* 헤더 */}
       <header className="sticky top-0 z-20 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
@@ -62,13 +63,15 @@ export default function CalculatorHub() {
 
       <div className="max-w-5xl mx-auto px-4">
         {/* 히어로 + 검색 */}
-        <section className="py-7 sm:py-14 border-b border-slate-100 dark:border-slate-800">
-          <h1 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-slate-100 leading-tight mb-3">
-            실생활 계산기 모음
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 text-sm mb-6">
-            직장인·세금·금융·부동산·생활·자동차·공과금·개발자 — <strong className="text-slate-700 dark:text-slate-200">{total}개</strong> 계산기
-          </p>
+        <section className="py-7 sm:py-10 border-b border-slate-100 dark:border-slate-800">
+          {/* 홈에서 누른 그 칸과 같은 타일 — 낱장 머리와도 같은 모양이다 */}
+          <div className="mb-6">
+            <PageHero
+              title="실생활 계산기 모음"
+              desc={`직장인·세금·금융·부동산·생활·자동차·공과금·개발자 — ${total}개 계산기`}
+              icon="🧮"
+            />
+          </div>
           {/* 검색창 */}
           <div className="relative max-w-md">
             <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -79,7 +82,7 @@ export default function CalculatorHub() {
               value={query}
               onChange={e => setQuery(e.target.value)}
               placeholder="계산기 검색... (예: 세금, 대출, BMI)"
-              className="w-full pl-10 pr-10 py-3 rounded-xl border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-slate-50 dark:bg-slate-950"
+              className="fld w-full pl-10! pr-10! py-3"
             />
             {query && (
               <button

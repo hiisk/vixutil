@@ -73,7 +73,7 @@ export default function FoodWeightPage({ ing, lang }: { ing: Ingredient; lang: L
       <JsonLd data={webAppJsonLd(name, ui.metaDesc(name, f), path)} />
 
       <PageGlow accent="amber" />
-      <div className="h-1 bg-gradient-to-r from-amber-400 to-orange-500" />
+      <div className="h-1 topbar" />
 
       <header className="page-head">
         <div className="page-bar">
@@ -97,8 +97,8 @@ export default function FoodWeightPage({ ing, lang }: { ing: Ingredient; lang: L
         {/* 찾으러 온 숫자를 맨 위에 — 미국 컵과 한국 컵을 나란히 둔다 */}
         <div className="text-center mb-6">
           {/* 다른 상세 화면과 같은 배지 — 가는 선이 작게 흐려지지 않게 흰색으로 얹는다 */}
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-3 shadow-lg bg-gradient-to-br from-amber-400 to-orange-500">
-            <ToolIcon emoji="⚖️" accent="rgba(255,255,255,0.55)" className="w-7 h-7 text-white" />
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-3 shadow-lg bg-sec-soft">
+            <ToolIcon emoji="⚖️" className="w-7 h-7" />
           </div>
           <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-3">{name}</h1>
           <div className="grid grid-cols-2 gap-2 max-w-md mx-auto">

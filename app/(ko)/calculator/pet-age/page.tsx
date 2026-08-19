@@ -128,11 +128,11 @@ export default function PetAgePage() {
 
         {result !== null && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-6 text-center">
-              <p className="text-blue-200 text-sm mb-2">사람 나이로</p>
-              <p className="text-white text-5xl font-black">{Math.round(result)}</p>
-              <p className="text-blue-200 text-xl mt-1">살</p>
-              {stage && <p className="text-blue-100 text-sm mt-3 font-semibold">{stage.label}</p>}
+            <div className="stat-pri text-center">
+              <p className="stat-sub mb-2">사람 나이로</p>
+              <p className="text-slate-900 dark:text-slate-50 text-5xl font-black">{Math.round(result)}</p>
+              <p className="text-slate-500 dark:text-slate-400 text-xl mt-1">살</p>
+              {stage && <p className="stat-sub mt-3 font-semibold">{stage.label}</p>}
             </div>
 
             {stage && (

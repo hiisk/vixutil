@@ -92,16 +92,16 @@ export default function CompoundGoalIntl({ lang }: { lang: CalcLang }) {
 
       {result && (
         <>
-          <div className="bg-blue-600 rounded-2xl p-5 text-center">
-            <p className="text-blue-200 text-xs mb-1">{mode === 'years' ? c.resultYears : c.resultMonthly}</p>
+          <div className="stat-pri text-center">
+            <p className="stat-label">{mode === 'years' ? c.resultYears : c.resultMonthly}</p>
             {mode === 'years' ? (
-              <p className="text-white text-3xl font-black">
+              <p className="stat-value">
                 {Math.floor(result.years!)} {c.yearsUnit} {Math.round((result.years! % 1) * 12)} {c.monthsUnit}
               </p>
             ) : (
-              <p className="text-white text-3xl font-black">{fmt(result.monthly!)}</p>
+              <p className="stat-value">{fmt(result.monthly!)}</p>
             )}
-            {result.already && <p className="text-blue-200 text-sm mt-2">{c.already}</p>}
+            {result.already && <p className="stat-sub mt-2">{c.already}</p>}
           </div>
 
           <Card className="p-5">

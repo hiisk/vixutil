@@ -188,7 +188,7 @@ export default function CoupleMatchPage() {
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
       <PageGlow accent="indigo" />
-      <div className="h-1 bg-gradient-to-r from-rose-400 via-pink-500 to-red-500" />
+      <div className="h-1 topbar" />
 
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
@@ -269,7 +269,7 @@ export default function CoupleMatchPage() {
             <button
               onClick={analyze}
               disabled={!bothReady}
-              className="w-full py-3.5 rounded-2xl font-bold text-sm text-white bg-gradient-to-r from-rose-500 to-pink-600 hover:opacity-90 active:scale-[0.98] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+              className="w-full py-3.5 rounded-2xl font-bold text-sm bg-sec hover:opacity-90 active:scale-[0.98] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
             >
               {bothReady ? '💘 궁합 보기' : '두 사진을 모두 올려주세요'}
             </button>
@@ -298,7 +298,7 @@ export default function CoupleMatchPage() {
                       <span className="text-xs font-bold text-rose-500">{m.score}%</span>
                     </div>
                     <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                      <div className="h-full bg-gradient-to-r from-rose-400 to-pink-500 rounded-full" style={{ width: `${m.score}%` }} />
+                      <div className="h-full bg-sec rounded-full" style={{ width: `${m.score}%` }} />
                     </div>
                   </div>
                 ))}

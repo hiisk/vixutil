@@ -77,10 +77,10 @@ export default function PropertyTaxPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">재산세 합계</p>
-              <p className="text-white text-3xl font-black">{fmt(result.total)}원</p>
-              <p className="text-blue-200 text-sm mt-1">
+            <div className="stat-pri">
+              <p className="stat-label">재산세 합계</p>
+              <p className="stat-value">{fmt(result.total)}원</p>
+              <p className="stat-sub">
                 공정시장가액비율 {(result.fairRate * 100).toFixed(0)}% · 과세표준 {fmt(result.taxBase)}원
               </p>
             </div>

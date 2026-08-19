@@ -79,12 +79,12 @@ export default function LoanMethodPage() {
 
         {result && best && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">이자가 가장 적은 방식</p>
-              <p className="text-white text-3xl font-black">
+            <div className="stat-pri">
+              <p className="stat-label">이자가 가장 적은 방식</p>
+              <p className="stat-value">
                 {ALL_METHODS.find(m => m.key === best.method)?.label}
               </p>
-              <p className="text-blue-200 text-xs mt-1">
+              <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
                 총이자 {fmt(best.totalInterest)}원 · 첫 달 {fmt(best.firstPayment)}원
               </p>
             </div>

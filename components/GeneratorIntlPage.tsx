@@ -1,4 +1,5 @@
 import { UI } from '@/lib/meta/generator-hub-ui';
+import PageHero from '@/components/PageHero';
 import ToolIcon from '@/components/ToolIcon';
 import Link from 'next/link';
 import LangPicker from '@/components/LangPicker';
@@ -7,7 +8,7 @@ import EnGeneratorEngine from '@/components/EnGeneratorEngine';
 import ReferralCards from '@/components/ReferralCards';
 import Faq from '@/components/Faq';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
-import { thumbGradient } from '@/lib/thumbnail';
+import { thumbSurface } from '@/lib/thumbnail';
 import { GENERATORS_INTL, GENERATORS_INTL_MAP, type GeneratorIntlLang } from '@/lib/generator-l10n';
 import { alternateLanguages10 } from '@/lib/locales';
 import type { Generator } from '@/lib/types';
@@ -41,7 +42,7 @@ export function GeneratorIntlHub({ lang }: { lang: GeneratorIntlLang }) {
       <JsonLd data={breadcrumbJsonLd([{ name: ui.home, path: `/${lang}` }, { name: ui.crumb, path: `/${lang}/generator` }])} />
       <JsonLd data={itemListJsonLd(ui.crumb, `/${lang}/generator`, gens.map(g => ({ name: g.title, path: `/${lang}/generator/${g.slug}` })))} />
       <PageGlow accent="emerald" />
-      <div className="h-1 bg-gradient-to-r from-emerald-400 to-teal-600" />
+      <div className="h-1 topbar" />
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center gap-4">
           <Link prefetch={false} href={`/${lang}/generator`} className="font-black text-emerald-600 text-lg shrink-0">vixutil</Link>
@@ -53,18 +54,16 @@ export function GeneratorIntlHub({ lang }: { lang: GeneratorIntlLang }) {
       </header>
 
       <div className="max-w-5xl mx-auto px-4 py-10">
-        <p className="text-xs font-bold text-emerald-600 tracking-widest uppercase mb-2">{ui.eyebrow}</p>
-        <h1 className="text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">{ui.h1}</h1>
-        <p className="text-slate-500 dark:text-slate-400 text-sm mb-8">{ui.lead}</p>
+        <PageHero title={ui.h1} desc={ui.lead} />
 
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {gens.map(g => (
             <Link prefetch={false} key={g.slug} href={`/${lang}/generator/${g.slug}`}
-              className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${thumbGradient(g.slug, 'generator')} text-white p-5 min-h-[9.5rem] flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl transition-all`}>
-              <ToolIcon emoji={g.icon} accent="rgba(255,255,255,0.55)" className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
+              className={`group relative overflow-hidden rounded-2xl ${thumbSurface(g.slug, 'generator')} p-5 min-h-[9.5rem] flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl transition-all`}>
+              <ToolIcon emoji={g.icon} className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
               <div>
                 <div className="text-base font-black drop-shadow leading-tight">{g.title}</div>
-                <div className="text-[11px] font-medium text-white/80 mt-1 line-clamp-2">{g.desc}</div>
+                <div className="text-[11px] font-medium opacity-80 mt-1 line-clamp-2">{g.desc}</div>
               </div>
             </Link>
           ))}

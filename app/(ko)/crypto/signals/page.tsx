@@ -358,7 +358,7 @@ export default function SignalsPage() {
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100">
       <PageGlow accent="amber" />
-      <div className="h-1 bg-gradient-to-r from-amber-400 via-yellow-500 to-orange-500" />
+      <div className="h-1 topbar" />
 
       <header className="border-b border-slate-200 dark:border-slate-700 sticky top-0 z-10 bg-slate-50/90 dark:bg-slate-950/90 backdrop-blur">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center gap-3">

@@ -32,7 +32,7 @@ export default function LoanLeaf({ principal, rate, term }: { principal: number;
         { name: `${label} ${rate}% ${term}년`, path },
       ])} />
       <PageGlow accent="emerald" />
-      <div className="h-1 bg-gradient-to-r from-emerald-500 to-teal-600" />
+      <div className="h-1 topbar" />
 
       <header className="page-head">
         <div className="page-bar">

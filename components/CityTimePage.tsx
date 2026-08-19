@@ -72,7 +72,7 @@ export default function CityTimePage({ city, lang }: { city: TimeCity; lang: Lan
       <JsonLd data={webAppJsonLd(f.city, ui.metaDesc(f), path)} />
 
       <PageGlow accent="sky" />
-      <div className="h-1 bg-gradient-to-r from-sky-400 to-indigo-500" />
+      <div className="h-1 topbar" />
 
       <header className="page-head">
         <div className="page-bar">
@@ -94,8 +94,8 @@ export default function CityTimePage({ city, lang }: { city: TimeCity; lang: Lan
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-3 shadow-lg bg-gradient-to-br from-sky-400 to-indigo-500">
-            <ToolIcon emoji="🕰️" accent="rgba(255,255,255,0.55)" className="w-7 h-7 text-white" />
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-3 shadow-lg bg-sec-soft">
+            <ToolIcon emoji="🕰️" className="w-7 h-7" />
           </div>
           <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-1">{f.city}</h1>
           <p className="text-xs text-slate-400 dark:text-slate-500 mb-5">

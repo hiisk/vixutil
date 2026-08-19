@@ -171,12 +171,21 @@ export default function ReferralCards({ lang = 'ko', heading, placement = 'secti
   const subId = referralSubId(lang, placement, section);
 
   return (
+    /*
+      ── 겉 상자를 뺐다 (2026-08-19) ──────────────────────────────
+      result 자리는 노란 테두리 상자 **안에** 노란 카드가 또 들어 있었다. 같은
+      색 판이 두 겹이라 어느 쪽이 누를 것인지 흐려지고, 계산기 폼이 200px인데
+      광고가 330px이라 도구보다 광고가 큰 화면이 됐다.
+
+      상자를 없애고 위에 실선 하나만 남긴다. "여기부터 광고"라는 경계는 실선과
+      「광고」 표기가 이미 말하고 있다. 노출은 그대로고 높이만 준다.
+    */
     <section
-      className={
+      className={`${
         inResult
-          ? 'not-prose mt-6 rounded-2xl border-2 border-amber-300/90 dark:border-amber-800/70 bg-amber-50/70 dark:bg-amber-950/25 p-5 sm:p-6'
+          ? 'not-prose mt-8 border-t border-slate-200 dark:border-slate-800 pt-5'
           : 'not-prose'
-      }
+      }${rail ? ' xl:hidden' : ''}`}
     >
       <div className="flex items-center gap-2 mb-1.5">
         {/* "광고" 표기를 눈에 띄게 둔다. 숨기면 당장 클릭이 늘어도 신뢰를 잃는다. */}
@@ -206,55 +215,57 @@ export default function ReferralCards({ lang = 'ko', heading, placement = 'secti
               */
               data-ref-id={r.id}
               data-ref-sub={subId}
-              className={`group relative overflow-hidden rounded-2xl p-5 sm:p-6 transition-all hover:-translate-y-0.5 hover:shadow-lg ${
+              className={`group relative overflow-hidden rounded-2xl p-4 transition-all hover:-translate-y-0.5 hover:shadow-lg ${
                 railIds.has(r.id) ? 'xl:hidden ' : ''
               }${
                 top
-                  ? 'border-2 border-amber-400 dark:border-amber-500/60 bg-gradient-to-br from-amber-50 via-yellow-50/60 to-white dark:from-amber-500/[0.18] dark:via-amber-600/[0.06] dark:to-transparent hover:shadow-amber-500/20'
-                  : 'border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-slate-50 to-white dark:from-slate-800/60 dark:to-transparent hover:border-amber-300 hover:shadow-amber-500/10'
+                  ? 'border border-amber-400 dark:border-amber-500/60 bg-amber-50 dark:bg-amber-500/10 hover:shadow-amber-500/20'
+                  : 'border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-amber-300 hover:shadow-amber-500/10'
               }`}
             >
-              <span
-                aria-hidden="true"
-                className={`pointer-events-none absolute -right-10 -top-12 h-36 w-36 rounded-full blur-2xl transition-colors ${
-                  top ? 'bg-amber-300/50 dark:bg-amber-400/20 group-hover:bg-amber-300/70' : 'bg-slate-200/50 dark:bg-slate-600/20'
-                }`}
-              />
+              {/*
+                ── 가로로 눕혔다 (2026-08-19) ──────────────────────
+                로고 → 금액 → 혜택을 세로로 쌓고 그 아래 버튼을 깔면 한 장에
+                330px이 든다. 넓은 화면에서는 왼쪽에 글, 오른쪽에 버튼을 두어
+                절반으로 줄인다. 금액은 여전히 카드에서 제일 큰 글자다.
 
-              <span className="relative flex flex-wrap items-center gap-y-1 gap-2 mb-3">
-                <BrandMark id={r.id} />
+                모바일(sm 미만)에서는 그대로 쌓인다 — 가로로 두면 버튼이 좁아져
+                누를 자리가 작아진다.
+              */}
+              <span className="relative flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+                <span className="min-w-0 flex-1">
+                  <span className="flex flex-wrap items-center gap-y-1 gap-2">
+                    <BrandMark id={r.id} />
+                    <span
+                      className={`inline-flex items-center gap-1 whitespace-nowrap rounded-full px-2 py-0.5 text-[10px] font-black ${
+                        top
+                          ? 'bg-amber-400 text-slate-950'
+                          : 'bg-slate-800 dark:bg-slate-700 text-white'
+                      }`}
+                    >
+                      🏆 {copy.rankLabel}
+                    </span>
+                  </span>
+                  <span className={`mt-1.5 block font-black leading-none text-amber-700 dark:text-amber-300 ${top ? 'text-[28px]' : 'text-[24px]'}`}>
+                    {copy.bonus}
+                  </span>
+                  <span className="mt-1.5 block text-xs leading-relaxed text-slate-600 dark:text-slate-400">
+                    {copy.perks.join(' · ')}
+                  </span>
+                </span>
+
                 <span
-                  className={`ml-auto inline-flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-1 text-[11px] font-black ${
+                  className={`relative flex shrink-0 items-center justify-center gap-1.5 overflow-hidden rounded-xl px-5 py-3 text-sm font-black transition-colors sm:w-auto ${
                     top
-                      ? 'bg-amber-400 text-slate-950'
-                      : 'bg-slate-800 dark:bg-slate-700 text-white'
+                      ? 'bg-amber-400 text-slate-950 group-hover:bg-amber-300'
+                      : 'bg-slate-800 dark:bg-slate-700 text-white group-hover:bg-slate-900 dark:group-hover:bg-slate-600'
                   }`}
                 >
-                  🏆 {copy.rankLabel}
+                  {/* 버튼 위를 스치는 광택 — 시선을 CTA로 끌어 클릭을 유도한다 */}
+                  <span aria-hidden="true" className="ref-shine pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 skew-x-12 bg-white/40" />
+                  <span className="relative">{copy.cta}</span>
+                  <span className="relative transition-transform group-hover:translate-x-0.5">→</span>
                 </span>
-              </span>
-
-              <span className="relative block">
-                {/* 금액이 카드의 주인공이다 — 한 단계 더 키웠다 */}
-                <span className={`block font-black leading-none text-amber-700 dark:text-amber-300 ${top ? 'text-[36px]' : 'text-[29px]'}`}>
-                  {copy.bonus}
-                </span>
-                <span className="mt-2.5 block text-[13px] leading-relaxed text-slate-600 dark:text-slate-400">
-                  {copy.perks.join(' · ')}
-                </span>
-              </span>
-
-              <span
-                className={`relative mt-4 flex items-center justify-center gap-1.5 overflow-hidden rounded-xl py-3 text-[15px] font-black transition-colors ${
-                  top
-                    ? 'bg-amber-400 text-slate-950 group-hover:bg-amber-300'
-                    : 'bg-slate-800 dark:bg-slate-700 text-white group-hover:bg-slate-900 dark:group-hover:bg-slate-600'
-                }`}
-              >
-                {/* 버튼 위를 스치는 광택 — 시선을 CTA로 끌어 클릭을 유도한다 */}
-                <span aria-hidden="true" className="ref-shine pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 skew-x-12 bg-white/40" />
-                <span className="relative">{copy.cta}</span>
-                <span className="relative transition-transform group-hover:translate-x-0.5">→</span>
               </span>
             </a>
           );

@@ -169,7 +169,7 @@ export default function SmileScorePage() {
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
       <PageGlow accent="indigo" />
-      <div className="h-1 bg-gradient-to-r from-amber-400 via-orange-500 to-rose-500" />
+      <div className="h-1 topbar" />
 
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
@@ -276,7 +276,7 @@ export default function SmileScorePage() {
                       <span className="text-xs font-bold text-rose-500">{m.percent}% <span className="text-slate-400 dark:text-slate-500 font-medium">· {m.comment}</span></span>
                     </div>
                     <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                      <div className="h-full bg-gradient-to-r from-amber-400 to-rose-500 rounded-full" style={{ width: `${m.percent}%` }} />
+                      <div className="h-full bg-sec rounded-full" style={{ width: `${m.percent}%` }} />
                     </div>
                   </div>
                 ))}

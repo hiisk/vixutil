@@ -120,10 +120,10 @@ export default function EvChargePage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">충전 비용</p>
-              <p className="text-white text-3xl font-black">{fmt(result.cost)}원</p>
-              <p className="text-blue-200 text-sm mt-1">충전량 {result.kWh.toFixed(1)} kWh</p>
+            <div className="stat-pri">
+              <p className="stat-label">충전 비용</p>
+              <p className="stat-value">{fmt(result.cost)}원</p>
+              <p className="stat-sub">충전량 {result.kWh.toFixed(1)} kWh</p>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <SummaryCard label="주행 가능 거리" value={`${fmt(result.range)} km`} />

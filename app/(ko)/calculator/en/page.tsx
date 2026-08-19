@@ -183,7 +183,7 @@ export default function EnHome() {
   return (
     <div className="page-wrap">
       <PageGlow accent="blue" />
-      <div className="h-1 bg-gradient-to-r from-blue-700 via-blue-500 to-blue-400" />
+      <div className="h-1 topbar" />
 
       {/* Header */}
       <header className="sticky top-0 z-20 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">

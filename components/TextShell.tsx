@@ -1,4 +1,5 @@
 import ToolIcon from '@/components/ToolIcon';
+import PageHero from '@/components/PageHero';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
@@ -52,7 +53,7 @@ export default function TextShell({
       <JsonLd data={webAppJsonLd(tool.title, tool.long, path)} />
 
       <PageGlow accent="indigo" />
-      <div className={`h-1 bg-gradient-to-r ${tool.gradient}`} />
+      <div className={`h-1 topbar`} />
 
       <header className="page-head">
         <div className="page-bar">
@@ -74,14 +75,13 @@ export default function TextShell({
         </div>
       </header>
 
-      <main className="relative max-w-2xl mx-auto px-4 py-8">
-        <div className="text-center mb-7">
-          <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 text-3xl bg-gradient-to-br ${tool.gradient} shadow-lg`}>
-            <ToolIcon emoji={tool.icon} accent="rgba(255,255,255,0.55)" className="w-8 h-8 text-white" />
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-2.5">{tool.title}</h1>
-          <p className="note-sm max-w-xl mx-auto">{tool.long}</p>
-        </div>
+      {/* 머리 띠 — 화면을 가로지르고 안의 글만 본문 폭에 맞춘다 */}
+      <div className="hero-band">
+        <div className="max-w-2xl mx-auto px-4"><PageHero className="hero-flat" title={tool.title} desc={tool.long} icon={tool.icon} /></div>
+      </div>
+
+      <main className="relative max-w-2xl mx-auto px-4 pb-10 tool-lift">
+
 
         <div className="mb-5 rounded-2xl border border-indigo-100 dark:border-indigo-900/40 bg-indigo-50/70 dark:bg-indigo-950/30 px-4 py-3 text-xs text-indigo-800 dark:text-indigo-200 leading-relaxed text-center">
           🔒 입력한 글은 이 브라우저 안에서만 처리됩니다. 서버로 전송되거나 저장되지 않습니다.

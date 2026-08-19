@@ -220,15 +220,15 @@ export default function AirconCapacityPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">
+            <div className="stat-pri">
+              <p className="stat-label">
                 {result.choice.grade !== null ? '이 방에 알맞은 용량' : '한 대로는 안 됩니다 — 나눠 다는 용량'}
               </p>
-              <p className="text-white text-3xl font-black">
+              <p className="stat-value">
                 {kw1(result.choice.perUnit)}kW · {result.choice.label}
                 {result.choice.units > 1 && ` × ${result.choice.units}대`}
               </p>
-              <p className="text-blue-200 text-xs mt-1">
+              <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
                 필요 냉방능력 {kw1(result.need.requiredKw)}kW ({fmt(result.need.requiredBtu)}BTU/h) ·{' '}
                 {result.choice.form} · 여유 {Math.round(result.choice.margin * 100)}%
               </p>

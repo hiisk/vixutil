@@ -92,9 +92,9 @@ export default function DividendIntl({ lang }: { lang: CalcLang }) {
             />
           </div>
           {result.needed !== undefined && (
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">{c.needed}</p>
-              <p className="text-white text-3xl font-black">{fmt(result.needed)}</p>
+            <div className="stat-pri">
+              <p className="stat-label">{c.needed}</p>
+              <p className="stat-value">{fmt(result.needed)}</p>
             </div>
           )}
         </>

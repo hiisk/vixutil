@@ -75,12 +75,12 @@ export default function CarDepreciationPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">{years}년 뒤 남는 값</p>
-              <p className="text-white text-3xl font-black">
+            <div className="stat-pri">
+              <p className="stat-label">{years}년 뒤 남는 값</p>
+              <p className="stat-value">
                 {fmt(result.rows[result.rows.length - 1].value)}원
               </p>
-              <p className="text-blue-200 text-xs mt-1">
+              <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
                 산 값의 {Math.round(result.rows[result.rows.length - 1].ratio * 100)}%
                 {result.half !== null && ` · 절반이 되는 데 ${result.half.toFixed(1)}년`}
               </p>

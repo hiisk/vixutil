@@ -67,7 +67,7 @@ export default function LoremTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
 
         <button
           onClick={() => setSeed(s => s + 1)}
-          className="mt-4 w-full rounded-xl bg-gradient-to-r from-slate-500 to-sky-600 text-white font-bold py-3 text-sm shadow hover:opacity-90 transition-opacity"
+          className="mt-4 w-full rounded-xl bg-sec font-bold py-3 text-sm shadow hover:opacity-90 transition-opacity"
         >
           {ui.regenerate}
         </button>

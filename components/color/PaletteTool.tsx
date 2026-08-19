@@ -48,7 +48,7 @@ export default function PaletteTool({ lang = 'ko' }: { lang?: ColorLang } = {}) 
 
       <button
         onClick={() => copy(`:root {\n${css}\n}`)}
-        className="mt-3 w-full rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-600 text-white font-bold py-3 text-sm shadow hover:opacity-90 transition-opacity"
+        className="mt-3 w-full rounded-xl bg-sec font-bold py-3 text-sm shadow hover:opacity-90 transition-opacity"
       >
         {copied ? ui.copiedCss : ui.copyCss}
       </button>

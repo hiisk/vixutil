@@ -80,7 +80,7 @@ export default function TarotYesNoPage() {
   return (
     <div className="page-wrap">
       <PageGlow accent="violet" />
-      <div className="h-1 bg-gradient-to-r from-indigo-500 to-violet-700" />
+      <div className="h-1 topbar" />
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-lg mx-auto px-4 h-14 flex items-center gap-3">
           <Link href="/" className="font-black text-violet-600 text-lg shrink-0">vix.</Link>
@@ -111,7 +111,7 @@ export default function TarotYesNoPage() {
         <button
           onClick={pull}
           disabled={drawing}
-          className="w-full bg-gradient-to-r from-indigo-500 to-violet-700 text-white font-black text-lg rounded-2xl py-4 mb-6 shadow-lg shadow-violet-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all disabled:opacity-70"
+          className="w-full bg-sec font-black text-lg rounded-2xl py-4 mb-6 shadow-lg shadow-violet-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all disabled:opacity-70"
         >
           {drawing ? '카드를 뽑는 중…' : result ? '🔮 다시 뽑기' : '🔮 카드 뽑기'}
         </button>

@@ -80,9 +80,9 @@ export default function RetirementIntl({ lang }: { lang: CalcLang }) {
 
       {result && (
         <>
-          <div className="bg-blue-600 rounded-2xl p-5 text-center">
-            <p className="text-blue-200 text-xs mb-1">{c.total}</p>
-            <p className="text-white text-3xl font-black">{fmt(result.total)}</p>
+          <div className="stat-pri text-center">
+            <p className="stat-label">{c.total}</p>
+            <p className="stat-value">{fmt(result.total)}</p>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <SummaryCard label={c.paidIn} value={fmt(result.paidIn)} />
@@ -91,7 +91,7 @@ export default function RetirementIntl({ lang }: { lang: CalcLang }) {
 
           <Card className="p-5">
             <p className="label-caps mb-3">{c.payout}</p>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[20, 25, 30].map(y => (
                 <SummaryCard key={y} label={`${y} ${c.years}`} value={fmt(result.total / (y * 12))} />
               ))}

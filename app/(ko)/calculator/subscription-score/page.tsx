@@ -119,10 +119,10 @@ export default function SubscriptionScorePage() {
           </div>
         </Card>
 
-        <div className="bg-blue-600 rounded-2xl p-6 text-center">
-          <p className="text-blue-200 text-sm mb-2">총 가점</p>
-          <p className="text-white text-6xl font-black">{total}</p>
-          <p className="text-blue-200 text-base mt-1">/ 84점</p>
+        <div className="stat-pri text-center">
+          <p className="stat-sub mb-2">총 가점</p>
+          <p className="text-slate-900 dark:text-slate-50 text-6xl font-black">{total}</p>
+          <p className="text-slate-500 dark:text-slate-400 text-base mt-1">/ 84점</p>
         </div>
 
         <div className={`rounded-2xl p-4 text-center ${grade.bg}`}>

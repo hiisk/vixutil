@@ -81,10 +81,10 @@ export default function WaterPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-6 text-center">
-              <p className="text-blue-200 text-xs mb-1">하루 권장 수분 섭취량</p>
-              <p className="text-white text-5xl font-black">{result.ml.toLocaleString()}</p>
-              <p className="text-blue-200 text-xl mt-1">ml</p>
+            <div className="stat-pri text-center">
+              <p className="stat-label">하루 권장 수분 섭취량</p>
+              <p className="text-slate-900 dark:text-slate-50 text-5xl font-black">{result.ml.toLocaleString()}</p>
+              <p className="text-slate-500 dark:text-slate-400 text-xl mt-1">ml</p>
             </div>
             <div className="grid grid-cols-2 gap-3">
               {[

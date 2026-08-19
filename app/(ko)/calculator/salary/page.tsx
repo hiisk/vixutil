@@ -88,10 +88,10 @@ export default function SalaryPage() {
         {result && (
           <>
             <div className="grid grid-cols-2 gap-3">
-              <div className="col-span-2 sm:col-span-1 bg-blue-600 rounded-2xl p-5">
-                <p className="text-blue-200 text-xs mb-1">월 실수령액</p>
-                <p className="text-white text-3xl font-black">{fmt(result.netMonthly)}원</p>
-                <p className="text-blue-200 text-sm mt-1">연 {fmt(result.netAnnual)}원</p>
+              <div className="col-span-2 sm:col-span-1 stat-pri">
+                <p className="stat-label">월 실수령액</p>
+                <p className="stat-value">{fmt(result.netMonthly)}원</p>
+                <p className="stat-sub">연 {fmt(result.netAnnual)}원</p>
               </div>
               <div className="flex flex-col gap-2">
                 <SummaryCard label="월 세전 급여" value={`${fmt(result.monthly)}원`} />

@@ -144,14 +144,14 @@ export default function SchoolRankPage() {
           </div>
 
           {ranked ? (
-            <div className="mt-4 rounded-2xl bg-blue-600 p-5">
-              <p className="mb-1 text-xs text-blue-200">석차등급</p>
-              <p className="text-3xl font-black text-white">{ranked.grade}등급</p>
-              <p className="mt-1 text-sm text-blue-200">
+            <div className="mt-4 stat-pri">
+              <p className="mb-1 text-xs text-slate-500 dark:text-slate-400">석차등급</p>
+              <p className="stat-value">{ranked.grade}등급</p>
+              <p className="mt-1 stat-sub">
                 중간석차 {one(ranked.midRank)}등 · 상위 {two(ranked.percent)}% (컷 {ranked.cut}%)
               </p>
               {ranked.nextRank !== null && (
-                <p className="mt-2 text-sm text-blue-100">
+                <p className="mt-2 stat-sub">
                   {ranked.nextRank === 0
                     ? `이 인원에서는 ${ranked.grade - 1}등급이 나오지 않습니다`
                     : `${ranked.grade - 1}등급은 ${ranked.nextRank}등까지입니다`}
@@ -251,7 +251,7 @@ export default function SchoolRankPage() {
             <>
               <div className="mt-4 rounded-2xl bg-slate-900 p-5 dark:bg-slate-800">
                 <p className="mb-1 text-xs text-slate-400">평균 등급 (이수단위 가중평균)</p>
-                <p className="text-3xl font-black text-white">{two(avg.average)}</p>
+                <p className="stat-value">{two(avg.average)}</p>
                 <p className="mt-1 text-sm text-slate-400">
                   Σ(등급 × 단위) {avg.weightedSum} ÷ 단위 합 {avg.units}
                 </p>

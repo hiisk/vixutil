@@ -273,10 +273,20 @@ export function referralSplit(withRail: boolean): {
   rail: Referral[];
 } {
   if (!withRail) return { narrow: RANKED_REFERRALS, wide: RANKED_REFERRALS, rail: [] };
+  /*
+   * ── 넓은 화면에서는 본문에 두지 않는다 (2026-08-19) ──────────
+   * 전에는 1위만 본문에 남기고 나머지를 레일에 넘겼다. 그런데 결과 바로 아래에
+   * 광고 판이 앉으면 «답 → 광고 → 해설»이 되어 읽는 흐름이 끊긴다. 넓은 화면에는
+   * 이미 옆 레일이 있고 거기는 본문을 밀어내지 않는 자리다. 그래서 넓은 화면의
+   * 본문 몫을 0으로 두고 전부 레일로 보낸다.
+   *
+   * 좁은 화면(레일이 없는 곳)은 그대로 본문에 둔다 — 옆이 없으므로 본문이
+   * 유일한 자리다.
+   */
   return {
     narrow: RANKED_REFERRALS,
-    wide: RANKED_REFERRALS.slice(0, 1),
-    rail: RANKED_REFERRALS.slice(1),
+    wide: [],
+    rail: RANKED_REFERRALS,
   };
 }
 

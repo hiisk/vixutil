@@ -94,7 +94,7 @@ export default function ChessPage({ slug, lang }: { slug: string; lang: Lang }) 
       />
 
       <PageGlow accent="violet" />
-      <div className="h-1 bg-gradient-to-r from-violet-600 to-indigo-500" />
+      <div className="h-1 topbar" />
 
       <header className="page-head">
         <div className="page-bar">

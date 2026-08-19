@@ -124,9 +124,9 @@ export default function CaloriePage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5 text-center">
-              <p className="text-blue-200 text-xs mb-1">하루 권장 칼로리 (TDEE)</p>
-              <p className="text-white text-4xl font-black">{fmt(result.tdee)} kcal</p>
+            <div className="stat-pri text-center">
+              <p className="stat-label">하루 권장 칼로리 (TDEE)</p>
+              <p className="stat-value">{fmt(result.tdee)} kcal</p>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <SummaryCard label="기초대사량 (BMR)" value={`${fmt(result.bmr)} kcal`} />

@@ -53,7 +53,7 @@ export default function DailyTarotPage() {
   return (
     <div className="page-wrap">
       <PageGlow accent="violet" />
-      <div className="h-1 bg-gradient-to-r from-amber-500 to-orange-600" />
+      <div className="h-1 topbar" />
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-lg mx-auto px-4 h-14 flex items-center gap-3">
           <Link href="/" className="font-black text-amber-600 text-lg shrink-0">vix.</Link>

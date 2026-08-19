@@ -78,7 +78,7 @@ export default function SecretSanta({ lang = 'ko' }: { lang?: RandomLang }) {
           <button
             onClick={run}
             disabled={names.length < 3 || dupWarning}
-            className="w-full bg-gradient-to-r from-rose-500 to-red-600 text-white font-black text-lg rounded-2xl py-4 shadow-lg shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all disabled:opacity-50 disabled:hover:translate-y-0"
+            className="w-full bg-sec font-black text-lg rounded-2xl py-4 shadow-lg shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all disabled:opacity-50 disabled:hover:translate-y-0"
           >
             {ui.santaDraw}
           </button>
@@ -124,7 +124,7 @@ export default function SecretSanta({ lang = 'ko' }: { lang?: RandomLang }) {
               {!revealed ? (
                 <button
                   onClick={() => setRevealed(true)}
-                  className="w-full bg-gradient-to-r from-rose-500 to-red-600 text-white font-black rounded-xl py-3.5 hover:shadow-lg transition-all"
+                  className="w-full bg-sec font-black rounded-xl py-3.5 hover:shadow-lg transition-all"
                 >
                   {ui.santaReveal}
                 </button>

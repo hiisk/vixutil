@@ -99,27 +99,27 @@ export default function ShoeSizePage() {
 
         {row && recommend && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-6">
-              <p className="text-blue-200 text-xs text-center mb-4">발 길이 {n}mm 기준</p>
-              <div className="grid grid-cols-4 gap-2 text-center">
+            <div className="stat-pri">
+              <p className="text-slate-500 dark:text-slate-400 text-xs text-center mb-4">발 길이 {n}mm 기준</p>
+              <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 text-center">
                 <div>
-                  <p className="text-blue-200 text-xs mb-1">한국(mm)</p>
-                  <p className="text-white text-2xl font-black">{row.mm}</p>
+                  <p className="stat-label">한국(mm)</p>
+                  <p className="stat-value">{row.mm}</p>
                 </div>
                 <div>
-                  <p className="text-blue-200 text-xs mb-1">EU</p>
-                  <p className="text-white text-2xl font-black">{row.eu}</p>
+                  <p className="stat-label">EU</p>
+                  <p className="stat-value">{row.eu}</p>
                 </div>
                 <div>
-                  <p className="text-blue-200 text-xs mb-1">UK</p>
-                  <p className="text-white text-2xl font-black">{row.usM - 1}</p>
+                  <p className="stat-label">UK</p>
+                  <p className="stat-value">{row.usM - 1}</p>
                 </div>
                 <div>
-                  <p className="text-blue-200 text-xs mb-1">US 남성</p>
-                  <p className="text-white text-2xl font-black">{row.usM}</p>
+                  <p className="stat-label">US 남성</p>
+                  <p className="stat-value">{row.usM}</p>
                 </div>
               </div>
-              <p className="text-blue-100 text-sm text-center mt-4">US 여성 {row.usM + 1.5}</p>
+              <p className="stat-sub text-center mt-4">US 여성 {row.usM + 1.5}</p>
             </div>
 
             <Card className="p-5 border-emerald-200 dark:border-emerald-900/50 bg-emerald-50 dark:bg-emerald-950/30">

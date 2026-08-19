@@ -50,7 +50,7 @@ const COLUMNS = [
 export default function NotFound() {
   return (
     <div className="page-wrap flex flex-col">
-      <div className="h-1 bg-gradient-to-r from-indigo-500 to-violet-500" />
+      <div className="h-1 topbar" />
 
       <main className="flex-1 max-w-2xl mx-auto px-4 py-14 w-full">
         <p className="text-6xl font-black tabular-nums text-slate-200 dark:text-slate-700 mb-3">404</p>

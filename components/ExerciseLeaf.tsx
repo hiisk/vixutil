@@ -21,7 +21,7 @@ export default function ExerciseLeaf({ slug, lang }: { slug: string; lang: AnyLo
     <div className="page-wrap">
       <JsonLd data={breadcrumbJsonLd([{ name: 'Body', path: `${prefix}/body` }, { name, path }])} />
       <PageGlow accent="emerald" />
-      <div className="h-1 bg-gradient-to-r from-emerald-500 to-lime-600" />
+      <div className="h-1 topbar" />
 
       <header className="page-head">
         <div className="page-bar">

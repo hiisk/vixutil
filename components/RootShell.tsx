@@ -15,11 +15,29 @@
  * 실제로 app/layout.tsx에서 옮겨 올 때 딸려 와서, lib/site-metadata.ts와 같은
  * 내용이 두 벌로 한동안 있었다. 고치는 사람은 둘 중 아무거나 고치게 된다.
  */
+import localFont from "next/font/local";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import JsonLd, { websiteJsonLd } from "@/components/JsonLd";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import '@/app/globals.css';
+
+/*
+ * 라틴 글꼴 — 저장소에 심은 가변 woff2 한 벌(28.6KB, 라틴만).
+ *
+ * next/font/google를 안 쓴다. 그쪽은 빌드에서 구글 폰트로 나가는데, 이 저장소는
+ * 카드 폰트를 받다가 ETIMEDOUT으로 빌드가 죽은 적이 있다(lib/og-image.ts).
+ * 파일을 들고 있으면 빌드에 외부 의존이 없다.
+ *
+ * 한글은 일부러 안 싣는다 — 부분집합을 떠도 메가바이트 단위다. 한글은 시스템
+ * 글꼴이 그리고, 라틴·숫자만 이 글꼴이 그린다.
+ */
+const geist = localFont({
+  src: "../app/fonts/geist-var.woff2",
+  weight: "100 900",
+  display: "swap",
+  variable: "--font-geist",
+});
 
 // TODO: GA4 측정 ID를 입력하세요 (예: "G-XXXXXXXXXX"). 비워두면 GA 스크립트는 로드되지 않습니다.
 const GA_MEASUREMENT_ID = "";
@@ -48,7 +66,7 @@ const THEME_INIT = `
 
 export default function RootShell({ lang, children }: { lang: string; children: React.ReactNode }) {
   return (
-    <html lang={lang} suppressHydrationWarning>
+    <html lang={lang} className={geist.variable} suppressHydrationWarning>
       <head>
         {/* 다른 어떤 것보다 먼저 실행돼야 한다 — beforeInteractive로도 늦다 */}
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />

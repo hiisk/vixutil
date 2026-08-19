@@ -1,5 +1,6 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import PageHero from '@/components/PageHero';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
 import { useState } from 'react';
@@ -132,7 +133,7 @@ export default function BirthStone({ lang }: { lang: Exclude<Lang, 'ko'> }) {
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
       <PageGlow accent="violet" />
-      <div className="h-1 bg-gradient-to-r from-fuchsia-500 via-purple-500 to-violet-600" />
+      <div className="h-1 topbar" />
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
           <Link href={hubHref} className="page-back hover:text-fuchsia-600">
@@ -152,8 +153,7 @@ export default function BirthStone({ lang }: { lang: Exclude<Lang, 'ko'> }) {
       <div className="max-w-xl mx-auto px-4 py-6">
         <div className="text-center mb-6">
           <ToolIcon emoji="💎" className="w-12 h-12 mx-auto mb-2 text-slate-800 dark:text-slate-100" />
-          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100">{c.title}</h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{c.lead}</p>
+          <PageHero title={c.title} desc={c.lead} />
         </div>
 
         <div className="grid grid-cols-4 sm:grid-cols-6 gap-2 mb-6">

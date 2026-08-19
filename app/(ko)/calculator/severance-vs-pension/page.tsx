@@ -172,15 +172,15 @@ export default function SeveranceVsPensionPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">
+            <div className="stat-pri">
+              <p className="stat-label">
                 {result.c.better === 'pension' ? '연금으로 나눠 받는 쪽이 유리' :
                   result.c.better === 'lump' ? '일시금으로 받는 쪽이 유리' : '두 쪽이 사실상 같음'}
               </p>
-              <p className="text-white text-3xl font-black">
+              <p className="stat-value">
                 {result.c.better === 'tie' ? '차이 없음' : `${man(Math.abs(result.c.diff))} 차이`}
               </p>
-              <p className="text-blue-200 text-xs mt-1">
+              <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
                 연금 세후 {man(result.c.pension.net)} · 일시금 세후 {man(result.c.lump.netPayout)}
               </p>
             </div>

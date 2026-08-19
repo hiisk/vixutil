@@ -53,7 +53,7 @@ export default function DutyRosterTool({ lang = 'ko' }: { lang?: RandomLang }) {
       <button
         onClick={() => setRoster(dutyRoster(names, turns, perTurn, Math.random))}
         disabled={names.length < 2}
-        className="w-full mt-4 mb-5 bg-gradient-to-r from-rose-500 to-pink-600 text-white font-black text-lg rounded-2xl py-4 shadow-lg shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all disabled:opacity-50"
+        className="w-full mt-4 mb-5 bg-sec font-black text-lg rounded-2xl py-4 shadow-lg shadow-rose-200 dark:shadow-none hover:-translate-y-0.5 hover:shadow-xl transition-all disabled:opacity-50"
       >
         {ui.makeRoster} 📋
       </button>
@@ -67,7 +67,7 @@ export default function DutyRosterTool({ lang = 'ko' }: { lang?: RandomLang }) {
                 className="wc-slide flex items-center gap-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 px-4 py-3"
                 style={{ animationDelay: `${d.turn * 50}ms` }}
               >
-                <span className="shrink-0 w-9 h-8 rounded-lg bg-gradient-to-br from-rose-500 to-pink-600 text-white text-xs font-black flex items-center justify-center">
+                <span className="shrink-0 w-9 h-8 rounded-lg bg-sec-soft text-xs font-black flex items-center justify-center">
                   {d.turn + 1}{ui.turnNo}
                 </span>
                 <span className="font-bold text-slate-800 dark:text-slate-100 break-words">{d.people.join(' · ')}</span>

@@ -64,7 +64,7 @@ export default function TimerTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
 
       <div className="mt-3 h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
         <div
-          className={`h-full transition-[width] duration-100 ${done ? 'bg-rose-500' : 'bg-gradient-to-r from-rose-500 to-orange-500'}`}
+          className={`h-full transition-[width] duration-100 ${done ? 'bg-rose-500' : 'bg-sec'}`}
           style={{ width: `${progress}%` }}
         />
       </div>
@@ -93,7 +93,7 @@ export default function TimerTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
       <div className="grid grid-cols-2 gap-2 mt-4">
         <button
           onClick={running ? pause : start}
-          className="rounded-xl bg-gradient-to-r from-rose-500 to-orange-500 text-white font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
+          className="rounded-xl bg-sec font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
         >
           {running ? ui.pause : paused !== null ? ui.resume : ui.start}
         </button>

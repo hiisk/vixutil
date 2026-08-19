@@ -1,4 +1,5 @@
 import ToolIcon from '@/components/ToolIcon';
+import PageHero from '@/components/PageHero';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
@@ -33,7 +34,7 @@ export default function FormulaHub({ lang, section }: { lang: FormulaLang; secti
       />
 
       <PageGlow accent={section.accent} />
-      <div className={`h-1 bg-gradient-to-r ${section.gradBar}`} />
+      <div className={`h-1 topbar`} />
 
       <header className="page-head">
         <div className="max-w-3xl mx-auto px-4 h-14 flex items-center gap-2">
@@ -51,8 +52,7 @@ export default function FormulaHub({ lang, section }: { lang: FormulaLang; secti
 
       <main className="relative max-w-3xl mx-auto px-4 py-9">
         <div className="text-center mb-8">
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-2.5">{meta.hubTitle}</h1>
-          <p className="note-sm">{meta.hubLead}</p>
+          <PageHero title={meta.hubTitle} desc={meta.hubLead} />
           <p className="mt-4 inline-block rounded-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-2 text-xs font-bold text-slate-500 dark:text-slate-400">
             {meta.hubNotice}
           </p>

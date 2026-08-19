@@ -217,7 +217,7 @@ export default function FaceReading({ lang }: { lang: SnapIntlLang }) {
                     <span className="text-xs font-bold text-amber-600">{f.percent}%</span>
                   </div>
                   <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mb-1.5">
-                    <div className="h-full bg-gradient-to-r from-amber-400 to-orange-500 rounded-full" style={{ width: `${f.percent}%` }} />
+                    <div className="h-full bg-sec rounded-full" style={{ width: `${f.percent}%` }} />
                   </div>
                   <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">{f.text}</p>
                 </div>

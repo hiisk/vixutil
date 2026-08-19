@@ -174,7 +174,7 @@ export default function FirstImpressionPage() {
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
       <PageGlow accent="indigo" />
-      <div className="h-1 bg-gradient-to-r from-sky-400 via-indigo-500 to-violet-500" />
+      <div className="h-1 topbar" />
 
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-lg mx-auto px-4 h-14 flex items-center gap-3">
@@ -204,7 +204,7 @@ export default function FirstImpressionPage() {
 
         {/* 업로드 */}
         {!result && (
-          <div className="bg-white/85 dark:bg-slate-900/85 backdrop-blur-xl border border-white/70 dark:border-slate-700/70 rounded-2xl p-6 shadow-[0_8px_24px_-12px_rgba(99,102,241,0.2)]">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
             {modelState === 'loading' && (
               <p className="text-center text-sm text-slate-400 dark:text-slate-500 py-8">
                 얼굴 인식 모델을 불러오는 중이에요…
@@ -268,11 +268,11 @@ export default function FirstImpressionPage() {
               </div>
             </div>
 
-            <div className="bg-white/85 dark:bg-slate-900/85 backdrop-blur-xl border border-white/70 dark:border-slate-700/70 rounded-2xl p-5 shadow-[0_8px_24px_-12px_rgba(99,102,241,0.2)]">
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.type.desc}</p>
             </div>
 
-            <div className="bg-white/85 dark:bg-slate-900/85 backdrop-blur-xl border border-white/70 dark:border-slate-700/70 rounded-2xl p-5 shadow-[0_8px_24px_-12px_rgba(99,102,241,0.2)]">
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
               <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">실제 측정값</p>
               {[
                 { label: '눈의 또렷함', value: result.eyeScore },
@@ -285,7 +285,7 @@ export default function FirstImpressionPage() {
                     <span className="text-xs font-black text-indigo-600 dark:text-indigo-300">{m.value}</span>
                   </div>
                   <div className="h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                    <div className="h-full bg-gradient-to-r from-sky-400 to-indigo-500 rounded-full transition-all duration-700" style={{ width: `${m.value}%` }} />
+                    <div className="h-full bg-sec rounded-full transition-all duration-700" style={{ width: `${m.value}%` }} />
                   </div>
                 </div>
               ))}
@@ -296,7 +296,7 @@ export default function FirstImpressionPage() {
               <p className="text-sm text-emerald-800 dark:text-emerald-200 leading-relaxed">{result.type.strength}</p>
             </div>
 
-            <div className="bg-white/85 dark:bg-slate-900/85 backdrop-blur-xl border border-white/70 dark:border-slate-700/70 rounded-2xl p-5 shadow-[0_8px_24px_-12px_rgba(99,102,241,0.2)]">
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
               <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-1.5">💡 오늘의 팁</p>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.tip}</p>
             </div>

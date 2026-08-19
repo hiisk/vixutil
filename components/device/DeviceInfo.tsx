@@ -171,7 +171,7 @@ export default function DeviceInfo({ lang = 'ko' }: { lang?: DeviceLang } = {}) 
 
       <button
         onClick={copy}
-        className="w-full rounded-xl bg-gradient-to-r from-teal-500 to-sky-600 text-white font-bold py-3 text-sm shadow hover:opacity-90 transition-opacity"
+        className="w-full rounded-xl bg-sec font-bold py-3 text-sm shadow hover:opacity-90 transition-opacity"
       >
         {copied ? ui.copied : ui.copy}
       </button>

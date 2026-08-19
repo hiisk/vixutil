@@ -71,10 +71,10 @@ export default function ElectricityReversePage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">쓴 전기</p>
-              <p className="text-white text-3xl font-black">{result.kwh.toFixed(1)} kWh</p>
-              <p className="text-blue-200 text-xs mt-1">
+            <div className="stat-pri">
+              <p className="stat-label">쓴 전기</p>
+              <p className="stat-value">{result.kwh.toFixed(1)} kWh</p>
+              <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
                 누진 {result.tier}구간
                 {result.left !== null && ` · 다음 구간까지 ${result.left.toFixed(1)}kWh 남음`}
               </p>

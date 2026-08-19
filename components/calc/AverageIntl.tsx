@@ -94,10 +94,10 @@ export default function AverageIntl({ lang }: { lang: CalcLang }) {
 
       {stats && (
         <>
-          <div className="bg-indigo-600 rounded-2xl p-6 text-center">
-            <p className="text-indigo-200 text-sm mb-2">{c.mean}</p>
-            <p className="text-white text-5xl font-black">{fmt(stats.mean)}</p>
-            <p className="text-indigo-100 text-sm mt-3 opacity-90">
+          <div className="stat-pri text-center">
+            <p className="stat-sub mb-2">{c.mean}</p>
+            <p className="text-slate-900 dark:text-slate-50 text-5xl font-black">{fmt(stats.mean)}</p>
+            <p className="stat-sub mt-3 opacity-90">
               {c.count} {fmt(stats.n)} · {c.sum} {fmt(stats.sum)}
             </p>
           </div>

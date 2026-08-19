@@ -72,11 +72,11 @@ export default function FuelEfficiencyIntl({ lang }: { lang: CalcLang }) {
 
       {result && (
         <>
-          <div className="bg-blue-600 rounded-2xl p-6 text-center">
-            <p className="text-blue-200 text-xs mb-1">{c.result}</p>
-            <p className="text-white text-4xl font-black">{fmt(result.kmPerL)} km/L</p>
+          <div className="stat-pri text-center">
+            <p className="stat-label">{c.result}</p>
+            <p className="stat-value">{fmt(result.kmPerL)} km/L</p>
           </div>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <SummaryCard label="L/100 km" value={fmt(100 / result.kmPerL)} />
             <SummaryCard label={c.mpgUs} value={fmt((result.kmPerL * L_PER_US_GAL) / KM_PER_MILE)} />
             <SummaryCard label={c.mpgUk} value={fmt((result.kmPerL * L_PER_UK_GAL) / KM_PER_MILE)} />

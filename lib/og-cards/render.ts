@@ -12,6 +12,7 @@ import { parseCardSlug } from './index.ts';
 
 import { openingCard } from '../chess/route.ts';
 import { itemCard as cmdCard } from '../cmd/route.ts';
+import { calcCard } from '../calculator/route.ts';
 import { colorCard } from '../color/route.ts';
 import { algCard } from '../cube/route.ts';
 import { screenCard } from '../device/route.ts';
@@ -49,6 +50,7 @@ export const CARD_SETS: Record<Lang, Record<string, () => ReactElement>> = {
  * 적었다. 둘이 어긋나면 tests/og-cards.test.ts가 잡는다.
  */
 const DETAIL: Record<string, (lang: Lang, slug: string) => ReactElement> = {
+  'calculator': calcCard,
   'cmd': cmdCard,
   'color': colorCard,
   'device/screen': screenCard,

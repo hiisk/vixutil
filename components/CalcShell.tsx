@@ -5,6 +5,7 @@ import SiteFooter from './SiteFooter';
 import RelatedCalcs from './RelatedCalcs';
 import CrossLinks from './CrossLinks';
 import PageGlow from './PageGlow';
+import PageHero from './PageHero';
 import CalcFaq from './CalcFaq';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from './JsonLd';
 import type { FaqItem } from '@/lib/calc-faq';
@@ -14,6 +15,17 @@ import ReferralAside, { RAIL_WRAP } from './ReferralAside';
 // 각 페이지에서 export const metadata 설정을 위한 헬퍼
 export function makeMetadata(title: string, description: string): Metadata {
   return { title, description };
+}
+
+/**
+ * 본문 기둥 — 머리 띠와 본문이 **이 하나를** 나눠 쓴다.
+ *
+ * 폭이 두 곳에 적히면 한쪽만 고쳤을 때 제목이 본문과 다른 자리에서 시작한다.
+ * 실제로 그랬던 적이 있어 tests/referral-placement.test.ts가 붙들고 있다.
+ * 렌더 밖에 두는 것은 안에서 만들면 렌더마다 새 컴포넌트가 되기 때문이다.
+ */
+function Column({ width, children }: { width: string; children: React.ReactNode }) {
+  return <div className={`${width} mx-auto w-full min-w-0 xl:mx-0`}>{children}</div>;
 }
 
 export default function CalcShell({
@@ -58,6 +70,12 @@ export default function CalcShell({
   */
   const width = wide ? 'max-w-3xl lg:max-w-4xl' : 'max-w-xl lg:max-w-2xl';
 
+  /*
+    본문 기둥. 머리 띠와 본문이 **같은 자리에서 시작해야** 하므로 폭을 여기
+    한 번만 적고 두 곳에서 부른다. 예전에는 같은 삼항식이 두 줄에 적혀 있었고
+    한쪽만 고치면 제목이 본문과 다른 자리에서 시작했다.
+  */
+
   return (
     /*
       배경에 아주 옅은 컬러 웜을 깔고, 그 위에 반투명 카드를 올린다(글래스모피즘).
@@ -79,10 +97,10 @@ export default function CalcShell({
         {/* 계산기는 무료 웹 도구다 — WebApplication으로 알리면 검색에서 도구로 인식된다 */}
         {path && <JsonLd data={webAppJsonLd(title, description, path)} />}
         {/* 상단 바 */}
-        <div className="h-1 bg-gradient-to-r from-blue-600 via-indigo-500 to-emerald-400" />
+        <div className="h-1 topbar" />
 
         {/* 네비 헤더 */}
-        <header className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border-b border-white/60 dark:border-slate-700/60 sticky top-0 z-10">
+        <header className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-10">
           <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
             <Link
               href="/calculator"
@@ -94,6 +112,7 @@ export default function CalcShell({
               전체 계산기
             </Link>
             <span className="text-slate-200">·</span>
+            {/* 제목은 바로 아래 머리에 크게 있다 — 여기서 또 적으면 같은 말이 두 번이다 */}
             <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 flex-1 truncate">{title}</span>
             <CalcShareBtn />
           </div>
@@ -110,15 +129,14 @@ export default function CalcShell({
           화면은 예전처럼 가운데다.
         */}
         <div className={wide ? RAIL_WRAP.wide : RAIL_WRAP.narrow}>
-          <div className={`${width} mx-auto w-full min-w-0 xl:mx-0`}>
-            {/* 페이지 타이틀 */}
-            <div className="px-4 pt-8 pb-2">
-              <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight">{title}</h1>
-              <p className="text-sm text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">{description}</p>
+          <Column width={width}>
+            {/* 본문 — 머리 띠는 이 기둥 밖에서 화면을 가로지른다(아래 Column 참고) */}
+            {/* 머리 — 기둥 안에 있고 실선만 화면 폭으로 나간다(globals.css .hero-band) */}
+            <div className="hero-band px-4">
+              <PageHero className="hero-flat" title={title} desc={description} icon="🧮" />
             </div>
 
-            {/* 본문 */}
-            <main className="px-4 py-6 pb-8">
+            <main className="tool-body tool-lift px-4 pb-8">
               {children}
 
               {/*
@@ -187,7 +205,7 @@ export default function CalcShell({
                 </p>
               </div>
             </main>
-          </div>
+          </Column>
 
           <ReferralAside section="calc" />
         </div>
@@ -201,51 +219,46 @@ export default function CalcShell({
 /* ── 공통 UI 컴포넌트 ── */
 
 /**
- * 반투명 유리 카드. 흰 배경을 85%로 두어 뒤의 컬러 글로우가 은은하게 비치되,
- * 본문 대비는 그대로 유지한다. 그림자는 회색이 아니라 파란빛을 섞어
- * 배경 톤과 어우러지게 했다.
+ * 본문 판 — 단색이다. 예전에는 반투명 유리(backdrop-blur)였는데 두 가지가 걸렸다.
+ * 하나, 홈이 단색 판으로 바뀌면서 계열이 갈렸다. 둘, blur는 스크롤하는 동안
+ * 모바일 GPU를 계속 태운다 — 계산기는 표를 길게 내리는 화면이다.
+ * 생김새는 globals.css의 .surface에 있다.
  */
 export function Card({ children, className = '' }: { children: React.ReactNode; className?: string }) {
-  return (
-    <div
-      className={`bg-white/85 dark:bg-slate-900/85 backdrop-blur-xl border border-white/70 dark:border-slate-700/70 rounded-2xl shadow-[0_8px_24px_-12px_rgba(59,130,246,0.18)] ${className}`}
-    >
-      {children}
-    </div>
-  );
+  return <div className={`surface ${className}`}>{children}</div>;
 }
 
 export function CardHeader({ title, sub }: { title: string; sub?: string }) {
   return (
     <div className="px-5 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
-      <p className="font-bold text-slate-800 dark:text-slate-100 text-sm">{title}</p>
+      <p className="font-bold text-slate-800 dark:stat-sub">{title}</p>
       {sub && <span className="text-xs text-slate-400 dark:text-slate-500">{sub}</span>}
     </div>
   );
 }
 
 export function Label({ children }: { children: React.ReactNode }) {
-  return (
-    <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wide">
-      {children}
-    </label>
-  );
+  return <label className="fld-lbl">{children}</label>;
 }
 
-// 입력 필드는 카드보다 조금 더 불투명하게 — 값을 읽고 쓰는 곳이라 대비가 최우선이다.
-// 호버 시 테두리를 살짝 진하게 해 "여기 입력할 수 있다"는 느낌을 준다.
-export const inputCls =
-  "w-full bg-white/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-700/80 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-300 transition-all";
+/*
+ * 입력칸은 이미 사이트 공용 .fld가 있다(globals.css). 여기 300자짜리 문자열이
+ * 따로 있어서 계산기만 다른 칸을 쓰고 있었고, 초점 테두리도 파랑으로 박혀 있어
+ * 갈래 색을 안 따라갔다. .fld는 --c-sec를 쓴다.
+ *
+ * class 속성은 낱장 HTML의 17~26%다. 문자열을 클래스 이름으로 바꾸면 한 장에
+ * 칸 수만큼 300자가 준다.
+ */
+export const inputCls = 'fld w-full';
 
-export const selectCls =
-  "w-full bg-white/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-700/80 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-slate-100 hover:border-slate-300 dark:hover:border-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-300 transition-all";
+export const selectCls = 'fld fld-sel w-full';
 
 export function PrimaryBtn({ onClick, children }: { onClick?: () => void; children: React.ReactNode }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className="group w-full inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:scale-[0.99] text-white rounded-xl py-3.5 font-bold text-sm shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 transition-all duration-200"
+      className="group btn-pri"
     >
       {children}
       <svg className="w-4 h-4 opacity-80 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -265,20 +278,16 @@ export function TabBar<T extends string | number>({
   onChange: (v: T) => void;
 }) {
   return (
-    <div className="flex bg-white/85 dark:bg-slate-900/85 backdrop-blur-xl border border-white/70 dark:border-slate-700/70 rounded-xl overflow-hidden shadow-[0_8px_24px_-12px_rgba(59,130,246,0.18)]">
+    <div className="surface flex rounded-xl overflow-hidden">
       {options.map((opt) => (
         <button
           key={opt.value}
           type="button"
           onClick={() => onChange(opt.value)}
-          className={`flex-1 py-3 text-sm font-semibold transition-all leading-tight ${
-            value === opt.value
-              ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white'
-              : 'text-slate-500 dark:text-slate-400 hover:bg-blue-50/60 dark:hover:bg-blue-950/40'
-          }`}
+          className={value === opt.value ? 'tab-on' : 'tab-off'}
         >
           {opt.label}
-          {opt.sub && <span className={`block text-xs font-normal ${value === opt.value ? 'text-blue-100' : 'text-slate-400 dark:text-slate-500'}`}>{opt.sub}</span>}
+          {opt.sub && <span className="block text-xs font-normal opacity-70">{opt.sub}</span>}
         </button>
       ))}
     </div>
@@ -295,24 +304,17 @@ export function SummaryCard({
   label: string; value: string; sub?: string;
   variant?: 'default' | 'primary' | 'green' | 'red';
 }) {
-  // primary는 결과에서 제일 중요한 숫자다 — 그라데이션과 컬러 그림자로 확실히 띄운다.
-  const styles = {
-    default: 'bg-white/85 dark:bg-slate-900/85 backdrop-blur-xl border-white/70 dark:border-slate-700/70 text-slate-800 dark:text-slate-100 shadow-[0_8px_24px_-12px_rgba(59,130,246,0.18)]',
-    primary: 'bg-gradient-to-br from-blue-600 to-indigo-600 border-blue-500/50 text-white shadow-lg shadow-blue-500/25',
-    green:   'bg-white/85 dark:bg-slate-900/85 backdrop-blur-xl border-emerald-200 dark:border-emerald-900/50/70 text-emerald-600 shadow-[0_8px_24px_-12px_rgba(16,185,129,0.22)]',
-    red:     'bg-white/85 dark:bg-slate-900/85 backdrop-blur-xl border-red-200 dark:border-red-900/50/70 text-red-500 shadow-[0_8px_24px_-12px_rgba(239,68,68,0.22)]',
-  };
-  const labelStyles = {
-    default: 'text-slate-400 dark:text-slate-500',
-    primary: 'text-blue-100',
-    green: 'text-slate-400 dark:text-slate-500',
-    red: 'text-slate-400 dark:text-slate-500',
-  };
+  /*
+    생김새는 globals.css의 .stat 계열에 있다 — 왜 주인공 칸을 꽉 채우지 않는지도
+    거기 적었다. green·red는 뜻이 있는 색이라(늘었다·줄었다) 갈래 색으로 바꾸지
+    않는다. 계산기 101장이 이 한 부품을 함께 쓴다.
+  */
+  const cls = { default: 'stat', primary: 'stat-pri', green: 'stat-up', red: 'stat-down' }[variant];
   return (
-    <div className={`rounded-2xl border p-4 transition-transform duration-200 hover:-translate-y-0.5 ${styles[variant]}`}>
-      <p className={`text-xs mb-1 ${labelStyles[variant]}`}>{label}</p>
-      <p className="font-black text-base leading-tight">{value}</p>
-      {sub && <p className={`text-xs mt-0.5 ${labelStyles[variant]}`}>{sub}</p>}
+    <div className={cls}>
+      <p className="stat-label">{label}</p>
+      <p className="stat-value">{value}</p>
+      {sub && <p className="stat-sub">{sub}</p>}
     </div>
   );
 }
@@ -323,7 +325,7 @@ export function RatioBar({ a, b, labelA, labelB }: { a: number; b: number; label
   return (
     <div>
       <div className="flex h-6 rounded-lg overflow-hidden text-xs font-bold">
-        <div className="bg-blue-600 flex items-center justify-center text-white transition-all" style={{ width: `${pctA}%` }}>
+        <div className="bar-a flex items-center justify-center text-white transition-all" style={{ width: `${pctA}%` }}>
           {pctA > 20 && `${pctA.toFixed(0)}%`}
         </div>
         <div className="bg-rose-400 flex items-center justify-center text-white flex-1">
@@ -331,7 +333,7 @@ export function RatioBar({ a, b, labelA, labelB }: { a: number; b: number; label
         </div>
       </div>
       <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400 mt-1.5">
-        <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-blue-600 inline-block" />{labelA}</span>
+        <span className="flex items-center gap-1"><span className="bar-a w-2 h-2 rounded-full inline-block" />{labelA}</span>
         <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-rose-400 inline-block" />{labelB}</span>
       </div>
     </div>
@@ -351,7 +353,7 @@ export function ShowMoreBtn({ total, showing, onClick }: { total: number; showin
   return (
     <button
       onClick={onClick}
-      className="w-full mt-3 py-2.5 text-sm text-blue-600 font-semibold border border-blue-200 dark:border-blue-900/50 rounded-xl bg-blue-50 dark:bg-blue-950/30 hover:bg-blue-100 dark:hover:bg-blue-950/50 transition-colors"
+      className="btn-more"
     >
       전체 {total}개 보기 (현재 {showing}개 표시)
     </button>

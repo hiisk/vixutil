@@ -157,16 +157,16 @@ export default function PensionCatchupPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">
+            <div className="stat-pri">
+              <p className="stat-label">
                 {result.r.paybackMonths === null ? '연금이 늘지 않습니다' : '낸 돈을 되찾는 데'}
               </p>
-              <p className="text-white text-3xl font-black">
+              <p className="stat-value">
                 {result.r.paybackMonths === null
                   ? '가입 10년 미달'
                   : `${(result.r.paybackMonths / 12).toFixed(1)}년`}
               </p>
-              <p className="text-blue-200 text-xs mt-1">
+              <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
                 {result.r.paybackMonths === null
                   ? `10년을 채우려면 ${result.toUnlock}개월이 더 필요합니다`
                   : `월 연금 +${fmt(result.r.gainMonthly)}원 · 총 납부 ${man(result.r.totalPaid)}`}

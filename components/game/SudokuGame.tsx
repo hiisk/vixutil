@@ -200,7 +200,7 @@ export default function SudokuGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
             onClick={() => start(d)}
             className={`rounded-xl py-2.5 text-sm font-bold transition-colors ${
               d === difficulty
-                ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow'
+                ? 'bg-sec shadow'
                 : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'
             }`}
           >
@@ -312,7 +312,7 @@ export default function SudokuGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
         </button>
         <button
           onClick={() => start(difficulty)}
-          className="min-h-[2.75rem] rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-xs font-bold shadow"
+          className="min-h-[2.75rem] rounded-xl bg-sec text-xs font-bold shadow"
         >
           {puzzle === null ? c.start : ui.newGame}
         </button>

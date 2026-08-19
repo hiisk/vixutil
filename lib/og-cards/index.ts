@@ -80,7 +80,7 @@ const HAS = new Map<Lang, Set<string>>(
  * render.ts의 DETAIL에 같이 적는다(둘이 어긋나면 검사가 잡는다).
  */
 export const DETAIL_SECTIONS: readonly string[] = [
-  'cmd', 'color', 'device/screen', 'ext', 'food', 'fortune/card',
+  'calculator', 'cmd', 'color', 'device/screen', 'ext', 'food', 'fortune/card',
   'game/chess', 'game/cube', 'game/poker', 'http', 'image/size',
   'snap/lens', 'sound/hz',
   'text/regex', 'time',
@@ -182,4 +182,14 @@ export function withCard(m: Metadata): Metadata {
     openGraph: { ...base, ...m.openGraph, images },
     twitter: { ...m.twitter, images },
   };
+}
+
+/**
+ * 사이트 안 썸네일 주소 — 공유 카드를 절반 크기로 그린 그림 (2026-08-18).
+ *
+ * 홈 격자가 이걸 쓴다. 주소가 공유 카드와 한 글자만 다르므로 둘이 다른 그림일
+ * 수가 없다 — 어긋남을 막는 것이 이 함수의 전부다. 그리는 쪽은 lib/og-image.ts.
+ */
+export function thumbUrl(canonical: string): string | undefined {
+  return cardUrl(canonical)?.replace('/og/', '/og/t/');
 }

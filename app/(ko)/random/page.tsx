@@ -1,4 +1,5 @@
 import ToolIcon from '@/components/ToolIcon';
+import PageHero from '@/components/PageHero';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { alternateLanguages10 } from '@/lib/locales';
@@ -39,7 +40,7 @@ export default function RandomIndexPage() {
         )}
       />
       <PageGlow accent="rose" />
-      <div className="h-1 bg-gradient-to-r from-rose-500 to-pink-600" />
+      <div className="h-1 topbar" />
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center gap-4">
           <Link href="/" className="font-black text-rose-600 text-lg shrink-0">vix.</Link>
@@ -51,12 +52,14 @@ export default function RandomIndexPage() {
         </div>
       </header>
 
-      <div className="max-w-5xl mx-auto px-4 py-10">
-        <p className="text-xs font-bold text-rose-600 tracking-widest uppercase mb-2">Random Picker</p>
-        <h1 className="text-3xl font-black text-slate-900 dark:text-slate-100 mb-2">랜덤 뽑기</h1>
-        <p className="text-slate-500 dark:text-slate-400 text-sm mb-8">
-          점심 메뉴부터 벌칙·당번·팀 편성까지 — <strong className="text-slate-700 dark:text-slate-200">공정하게</strong> 하나를 정하는 도구 모음
-        </p>
+      {/* 머리 띠 — 화면을 가로지르고 안의 글만 본문 폭에 맞춘다 */}
+      <div className="hero-band">
+        <div className="max-w-5xl mx-auto px-4">
+          <PageHero className="hero-flat" title="랜덤 뽑기" desc={`점심 메뉴부터 벌칙·당번·팀 편성까지 — 공정하게 하나를 정하는 도구 모음`} />
+        </div>
+      </div>
+
+      <div className="max-w-5xl mx-auto px-4 tool-lift pb-10">
 
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {RANDOM_TOOLS.map(t => (
@@ -65,10 +68,10 @@ export default function RandomIndexPage() {
               href={`/random/${t.slug}`}
               className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${t.gradient} text-white p-5 min-h-[9rem] flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl transition-all`}
             >
-              <ToolIcon emoji={t.icon} accent="rgba(255,255,255,0.55)" className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
+              <ToolIcon emoji={t.icon} className="w-9 h-9 drop-shadow-lg transition-transform group-hover:scale-110" />
               <div>
                 <div className="text-lg font-black drop-shadow leading-tight">{t.title}</div>
-                <div className="text-[11px] font-medium text-white/80 mt-1 line-clamp-2">{t.desc}</div>
+                <div className="text-[11px] font-medium opacity-80 mt-1 line-clamp-2">{t.desc}</div>
               </div>
             </Link>
           ))}
@@ -78,8 +81,8 @@ export default function RandomIndexPage() {
           href="/random/dice"
           className="group mt-6 flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 hover:shadow-lg hover:-translate-y-0.5 transition-all"
         >
-          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-gradient-to-br from-rose-600 to-orange-500">
-            <ToolIcon emoji={DICE_ICON} accent="rgba(255,255,255,0.55)" className="w-6 h-6 text-white transition-transform group-hover:scale-110" />
+          <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl shrink-0 bg-sec-soft">
+            <ToolIcon emoji={DICE_ICON} className="w-6 h-6 transition-transform group-hover:scale-110" />
           </span>
           <span className="min-w-0">
             <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{DICE_UI.ko.hubTitle}</span>

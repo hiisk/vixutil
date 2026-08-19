@@ -99,10 +99,10 @@ export default function InheritanceTaxPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">예상 상속세</p>
-              <p className="text-white text-3xl font-black">{fmt(result.tax)}원</p>
-              <p className="text-blue-200 text-sm mt-1">과세표준 {fmt(result.taxBase)}원</p>
+            <div className="stat-pri">
+              <p className="stat-label">예상 상속세</p>
+              <p className="stat-value">{fmt(result.tax)}원</p>
+              <p className="stat-sub">과세표준 {fmt(result.taxBase)}원</p>
             </div>
             <Card>
               <CardHeader title="공제 내역" />

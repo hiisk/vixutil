@@ -21,7 +21,7 @@ export default function SalaryLeaf({ manwon }: { manwon: number }) {
         { name: `연봉 ${won(manwon)}만원`, path },
       ])} />
       <PageGlow accent="blue" />
-      <div className="h-1 bg-gradient-to-r from-blue-500 to-indigo-600" />
+      <div className="h-1 topbar" />
 
       <header className="page-head">
         <div className="page-bar">

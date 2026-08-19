@@ -102,9 +102,9 @@ export default function StandardWagePage() {
         {result && (
           <>
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-blue-600 rounded-2xl p-5 col-span-2 sm:col-span-1">
-                <p className="text-blue-200 text-xs mb-1">통상임금 (월)</p>
-                <p className="text-white text-3xl font-black">{fmt(result.standard)}원</p>
+              <div className="stat-pri col-span-2 sm:col-span-1">
+                <p className="stat-label">통상임금 (월)</p>
+                <p className="stat-value">{fmt(result.standard)}원</p>
               </div>
               <SummaryCard label="통상시급" value={`${fmt(result.hourly)}원`} />
             </div>

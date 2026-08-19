@@ -110,10 +110,10 @@ export default function BrokerFeePage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">중개수수료 {vat ? '(VAT 포함)' : '(VAT 별도)'}</p>
-              <p className="text-white text-3xl font-black">{fmt(result.total)}원</p>
-              <p className="text-blue-200 text-sm mt-1">적용 요율 {result.rate}%</p>
+            <div className="stat-pri">
+              <p className="stat-label">중개수수료 {vat ? '(VAT 포함)' : '(VAT 별도)'}</p>
+              <p className="stat-value">{fmt(result.total)}원</p>
+              <p className="stat-sub">적용 요율 {result.rate}%</p>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <SummaryCard label="중개수수료" value={`${fmt(result.fee)}원`} />

@@ -51,9 +51,9 @@ export default function AgePage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5 text-center">
-              <p className="text-blue-200 text-xs mb-1">만 나이 (법적 기준)</p>
-              <p className="text-white text-5xl font-black">{result.internationalAge}세</p>
+            <div className="stat-pri text-center">
+              <p className="stat-label">만 나이 (법적 기준)</p>
+              <p className="text-slate-900 dark:text-slate-50 text-5xl font-black">{result.internationalAge}세</p>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <SummaryCard label="한국 나이" value={`${result.koreanAge}세`} />

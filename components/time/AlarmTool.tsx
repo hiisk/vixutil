@@ -82,7 +82,7 @@ export default function AlarmTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
       <div className="grid grid-cols-2 gap-2 mt-3">
         <button
           onClick={set}
-          className="rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
+          className="rounded-xl bg-sec font-bold py-3.5 text-sm shadow-lg hover:opacity-90 transition-opacity"
         >
           {target !== null ? ui.reset : ui.set}
         </button>

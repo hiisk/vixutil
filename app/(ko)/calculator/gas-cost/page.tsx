@@ -98,9 +98,9 @@ export default function GasCostPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-5">
-              <p className="text-blue-200 text-xs mb-1">예상 주유비 {roundTrip ? '(왕복)' : '(편도)'}</p>
-              <p className="text-white text-3xl font-black">{fmt(result.cost)}원</p>
+            <div className="stat-pri">
+              <p className="stat-label">예상 주유비 {roundTrip ? '(왕복)' : '(편도)'}</p>
+              <p className="stat-value">{fmt(result.cost)}원</p>
             </div>
             <SummaryCard label="필요 연료량" value={`${result.fuelNeeded.toFixed(1)} L`} />
           </>

@@ -123,10 +123,10 @@ export default function WorkHoursPage() {
 
         {result && (
           <>
-            <div className="bg-blue-600 rounded-2xl p-6 text-center">
-              <p className="text-blue-200 text-sm mb-2">근무시간</p>
-              <p className="text-white text-5xl font-black">{fmt(result.work)}</p>
-              {result.overnight && <p className="text-blue-100 text-sm mt-3">자정을 넘긴 근무로 계산했습니다</p>}
+            <div className="stat-pri text-center">
+              <p className="stat-sub mb-2">근무시간</p>
+              <p className="text-slate-900 dark:text-slate-50 text-5xl font-black">{fmt(result.work)}</p>
+              {result.overnight && <p className="stat-sub mt-3">자정을 넘긴 근무로 계산했습니다</p>}
             </div>
 
             <Card>

@@ -208,18 +208,18 @@ export default function CardDeductionPage() {
         {result && (
           <>
             {result.belowThreshold ? (
-              <div className="bg-rose-600 rounded-2xl p-5">
-                <p className="text-rose-200 text-xs mb-1">공제 대상 금액</p>
-                <p className="text-white text-3xl font-black">0원</p>
-                <p className="text-rose-200 text-xs mt-1">
+              <div className="stat-pri">
+                <p className="stat-label">공제 대상 금액</p>
+                <p className="stat-value">0원</p>
+                <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
                   문턱 {man(result.threshold)}을 아직 넘지 않았습니다 · 총사용액 {man(result.totalSpending)}
                 </p>
               </div>
             ) : (
-              <div className="bg-blue-600 rounded-2xl p-5">
-                <p className="text-blue-200 text-xs mb-1">한도 적용 후 공제액</p>
-                <p className="text-white text-3xl font-black">{fmt(result.deduction)}원</p>
-                <p className="text-blue-200 text-xs mt-1">
+              <div className="stat-pri">
+                <p className="stat-label">한도 적용 후 공제액</p>
+                <p className="stat-value">{fmt(result.deduction)}원</p>
+                <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
                   줄어드는 세금 {fmt(result.totalSaved)}원 (소득세 {fmt(result.incomeTaxSaved)} +
                   지방소득세 {fmt(result.localTaxSaved)})
                 </p>

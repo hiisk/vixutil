@@ -173,7 +173,7 @@ export default function PhotoMoodPage() {
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
       <PageGlow accent="indigo" />
-      <div className="h-1 bg-gradient-to-r from-fuchsia-500 via-violet-500 to-sky-500" />
+      <div className="h-1 topbar" />
 
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
@@ -292,7 +292,7 @@ export default function PhotoMoodPage() {
                   <span className="text-[11px] font-bold text-slate-600 dark:text-slate-300">{result.brightnessPercent}%</span>
                 </div>
                 <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                  <div className="h-full bg-gradient-to-r from-slate-400 to-yellow-300 rounded-full" style={{ width: `${result.brightnessPercent}%` }} />
+                  <div className="h-full bg-sec rounded-full" style={{ width: `${result.brightnessPercent}%` }} />
                 </div>
               </div>
               <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
@@ -301,7 +301,7 @@ export default function PhotoMoodPage() {
                   <span className="text-[11px] font-bold text-slate-600 dark:text-slate-300">{result.saturationPercent}%</span>
                 </div>
                 <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                  <div className="h-full bg-gradient-to-r from-slate-300 to-fuchsia-500 rounded-full" style={{ width: `${result.saturationPercent}%` }} />
+                  <div className="h-full bg-sec rounded-full" style={{ width: `${result.saturationPercent}%` }} />
                 </div>
               </div>
               <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
@@ -310,7 +310,7 @@ export default function PhotoMoodPage() {
                   <span className="text-[11px] font-bold text-slate-600 dark:text-slate-300">{result.warmthPercent}% {result.warmthPercent >= 50 ? '웜' : '쿨'}</span>
                 </div>
                 <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                  <div className="h-full bg-gradient-to-r from-sky-400 to-orange-400 rounded-full" style={{ width: `${result.warmthPercent}%` }} />
+                  <div className="h-full bg-sec rounded-full" style={{ width: `${result.warmthPercent}%` }} />
                 </div>
               </div>
               <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
@@ -319,7 +319,7 @@ export default function PhotoMoodPage() {
                   <span className="text-[11px] font-bold text-slate-600 dark:text-slate-300">{result.contrastPercent}%</span>
                 </div>
                 <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                  <div className="h-full bg-gradient-to-r from-slate-300 to-slate-800 rounded-full" style={{ width: `${result.contrastPercent}%` }} />
+                  <div className="h-full bg-sec rounded-full" style={{ width: `${result.contrastPercent}%` }} />
                 </div>
               </div>
             </div>

@@ -144,10 +144,10 @@ export default function MaternityLeavePage() {
 
         {kind === 'spouse' ? (
           <>
-            <div className="rounded-2xl bg-blue-600 p-5">
-              <p className="mb-1 text-xs text-blue-200">배우자 출산휴가 {spouse.days}일 (근로일)</p>
-              <p className="text-3xl font-black text-white">{fmt(spouse.total)}원</p>
-              <p className="mt-1 text-sm text-blue-200">유급이므로 통상임금 전액입니다</p>
+            <div className="stat-pri">
+              <p className="mb-1 text-xs text-slate-500 dark:text-slate-400">배우자 출산휴가 {spouse.days}일 (근로일)</p>
+              <p className="stat-value">{fmt(spouse.total)}원</p>
+              <p className="mt-1 stat-sub">유급이므로 통상임금 전액입니다</p>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <SummaryCard label="통상시급" value={`${fmt(spouse.hourly)}원`} />
@@ -162,12 +162,12 @@ export default function MaternityLeavePage() {
           </>
         ) : (
           <>
-            <div className="rounded-2xl bg-blue-600 p-5">
-              <p className="mb-1 text-xs text-blue-200">
+            <div className="stat-pri">
+              <p className="mb-1 text-xs text-slate-500 dark:text-slate-400">
                 휴가 {leave.totalDays}일 동안 받는 돈 (유급 {leave.paidDays}일 + 무급 {leave.unpaidDays}일)
               </p>
-              <p className="text-3xl font-black text-white">{fmt(leave.total)}원</p>
-              <p className="mt-1 text-sm text-blue-200">
+              <p className="stat-value">{fmt(leave.total)}원</p>
+              <p className="mt-1 stat-sub">
                 고용보험 {fmt(leave.eiTotal)}원 · 회사 {fmt(leave.employerTotal)}원
               </p>
             </div>

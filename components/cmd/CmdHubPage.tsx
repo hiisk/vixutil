@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import PageHero from '@/components/PageHero';
 import SiteFooter from '@/components/SiteFooter';
 import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
@@ -35,7 +36,7 @@ export default function CmdHubPage({ lang }: { lang: Lang }) {
       <JsonLd data={itemListJsonLd(ui.hubTitle, path, CMD_ITEMS.map(x => ({ name: x.name, path: `${path}/${x.slug}` })))} />
 
       <PageGlow accent="indigo" />
-      <div className="h-1 bg-gradient-to-r from-slate-700 to-indigo-500" />
+      <div className="h-1 topbar" />
 
       <header className="page-head">
         <div className="page-bar">
@@ -55,11 +56,10 @@ export default function CmdHubPage({ lang }: { lang: Lang }) {
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
         <div className="text-center mb-7">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 shadow-lg bg-gradient-to-br from-slate-700 to-indigo-500">
-            <ToolIcon emoji={CMD_ICON} accent="rgba(255,255,255,0.55)" className="w-8 h-8 text-white" />
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 shadow-lg bg-sec-soft">
+            <ToolIcon emoji={CMD_ICON} className="w-8 h-8" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mb-2.5">{ui.hubTitle}</h1>
-          <p className="note-sm max-w-xl mx-auto">{ui.hubLead.replace('{n}', n)}</p>
+          <PageHero title={ui.hubTitle} desc={ui.hubLead.replace('{n}', n)} />
         </div>
 
         <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 px-4 py-3 mb-8">

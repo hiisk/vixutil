@@ -37,8 +37,8 @@ export default function StopwatchTool({ lang = 'ko' }: { lang?: TimeLang } = {})
       <div className="grid grid-cols-3 gap-2 mt-4">
         <button
           onClick={startedAt !== null ? stop : start}
-          className={`rounded-xl font-bold py-3.5 text-sm shadow-lg text-white transition-opacity hover:opacity-90 ${
-            startedAt !== null ? 'bg-slate-700' : 'bg-gradient-to-r from-sky-500 to-indigo-600'
+          className={`rounded-xl font-bold py-3.5 text-sm shadow-lg transition-opacity hover:opacity-90 ${
+            startedAt !== null ? 'bg-slate-700' : 'bg-sec'
           }`}
         >
           {startedAt !== null ? ui.stop : held > 0 ? ui.resume : ui.start}

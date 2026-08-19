@@ -91,17 +91,17 @@ export default function ExchangePage() {
             </Card>
 
             {result !== null && (
-              <div className="bg-blue-600 rounded-2xl p-6 text-center">
-                <p className="text-blue-200 text-sm mb-2">
+              <div className="stat-pri text-center">
+                <p className="stat-sub mb-2">
                   {Number(amount).toLocaleString()} {from}
                 </p>
-                <p className="text-white text-4xl font-black">
+                <p className="stat-value">
                   {result.toLocaleString(undefined, {
                     maximumFractionDigits: to==='KRW'?0:isSmall?4:2,
                     minimumFractionDigits: to==='KRW'?0:2,
                   })} {to}
                 </p>
-                {date && <p className="text-blue-300 text-xs mt-2">기준일 {date}</p>}
+                {date && <p className="text-slate-500 dark:text-slate-400 text-xs mt-2">기준일 {date}</p>}
               </div>
             )}
 
