@@ -58,13 +58,13 @@ export default function FoodHubIntl({ lang }: { lang: FoodIntlLang }) {
                 <Link
                   key={t.slug}
                   href={`/${lang}/food/${t.slug}`}
-                  className="group flex min-h-[8rem] flex-col justify-between rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 transition-colors hover:border-slate-300 dark:hover:border-slate-700"
+                  className="group flex items-start gap-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 transition-colors hover:border-slate-300 dark:hover:border-slate-700"
                 >
-                  <span className="bg-sec-soft inline-flex h-9 w-9 items-center justify-center rounded-lg">
-                    <ToolIcon emoji={t.icon} className="h-5 w-5" />
+                  <span className="bg-sec-soft inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg">
+                    <ToolIcon emoji={t.icon} className="h-[18px] w-[18px]" />
                   </span>
-                  <span>
-                    <span className="block text-base font-bold drop-shadow leading-tight">{t.title}</span>
+                  <span className="min-w-0 flex-1">
+                    <span className="hub-tool-title block text-base font-bold leading-tight">{t.title}</span>
                     <span className="block text-[11px] font-medium text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">{t.desc}</span>
                   </span>
                 </Link>

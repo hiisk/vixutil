@@ -1806,3 +1806,42 @@ body.is-dropping::after {
 .result-card :where(h2, h3, p, span, div) { color: inherit; }
 .result-card { @apply text-slate-700 dark:text-slate-200; }
 .result-card :where(h2, h3) { @apply text-slate-900 dark:text-white; }
+
+/* ── 갈래 허브의 큰 카드 (2026-08-20) ────────────────────────────
+   색·게임·시간·소리·이미지·글·기기·계량·스냅 아홉 갈래가 같은 카드를 저마다
+   복사해 갖고 있다(한국어 아홉 + 국제 여덟 = 열일곱 곳).
+
+   재 보니 카드 하나가 180px인데 담긴 것은 세 줄이다. 아이콘이 제 줄을 통째로
+   먹고, 카드 전체가 링크인데 «바로 쓰기 →»가 한 줄 더 붙는다. 그래서 도구
+   여섯 개짜리 허브가 화면 세 개가 됐다.
+
+   마크업 열일곱 곳을 고치는 대신 여기서 눕힌다:
+     · 아이콘을 제목 왼쪽으로 띄우고 크기를 줄인다
+     · «바로 쓰기 →» 줄은 감춘다 — 카드 전체가 이미 링크다
+   구조를 안 건드리므로 어느 갈래에서도 깨지지 않는다. */
+.hub-tool-card > div {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  column-gap: 0.75rem;
+  align-items: start;
+}
+.hub-tool-card > div > :is(h3, p) { grid-column: 2; }
+/* 아이콘 — 제 줄을 안 먹고 두 줄에 걸쳐 선다 */
+.hub-tool-card > div > :first-child {
+  grid-row: 1 / span 2;
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: 0;
+}
+/* «바로 쓰기 →» — 카드 전체가 링크라 같은 말을 두 번 한다 */
+.hub-tool-card > div > span:last-child { display: none; }
+.hub-tool-card > div > p { margin-bottom: 0; }
+
+/* ── 긴 낱말이 칸을 미는 것 (2026-08-20) ─────────────────────────
+   독일어 「Klickgeschwindigkeits-Test」는 한 낱말이 177px인데 칸은 85px이다.
+   줄바꿈할 자리가 없으면 낱말이 칸을 밀어내고, 격자 전체가 옆으로 넘친다
+   (/de/game이 390px 화면에서 445px을 요구했다).
+
+   허브 카드 제목만 낱말 안에서도 끊게 한다. 한국어·영어에서는 끊을 일이
+   없으므로 보이는 것이 안 바뀐다. */
+.hub-tool-card :is(h3, span), .hub-tool-title { overflow-wrap: anywhere; }

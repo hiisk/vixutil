@@ -102,7 +102,7 @@ export default function SnapPage() {
         <div className="grid sm:grid-cols-2 gap-4">
           {TYPES.map(t => (
             <Link key={t.href} href={t.href}
-              className="group relative overflow-hidden rounded-lg border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 hover:border-slate-300 dark:hover:border-slate-700 hover:border-fuchsia-200 transition-all">
+              className="hub-tool-card group relative overflow-hidden rounded-lg border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 hover:border-slate-300 dark:hover:border-slate-700 hover:border-fuchsia-200 transition-all">
               <div className="relative">
                 <div className="flex items-start justify-between mb-4">
                   <ToolIcon emoji={t.icon} className="text-slate-800 dark:text-slate-100 w-8 h-8" />
