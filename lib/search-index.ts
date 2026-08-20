@@ -160,6 +160,7 @@ const FORTUNE_ITEMS: SearchItem[] = [
   { href: '/fortune/mbti',   title: 'MBTI 운세',   desc: '16가지 성격 유형별 오늘의 운세',          section: 'fortune', icon: '🧠' },
   { href: '/fortune/blood-type', title: '혈액형 운세', desc: 'A·B·O·AB형 오늘의 운세',              section: 'fortune', icon: '🩸' },
   { href: '/fortune/biorhythm',  title: '바이오리듬', desc: '생년월일로 신체·감성·지성 리듬 그래프',  section: 'fortune', icon: '📈' },
+  { href: '/fortune/ilju',       title: '일주 60가지', desc: '갑자일주부터 계해일주까지 — 성격·앉은 자리·공망', section: 'fortune', icon: '📜' },
   { href: '/fortune/unseong',    title: '십이운성', desc: '장생·건록·제왕 — 일간이 어느 자리에서 힘이 센가', section: 'fortune', icon: '🌿' },
   { href: '/fortune/sinsal',     title: '십이신살', desc: '도화살·역마살·화개살 — 사주 네 기둥의 십이신살', section: 'fortune', icon: '🌸' },
   { href: '/fortune/samjae',     title: '삼재',      desc: '내 띠 삼재가 언제인지 — 들삼재·눌삼재·날삼재', section: 'fortune', icon: '🗓️' },

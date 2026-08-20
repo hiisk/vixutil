@@ -149,7 +149,8 @@ test('공유 카드가 ImageResponse를 직접 부르지 않는다', () => {
   // 2026-08-20: /fortune/samjae 한 장(+1)
   // 2026-08-20: /fortune/sinsal 한 장(+1)
   // 2026-08-20: /fortune/unseong 한 장(+1)
-  assert.equal(cards.length, 2013, `공유 카드가 ${cards.length}장`);
+  // 2026-08-20: /fortune/ilju 허브 한 장(+1)
+  assert.equal(cards.length, 2014, `공유 카드가 ${cards.length}장`);
   const bad = files.filter(f => readFileSync(join(dir, f), 'utf8').includes('new ImageResponse'));
   assert.deepStrictEqual(bad, []);
 });

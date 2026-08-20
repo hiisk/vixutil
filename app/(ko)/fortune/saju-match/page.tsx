@@ -56,7 +56,7 @@ function PersonInput({
               value.gender === g ? 'pick-on text-sec' : 'pick-off text-slate-600 dark:text-slate-300'
             }`}
           >
-            {g === 'male' ? '♂ 남자' : '♀ 여자'}
+            {g === 'male' ? '남자' : '여자'}
           </button>
         ))}
       </div>

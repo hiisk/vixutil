@@ -344,12 +344,348 @@ function sceneColor(to: string): ReactElement[] {
   ));
 }
 
+/*
+  아래 장면들은 전부 `<g transform="translate(ART_X ART_Y)">` 한 겹 안에 넣고
+  안에서는 «상대 좌표»만 쓴다. 위 네 장면처럼 ART_X를 일일이 더하면 그룹 안에
+  또 더해져 두 번 밀린다(실제로 그렇게 틀린 적이 있다).
+
+  가로는 -180 ~ +300 안에 둔다. 왼쪽 글 상자가 x=702까지 오므로 -190부터는
+  글자를 침범하고, 오른쪽은 캔버스가 1200에서 끝난다.
+  세로는 -230 ~ +230 (실제 y 85 ~ 545).
+*/
+function at(children: ReactElement[]): ReactElement[] {
+  return [<g key="scene" transform={`translate(${ART_X} ${ART_Y})`}>{children}</g>];
+}
+
+/** 사진 — 렌즈 꼭짓점에서 퍼지는 화각, 그 안에 선 초점면 */
+function sceneSnap(to: string): ReactElement[] {
+  /* 화각의 위·아래 모서리를 x에 따라 되짚는다 — 초점면 높이를 여기서 얻는다 */
+  const half = (x: number) => 178 * ((x + 170) / 460);
+  const plane = (x: number, w: number, fill: string, op: number) => {
+    const h = half(x);
+    return <rect key={`pl${x}`} x={x} y={20 - h} width={w} height={h * 2} rx={4} fill={fill} fillOpacity={op} />;
+  };
+  return at([
+    /* 화각 — 꼭짓점에서 오른쪽으로 벌어지는 삼각형 */
+    <path key="cone" d="M -170 20 L 290 -158 L 290 198 Z" fill="#ffffff" fillOpacity="0.07" />,
+    <path key="edge" d="M -170 20 L 290 -158 M -170 20 L 290 198" fill="none" stroke="#ffffff" strokeOpacity="0.30" strokeWidth={3} />,
+    /* 앞·뒤로 흐린 면, 가운데 하나만 초점이 맞는다 */
+    plane(-20, 8, '#ffffff', 0.16),
+    plane(230, 8, '#ffffff', 0.16),
+    plane(110, 16, to, 1),
+    /* 렌즈 자리 */
+    <circle key="v" cx={-170} cy={20} r={11} fill="#ffffff" fillOpacity="0.9" />,
+    <circle key="vh" cx={-170} cy={20} r={26} fill="none" stroke={to} strokeOpacity="0.8" strokeWidth={4} />,
+  ]);
+}
+
+/** 문자 — 줄지어 선 글줄, 한 줄이 선택되어 있고 끝에 커서가 선다 */
+function sceneText(to: string): ReactElement[] {
+  const w = [258, 300, 196, 282, 214, 148];
+  return at([
+    <rect key="sel" x={-166} y={-98} width={208} height={38} rx={6} fill={to} fillOpacity="0.40" />,
+    ...w.map((v, i) => (
+      <rect key={`l${i}`} x={-160} y={-190 + i * 54} width={v} height={16} rx={8}
+        fill="#ffffff" fillOpacity={i === 2 ? 0.92 : 0.34} />
+    )),
+    /* 마지막 줄 끝의 깜빡이는 자리 */
+    <rect key="caret" x={-160 + w[5] + 12} y={-198 + 5 * 54} width={7} height={38} rx={3} fill={to} />,
+  ]);
+}
+
+/** 시간 — 어긋나게 겹친 시간대 눈금 셋을 «지금» 한 줄이 가로지른다 */
+function sceneTime(to: string): ReactElement[] {
+  const out: ReactElement[] = [];
+  [-150, -50, 50].forEach((y, b) => {
+    out.push(<rect key={`b${b}`} x={-170} y={y} width={460} height={62} rx={10} fill="#ffffff" fillOpacity="0.08" />);
+    /* 자마다 눈금을 조금씩 밀어 둔다 — 시차가 그림이 된다 */
+    for (let i = 0; i < 12; i++) {
+      const x = -160 + i * 40 + b * 13;
+      if (x > 282) continue;
+      const big = i % 3 === 0;
+      out.push(<rect key={`t${b}-${i}`} x={x} y={y + 62 - (big ? 30 : 16)} width={3} height={big ? 30 : 16}
+        fill="#ffffff" fillOpacity={big ? 0.55 : 0.28} />);
+    }
+  });
+  /* 「지금」 — 세 자를 한 번에 꿰뚫는다 */
+  out.push(<rect key="now" x={54} y={-172} width={5} height={306} rx={2.5} fill={to} />);
+  out.push(<circle key="nowd" cx={56.5} cy={-172} r={10} fill={to} />);
+  /* 지평선과 낮 구간 — 밤낮이 자리마다 다르다는 것 */
+  out.push(<rect key="hz" x={-170} y={180} width={460} height={3} fill="#ffffff" fillOpacity="0.25" />);
+  out.push(<rect key="day" x={-170} y={177} width={224} height={9} rx={4.5} fill={to} fillOpacity="0.85" />);
+  return at(out);
+}
+
+/** 이미지 — 사진 위에 놓인 자르기 틀과 모서리 손잡이 */
+function sceneImage(to: string): ReactElement[] {
+  const cx = -60, cy = -100, cw = 252, ch = 200;
+  const corners: [number, number][] = [[cx, cy], [cx + cw, cy], [cx, cy + ch], [cx + cw, cy + ch]];
+  return at([
+    /* 사진 한 장 — 안에 능선과 해가 어렴풋이 */
+    <rect key="ph" x={-160} y={-170} width={400} height={300} rx={14} fill="#ffffff" fillOpacity="0.10" />,
+    <rect key="phb" x={-160} y={-170} width={400} height={300} rx={14} fill="none" stroke="#ffffff" strokeOpacity="0.22" strokeWidth={3} />,
+    <circle key="sun" cx={-70} cy={-108} r={30} fill="#ffffff" fillOpacity="0.22" />,
+    <path key="hill" d="M -160 130 L -50 10 L 30 90 L 130 -20 L 240 130 Z" fill="#ffffff" fillOpacity="0.16" />,
+    /* 자르기 틀 */
+    <rect key="crop" x={cx} y={cy} width={cw} height={ch} fill="none" stroke={to} strokeWidth={5} />,
+    ...corners.map(([x, y], i) => <circle key={`c${i}`} cx={x} cy={y} r={10} fill={to} />),
+    /* 치수선 — 자른 폭을 잰다 */
+    <rect key="dim" x={cx} y={cy + ch + 44} width={cw} height={3} fill="#ffffff" fillOpacity="0.45" />,
+    <rect key="dl" x={cx} y={cy + ch + 32} width={3} height={27} fill="#ffffff" fillOpacity="0.45" />,
+    <rect key="dr" x={cx + cw - 3} y={cy + ch + 32} width={3} height={27} fill="#ffffff" fillOpacity="0.45" />,
+  ]);
+}
+
+/** 소리 — 파형 */
+function sceneSound(to: string): ReactElement[] {
+  const bars: ReactElement[] = [];
+  for (let i = 0; i < 22; i++) {
+    /* 봉투(가운데가 크다) × 잔결. 난수가 아니라 식이라 매번 같은 파형이 나온다 */
+    const env = Math.cos(((i - 10.5) / 11) * Math.PI * 0.5);
+    const h = 26 + 200 * env * env * (0.55 + 0.45 * Math.abs(Math.sin(i * 1.9)));
+    const near = Math.abs(i - 10.5) < 3.5;
+    bars.push(<rect key={`w${i}`} x={-166 + i * 21} y={-h / 2} width={11} height={h} rx={5.5}
+      fill={near ? to : '#ffffff'} fillOpacity={near ? 1 : 0.45} />);
+  }
+  return at([
+    <rect key="axis" x={-180} y={-1.5} width={480} height={3} fill="#ffffff" fillOpacity="0.16" />,
+    ...bars,
+  ]);
+}
+
+/** 게임 — 기울여 놓인 판과 그 위의 말 */
+function sceneGame(to: string): ReactElement[] {
+  const S = 66, N = 4, x0 = -132, y0 = -132;
+  const cells: ReactElement[] = [];
+  for (let r = 0; r < N; r++) {
+    for (let c = 0; c < N; c++) {
+      cells.push(<rect key={`g${r}-${c}`} x={x0 + c * S} y={y0 + r * S} width={S} height={S}
+        fill="#ffffff" fillOpacity={(r + c) % 2 ? 0.14 : 0.05} />);
+    }
+  }
+  const mid = (i: number) => x0 + i * S + S / 2;
+  return at([
+    <g key="board" transform="rotate(-11)">
+      {cells}
+      <rect x={x0} y={y0} width={N * S} height={N * S} fill="none" stroke="#ffffff" strokeOpacity="0.28" strokeWidth={3} />
+      {/* 말 셋 — 둘은 내 것, 하나는 상대 것 */}
+      <circle cx={mid(1)} cy={mid(1)} r={22} fill={to} />
+      <circle cx={mid(3)} cy={mid(2)} r={22} fill={to} />
+      <circle cx={mid(2)} cy={mid(0)} r={22} fill="#ffffff" fillOpacity="0.9" />
+    </g>,
+    /* 판 밖에 내려놓은 말 */
+    <circle key="off" cx={222} cy={172} r={20} fill="#ffffff" fillOpacity="0.55" />,
+    <circle key="off2" cx={262} cy={196} r={20} fill={to} fillOpacity="0.8" />,
+  ]);
+}
+
+/** 음식 — 접시와 계량컵 */
+function sceneFood(to: string): ReactElement[] {
+  return at([
+    <circle key="plate" cx={-20} cy={-52} r={142} fill="#ffffff" fillOpacity="0.08" />,
+    <circle key="rim" cx={-20} cy={-52} r={106} fill="none" stroke="#ffffff" strokeOpacity="0.28" strokeWidth={3} />,
+    /* 담긴 것은 셋으로 나눠 놓는다 — 원 세 겹을 겹쳐 놓으면 접시가 아니라 과녁이 된다 */
+    <circle key="f1" cx={-64} cy={-80} r={46} fill={to} />,
+    <circle key="f2" cx={8} cy={-30} r={34} fill={to} fillOpacity="0.6" />,
+    <circle key="f3" cx={16} cy={-100} r={25} fill="#ffffff" fillOpacity="0.5" />,
+    /* 계량컵 — 눈금 있는 사다리꼴 */
+    <g key="cup" transform="translate(110 40)">
+      <path d="M 0 0 L 104 0 L 90 130 L 14 130 Z" fill="#ffffff" fillOpacity="0.10"
+        stroke="#ffffff" strokeOpacity="0.5" strokeWidth={4} />
+      {/* 담긴 것 */}
+      <path d="M 7 62 L 97 62 L 90 130 L 14 130 Z" fill={to} fillOpacity="0.8" />
+      <rect x={13} y={28} width={28} height={3} fill="#ffffff" fillOpacity="0.5" />
+      <rect x={11} y={92} width={41} height={3} fill="#ffffff" fillOpacity="0.5" />
+      {/* 손잡이 */}
+      <path d="M 104 14 C 142 20, 140 70, 97 76" fill="none" stroke="#ffffff" strokeOpacity="0.5" strokeWidth={4} />
+    </g>,
+  ]);
+}
+
+/** 한자 — 습자 칸(米자 보조선) 위에 놓인 붓획 */
+function sceneHanja(to: string): ReactElement[] {
+  const x0 = -140, y0 = -160, S = 300;
+  return at([
+    <rect key="cell" x={x0} y={y0} width={S} height={S} fill="#ffffff" fillOpacity="0.05"
+      stroke="#ffffff" strokeOpacity="0.3" strokeWidth={3} />,
+    /* 보조선 — 십자와 대각 */
+    <path key="guide" d={`M ${x0} ${y0 + S / 2} L ${x0 + S} ${y0 + S / 2} M ${x0 + S / 2} ${y0} L ${x0 + S / 2} ${y0 + S}`}
+      fill="none" stroke="#ffffff" strokeOpacity="0.20" strokeWidth={2} />,
+    <path key="diag" d={`M ${x0} ${y0} L ${x0 + S} ${y0 + S} M ${x0 + S} ${y0} L ${x0} ${y0 + S}`}
+      fill="none" stroke="#ffffff" strokeOpacity="0.10" strokeWidth={2} />,
+    /* 획 셋 — 가로획, 삐침, 점 */
+    <path key="k1" d="M -84 -74 L 106 -82" fill="none" stroke="#ffffff" strokeOpacity="0.92" strokeWidth={17} strokeLinecap="round" />,
+    <path key="k2" d="M 12 -122 C 12 -18, -12 62, -78 116" fill="none" stroke={to} strokeWidth={19} strokeLinecap="round" />,
+    <path key="k3" d="M 44 20 L 108 96" fill="none" stroke="#ffffff" strokeOpacity="0.92" strokeWidth={15} strokeLinecap="round" />,
+  ]);
+}
+
+/** 퀴즈 — 문제 한 줄과 동그란 보기 넷, 하나가 골라져 있다 */
+function sceneQuiz(to: string): ReactElement[] {
+  const w = [236, 198, 268, 176];
+  const out: ReactElement[] = [
+    <rect key="q1" x={-160} y={-198} width={330} height={17} rx={8.5} fill="#ffffff" fillOpacity="0.6" />,
+    <rect key="q2" x={-160} y={-166} width={208} height={17} rx={8.5} fill="#ffffff" fillOpacity="0.32" />,
+  ];
+  w.forEach((v, i) => {
+    const y = -96 + i * 66;
+    const on = i === 1;
+    out.push(on
+      ? <circle key={`o${i}`} cx={-138} cy={y + 14} r={19} fill={to} />
+      : <circle key={`o${i}`} cx={-138} cy={y + 14} r={19} fill="none" stroke="#ffffff" strokeOpacity="0.4" strokeWidth={3} />);
+    out.push(<rect key={`a${i}`} x={-104} y={y + 4} width={v} height={19} rx={9.5}
+      fill="#ffffff" fillOpacity={on ? 0.75 : 0.26} />);
+  });
+  return at(out);
+}
+
+/** 체크리스트 — 네모 칸에 체크가 차오르고 아래로 진행 막대 */
+function sceneChecklist(to: string): ReactElement[] {
+  const w = [252, 196, 232, 168];
+  const out: ReactElement[] = [];
+  w.forEach((v, i) => {
+    const y = -178 + i * 68;
+    const done = i < 3;
+    out.push(<rect key={`b${i}`} x={-150} y={y} width={44} height={44} rx={11}
+      fill={done ? to : '#ffffff'} fillOpacity={done ? 1 : 0.08}
+      stroke="#ffffff" strokeOpacity={done ? 0 : 0.45} strokeWidth={3} />);
+    if (done) {
+      out.push(<path key={`k${i}`} d={`M ${-139} ${y + 23} L ${-131} ${y + 32} L ${-116} ${y + 12}`}
+        fill="none" stroke="#ffffff" strokeWidth={6} strokeLinecap="round" strokeLinejoin="round" />);
+    }
+    out.push(<rect key={`t${i}`} x={-92} y={y + 15} width={v} height={15} rx={7.5}
+      fill="#ffffff" fillOpacity={done ? 0.28 : 0.5} />);
+  });
+  out.push(<rect key="bar" x={-150} y={128} width={380} height={15} rx={7.5} fill="#ffffff" fillOpacity="0.12" />);
+  out.push(<rect key="fill" x={-150} y={128} width={285} height={15} rx={7.5} fill={to} />);
+  return at(out);
+}
+
+/** 생성기 — 깔때기에서 조각이 쏟아진다 */
+function sceneGenerator(to: string): ReactElement[] {
+  const bits: [number, number, number, number, number][] = [
+    [-118, 24, 88, 26, -13], [24, 46, 124, 26, 7], [176, 14, 62, 26, 21],
+    [-84, 104, 132, 26, 9], [86, 120, 92, 26, -16], [-134, 178, 76, 26, 18],
+    [16, 190, 150, 26, -6], [186, 166, 62, 26, 12],
+  ];
+  return at([
+    <path key="hop" d="M -134 -186 L 190 -186 L 70 -62 L -14 -62 Z" fill="#ffffff" fillOpacity="0.12"
+      stroke="#ffffff" strokeOpacity="0.32" strokeWidth={3} />,
+    <rect key="neck" x={-14} y={-62} width={84} height={34} fill="#ffffff" fillOpacity="0.12" />,
+    <rect key="neckb" x={-14} y={-62} width={84} height={34} fill="none" stroke="#ffffff" strokeOpacity="0.32" strokeWidth={3} />,
+    ...bits.map(([x, y, w, h, r], i) => (
+      <g key={`p${i}`} transform={`translate(${x} ${y}) rotate(${r})`}>
+        <rect x={0} y={0} width={w} height={h} rx={13}
+          fill={i % 3 === 0 ? to : '#ffffff'} fillOpacity={i % 3 === 0 ? 1 : 0.32} />
+      </g>
+    )),
+  ]);
+}
+
+/** 무작위 — 굴러가는 주사위 둘 */
+function sceneRandom(to: string): ReactElement[] {
+  /* 눈 자리는 -1·0·1 격자로 적고 40씩 벌린다 */
+  const pips = (spots: [number, number][], fill: string) =>
+    spots.map(([px, py], i) => <circle key={`p${i}`} cx={px * 38} cy={py * 38} r={11} fill={fill} />);
+  return at([
+    <g key="d1" transform="translate(-38 -78) rotate(-14)">
+      <rect x={-68} y={-68} width={136} height={136} rx={26} fill="#ffffff" fillOpacity="0.92" />
+      {pips([[-1, -1], [1, -1], [0, 0], [-1, 1], [1, 1]], to)}
+    </g>,
+    <g key="d2" transform="translate(144 96) rotate(19)">
+      <rect x={-60} y={-60} width={120} height={120} rx={24} fill={to} />
+      <rect x={-60} y={-60} width={120} height={120} rx={24} fill="none" stroke="#ffffff" strokeOpacity="0.35" strokeWidth={3} />
+      {pips([[-0.85, -0.85], [0, 0], [0.85, 0.85]], '#ffffff')}
+    </g>,
+  ]);
+}
+
+/** 기기 — 화면 셋이 크기순으로 선다 */
+function sceneDevice(to: string): ReactElement[] {
+  return at([
+    /* 모니터 */
+    <rect key="m" x={-160} y={-172} width={306} height={204} rx={14} fill="#ffffff" fillOpacity="0.10"
+      stroke="#ffffff" strokeOpacity="0.30" strokeWidth={3} />,
+    <rect key="mstem" x={-32} y={32} width={50} height={40} fill="#ffffff" fillOpacity="0.22" />,
+    <rect key="mfoot" x={-72} y={72} width={130} height={13} rx={6.5} fill="#ffffff" fillOpacity="0.32" />,
+    /* 태블릿 */
+    <rect key="t" x={62} y={-58} width={146} height={196} rx={16} fill="#ffffff" fillOpacity="0.16"
+      stroke="#ffffff" strokeOpacity="0.34" strokeWidth={3} />,
+    /* 손전화 — 하나만 강조색이라 «지금 이 기기»로 읽힌다 */
+    <rect key="p" x={176} y={16} width={98} height={190} rx={22} fill={to} />,
+    <rect key="pn" x={206} y={30} width={38} height={7} rx={3.5} fill="#ffffff" fillOpacity="0.7" />,
+    /* 화면 크기를 재는 대각선 */
+    <path key="diag" d="M -140 12 L 126 -152" fill="none" stroke={to} strokeOpacity="0.9" strokeWidth={4} />,
+  ]);
+}
+
+/** 변환 — 눈금이 다른 두 자가 마주 보고 대응한다 */
+function sceneConvert(to: string): ReactElement[] {
+  const out: ReactElement[] = [];
+  const rule = (y: number, step: number, off: number, key: string, accent: boolean) => {
+    out.push(<rect key={`${key}b`} x={-170} y={y} width={444} height={62} rx={10}
+      fill="#ffffff" fillOpacity="0.08" stroke="#ffffff" strokeOpacity="0.20" strokeWidth={2} />);
+    /* 마지막 눈금이 자 밖으로 나가면 캔버스 끝에서 잘려 보인다 */
+    for (let x = -170 + off; x <= 258; x += step) {
+      const big = Math.round((x + 170 - off) / step) % 2 === 0;
+      out.push(<rect key={`${key}${x}`} x={x} y={key === 'a' ? y : y + 62 - (big ? 30 : 16)} width={3}
+        height={big ? 30 : 16} fill={accent ? to : '#ffffff'} fillOpacity={accent ? (big ? 1 : 0.5) : (big ? 0.55 : 0.28)} />);
+    }
+  };
+  rule(-140, 46, 24, 'a', false);
+  rule(78, 71, 30, 'b', true);
+  /* 대응선 — 같은 양이 두 자에서 다른 칸에 앉는다 */
+  out.push(<path key="tie" d="M -54 -78 L -68 78 M 84 -78 L 101 78 M 222 -78 L 243 78"
+    fill="none" stroke="#ffffff" strokeOpacity="0.30" strokeWidth={3} />);
+  out.push(<circle key="ta" cx={84} cy={-78} r={9} fill="#ffffff" fillOpacity="0.85" />);
+  out.push(<circle key="tb" cx={101} cy={78} r={9} fill={to} />);
+  return at(out);
+}
+
+/** 가상자산 — 봉차트와 목표·손절 선 */
+function sceneCrypto(to: string): ReactElement[] {
+  /* [몸통 위, 몸통 높이, 심지 위, 심지 아래, 오름] */
+  const c: [number, number, number, number, boolean][] = [
+    [62, 72, 30, 162, false], [8, 62, -22, 100, true], [-8, 46, -50, 62, false],
+    [-72, 82, -112, 42, true], [-102, 52, -142, -18, true], [-152, 62, -192, -58, true],
+  ];
+  return at([
+    /* 목표선과 손절선 */
+    <rect key="tp" x={-170} y={-198} width={460} height={3} fill={to} fillOpacity="0.8" />,
+    <rect key="sl" x={-170} y={172} width={460} height={3} fill="#ffffff" fillOpacity="0.25" />,
+    ...c.flatMap(([top, h, wt, wb, up], i) => {
+      const x = -140 + i * 58;
+      const f = up ? to : '#ffffff';
+      const o = up ? 1 : 0.5;
+      return [
+        <rect key={`w${i}`} x={x + 13} y={wt} width={4} height={wb - wt} fill={f} fillOpacity={o} />,
+        <rect key={`c${i}`} x={x} y={top} width={30} height={h} rx={4} fill={f} fillOpacity={o} />,
+      ];
+    }),
+  ]);
+}
+
 /** 갈래 → 장면. 없으면 무늬 + 아이콘으로 돌아간다 */
 const SCENE: Record<string, (to: string) => ReactElement[]> = {
   fortune: sceneFortune,
   calculator: sceneCalc,
   test: sceneTest,
   color: sceneColor,
+  snap: sceneSnap,
+  text: sceneText,
+  time: sceneTime,
+  image: sceneImage,
+  sound: sceneSound,
+  game: sceneGame,
+  food: sceneFood,
+  hanja: sceneHanja,
+  quiz: sceneQuiz,
+  checklist: sceneChecklist,
+  generator: sceneGenerator,
+  random: sceneRandom,
+  device: sceneDevice,
+  convert: sceneConvert,
+  crypto: sceneCrypto,
 };
 
 let currentScene: ((to: string) => ReactElement[]) | null = null;

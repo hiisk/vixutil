@@ -526,16 +526,27 @@ test('입력칸에 라벨이 있고 힌트가 입력 형식으로 안 읽힌다'
   /* 라벨 — 값이 채워져도 남는 것이 있어야 한다 */
   for (const [what, re] of [
     ['생년월일', /htmlFor="saju-year"[\s\S]{0,120}\{fc\.birthLabel\}/],
-    ['태어난 시각', /htmlFor="saju-hour"[\s\S]{0,120}\{fc\.hourLabel\}/],
+    /* 2026-08-20: «모름»을 체크로 받으면서 시 고르개가 항상 있지는 않게 됐다.
+       htmlFor가 없는 순간이 생기므로 라벨 문구와 aria-label로 본다. */
+    ['태어난 시각', /className="fld-lbl">\{fc\.hourLabel\}/],
+    ['시 고르개 이름', /id="saju-hour" aria-label=\{fc\.hourLabel\}/],
     ['시각 안내', /\{fc\.hourNote\}/],
     ['성별', /\{fc\.genderLabel\}/],
   ] as const) {
     assert.match(src, re, `${what} 라벨이 없다`);
   }
 
-  /* 성별 단추가 기호만 두지 않는다 — 대운 방향이 성별로 갈린다 */
-  assert.match(src, /♂ \$\{fc\.male\}/, '성별 단추에 말이 없다');
-  assert.match(src, /♀ \$\{fc\.female\}/, '성별 단추에 말이 없다');
+  /*
+   * 성별 단추는 말로만 쓴다 — 대운 방향이 성별로 갈리므로 무엇이 골라져
+   * 있는지가 분명해야 한다.
+   *
+   * 2026-08-20에 ♂·♀ 기호를 뺐다. 글자가 이미 「남성」·「여성」이라고 말하고
+   * 있어서 기호는 같은 말을 두 번 하는 것이었다. 그래서 이 검사도 «기호가
+   * 있는가»가 아니라 «말이 있는가»를 본다.
+   */
+  assert.match(src, /fc\.male/, '성별 단추에 남성 문구가 없다');
+  assert.match(src, /fc\.female/, '성별 단추에 여성 문구가 없다');
+  assert.ok(!/[♂♀]/.test(src), '성별 기호가 남아 있다 — 글자만 쓴다');
 
   /* 범위는 브라우저가 지킨다 */
   assert.match(src, /min=\{k === 'year' \? 1900 : 1\}/, '월·일 칸에 min이 없다');

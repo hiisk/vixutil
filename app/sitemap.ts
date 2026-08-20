@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { GAPJA } from '@/lib/ilju';
 import { TESTS } from "@/lib/test-data";
 import { QUIZZES } from "@/lib/quiz-data";
 import { GENERATORS } from "@/lib/generator-data";
@@ -169,6 +170,9 @@ function allEntries(): MetadataRoute.Sitemap {
     { url: `${BASE}/fortune/samjae`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/fortune/sinsal`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/fortune/unseong`, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/fortune/ilju`, changeFrequency: weekly, priority: 0.9 },
+    /* 일주 예순 장 — 「갑자일주」·「병오일주」가 하나하나 검색어다 */
+    ...GAPJA.map(g => ({ url: `${BASE}/fortune/ilju/${g.slug}`, changeFrequency: weekly, priority: 0.7 })),
     { url: `${BASE}/fortune/name-match`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/fortune/zodiac-match`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/fortune/star-match`, changeFrequency: weekly, priority: 0.9 },

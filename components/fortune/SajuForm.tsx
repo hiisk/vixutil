@@ -67,8 +67,12 @@ export default function SajuForm({
       {header}
       <div className="p-5">
         {/*
-          ♂·♀ 기호만 두면 무엇을 고르는 칸인지, 지금 무엇이 골라져 있는지가 색으로만
-          남는다. 대운의 방향이 성별로 갈리므로 잘못 고르면 결과가 통째로 달라진다.
+          라벨을 따로 둔다. 대운의 방향이 성별로 갈리므로 잘못 고르면 결과가 통째로
+          달라지는데, 무엇을 고르는 칸인지가 안 보이면 그냥 지나친다.
+
+          성별 기호는 뺐다(2026-08-20) — 글자가 이미 「남성」·「여성」이라고
+          말하고 있어서 기호는 같은 말을 두 번 하는 것이었다. 검사도 기호가
+          다시 들어오면 잡는다(tests/saju-topics.test.ts).
         */}
         <span className="fld-lbl">{fc.genderLabel}</span>
         <div className="grid grid-cols-2 gap-2 mb-3" role="group" aria-label={fc.genderLabel}>
@@ -79,7 +83,7 @@ export default function SajuForm({
               className={`rounded-xl py-2.5 text-sm font-bold border transition-all ${value.gender === g
                 ? 'pick-on text-sec'
                 : 'pick-off text-slate-600 dark:text-slate-300'}`}>
-              {g === 'male' ? `♂ ${fc.male}` : `♀ ${fc.female}`}
+              {g === 'male' ? fc.male : fc.female}
             </button>
           ))}
       </div>
@@ -112,23 +116,48 @@ export default function SajuForm({
         분까지 받는 것은 진태양시 보정(서울 −32분) 때문이다. 시진 경계에 걸린
         사람은 분이 시주를 바꾼다.
       */}
-      <label htmlFor="saju-hour" className="fld-lbl">{fc.hourLabel}</label>
-      <div className="flex items-center gap-2 mb-1">
-        <select id="saju-hour" className="fld fld-sel w-full" value={hh}
-          onChange={e => set({ hour: e.target.value === '' ? '' : `${e.target.value}:${mm || '00'}` })}>
-          <option value="">{fc.hourUnknown}</option>
-          {Array.from({ length: 24 }, (_, i) => String(i).padStart(2, '0')).map(h => (
-            <option key={h} value={h}>{h}</option>
-          ))}
-        </select>
-        <span className="text-slate-500 dark:text-slate-400 font-bold">:</span>
-        <select aria-label={fc.hourLabel} className="fld fld-sel w-full" value={mm} disabled={hh === ''}
-          onChange={e => set({ hour: `${hh}:${e.target.value}` })}>
-          {Array.from({ length: 60 }, (_, i) => String(i).padStart(2, '0')).map(m => (
-            <option key={m} value={m}>{m}</option>
-          ))}
-        </select>
-      </div>
+      <span className="fld-lbl">{fc.hourLabel}</span>
+      {/*
+        ── 시각은 «모름» 체크로 가른다 (2026-08-20) ───────────────
+        전에는 «모름»이 시 고르개의 한 항목이었다. 그래서 아무것도 안 고른
+        상태가 「모름 : 00」으로 보였다 — 분 칸이 구체적인 값을 내밀고 있어
+        0분으로 정해진 것처럼 읽힌다.
+
+        땜질을 두 번 했다. 분 칸을 숨겼더니 시를 고르는 순간 칸이 튀어나와 더
+        이상했고, 값만 «--»로 비웠더니 여전히 무엇을 해야 하는지 안 보였다.
+
+        상태를 UI로 드러낸다. 모른다는 것은 «값»이 아니라 «상태»이므로 체크로
+        받는다. 체크가 켜져 있으면 시각 줄이 없다 — 사람이 직접 끈 것이라
+        나타나고 사라지는 것이 놀랍지 않다. 문구는 있던 것(모름)을 그대로 써서
+        열 언어가 그대로 간다.
+      */}
+      <label className="mb-2 flex cursor-pointer items-center gap-2">
+        <input
+          type="checkbox"
+          className="h-4 w-4 accent-current text-sec"
+          checked={value.hour === ''}
+          onChange={e => set({ hour: e.target.checked ? '' : '12:00' })}
+        />
+        <span className="text-xs font-bold text-slate-600 dark:text-slate-300">{fc.hourUnknown}</span>
+      </label>
+
+      {value.hour !== '' && (
+        <div className="flex items-center gap-2 mb-1">
+          <select id="saju-hour" aria-label={fc.hourLabel} className="fld fld-sel flex-1" value={hh}
+            onChange={e => set({ hour: `${e.target.value}:${mm || '00'}` })}>
+            {Array.from({ length: 24 }, (_, i) => String(i).padStart(2, '0')).map(h => (
+              <option key={h} value={h}>{h}</option>
+            ))}
+          </select>
+          <span className="text-slate-500 dark:text-slate-400 font-bold" aria-hidden>:</span>
+          <select aria-label={`${fc.hourLabel} 00-59`} className="fld fld-sel flex-1" value={mm}
+            onChange={e => set({ hour: `${hh}:${e.target.value}` })}>
+            {Array.from({ length: 60 }, (_, i) => String(i).padStart(2, '0')).map(m => (
+              <option key={m} value={m}>{m}</option>
+            ))}
+          </select>
+        </div>
+      )}
       <p className="fld-note mb-3">{fc.hourNote}</p>
 
       {children}

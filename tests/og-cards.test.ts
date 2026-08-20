@@ -121,8 +121,11 @@ test('카드 장수가 아는 수와 같다', () => {
  *          아는 말인데, 내 사주에 있는지 볼 자리가 없었다
  *
  *   2,013  2026-08-20에 /fortune/unseong(+1). 십이신살과 짝이 되는 표다
+ *
+ *   2,014  같은 날 /fortune/ilju(+1) — 일주 예순 장의 허브. 낱장 예순은
+ *          허브 카드를 함께 쓰므로 카드가 늘지 않는다
    */
-  const WANT = 2013;
+  const WANT = 2014;
   const total = LANG_CODES.reduce((n, l) => n + CARD_KEYS[l].length, 0);
   assert.equal(total, WANT);
   assert.equal(allCardParams().length, WANT);

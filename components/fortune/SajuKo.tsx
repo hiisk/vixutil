@@ -295,9 +295,17 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
     ? Math.min(stepIdx, allSteps.length - 1)
     : topicStep;
   const currentStep = allSteps[safeStep];
+  /*
+    단계를 옮기면 카드 맨 위로 올린다.
+    전에는 «다음» 단추에만 붙어 있었다 — «이전»으로 돌아가거나 위쪽 단계 탭을
+    직접 누르면 화면이 그 자리에 남아, 바뀐 카드의 가운데나 끝을 보고 있었다.
+    옮기는 길이 셋이므로 여기 한 곳에 둔다.
+  */
   const goStep = (n: number | ((i: number) => number)) => {
     setTouched(true);
     setStepIdx(i => Math.max(0, Math.min(allSteps.length - 1, typeof n === 'function' ? n(safeStep) : n)));
+    /* 상태가 바뀐 뒤에 올려야 새 카드 높이로 맞는다 */
+    setTimeout(() => document.getElementById('saju-result')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 40);
   };
 
   /* 공유 */
@@ -891,7 +899,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                 이전
               </button>
               <button
-                onClick={() => { goStep(i => i + 1); document.getElementById('saju-result')?.scrollIntoView({ behavior:'smooth', block:'start' }); }}
+                onClick={() => goStep(i => i + 1)}
                 disabled={safeStep === allSteps.length - 1}
                 className={`flex-[2] flex items-center justify-center gap-2 py-3.5 rounded-lg font-bold text-sm transition-all ${
                   safeStep === allSteps.length - 1
