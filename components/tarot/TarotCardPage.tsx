@@ -84,7 +84,7 @@ export default function TarotCardPage({ slug, lang }: { slug: string; lang: Lang
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link prefetch={false} href={`${prefix}/fortune/card`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
+          <Link prefetch={false} href={`${prefix}/fortune/card`} className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 transition-colors font-medium truncate">
             {ui.section}
           </Link>
           <div className="ml-auto shrink-0">

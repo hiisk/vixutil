@@ -66,7 +66,7 @@ export default function RomanizeTool() {
                   }`}
                 >
                   {n}글자 성
-                  <span className="block text-[11px] font-normal text-slate-400 dark:text-slate-500 mt-0.5">
+                  <span className="block text-[11px] font-normal text-slate-500 dark:text-slate-400 mt-0.5">
                     {name.trim().replace(/\s+/g, '').slice(0, n) || '—'} · {name.trim().replace(/\s+/g, '').slice(n) || '—'}
                   </span>
                 </button>

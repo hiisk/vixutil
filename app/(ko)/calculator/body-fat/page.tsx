@@ -187,7 +187,7 @@ export default function BodyFatPage() {
                     </div>
                   )}
                 </div>
-                <p className="text-xs text-slate-400 dark:text-slate-500">* 목둘레: 후두골 아래 · 허리둘레: 배꼽 위 가장 가는 부위</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">* 목둘레: 후두골 아래 · 허리둘레: 배꼽 위 가장 가는 부위</p>
               </>
             ) : (
               <>
@@ -205,7 +205,7 @@ export default function BodyFatPage() {
                   <Label>체중 (kg) · 선택</Label>
                   <input type="number" value={weight} onChange={e => setWeight(e.target.value)} placeholder="70" className={inputCls} />
                 </div>
-                <p className="text-xs text-slate-400 dark:text-slate-500">Deurenberg 1991 공식 기반 추정 (±3~5% 오차 가능)</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Deurenberg 1991 공식 기반 추정 (±3~5% 오차 가능)</p>
               </>
             )}
 
@@ -234,11 +234,11 @@ export default function BodyFatPage() {
                 <>
                   <div className="grid grid-cols-2 gap-x-4 gap-y-5 mb-4">
                     <div className="bg-white dark:bg-slate-900 rounded-xl p-3 border border-slate-100 dark:border-slate-800">
-                      <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">체지방량</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">체지방량</p>
                       <p className="text-lg font-bold text-slate-800 dark:text-slate-100">{result.fatMass.toFixed(1)} kg</p>
                     </div>
                     <div className="bg-white dark:bg-slate-900 rounded-xl p-3 border border-slate-100 dark:border-slate-800">
-                      <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">근육·제지방량</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">근육·제지방량</p>
                       <p className="text-lg font-bold text-slate-800 dark:text-slate-100">{result.leanMass.toFixed(1)} kg</p>
                     </div>
                   </div>

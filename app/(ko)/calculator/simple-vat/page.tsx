@@ -55,7 +55,7 @@ export default function SimpleVatPage() {
             <div>
               <Label>연 매출액 (공급대가, 원)</Label>
               <CommaInput value={sales} onChange={setSales} placeholder="예: 60,000,000" />
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 부가세를 포함한 연간 총 매출
               </p>
             </div>
@@ -68,14 +68,14 @@ export default function SimpleVatPage() {
                   </option>
                 ))}
               </select>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 {INDUSTRY_RATES.find(i => i.id === industryId)?.examples}
               </p>
             </div>
             <div>
               <Label>연 매입액 (세금계산서 수취분, 원)</Label>
               <CommaInput value={purchases} onChange={setPurchases} placeholder="예: 0" />
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 매입액의 0.5%가 세액공제됩니다 (없으면 0)
               </p>
             </div>
@@ -116,7 +116,7 @@ export default function SimpleVatPage() {
                   <span className="text-slate-600 dark:text-slate-300">매출세액</span>
                   <span className="font-bold text-slate-900 dark:text-slate-100 tabular-nums">{w(result.outputTax)}원</span>
                 </div>
-                <div className="flex justify-between text-xs text-slate-400 dark:text-slate-500">
+                <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400">
                   <span>매출 × 부가가치율({(result.industry.rate * 100).toFixed(0)}%) × 10%</span>
                   <span className="tabular-nums">{w(result.sales)} × {(result.industry.rate * 100).toFixed(0)}% × 10%</span>
                 </div>

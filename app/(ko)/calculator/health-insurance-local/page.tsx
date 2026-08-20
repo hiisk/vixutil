@@ -248,7 +248,7 @@ export default function HealthInsuranceLocalPage() {
                 ))}
               </div>
               <div className="px-5 py-3 border-t border-slate-100 dark:border-slate-800">
-                <p className="text-xs text-slate-400 dark:text-slate-500">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   * 같은 소득을 보수로 받는 직장가입자와 견준 값입니다. 재산·자동차가 없어도 회사 몫이
                   없어 건강보험료가 두 배가 됩니다.
                 </p>
@@ -264,7 +264,7 @@ export default function HealthInsuranceLocalPage() {
             </Card>
 
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 고시값은 입력한 것을 그대로 씁니다 · 등급 판정·세대원 합산·감면은 반영하지 않았습니다 ·
                 실제 보험료는 국민건강보험공단 고지·조회로 확인하세요
               </p>

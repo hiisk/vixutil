@@ -293,7 +293,7 @@ export default function PhotoMood({ lang }: { lang: SnapIntlLang }) {
                 {result.palette.map(hex => (
                   <div key={hex} className="flex-1 text-center">
                     <div className="w-full aspect-square rounded-xl border border-slate-200 dark:border-slate-700" style={{ background: hex }} />
-                    <p className="text-[9px] text-slate-400 dark:text-slate-500 mt-1 font-mono">{hex}</p>
+                    <p className="text-[9px] text-slate-500 dark:text-slate-400 mt-1 font-mono">{hex}</p>
                   </div>
                 ))}
               </div>

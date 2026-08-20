@@ -66,7 +66,7 @@ export default function ShoeSizeIntl({ lang }: { lang: CalcLang }) {
           step={unit === 'cm' ? 0.1 : 1}
           className={inputCls}
         />
-        <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">{c.hint}</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">{c.hint}</p>
       </Card>
 
       {row && reco && (

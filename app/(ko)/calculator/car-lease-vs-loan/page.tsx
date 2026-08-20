@@ -239,7 +239,7 @@ export default function CarLeaseVsLoanPage() {
                   <div key={p.key} className="px-5 py-4">
                     <div className="flex justify-between items-baseline">
                       <span className="font-semibold text-slate-700 dark:text-slate-200">
-                        <span className="text-slate-400 dark:text-slate-500 mr-2">{p.rank}위</span>
+                        <span className="text-slate-500 dark:text-slate-400 mr-2">{p.rank}위</span>
                         {p.label}
                       </span>
                       <span className="font-bold">
@@ -273,7 +273,7 @@ export default function CarLeaseVsLoanPage() {
                     <span className="text-slate-600 dark:text-slate-300">{p.label}</span>
                     <span className="font-semibold">
                       월 {fmt(p.monthly)}원
-                      <span className="ml-2 text-xs font-normal text-slate-400 dark:text-slate-500">
+                      <span className="ml-2 text-xs font-normal text-slate-500 dark:text-slate-400">
                         첫날 {fmt(p.upfront)}원
                       </span>
                     </span>
@@ -283,7 +283,7 @@ export default function CarLeaseVsLoanPage() {
             </Card>
 
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 유지비(유류비·정비비·자동차세)와 사업자 절세 효과, 리스 주행거리 초과 위약금은
                 반영하지 않았습니다 · 잔존가치는 정률법 추정치입니다
               </p>

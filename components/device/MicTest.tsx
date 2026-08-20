@@ -173,7 +173,7 @@ export default function MicTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
 
           <div className="mb-1.5 flex items-center justify-between text-xs">
             <span className="font-bold text-slate-500 dark:text-slate-400">{ui.inputLevel}</span>
-            <span className="font-mono text-slate-400 dark:text-slate-500">
+            <span className="font-mono text-slate-500 dark:text-slate-400">
               {ui.levelPeak(level, peak)}
             </span>
           </div>
@@ -189,7 +189,7 @@ export default function MicTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
 
           <p className="mt-3 text-center text-sm font-bold">
             {peak === 0 ? (
-              <span className="text-slate-400 dark:text-slate-500">{ui.saySomething}</span>
+              <span className="text-slate-500 dark:text-slate-400">{ui.saySomething}</span>
             ) : peak < 12 ? (
               <span className="text-amber-600">{ui.tooQuiet}</span>
             ) : peak > 96 ? (

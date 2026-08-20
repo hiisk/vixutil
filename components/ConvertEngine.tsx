@@ -72,7 +72,7 @@ export default function ConvertEngine({ tool, lang = 'ko' }: { tool: ConvertTool
     <div>
       <div className="flex items-end gap-2">
         {field('left', left, tool.from, onLeft)}
-        <span className="pb-4 text-xl text-slate-300 dark:text-slate-600 shrink-0">=</span>
+        <span className="pb-4 text-xl text-slate-500 dark:text-slate-400 shrink-0">=</span>
         {field('right', right, tool.to, onRight)}
       </div>
 
@@ -99,7 +99,7 @@ export default function ConvertEngine({ tool, lang = 'ko' }: { tool: ConvertTool
               <span className="text-sm font-bold text-slate-600 dark:text-slate-300 tabular-nums w-24">
                 {v}{tool.from}
               </span>
-              <span className="text-slate-300 dark:text-slate-600 text-xs">=</span>
+              <span className="text-slate-500 dark:text-slate-400 text-xs">=</span>
               <span className="text-sm font-bold text-blue-600 tabular-nums">
                 {converted}{tool.to}
               </span>

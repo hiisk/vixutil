@@ -138,28 +138,28 @@ export default function FortuneDisplayIntl({ subjectId, subjectName, subjectEmoj
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div className="text-center">
             <div className="w-10 h-10 rounded-full mx-auto mb-1 border-2 border-white shadow-sm" style={{ background: f.luckyColorHex }} />
-            <p className="text-xs text-slate-400 dark:text-slate-500">{t('luckyColor', lang)}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">{t('luckyColor', lang)}</p>
             <p className="text-sm font-bold text-slate-700 dark:text-slate-200">{f.luckyColor}</p>
           </div>
           <div className="text-center">
             <div className="w-10 h-10 rounded-full bg-violet-100 dark:bg-violet-950/40 flex items-center justify-center mx-auto mb-1">
               <span className="text-lg font-bold text-violet-600">{f.luckyNumber}</span>
             </div>
-            <p className="text-xs text-slate-400 dark:text-slate-500">{t('luckyNumber', lang)}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">{t('luckyNumber', lang)}</p>
             <p className="text-sm font-bold text-slate-700 dark:text-slate-200">{f.luckyNumber}</p>
           </div>
           <div className="text-center">
             <div className="w-10 h-10 rounded-full bg-violet-100 dark:bg-violet-950/40 flex items-center justify-center mx-auto mb-1">
               <span className="text-base">🧭</span>
             </div>
-            <p className="text-xs text-slate-400 dark:text-slate-500">{t('luckyDirection', lang)}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">{t('luckyDirection', lang)}</p>
             <p className="text-sm font-bold text-slate-700 dark:text-slate-200">{f.luckyDirection}</p>
           </div>
           <div className="text-center">
             <div className="w-10 h-10 rounded-full bg-violet-100 dark:bg-violet-950/40 flex items-center justify-center mx-auto mb-1">
               <span className="text-base">🎁</span>
             </div>
-            <p className="text-xs text-slate-400 dark:text-slate-500">{t('luckyItem', lang)}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">{t('luckyItem', lang)}</p>
             <p className="text-sm font-bold text-slate-700 dark:text-slate-200">{f.luckyItem}</p>
           </div>
         </div>

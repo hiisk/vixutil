@@ -70,8 +70,8 @@ export default function ConvertHub({ lang, faq }: { lang: ConvertLang; faq?: { q
         <div className="flex flex-col gap-7">
           {grouped.map(g => (
             <section key={g.category} aria-label={categoryLabel(g.category)}>
-              <h2 className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
-                {categoryLabel(g.category)} <span className="text-slate-300 dark:text-slate-600">{g.tools.length}</span>
+              <h2 className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">
+                {categoryLabel(g.category)} <span className="text-slate-500 dark:text-slate-400">{g.tools.length}</span>
               </h2>
               <div className="grid sm:grid-cols-2 gap-2">
                 {g.tools.map(t => {
@@ -87,7 +87,7 @@ export default function ConvertHub({ lang, faq }: { lang: ConvertLang; faq?: { q
                       <span className="hub-card-title group-hover:text-sec transition-colors">
                         {lt.title}
                       </span>
-                      <span className="block text-[11px] text-slate-400 dark:text-slate-500 tabular-nums">
+                      <span className="block text-[11px] text-slate-500 dark:text-slate-400 tabular-nums">
                         1{lt.from} = {format(convert(1, t), Math.max(t.digits, 2))}{lt.to}
                       </span>
                     </span>
@@ -101,7 +101,7 @@ export default function ConvertHub({ lang, faq }: { lang: ConvertLang; faq?: { q
 
         <Faq items={faq ?? (lang === 'ko' ? SECTION_FAQ.convert : CONVERT_HUB_FAQ[lang])} lang={lang} />
 
-        <p className="text-center text-xs text-slate-300 dark:text-slate-600 mt-9">{ui.footNote}</p>
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-9">{ui.footNote}</p>
       </main>
 
       <SiteFooter lang={lang} />

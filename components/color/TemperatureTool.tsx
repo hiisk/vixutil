@@ -69,7 +69,7 @@ export default function TemperatureTool({ lang = 'ko' }: { lang?: ColorLang } = 
               <span className="w-4 h-4 rounded border border-slate-200 dark:border-slate-600 shrink-0" style={{ background: rgbToHex(kelvinToRgb(p.k)) }} />
               <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{ui.presets[p.key]}</span>
             </span>
-            <span className="block text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{p.k}K · {ui.descs[p.key]}</span>
+            <span className="block text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{p.k}K · {ui.descs[p.key]}</span>
           </button>
         ))}
       </div>

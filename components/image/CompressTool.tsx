@@ -112,7 +112,7 @@ export default function CompressTool({ lang = 'ko' }: { lang?: ImageLang } = {})
           className="w-full accent-violet-500"
           aria-label={c.quality}
         />
-        <div className="flex justify-between text-[11px] text-slate-400 dark:text-slate-500 mt-1">
+        <div className="flex justify-between text-[11px] text-slate-500 dark:text-slate-400 mt-1">
           <span>{c.smaller}</span>
           <span>{c.sharper}</span>
         </div>
@@ -132,12 +132,12 @@ export default function CompressTool({ lang = 'ko' }: { lang?: ImageLang } = {})
               <span className={`block text-sm font-bold ${mime === f.mime ? 'text-violet-700 dark:text-violet-300' : 'text-slate-700 dark:text-slate-200'}`}>
                 {ui.formats[i]}
               </span>
-              <span className="block text-[11px] text-slate-400 dark:text-slate-500">{ui.formatHints[i]}</span>
+              <span className="block text-[11px] text-slate-500 dark:text-slate-400">{ui.formatHints[i]}</span>
             </button>
           ))}
         </div>
 
-        <p className="mt-4 text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed">
+        <p className="mt-4 text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
           {img.width} × {img.height}px · {c.original} {formatBytes(img.size)} · {ui.note}<b className="text-slate-500 dark:text-slate-400">{ui.noteLink}</b>
         </p>
       </div>

@@ -106,9 +106,9 @@ export default function BmrPage() {
                 <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">kcal/일</p>
               </div>
               <div className="bg-slate-800 rounded-lg p-5">
-                <p className="text-slate-400 dark:text-slate-500 text-xs mb-1">Mifflin-St Jeor</p>
+                <p className="text-slate-500 dark:text-slate-400 text-xs mb-1">Mifflin-St Jeor</p>
                 <p className="stat-value">{fmt(result.mifflin)}</p>
-                <p className="text-slate-400 dark:text-slate-500 text-xs mt-1">kcal/일</p>
+                <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">kcal/일</p>
               </div>
             </div>
             <Card className="p-4">

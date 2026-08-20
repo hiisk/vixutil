@@ -55,7 +55,7 @@ export default function DeviceShell({
             홈
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link prefetch={false} href="/device" className="text-sm text-slate-400 dark:text-slate-500 hover:text-sky-600 transition-colors font-medium">
+          <Link prefetch={false} href="/device" className="text-sm text-slate-500 dark:text-slate-400 hover:text-sky-600 transition-colors font-medium">
             기기 점검
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
@@ -127,7 +127,7 @@ export default function DeviceShell({
           </div>
         </section>
 
-        <p className="text-center text-xs text-slate-300 dark:text-slate-600 mt-9 leading-relaxed">
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-9 leading-relaxed">
           측정값은 브라우저가 알려주는 값이라 실제 하드웨어 사양과 다를 수 있습니다.
           <br />
           고장이 의심되면 제조사 진단 도구로 한 번 더 확인하세요.

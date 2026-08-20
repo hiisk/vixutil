@@ -187,7 +187,7 @@ export default function LoanPage() {
 
             {/* 360줄은 «필요하면 펴는 것»이지 기본으로 펼 것이 아니다 */}
             <details className="fold border-t border-slate-200 dark:border-slate-800">
-              <summary>월별 상환 스케줄 <span className="font-normal text-slate-400">{rows.length}개월</span></summary>
+              <summary>월별 상환 스케줄 <span className="font-normal text-slate-500 dark:text-slate-400">{rows.length}개월</span></summary>
               <TableWrap>
                 <table className="calc-table">
                   <thead>

@@ -36,7 +36,7 @@ export default function DevHashIntl({ lang }: { lang: CalcLang }) {
   return (
     <div className="flex flex-col gap-4">
       <Card className="p-5">
-        <Label>{c.text} <span className="font-normal text-slate-400 dark:text-slate-500">{c.auto}</span></Label>
+        <Label>{c.text} <span className="font-normal text-slate-500 dark:text-slate-400">{c.auto}</span></Label>
         <textarea
           value={text}
           onChange={e => setText(e.target.value)}
@@ -48,7 +48,7 @@ export default function DevHashIntl({ lang }: { lang: CalcLang }) {
       {ALGOS.map(a => hashes[a.name] && (
         <Card key={a.name} className="p-5">
           <div className="flex items-center justify-between mb-2">
-            <Label>{a.name} <span className="font-normal text-slate-400 dark:text-slate-500">{c[a.bits]}</span></Label>
+            <Label>{a.name} <span className="font-normal text-slate-500 dark:text-slate-400">{c[a.bits]}</span></Label>
             <CopyButton text={hashes[a.name]} copy={c.copy} copied={c.copied} />
           </div>
           <pre className="text-xs font-mono break-all text-slate-800 dark:text-slate-100">{hashes[a.name]}</pre>

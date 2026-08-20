@@ -144,7 +144,7 @@ export default function KellyCalculator() {
                       }`}>
                       <td className="px-4 py-2.5 font-bold text-slate-700 dark:text-slate-200">
                         {row.label}
-                        <span className="text-slate-400 dark:text-slate-500 font-normal"> ×{row.c}</span>
+                        <span className="text-slate-500 dark:text-slate-400 font-normal"> ×{row.c}</span>
                       </td>
                       <td className="px-3 py-2.5 text-right tabular-nums text-slate-600 dark:text-slate-300">
                         {row.blown ? <span className="text-rose-600 dark:text-rose-400">&gt;100%</span> : fmtPct(row.f * 100)}

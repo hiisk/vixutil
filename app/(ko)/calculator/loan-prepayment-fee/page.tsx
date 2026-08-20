@@ -166,7 +166,7 @@ export default function LoanPrepaymentFeePage() {
                   </div>
                 ))}
               </div>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-3">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-3">
                 실제 수수료는 금융사·상품 약정에 따라 계산 기준(일할 계산 등)이 다를 수 있어 참고용으로만 확인하세요.
               </p>
             </Card>

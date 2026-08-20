@@ -87,7 +87,7 @@ export default function DotCountGame({ lang = 'ko' }: { lang?: GameLang } = {}) 
             </p>
           </div>
         ) : (
-          <p className="text-sm text-slate-400 dark:text-slate-500 text-center px-6">{ui.dotHow}</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400 text-center px-6">{ui.dotHow}</p>
         )}
       </div>
 

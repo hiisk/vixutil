@@ -73,7 +73,7 @@ export default function BirthdayPage() {
                 <p className="text-slate-900 dark:text-slate-50 text-xl font-bold">{info.zodiac}띠</p>
               </div>
               <div className="bg-slate-800 rounded-lg p-5 text-center">
-                <p className="text-slate-400 dark:text-slate-500 text-xs mb-1">별자리</p>
+                <p className="text-slate-500 dark:text-slate-400 text-xs mb-1">별자리</p>
                 <p className="text-4xl mb-1">{info.star.emoji}</p>
                 <p className="text-white text-xl font-bold">{info.star.name}</p>
               </div>

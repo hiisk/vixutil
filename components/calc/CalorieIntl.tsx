@@ -79,7 +79,7 @@ export default function CalorieIntl({ lang }: { lang: CalcLang }) {
                 }`}
               >
                 <span className="text-sm font-semibold">{l.label}</span>
-                <span className={`block text-xs ${activity === l.factor ? 'text-blue-100' : 'text-slate-400 dark:text-slate-500'}`}>
+                <span className={`block text-xs ${activity === l.factor ? 'text-blue-100' : 'text-slate-500 dark:text-slate-400'}`}>
                   {l.sub}
                 </span>
               </button>
@@ -88,7 +88,7 @@ export default function CalorieIntl({ lang }: { lang: CalcLang }) {
         </div>
 
         <div className="mt-4"><PrimaryBtn onClick={calculate}>{c.calc}</PrimaryBtn></div>
-        <p className="mt-3 text-xs text-slate-400 dark:text-slate-500">{c.note}</p>
+        <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">{c.note}</p>
       </Card>
 
       {result && (

@@ -222,7 +222,7 @@ export default function PensionSplitPage() {
                 </div>
               </div>
               <div className="px-5 py-3 border-t border-slate-100 dark:border-slate-800">
-                <p className="text-xs text-slate-400 dark:text-slate-500">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   나눠 준 쪽은 월 {fmt(result.r.reduction)}원이 줄어듭니다. 분할연금은 새로 생기는 돈이
                   아니라 하나를 둘로 가르는 것이라, 두 사람 몫의 합은 원래 받던 금액과 같습니다.
                 </p>
@@ -237,17 +237,17 @@ export default function PensionSplitPage() {
                     <span className="text-slate-600 dark:text-slate-300">
                       {(row.ratio * 100).toFixed(0)}%
                       {row.ratio === DEFAULT_SPLIT_RATIO && (
-                        <span className="text-slate-400 text-xs ml-1">법정 기본</span>
+                        <span className="text-slate-500 dark:text-slate-400 text-xs ml-1">법정 기본</span>
                       )}
                     </span>
                     <span className={`font-semibold ${row.ratio === DEFAULT_SPLIT_RATIO ? 'text-blue-600' : ''}`}>
-                      {fmt(row.spouseMonthly)}원 <span className="text-slate-400 font-normal">/ {fmt(row.ownMonthly)}원</span>
+                      {fmt(row.spouseMonthly)}원 <span className="text-slate-500 dark:text-slate-400 font-normal">/ {fmt(row.ownMonthly)}원</span>
                     </span>
                   </div>
                 ))}
               </div>
               <div className="px-5 py-3 border-t border-slate-100 dark:border-slate-800">
-                <p className="text-xs text-slate-400 dark:text-slate-500">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   받는 쪽 / 나눠 준 쪽 순서입니다. 법이 정한 기본은 절반이고 나머지 비율은
                   금액이 어떻게 움직이는지 견주기 위한 눈금일 뿐입니다.
                 </p>
@@ -265,7 +265,7 @@ export default function PensionSplitPage() {
             )}
 
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 국민연금법 기본연금액 식에 따른 추정치 · 혼인기간 5년 이상, 이혼 성립, 양쪽 모두
                 수급연령 도달이라는 요건은 이 계산기가 판정하지 않습니다 · 실제 금액과 수급 가능
                 여부는 국민연금공단에서 확인하세요

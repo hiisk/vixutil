@@ -207,7 +207,7 @@ export default function Scorecard({ symbols, market }: { symbols: string[]; mark
                       <td className="px-3 py-2.5 text-right tabular-nums border-l border-slate-200/40 dark:border-slate-700/40 text-slate-600 dark:text-slate-300">
                         {m.hitEdgePP >= 0 ? '+' : '−'}{Math.abs(m.hitEdgePP).toFixed(1)}
                         {r.stdErrPP != null && (
-                          <span className="text-slate-400 dark:text-slate-500 text-[11px]"> ±{(2 * r.stdErrPP).toFixed(1)}</span>
+                          <span className="text-slate-500 dark:text-slate-400 text-[11px]"> ±{(2 * r.stdErrPP).toFixed(1)}</span>
                         )}
                         <span className="text-[11px] ml-0.5">pp</span>
                       </td>

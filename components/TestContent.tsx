@@ -19,7 +19,7 @@ export default function TestContent({ test }: { test: Test }) {
         <h2 className="sec-h2-tight">
           {test.title} 결과 유형 {test.results.length}가지
         </h2>
-        <p className="text-xs text-slate-400 dark:text-slate-500 mb-4">
+        <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
           {test.questions.length}문항에 답하면 아래 유형 중 하나가 나옵니다.
           {isMbti
             ? ' 각 문항은 E/I · S/N · T/F · J/P 네 축 중 하나에 배점되며, 축별 합계로 유형이 정해집니다.'
@@ -53,7 +53,7 @@ export default function TestContent({ test }: { test: Test }) {
           ))}
         </ul>
 
-        <p className="text-xs leading-relaxed text-slate-400 dark:text-slate-500 mt-4">
+        <p className="text-xs leading-relaxed text-slate-500 dark:text-slate-400 mt-4">
           이 테스트는 재미로 보는 참고용이며, 심리학적 진단이나 검사가 아닙니다.
         </p>
       </section>

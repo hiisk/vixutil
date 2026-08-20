@@ -32,7 +32,7 @@ export default function LocaleHome({ lang }: { lang: Exclude<AnyLocale10, 'ko'> 
             <span className="text-5xl sm:text-6xl font-bold text-blue-600 tracking-tighter">util</span>
             <span className="sr-only">{ui.srTagline}</span>
           </h1>
-          <p className="text-slate-400 dark:text-slate-500 text-base">{ui.tagline}</p>
+          <p className="text-slate-500 dark:text-slate-400 text-base">{ui.tagline}</p>
           {/* 첫 화면은 여덟 언어 전부 있으니 available을 좁히지 않는다 */}
           <div className="mt-5 flex justify-center">
             <LangPicker current={lang} route="/" align="left" available={ALL_LOCALES10} />
@@ -47,11 +47,11 @@ export default function LocaleHome({ lang }: { lang: Exclude<AnyLocale10, 'ko'> 
             href={localeHref(lang, '/search')}
             className="group flex items-center gap-3 mb-6 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 rounded-lg px-4 py-3.5 shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition-all"
           >
-            <svg aria-hidden="true" className="w-5 h-5 text-slate-400 dark:text-slate-500 group-hover:text-sec transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg aria-hidden="true" className="w-5 h-5 text-slate-500 dark:text-slate-400 group-hover:text-sec transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
             </svg>
-            <span className="text-base text-slate-400 dark:text-slate-500 group-hover:text-slate-500 transition-colors">{ui.search.placeholder}</span>
-            <span className="ml-auto text-xs font-bold text-slate-300 dark:text-slate-600 group-hover:text-sec transition-colors shrink-0">{ui.search.cta}</span>
+            <span className="text-base text-slate-500 dark:text-slate-400 group-hover:text-slate-500 transition-colors">{ui.search.placeholder}</span>
+            <span className="ml-auto text-xs font-bold text-slate-500 dark:text-slate-400 group-hover:text-sec transition-colors shrink-0">{ui.search.cta}</span>
           </Link>
         )}
 
@@ -67,7 +67,7 @@ export default function LocaleHome({ lang }: { lang: Exclude<AnyLocale10, 'ko'> 
                   <Image src={thumb} alt="" width={600} height={315} sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 22vw" className="home-thumb" />
                 ) : (
                   <span className="home-thumb flex items-center justify-center">
-                    <ToolIcon emoji={s.icon} className="w-7 h-7 text-slate-400 dark:text-slate-500" />
+                    <ToolIcon emoji={s.icon} className="w-7 h-7 text-slate-500 dark:text-slate-400" />
                   </span>
                 )}
                 <div className="home-card-body">
@@ -79,11 +79,11 @@ export default function LocaleHome({ lang }: { lang: Exclude<AnyLocale10, 'ko'> 
           })}
         </div>
 
-        <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-10 leading-relaxed">{ui.notice}</p>
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-10 leading-relaxed">{ui.notice}</p>
       </div>
 
       <footer className="text-center pb-8">
-        <p className="text-xs text-slate-300 dark:text-slate-600">vixutil.com</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400">vixutil.com</p>
       </footer>
     </div>
   );

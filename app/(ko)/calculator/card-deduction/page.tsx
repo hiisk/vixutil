@@ -146,7 +146,7 @@ export default function CardDeductionPage() {
               <Label>총급여 (원, 비과세 제외)</Label>
               <MoneyInput value={gross} onChange={setGross} placeholder="예: 40000000" />
               {input.grossSalary > 0 && (
-                <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                   문턱 = 총급여 × {THRESHOLD_RATIO * 100}% = {fmt(input.grossSalary * THRESHOLD_RATIO)}원
                 </p>
               )}
@@ -164,7 +164,7 @@ export default function CardDeductionPage() {
                   placeholder={PLACEHOLDER[m]} className={inputCls} min="0" />
               </div>
             ))}
-            <p className="text-xs text-slate-400 dark:text-slate-500">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               전통시장·대중교통·도서공연은 사용액을 따로 적습니다 — 그 몫에만 추가한도가 열립니다.
               도서·공연·박물관은 총급여 7,000만원 이하인 사람만 해당하므로, 넘으면 그 칸을 비우세요.
             </p>
@@ -186,7 +186,7 @@ export default function CardDeductionPage() {
             <div>
               <Label>추가한도 (원)</Label>
               <MoneyInput value={extraLimit} onChange={setExtraLimit} />
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 전통시장·대중교통·도서공연 몫에만 열리는 한도입니다. 기본한도(총급여 7,000만원 이하
                 300만원, 초과 250만원)는 총급여에서 자동으로 정해집니다. 두 값 모두 연도별로 바뀌어
                 왔으니 그 해의 국세청 안내와 맞춰 보세요.
@@ -195,7 +195,7 @@ export default function CardDeductionPage() {
             <div>
               <Label>그 밖의 소득공제 합계 (원, 비워도 됩니다)</Label>
               <MoneyInput value={otherDeduction} onChange={setOtherDeduction} placeholder="인적공제·보험료 등" />
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 줄어드는 세금은 과세표준이 어느 세율 구간에 있느냐로 갈립니다. 이 칸을 비우면
                 근로소득공제만 뺀 과세표준으로 어림합니다 — 실제보다 세율이 높게 잡힐 수 있습니다.
               </p>
@@ -243,7 +243,7 @@ export default function CardDeductionPage() {
                 ))}
               </div>
               <div className="px-5 py-3 border-t border-slate-100 dark:border-slate-800">
-                <p className="text-xs text-slate-400 dark:text-slate-500">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   기본한도 {man(result.basicLimit)} · 추가한도 {man(result.extraLimit)}
                   {result.cappedByLimit && ' · 한도에 걸려 깎였습니다'}
                 </p>
@@ -258,13 +258,13 @@ export default function CardDeductionPage() {
                     <div className="flex justify-between">
                       <span className="text-slate-600 dark:text-slate-300">
                         {MEANS_LABEL[m.means]}{' '}
-                        <span className="text-xs text-slate-400 dark:text-slate-500">
+                        <span className="text-xs text-slate-500 dark:text-slate-400">
                           {Math.round(m.rate * 1000) / 10}%
                         </span>
                       </span>
                       <span className="font-semibold">{fmt(m.deduction)}원</span>
                     </div>
-                    <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                       사용 {fmt(m.spending)} · 문턱 차감 −{fmt(m.usedForThreshold)} ·
                       공제 대상 {fmt(m.eligible)}
                       {m.extra && ' · 추가한도 대상'}
@@ -272,7 +272,7 @@ export default function CardDeductionPage() {
                   </div>
                 ))}
                 {result.totalSpending === 0 && (
-                  <p className="px-5 py-3 text-sm text-slate-400 dark:text-slate-500">
+                  <p className="px-5 py-3 text-sm text-slate-500 dark:text-slate-400">
                     사용액을 넣으면 수단별로 나눠 보여 줍니다.
                   </p>
                 )}
@@ -297,7 +297,7 @@ export default function CardDeductionPage() {
                   ))}
                 </div>
                 <div className="px-5 py-3 border-t border-slate-100 dark:border-slate-800">
-                  <p className="text-xs text-slate-400 dark:text-slate-500">
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
                     {headroom.limitLeft > 0
                       ? '문턱이 남아 있으면 그 금액까지는 공제가 붙지 않으므로 함께 더한 값입니다. 같은 한도를 채우는 데 신용카드는 체크카드의 두 배를 써야 합니다.'
                       : '기본한도를 이미 채웠습니다 — 일반 사용액을 더 써도 공제는 늘지 않습니다. 전통시장·대중교통 사용분에는 추가한도가 남아 있을 수 있습니다.'}
@@ -323,7 +323,7 @@ export default function CardDeductionPage() {
                 ))}
               </div>
               <div className="px-5 py-3 border-t border-slate-100 dark:border-slate-800">
-                <p className="text-xs text-slate-400 dark:text-slate-500">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   공제액에 실제로 붙은 세율 {(result.marginalRate * 100).toFixed(1)}% · 이 금액을{' '}
                   <Link href="/calculator/year-end-tax" className="underline">연말정산 환급액 계산기</Link>의
                   소득공제 합계 칸에 더해 넣으세요.
@@ -332,7 +332,7 @@ export default function CardDeductionPage() {
             </Card>
 
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 공제율과 추가한도는 연도별로 바뀌어 온 값이라 입력으로 받습니다 · 세금·통신비·보험료·
                 관리비·해외 사용액 등 공제 대상이 아닌 항목은 제외한 추정치이고, 확정 금액은
                 홈택스 연말정산 간소화에서 확인하세요

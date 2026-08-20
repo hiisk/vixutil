@@ -271,7 +271,7 @@ export default function AirconCapacityPage() {
                       <span className={picked ? 'font-bold text-blue-700 dark:text-blue-300' : 'text-slate-600 dark:text-slate-300'}>
                         {kw1(g)}kW · {pyeongLabel(g)}평형
                       </span>
-                      <span className={picked ? 'font-bold text-blue-700 dark:text-blue-300' : 'text-slate-400 dark:text-slate-500'}>
+                      <span className={picked ? 'font-bold text-blue-700 dark:text-blue-300' : 'text-slate-500 dark:text-slate-400'}>
                         {fmt(kwToBtu(g))}BTU/h
                       </span>
                     </div>
@@ -311,7 +311,7 @@ export default function AirconCapacityPage() {
                   ))}
                 </div>
                 <div className="px-5 py-3">
-                  <p className="text-xs text-slate-400 dark:text-slate-500">
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
                     정격 그대로 내내 돌아간다고 본 <strong>가장 큰 값</strong>입니다. 인버터 기종은 설정 온도에
                     닿으면 출력을 낮춰 돌아가므로 실제로는 이보다 적게 나옵니다.
                   </p>
@@ -320,7 +320,7 @@ export default function AirconCapacityPage() {
             )}
 
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 용도별 계수와 보정계수는 어림값입니다 · 단열·창 방향·기밀에 따라 한 등급 차이가 날 수 있습니다 ·
                 등급 목록은 흔히 파는 용량이므로 제품 라벨의 정격 냉방능력을 확인하세요
               </p>

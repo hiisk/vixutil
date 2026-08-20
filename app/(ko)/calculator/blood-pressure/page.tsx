@@ -177,7 +177,7 @@ export default function BloodPressurePage() {
                 placeholder="예: 80" className={inputCls} />
             </div>
           </div>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">* 수축기 ÷ 이완기 순서로 입력 (예: 120/80)</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">* 수축기 ÷ 이완기 순서로 입력 (예: 120/80)</p>
           <div className="mt-4"><PrimaryBtn onClick={calculate}>판정하기</PrimaryBtn></div>
         </Card>
 
@@ -208,7 +208,7 @@ export default function BloodPressurePage() {
                   <div className="absolute top-0 w-3 h-3 bg-slate-800 rounded-full border-2 border-white shadow -translate-y-0.5 -translate-x-1.5"
                     style={{left:`${sysPct}%`}} />
                 </div>
-                <div className="flex justify-between text-xs text-slate-400 dark:text-slate-500 mt-1">
+                <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400 mt-1">
                   {['60','90','120','130','140','180','200'].map(v=><span key={v}>{v}</span>)}
                 </div>
               </div>
@@ -223,7 +223,7 @@ export default function BloodPressurePage() {
                   <div className="absolute top-0 w-3 h-3 bg-slate-800 rounded-full border-2 border-white shadow -translate-y-0.5 -translate-x-1.5"
                     style={{left:`${diaPct}%`}} />
                 </div>
-                <div className="flex justify-between text-xs text-slate-400 dark:text-slate-500 mt-1">
+                <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400 mt-1">
                   {['40','60','80','90','120','130'].map(v=><span key={v}>{v}</span>)}
                 </div>
               </div>
@@ -254,7 +254,7 @@ export default function BloodPressurePage() {
                   );
                 })}
               </div>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-3">* 수축기와 이완기 중 한쪽이라도 해당되면 높은 등급 적용</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-3">* 수축기와 이완기 중 한쪽이라도 해당되면 높은 등급 적용</p>
             </Card>
           </>
         )}

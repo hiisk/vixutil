@@ -180,7 +180,7 @@ export default function InflationPage() {
                 <Card>
                   <div className="px-5 py-4 border-b border-slate-100 dark:border-slate-800">
                     <p className="font-bold text-slate-800 dark:text-slate-100 text-sm">연도별 물가 변화</p>
-                    <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">연 {inflRate}% 물가상승률 적용</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">연 {inflRate}% 물가상승률 적용</p>
                   </div>
                   <TableWrap>
                     <table className="calc-table">
@@ -268,7 +268,7 @@ export default function InflationPage() {
                 <Card>
                   <div className="px-5 py-4 border-b border-slate-100 dark:border-slate-800">
                     <p className="font-bold text-slate-800 dark:text-slate-100 text-sm">연도별 현재 가치</p>
-                    <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">연 {inflRate2}% 물가상승률 기준</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">연 {inflRate2}% 물가상승률 기준</p>
                   </div>
                   <TableWrap>
                     <table className="calc-table">

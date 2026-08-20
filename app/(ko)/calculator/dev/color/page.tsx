@@ -130,7 +130,7 @@ export default function ColorPage() {
               <div className="grid grid-cols-3 gap-2">
                 {['R', 'G', 'B'].map((label, i) => (
                   <div key={label}>
-                    <p className="text-xs text-slate-400 dark:text-slate-500 text-center mb-1">{label}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 text-center mb-1">{label}</p>
                     <input type="number" value={rgb[i]} onChange={e => fromRgb(i, e.target.value)}
                       min="0" max="255" className={inputCls + ' text-center font-mono'} />
                   </div>
@@ -146,7 +146,7 @@ export default function ColorPage() {
               <div className="grid grid-cols-3 gap-2">
                 {[{ l: 'H°', max: 360 }, { l: 'S%', max: 100 }, { l: 'L%', max: 100 }].map((f, i) => (
                   <div key={f.l}>
-                    <p className="text-xs text-slate-400 dark:text-slate-500 text-center mb-1">{f.l}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 text-center mb-1">{f.l}</p>
                     <input type="number" value={hsl[i]} onChange={e => fromHsl(i, e.target.value)}
                       min="0" max={f.max} className={inputCls + ' text-center font-mono'} />
                   </div>

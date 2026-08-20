@@ -133,7 +133,7 @@ export default function AnnualLeavePayPage() {
               <div>
                 <Label>월 기본급 (원)</Label>
                 <MoneyInput value={monthlySalary} onChange={setMonthlySalary} placeholder="예: 3,000,000" />
-                <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">1일 통상임금 = 월 기본급 ÷ 209 × 8</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">1일 통상임금 = 월 기본급 ÷ 209 × 8</p>
               </div>
             ) : (
               <div>
@@ -224,7 +224,7 @@ export default function AnnualLeavePayPage() {
               </tbody>
             </table>
           </TableWrap>
-          <div className="px-4 py-3 text-xs text-slate-400 dark:text-slate-500 border-t border-slate-100 dark:border-slate-800">
+          <div className="px-4 py-3 text-xs text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800">
             * 1년 미만: 월 1일 (최대 11일) / 1년: 15일 / 이후 2년마다 1일 추가 (최대 25일)
           </div>
         </Card>

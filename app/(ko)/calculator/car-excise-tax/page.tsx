@@ -113,7 +113,7 @@ export default function CarExciseTaxPage() {
             <div>
               <Label>{mode === 'release' ? '출고가 (원)' : '공장도가 (원)'}</Label>
               <CommaInput value={amount} onChange={setAmount} placeholder="예: 30,000,000" />
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 {mode === 'release'
                   ? '세금이 모두 포함된, 우리가 보는 가격'
                   : '제조사가 매기는 값 = 개별소비세의 과세표준'}
@@ -124,7 +124,7 @@ export default function CarExciseTaxPage() {
                 <Label>개별소비세 세율 (%)</Label>
                 <input type="number" value={rate} onChange={e => setRate(e.target.value)}
                   className={inputCls} min="0" step="0.1" />
-                <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                   기본 세율 {pct(DEFAULT_EXCISE_RATE)} · 경차는 0
                 </p>
               </div>
@@ -132,7 +132,7 @@ export default function CarExciseTaxPage() {
                 <Label>비교할 인하 세율 (%)</Label>
                 <input type="number" value={lowRate} onChange={e => setLowRate(e.target.value)}
                   className={inputCls} min="0" step="0.1" />
-                <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                   비우면 비교를 생략합니다
                 </p>
               </div>
@@ -140,7 +140,7 @@ export default function CarExciseTaxPage() {
             <div>
               <Label>감면 한도 (원, 없으면 0)</Label>
               <CommaInput value={cap} onChange={setCap} placeholder="예: 1,000,000" />
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 인하 때 깎아 주는 개별소비세에 상한이 있었으면 그 금액
               </p>
             </div>
@@ -216,7 +216,7 @@ export default function CarExciseTaxPage() {
             )}
 
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed">
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                 * 세율은 시기마다 달라 입력값으로 계산합니다 · 취득세·공채는 출고가 다음에 붙는 돈이라{' '}
                 <Link href="/calculator/car-registration" className="underline">자동차 취등록세 계산기</Link>에서
                 보세요

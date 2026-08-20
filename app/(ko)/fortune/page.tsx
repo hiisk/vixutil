@@ -128,12 +128,12 @@ export default function FortunePage() {
             </div>
             <p className="text-sm text-slate-500 dark:text-slate-400">관상·퍼스널컬러·감성 분석 등 사진 한 장으로 즐기는 참여형 테스트 모음</p>
           </div>
-          <svg className="w-4 h-4 text-slate-400 dark:text-slate-500 group-hover:translate-x-0.5 transition-transform flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+          <svg className="w-4 h-4 text-slate-500 dark:text-slate-400 group-hover:translate-x-0.5 transition-transform flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
           </svg>
         </Link>
 
-        <p className="text-center text-xs text-slate-300 dark:text-slate-600 mt-10">운세는 오늘 날짜를 기준으로 생성되며 오락·참고 목적입니다</p>
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-10">운세는 오늘 날짜를 기준으로 생성되며 오락·참고 목적입니다</p>
 
         {/* 타로 78장 자료는 뽑기 도구가 아니라 찾아보는 목록이라 따로 세운다 */}
         <Link

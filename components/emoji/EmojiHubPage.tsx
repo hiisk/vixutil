@@ -53,7 +53,7 @@ export default function EmojiHubPage({ lang }: { lang: Lang }) {
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <span className="text-sm text-slate-400 dark:text-slate-500 font-medium truncate">{ui.section}</span>
+          <span className="text-sm text-slate-500 dark:text-slate-400 font-medium truncate">{ui.section}</span>
           <div className="ml-auto shrink-0">
             <LangPicker current={localeOfLang(lang)} route="/emoji" available={LOCALE_PATHS} />
           </div>
@@ -79,7 +79,7 @@ export default function EmojiHubPage({ lang }: { lang: Lang }) {
             <section key={g} className="mb-9">
               <h2 className="sec-h2 flex items-baseline gap-2">
                 {ui.groupLabel[g]}
-                <span className="text-xs font-medium text-slate-400 dark:text-slate-500">{list.length}</span>
+                <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{list.length}</span>
               </h2>
               <p className="mb-3 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{ui.groupNote[g]}</p>
               <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">

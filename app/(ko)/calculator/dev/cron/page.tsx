@@ -8,7 +8,7 @@ function CopyBtn({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
   return (
     <button onClick={() => { navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 2000); }}
-      className="text-xs px-3 py-1.5 rounded-lg bg-slate-700 text-slate-300 dark:text-slate-600 hover:bg-slate-600 transition-colors font-medium">
+      className="text-xs px-3 py-1.5 rounded-lg bg-slate-700 text-slate-500 dark:text-slate-400 hover:bg-slate-600 transition-colors font-medium">
       {copied ? '복사됨 ✓' : '복사'}
     </button>
   );
@@ -69,7 +69,7 @@ export default function CronPage() {
                 }}
                 className={`text-left p-3 rounded-xl border text-xs transition-colors ${expr === p.expr ? 'bg-blue-50 dark:bg-blue-950/30 border-blue-300' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-700'}`}>
                 <p className="font-bold text-slate-700 dark:text-slate-200 font-mono">{p.expr}</p>
-                <p className="text-slate-400 dark:text-slate-500 mt-0.5">{p.label} · {p.desc}</p>
+                <p className="text-slate-500 dark:text-slate-400 mt-0.5">{p.label} · {p.desc}</p>
               </button>
             ))}
           </div>
@@ -97,15 +97,15 @@ export default function CronPage() {
 
         <div className="bg-slate-900 rounded-lg p-5">
           <div className="flex items-center justify-between mb-2">
-            <p className="text-slate-400 dark:text-slate-500 text-xs uppercase tracking-wide font-medium">Cron 표현식</p>
+            <p className="text-slate-500 dark:text-slate-400 text-xs uppercase tracking-wide font-medium">Cron 표현식</p>
             <CopyBtn text={expr} />
           </div>
           <p className="text-green-400 font-mono text-2xl font-bold">{expr}</p>
-          <p className="text-slate-400 dark:text-slate-500 text-xs mt-2">{description}</p>
+          <p className="text-slate-500 dark:text-slate-400 text-xs mt-2">{description}</p>
         </div>
 
         <Card className="p-4">
-          <p className="text-xs text-slate-400 dark:text-slate-500">
+          <p className="text-xs text-slate-500 dark:text-slate-400">
             * = 모든 값 · */n = n마다 · a-b = a부터 b · a,b = a와 b<br />
             요일: 0=일, 1=월, 2=화, 3=수, 4=목, 5=금, 6=토, 7=일
           </p>

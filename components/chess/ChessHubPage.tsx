@@ -96,7 +96,7 @@ export default function ChessHubPage({ lang }: { lang: Lang }) {
                 <span className="font-mono text-sm font-bold text-slate-700 dark:text-slate-200 group-hover:text-sec transition-colors">
                   1.{o.move}
                 </span>
-                <span className="text-[11px] text-slate-400 dark:text-slate-500">{fill(ui.countLabel, { n: o.count })}</span>
+                <span className="text-[11px] text-slate-500 dark:text-slate-400">{fill(ui.countLabel, { n: o.count })}</span>
               </Link>
             ))}
           </div>
@@ -111,9 +111,9 @@ export default function ChessHubPage({ lang }: { lang: Lang }) {
               <div key={group} className="mb-7">
                 <div className="flex items-baseline gap-2 mb-1">
                   <h3 className="text-sm font-bold text-violet-700 dark:text-violet-400">{ui.group[group]}</h3>
-                  <span className="text-[11px] text-slate-400 dark:text-slate-500">{fill(ui.countLabel, { n: counts[group] })}</span>
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400">{fill(ui.countLabel, { n: counts[group] })}</span>
                 </div>
-                <p className="text-xs text-slate-400 dark:text-slate-500 mb-2 leading-relaxed">{ui.groupNote[group]}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mb-2 leading-relaxed">{ui.groupNote[group]}</p>
                 <div className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
                   {rows.map(x => (
                     <Link prefetch={false}
@@ -122,7 +122,7 @@ export default function ChessHubPage({ lang }: { lang: Lang }) {
                       className="flex items-baseline gap-3 px-4 py-2.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
                     >
                       <span className="text-sm text-slate-700 dark:text-slate-200 truncate">{fullName(x.family, x.line, lang)}</span>
-                      <span className="ml-auto shrink-0 font-mono text-[11px] text-slate-400 dark:text-slate-500">
+                      <span className="ml-auto shrink-0 font-mono text-[11px] text-slate-500 dark:text-slate-400">
                         {x.moves.slice(0, 5).join(' ')}
                       </span>
                     </Link>

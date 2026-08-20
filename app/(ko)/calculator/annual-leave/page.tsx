@@ -91,7 +91,7 @@ export default function AnnualLeavePage() {
                 onChange={e => setBaseDate(e.target.value)}
                 className={inputCls}
               />
-              <p className="mt-1.5 text-xs text-slate-400 dark:text-slate-500">
+              <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">
                 비워두면 오늘 기준으로 계산합니다.
               </p>
             </div>
@@ -176,7 +176,7 @@ export default function AnnualLeavePage() {
                   </tbody>
                 </table>
               </TableWrap>
-              <p className="mt-2 text-xs text-slate-400 dark:text-slate-500">
+              <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
                 이후로도 2년마다 1일씩 늘어 21년차에 법정 상한 {LEAVE_RULES.cap}일에 도달합니다.
               </p>
             </div>

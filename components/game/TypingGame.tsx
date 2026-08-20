@@ -81,7 +81,7 @@ export default function TypingGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
                 className={
                   state === 'ok' ? 'text-emerald-600'
                   : state === 'bad' ? 'text-rose-500 underline decoration-2'
-                  : 'text-slate-300 dark:text-slate-600'
+                  : 'text-slate-500 dark:text-slate-400'
                 }
               >
                 {ch}

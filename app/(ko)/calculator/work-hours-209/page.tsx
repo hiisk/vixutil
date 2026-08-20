@@ -125,7 +125,7 @@ export default function WorkHours209Page() {
               </Card>
             )}
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 통상임금에 무엇이 들어가는지는 수당의 성격에 따라 갈립니다 · 정확한 판단은 급여 담당자나 노무사에게 확인하세요
               </p>
             </Card>

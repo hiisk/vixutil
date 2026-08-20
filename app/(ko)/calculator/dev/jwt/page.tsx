@@ -96,7 +96,7 @@ export default function JwtPage() {
               />
             </Card>
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">서명 검증은 지원하지 않습니다. Payload는 Base64 디코딩 결과이며 변조 여부를 확인하려면 서버에서 검증하세요.</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">서명 검증은 지원하지 않습니다. Payload는 Base64 디코딩 결과이며 변조 여부를 확인하려면 서버에서 검증하세요.</p>
             </Card>
           </>
         )}

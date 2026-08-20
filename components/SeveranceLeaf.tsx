@@ -28,7 +28,7 @@ export default function SeveranceLeaf({ wage, years }: { wage: number; years: nu
         <div className="page-bar">
           <Link prefetch={false} href="/" className="page-back hover:text-amber-600 shrink-0">홈</Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link prefetch={false} href="/calculator/severance" className="text-sm text-slate-400 dark:text-slate-500 hover:text-amber-600 transition-colors font-medium truncate">
+          <Link prefetch={false} href="/calculator/severance" className="text-sm text-slate-500 dark:text-slate-400 hover:text-amber-600 transition-colors font-medium truncate">
             퇴직금 계산기
           </Link>
         </div>

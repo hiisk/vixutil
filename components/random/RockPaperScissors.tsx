@@ -32,7 +32,7 @@ export default function RockPaperScissors({ lang = 'ko' }: { lang?: RandomLang }
         <div className="rounded-lg border chip-off p-6 mb-5 text-center">
           <div className="flex items-center justify-center gap-6">
             <span className="text-5xl" aria-label={label[mine!]}>{EMOJI[mine!]}</span>
-            <span className="text-sm font-bold text-slate-300 dark:text-slate-600">VS</span>
+            <span className="text-sm font-bold text-slate-500 dark:text-slate-400">VS</span>
             <span className="text-5xl" aria-label={label[theirs!]}>{EMOJI[theirs!]}</span>
           </div>
           <p className={`mt-4 text-xl font-bold ${tone}`}>{text}</p>
@@ -54,11 +54,11 @@ export default function RockPaperScissors({ lang = 'ko' }: { lang?: RandomLang }
       </div>
 
       <div className="mt-5 flex items-center justify-center gap-4 text-sm font-bold">
-        <span className="text-slate-400 dark:text-slate-500">{ui.record}</span>
+        <span className="text-slate-500 dark:text-slate-400">{ui.record}</span>
         <span className="text-emerald-600">{score.win}</span>
-        <span className="text-slate-300 dark:text-slate-600">·</span>
-        <span className="text-slate-500">{score.draw}</span>
-        <span className="text-slate-300 dark:text-slate-600">·</span>
+        <span className="text-slate-500 dark:text-slate-400">·</span>
+        <span className="text-slate-500 dark:text-slate-400">{score.draw}</span>
+        <span className="text-slate-500 dark:text-slate-400">·</span>
         <span className="text-rose-500">{score.lose}</span>
       </div>
     </div>

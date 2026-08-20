@@ -86,7 +86,7 @@ export default function SplitTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
             </button>
           ))}
         </div>
-        <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-3">{ui.splitNote}</p>
+        <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-3">{ui.splitNote}</p>
       </div>
 
       {pieces.length > 0 && (
@@ -122,7 +122,7 @@ export default function SplitTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
               {common.otherPhoto}
             </button>
           </div>
-          <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-2 text-center">
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-2 text-center">
             {common.original} {formatBytes(img.size)} · {img.width} × {img.height}
           </p>
         </>

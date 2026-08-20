@@ -97,7 +97,7 @@ export default function InheritanceTaxPage() {
             <div>
               <Label>금융재산 <span className="dial-opt">원, 선택</span></Label>
               <MoneyInput value={financial} onChange={setFinancial} placeholder="0" />
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">금융재산의 20%, 최대 2억원 공제</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">금융재산의 20%, 최대 2억원 공제</p>
             </div>
             <PrimaryBtn onClick={calculate}>계산하기</PrimaryBtn>
           </div>
@@ -123,7 +123,7 @@ export default function InheritanceTaxPage() {
                       <span className="text-slate-700 dark:text-slate-200">{row.label}</span>
                       <span className="font-semibold text-emerald-600">-{fmt(row.value)}원</span>
                     </div>
-                    <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{row.note}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{row.note}</p>
                   </div>
                 ))}
                 <div className="px-5 py-3 bg-slate-50 dark:bg-slate-950 flex justify-between font-bold text-sm">
@@ -133,7 +133,7 @@ export default function InheritanceTaxPage() {
               </div>
             </Card>
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">* 신고기한: 상속개시일(사망일)로부터 6개월 이내 / 간이 계산으로 실제 세액과 다를 수 있습니다</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">* 신고기한: 상속개시일(사망일)로부터 6개월 이내 / 간이 계산으로 실제 세액과 다를 수 있습니다</p>
             </Card>
           </>
         )}

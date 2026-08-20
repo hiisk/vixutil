@@ -60,7 +60,7 @@ export default function NumberHubPage({ lang }: { lang: Lang }) {
 
         <section className="mb-9">
           <h2 className="sec-h2-tight">{ui.gridTitle}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.gridNote}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.gridNote}</p>
           <NumberGrid />
           <div className="mt-3 flex items-center gap-4 text-[11px] font-bold text-slate-500 dark:text-slate-400">
             <span className="flex items-center gap-1.5">
@@ -76,7 +76,7 @@ export default function NumberHubPage({ lang }: { lang: Lang }) {
 
         <section className="mb-9">
           <h2 className="sec-h2-tight">{ui.powersTitle}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.powersNote}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.powersNote}</p>
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
             {POWERS.map(n => {
               const f = numberFacts(n);
@@ -87,7 +87,7 @@ export default function NumberHubPage({ lang }: { lang: Lang }) {
                   className="flex items-baseline gap-3 px-4 py-2.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
                   <span className="text-sm font-bold text-indigo-700 dark:text-indigo-400 tabular-nums shrink-0 w-[54px] text-right">{n}</span>
                   <span className="text-xs font-mono text-slate-500 dark:text-slate-400 shrink-0">2^{f.power2}</span>
-                  <span className="ml-auto text-[11px] text-slate-400 dark:text-slate-500 tabular-nums shrink-0">{ui.bitsValue(f.bits)}</span>
+                  <span className="ml-auto text-[11px] text-slate-500 dark:text-slate-400 tabular-nums shrink-0">{ui.bitsValue(f.bits)}</span>
                 </span>
               );
             })}
@@ -98,9 +98,9 @@ export default function NumberHubPage({ lang }: { lang: Lang }) {
           <section key={fam} className="mb-8">
             <h2 className="sec-h2-tight">
               {ui.familyLabel[fam]}
-              <span className="ml-1.5 text-[11px] font-bold text-slate-400 dark:text-slate-500">{membersOf(fam).length}</span>
+              <span className="ml-1.5 text-[11px] font-bold text-slate-500 dark:text-slate-400">{membersOf(fam).length}</span>
             </h2>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.familyNote[fam]}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.familyNote[fam]}</p>
             <div className="flex flex-wrap gap-1.5">
               {membersOf(fam).map(n => (
                 <span

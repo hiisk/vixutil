@@ -60,7 +60,7 @@ export default function ChmodHubPage({ lang }: { lang: Lang }) {
 
         <section className="mb-9">
           <h2 className="sec-h2-tight">{ui.commonTitle}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.commonNote}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.commonNote}</p>
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
             {COMMON.map(m => {
               const f = chmodFacts(m);
@@ -87,7 +87,7 @@ export default function ChmodHubPage({ lang }: { lang: Lang }) {
           <section key={d} className="mb-6">
             <h3 className="text-sm font-bold text-slate-700 dark:text-slate-200 mb-2">
               {ui.ownerGroupLabel(d)}
-              <span className="ml-1.5 font-mono text-[11px] text-slate-400 dark:text-slate-500">{chmodFacts(`${d}00`).perm.user.rwx}</span>
+              <span className="ml-1.5 font-mono text-[11px] text-slate-500 dark:text-slate-400">{chmodFacts(`${d}00`).perm.user.rwx}</span>
             </h3>
             <div className="flex flex-wrap gap-1.5">
               {modesOfOwner(d).map(m => (

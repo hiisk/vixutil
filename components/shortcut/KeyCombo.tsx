@@ -31,7 +31,7 @@ export default function KeyCombo({ combo, size = 'md', naLabel }: { combo: strin
   /* 그 운영체제에 없는 자리다 — 키캡으로 그리면 '—'를 누르라는 말이 된다 */
   if (combo === NA) {
     return (
-      <span className={`text-slate-400 dark:text-slate-500 ${size === 'lg' ? 'text-sm' : 'text-xs'}`}>
+      <span className={`text-slate-500 dark:text-slate-400 ${size === 'lg' ? 'text-sm' : 'text-xs'}`}>
         {naLabel ?? NA}
       </span>
     );
@@ -47,10 +47,10 @@ export default function KeyCombo({ combo, size = 'md', naLabel }: { combo: strin
     <span className="inline-flex flex-wrap items-center gap-1">
       {chords.map((keys, ci) => (
         <span key={ci} className="inline-flex flex-wrap items-center gap-1">
-          {ci > 0 && <span className={`${plus} text-slate-400 dark:text-slate-500 px-1`}>·</span>}
+          {ci > 0 && <span className={`${plus} text-slate-500 dark:text-slate-400 px-1`}>·</span>}
           {keys.map((k, i) => (
             <span key={`${k}-${i}`} className="inline-flex items-center gap-1">
-              {i > 0 && <span className={`${plus} font-bold text-slate-400 dark:text-slate-500`}>+</span>}
+              {i > 0 && <span className={`${plus} font-bold text-slate-500 dark:text-slate-400`}>+</span>}
               <kbd
                 className={`${chip} keycap`}
               >

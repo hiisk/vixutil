@@ -391,7 +391,7 @@ export default function SnapShell<T>({
 
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
-          <Link prefetch={false} href={hubHref} className={`flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 ${theme.hover} transition-colors font-medium`}>
+          <Link prefetch={false} href={hubHref} className={`flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400 ${theme.hover} transition-colors font-medium`}>
             <svg aria-hidden="true" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -441,7 +441,7 @@ export default function SnapShell<T>({
           >
             <ToolIcon emoji="📷" className="w-9 h-9 text-slate-800 dark:text-slate-100" />
             <span className="text-sm font-bold text-slate-600 dark:text-slate-300">{ui.pickPhoto}</span>
-            <span className="text-xs text-slate-400 dark:text-slate-500">{lead}</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">{lead}</span>
           </button>
         )}
         <input ref={fileInputRef} type="file" accept="image/*" className="hidden"
@@ -461,7 +461,7 @@ export default function SnapShell<T>({
             </div>
             {!analyzing && (
               <button type="button" onClick={() => fileInputRef.current?.click()}
-                className={`mt-3 mx-auto block text-xs font-semibold text-slate-400 dark:text-slate-500 ${theme.hover} transition-colors`}>
+                className={`mt-3 mx-auto block text-xs font-semibold text-slate-500 dark:text-slate-400 ${theme.hover} transition-colors`}>
                 {ui.tryAnother}
               </button>
             )}
@@ -488,7 +488,7 @@ export default function SnapShell<T>({
               className={`w-full py-3.5 rounded-lg font-bold text-sm bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 ${theme.resetHover} transition-colors`}>
               {ui.again}
             </button>
-            <p className="text-center text-xs text-slate-300 dark:text-slate-600 pt-2">{disclaimer}</p>
+            <p className="text-center text-xs text-slate-500 dark:text-slate-400 pt-2">{disclaimer}</p>
           </div>
         )}
       </div>

@@ -155,7 +155,7 @@ export default function PregnancyPage() {
                 placeholder="28"
                 className={inputCls}
               />
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">21~45일 사이로 입력하세요</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">21~45일 사이로 입력하세요</p>
             </div>
           </div>
           <div className="mt-4">
@@ -217,7 +217,7 @@ export default function PregnancyPage() {
                     )}
                   </div>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{t.desc}</p>
-                  <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                     {formatDateShort(t.start)} ~ {formatDateShort(t.end)}
                   </p>
                 </div>
@@ -240,7 +240,7 @@ export default function PregnancyPage() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className={`text-sm font-semibold ${isCurrent ? 'text-rose-600' : 'text-slate-700 dark:text-slate-200'}`}>{m.label}</p>
-                        <p className="text-xs text-slate-400 dark:text-slate-500">{formatDateShort(m.date)} 전후</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400">{formatDateShort(m.date)} 전후</p>
                       </div>
                     </div>
                   );
@@ -248,7 +248,7 @@ export default function PregnancyPage() {
               </div>
             </Card>
 
-            <p className="text-xs text-slate-400 dark:text-slate-500 text-center px-4">
+            <p className="text-xs text-slate-500 dark:text-slate-400 text-center px-4">
               * 이 계산기는 참고용입니다. 정확한 예정일은 산부인과 초음파 검사로 확인하세요.
             </p>
           </>

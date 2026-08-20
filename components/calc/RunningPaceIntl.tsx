@@ -56,7 +56,7 @@ export default function RunningPaceIntl({ lang }: { lang: CalcLang }) {
               <input type="number" value={m} onChange={e => setM(e.target.value)} min="0" max="59" className={inputCls} aria-label={c.m} />
               <input type="number" value={s} onChange={e => setS(e.target.value)} min="0" max="59" className={inputCls} aria-label={c.s} />
             </div>
-            <p className="mt-1.5 text-xs text-slate-400 dark:text-slate-500">{c.h} · {c.m} · {c.s}</p>
+            <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">{c.h} · {c.m} · {c.s}</p>
           </div>
         </div>
         <div className="mt-4"><PrimaryBtn onClick={calculate}>{c.calc}</PrimaryBtn></div>
@@ -78,7 +78,7 @@ export default function RunningPaceIntl({ lang }: { lang: CalcLang }) {
 
           <Card className="p-5">
             <p className="label-caps mb-1">{c.splits}</p>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mb-3">{c.splitsNote}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{c.splitsNote}</p>
             <div className="kv-table">
               {result.splits.map(sp => (
                 <div key={sp.at} className="kv-row">
@@ -91,11 +91,11 @@ export default function RunningPaceIntl({ lang }: { lang: CalcLang }) {
 
           <Card className="p-5">
             <p className="label-caps mb-1">{c.equiv}</p>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mb-3">{c.equivNote}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{c.equivNote}</p>
             <div className="kv-table">
               {RACES.map(r => (
                 <div key={r.id} className="kv-row">
-                  <span>{c[r.key]} <span className="text-xs text-slate-400 dark:text-slate-500">{r.km} km</span></span>
+                  <span>{c[r.key]} <span className="text-xs text-slate-500 dark:text-slate-400">{r.km} km</span></span>
                   <span className="tabular-nums font-bold">{fmtTime(r.km * result.paceKm)}</span>
                 </div>
               ))}

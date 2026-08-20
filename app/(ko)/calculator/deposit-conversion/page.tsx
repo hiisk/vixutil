@@ -86,7 +86,7 @@ export default function DepositConversionPage() {
             <div>
               <Label>월세 (원)</Label>
               <CommaInput value={rent} onChange={setRent} placeholder="예: 5,000,000" />
-              <p className="mt-1.5 text-xs text-slate-400 dark:text-slate-500">
+              <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">
                 월세에 {RENT_MULTIPLIER}을 곱해 보증금으로 환산합니다.
               </p>
             </div>

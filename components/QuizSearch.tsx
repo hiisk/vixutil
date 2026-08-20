@@ -50,7 +50,7 @@ export default function QuizSearch({ quizzes }: { quizzes: CardItem[] }) {
       <ToolIconDefs emojis={quizzes.map(x => x.icon)} />
 
       <div className="relative mb-10">
-        <svg className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400 dark:text-slate-500 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <svg className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-500 dark:text-slate-400 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
         </svg>
         <input
@@ -63,7 +63,7 @@ export default function QuizSearch({ quizzes }: { quizzes: CardItem[] }) {
         {query && (
           <button
             onClick={() => setQuery('')}
-            className="absolute right-3.5 top-3.5 text-slate-400 dark:text-slate-500 hover:text-slate-600 transition-colors"
+            className="absolute right-3.5 top-3.5 text-slate-500 dark:text-slate-400 hover:text-slate-600 transition-colors"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -75,7 +75,7 @@ export default function QuizSearch({ quizzes }: { quizzes: CardItem[] }) {
       {filtered !== null ? (
         filtered.length > 0 ? (
           <div>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mb-4">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
               <span className="text-amber-600 font-bold">{filtered.length}개</span> 검색 결과
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
@@ -83,7 +83,7 @@ export default function QuizSearch({ quizzes }: { quizzes: CardItem[] }) {
             </div>
           </div>
         ) : (
-          <p className="text-sm text-slate-400 dark:text-slate-500 text-center py-20">
+          <p className="text-sm text-slate-500 dark:text-slate-400 text-center py-20">
             &apos;{trimmed}&apos;에 해당하는 퀴즈가 없어요.
           </p>
         )
@@ -93,7 +93,7 @@ export default function QuizSearch({ quizzes }: { quizzes: CardItem[] }) {
             <section key={group.name}>
               <h2 className="text-sm font-bold text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-2">
                 {group.name}
-                <span className="text-xs font-bold text-amber-500 bg-amber-50 dark:bg-amber-950/30 px-2.5 py-0.5 rounded-full">{group.items.length}</span>
+                <span className="text-xs font-bold text-amber-500 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/30 px-2.5 py-0.5 rounded-full">{group.items.length}</span>
               </h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
                 {group.items.map(q => <QuizCard key={q.slug} q={q} />)}

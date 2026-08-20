@@ -99,9 +99,9 @@ export function ValueRow({ label, value, lang = 'ko' }: { label: string; value: 
       onClick={() => copy(value)}
       className="w-full flex items-center gap-3 rounded-xl border chip-off px-4 py-3 text-left hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
     >
-      <span className="text-[11px] font-bold text-slate-400 dark:text-slate-500 w-16 shrink-0">{label}</span>
+      <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 w-16 shrink-0">{label}</span>
       <span className="flex-1 min-w-0 text-sm font-mono font-bold text-slate-800 dark:text-slate-100 break-all">{value}</span>
-      <span className={`text-xs font-bold shrink-0 ${copied === value ? 'text-emerald-600' : 'text-slate-300 dark:text-slate-600'}`}>
+      <span className={`text-xs font-bold shrink-0 ${copied === value ? 'text-emerald-600' : 'text-slate-500 dark:text-slate-400'}`}>
         {copied === value ? COLOR_COMMON[lang].copied : COLOR_COMMON[lang].copy}
       </span>
     </button>

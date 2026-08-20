@@ -49,7 +49,7 @@ function Chart({ points }: { points: ChartPoint[] }) {
       {/* 0선 — 위험일이 지나는 기준선 */}
       <line x1={PAD} y1={H / 2} x2={W - PAD} y2={H / 2} stroke="currentColor" strokeWidth={1} className="text-slate-200 dark:text-slate-700" />
       {/* 오늘 */}
-      <line x1={todayX} y1={PAD} x2={todayX} y2={H - PAD} stroke="currentColor" strokeWidth={1.5} strokeDasharray="4 3" className="text-slate-400 dark:text-slate-500" />
+      <line x1={todayX} y1={PAD} x2={todayX} y2={H - PAD} stroke="currentColor" strokeWidth={1.5} strokeDasharray="4 3" className="text-slate-500 dark:text-slate-400" />
       {CYCLES.map(c => (
         <path key={c.key} d={path(c.key)} fill="none" stroke={CYCLE_COLOR[c.key]} strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" />
       ))}
@@ -67,7 +67,7 @@ function Result({ result, points }: { result: BiorhythmResult; points: ChartPoin
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
         <div className="flex items-baseline justify-between mb-1">
           <h2 className="text-sm font-bold text-slate-800 dark:text-slate-100">오늘의 리듬</h2>
-          <span className="text-xs text-slate-400 dark:text-slate-500">태어난 지 {result.days.toLocaleString()}일째</span>
+          <span className="text-xs text-slate-500 dark:text-slate-400">태어난 지 {result.days.toLocaleString()}일째</span>
         </div>
         <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{overallComment(result)}</p>
       </div>
@@ -82,7 +82,7 @@ function Result({ result, points }: { result: BiorhythmResult; points: ChartPoin
             </span>
           ))}
         </div>
-        <p className="text-center text-[11px] text-slate-400 dark:text-slate-500 mt-2">점선이 오늘 · 가운데 가로선을 지나는 날이 위험일</p>
+        <p className="text-center text-[11px] text-slate-500 dark:text-slate-400 mt-2">점선이 오늘 · 가운데 가로선을 지나는 날이 위험일</p>
       </div>
 
       <div className="grid sm:grid-cols-3 gap-3">
@@ -101,7 +101,7 @@ function Result({ result, points }: { result: BiorhythmResult; points: ChartPoin
                 {state.percent > 0 ? '+' : ''}{state.percent}%
               </p>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">{meta.desc} · {meta.period}일 주기</p>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 {state.daysToCritical === 0 ? '오늘이 위험일입니다' : `다음 위험일까지 ${state.daysToCritical}일`}
               </p>
             </div>
@@ -188,7 +188,7 @@ export default function BiorhythmPage() {
         {result && points.length > 0 ? (
           <Result result={result} points={points} />
         ) : (
-          <div className="py-12 text-slate-300 dark:text-slate-600">
+          <div className="py-12 text-slate-500 dark:text-slate-400">
             <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">생년월일을 입력하면 오늘의 리듬을 볼 수 있습니다</p>
           </div>

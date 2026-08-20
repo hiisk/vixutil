@@ -198,7 +198,7 @@ export default function SmileScore({ lang }: { lang: SnapIntlLang }) {
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-xs font-semibold text-slate-600 dark:text-slate-300">{m.label}</span>
                     <span className="text-xs font-bold text-rose-500">
-                      {m.percent}% <span className="text-slate-400 dark:text-slate-500 font-medium">· {m.comment}</span>
+                      {m.percent}% <span className="text-slate-500 dark:text-slate-400 font-medium">· {m.comment}</span>
                     </span>
                   </div>
                   <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">

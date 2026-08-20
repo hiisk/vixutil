@@ -174,7 +174,7 @@ export default function TarotIntl({ mode, lang }: { mode: Mode; lang: TarotIntlL
             <PageHero title={title} desc={lead} />
           </div>
           {daily && (
-            <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">{daily.dateLabel}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">{daily.dateLabel}</p>
           )}
         </div>
 
@@ -222,14 +222,14 @@ export default function TarotIntl({ mode, lang }: { mode: Mode; lang: TarotIntlL
               <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5 grid grid-cols-2 gap-4 text-center">
                 <div>
                   <div className="w-10 h-10 rounded-full mx-auto mb-1 border-2 border-white shadow-sm" style={{ background: daily.color[1] }} />
-                  <p className="text-xs text-slate-400 dark:text-slate-500">{t('luckyColor', lang)}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">{t('luckyColor', lang)}</p>
                   <p className="text-sm font-bold text-slate-700 dark:text-slate-200">{daily.color[0]}</p>
                 </div>
                 <div>
                   <div className="w-10 h-10 rounded-full bg-amber-100 dark:bg-amber-950/40 flex items-center justify-center mx-auto mb-1">
                     <span className="text-lg font-bold text-amber-600">{daily.number}</span>
                   </div>
-                  <p className="text-xs text-slate-400 dark:text-slate-500">{t('luckyNumber', lang)}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">{t('luckyNumber', lang)}</p>
                   <p className="text-sm font-bold text-slate-700 dark:text-slate-200">{daily.number}</p>
                 </div>
               </div>
@@ -246,8 +246,8 @@ export default function TarotIntl({ mode, lang }: { mode: Mode; lang: TarotIntlL
           </div>
         )}
 
-        <p className="text-center text-[11px] text-slate-400 dark:text-slate-500 mt-6 leading-relaxed">{privacy}</p>
-        <p className="text-center text-xs text-slate-300 dark:text-slate-600 mt-3">{ui.disclaimer}</p>
+        <p className="text-center text-[11px] text-slate-500 dark:text-slate-400 mt-6 leading-relaxed">{privacy}</p>
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-3">{ui.disclaimer}</p>
       </div>
     </div>
   );

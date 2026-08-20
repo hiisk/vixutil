@@ -35,7 +35,7 @@ export default function ColorblindTool({ lang = 'ko' }: { lang?: ColorLang } = {
         <div className="flex-1" style={{ background: a }} />
         <div className="flex-1" style={{ background: b }} />
       </div>
-      <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-2">{ui.normal}</p>
+      <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-2">{ui.normal}</p>
 
       <div className="flex flex-col gap-3 mt-5">
         {rows.map(r => (
@@ -47,7 +47,7 @@ export default function ColorblindTool({ lang = 'ko' }: { lang?: ColorLang } = {
             <div className="flex items-center gap-3 px-4 py-3 bg-white dark:bg-slate-900">
               <span className="hub-card-body">
                 <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">{ui.types[r.type]}</span>
-                <span className="block text-[11px] text-slate-400 dark:text-slate-500">{ui.descs[r.type]}</span>
+                <span className="block text-[11px] text-slate-500 dark:text-slate-400">{ui.descs[r.type]}</span>
               </span>
               <span className={`shrink-0 text-xs font-bold px-2.5 py-1 rounded-full border ${
                 r.ok
@@ -66,7 +66,7 @@ export default function ColorblindTool({ lang = 'ko' }: { lang?: ColorLang } = {
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           {ui.advice}
         </p>
-        <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-2 leading-relaxed">
+        <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
           {ui.approxNote}
         </p>
       </div>

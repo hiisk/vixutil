@@ -34,7 +34,7 @@ export default function DutyRosterTool({ lang = 'ko' }: { lang?: RandomLang }) {
         placeholder={common.listPlaceholder}
         className="fld w-full focus:ring-2 focus:ring-rose-400 resize-y"
       />
-      <div className="mt-2 mb-4 text-xs text-slate-400">{common.peopleCount(names.length)}</div>
+      <div className="mt-2 mb-4 text-xs text-slate-500 dark:text-slate-400">{common.peopleCount(names.length)}</div>
 
       <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.turns}</p>
       <div className="grid grid-cols-4 gap-2">
@@ -86,7 +86,7 @@ export default function DutyRosterTool({ lang = 'ko' }: { lang?: RandomLang }) {
         </>
       )}
 
-      <p className="text-xs text-slate-400 dark:text-slate-500 mt-5 text-center">{ui.rosterNote}</p>
+      <p className="text-xs text-slate-500 dark:text-slate-400 mt-5 text-center">{ui.rosterNote}</p>
 
       <style jsx>{`
         @keyframes wcSlide { 0% { opacity: 0; transform: translateX(-12px); } 100% { opacity: 1; transform: translateX(0); } }

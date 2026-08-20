@@ -195,7 +195,7 @@ export default function SurvivorPensionPage() {
             </Card>
 
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 유족의 순위·자격 요건과 배우자 소득에 따른 지급정지는 반영하지 않았습니다 ·
                 실제 결정액은 국민연금공단에서 확인하세요
               </p>

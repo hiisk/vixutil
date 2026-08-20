@@ -34,7 +34,7 @@ export default function SensorBox({ sensor, label, className = '' }: { sensor: S
         stroke="currentColor"
         strokeWidth="1.25"
         strokeDasharray="4 4"
-        className="text-slate-300 dark:text-slate-600"
+        className="text-slate-500 dark:text-slate-400"
       />
       {/* 이 센서 */}
       <rect

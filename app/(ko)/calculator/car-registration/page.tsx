@@ -74,7 +74,7 @@ export default function CarRegistrationPage() {
             <div>
               <Label>차량 가격 (원)</Label>
               <CommaInput value={price} onChange={setPrice} placeholder="예: 30,000,000" />
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 신차는 출고가, 중고차는 과세표준액 기준
               </p>
             </div>
@@ -91,7 +91,7 @@ export default function CarRegistrationPage() {
                   </option>
                 ))}
               </select>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 {CAR_TYPES.find(t => t.id === carType)?.note}
               </p>
             </div>
@@ -120,7 +120,7 @@ export default function CarRegistrationPage() {
               <CommaInput value={etcFee} onChange={setEtcFee} placeholder="예: 150,000" />
             </div>
           </div>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mt-3 leading-relaxed">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-3 leading-relaxed">
             공채를 만기까지 보유할 계획이면 할인율을 0으로 두세요. 되파는 경우에만 손실이 생깁니다.
           </p>
         </Card>
@@ -164,7 +164,7 @@ export default function CarRegistrationPage() {
                     {w(result.bondCost)}원
                   </span>
                 </div>
-                <div className="flex justify-between text-xs text-slate-400 dark:text-slate-500">
+                <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400">
                   <span>공채 매입액 (되팔면 대부분 회수)</span>
                   <span className="tabular-nums">{w(result.bondPurchase)}원</span>
                 </div>

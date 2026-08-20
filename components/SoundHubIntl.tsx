@@ -84,12 +84,12 @@ export default function SoundHubIntl({ lang }: { lang: SoundIntlLang }) {
           </span>
         </Link>
 
-        <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-6 leading-relaxed">{ui.notice}</p>
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-6 leading-relaxed">{ui.notice}</p>
       </div>
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
         <span className="text-sm font-bold text-indigo-600">vixutil</span>
-        <p className="text-xs text-slate-400 mt-1">{ui.hubFoot}</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{ui.hubFoot}</p>
       </footer>
     </div>
   );

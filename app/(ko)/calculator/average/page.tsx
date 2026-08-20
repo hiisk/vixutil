@@ -110,10 +110,10 @@ export default function AveragePage() {
             className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-base font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-y"
           />
           <div className="flex items-center justify-between mt-2">
-            <p className="text-xs text-slate-400 dark:text-slate-500">쉼표·띄어쓰기·줄바꿈 모두 됩니다</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">쉼표·띄어쓰기·줄바꿈 모두 됩니다</p>
             <button
               onClick={() => setText('')}
-              className="text-xs font-medium text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"
+              className="text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
             >
               지우기
             </button>

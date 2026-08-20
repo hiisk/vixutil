@@ -165,13 +165,13 @@ export default function GpaPage() {
                   system === opt.value ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
                 }`}>
                 {opt.label}
-                <span className={`block text-xs font-normal ${system === opt.value ? 'text-blue-200' : 'text-slate-400 dark:text-slate-500'}`}>
+                <span className={`block text-xs font-normal ${system === opt.value ? 'text-blue-200' : 'text-slate-500 dark:text-slate-400'}`}>
                   {opt.sub}
                 </span>
               </button>
             ))}
           </div>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mt-3">P/F 과목은 각 과목의 <strong>P/F 토글</strong>로 표시하세요. 이수 학점에는 포함되지만 GPA 산정에서는 제외됩니다.
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-3">P/F 과목은 각 과목의 <strong>P/F 토글</strong>로 표시하세요. 이수 학점에는 포함되지만 GPA 산정에서는 제외됩니다.
           </p>
         </Card>
 
@@ -204,7 +204,7 @@ export default function GpaPage() {
                 <div className="h-full bg-blue-600 rounded-full transition-all"
                   style={{ width: `${(result.gpa / maxGpa) * 100}%` }} />
               </div>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1.5 text-center">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 text-center">
                 만점 대비 {((result.gpa / maxGpa) * 100).toFixed(1)}%
                 {result.gpaCredits < result.totalCredits && (
                   <span className="ml-2 text-teal-600">
@@ -258,7 +258,7 @@ export default function GpaPage() {
                       className={`py-3 text-xs font-bold rounded-xl border transition-colors ${
                         course.isPf
                           ? 'bg-teal-600 border-teal-600 text-white'
-                          : 'border-slate-200 dark:border-slate-700 text-slate-300 dark:text-slate-600 hover:border-slate-300'
+                          : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300'
                       }`}>
                       {course.isPf ? 'P/F' : '-'}
                     </button>
@@ -342,7 +342,7 @@ export default function GpaPage() {
                       </td>
                       <td>
                         {c.isPf
-                          ? <span className="text-xs text-teal-600 bg-teal-50 dark:bg-teal-950/30 px-2 py-0.5 rounded-full">GPA 제외</span>
+                          ? <span className="text-xs text-teal-600 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/30 px-2 py-0.5 rounded-full">GPA 제외</span>
                           : point?.toFixed(1)}
                       </td>
                       <td className="font-semibold text-slate-700 dark:text-slate-200">

@@ -249,7 +249,7 @@ export default function SudokuGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
               ].join(' ')}
             >
               {value !== 0 ? value : notes[i] !== 0 ? (
-                <span className="grid grid-cols-3 gap-px w-full h-full p-[2px] text-[8px] sm:text-[9px] leading-none text-slate-400 dark:text-slate-500 font-medium">
+                <span className="grid grid-cols-3 gap-px w-full h-full p-[2px] text-[8px] sm:text-[9px] leading-none text-slate-500 dark:text-slate-400 font-medium">
                   {Array.from({ length: 9 }, (_, d) => (
                     <span key={d} className="flex items-center justify-center">
                       {notes[i] & (1 << d) ? d + 1 : ''}
@@ -346,7 +346,7 @@ export default function SudokuGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
       <div className={`${CARD} mt-4`}>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{ui.how}</p>
         {puzzle !== null && (
-          <p className="text-xs text-slate-400 dark:text-slate-500 mt-2 tabular-nums">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 tabular-nums">
             {ui.puzzleNo} {puzzle.seed} · {ui[LEVEL_KEY[puzzle.difficulty]]}
           </p>
         )}

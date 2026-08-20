@@ -191,7 +191,7 @@ export default function HomeBuyingCostPage() {
                   placeholder="예: 8" className={inputCls} min="0" step="0.1" />
               </div>
             </div>
-            <p className="text-xs text-slate-400 dark:text-slate-500">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               채권은 사서 바로 되팔면 할인율만큼만 손실입니다 — 지역·조례·시세로 달라 직접 넣습니다
             </p>
 
@@ -256,7 +256,7 @@ export default function HomeBuyingCostPage() {
             )}
 
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 예산용 추정치 · 표준세율은 취득 후 1주택 기준이며 감면은 반영하지 않았습니다 ·
                 실제 세액은 관할 지방자치단체, 등기 비용은 법무사에게 확인하세요
               </p>

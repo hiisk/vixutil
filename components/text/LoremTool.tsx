@@ -71,7 +71,7 @@ export default function LoremTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
         >
           {ui.regenerate}
         </button>
-        <p className="mt-2 text-[11px] text-slate-400 dark:text-slate-500 text-center">
+        <p className="mt-2 text-[11px] text-slate-500 dark:text-slate-400 text-center">
           {ui.sameSeed(seed)}
         </p>
       </div>

@@ -197,7 +197,7 @@ export default function AltseasonBoard() {
                       </span>
                     </td>
                     <td className={`px-3 py-2.5 text-right tabular-nums ${roiCls(r.returnPct)}`}>{signed(r.returnPct)}</td>
-                    <td className={`px-4 py-2.5 text-right tabular-nums font-bold border-l border-slate-200/40 dark:border-slate-700/40 ${r.outperformed ? 'text-violet-600 dark:text-violet-400' : 'text-slate-400 dark:text-slate-500'}`}>
+                    <td className={`px-4 py-2.5 text-right tabular-nums font-bold border-l border-slate-200/40 dark:border-slate-700/40 ${r.outperformed ? 'text-violet-600 dark:text-violet-400' : 'text-slate-500 dark:text-slate-400'}`}>
                       {r.vsBtcPp >= 0 ? '+' : ''}{r.vsBtcPp.toFixed(1)}
                     </td>
                   </tr>

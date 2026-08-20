@@ -167,7 +167,7 @@ export default function CapitalGainsPage() {
               </div>
             </Card>
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">* 필요경비 취득가 3% 적용. 실제 영수증 경비가 있으면 세무사 상담 권장.</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">* 필요경비 취득가 3% 적용. 실제 영수증 경비가 있으면 세무사 상담 권장.</p>
             </Card>
           </>
         )}

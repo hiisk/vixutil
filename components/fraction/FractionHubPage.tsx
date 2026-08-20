@@ -67,7 +67,7 @@ export default function FractionHubPage({ lang }: { lang: Lang }) {
           <section key={d} className="mb-6">
             <h3 className="text-sm font-bold text-slate-700 dark:text-slate-200 mb-2">
               /{d}
-              <span className="ml-1.5 text-[11px] font-bold text-slate-400 dark:text-slate-500">
+              <span className="ml-1.5 text-[11px] font-bold text-slate-500 dark:text-slate-400">
                 {terminates(d) ? ui.terminatingLabel : ui.repeatingLabel}
               </span>
             </h3>
@@ -81,7 +81,7 @@ export default function FractionHubPage({ lang }: { lang: Lang }) {
                     className="flex items-baseline gap-3 px-4 py-2 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
                     <span className="text-sm font-bold text-lime-700 dark:text-lime-400 tabular-nums shrink-0 w-[52px] text-right">{f.n}/{f.d}</span>
                     <span className="text-sm text-slate-700 dark:text-slate-200 tabular-nums">{ui.dec(g.decimal)}</span>
-                    <span className="ml-auto text-[11px] text-slate-400 dark:text-slate-500 tabular-nums shrink-0">{ui.dec(g.percent)}%</span>
+                    <span className="ml-auto text-[11px] text-slate-500 dark:text-slate-400 tabular-nums shrink-0">{ui.dec(g.percent)}%</span>
                   </span>
                 );
               })}

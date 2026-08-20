@@ -121,7 +121,7 @@ export default function MedianIncomePage() {
                 </div>
               ))}
             </div>
-            <p className="text-xs text-slate-400 dark:text-slate-500">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               고른 가구원 수의 칸만 채워도 계산됩니다. 배수로 짐작하지 않으려고 칸을 각각 두었습니다.
             </p>
 
@@ -196,11 +196,11 @@ export default function MedianIncomePage() {
                 {result.r.lines.map(l => (
                   <div key={l.label} className="px-5 py-3 flex justify-between items-center text-sm">
                     <span className="text-slate-600 dark:text-slate-300">
-                      {l.label} <span className="text-slate-400 dark:text-slate-500">{l.percent}%</span>
+                      {l.label} <span className="text-slate-500 dark:text-slate-400">{l.percent}%</span>
                     </span>
                     <span className="text-right">
                       <span className="font-semibold">{fmt(l.threshold)}원</span>
-                      <span className={`ml-2 text-xs font-bold ${l.eligible ? 'text-blue-600' : 'text-slate-400 dark:text-slate-500'}`}>
+                      <span className={`ml-2 text-xs font-bold ${l.eligible ? 'text-blue-600' : 'text-slate-500 dark:text-slate-400'}`}>
                         {l.eligible ? '해당' : '초과'}
                       </span>
                     </span>
@@ -224,7 +224,7 @@ export default function MedianIncomePage() {
                 ))}
               </div>
               {result.r.livelihood === 0 && (
-                <p className="px-5 pb-4 text-xs text-slate-400 dark:text-slate-500">
+                <p className="px-5 pb-4 text-xs text-slate-500 dark:text-slate-400">
                   소득인정액이 기준액에 닿거나 넘어 채워 줄 차액이 없습니다.
                 </p>
               )}
@@ -242,7 +242,7 @@ export default function MedianIncomePage() {
             )}
 
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 고시액은 입력한 것을 그대로 씁니다 · 소득 기준 한 가지만 본 판정이라 부양의무자·근로능력·
                 자동차 등 다른 요건은 반영하지 않았습니다 · 실제 결정은 주민센터 신청과 복지로 조사로
                 정해집니다

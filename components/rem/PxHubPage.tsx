@@ -62,7 +62,7 @@ export default function PxHubPage({ lang }: { lang: Lang }) {
 
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.commonTitle}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.commonNote}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.commonNote}</p>
           <PxTable pixels={COMMON} head={head} />
         </section>
 
@@ -78,7 +78,7 @@ export default function PxHubPage({ lang }: { lang: Lang }) {
 
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.wholeTitle}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.wholeNote}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.wholeNote}</p>
           <div className="flex flex-wrap gap-2">
             {wholeRems().map(px => (
               <span

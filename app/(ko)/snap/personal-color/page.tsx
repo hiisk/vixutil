@@ -336,7 +336,7 @@ export default function PersonalColorPage() {
           >
             <ToolIcon emoji="📷" className="w-9 h-9 text-slate-800 dark:text-slate-100" />
             <span className="text-sm font-bold text-slate-600 dark:text-slate-300">사진을 선택해주세요</span>
-            <span className="text-xs text-slate-400 dark:text-slate-500">밝은 곳에서 찍은 정면 사진일수록 정확해요</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">밝은 곳에서 찍은 정면 사진일수록 정확해요</span>
           </button>
         )}
         <input
@@ -362,7 +362,7 @@ export default function PersonalColorPage() {
             {!analyzing && (
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className="mt-3 mx-auto block text-xs font-semibold text-slate-400 dark:text-slate-500 hover:text-rose-600 transition-colors"
+                className="mt-3 mx-auto block text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-rose-600 transition-colors"
               >
                 다른 사진으로 다시 보기
               </button>
@@ -400,7 +400,7 @@ export default function PersonalColorPage() {
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
               <div className="flex items-center justify-between mb-1.5">
                 <p className="label-caps">🌡️ 웜/쿨 지수</p>
-                <span className="text-[11px] font-bold text-orange-600 bg-orange-50 dark:bg-orange-950/30 border border-orange-100 dark:border-orange-900/40 rounded-full px-2 py-0.5">
+                <span className="text-[11px] font-bold text-orange-600 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/30 border border-orange-100 dark:border-orange-900/40 rounded-full px-2 py-0.5">
                   {result.warmthPercent}% {result.warmthPercent >= 50 ? '웜' : '쿨'}
                 </span>
               </div>
@@ -415,7 +415,7 @@ export default function PersonalColorPage() {
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
               <div className="flex items-center justify-between mb-1.5">
                 <p className="label-caps">선명도 지수</p>
-                <span className="text-[11px] font-bold text-rose-600 bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/40 rounded-full px-2 py-0.5">
+                <span className="text-[11px] font-bold text-rose-600 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/40 rounded-full px-2 py-0.5">
                   {result.clarityPercent}% {result.clarityPercent >= 50 ? '클리어' : '뮤트'}
                 </span>
               </div>
@@ -427,7 +427,7 @@ export default function PersonalColorPage() {
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
               <div className="flex items-center justify-between mb-1.5">
                 <p className="label-caps">☀️ 명도 지수</p>
-                <span className="text-[11px] font-bold text-amber-600 bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900/40 rounded-full px-2 py-0.5">
+                <span className="text-[11px] font-bold text-amber-600 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900/40 rounded-full px-2 py-0.5">
                   {result.valuePercent}% {result.valuePercent >= 50 ? '라이트' : '딥'}
                 </span>
               </div>
@@ -449,7 +449,7 @@ export default function PersonalColorPage() {
             </div>
 
             <div className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg p-5">
-              <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">피하면 좋은 컬러</p>
+              <p className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">피하면 좋은 컬러</p>
               <div className="grid grid-cols-3 gap-3">
                 {result.avoidPalette.map(c => (
                   <div key={c.hex} className="text-center opacity-70">
@@ -483,7 +483,7 @@ export default function PersonalColorPage() {
 
             <ShareButton title="퍼스널컬러 진단 결과" description={`${result.label} — ${result.text}`} type="fortune" />
 
-            <p className="text-center text-xs text-slate-300 dark:text-slate-600 pt-2">
+            <p className="text-center text-xs text-slate-500 dark:text-slate-400 pt-2">
               얼굴 인식과 피부 톤 측정은 실제로 이뤄지지만, 웜/쿨 해석과 컬러 추천은 참고용이며 전문 퍼스널컬러 진단을 대체하지 않습니다.
             </p>
           </div>

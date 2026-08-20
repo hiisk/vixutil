@@ -112,7 +112,7 @@ export default function NBackGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
             </p>
           </div>
         ) : (
-          <p className="text-sm text-slate-400 dark:text-slate-500 text-center px-6">
+          <p className="text-sm text-slate-500 dark:text-slate-400 text-center px-6">
             {ui.nbackHow.replace('{n}', String(n))}
           </p>
         )}
@@ -127,7 +127,7 @@ export default function NBackGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
       </div>
 
       {playing && run && (
-        <p className="mt-3 text-center text-xs text-slate-400 dark:text-slate-500 tabular-nums">
+        <p className="mt-3 text-center text-xs text-slate-500 dark:text-slate-400 tabular-nums">
           {at + 1} / {run.items.length}
         </p>
       )}

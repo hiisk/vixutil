@@ -81,7 +81,7 @@ export default function DdayPage() {
                 {l:'평일 수', v:`${Math.abs(result.weekdays)}일`},
               ].map(item=>(
                 <Card key={item.l} className="p-4 text-center">
-                  <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">{item.l}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">{item.l}</p>
                   <p className="font-bold text-slate-900 dark:text-slate-100 text-base">{item.v}</p>
                 </Card>
               ))}

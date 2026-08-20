@@ -52,9 +52,9 @@ export default function FortuneHubPage({ lang }: { lang: FortuneIntlLang }) {
               </span>
               <span className="hub-card-body">
                 <span className="hub-card-title group-hover:text-sec">{t.title}</span>
-                <span className="block truncate text-xs text-slate-400 dark:text-slate-500">{t.desc}</span>
+                <span className="block truncate text-xs text-slate-500 dark:text-slate-400">{t.desc}</span>
               </span>
-              <span className="shrink-0 text-[10px] font-bold text-slate-400 dark:text-slate-500">{t.badge}</span>
+              <span className="shrink-0 text-[10px] font-bold text-slate-500 dark:text-slate-400">{t.badge}</span>
             </Link>
           ))}
         </div>
@@ -71,13 +71,13 @@ export default function FortuneHubPage({ lang }: { lang: FortuneIntlLang }) {
             <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">{tarot.hubTitle}</span>
             <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5">{tarot.hubLead}</span>
           </span>
-          <span className="ml-auto text-[11px] font-bold text-slate-400 dark:text-slate-500 shrink-0">78</span>
+          <span className="ml-auto text-[11px] font-bold text-slate-500 dark:text-slate-400 shrink-0">78</span>
         </Link>
       </div>
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
         <span className="text-sm font-bold text-violet-600">vixutil</span>
-        <p className="text-xs text-slate-400 mt-1">{c.footer}</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{c.footer}</p>
       </footer>
     </div>
   );

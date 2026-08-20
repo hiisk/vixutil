@@ -35,7 +35,7 @@ const labelCls = 'dial-k mb-1 block';
 
 /** 확률이 높을수록 붉게 — 색만으로 전달하지 않도록 숫자를 항상 함께 쓴다 */
 function riskTone(pct: number): string {
-  if (!isFinite(pct)) return 'text-slate-400 dark:text-slate-500';
+  if (!isFinite(pct)) return 'text-slate-500 dark:text-slate-400';
   if (pct >= 50) return 'text-rose-600 dark:text-rose-400';
   if (pct >= 20) return 'text-orange-600 dark:text-orange-400';
   if (pct >= 5) return 'text-amber-600 dark:text-amber-400';

@@ -214,7 +214,7 @@ export default function PhotoMoodPage() {
           >
             <ToolIcon emoji="📷" className="w-9 h-9 text-slate-800 dark:text-slate-100" />
             <span className="text-sm font-bold text-slate-600 dark:text-slate-300">사진을 선택해주세요</span>
-            <span className="text-xs text-slate-400 dark:text-slate-500">인생샷, 풍경, 음식 사진 다 좋아요</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">인생샷, 풍경, 음식 사진 다 좋아요</span>
           </button>
         )}
         <input
@@ -240,7 +240,7 @@ export default function PhotoMoodPage() {
             {!analyzing && (
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className="mt-3 mx-auto block text-xs font-semibold text-slate-400 dark:text-slate-500 hover:text-fuchsia-600 transition-colors"
+                className="mt-3 mx-auto block text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-fuchsia-600 transition-colors"
               >
                 다른 사진으로 다시 보기
               </button>
@@ -282,7 +282,7 @@ export default function PhotoMoodPage() {
                   {palette.map(hex => (
                     <div key={hex} className="flex-1 text-center">
                       <div className="w-full aspect-square rounded-xl mb-1.5 border border-slate-200 dark:border-slate-700 shadow-sm" style={{ background: hex }} />
-                      <p className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase">{hex}</p>
+                      <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">{hex}</p>
                     </div>
                   ))}
                 </div>
@@ -351,7 +351,7 @@ export default function PhotoMoodPage() {
 
             <ShareButton title="사진 감성 분석 결과" description={`${result.label} — ${result.text}`} type="fortune" />
 
-            <p className="text-center text-xs text-slate-300 dark:text-slate-600 pt-2">
+            <p className="text-center text-xs text-slate-500 dark:text-slate-400 pt-2">
               밝기·채도·색감 측정은 실제 픽셀 데이터를 분석한 결과이며, 감성 타입 해석은 참고용 오락 콘텐츠입니다.
             </p>
           </div>

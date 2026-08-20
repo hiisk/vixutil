@@ -258,7 +258,7 @@ export default function CropTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
             </button>
           ))}
         </div>
-        <p className="mt-4 text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed">
+        <p className="mt-4 text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
           {ui.how}
           <br />
           {ui.keeps(img.width, img.height, outW, outH)}

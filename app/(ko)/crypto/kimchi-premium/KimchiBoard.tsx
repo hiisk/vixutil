@@ -14,7 +14,7 @@ const TONE_CLS: Record<ReturnType<typeof premiumTone>, string> = {
   flat: 'text-slate-500 dark:text-slate-400',
   down: 'text-blue-600/80 dark:text-blue-400/80',
   low: 'text-blue-600 dark:text-blue-400 font-bold',
-  none: 'text-slate-300 dark:text-slate-600',
+  none: 'text-slate-500 dark:text-slate-400',
 };
 
 const won = (v: number | null | undefined) => {
@@ -31,7 +31,7 @@ const won = (v: number | null | undefined) => {
  * 미상장임을 글자로 밝힌다.
  */
 function NotListed() {
-  return <span className="text-slate-300 dark:text-slate-600 text-[11px]" title="이 거래소에 원화 마켓이 없습니다">미상장</span>;
+  return <span className="text-slate-500 dark:text-slate-400 text-[11px]" title="이 거래소에 원화 마켓이 없습니다">미상장</span>;
 }
 
 /** 원화 가격은 자릿수가 코인마다 크게 달라 유효숫자로 맞춘다 */
@@ -44,7 +44,7 @@ const krw = (v: number | null) => {
 };
 
 function Pm({ value }: { value: number | null }) {
-  if (value == null || !isFinite(value)) return <span className="text-slate-300 dark:text-slate-600">—</span>;
+  if (value == null || !isFinite(value)) return <span className="text-slate-500 dark:text-slate-400">—</span>;
   return (
     <span className={`tabular-nums ${TONE_CLS[premiumTone(value)]}`}>
       {value >= 0 ? '+' : ''}{value.toFixed(2)}%
@@ -176,7 +176,7 @@ export default function KimchiBoard() {
       <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 mb-4">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="text-[11px] uppercase tracking-wide text-slate-400 dark:text-slate-500 mb-1">
+            <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">
               지금 김치 프리미엄 · {basis === 'fx' ? '공식 환율 기준' : 'USDT 기준'}
             </p>
             <p className={`text-5xl font-bold tabular-nums ${TONE_CLS[premiumTone(market)]}`}>
@@ -199,7 +199,7 @@ export default function KimchiBoard() {
                   aria-pressed={basis === k}
                   title={usable ? undefined : '이 기준에 필요한 데이터를 받지 못했습니다'}
                   className={`px-4 py-2 text-sm font-bold rounded-lg transition-colors ${
-                    !usable ? 'text-slate-300 dark:text-slate-600 cursor-not-allowed'
+                    !usable ? 'text-slate-500 dark:text-slate-400 cursor-not-allowed'
                     : basis === k ? 'bg-amber-500 text-white'
                     : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
                   }`}
@@ -213,25 +213,25 @@ export default function KimchiBoard() {
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-5 pt-5 border-t border-slate-100 dark:border-slate-800">
           <div>
-            <p className="text-[11px] text-slate-400 dark:text-slate-500 mb-0.5">공식 환율</p>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 mb-0.5">공식 환율</p>
             <p className="text-base font-bold text-slate-900 dark:text-white tabular-nums">
-              {snap.fxRate != null ? `${snap.fxRate.toFixed(2)}원` : <span className="text-slate-400 dark:text-slate-500">—</span>}
+              {snap.fxRate != null ? `${snap.fxRate.toFixed(2)}원` : <span className="text-slate-500 dark:text-slate-400">—</span>}
             </p>
           </div>
           <div>
-            <p className="text-[11px] text-slate-400 dark:text-slate-500 mb-0.5">USDT 시세</p>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 mb-0.5">USDT 시세</p>
             <p className="text-base font-bold text-slate-900 dark:text-white tabular-nums">
-              {snap.usdtKrw != null ? `${snap.usdtKrw.toLocaleString()}원` : <span className="text-slate-400 dark:text-slate-500">—</span>}
+              {snap.usdtKrw != null ? `${snap.usdtKrw.toLocaleString()}원` : <span className="text-slate-500 dark:text-slate-400">—</span>}
             </p>
           </div>
           <div>
-            <p className="text-[11px] text-slate-400 dark:text-slate-500 mb-0.5">USDT 프리미엄</p>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 mb-0.5">USDT 프리미엄</p>
             <p className="text-base font-bold tabular-nums">
-              {snap.usdtPremium != null ? <Pm value={snap.usdtPremium} /> : <span className="text-slate-400 dark:text-slate-500">—</span>}
+              {snap.usdtPremium != null ? <Pm value={snap.usdtPremium} /> : <span className="text-slate-500 dark:text-slate-400">—</span>}
             </p>
           </div>
           <div>
-            <p className="text-[11px] text-slate-400 dark:text-slate-500 mb-0.5">비교 코인</p>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 mb-0.5">비교 코인</p>
             <p className="text-base font-bold text-slate-900 dark:text-white tabular-nums">{snap.rows.length}개</p>
           </div>
         </div>
@@ -260,7 +260,7 @@ export default function KimchiBoard() {
       {/* 검색 + 정렬 */}
       <div className="flex flex-wrap gap-2 mb-4">
         <div className="relative flex-1 min-w-[200px]">
-          <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm pointer-events-none">🔍</span>
+          <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 text-sm pointer-events-none">🔍</span>
           <input
             type="text"
             value={query}
@@ -269,7 +269,7 @@ export default function KimchiBoard() {
             className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl pl-10 pr-9 py-2.5 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-amber-500 transition"
           />
           {query && (
-            <button onClick={() => setQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">✕</button>
+            <button onClick={() => setQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">✕</button>
           )}
         </div>
         <div className="inline-flex rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-1">
@@ -291,7 +291,7 @@ export default function KimchiBoard() {
         <div className="overflow-x-auto">
           <table className="w-full text-sm whitespace-nowrap">
             <thead>
-              <tr className="text-[11px] uppercase tracking-wide text-slate-400 dark:text-slate-500 border-b border-slate-200 dark:border-slate-700">
+              <tr className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
                 <th className="sticky left-0 z-10 bg-white dark:bg-slate-900 text-left font-semibold px-4 py-3">코인</th>
                 <th className="text-right font-semibold px-3 py-3">업비트</th>
                 <th className="text-right font-semibold px-3 py-3 border-l border-slate-200/70 dark:border-slate-700/70">김프</th>
@@ -300,7 +300,7 @@ export default function KimchiBoard() {
                 <th className="hidden lg:table-cell text-right font-semibold px-3 py-3 border-l border-slate-200/70 dark:border-slate-700/70">거래소차</th>
                 <th className="hidden md:table-cell text-right font-semibold px-4 py-3 border-l border-slate-200/70 dark:border-slate-700/70">
                   거래대금
-                  <span className="block text-[9px] font-normal text-slate-400 dark:text-slate-500 normal-case tracking-normal">업비트 / 빗썸 24h</span>
+                  <span className="block text-[9px] font-normal text-slate-500 dark:text-slate-400 normal-case tracking-normal">업비트 / 빗썸 24h</span>
                 </th>
               </tr>
             </thead>
@@ -311,7 +311,7 @@ export default function KimchiBoard() {
                     <div className="flex items-center gap-2">
                       <CoinLogo base={r.base} size={22} />
                       <span className="font-bold text-slate-900 dark:text-white">{r.koreanName}</span>
-                      <span className="text-[11px] text-slate-400 dark:text-slate-500 font-semibold">{r.base}</span>
+                      <span className="text-[11px] text-slate-500 dark:text-slate-400 font-semibold">{r.base}</span>
                     </div>
                   </td>
                   <td className="px-3 py-2.5 text-right tabular-nums text-slate-700 dark:text-slate-200">{r.upbit == null ? <NotListed /> : krw(r.upbit)}</td>
@@ -322,10 +322,10 @@ export default function KimchiBoard() {
                   <td className="hidden sm:table-cell px-3 py-2.5 text-right"><Pm value={premOf(r, 'bithumb')} /></td>
                   <td className="hidden lg:table-cell px-3 py-2.5 text-right tabular-nums border-l border-slate-200/40 dark:border-slate-700/40">
                     {r.spread != null ? (
-                      <span className={Math.abs(r.spread) >= 1 ? 'text-amber-600 dark:text-amber-400 font-bold' : 'text-slate-400 dark:text-slate-500'}>
+                      <span className={Math.abs(r.spread) >= 1 ? 'text-amber-600 dark:text-amber-400 font-bold' : 'text-slate-500 dark:text-slate-400'}>
                         {r.spread >= 0 ? '+' : ''}{r.spread.toFixed(2)}%
                       </span>
-                    ) : <span className="text-slate-300 dark:text-slate-600">—</span>}
+                    ) : <span className="text-slate-500 dark:text-slate-400">—</span>}
                   </td>
                   <td className="hidden md:table-cell px-4 py-2.5 text-right tabular-nums text-[11px] text-slate-500 dark:text-slate-400 border-l border-slate-200/40 dark:border-slate-700/40">
                     {won(r.upbitVolume)} / {won(r.bithumbVolume)}
@@ -342,7 +342,7 @@ export default function KimchiBoard() {
           거래대금이 작은 코인의 큰 김프는 실수요가 아니라 얕은 호가일 수 있습니다 — 숫자와 거래대금을 함께 보세요.
           같은 티커에 다른 토큰을 상장한 경우가 있어(예: 업비트 DATA는 데이터네트워크, 바이낸스 DATA는 Streamr)
           가격차가 ±60%를 넘는 {snap.excluded}개 코인은 비교에서 제외했습니다.
-          <span className="block mt-1 text-slate-400 dark:text-slate-500">
+          <span className="block mt-1 text-slate-500 dark:text-slate-400">
             갱신 {snap.fetchedAt.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' })} · 1분마다 자동 갱신
             {snap.fxUpdated && <> · 환율 기준일 {new Date(snap.fxUpdated).toLocaleDateString('ko-KR')}</>}
           </span>

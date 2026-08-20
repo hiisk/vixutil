@@ -138,7 +138,7 @@ export default function TunerTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
             onChange={e => setA4(Math.min(450, Math.max(430, Number(e.target.value) || 440)))}
             className="w-20 rounded-lg border chip-off px-2 py-1.5 cell-num"
           />
-          <span className="text-xs text-slate-400 dark:text-slate-500">{ui.refA4Note}</span>
+          <span className="text-xs text-slate-500 dark:text-slate-400">{ui.refA4Note}</span>
         </div>
       </div>
 

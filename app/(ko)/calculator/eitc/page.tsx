@@ -394,7 +394,7 @@ export default function EitcPage() {
             </Card>
 
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 고시값은 입력한 것을 그대로 씁니다 · 가구 유형·가구원 판정과 개별 배제 사유는
                 반영하지 않았습니다 · 실제 결정액은 국세청 심사로 정해집니다
               </p>

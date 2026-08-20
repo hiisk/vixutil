@@ -60,7 +60,7 @@ export default function TargetSalaryPage() {
             <div>
               <Label>목표 월 실수령액 (원)</Label>
               <CommaInput value={target} onChange={setTarget} placeholder="예: 3,000,000" />
-              <p className="mt-1.5 text-xs text-slate-400 dark:text-slate-500">
+              <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">
                 세금과 4대보험을 뗀 뒤 통장에 들어오는 금액입니다.
               </p>
             </div>

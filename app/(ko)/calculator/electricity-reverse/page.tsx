@@ -115,7 +115,7 @@ export default function ElectricityReversePage() {
               </Card>
             )}
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 주택용 저압 기준 · 할인이나 복지요금이 적용된 고지서는 사용량이 실제보다 적게 나옵니다
               </p>
             </Card>

@@ -60,7 +60,7 @@ export default function AngleFan({ deg, label, className = '' }: { deg: number; 
         stroke="currentColor"
         strokeWidth="1.25"
         strokeDasharray="3 3"
-        className="text-slate-400 dark:text-slate-500"
+        className="text-slate-500 dark:text-slate-400"
       />
 
       {/* 카메라 몸통 */}

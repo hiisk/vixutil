@@ -62,7 +62,7 @@ export default function SqrtHubPage({ lang }: { lang: Lang }) {
 
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.squaresTitle}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.squaresNote}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.squaresNote}</p>
           <div className="flex flex-wrap gap-2">
             {perfectSquares().map(n => (
               <span
@@ -77,7 +77,7 @@ export default function SqrtHubPage({ lang }: { lang: Lang }) {
 
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.simplifiableTitle}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.simplifiableNote}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.simplifiableNote}</p>
           <div className="flex flex-wrap gap-1.5">
             {simplifiable().map(n => (
               <span

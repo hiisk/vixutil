@@ -70,13 +70,13 @@ export default function RotationGame({ lang = 'ko' }: { lang?: GameLang } = {}) 
         ) : puzzle ? (
           <div className="flex items-center gap-6">
             <Grid shape={puzzle.left} size={puzzle.size} />
-            <span className="text-sm font-bold text-slate-300 dark:text-slate-600">?</span>
+            <span className="text-sm font-bold text-slate-500 dark:text-slate-400">?</span>
             <Grid shape={puzzle.right} size={puzzle.size} />
           </div>
         ) : null}
       </div>
 
-      <p className="text-xs text-slate-400 dark:text-slate-500 mt-3 text-center">{ui.rotHow}</p>
+      <p className="text-xs text-slate-500 dark:text-slate-400 mt-3 text-center">{ui.rotHow}</p>
 
       {over ? (
         <div className="mt-4"><PlayButton onClick={restart}>{ui.again}</PlayButton></div>

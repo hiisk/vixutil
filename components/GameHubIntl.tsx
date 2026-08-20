@@ -89,7 +89,7 @@ export default function GameHubIntl({ lang }: { lang: GameIntlLang }) {
             <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">{cube.hubTitle}</span>
             <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5">{cube.hubLead}</span>
           </span>
-          <span className="ml-auto text-[11px] font-bold text-slate-400 dark:text-slate-500 shrink-0">{ALGS.length}</span>
+          <span className="ml-auto text-[11px] font-bold text-slate-500 dark:text-slate-400 shrink-0">{ALGS.length}</span>
         </Link>
 
         <Link
@@ -103,7 +103,7 @@ export default function GameHubIntl({ lang }: { lang: GameIntlLang }) {
             <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">{fill(chess.hubTitle, { n: OPENINGS.length })}</span>
             <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5">{chess.hubLead}</span>
           </span>
-          <span className="ml-auto text-[11px] font-bold text-slate-400 dark:text-slate-500 shrink-0">{OPENINGS.length}</span>
+          <span className="ml-auto text-[11px] font-bold text-slate-500 dark:text-slate-400 shrink-0">{OPENINGS.length}</span>
         </Link>
 
         <Link
@@ -117,15 +117,15 @@ export default function GameHubIntl({ lang }: { lang: GameIntlLang }) {
             <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">{pokerFill(poker.hubTitle, { n: HANDS.length })}</span>
             <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5">{pokerFill(poker.hubLead, { n: HANDS.length })}</span>
           </span>
-          <span className="ml-auto text-[11px] font-bold text-slate-400 dark:text-slate-500 shrink-0">{HANDS.length}</span>
+          <span className="ml-auto text-[11px] font-bold text-slate-500 dark:text-slate-400 shrink-0">{HANDS.length}</span>
         </Link>
 
-        <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-6 leading-relaxed">{ui.notice}</p>
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-6 leading-relaxed">{ui.notice}</p>
       </div>
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
         <span className="text-sm font-bold text-emerald-600">vixutil</span>
-        <p className="text-xs text-slate-400 mt-1">{ui.hubFoot}</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{ui.hubFoot}</p>
       </footer>
     </div>
   );

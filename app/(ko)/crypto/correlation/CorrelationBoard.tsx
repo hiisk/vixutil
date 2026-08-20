@@ -166,7 +166,7 @@ export default function CorrelationBoard() {
                     return (
                       <td key={b} className="text-center px-2 py-2 tabular-nums text-[12px] text-slate-700 dark:text-slate-200"
                         style={{ background: a === b ? undefined : cellBg(v) }}>
-                        {a === b ? <span className="text-slate-300 dark:text-slate-600">—</span> : v != null ? v.toFixed(2) : '·'}
+                        {a === b ? <span className="text-slate-500 dark:text-slate-400">—</span> : v != null ? v.toFixed(2) : '·'}
                       </td>
                     );
                   })}
@@ -242,7 +242,7 @@ export default function CorrelationBoard() {
                             spread {(v.range.max - v.range.min).toFixed(2)}
                           </span>
                         </>
-                      ) : <span className="text-slate-400 dark:text-slate-500">—</span>}
+                      ) : <span className="text-slate-500 dark:text-slate-400">—</span>}
                     </td>
                     <td className="px-4 py-2.5 text-right tabular-nums border-l border-slate-200/40 dark:border-slate-700/40">
                       {v.down.capture != null ? (
@@ -252,7 +252,7 @@ export default function CorrelationBoard() {
                             {v.down.capture.toFixed(2)}× BTC · {v.down.days}d
                           </span>
                         </>
-                      ) : <span className="text-slate-400 dark:text-slate-500">—</span>}
+                      ) : <span className="text-slate-500 dark:text-slate-400">—</span>}
                     </td>
                   </tr>
                 );

@@ -92,7 +92,7 @@ export default function ScreenSpecPage({ slug, lang }: { slug: string; lang: Lan
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link prefetch={false} href={`${prefix}/device/screen`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
+          <Link prefetch={false} href={`${prefix}/device/screen`} className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 transition-colors font-medium truncate">
             {ui.section}
           </Link>
           <div className="ml-auto shrink-0">
@@ -105,7 +105,7 @@ export default function ScreenSpecPage({ slug, lang }: { slug: string; lang: Lan
         <div className="hero-band ">
           <span className="bg-sec-soft inline-flex h-10 w-10 items-center justify-center rounded-lg"><ToolIcon emoji={SCREEN_ICON} className="h-5 w-5" /></span>
           <h1 className="page-h1">{sc.name}</h1>
-          <p className="text-xs text-slate-400 dark:text-slate-500">
+          <p className="text-xs text-slate-500 dark:text-slate-400">
             {ui.kindLabel[sc.kind]} · {v.className}
             {sc.year ? ` · ${sc.year}` : ''}
           </p>
@@ -119,10 +119,10 @@ export default function ScreenSpecPage({ slug, lang }: { slug: string; lang: Lan
             { k: ui.density, val: `${v.ppi}` , unit: 'ppi' },
           ].map(x => (
             <div key={x.k} className="rounded-lg border chip-off px-2 py-3 text-center">
-              <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 truncate">{x.k}</p>
+              <p className="text-[11px] font-bold text-slate-500 dark:text-slate-400 truncate">{x.k}</p>
               <p className="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-100 tabular-nums mt-1 break-all">
                 {x.val}
-                {x.unit ? <span className="text-[11px] font-bold text-slate-400 ml-0.5">{x.unit}</span> : null}
+                {x.unit ? <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 ml-0.5">{x.unit}</span> : null}
               </p>
             </div>
           ))}
@@ -166,10 +166,10 @@ export default function ScreenSpecPage({ slug, lang }: { slug: string; lang: Lan
 
         <section className="mt-8" aria-label={ui.compareTitle}>
           <h2 className="sec-h2-tight">{ui.compareTitle}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3">{ui.compareNote}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{ui.compareNote}</p>
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden overflow-x-auto">
             <table className="kv-table w-full text-sm">
-              <thead className=" text-[11px] font-bold text-slate-400 dark:text-slate-500">
+              <thead className=" text-[11px] font-bold text-slate-500 dark:text-slate-400">
                 <tr>
                   {ui.compareCols.map(c => (
                     <th key={c} scope="col" className="text-left px-3 py-2 whitespace-nowrap">{c}</th>

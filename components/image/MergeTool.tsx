@@ -121,12 +121,12 @@ export default function MergeTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
               </span>
               <span className="hub-card-body">
                 <span className="block text-xs font-bold text-slate-700 dark:text-slate-200 truncate">{i.name}</span>
-                <span className="block text-[11px] text-slate-400 dark:text-slate-500 tabular-nums">
+                <span className="block text-[11px] text-slate-500 dark:text-slate-400 tabular-nums">
                   {i.width} × {i.height} · {formatBytes(i.size)}
                 </span>
               </span>
-              <button onClick={() => move(idx, -1)} disabled={idx === 0} aria-label={ui.up} className="w-7 h-7 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 disabled:opacity-30">↑</button>
-              <button onClick={() => move(idx, 1)} disabled={idx === imgs.length - 1} aria-label={ui.down} className="w-7 h-7 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 disabled:opacity-30">↓</button>
+              <button onClick={() => move(idx, -1)} disabled={idx === 0} aria-label={ui.up} className="w-7 h-7 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 disabled:opacity-30">↑</button>
+              <button onClick={() => move(idx, 1)} disabled={idx === imgs.length - 1} aria-label={ui.down} className="w-7 h-7 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 disabled:opacity-30">↓</button>
               <button onClick={() => setImgs(p => p.filter((_, k) => k !== idx))} aria-label={ui.remove} className="w-7 h-7 rounded-lg border border-slate-200 dark:border-slate-700 text-rose-500">✕</button>
             </div>
           ))}
@@ -155,7 +155,7 @@ export default function MergeTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
           <input type="checkbox" checked={fit} onChange={e => setFit(e.target.checked)} className="w-4 h-4 accent-violet-500" />
           <span className="text-sm text-slate-600 dark:text-slate-300">
             {ui.matchLabel(dir === 'v' ? ui.widthWord : ui.heightWord)}
-            <span className="block text-[11px] text-slate-400 dark:text-slate-500">
+            <span className="block text-[11px] text-slate-500 dark:text-slate-400">
               {ui.matchOff}
             </span>
           </span>

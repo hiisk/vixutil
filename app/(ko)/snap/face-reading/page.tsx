@@ -288,7 +288,7 @@ export default function FaceReadingPage() {
           >
             <ToolIcon emoji="📷" className="w-9 h-9 text-slate-800 dark:text-slate-100" />
             <span className="text-sm font-bold text-slate-600 dark:text-slate-300">사진을 선택해주세요</span>
-            <span className="text-xs text-slate-400 dark:text-slate-500">얼굴이 잘 보이는 정면 사진일수록 좋아요</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">얼굴이 잘 보이는 정면 사진일수록 좋아요</span>
           </button>
         )}
         <input
@@ -315,7 +315,7 @@ export default function FaceReadingPage() {
             {!analyzing && (
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className="mt-3 mx-auto block text-xs font-semibold text-slate-400 dark:text-slate-500 hover:text-teal-600 transition-colors"
+                className="mt-3 mx-auto block text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-teal-600 transition-colors"
               >
                 다른 사진으로 다시 보기
               </button>
@@ -352,7 +352,7 @@ export default function FaceReadingPage() {
                 <div key={f.key} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
                   <div className="flex items-center justify-between mb-1.5">
                     <p className="label-caps">{f.icon} {f.label}</p>
-                    <span className="text-[11px] font-bold text-teal-600 bg-teal-50 dark:bg-teal-950/30 border border-teal-100 dark:border-teal-900/40 rounded-full px-2 py-0.5">
+                    <span className="text-[11px] font-bold text-teal-600 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/30 border border-teal-100 dark:border-teal-900/40 rounded-full px-2 py-0.5">
                       측정값 {f.percent}%
                     </span>
                   </div>
@@ -387,7 +387,7 @@ export default function FaceReadingPage() {
 
             <ShareButton title="관상 테스트 결과" description={result.overall} type="fortune" />
 
-            <p className="text-center text-xs text-slate-300 dark:text-slate-600 pt-2">
+            <p className="text-center text-xs text-slate-500 dark:text-slate-400 pt-2">
               얼굴 인식은 실제로 이뤄지지만, 관상 해석은 오락 목적이며 과학적·의학적 근거가 없습니다.
             </p>
           </div>

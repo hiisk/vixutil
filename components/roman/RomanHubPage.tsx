@@ -62,7 +62,7 @@ export default function RomanHubPage({ lang }: { lang: Lang }) {
 
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.tableTitle}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.tableNote}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.tableNote}</p>
           <RomanTable />
         </section>
 
@@ -73,7 +73,7 @@ export default function RomanHubPage({ lang }: { lang: Lang }) {
 
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.longestTitle}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.longestNote}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.longestNote}</p>
           <div className="flex flex-wrap gap-2">
             {[...longest(), ...shortest()].map(y => (
               <span
@@ -88,7 +88,7 @@ export default function RomanHubPage({ lang }: { lang: Lang }) {
 
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.decadeTitle}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.decadeNote}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.decadeNote}</p>
           <RomanDecades name={ui.decadeName} />
         </section>
 

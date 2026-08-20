@@ -26,7 +26,7 @@ function Steps({ result }: { result: MatchResult }) {
       <div className="inline-flex flex-col items-center gap-1 min-w-full py-1">
         <div className="flex gap-1.5">
           {labels.map((ch, i) => (
-            <span key={i} className="w-8 text-center text-xs font-medium text-slate-400 dark:text-slate-500">{ch}</span>
+            <span key={i} className="w-8 text-center text-xs font-medium text-slate-500 dark:text-slate-400">{ch}</span>
           ))}
         </div>
         {result.steps.map((row, si) => (
@@ -131,14 +131,14 @@ export default function NameMatchPage() {
             <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
               <h2 className="text-sm font-bold text-slate-800 dark:text-slate-100 mb-3">계산 과정</h2>
               <Steps result={result} />
-              <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-3 leading-relaxed">
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-3 leading-relaxed">
                 이름을 한 글자씩 번갈아 놓고 각 글자의 획수를 적은 뒤, 이웃한 두 수를 더해 일의 자리만 남기는 과정을
                 두 자리가 될 때까지 반복합니다.
               </p>
             </div>
           </div>
         ) : (
-          <div className="py-12 text-slate-300 dark:text-slate-600">
+          <div className="py-12 text-slate-500 dark:text-slate-400">
             <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">두 사람의 이름을 입력해보세요</p>
           </div>

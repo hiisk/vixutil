@@ -70,7 +70,7 @@ export default function ConvertPage({ tool, lang }: { tool: ConvertTool; lang: C
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link prefetch={false} href={`${prefix}/convert`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-blue-600 transition-colors font-medium truncate">
+          <Link prefetch={false} href={`${prefix}/convert`} className="text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 transition-colors font-medium truncate">
             {ui.section}
           </Link>
           <span className="ml-auto shrink-0">
@@ -115,7 +115,7 @@ export default function ConvertPage({ tool, lang }: { tool: ConvertTool; lang: C
           </div>
         </section>
 
-        <p className="text-center text-xs text-slate-300 dark:text-slate-600 mt-9 leading-relaxed">{ui.footNote}</p>
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-9 leading-relaxed">{ui.footNote}</p>
       </main>
 
       <SiteFooter lang={lang} />

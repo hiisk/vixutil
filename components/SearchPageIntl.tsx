@@ -31,7 +31,7 @@ export default function SearchPageIntl({ lang }: { lang: SearchIntlLang }) {
           <Link href={home} className="font-bold text-indigo-600 text-lg shrink-0">vix.</Link>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{ui.heading}</span>
           <span className="ml-auto flex items-center gap-3 shrink-0">
-            <span className="text-xs text-slate-400 dark:text-slate-500">{ui.countSuffix(items.length)}</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">{ui.countSuffix(items.length)}</span>
             {/*
               한국어 /search는 계산기·크립토까지 담은 다른 목록이라 hreflang에서는
               뺀다(searchAlternates). 버튼은 별개다 — 사람이 한국어 검색으로

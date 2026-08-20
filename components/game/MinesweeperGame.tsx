@@ -228,7 +228,7 @@ export default function MinesweeperGame({ lang = 'ko' }: { lang?: GameLang } = {
         />
       )}
 
-      <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-3 leading-relaxed">
+      <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-3 leading-relaxed">
         {ui.modeHint}
         {board.cols >= 20 && <> {ui.wide}</>}
       </p>

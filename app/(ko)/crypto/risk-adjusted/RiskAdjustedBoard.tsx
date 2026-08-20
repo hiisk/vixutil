@@ -34,7 +34,7 @@ const pct = (v: number | null): string => {
 };
 const signed = (v: number | null) => (v == null || !isFinite(v) ? '—' : `${v >= 0 ? '+' : ''}${pct(v)}`);
 const ratio = (v: number | null) => (v == null || !isFinite(v) ? '—' : v.toFixed(2));
-const rCls = (v: number | null) => (v == null ? 'text-slate-400 dark:text-slate-500' : v >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400');
+const rCls = (v: number | null) => (v == null ? 'text-slate-500 dark:text-slate-400' : v >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400');
 
 const SORTS: [SortKey, string][] = [
   ['sharpe', 'Sharpe'],

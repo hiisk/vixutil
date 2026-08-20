@@ -235,7 +235,7 @@ export default function GoldenRatioPage() {
           >
             <ToolIcon emoji="📷" className="w-9 h-9 text-slate-800 dark:text-slate-100" />
             <span className="text-sm font-bold text-slate-600 dark:text-slate-300">사진을 선택해주세요</span>
-            <span className="text-xs text-slate-400 dark:text-slate-500">정면으로 크게 나온 사진일수록 정확해요</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">정면으로 크게 나온 사진일수록 정확해요</span>
           </button>
         )}
         <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={e => { const f = e.target.files?.[0]; if (f) handleFile(f); }} />
@@ -253,7 +253,7 @@ export default function GoldenRatioPage() {
               )}
             </div>
             {!analyzing && (
-              <button onClick={() => fileInputRef.current?.click()} className="mt-3 mx-auto block text-xs font-semibold text-slate-400 dark:text-slate-500 hover:text-amber-600 transition-colors">
+              <button onClick={() => fileInputRef.current?.click()} className="mt-3 mx-auto block text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-amber-600 transition-colors">
                 다른 사진으로 다시 보기
               </button>
             )}
@@ -288,12 +288,12 @@ export default function GoldenRatioPage() {
                   <div key={m.key}>
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-xs font-semibold text-slate-600 dark:text-slate-300">{m.label}</span>
-                      <span className="text-xs font-bold text-amber-600">{m.score}점 <span className="text-slate-400 dark:text-slate-500 font-medium">(비율 {m.ratio.toFixed(2)})</span></span>
+                      <span className="text-xs font-bold text-amber-600">{m.score}점 <span className="text-slate-500 dark:text-slate-400 font-medium">(비율 {m.ratio.toFixed(2)})</span></span>
                     </div>
                     <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mb-0.5">
                       <div className="h-full bg-sec rounded-full" style={{ width: `${m.score}%` }} />
                     </div>
-                    <p className="text-[11px] text-slate-400 dark:text-slate-500">{m.desc}</p>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400">{m.desc}</p>
                   </div>
                 ))}
               </div>
@@ -319,7 +319,7 @@ export default function GoldenRatioPage() {
 
             <ShareButton title="얼굴 황금비율 테스트 결과" description={`황금비율 ${result.totalScore}점 — ${result.overall}`} type="fortune" />
 
-            <p className="text-center text-xs text-slate-300 dark:text-slate-600 pt-2">
+            <p className="text-center text-xs text-slate-500 dark:text-slate-400 pt-2">
               비율 측정은 실제로 이뤄지지만, 황금비는 미의 절대 기준이 아닌 참고 개념이며 결과는 오락 목적입니다.
             </p>
           </div>

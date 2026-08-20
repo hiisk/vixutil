@@ -111,9 +111,9 @@ export default function PortPage({ slug, lang }: { slug: string; lang: Lang }) {
 
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.barTitle}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.barNote}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.barNote}</p>
           <PortBar port={x.port} label={`${x.port}`} />
-          <div className="mt-2 flex justify-between text-[11px] font-bold text-slate-400 dark:text-slate-500 tabular-nums">
+          <div className="mt-2 flex justify-between text-[11px] font-bold text-slate-500 dark:text-slate-400 tabular-nums">
             <span>0</span>
             <span>65535</span>
           </div>
@@ -130,7 +130,7 @@ export default function PortPage({ slug, lang }: { slug: string; lang: Lang }) {
 
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.sameGroupTitle}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.groupNote[f.group]}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.groupNote[f.group]}</p>
           <div className="flex flex-wrap gap-2">
             {sameGroup(x).map(o => (
               <Link prefetch={false}
@@ -138,7 +138,7 @@ export default function PortPage({ slug, lang }: { slug: string; lang: Lang }) {
                 href={`${hub}/${o.port}`}
                 className="rounded-xl border chip-off px-3 py-1.5 text-xs font-bold text-slate-600 dark:text-slate-300 hover:border-fuchsia-400 hover:text-fuchsia-600 dark:hover:text-fuchsia-400 transition-colors"
               >
-                <span className="tabular-nums text-slate-400 dark:text-slate-500">{o.port}</span> {o.name}
+                <span className="tabular-nums text-slate-500 dark:text-slate-400">{o.port}</span> {o.name}
               </Link>
             ))}
           </div>
@@ -153,7 +153,7 @@ export default function PortPage({ slug, lang }: { slug: string; lang: Lang }) {
                 href={`${hub}/${o.port}`}
                 className="flex items-baseline gap-3 px-4 py-2.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
               >
-                <span className="text-[11px] text-slate-400 dark:text-slate-500 tabular-nums shrink-0 w-[44px] text-right">{o.port}</span>
+                <span className="text-[11px] text-slate-500 dark:text-slate-400 tabular-nums shrink-0 w-[44px] text-right">{o.port}</span>
                 <span className="text-sm font-bold text-fuchsia-700 dark:text-fuchsia-400 font-mono shrink-0">{o.name}</span>
                 <span className="text-sm text-slate-700 dark:text-slate-200 truncate">{o.service}</span>
               </Link>

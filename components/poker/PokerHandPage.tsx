@@ -119,7 +119,7 @@ export default function PokerHandPage({ slug, lang }: { slug: string; lang: Lang
 
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.flopTitle}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.flopNote}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.flopNote}</p>
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
             {f.flop.filter(x => x.pct > 0).map(x => (
               <div key={x.key} className="flex items-center gap-3 px-4 py-2.5 bg-white dark:bg-slate-900">
@@ -168,7 +168,7 @@ export default function PokerHandPage({ slug, lang }: { slug: string; lang: Lang
 
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.chart}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.chartNote}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.chartNote}</p>
           <HandGrid path={hub} current={slug} />
         </section>
 

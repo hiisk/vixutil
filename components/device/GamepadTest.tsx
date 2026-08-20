@@ -118,7 +118,7 @@ export default function GamepadTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
             <div className="flex items-start justify-between gap-3 mb-4">
               <div className="min-w-0">
                 <p className="text-sm font-bold text-slate-800 dark:text-slate-100 truncate">🎮 {pad.id}</p>
-                <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
                   {ui.padInfo(pad.index, pad.buttons.length, pad.axes.length)}
                   {pad.mapping === 'standard' && ui.standardMapping}
                 </p>
@@ -139,7 +139,7 @@ export default function GamepadTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
                 const off = Math.hypot(x, y) > DRIFT;
                 return (
                   <div key={base} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-3">
-                    <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 mb-2 text-center">
+                    <p className="text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-2 text-center">
                       {base === 0 ? ui.leftStick : ui.rightStick}
                     </p>
                     <div className="relative mx-auto w-24 h-24 rounded-full border-2 chip-off">
@@ -150,7 +150,7 @@ export default function GamepadTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
                         style={{ left: `${50 + x * 42}%`, top: `${50 + y * 42}%` }}
                       />
                     </div>
-                    <p className="mt-2 text-center text-[11px] font-mono text-slate-400 dark:text-slate-500 tabular-nums">
+                    <p className="mt-2 text-center text-[11px] font-mono text-slate-500 dark:text-slate-400 tabular-nums">
                       {x.toFixed(2)}, {y.toFixed(2)}
                     </p>
                   </div>
@@ -176,7 +176,7 @@ export default function GamepadTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
                         ? 'bg-indigo-500 border-indigo-600 text-white'
                         : ever
                           ? 'bg-indigo-50 dark:bg-indigo-950/40 border-indigo-200 dark:border-indigo-900 text-indigo-700 dark:text-indigo-300'
-                          : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500'
+                          : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400'
                     }`}
                   >
                     <p className="text-[10px] font-bold truncate">
@@ -188,7 +188,7 @@ export default function GamepadTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
               })}
             </div>
 
-            <p className="mt-3 text-[11px] text-slate-400 dark:text-slate-500 text-center">
+            <p className="mt-3 text-[11px] text-slate-500 dark:text-slate-400 text-center">
               {ui.buttonNote}
             </p>
           </div>

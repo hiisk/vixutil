@@ -61,7 +61,7 @@ export default function SaltTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
           : <>{result.pctWater}<span className="text-xl ml-1">%</span></>}
       </Result>
 
-      <p className="mt-2 text-center text-xs text-slate-400 dark:text-slate-500">
+      <p className="mt-2 text-center text-xs text-slate-500 dark:text-slate-400">
         {mode === 'salt'
           ? ui.byTotalExact(percent, result.byTotal ?? 0)
           : ui.byTotalPct(result.pctTotal ?? 0)}
@@ -77,7 +77,7 @@ export default function SaltTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
               className="fld text-left hover:border-slate-300 dark:hover:border-slate-700"
             >
               <span className="block text-sm font-bold text-slate-700 dark:text-slate-200">{ui.presets[i]} {u.pct}%</span>
-              <span className="block text-[11px] text-slate-400 dark:text-slate-500">{ui.presetNotes[i]}</span>
+              <span className="block text-[11px] text-slate-500 dark:text-slate-400">{ui.presetNotes[i]}</span>
             </button>
           ))}
         </div>

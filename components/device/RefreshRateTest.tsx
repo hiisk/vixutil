@@ -81,12 +81,12 @@ export default function RefreshRateTest({ lang = 'ko' }: { lang?: DeviceLang } =
   return (
     <div>
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-6 text-center">
-        <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-2">
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-2">
           {running ? ui.measuring : result ? ui.resultLabel : ui.ready}
         </p>
         <p className="text-6xl font-bold bg-sec bg-clip-text text-transparent tabular-nums">
           {result ? result.hz : running ? live || '–' : '–'}
-          <span className="text-2xl ml-1.5 text-slate-400 dark:text-slate-500">Hz</span>
+          <span className="text-2xl ml-1.5 text-slate-500 dark:text-slate-400">Hz</span>
         </p>
 
         <div className="mt-5 h-2 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
@@ -103,7 +103,7 @@ export default function RefreshRateTest({ lang = 'ko' }: { lang?: DeviceLang } =
         >
           {running ? ui.measuringBtn : result ? ui.again : ui.startBtn}
         </button>
-        <p className="mt-3 text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed">
+        <p className="mt-3 text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
           {ui.stayHere}
         </p>
       </div>
@@ -119,7 +119,7 @@ export default function RefreshRateTest({ lang = 'ko' }: { lang?: DeviceLang } =
             ].map(s => (
               <div key={s.label} className="rounded-xl border chip-off px-3 py-3 text-center">
                 <p className="text-base font-bold text-slate-800 dark:text-slate-100 tabular-nums">{s.val}</p>
-                <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{s.label}</p>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{s.label}</p>
               </div>
             ))}
           </div>
@@ -165,7 +165,7 @@ export default function RefreshRateTest({ lang = 'ko' }: { lang?: DeviceLang } =
             }}
           />
         </div>
-        <p className="mt-2.5 text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed">
+        <p className="mt-2.5 text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
           {ui.motionNote}
         </p>
       </div>

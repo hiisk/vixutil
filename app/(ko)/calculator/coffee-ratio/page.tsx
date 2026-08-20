@@ -78,7 +78,7 @@ export default function CoffeeRatioPage() {
               <span className={`block text-xs font-bold ${method === x.id ? 'text-amber-700 dark:text-amber-300' : 'text-slate-700 dark:text-slate-200'}`}>
                 {x.label}
               </span>
-              <span className="block text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">1:{x.ratio}</span>
+              <span className="block text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">1:{x.ratio}</span>
             </button>
           ))}
         </div>
@@ -102,7 +102,7 @@ export default function CoffeeRatioPage() {
               min={0}
               className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-4 text-2xl font-bold text-slate-900 dark:text-slate-100 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-amber-500 pr-14"
             />
-            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 font-bold">
+            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 font-bold">
               {mode === 'bean' ? 'g' : 'ml'}
             </span>
           </div>
@@ -156,7 +156,7 @@ export default function CoffeeRatioPage() {
                     className="w-full px-5 py-3 flex justify-between items-center text-sm hover:bg-slate-50 dark:bg-slate-950 dark:hover:bg-slate-800 transition-colors"
                   >
                     <span className="font-semibold text-slate-700 dark:text-slate-200">{cups}잔 ({cups * 200}ml)</span>
-                    <span className="text-slate-400 dark:text-slate-500">원두 {((cups * 200) / r).toFixed(1)}g</span>
+                    <span className="text-slate-500 dark:text-slate-400">원두 {((cups * 200) / r).toFixed(1)}g</span>
                   </button>
                 ))}
               </div>

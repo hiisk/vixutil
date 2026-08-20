@@ -120,7 +120,7 @@ export default function SajuForm({
             <option key={h} value={h}>{h}</option>
           ))}
         </select>
-        <span className="text-slate-300 dark:text-slate-600 font-bold">:</span>
+        <span className="text-slate-500 dark:text-slate-400 font-bold">:</span>
         <select aria-label={fc.hourLabel} className="fld fld-sel w-full" value={mm} disabled={hh === ''}
           onChange={e => set({ hour: `${hh}:${e.target.value}` })}>
           {Array.from({ length: 60 }, (_, i) => String(i).padStart(2, '0')).map(m => (

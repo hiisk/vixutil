@@ -10,7 +10,7 @@ function CopyBtn({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
   return (
     <button onClick={() => { navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 2000); }}
-      className="text-xs px-3 py-1.5 rounded-lg bg-slate-700 text-slate-300 dark:text-slate-600 hover:bg-slate-600 transition-colors font-medium">
+      className="text-xs px-3 py-1.5 rounded-lg bg-slate-700 text-slate-500 dark:text-slate-400 hover:bg-slate-600 transition-colors font-medium">
       {copied ? '복사됨 ✓' : '복사'}
     </button>
   );
@@ -72,7 +72,7 @@ export default function UrlEncodePage() {
             {COMMON_CHARS.map(c => (
               <div key={c.char} className="bg-slate-50 dark:bg-slate-950 rounded-lg p-2 text-center text-xs">
                 <p className="font-bold text-slate-800 dark:text-slate-100">&apos;{c.char}&apos;</p>
-                <p className="text-slate-400 dark:text-slate-500 font-mono">{c.encoded}</p>
+                <p className="text-slate-500 dark:text-slate-400 font-mono">{c.encoded}</p>
               </div>
             ))}
           </div>

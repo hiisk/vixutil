@@ -273,13 +273,13 @@ export default function MatchFortune({ kind, lang }: { kind: MatchKind; lang: In
             <ReferralCards lang="en" placement="result" />
           </div>
         ) : (
-          <div className="py-12 text-slate-300 dark:text-slate-600">
+          <div className="py-12 text-slate-500 dark:text-slate-400">
             <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">{ui.pickBoth}</p>
           </div>
         )}
 
-        <p className="text-center text-[11px] text-slate-400 dark:text-slate-500 mt-6 leading-relaxed">{ui.disclaimer}</p>
+        <p className="text-center text-[11px] text-slate-500 dark:text-slate-400 mt-6 leading-relaxed">{ui.disclaimer}</p>
       </div>
     </div>
   );

@@ -35,7 +35,7 @@ export default function OrderShuffler({ lang = 'ko' }: { lang?: RandomLang }) {
         placeholder={ui.listPlaceholder}
         className="fld w-full focus:ring-2 focus:ring-cyan-400 resize-y"
       />
-      <div className="mt-2 mb-4 text-xs text-slate-400">{ui.itemCount(items.length)}</div>
+      <div className="mt-2 mb-4 text-xs text-slate-500 dark:text-slate-400">{ui.itemCount(items.length)}</div>
 
       <button
         onClick={run}

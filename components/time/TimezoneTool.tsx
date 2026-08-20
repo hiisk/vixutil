@@ -105,12 +105,12 @@ export default function TimezoneTool({ lang = 'ko' }: { lang?: TimeLang } = {}) 
             <span className="text-xs font-mono font-bold text-slate-600 dark:text-slate-300 tabular-nums w-14">
               {String(r.here).padStart(2, '0')}:00
             </span>
-            <span className="text-slate-300 dark:text-slate-600 text-xs">→</span>
+            <span className="text-slate-500 dark:text-slate-400 text-xs">→</span>
             <span className="text-xs font-mono font-bold text-slate-600 dark:text-slate-300 tabular-nums w-14">
               {String(r.there).padStart(2, '0')}:00
             </span>
             {r.dayShift !== 0 && (
-              <span className="text-[10px] text-slate-400 dark:text-slate-500">{r.dayShift > 0 ? ui.nextDay : ui.prevDay}</span>
+              <span className="text-[10px] text-slate-500 dark:text-slate-400">{r.dayShift > 0 ? ui.nextDay : ui.prevDay}</span>
             )}
             {r.both && <span className="ml-auto text-[10px] font-bold text-emerald-600">{ui.bothWorking}</span>}
           </button>

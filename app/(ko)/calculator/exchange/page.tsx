@@ -53,12 +53,12 @@ export default function ExchangePage() {
       </div>
       <div className="flex flex-col gap-4">
         {loading && (
-          <Card className="p-8 text-center text-slate-400 dark:text-slate-500 text-sm">
+          <Card className="p-8 text-center text-slate-500 dark:text-slate-400 text-sm">
             환율 정보 불러오는 중...
           </Card>
         )}
         {error && (
-          <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-lg px-4 py-3 text-red-600 text-sm">{error}</div>
+          <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-lg px-4 py-3 text-red-600 dark:text-red-300 text-sm">{error}</div>
         )}
 
         {rates && (

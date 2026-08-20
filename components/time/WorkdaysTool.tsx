@@ -46,7 +46,7 @@ export default function WorkdaysTool({ lang = 'ko' }: { lang?: TimeLang } = {}) 
             <Stat label={ui.workdays} value={ui.dayUnit(result.work)} accent="text-emerald-600" />
             <Stat label={ui.weekendHoliday} value={ui.dayUnit(result.weekend)} accent="text-rose-500" />
           </div>
-          <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-2">
+          <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-2">
             {ui.inclusive}
           </p>
         </>
@@ -61,7 +61,7 @@ export default function WorkdaysTool({ lang = 'ko' }: { lang?: TimeLang } = {}) 
           placeholder={ui.holidayPlaceholder}
           className="w-full rounded-xl border chip-off px-3.5 py-2.5 text-sm font-mono text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:outline-none focus:border-emerald-400"
         />
-        <p className="mt-1.5 text-[11px] text-slate-400 dark:text-slate-500">
+        <p className="mt-1.5 text-[11px] text-slate-500 dark:text-slate-400">
           {holidayList.length > 0
             ? ui.holidaysApplied(holidayList.length)
             : ui.holidayNote}
@@ -80,7 +80,7 @@ export default function WorkdaysTool({ lang = 'ko' }: { lang?: TimeLang } = {}) 
             <span className="text-sm text-slate-500 dark:text-slate-400">{ui.nAfterResult}</span>
           </div>
           <p className="mt-3 text-lg font-bold text-emerald-600">{formatKo(result.after)}</p>
-          <p className="mt-1 text-[11px] text-slate-400 dark:text-slate-500">
+          <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">
             {ui.nAfterNote}
           </p>
         </div>

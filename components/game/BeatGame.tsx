@@ -136,7 +136,7 @@ export default function BeatGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
             </p>
           </div>
         ) : phase === 'idle' ? (
-          <p className="text-sm text-slate-400 dark:text-slate-500 text-center px-6">{ui.beatHow}</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400 text-center px-6">{ui.beatHow}</p>
         ) : (
           <div className="text-center">
             <span

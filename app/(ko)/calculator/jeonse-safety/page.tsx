@@ -254,7 +254,7 @@ export default function JeonseSafetyPage() {
             </Card>
 
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 어림 계산입니다 — 시세·낙찰가율은 추정이고, 등기부 을구만으로는 앞선 임차인·조세채권 같은
                 선순위가 다 드러나지 않습니다. 안전 등급 기준(부채비율 {SAFE_DEBT_RATIO}% 이하를 안전으로 봄)도
                 법이 정한 선이 아니라 이 계산기가 정한 어림 기준입니다. 법률·투자 조언이 아닙니다

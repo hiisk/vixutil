@@ -134,7 +134,7 @@ export default function TarotYesNoPage() {
               <div className="flex items-center gap-3 mb-2">
                 <span className="text-3xl" style={{ transform: result.reversed ? 'rotate(180deg)' : 'none', display: 'inline-block' }}>{result.card.emoji}</span>
                 <div>
-                  <div className="text-xs font-medium text-slate-400">{result.card.nameEn} · {result.reversed ? '역방향' : '정방향'}</div>
+                  <div className="text-xs font-medium text-slate-500 dark:text-slate-400">{result.card.nameEn} · {result.reversed ? '역방향' : '정방향'}</div>
                   <div className="text-base font-bold text-slate-800 dark:text-slate-100">{result.card.name}</div>
                 </div>
               </div>
@@ -155,7 +155,7 @@ export default function TarotYesNoPage() {
           </>
         )}
 
-        <p className="text-center text-[11px] text-slate-400 dark:text-slate-500 mt-6">
+        <p className="text-center text-[11px] text-slate-500 dark:text-slate-400 mt-6">
           타로 예스/노는 재미와 마음 정리를 위한 참고용입니다. 중요한 결정은 스스로의 판단으로 내리세요.
         </p>
 

@@ -53,7 +53,7 @@ export default function HanjaPage({ idiom: i, lang }: { idiom: Idiom; lang: Form
 
   const block = (label: string, body: string) => (
     <div className="mt-3 rounded-lg border chip-off px-4 py-3.5">
-      <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 mb-1.5">{label}</p>
+      <p className="text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1.5">{label}</p>
       <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body}</p>
     </div>
   );
@@ -74,14 +74,14 @@ export default function HanjaPage({ idiom: i, lang }: { idiom: Idiom; lang: Form
 
       <header className="page-head">
         <div className="page-bar">
-          <Link prefetch={false} href={homeHref} className={`flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 ${s.linkHover} transition-colors font-medium shrink-0`}>
+          <Link prefetch={false} href={homeHref} className={`flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400 ${s.linkHover} transition-colors font-medium shrink-0`}>
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link prefetch={false} href={localeHref(lang, '/hanja')} className={`text-sm text-slate-400 dark:text-slate-500 ${s.linkHover} transition-colors font-medium truncate`}>
+          <Link prefetch={false} href={localeHref(lang, '/hanja')} className={`text-sm text-slate-500 dark:text-slate-400 ${s.linkHover} transition-colors font-medium truncate`}>
             {ui.section}
           </Link>
           <span className="ml-auto shrink-0">
@@ -92,7 +92,7 @@ export default function HanjaPage({ idiom: i, lang }: { idiom: Idiom; lang: Form
 
       <main className="relative max-w-2xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
-          <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mb-3">
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-3">
             {hanjaCategories(lang)[i.category] ?? i.category}
           </p>
           <div className="result-card px-6 py-7" style={gradeVar(s.grad)}>
@@ -115,7 +115,7 @@ export default function HanjaPage({ idiom: i, lang }: { idiom: Idiom; lang: Form
             </div>
           ))}
         </div>
-        <p className="mt-2 text-center text-[11px] text-slate-400 dark:text-slate-500">{ui.charsTitle}</p>
+        <p className="mt-2 text-center text-[11px] text-slate-500 dark:text-slate-400">{ui.charsTitle}</p>
 
         {block(ui.meaningTitle, t.meaning)}
         {block(ui.originTitle, t.origin)}
@@ -124,7 +124,7 @@ export default function HanjaPage({ idiom: i, lang }: { idiom: Idiom; lang: Form
         <div className="mt-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 overflow-hidden">
           {([[ui.hanjaLabel, i.hanja], [ui.simplified, i.simplified], [ui.reading, i.reading], [ui.pinyin, i.pinyin]] as const).map(([label, value]) => (
             <div key={label} className="flex items-baseline gap-3 px-4 py-2.5 border-b border-slate-200/70 dark:border-slate-700/70 last:border-0">
-              <span className="w-20 shrink-0 text-xs font-medium text-slate-400 dark:text-slate-500">{label}</span>
+              <span className="w-20 shrink-0 text-xs font-medium text-slate-500 dark:text-slate-400">{label}</span>
               <span className="flex-1 text-sm font-bold text-slate-800 dark:text-slate-100">{value}</span>
             </div>
           ))}
@@ -157,7 +157,7 @@ export default function HanjaPage({ idiom: i, lang }: { idiom: Idiom; lang: Form
           </div>
         </section>
 
-        <p className="text-center text-xs text-slate-300 dark:text-slate-600 mt-9 leading-relaxed">{ui.footNote}</p>
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-9 leading-relaxed">{ui.footNote}</p>
       </main>
 
       <SiteFooter lang={lang} />

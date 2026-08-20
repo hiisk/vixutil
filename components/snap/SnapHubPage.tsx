@@ -57,7 +57,7 @@ export default function SnapHubPage({ lang }: { lang: SnapIntlLang }) {
               </span>
               <span className="hub-card-body">
                 <span className="hub-card-title group-hover:text-sec">{t.title}</span>
-                <span className="block truncate text-xs text-slate-400 dark:text-slate-500">{t.desc}</span>
+                <span className="block truncate text-xs text-slate-500 dark:text-slate-400">{t.desc}</span>
               </span>
             </Link>
           ))}
@@ -74,15 +74,15 @@ export default function SnapHubPage({ lang }: { lang: SnapIntlLang }) {
             <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">{lensUi.hubTitle}</span>
             <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5">{lensUi.hubLead}</span>
           </span>
-          <span className="ml-auto text-[11px] font-bold text-slate-400 dark:text-slate-500 shrink-0">{LENSES.length}</span>
+          <span className="ml-auto text-[11px] font-bold text-slate-500 dark:text-slate-400 shrink-0">{LENSES.length}</span>
         </Link>
 
-        <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-10 leading-relaxed">{c.privacy}</p>
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-10 leading-relaxed">{c.privacy}</p>
       </div>
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
         <span className="text-sm font-bold text-fuchsia-600">vixutil</span>
-        <p className="text-xs text-slate-400 mt-1">{c.footer}</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{c.footer}</p>
       </footer>
     </div>
   );

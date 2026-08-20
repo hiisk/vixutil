@@ -133,7 +133,7 @@ export default function OvertimePage() {
                   <div key={row.label} className="px-5 py-3.5 flex justify-between items-center">
                     <div>
                       <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{row.label}</p>
-                      <p className="text-xs text-slate-400 dark:text-slate-500">{row.rate} · {row.hours}시간</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400">{row.rate} · {row.hours}시간</p>
                     </div>
                     <span className="font-bold text-blue-600">{fmt(row.pay)}원</span>
                   </div>

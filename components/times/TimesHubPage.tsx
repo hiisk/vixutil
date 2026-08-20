@@ -60,7 +60,7 @@ export default function TimesHubPage({ lang }: { lang: Lang }) {
 
         <section className="mb-9">
           <h2 className="sec-h2-tight">{ui.gridTitle}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.gridNote}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.gridNote}</p>
           <TimesGrid />
         </section>
 

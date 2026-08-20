@@ -180,7 +180,7 @@ export default function GoldBoard() {
           {state === 'ready' && snap && (
             <div className="flex items-center gap-2.5">
               <CoinLogo base={snap.coin.base} size={28} />
-              <span className="text-slate-300 dark:text-slate-600 font-bold">vs</span>
+              <span className="text-slate-500 dark:text-slate-400 font-bold">vs</span>
               <span className="text-lg">🥇</span>
               <div>
                 <p className="text-sm font-bold text-slate-900 dark:text-white leading-tight">{snap.coin.base} vs Gold</p>

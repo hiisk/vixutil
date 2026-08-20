@@ -105,7 +105,7 @@ export default function GasBillPage() {
               </div>
             </Card>
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">* 서울 기준 가정용 단가 805원/m³ · 지역에 따라 다름</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">* 서울 기준 가정용 단가 805원/m³ · 지역에 따라 다름</p>
             </Card>
           </>
         )}

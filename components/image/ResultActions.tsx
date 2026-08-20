@@ -38,19 +38,19 @@ export default function ResultActions({
       <div className="grid grid-cols-3 gap-2">
         <div className="rounded-xl border chip-off px-3 py-3 text-center">
           <p className="text-base font-bold text-slate-700 dark:text-slate-200 tabular-nums">{formatBytes(originalSize)}</p>
-          <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{c.original}</p>
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{c.original}</p>
         </div>
         <div className="rounded-xl border chip-off px-3 py-3 text-center">
           <p className="text-base font-bold text-violet-600 tabular-nums">
             {resultSize === undefined ? '…' : formatBytes(resultSize)}
           </p>
-          <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{dimension ?? c.result}</p>
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{dimension ?? c.result}</p>
         </div>
         <div className="rounded-xl border chip-off px-3 py-3 text-center">
-          <p className={`text-base font-bold tabular-nums ${diff !== null && diff > 0 ? 'text-emerald-600' : 'text-slate-400 dark:text-slate-500'}`}>
+          <p className={`text-base font-bold tabular-nums ${diff !== null && diff > 0 ? 'text-emerald-600' : 'text-slate-500 dark:text-slate-400'}`}>
             {diff === null ? '…' : diff > 0 ? `-${diff}%` : `+${-diff}%`}
           </p>
-          <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{diff !== null && diff < 0 ? c.grew : c.saved}</p>
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{diff !== null && diff < 0 ? c.grew : c.saved}</p>
         </div>
       </div>
 

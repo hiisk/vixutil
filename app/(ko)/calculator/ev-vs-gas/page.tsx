@@ -239,12 +239,12 @@ export default function EvVsGasPage() {
                   <div key={k as string} className="px-5 py-3 flex justify-between text-sm">
                     <span className="text-slate-600 dark:text-slate-300">{k}</span>
                     <span className="font-semibold">
-                      {fmt(e as number)}원 <span className="text-slate-400 dark:text-slate-500">/</span> {fmt(g as number)}원
+                      {fmt(e as number)}원 <span className="text-slate-500 dark:text-slate-400">/</span> {fmt(g as number)}원
                     </span>
                   </div>
                 ))}
               </div>
-              <p className="px-5 pb-4 text-xs text-slate-400 dark:text-slate-500">전기차 / 내연차 순</p>
+              <p className="px-5 pb-4 text-xs text-slate-500 dark:text-slate-400">전기차 / 내연차 순</p>
             </Card>
 
             <Card>
@@ -280,14 +280,14 @@ export default function EvVsGasPage() {
                     </tbody>
                   </table>
                 </TableWrap>
-                <p className="mt-2 text-xs text-slate-400 dark:text-slate-500">
+                <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
                   차액은 내연차 − 전기차입니다. +면 그 해까지 전기차가 아낀 돈입니다.
                 </p>
               </div>
             </Card>
 
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 넣은 단가·세금·정비비가 보유 기간 동안 그대로라고 보고 셈합니다 · 배터리 교체·잔존가치·보험료·충전 시간은 빠져 있습니다
               </p>
             </Card>

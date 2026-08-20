@@ -133,7 +133,7 @@ export default function DeviceInfo({ lang = 'ko' }: { lang?: DeviceLang } = {}) 
   if (!data) {
     return (
       <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-5 py-12 text-center">
-        <p className="text-sm text-slate-400 dark:text-slate-500">{ui.loading}</p>
+        <p className="text-sm text-slate-500 dark:text-slate-400">{ui.loading}</p>
       </div>
     );
   }
@@ -153,7 +153,7 @@ export default function DeviceInfo({ lang = 'ko' }: { lang?: DeviceLang } = {}) 
               >
                 <dt className="text-sm text-slate-500 dark:text-slate-400 shrink-0">
                   {r.label}
-                  {r.hint && <span className="block text-[11px] text-slate-300 dark:text-slate-600 mt-0.5">{r.hint}</span>}
+                  {r.hint && <span className="block text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{r.hint}</span>}
                 </dt>
                 <dd className="text-sm font-bold text-slate-800 dark:text-slate-100 text-right font-mono tabular-nums break-all">
                   {r.value}

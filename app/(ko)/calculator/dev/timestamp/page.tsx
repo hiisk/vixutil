@@ -62,7 +62,7 @@ export default function TimestampPage() {
         <Card className="p-4">
           <p className="label-caps mb-1">현재 시각</p>
           <p className="text-2xl font-bold text-slate-800 dark:text-slate-100">{Math.floor(now / 1000)}</p>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{formatKST(now)}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{formatKST(now)}</p>
         </Card>
 
         <TabBar
@@ -88,7 +88,7 @@ export default function TimestampPage() {
                 ].map(r => (
                   <div key={r.label} className="bg-slate-50 dark:bg-slate-950 rounded-xl p-3 flex items-center justify-between">
                     <div>
-                      <p className="text-xs text-slate-400 dark:text-slate-500">{r.label}</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400">{r.label}</p>
                       <p className="font-mono font-bold text-slate-800 dark:text-slate-100 text-sm">{r.value}</p>
                     </div>
                     <CopyBtn text={r.value} />
@@ -109,7 +109,7 @@ export default function TimestampPage() {
                 ].map(r => (
                   <div key={r.label} className="bg-slate-50 dark:bg-slate-950 rounded-xl p-3 flex items-center justify-between">
                     <div>
-                      <p className="text-xs text-slate-400 dark:text-slate-500">{r.label}</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400">{r.label}</p>
                       <p className="font-mono font-bold text-slate-800 dark:text-slate-100 text-sm">{r.value}</p>
                     </div>
                     <CopyBtn text={r.value} />

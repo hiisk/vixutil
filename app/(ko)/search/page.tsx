@@ -25,7 +25,7 @@ export default function SearchPage() {
           <Link href="/" className="font-bold text-indigo-600 text-lg shrink-0">vix.</Link>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">통합 검색</span>
           <span className="ml-auto flex items-center gap-3 shrink-0">
-            <span className="text-xs text-slate-400 dark:text-slate-500">{SEARCH_INDEX.length}개</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">{SEARCH_INDEX.length}개</span>
             <LangPicker current="ko" route="/search" />
           </span>
         </div>

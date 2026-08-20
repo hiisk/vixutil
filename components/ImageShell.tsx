@@ -53,7 +53,7 @@ export default function ImageShell({
             홈
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link prefetch={false} href="/image" className="text-sm text-slate-400 dark:text-slate-500 hover:text-violet-600 transition-colors font-medium">
+          <Link prefetch={false} href="/image" className="text-sm text-slate-500 dark:text-slate-400 hover:text-violet-600 transition-colors font-medium">
             이미지 도구
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
@@ -120,7 +120,7 @@ export default function ImageShell({
           </div>
         </section>
 
-        <p className="text-center text-xs text-slate-300 dark:text-slate-600 mt-9 leading-relaxed">
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-9 leading-relaxed">
           아주 큰 사진(4천만 화소 이상)은 기기 메모리에 따라 처리가 느리거나 실패할 수 있습니다.
         </p>
       </main>

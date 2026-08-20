@@ -121,7 +121,7 @@ export default function SeveranceVsPensionPage() {
             <div>
               <Label>퇴직금 (원)</Label>
               <CommaInput value={payout} onChange={setPayout} placeholder="예: 100,000,000" />
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 비과세 항목을 뺀 퇴직소득금액 기준
               </p>
             </div>
@@ -162,7 +162,7 @@ export default function SeveranceVsPensionPage() {
               <Label>연 운용수익률 (%)</Label>
               <input type="number" value={returnRate} onChange={e => setReturnRate(e.target.value)}
                 placeholder="예: 4" className={inputCls} step="0.1" />
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 아직 안 받은 잔액에 붙는 수익률 · 손실을 보는 경우를 보려면 음수를 넣으세요
               </p>
             </div>
@@ -233,7 +233,7 @@ export default function SeveranceVsPensionPage() {
                   </div>
                 ))}
               </div>
-              <p className="px-5 pb-4 pt-1 text-xs text-slate-400 dark:text-slate-500">
+              <p className="px-5 pb-4 pt-1 text-xs text-slate-500 dark:text-slate-400">
                 일시금이라면 낼 세금 {fmt(result.c.lump.totalTax)}원 가운데
                 {' '}{fmt(result.c.lump.totalTax - result.c.pension.severanceTax)}원이 감액으로 줄었습니다
               </p>
@@ -246,7 +246,7 @@ export default function SeveranceVsPensionPage() {
                   <div key={row.years} className="px-5 py-3 flex justify-between text-sm">
                     <span className="text-slate-600 dark:text-slate-300">
                       {row.years}년에 나눠
-                      <span className="text-slate-400 text-xs ml-1">
+                      <span className="text-slate-500 dark:text-slate-400 text-xs ml-1">
                         월 {man(row.netMonthly)} · 납부율 {pct(row.avgDeferredRate)}
                       </span>
                     </span>
@@ -259,7 +259,7 @@ export default function SeveranceVsPensionPage() {
                   </div>
                 ))}
               </div>
-              <p className="px-5 pb-4 pt-1 text-xs text-slate-400 dark:text-slate-500">
+              <p className="px-5 pb-4 pt-1 text-xs text-slate-500 dark:text-slate-400">
                 오른쪽 작은 숫자는 일시금 세후와의 차액입니다
                 {result.breakeven !== null
                   ? ` · ${result.breakeven}년에 걸쳐 받으면 연금 쪽이 앞섭니다`
@@ -272,7 +272,7 @@ export default function SeveranceVsPensionPage() {
               <TableWrap>
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="text-xs text-slate-400 dark:text-slate-500">
+                    <tr className="text-xs text-slate-500 dark:text-slate-400">
                       <th className="px-3 py-2 text-left font-medium">연차</th>
                       <th className="px-3 py-2 text-right font-medium">나이</th>
                       <th className="px-3 py-2 text-right font-medium">수령액</th>
@@ -299,14 +299,14 @@ export default function SeveranceVsPensionPage() {
                   </tbody>
                 </table>
               </TableWrap>
-              <p className="px-5 pb-4 pt-2 text-xs text-slate-400 dark:text-slate-500">
+              <p className="px-5 pb-4 pt-2 text-xs text-slate-500 dark:text-slate-400">
                 납부율은 그 해에 받은 이연퇴직소득에 적용된 퇴직소득세 비율입니다 · 원금을 다 받은
                 해부터는 운용수익만 남아 연금소득세가 붙습니다(&mdash;로 표시)
               </p>
             </Card>
 
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 연금수령 10년 이내 30%, {RATE_STEP_YEAR}년째부터 40% 감액 기준 · 일시금을 받아 따로
                 굴리는 수익은 넣지 않았습니다 · 연금수령한도를 넘기지 않는다고 보고 셈했습니다 ·
                 정확한 세액은 원천징수영수증과 금융기관 안내를 확인하세요

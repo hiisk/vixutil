@@ -105,7 +105,7 @@ export default function PetAgePage() {
                 <span className={`block text-sm font-bold ${size === s.id ? 'text-blue-700 dark:text-blue-300' : 'text-slate-700 dark:text-slate-200'}`}>
                   {s.label}
                 </span>
-                <span className="block text-xs text-slate-400 dark:text-slate-500 mt-0.5">{s.hint}</span>
+                <span className="block text-xs text-slate-500 dark:text-slate-400 mt-0.5">{s.hint}</span>
               </button>
             ))}
           </div>
@@ -122,7 +122,7 @@ export default function PetAgePage() {
               step={0.5}
               className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-4 text-2xl font-bold text-slate-900 dark:text-slate-100 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 pr-14"
             />
-            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 font-bold">살</span>
+            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 font-bold">살</span>
           </div>
         </Card>
 
@@ -155,7 +155,7 @@ export default function PetAgePage() {
                     }`}
                   >
                     <span className={`font-semibold ${n === y ? 'text-blue-700 dark:text-blue-300' : 'text-slate-700 dark:text-slate-200'}`}>{y}살</span>
-                    <span className="text-slate-400 dark:text-slate-500">사람 나이 {Math.round(humanAge(y, perYear))}살</span>
+                    <span className="text-slate-500 dark:text-slate-400">사람 나이 {Math.round(humanAge(y, perYear))}살</span>
                   </button>
                 ))}
               </div>

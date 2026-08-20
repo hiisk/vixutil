@@ -198,8 +198,8 @@ export default function LadderGame({ lang = 'ko' }: { lang?: RandomLang }) {
         </div>
       </div>
       <div className="flex gap-2">
-        <button onClick={removePair} disabled={cols <= 2} className="flex-1 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 text-slate-400 text-sm font-bold py-2 hover:border-slate-300 dark:hover:border-slate-700 hover:text-violet-500 disabled:opacity-40 transition-colors">{ui.fewer}</button>
-        <button onClick={addPair} disabled={cols >= 8} className="flex-1 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 text-slate-400 text-sm font-bold py-2 hover:border-slate-300 dark:hover:border-slate-700 hover:text-violet-500 disabled:opacity-40 transition-colors">{ui.more}</button>
+        <button onClick={removePair} disabled={cols <= 2} className="flex-1 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 text-sm font-bold py-2 hover:border-slate-300 dark:hover:border-slate-700 hover:text-violet-500 disabled:opacity-40 transition-colors">{ui.fewer}</button>
+        <button onClick={addPair} disabled={cols >= 8} className="flex-1 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 text-sm font-bold py-2 hover:border-slate-300 dark:hover:border-slate-700 hover:text-violet-500 disabled:opacity-40 transition-colors">{ui.more}</button>
       </div>
 
       <style jsx>{`

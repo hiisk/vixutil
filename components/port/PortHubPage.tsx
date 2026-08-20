@@ -68,7 +68,7 @@ export default function PortHubPage({ lang }: { lang: Lang }) {
               <div key={r} className="px-4 py-3 bg-white dark:bg-slate-900">
                 <p className="text-sm font-bold text-slate-800 dark:text-slate-100">
                   {ui.rangeLabel[r]}
-                  <span className="ml-1.5 text-[11px] font-bold text-slate-400 dark:text-slate-500">{portsOfRange(r).length}</span>
+                  <span className="ml-1.5 text-[11px] font-bold text-slate-500 dark:text-slate-400">{portsOfRange(r).length}</span>
                 </p>
                 <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-0.5">{ui.rangeNote[r]}</p>
               </div>
@@ -80,9 +80,9 @@ export default function PortHubPage({ lang }: { lang: Lang }) {
           <section key={g} className="mb-8">
             <h2 className="sec-h2-tight">
               {ui.groupLabel[g]}
-              <span className="ml-1.5 text-[11px] font-bold text-slate-400 dark:text-slate-500">{portsOfGroup(g).length}</span>
+              <span className="ml-1.5 text-[11px] font-bold text-slate-500 dark:text-slate-400">{portsOfGroup(g).length}</span>
             </h2>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.groupNote[g]}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.groupNote[g]}</p>
             <div className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
               {portsOfGroup(g).map(x => {
                 const f = portFacts(x);
@@ -95,7 +95,7 @@ export default function PortHubPage({ lang }: { lang: Lang }) {
                     <span className="text-sm font-bold text-fuchsia-700 dark:text-fuchsia-400 tabular-nums shrink-0 w-[46px] text-right">{x.port}</span>
                     <span className="text-sm font-mono text-slate-700 dark:text-slate-200 shrink-0">{x.name}</span>
                     <span className="cell-cut">{x.service}</span>
-                    <span className="ml-auto text-[11px] text-slate-400 dark:text-slate-500 shrink-0">{ui.protoLabel[f.proto]}</span>
+                    <span className="ml-auto text-[11px] text-slate-500 dark:text-slate-400 shrink-0">{ui.protoLabel[f.proto]}</span>
                   </Link>
                 );
               })}

@@ -156,7 +156,7 @@ export default function YouthSavingsPage() {
             <div>
               <Label>내 연소득 (만원)</Label>
               <MoneyInput value={income} onChange={setIncome} placeholder="예: 3000" />
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 아래 구간표에서 어느 줄이 적용되는지만 가릅니다
               </p>
             </div>
@@ -173,7 +173,7 @@ export default function YouthSavingsPage() {
           <div className="p-5 flex flex-col gap-4">
             {rows.map((row, i) => (
               <div key={i} className="rounded-xl border border-slate-200 dark:border-slate-700 p-4 flex flex-col gap-3">
-                <p className="text-xs font-medium text-slate-400 dark:text-slate-500">{i + 1}번째 구간</p>
+                <p className="text-xs font-medium text-slate-500 dark:text-slate-400">{i + 1}번째 구간</p>
                 <div>
                   <Label>연소득 상한 <span className="dial-opt">만원, 비우면 소득 무관</span></Label>
                   <input type="number" value={row.ceiling} onChange={e => setRow(i, { ceiling: e.target.value })}
@@ -204,7 +204,7 @@ export default function YouthSavingsPage() {
                 </button>
               )}
             </div>
-            <p className="text-xs text-slate-400 dark:text-slate-500">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               기여금은 <strong>min(월 납입액, 한도) × 비율</strong>로 매달 붙습니다. 비율을 비우거나 0으로 두면
               기여금 없는 일반 적금과 같은 결과가 나옵니다.
             </p>
@@ -312,7 +312,7 @@ export default function YouthSavingsPage() {
             </Card>
 
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 단리·회차별 예치 기간 기준 · 기여금 비율·한도·소득 구간은 입력한 값을 그대로 씁니다
                 · 우대금리 조건과 원 단위 절사는 반영하지 않으니 실제 지급액은 취급 기관에서 확인하세요
               </p>

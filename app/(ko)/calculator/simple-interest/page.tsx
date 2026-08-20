@@ -174,7 +174,7 @@ export default function SimpleInterestPage() {
             <Card>
               <div className="px-5 py-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
                 <p className="font-bold text-slate-800 dark:text-slate-100 text-sm">기간별 이자 현황</p>
-                <span className="text-xs text-slate-400 dark:text-slate-500">세율 {(TAX_RATE * 100).toFixed(1)}% 적용</span>
+                <span className="text-xs text-slate-500 dark:text-slate-400">세율 {(TAX_RATE * 100).toFixed(1)}% 적용</span>
               </div>
               {/* 단리는 곧게 오른다 — 복리 곡선과 나란히 놓고 보면 차이가 분명해진다.
                   TableWrap 안에 두면 가로 스크롤(min-width 480px)에 함께 묶인다 */}

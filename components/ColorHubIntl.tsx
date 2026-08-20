@@ -81,7 +81,7 @@ export default function ColorHubIntl({ lang }: { lang: ColorIntlLang }) {
           <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{names.hubLead}</p>
           {COLOR_FAMILIES.map(family => (
             <div key={family} className="mb-4">
-              <h3 className="text-xs font-medium text-slate-400 dark:text-slate-500 mb-1.5">
+              <h3 className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">
                 {names.familyLabel[family]}
               </h3>
               <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-2">
@@ -96,7 +96,7 @@ export default function ColorHubIntl({ lang }: { lang: ColorIntlLang }) {
                       <span className="block text-[11px] font-bold text-slate-800 dark:text-slate-100 truncate">
                         {c.name[key]}
                       </span>
-                      <span className="block text-[10px] text-slate-400 dark:text-slate-500 tabular-nums">
+                      <span className="block text-[10px] text-slate-500 dark:text-slate-400 tabular-nums">
                         {c.hex.toUpperCase()}
                       </span>
                     </span>
@@ -107,12 +107,12 @@ export default function ColorHubIntl({ lang }: { lang: ColorIntlLang }) {
           ))}
         </section>
 
-        <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-6 leading-relaxed">{ui.notice}</p>
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-6 leading-relaxed">{ui.notice}</p>
       </div>
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
         <span className="text-sm font-bold text-fuchsia-600">vixutil</span>
-        <p className="text-xs text-slate-400 mt-1">{ui.hubFoot}</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{ui.hubFoot}</p>
       </footer>
     </div>
   );

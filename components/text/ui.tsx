@@ -50,7 +50,7 @@ export function InputArea({
         {value && (
           <button
             onClick={() => (onClear ? onClear() : onChange(''))}
-            className="text-xs font-medium text-slate-400 dark:text-slate-500 hover:text-rose-500 transition-colors"
+            className="text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-rose-500 transition-colors"
           >
             {c.clear}
           </button>
@@ -102,7 +102,7 @@ export function CopyBox({
       <div
         className={`w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap break-words overflow-auto ${
           mono ? 'font-mono' : ''
-        } ${value ? 'text-slate-800 dark:text-slate-100' : 'text-slate-300 dark:text-slate-600'}`}
+        } ${value ? 'text-slate-800 dark:text-slate-100' : 'text-slate-500 dark:text-slate-400'}`}
         style={{ minHeight: `${rows * 1.6}rem` }}
       >
         {value || empty || c.empty}
@@ -139,13 +139,13 @@ export function CopyRow({
       }`}
     >
       <span className="hub-card-body">
-        <span className="block text-[11px] font-bold text-slate-400 dark:text-slate-500">{label}</span>
-        <span className={`block text-sm break-all ${value ? 'font-bold text-slate-800 dark:text-slate-100' : 'text-slate-300 dark:text-slate-600'}`}>
+        <span className="block text-[11px] font-bold text-slate-500 dark:text-slate-400">{label}</span>
+        <span className={`block text-sm break-all ${value ? 'font-bold text-slate-800 dark:text-slate-100' : 'text-slate-500 dark:text-slate-400'}`}>
           {value || '—'}
         </span>
-        {hint && <span className="block text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{hint}</span>}
+        {hint && <span className="block text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{hint}</span>}
       </span>
-      <span className={`shrink-0 text-xs font-bold ${copied ? 'text-emerald-600' : 'text-slate-300 dark:text-slate-600'}`}>
+      <span className={`shrink-0 text-xs font-bold ${copied ? 'text-emerald-600' : 'text-slate-500 dark:text-slate-400'}`}>
         {copied ? c.copiedShort : c.copyShort}
       </span>
     </button>
@@ -156,7 +156,7 @@ export function Stat({ label, value, accent }: { label: string; value: string | 
   return (
     <div className="rounded-xl border chip-off px-3 py-3 text-center">
       <p className={`text-lg font-bold tabular-nums ${accent ?? 'text-slate-800 dark:text-slate-100'}`}>{value}</p>
-      <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{label}</p>
+      <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{label}</p>
     </div>
   );
 }
@@ -182,7 +182,7 @@ export function Toggle({
       />
       <span className="min-w-0">
         <span className="block text-sm text-slate-700 dark:text-slate-200">{label}</span>
-        {hint && <span className="block text-[11px] text-slate-400 dark:text-slate-500">{hint}</span>}
+        {hint && <span className="block text-[11px] text-slate-500 dark:text-slate-400">{hint}</span>}
       </span>
     </label>
   );

@@ -191,12 +191,12 @@ export default function RetirementPage() {
                     <span className="text-sm text-slate-600 dark:text-slate-300 font-semibold">{r.years}년간 인출</span>
                     <div className="text-right">
                       <span className="text-base font-bold text-blue-700 dark:text-blue-300">{fmtKRW(r.monthly)}</span>
-                      <span className="text-xs text-slate-400 dark:text-slate-500 block">/월</span>
+                      <span className="text-xs text-slate-500 dark:text-slate-400 block">/월</span>
                     </div>
                   </div>
                 ))}
               </div>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-3">* 동일 수익률 지속 가정, 세금·물가 미반영</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-3">* 동일 수익률 지속 가정, 세금·물가 미반영</p>
             </Card>
 
             {/* 연도별 성장 테이블 */}
@@ -213,7 +213,7 @@ export default function RetirementPage() {
               <TableWrap>
                 <table className="w-full text-xs text-right">
                   <thead>
-                    <tr className="border-b border-slate-100 dark:border-slate-800 text-slate-400 dark:text-slate-500">
+                    <tr className="border-b border-slate-100 dark:border-slate-800 text-slate-500 dark:text-slate-400">
                       <th className="py-2 text-left font-semibold">나이</th>
                       <th className="py-2 font-semibold">연도</th>
                       <th className="py-2 font-semibold">연간 저축</th>

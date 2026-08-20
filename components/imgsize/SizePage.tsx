@@ -87,7 +87,7 @@ export default function SizePage({ slug, lang }: { slug: string; lang: Lang }) {
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link prefetch={false} href={`${prefix}/image/size`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
+          <Link prefetch={false} href={`${prefix}/image/size`} className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 transition-colors font-medium truncate">
             {ui.section}
           </Link>
           <div className="ml-auto shrink-0">
@@ -101,7 +101,7 @@ export default function SizePage({ slug, lang }: { slug: string; lang: Lang }) {
           <span className="bg-sec-soft inline-flex h-10 w-10 items-center justify-center rounded-lg"><ToolIcon emoji={IMG_SIZE_ICON} className="h-5 w-5" /></span>
           <h1 className="page-h1">{x.name}</h1>
           <p className="text-3xl font-bold text-pink-600 dark:text-pink-400 tabular-nums mb-1">{x.w} × {x.h}</p>
-          <p className="text-xs text-slate-400 dark:text-slate-500">{kind} · {f.ratioLabel}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400">{kind} · {f.ratioLabel}</p>
         </div>
 
         <section className="rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-5 mb-6 flex justify-center">
@@ -141,7 +141,7 @@ export default function SizePage({ slug, lang }: { slug: string; lang: Lang }) {
         {ratioMates.length > 0 && (
           <section className="mt-8">
             <h2 className="sec-h2-tight">{ui.sameRatioTitle}</h2>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mb-3">{ui.sameRatioNote}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{ui.sameRatioNote}</p>
             <div className="grid grid-cols-2 gap-2">
               {ratioMates.map(o => (
                 <Link prefetch={false}
@@ -150,7 +150,7 @@ export default function SizePage({ slug, lang }: { slug: string; lang: Lang }) {
                   className="rounded-xl border chip-off px-3 py-2.5 hover:shadow-sm transition-all"
                 >
                   <span className="block text-xs font-bold text-slate-700 dark:text-slate-200 truncate">{o.name}</span>
-                  <span className="block text-[11px] text-slate-400 dark:text-slate-500 tabular-nums">{o.w}×{o.h}</span>
+                  <span className="block text-[11px] text-slate-500 dark:text-slate-400 tabular-nums">{o.w}×{o.h}</span>
                 </Link>
               ))}
             </div>
@@ -167,7 +167,7 @@ export default function SizePage({ slug, lang }: { slug: string; lang: Lang }) {
                 className="rounded-xl border chip-off px-3 py-2.5 hover:shadow-sm transition-all"
               >
                 <span className="block text-xs font-bold text-slate-700 dark:text-slate-200 truncate">{o.name}</span>
-                <span className="block text-[11px] text-slate-400 dark:text-slate-500 tabular-nums">{o.w}×{o.h}</span>
+                <span className="block text-[11px] text-slate-500 dark:text-slate-400 tabular-nums">{o.w}×{o.h}</span>
               </Link>
             ))}
           </div>

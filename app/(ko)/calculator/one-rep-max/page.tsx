@@ -92,7 +92,7 @@ export default function OneRepMaxPage() {
 
             <Card className="p-5">
               <CardHeader title="강도별 무게" />
-              <p className="text-xs text-slate-400 dark:text-slate-500 mb-3">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
                 2.5kg 단위로 떨어뜨렸습니다 — 원판 규격에 맞춰 바로 끼울 수 있게
               </p>
               <div className="kv-table">
@@ -100,7 +100,7 @@ export default function OneRepMaxPage() {
                   <div key={p.pct} className="kv-row">
                     <span>
                       {p.pct}%
-                      <span className="ml-2 text-xs text-slate-400 dark:text-slate-500">{p.reps} · {p.use}</span>
+                      <span className="ml-2 text-xs text-slate-500 dark:text-slate-400">{p.reps} · {p.use}</span>
                     </span>
                     <span className="tabular-nums font-bold">{plateRound(result.best * p.pct / 100)}kg</span>
                   </div>

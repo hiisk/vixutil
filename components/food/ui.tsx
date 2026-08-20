@@ -21,7 +21,7 @@ export function Stat({ label, value, accent }: { label: string; value: string | 
   return (
     <div className="rounded-xl border chip-off px-3 py-3 text-center">
       <p className={`text-lg font-bold tabular-nums ${accent ?? 'text-slate-800 dark:text-slate-100'}`}>{value}</p>
-      <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{label}</p>
+      <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{label}</p>
     </div>
   );
 }
@@ -40,7 +40,7 @@ export function NumberField({
           onChange={e => onChange(Number(e.target.value))}
           className="w-full rounded-xl border chip-off px-3.5 py-3 pr-12 text-lg font-bold text-slate-800 dark:text-slate-100 tabular-nums focus:outline-none focus:border-amber-400 transition-colors"
         />
-        {unit && <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-sm font-bold text-slate-400 dark:text-slate-500">{unit}</span>}
+        {unit && <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-sm font-bold text-slate-500 dark:text-slate-400">{unit}</span>}
       </div>
     </label>
   );
@@ -76,7 +76,7 @@ export function Choice<T extends string>({
           }`}
         >
           <span className="block text-sm font-bold">{o.label}</span>
-          {o.note && <span className="block text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{o.note}</span>}
+          {o.note && <span className="block text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{o.note}</span>}
         </button>
       ))}
     </div>

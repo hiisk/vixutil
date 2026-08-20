@@ -215,7 +215,7 @@ export default function QuizEngine({ quiz, lang = 'ko', headerRight }: { quiz: Q
       <div className="h-1 topbar" />
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-lg mx-auto px-4 h-14 flex items-center">
-          <Link href={hubHref} className="text-sm text-slate-400 dark:text-slate-500 hover:text-amber-600 flex items-center gap-1.5 font-medium">
+          <Link href={hubHref} className="text-sm text-slate-500 dark:text-slate-400 hover:text-amber-600 flex items-center gap-1.5 font-medium">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -239,7 +239,7 @@ export default function QuizEngine({ quiz, lang = 'ko', headerRight }: { quiz: Q
         <div className="hero-band">
             <PageHero title={quiz.title} desc={quiz.desc} />
           </div>
-        <p className="text-xs text-slate-400 dark:text-slate-500 mb-8">{ui.meta(quiz.questions.length)}</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mb-8">{ui.meta(quiz.questions.length)}</p>
         <button onClick={() => setPhase('question')}
           className="w-full max-w-xs bg-amber-500 hover:bg-amber-600 text-white font-bold py-4 rounded-lg text-base transition-colors shadow-sm shadow-amber-200">
           {ui.start}
@@ -257,12 +257,12 @@ export default function QuizEngine({ quiz, lang = 'ko', headerRight }: { quiz: Q
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-lg mx-auto px-4 h-14 flex items-center justify-between">
           <span className="text-sm font-bold text-amber-600 truncate mr-2">{quiz.title}</span>
-          <span className="text-xs text-slate-400 dark:text-slate-500 shrink-0">{current + 1} / {total}</span>
+          <span className="text-xs text-slate-500 dark:text-slate-400 shrink-0">{current + 1} / {total}</span>
         </div>
       </header>
       <div key={current} className="flex-1 px-4 py-8 max-w-lg mx-auto w-full qz-fade">
         <div className="flex items-center gap-2 mb-5">
-          <span className="text-xs font-bold text-amber-500 bg-amber-50 dark:bg-amber-950/30 px-2.5 py-1 rounded-full">Q{current + 1}</span>
+          <span className="text-xs font-bold text-amber-500 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/30 px-2.5 py-1 rounded-full">Q{current + 1}</span>
           {phase === 'answer' && (
             <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${isCorrect ? 'bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600' : 'bg-red-50 dark:bg-red-950/30 text-red-500'}`}>
               {isCorrect ? ui.correct : ui.wrong}
@@ -280,10 +280,10 @@ export default function QuizEngine({ quiz, lang = 'ko', headerRight }: { quiz: Q
             if (answered) {
               if (isRight) { cls += 'bg-emerald-50 dark:bg-emerald-950/30 border-2 border-emerald-400 text-emerald-800 dark:text-emerald-300 font-bold'; badgeCls += 'bg-emerald-500 text-white'; }
               else if (isChosen) { cls += 'bg-red-50 dark:bg-red-950/30 border-2 border-red-400 text-red-700 dark:text-red-300'; badgeCls += 'bg-red-500 text-white'; }
-              else { cls += 'bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500'; badgeCls += 'border-2 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500'; }
+              else { cls += 'bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400'; badgeCls += 'border-2 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400'; }
             } else {
               cls += 'bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-amber-400 hover:bg-sec-soft hover:shadow-sm active:scale-[0.99] cursor-pointer';
-              badgeCls += 'border-2 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 group-hover:border-amber-500 group-hover:bg-amber-500 group-hover:text-white';
+              badgeCls += 'border-2 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 group-hover:border-amber-500 group-hover:bg-amber-500 group-hover:text-white';
             }
             return (
               <button key={i} className={cls} onClick={() => phase === 'question' && handleAnswer(i)} disabled={answered}>

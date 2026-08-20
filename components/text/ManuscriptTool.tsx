@@ -73,7 +73,7 @@ export default function ManuscriptTool({ lang = 'ko' }: { lang?: TextLang } = {}
         </div>
         <p className="mt-2 text-sm font-bold text-center">
           {text === '' ? (
-            <span className="text-slate-400 dark:text-slate-500">{ui.emptyHint}</span>
+            <span className="text-slate-500 dark:text-slate-400">{ui.emptyHint}</span>
           ) : left >= 0 ? (
             <span className="text-slate-600 dark:text-slate-300">
               <span className="text-indigo-600">{ui.used(used, target, left)}</span>

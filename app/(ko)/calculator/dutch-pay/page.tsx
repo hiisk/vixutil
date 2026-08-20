@@ -154,7 +154,7 @@ export default function DutchPayPage() {
             </button>
           </div>
           {extras.length === 0 && (
-            <p className="text-sm text-slate-400 dark:text-slate-500 text-center py-4">추가 항목 없음 (음료, 주차비 등)</p>
+            <p className="text-sm text-slate-500 dark:text-slate-400 text-center py-4">추가 항목 없음 (음료, 주차비 등)</p>
           )}
           <div className="flex flex-col gap-3">
             {extras.map(ex => (
@@ -210,7 +210,7 @@ export default function DutchPayPage() {
           <Card>
             <div className="px-5 py-4 border-b border-slate-100 dark:border-slate-800">
               <p className="font-bold text-slate-800 dark:text-slate-100 text-sm">각자 부담 금액</p>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">기본 {w(total / peopleCount)}원 + 추가 항목</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">기본 {w(total / peopleCount)}원 + 추가 항목</p>
             </div>
             <TableWrap>
               <table className="calc-table">
@@ -227,7 +227,7 @@ export default function DutchPayPage() {
                     <tr key={i}>
                       <td className="font-semibold text-slate-700 dark:text-slate-200">{r.name}</td>
                       <td>{w(r.base)}원</td>
-                      <td className={r.extra > 0 ? 'text-orange-600 font-semibold' : 'text-slate-400 dark:text-slate-500'}>
+                      <td className={r.extra > 0 ? 'text-orange-600 font-semibold' : 'text-slate-500 dark:text-slate-400'}>
                         {r.extra > 0 ? `+${w(r.extra)}원` : '-'}
                       </td>
                       <td className="font-bold text-slate-900 dark:text-slate-100">{w(r.total)}원</td>

@@ -80,7 +80,7 @@ export default function SleepIntl({ lang }: { lang: CalcLang }) {
               ))}
             </div>
           </Card>
-          <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed">{c.note}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{c.note}</p>
         </>
       )}
     </div>

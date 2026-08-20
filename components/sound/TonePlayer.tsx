@@ -116,7 +116,7 @@ export default function TonePlayer({
       </button>
 
       <label className="w-full max-w-xs flex items-center gap-3">
-        <span className="text-[11px] font-bold text-slate-400 dark:text-slate-500 shrink-0">{volumeLabel}</span>
+        <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 shrink-0">{volumeLabel}</span>
         <input
           type="range"
           min={0}
@@ -132,7 +132,7 @@ export default function TonePlayer({
         </span>
       </label>
 
-      <p className="text-[11px] text-slate-400 dark:text-slate-500 text-center leading-relaxed max-w-sm">{safety}</p>
+      <p className="text-[11px] text-slate-500 dark:text-slate-400 text-center leading-relaxed max-w-sm">{safety}</p>
     </div>
   );
 }

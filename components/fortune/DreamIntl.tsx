@@ -115,7 +115,7 @@ export default function DreamIntl({ lang }: { lang: IntlLang }) {
         </div>
 
         {filtered.length === 0 ? (
-          <p className="text-center text-sm text-slate-400 dark:text-slate-500 py-12">{c.none}</p>
+          <p className="text-center text-sm text-slate-500 dark:text-slate-400 py-12">{c.none}</p>
         ) : (
           <div className="space-y-2">
             {filtered.map(d => {
@@ -156,7 +156,7 @@ export default function DreamIntl({ lang }: { lang: IntlLang }) {
           <ReferralCards lang="en" placement="result" />
         </div>
 
-        <p className="text-center text-[11px] text-slate-400 dark:text-slate-500 mt-6 leading-relaxed">{c.note}</p>
+        <p className="text-center text-[11px] text-slate-500 dark:text-slate-400 mt-6 leading-relaxed">{c.note}</p>
       </div>
     </div>
   );

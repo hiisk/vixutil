@@ -114,7 +114,7 @@ export default function WaterBillPage() {
               </div>
             </Card>
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">* 수도요금은 부가세 면세 · 서울시 기준 (지역에 따라 다를 수 있음)</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">* 수도요금은 부가세 면세 · 서울시 기준 (지역에 따라 다를 수 있음)</p>
             </Card>
           </>
         )}

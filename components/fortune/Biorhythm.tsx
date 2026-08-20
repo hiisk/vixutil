@@ -230,7 +230,7 @@ function Chart({ points, lang }: { points: ChartPoint[]; lang: IntlLang }) {
   return (
     <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto" role="img" aria-label={COPY[lang].chartAlt}>
       <line x1={PAD} y1={H / 2} x2={W - PAD} y2={H / 2} stroke="currentColor" strokeWidth={1} className="text-slate-200 dark:text-slate-700" />
-      <line x1={todayX} y1={PAD} x2={todayX} y2={H - PAD} stroke="currentColor" strokeWidth={1.5} strokeDasharray="4 3" className="text-slate-400 dark:text-slate-500" />
+      <line x1={todayX} y1={PAD} x2={todayX} y2={H - PAD} stroke="currentColor" strokeWidth={1.5} strokeDasharray="4 3" className="text-slate-500 dark:text-slate-400" />
       {cyclesFor(lang).map(c => (
         <path key={c.key} d={path(c.key)} fill="none" stroke={CYCLE_COLOR[c.key]} strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" />
       ))}
@@ -249,7 +249,7 @@ function Result({ result, points, lang }: { result: BiorhythmResult; points: Cha
       <div className="rounded-lg border chip-off p-5">
         <div className="flex items-baseline justify-between mb-1">
           <h2 className="text-sm font-bold text-slate-800 dark:text-slate-100">{c.todayRhythm}</h2>
-          <span className="text-xs text-slate-400 dark:text-slate-500">{c.daysOld(result.days.toLocaleString())}</span>
+          <span className="text-xs text-slate-500 dark:text-slate-400">{c.daysOld(result.days.toLocaleString())}</span>
         </div>
         <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{comment(result, lang)}</p>
       </div>
@@ -264,7 +264,7 @@ function Result({ result, points, lang }: { result: BiorhythmResult; points: Cha
             </span>
           ))}
         </div>
-        <p className="text-center text-[11px] text-slate-400 dark:text-slate-500 mt-2">{c.chartNote}</p>
+        <p className="text-center text-[11px] text-slate-500 dark:text-slate-400 mt-2">{c.chartNote}</p>
       </div>
 
       <div className="grid sm:grid-cols-3 gap-3">
@@ -283,7 +283,7 @@ function Result({ result, points, lang }: { result: BiorhythmResult; points: Cha
                 {state.percent > 0 ? '+' : ''}{state.percent}%
               </p>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">{c.cycleOf(meta.desc, meta.period)}</p>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 {state.daysToCritical === 0 ? c.criticalToday : c.nextCritical(state.daysToCritical)}
               </p>
             </div>
@@ -372,7 +372,7 @@ export default function Biorhythm({ lang }: { lang: IntlLang }) {
         {result && points.length > 0 ? (
           <Result result={result} points={points} lang={lang} />
         ) : (
-          <div className="text-center py-12 text-slate-300 dark:text-slate-600">
+          <div className="text-center py-12 text-slate-500 dark:text-slate-400">
             <ToolIcon emoji="☝️" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
             <p className="text-sm">{c.empty}</p>
           </div>

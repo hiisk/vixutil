@@ -135,7 +135,7 @@ export default function TouchTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
             <ToolIcon emoji="👆" className="w-9 h-9 mb-2 text-slate-800 dark:text-slate-100" />
             <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{ui.pressHere}</p>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">{ui.multiOk}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{ui.multiOk}</p>
           </div>
         )}
 
@@ -161,15 +161,15 @@ export default function TouchTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
       <div className="grid grid-cols-3 gap-2 mt-4">
         <div className="rounded-xl border chip-off px-3 py-3 text-center">
           <p className="text-lg font-bold text-pink-600">{points.length}</p>
-          <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{ui.nowTouching}</p>
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{ui.nowTouching}</p>
         </div>
         <div className="rounded-xl border chip-off px-3 py-3 text-center">
           <p className="text-lg font-bold text-violet-600">{maxTouch}</p>
-          <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{ui.maxSimul}</p>
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{ui.maxSimul}</p>
         </div>
         <div className="rounded-xl border chip-off px-3 py-3 text-center">
           <p className="text-lg font-bold text-slate-700 dark:text-slate-200">{supported ?? '–'}</p>
-          <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{ui.deviceSupports}</p>
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{ui.deviceSupports}</p>
         </div>
       </div>
 

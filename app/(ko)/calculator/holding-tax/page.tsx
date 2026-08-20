@@ -132,7 +132,7 @@ export default function HoldingTaxPage() {
                       <span className="text-slate-700 dark:text-slate-200">{r.label}</span>
                       <span className="font-semibold">{fmt(r.value)}원</span>
                     </div>
-                    {r.note && <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{r.note}</p>}
+                    {r.note && <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{r.note}</p>}
                   </div>
                 ))}
               </div>

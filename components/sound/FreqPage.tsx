@@ -88,7 +88,7 @@ export default function FreqPage({ slug, lang }: { slug: string; lang: Lang }) {
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link prefetch={false} href={`${prefix}/sound/hz`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
+          <Link prefetch={false} href={`${prefix}/sound/hz`} className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 transition-colors font-medium truncate">
             {ui.section}
           </Link>
           <div className="ml-auto shrink-0">
@@ -101,7 +101,7 @@ export default function FreqPage({ slug, lang }: { slug: string; lang: Lang }) {
         <div className="mb-6">
           <span className="bg-sec-soft inline-flex h-10 w-10 items-center justify-center rounded-lg"><ToolIcon emoji={FREQ_ICON} className="h-5 w-5" /></span>
           <h1 className="page-h1 tabular-nums">{freq.hz} Hz</h1>
-          <p className="text-xs text-slate-400 dark:text-slate-500">
+          <p className="text-xs text-slate-500 dark:text-slate-400">
             {ui.rangeLabel[f.range]} · {f.note}
           </p>
         </div>
@@ -164,7 +164,7 @@ export default function FreqPage({ slug, lang }: { slug: string; lang: Lang }) {
 
         <section className="mt-8" aria-label={ui.nearbyTitle}>
           <h2 className="sec-h2-tight">{ui.nearbyTitle}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3">{ui.nearbyNote}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{ui.nearbyNote}</p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {nearby.map(n => {
               const nf = freqFacts(n);
@@ -175,7 +175,7 @@ export default function FreqPage({ slug, lang }: { slug: string; lang: Lang }) {
                   className="rounded-xl border chip-off px-3 py-2.5 text-center hover:shadow-sm transition-all"
                 >
                   <span className="block text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums">{n.hz} Hz</span>
-                  <span className="block text-[11px] text-slate-400 dark:text-slate-500">{nf.note}</span>
+                  <span className="block text-[11px] text-slate-500 dark:text-slate-400">{nf.note}</span>
                 </Link>
               );
             })}

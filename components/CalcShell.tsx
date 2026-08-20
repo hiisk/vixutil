@@ -232,7 +232,7 @@ export function CardHeader({ title, sub }: { title: string; sub?: string }) {
   return (
     <div className="px-5 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
       <p className="text-sm font-bold text-slate-800 dark:text-slate-100">{title}</p>
-      {sub && <span className="text-xs text-slate-400 dark:text-slate-500">{sub}</span>}
+      {sub && <span className="text-xs text-slate-500 dark:text-slate-400">{sub}</span>}
     </div>
   );
 }

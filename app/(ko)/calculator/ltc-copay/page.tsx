@@ -167,7 +167,7 @@ export default function LtcCopayPage() {
                 <MoneyInput value={nonBenefit} onChange={setNonBenefit} placeholder="식사재료비·상급침실료 등" />
               </div>
             </div>
-            <p className="text-xs text-slate-400 dark:text-slate-500">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               {kind === 'facility'
                 ? '시설급여는 1일 수가 × 이용일수로 매겨져 월 한도액이 없습니다 — 한도를 비우면 초과분 없이 셈합니다'
                 : '등급별 월 한도액은 해마다 고시됩니다 — 통지서나 공단 안내의 그 해 값을 넣으세요'}
@@ -238,7 +238,7 @@ export default function LtcCopayPage() {
             )}
 
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 월 한도액과 비급여는 입력한 값을 그대로 씁니다 · 실제 청구액은 서비스별 수가와 이용
                 일수·횟수로 정해집니다 · 등급과 감경 구분은 공단 통지서로 확인하세요
               </p>

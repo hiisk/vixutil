@@ -84,7 +84,7 @@ export default function StroopGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
         ) : left === 0 && right + wrong > 0 ? (
           <Grade text={`${right} / ${right + wrong}`} tone={right > wrong ? 'good' : 'normal'} />
         ) : (
-          <p className="text-sm text-slate-400 dark:text-slate-500 text-center px-6">{ui.stroopHow}</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400 text-center px-6">{ui.stroopHow}</p>
         )}
       </div>
 

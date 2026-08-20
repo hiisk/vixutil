@@ -53,7 +53,7 @@ export default function TimeShell({
             홈
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link prefetch={false} href="/time" className="text-sm text-slate-400 dark:text-slate-500 hover:text-sky-600 transition-colors font-medium">
+          <Link prefetch={false} href="/time" className="text-sm text-slate-500 dark:text-slate-400 hover:text-sky-600 transition-colors font-medium">
             시간 도구
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
@@ -120,7 +120,7 @@ export default function TimeShell({
           </div>
         </section>
 
-        <p className="text-center text-xs text-slate-300 dark:text-slate-600 mt-9 leading-relaxed">
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-9 leading-relaxed">
           타이머·알람 소리는 기기가 잠들면 울리지 않을 수 있습니다.
         </p>
       </main>

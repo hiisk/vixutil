@@ -209,7 +209,7 @@ export default function CoupleMatch({ lang }: { lang: SnapIntlLang }) {
         </div>
 
         {modelState === 'error' && (
-          <div role="alert" className="rounded-lg border-2 border-dashed border-rose-200 dark:border-rose-900/50 bg-rose-50 dark:bg-rose-950/30 py-10 text-center text-sm font-bold text-rose-600 mb-6">
+          <div role="alert" className="rounded-lg border-2 border-dashed border-rose-200 dark:border-rose-900/50 bg-rose-50 dark:bg-rose-950/30 py-10 text-center text-sm font-bold text-rose-600 dark:text-rose-300 mb-6">
             {lang === 'en' ? 'Could not load the face detection model' : '人脸识别模型加载失败'}
           </div>
         )}
@@ -234,7 +234,7 @@ export default function CoupleMatch({ lang }: { lang: SnapIntlLang }) {
                 )}
               </button>
               {busy === slot && (
-                <p role="status" className="text-[11px] text-center text-slate-400 mt-1">
+                <p role="status" className="text-[11px] text-center text-slate-500 dark:text-slate-400 mt-1">
                   {lang === 'en' ? 'Analysing…' : '分析中…'}
                 </p>
               )}
@@ -289,10 +289,10 @@ export default function CoupleMatch({ lang }: { lang: SnapIntlLang }) {
             </button>
 
             <ReferralCards lang="en" placement="result" />
-            <p className="text-center text-xs text-slate-300 dark:text-slate-600 pt-2">{ui.disclaimer}</p>
+            <p className="text-center text-xs text-slate-500 dark:text-slate-400 pt-2">{ui.disclaimer}</p>
           </div>
         ) : (
-          <div className="py-10 text-slate-300 dark:text-slate-600">
+          <div className="py-10 text-slate-500 dark:text-slate-400">
             <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">{ui.pickBoth}</p>
           </div>

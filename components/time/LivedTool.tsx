@@ -77,7 +77,7 @@ export default function LivedTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
           </div>
         </>
       ) : (
-        <p className="mt-4 text-center text-sm text-slate-400 dark:text-slate-500">
+        <p className="mt-4 text-center text-sm text-slate-500 dark:text-slate-400">
           {mounted ? ui.futureError : ui.computing}
         </p>
       )}

@@ -323,7 +323,7 @@ export default function CoupleMatchPage() {
 
             <ShareButton title="커플 관상 궁합 결과" description={`궁합 ${result.score}% — ${result.headline}`} type="fortune" />
 
-            <p className="text-center text-xs text-slate-300 dark:text-slate-600 pt-2">
+            <p className="text-center text-xs text-slate-500 dark:text-slate-400 pt-2">
               이목구비 비율 측정은 실제로 이뤄지지만, 궁합 해석은 참고용 오락 콘텐츠입니다.
             </p>
           </div>

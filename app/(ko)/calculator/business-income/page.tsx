@@ -219,10 +219,10 @@ export default function BusinessIncomePage() {
                 </TableWrap>
               </div>
               <div className="px-5 py-3 border-t border-slate-100 dark:border-slate-800">
-                <p className="text-xs text-slate-400 dark:text-slate-500">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   * 건강보험료(지역가입자 추산): 약 {w(result.healthInsurance)}원 (사업소득×7.09%)
                 </p>
-                <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                   * 단순경비율 적용 기준 · 실제 세액은 신고 방식에 따라 다를 수 있습니다.
                 </p>
               </div>

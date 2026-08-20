@@ -57,7 +57,7 @@ export default function AvgPriceIntl({ lang }: { lang: CalcLang }) {
               <button
                 type="button"
                 onClick={() => setRows(prev => (prev.length > 1 ? prev.filter((_, idx) => idx !== i) : prev))}
-                className="py-3 text-slate-400 dark:text-slate-500 hover:text-rose-500 text-sm font-bold transition-colors"
+                className="py-3 text-slate-500 dark:text-slate-400 hover:text-rose-500 text-sm font-bold transition-colors"
               >
                 ✕
               </button>

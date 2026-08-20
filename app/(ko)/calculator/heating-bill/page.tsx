@@ -151,7 +151,7 @@ export default function HeatingBillPage() {
               </div>
             </Card>
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 기본요금은 열량을 줄여도 남습니다 · 단가는 사업자마다 다르므로 고지서 값을 넣으세요
               </p>
             </Card>

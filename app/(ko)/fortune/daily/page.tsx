@@ -81,7 +81,7 @@ export default function DailyFortunePage() {
           <div id="daily-result">
             <div className="flex items-center gap-2 mb-4 text-xs text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2">
               <span className="font-semibold text-slate-700 dark:text-slate-200">{birth.y}년 {birth.m}월 {birth.d}일생</span>
-              <span className="text-slate-300 dark:text-slate-600">·</span>
+              <span className="text-slate-500 dark:text-slate-400">·</span>
               <span>오늘 기준 운세</span>
             </div>
             <FortuneDisplay
@@ -92,7 +92,7 @@ export default function DailyFortunePage() {
             />
           </div>
         ) : (
-          <div className="py-10 text-slate-300 dark:text-slate-600">
+          <div className="py-10 text-slate-500 dark:text-slate-400">
             <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">생년월일을 입력하면 오늘의 종합운세를 볼 수 있어요</p>
           </div>

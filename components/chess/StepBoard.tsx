@@ -76,7 +76,7 @@ export default function StepBoard({
         {san.map((move, i) => (
           <li key={`${move}-${i}`} className="flex items-center gap-1.5">
             {i % 2 === 0 && (
-              <span className="text-xs font-medium text-slate-400 dark:text-slate-500 tabular-nums">{i / 2 + 1}.</span>
+              <span className="text-xs font-medium text-slate-500 dark:text-slate-400 tabular-nums">{i / 2 + 1}.</span>
             )}
             <button
               type="button"

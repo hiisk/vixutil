@@ -64,7 +64,7 @@ export default function BingoBoardTool({ lang = 'ko' }: { lang?: RandomLang }) {
           disabled={size % 2 === 0}
           className="accent-rose-500 w-4 h-4 disabled:opacity-40"
         />
-        <span className={`text-sm font-bold ${size % 2 === 0 ? 'text-slate-300 dark:text-slate-600' : 'text-slate-700 dark:text-slate-200'}`}>
+        <span className={`text-sm font-bold ${size % 2 === 0 ? 'text-slate-500 dark:text-slate-400' : 'text-slate-700 dark:text-slate-200'}`}>
           {ui.freeCenter}
         </span>
       </label>
@@ -99,10 +99,10 @@ export default function BingoBoardTool({ lang = 'ko' }: { lang?: RandomLang }) {
       </div>
 
       <div className="mt-5 flex items-center justify-center gap-2">
-        <span className="text-sm font-bold text-slate-400 dark:text-slate-500">{ui.bingoCount}</span>
+        <span className="text-sm font-bold text-slate-500 dark:text-slate-400">{ui.bingoCount}</span>
         <span className="text-2xl font-bold text-rose-600 tabular-nums">{lines}</span>
       </div>
-      <p className="text-xs text-slate-400 dark:text-slate-500 mt-2 text-center">{ui.tapToMark}</p>
+      <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 text-center">{ui.tapToMark}</p>
     </div>
   );
 }

@@ -52,7 +52,7 @@ export default function AppliancePowerIntl({ lang }: { lang: CalcLang }) {
           </div>
         </div>
         <div className="mt-4"><PrimaryBtn onClick={calculate}>{c.calc}</PrimaryBtn></div>
-        <p className="mt-3 text-xs text-slate-400 dark:text-slate-500">{c.note}</p>
+        <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">{c.note}</p>
       </Card>
 
       {result && (
@@ -67,7 +67,7 @@ export default function AppliancePowerIntl({ lang }: { lang: CalcLang }) {
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="text-slate-400 dark:text-slate-500 text-left text-xs">
+                  <tr className="text-slate-500 dark:text-slate-400 text-left text-xs">
                     <th className="py-1.5 font-semibold">{c.period}</th>
                     <th className="py-1.5 font-semibold text-right">{c.energy}</th>
                     <th className="py-1.5 font-semibold text-right">{c.cost}</th>

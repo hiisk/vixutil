@@ -147,11 +147,11 @@ export default function ChessPage({ slug, lang }: { slug: string; lang: Lang }) 
 
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.movesTitle}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.movesNote}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.movesNote}</p>
           <ol className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
             {f.steps.map((step, i) => (
               <li key={`${step.san}-${i}`} className="flex items-baseline gap-3 px-4 py-2.5 bg-white dark:bg-slate-900">
-                <span className="shrink-0 w-14 font-mono text-xs font-medium text-slate-400 dark:text-slate-500 tabular-nums">
+                <span className="shrink-0 w-14 font-mono text-xs font-medium text-slate-500 dark:text-slate-400 tabular-nums">
                   {step.no}{step.side === 'w' ? '.' : '…'}
                 </span>
                 <span className="shrink-0 w-16 font-mono text-sm font-bold text-violet-700 dark:text-violet-400">{step.san}</span>
@@ -169,7 +169,7 @@ export default function ChessPage({ slug, lang }: { slug: string; lang: Lang }) 
         {f.siblings.length > 0 && (
           <section className="mb-8">
             <h2 className="sec-h2-tight">{ui.related}</h2>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mb-3">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
               {fill(ui.sharedWith, { n: f.sharedPly })}
             </p>
             <div className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
@@ -192,7 +192,7 @@ export default function ChessPage({ slug, lang }: { slug: string; lang: Lang }) 
                     className="flex items-baseline gap-3 px-4 py-2.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
                   >
                     <span className="text-sm text-slate-700 dark:text-slate-200 truncate">{fullName(y.family, y.line, lang)}</span>
-                    <span className="ml-auto shrink-0 font-mono text-[11px] text-slate-400 dark:text-slate-500">
+                    <span className="ml-auto shrink-0 font-mono text-[11px] text-slate-500 dark:text-slate-400">
                       {preview}
                     </span>
                   </Link>

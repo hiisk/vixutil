@@ -150,7 +150,7 @@ function DaewoonCard({ entry, isCurrent }: { entry: DaewoonEntry; isCurrent: boo
           {branch.kor}
         </p>
       </div>
-      <div className={`py-1 text-[8px] font-bold ${isCurrent?'bg-sec-soft text-sec':'bg-slate-50 dark:bg-slate-950 text-slate-400 dark:text-slate-500'}`}>
+      <div className={`py-1 text-[8px] font-bold ${isCurrent?'bg-sec-soft text-sec':'bg-slate-50 dark:bg-slate-950 text-slate-500 dark:text-slate-400'}`}>
         {entry.startAge}~{entry.endAge}세
       </div>
     </div>
@@ -319,7 +319,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
 
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-20">
         <div className="max-w-xl mx-auto px-4 h-14 flex items-center gap-3">
-          <Link href="/fortune" className="flex items-center gap-1 text-sm text-slate-400 dark:text-slate-500 hover:text-sec transition-colors font-medium">
+          <Link href="/fortune" className="flex items-center gap-1 text-sm text-slate-500 dark:text-slate-400 hover:text-sec transition-colors font-medium">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -414,7 +414,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                       style={{ width: `${((safeStep + 1) / allSteps.length) * 100}%`, background: 'var(--c-sec)' }}
                     />
                   </div>
-                  <span className="shrink-0 text-[11px] font-bold tabular-nums text-slate-400 dark:text-slate-500">
+                  <span className="shrink-0 text-[11px] font-bold tabular-nums text-slate-500 dark:text-slate-400">
                     {safeStep + 1}/{allSteps.length}
                   </span>
                 </div>
@@ -459,7 +459,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                         </p>
                       </div>
                     )}
-                    <p className="text-xs text-slate-400 dark:text-slate-500 text-center">천간 아래 작은 글자는 일간 기준 십성(十星), 색 점은 오행입니다</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 text-center">천간 아래 작은 글자는 일간 기준 십성(十星), 색 점은 오행입니다</p>
                   </div>
                 )}
 
@@ -484,7 +484,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                         { label:'음양', value:`${dayStem.element} · ${dayStem.yinyang}`, emoji:ELEMENT_INFO[dayStem.element].emoji },
                       ].map(({ label, value, emoji }) => (
                         <div key={label} className="bg-slate-50 dark:bg-slate-950 rounded-xl p-2.5">
-                          <p className="text-[9px] font-bold text-slate-400 dark:text-slate-500 mb-0.5">{emoji} {label}</p>
+                          <p className="text-[9px] font-bold text-slate-500 dark:text-slate-400 mb-0.5">{emoji} {label}</p>
                           <p className="text-xs font-bold text-slate-700 dark:text-slate-200">{value}</p>
                         </div>
                       ))}
@@ -583,7 +583,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                           const b = BRANCHES[branch];
                           return (
                             <div key={label} className="flex items-center gap-2">
-                              <span className="text-xs font-medium w-6 text-slate-400 dark:text-slate-500">{label}</span>
+                              <span className="text-xs font-medium w-6 text-slate-500 dark:text-slate-400">{label}</span>
                               <span className="text-base">{b.emoji}</span>
                               <span className="text-sm font-bold" style={{ color:ELEMENT_INFO[b.element].color }}>{b.hanja}</span>
                               <div className="flex gap-1 flex-wrap">
@@ -614,7 +614,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                       { label:'월주 천간', pillar:result.month,  role:'부모·직업 환경' },
                       { label:'시주 천간', pillar:result.hour,   role:'자녀·노년·결실' },
                     ].map(({ label, pillar: p, role }) => {
-                      if (!p) return <div key={label} className="text-xs text-slate-400 dark:text-slate-500 text-center py-2">시주 입력 시 시주 십성도 표시됩니다</div>;
+                      if (!p) return <div key={label} className="text-xs text-slate-500 dark:text-slate-400 text-center py-2">시주 입력 시 시주 십성도 표시됩니다</div>;
                       const ss = getSipseong(result.day.stemIdx, p.stemIdx);
                       const info = SIPSEONG_INFO[ss];
                       const stemInfo = STEMS[p.stemIdx];
@@ -624,7 +624,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                           <div className="flex items-center gap-2 px-4 py-3 bg-slate-50 dark:bg-slate-950">
                             <span className="text-lg font-bold" style={{ color:ELEMENT_INFO[stemInfo.element].color }}>{stemInfo.hanja}</span>
                             <span className="text-xs font-bold text-slate-700 dark:text-slate-200">{label}</span>
-                            <span className="text-[10px] text-slate-400 dark:text-slate-500">({role})</span>
+                            <span className="text-[10px] text-slate-500 dark:text-slate-400">({role})</span>
                             <div className="ml-auto flex items-center gap-1.5">
                               <span className="text-sm">{info.emoji}</span>
                               <span className="text-xs font-bold px-2 py-0.5 rounded-full" style={{ background:ELEMENT_INFO[stemInfo.element].bg, color:ELEMENT_INFO[stemInfo.element].color }}>{ss}</span>
@@ -634,11 +634,11 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                             <p className="text-sm text-slate-700 dark:text-slate-200 leading-[1.85]">{result.gender==='male' ? info.male : info.female}</p>
                             <div className="grid grid-cols-2 gap-2 mt-2">
                               <div className="bg-slate-50 dark:bg-slate-950 rounded-xl p-2.5">
-                                <p className="text-[9px] font-bold text-slate-400 dark:text-slate-500 mb-1">직업 영향</p>
+                                <p className="text-[9px] font-bold text-slate-500 dark:text-slate-400 mb-1">직업 영향</p>
                                 <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{info.career}</p>
                               </div>
                               <div className="bg-slate-50 dark:bg-slate-950 rounded-xl p-2.5">
-                                <p className="text-[9px] font-bold text-slate-400 dark:text-slate-500 mb-1">재물 영향</p>
+                                <p className="text-[9px] font-bold text-slate-500 dark:text-slate-400 mb-1">재물 영향</p>
                                 <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{info.wealth}</p>
                               </div>
                             </div>
@@ -653,7 +653,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                     */}
                     <div className="bg-slate-50 dark:bg-slate-950 rounded-lg p-4">
                       <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">지지(地支)의 십성 — 지장간 본기 기준</p>
-                      <p className="text-[10px] text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">천간이 겉으로 드러난 기운이라면 지지는 뿌리입니다. 각 지지에 감춰진 지장간의 본기(本氣)로 십성을 봅니다.</p>
+                      <p className="text-[10px] text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">천간이 겉으로 드러난 기운이라면 지지는 뿌리입니다. 각 지지에 감춰진 지장간의 본기(本氣)로 십성을 봅니다.</p>
                       <div className="space-y-1.5">
                         {/* as const를 쓰면 열쇠가 리터럴로 좁아져 술어 타입이 안 맞는다 */}
                         {([
@@ -668,13 +668,13 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                           const el = ELEMENT_INFO[bongi.element];
                           return (
                             <div key={label} className="flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl px-3 py-2">
-                              <span className="text-[10px] font-bold w-7 text-slate-400 dark:text-slate-500">{label}</span>
+                              <span className="text-[10px] font-bold w-7 text-slate-500 dark:text-slate-400">{label}</span>
                               <span className="text-base font-bold" style={{ color:ELEMENT_INFO[b.element].color }}>{b.hanja}</span>
-                              <span className="text-[10px] text-slate-400 dark:text-slate-500">본기 {bongi.hanja}({bongi.kor})</span>
+                              <span className="text-[10px] text-slate-500 dark:text-slate-400">본기 {bongi.hanja}({bongi.kor})</span>
                               <span className="ml-auto flex items-center gap-1.5">
                                 {info && <span className="text-xs">{info.emoji}</span>}
                                 <span className="text-[11px] font-bold px-2 py-0.5 rounded-full" style={{ background:el.bg, color:el.color }}>{ss}</span>
-                                {info && <span className="text-[10px] text-slate-400 dark:text-slate-500 w-14 text-right">{info.summary}</span>}
+                                {info && <span className="text-[10px] text-slate-500 dark:text-slate-400 w-14 text-right">{info.summary}</span>}
                               </span>
                             </div>
                           );
@@ -756,12 +756,12 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                   <div className="p-5 space-y-4">
                     <div className="grid grid-cols-2 gap-3">
                       <div className="bg-slate-50 dark:bg-slate-950 rounded-xl p-3">
-                        <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-1">대운 방향</p>
+                        <p className="text-[10px] font-bold text-slate-500 dark:text-slate-400 mb-1">대운 방향</p>
                         <p className="text-base font-bold text-slate-800 dark:text-slate-100">{direction==='forward'?'순행(順行)':'역행(逆行)'}</p>
                         <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">{direction==='forward'?'시간순 진행':'시간 역방향 진행'}</p>
                       </div>
                       <div className="bg-slate-50 dark:bg-slate-950 rounded-xl p-3">
-                        <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-1">첫 대운 시작</p>
+                        <p className="text-[10px] font-bold text-slate-500 dark:text-slate-400 mb-1">첫 대운 시작</p>
                         <p className="text-base font-bold text-slate-800 dark:text-slate-100">{startAge}세부터</p>
                       </div>
                       {currentDaewoon && (
@@ -799,7 +799,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                             <div className={`flex items-center gap-2 px-3 py-2 ${isCurrent?'bg-sec-soft':'bg-slate-50 dark:bg-slate-950'}`}>
                               <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{s.hanja}{b.hanja}</span>
                               <span className="text-xs font-bold text-slate-600 dark:text-slate-300">{pillarHanja(entry.pillar)}</span>
-                              <span className="text-[10px] text-slate-400 dark:text-slate-500">{entry.startAge}~{entry.endAge}세</span>
+                              <span className="text-[10px] text-slate-500 dark:text-slate-400">{entry.startAge}~{entry.endAge}세</span>
                               {isCurrent && <span className="ml-auto text-[10px] font-bold text-sec bg-sec-soft px-2 py-0.5 rounded-full">현재</span>}
                             </div>
                             <div className="px-3 py-2">
@@ -837,7 +837,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                             <span className="text-lg font-bold" style={{ color: se.color }}>{s.hanja}{b.hanja}</span>
                             <div>
                               <p className="text-sm font-bold text-slate-800 dark:text-slate-100">{year}년 · {pillarHanja(pillar)} 세운</p>
-                              <p className="text-[10px] text-slate-400 dark:text-slate-500">{pillarLabel(pillar)}년</p>
+                              <p className="text-[10px] text-slate-500 dark:text-slate-400">{pillarLabel(pillar)}년</p>
                             </div>
                             {isThisYear && <span className="note ml-auto text-[10px] font-bold">올해</span>}
                           </div>
@@ -853,11 +853,11 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                                 </p>
                                 <div className="grid grid-cols-2 gap-2">
                                   <div className="bg-slate-50 dark:bg-slate-950 rounded-lg p-2.5">
-                                    <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-1">커리어</p>
+                                    <p className="text-[10px] font-bold text-slate-500 dark:text-slate-400 mb-1">커리어</p>
                                     <p className="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">{ssInfo.career}</p>
                                   </div>
                                   <div className="bg-slate-50 dark:bg-slate-950 rounded-lg p-2.5">
-                                    <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-1">재물</p>
+                                    <p className="text-[10px] font-bold text-slate-500 dark:text-slate-400 mb-1">재물</p>
                                     <p className="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">{ssInfo.wealth}</p>
                                   </div>
                                 </div>
@@ -880,7 +880,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                 disabled={safeStep === 0}
                 className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-lg font-bold text-sm transition-all border ${
                   safeStep === 0
-                    ? 'border-slate-100 dark:border-slate-800 text-slate-300 dark:text-slate-600 bg-white dark:bg-slate-900 cursor-not-allowed'
+                    ? 'border-slate-100 dark:border-slate-800 text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900 cursor-not-allowed'
                     : 'border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-900 hover:border-slate-300 dark:hover:border-slate-700 hover:text-sec'
                 }`}
               >
@@ -894,7 +894,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                 disabled={safeStep === allSteps.length - 1}
                 className={`flex-[2] flex items-center justify-center gap-2 py-3.5 rounded-lg font-bold text-sm transition-all ${
                   safeStep === allSteps.length - 1
-                    ? 'bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 cursor-not-allowed'
+                    ? 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 cursor-not-allowed'
                     : 'bg-sec shadow-sm active:scale-[0.98]'
                 }`}
               >

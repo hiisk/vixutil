@@ -23,7 +23,7 @@ function CopyBtn({ text }: { text: string }) {
       className={`shrink-0 text-xs font-bold px-2.5 py-1 rounded-full border transition-all ${
         ok
           ? 'bg-emerald-100 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border-emerald-300'
-          : 'bg-white dark:bg-slate-900 text-slate-400 dark:text-slate-500 border-slate-200 dark:border-slate-700 hover:border-emerald-400 hover:text-emerald-600'
+          : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-emerald-400 hover:text-emerald-600'
       }`}
     >
       {ok ? '✓ 복사됨' : '복사'}
@@ -104,7 +104,7 @@ export default function GeneratorEngine({ gen, headerRight }: { gen: Generator; 
 
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-lg mx-auto px-4 h-14 flex items-center gap-3">
-          <Link href="/generator" className="text-sm text-slate-400 dark:text-slate-500 hover:text-emerald-600 flex items-center gap-1.5 font-medium">
+          <Link href="/generator" className="text-sm text-slate-500 dark:text-slate-400 hover:text-emerald-600 flex items-center gap-1.5 font-medium">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -151,7 +151,7 @@ export default function GeneratorEngine({ gen, headerRight }: { gen: Generator; 
                   key={`${r}-${i}`}
                   className="group flex items-start gap-3 bg-white dark:bg-slate-900 rounded-lg px-4 py-3.5 border border-slate-100 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm transition-all"
                 >
-                  <span className="shrink-0 w-5 h-5 rounded-full bg-emerald-100 dark:bg-emerald-950/40 text-emerald-600 text-xs font-bold flex items-center justify-center mt-0.5">
+                  <span className="shrink-0 w-5 h-5 rounded-full bg-emerald-100 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-300 text-xs font-bold flex items-center justify-center mt-0.5">
                     {i + 1}
                   </span>
                   <p className="flex-1 text-sm font-semibold text-slate-800 dark:text-slate-100 leading-relaxed whitespace-pre-line min-w-0">
@@ -162,7 +162,7 @@ export default function GeneratorEngine({ gen, headerRight }: { gen: Generator; 
                     <button
                       onClick={() => refreshOne(i)}
                       title="이 항목만 다시 생성"
-                      className="text-slate-300 dark:text-slate-600 hover:text-emerald-500 transition-colors p-1"
+                      className="text-slate-500 dark:text-slate-400 hover:text-emerald-500 transition-colors p-1"
                     >
                       <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
@@ -172,7 +172,7 @@ export default function GeneratorEngine({ gen, headerRight }: { gen: Generator; 
                     <button
                       onClick={() => toggleSave(r)}
                       title={isSaved ? '저장 취소' : '저장'}
-                      className={`transition-colors p-1 ${isSaved ? 'text-rose-500' : 'text-slate-300 dark:text-slate-600 hover:text-rose-400'}`}
+                      className={`transition-colors p-1 ${isSaved ? 'text-rose-500' : 'text-slate-500 dark:text-slate-400 hover:text-rose-400'}`}
                     >
                       <svg className="w-3.5 h-3.5" fill={isSaved ? 'currentColor' : 'none'} viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
@@ -187,7 +187,7 @@ export default function GeneratorEngine({ gen, headerRight }: { gen: Generator; 
             {/* 전체 복사 */}
             <button
               onClick={copyAll}
-              className="w-full text-xs font-medium text-slate-400 dark:text-slate-500 hover:text-emerald-600 py-2 transition-colors"
+              className="w-full text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-emerald-600 py-2 transition-colors"
             >
               {copiedAll ? '✓ 전체 복사됨' : '전체 복사하기'}
             </button>
@@ -207,8 +207,8 @@ export default function GeneratorEngine({ gen, headerRight }: { gen: Generator; 
         {saved.length > 0 && (
           <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
             <div className="flex items-center justify-between mb-3">
-              <p className="text-xs font-medium text-slate-500 dark:text-slate-400">❤️ 저장한 결과 <span className="text-slate-400 dark:text-slate-500 font-normal">({saved.length})</span></p>
-              <button onClick={() => setSaved([])} className="text-xs text-slate-400 dark:text-slate-500 hover:text-red-400 transition-colors">전체 삭제</button>
+              <p className="text-xs font-medium text-slate-500 dark:text-slate-400">❤️ 저장한 결과 <span className="text-slate-500 dark:text-slate-400 font-normal">({saved.length})</span></p>
+              <button onClick={() => setSaved([])} className="text-xs text-slate-500 dark:text-slate-400 hover:text-red-400 transition-colors">전체 삭제</button>
             </div>
             <div className="space-y-2">
               {saved.map((s, i) => (

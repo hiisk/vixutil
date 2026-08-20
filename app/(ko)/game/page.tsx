@@ -87,7 +87,7 @@ export default function GameHubPage() {
         <div className="flex flex-col gap-7">
           {grouped.map(g => (
             <section key={g.category} aria-label={g.category}>
-              <h2 className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
+              <h2 className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">
                 {g.category}
               </h2>
               <div className="grid sm:grid-cols-2 gap-3">
@@ -126,7 +126,7 @@ export default function GameHubPage() {
             <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">{CUBE_UI.ko.hubTitle}</span>
             <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5">{CUBE_UI.ko.hubLead}</span>
           </span>
-          <span className="ml-auto text-[11px] font-bold text-slate-400 dark:text-slate-500 shrink-0">{ALGS.length}</span>
+          <span className="ml-auto text-[11px] font-bold text-slate-500 dark:text-slate-400 shrink-0">{ALGS.length}</span>
         </Link>
 
         <Link
@@ -140,7 +140,7 @@ export default function GameHubPage() {
             <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">{fill(chessUi('ko').hubTitle, { n: OPENINGS.length })}</span>
             <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5">{chessUi('ko').hubLead}</span>
           </span>
-          <span className="ml-auto text-[11px] font-bold text-slate-400 dark:text-slate-500 shrink-0">{OPENINGS.length}</span>
+          <span className="ml-auto text-[11px] font-bold text-slate-500 dark:text-slate-400 shrink-0">{OPENINGS.length}</span>
         </Link>
 
         <Link
@@ -154,7 +154,7 @@ export default function GameHubPage() {
             <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">{pokerFill(pokerUi('ko').hubTitle, { n: HANDS.length })}</span>
             <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5">{pokerFill(pokerUi('ko').hubLead, { n: HANDS.length })}</span>
           </span>
-          <span className="ml-auto text-[11px] font-bold text-slate-400 dark:text-slate-500 shrink-0">{HANDS.length}</span>
+          <span className="ml-auto text-[11px] font-bold text-slate-500 dark:text-slate-400 shrink-0">{HANDS.length}</span>
         </Link>
 
         <div className="mt-10 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
@@ -169,7 +169,7 @@ export default function GameHubPage() {
 
         <Faq items={SECTION_FAQ.game} />
 
-        <p className="text-center text-xs text-slate-300 dark:text-slate-600 mt-9">
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-9">
 모든 결과는 재미로 보는 값입니다 · 무료 · 회원가입 없음
         </p>
       </main>

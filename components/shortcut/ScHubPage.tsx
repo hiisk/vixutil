@@ -54,7 +54,7 @@ export default function ScHubPage({ lang }: { lang: Lang }) {
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <span className="text-sm text-slate-400 dark:text-slate-500 font-medium truncate">{ui.section}</span>
+          <span className="text-sm text-slate-500 dark:text-slate-400 font-medium truncate">{ui.section}</span>
           <div className="ml-auto shrink-0">
             <LangPicker current={localeOfLang(lang)} route="/shortcut" available={LOCALE_PATHS} />
           </div>
@@ -80,13 +80,13 @@ export default function ScHubPage({ lang }: { lang: Lang }) {
             <section key={app} className="mb-9">
               <h2 className="sec-h2 flex items-baseline gap-2">
                 {ui.appLabel[app]}
-                <span className="text-xs font-medium text-slate-400 dark:text-slate-500">{list.length}</span>
+                <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{list.length}</span>
               </h2>
               <p className="mb-3 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{ui.appNote[app]}</p>
               <div className="rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
                 <table className="kv-table w-full text-sm">
                   <thead>
-                    <tr className="border-b border-slate-100 dark:border-slate-800 text-[11px] font-bold text-slate-400 dark:text-slate-500">
+                    <tr className="border-b border-slate-100 dark:border-slate-800 text-[11px] font-bold text-slate-500 dark:text-slate-400">
                       <th scope="col" className="text-left px-4 py-2">{ui.actionCol}</th>
                       <th scope="col" className="text-left px-4 py-2 w-2/5">{ui.keysCol}</th>
                     </tr>

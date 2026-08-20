@@ -72,7 +72,7 @@ export default function PeripheralGame({ lang = 'ko' }: { lang?: GameLang } = {}
                 <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">{ui.missed}</p>
               </>
             ) : (
-              <p className="text-sm text-slate-400 dark:text-slate-500">{ui.periHow}</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">{ui.periHow}</p>
             )}
           </div>
         )}

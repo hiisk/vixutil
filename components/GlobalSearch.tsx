@@ -54,7 +54,7 @@ export default function GlobalSearch({ items, empty }: { items: SearchItem[]; em
   return (
     <div>
       <div className="relative mb-5">
-        <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 dark:text-slate-500 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500 dark:text-slate-400 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
         </svg>
         <input
@@ -84,7 +84,7 @@ export default function GlobalSearch({ items, empty }: { items: SearchItem[]; em
                       : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-700'
                   }`}
                 >
-                  {label} <span className={active === s ? 'text-indigo-100' : 'text-slate-400 dark:text-slate-500'}>{n}</span>
+                  {label} <span className={active === s ? 'text-indigo-100' : 'text-slate-500 dark:text-slate-400'}>{n}</span>
                 </button>
               );
             })}
@@ -93,7 +93,7 @@ export default function GlobalSearch({ items, empty }: { items: SearchItem[]; em
 
       {!trimmed ? (
         <div>
-          <p className="mb-5 text-center text-sm text-slate-400 dark:text-slate-500">
+          <p className="mb-5 text-center text-sm text-slate-500 dark:text-slate-400">
             계산기 · 심리테스트 · 퀴즈 · 생성기 · 체크리스트를<br />한 번에 검색합니다
           </p>
           {empty}
@@ -104,7 +104,7 @@ export default function GlobalSearch({ items, empty }: { items: SearchItem[]; em
           <p className="text-sm text-slate-500 dark:text-slate-400">
             <span className="font-bold text-slate-700 dark:text-slate-200">&lsquo;{query.trim()}&rsquo;</span>에 해당하는 결과가 없어요.
           </p>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mt-1.5">다른 단어로 검색해보세요.</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5">다른 단어로 검색해보세요.</p>
         </div>
       ) : (
         <div className="flex flex-col gap-2">

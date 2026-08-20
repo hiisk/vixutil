@@ -51,7 +51,7 @@ export default function DevCronIntl({ lang }: { lang: CalcLang }) {
             {FIELDS.map((f, i) => (
               <div key={f.key} className="flex justify-between items-center gap-3 py-2.5 text-sm">
                 <span className="text-slate-500 dark:text-slate-400">
-                  {c[f.key]} <span className="text-xs text-slate-400 dark:text-slate-500">{f.range}</span>
+                  {c[f.key]} <span className="text-xs text-slate-500 dark:text-slate-400">{f.range}</span>
                 </span>
                 <span className="font-mono font-bold text-slate-900 dark:text-slate-100">{parts[i]}</span>
               </div>

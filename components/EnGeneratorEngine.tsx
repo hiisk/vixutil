@@ -97,7 +97,7 @@ export default function EnGeneratorEngine({ gen, lang = 'en' }: { gen: Generator
 
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
         <div className="max-w-lg mx-auto px-4 h-14 flex items-center gap-3">
-          <Link href={hubHref} className="text-sm text-slate-400 dark:text-slate-500 hover:text-emerald-600 flex items-center gap-1.5 font-medium">
+          <Link href={hubHref} className="text-sm text-slate-500 dark:text-slate-400 hover:text-emerald-600 flex items-center gap-1.5 font-medium">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -105,7 +105,7 @@ export default function EnGeneratorEngine({ gen, lang = 'en' }: { gen: Generator
           </Link>
           <span className="text-slate-200">·</span>
           <span className="row-name">{gen.title}</span>
-          <Link href={t.otherHref(gen.slug)} className="ml-auto text-xs font-medium text-slate-400 hover:text-emerald-600" hrefLang={t.otherLang}>{t.other}</Link>
+          <Link href={t.otherHref(gen.slug)} className="ml-auto text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-emerald-600" hrefLang={t.otherLang}>{t.other}</Link>
         </div>
       </header>
 
@@ -115,7 +115,7 @@ export default function EnGeneratorEngine({ gen, lang = 'en' }: { gen: Generator
           <span className="bg-sec-soft mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg">
             <ToolIcon emoji={gen.icon} className="h-5 w-5" />
           </span>
-          <span className="text-xs font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950/30 px-3 py-1 rounded-full">{gen.category}</span>
+          <span className="text-xs font-bold text-emerald-600 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/30 px-3 py-1 rounded-full">{gen.category}</span>
           <div className="hero-band">
             <PageHero title={gen.title} desc={gen.desc} />
           </div>
@@ -132,19 +132,19 @@ export default function EnGeneratorEngine({ gen, lang = 'en' }: { gen: Generator
           <div key={animKey} className="space-y-2.5 mb-4 animate-in">
             {results.map((r, i) => (
               <div key={`${r}-${i}`} className="group flex items-center gap-3 bg-white dark:bg-slate-900 rounded-lg px-4 py-3.5 border border-slate-100 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm transition-all">
-                <span className="shrink-0 w-5 h-5 rounded-full bg-emerald-100 dark:bg-emerald-950/40 text-emerald-600 text-xs font-bold flex items-center justify-center">{i + 1}</span>
+                <span className="shrink-0 w-5 h-5 rounded-full bg-emerald-100 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-300 text-xs font-bold flex items-center justify-center">{i + 1}</span>
                 <p className="flex-1 text-sm font-semibold text-slate-800 dark:text-slate-100 min-w-0">{r}</p>
-                <button onClick={() => refreshOne(i)} title={t.reroll} className="text-slate-300 dark:text-slate-600 hover:text-emerald-500 transition-colors p-1">
+                <button onClick={() => refreshOne(i)} title={t.reroll} className="text-slate-500 dark:text-slate-400 hover:text-emerald-500 transition-colors p-1">
                   <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
                   </svg>
                 </button>
-                <button onClick={() => copyOne(r, i)} className="text-xs font-medium text-slate-400 hover:text-emerald-600 transition-colors shrink-0 w-12 text-right">
+                <button onClick={() => copyOne(r, i)} className="text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-emerald-600 transition-colors shrink-0 w-12 text-right">
                   {copiedIdx === i ? '✓' : t.copy}
                 </button>
               </div>
             ))}
-            <button onClick={copyAll} className="w-full text-xs font-medium text-slate-400 dark:text-slate-500 hover:text-emerald-600 py-2 transition-colors">
+            <button onClick={copyAll} className="w-full text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-emerald-600 py-2 transition-colors">
               {copiedAll ? t.copiedAll : t.copyAll}
             </button>
           </div>

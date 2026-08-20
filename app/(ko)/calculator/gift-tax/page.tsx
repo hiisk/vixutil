@@ -99,14 +99,14 @@ export default function GiftTaxPage() {
                   <option key={k} value={k}>{RELATION_LABEL[k]}</option>
                 ))}
               </select>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 공제한도: {(RELATION_DEDUCTION[relation] / 100_000_000).toFixed(1)}억원 (10년 합산 기준)
               </p>
             </div>
             <div>
               <Label>10년 내 동일인 기증여 합산액 (원)</Label>
               <MoneyInput value={prior} onChange={setPrior} placeholder="0" />
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 합산해 세액을 낸 뒤 먼저 낸 세액을 공제합니다 — 두 번 물지 않습니다.
               </p>
             </div>

@@ -75,7 +75,7 @@ export default function SalaryPage() {
                   className="w-4 h-4 accent-blue-600" />
                 <span className="text-sm text-slate-700 dark:text-slate-200">
                   식대 비과세<br />
-                  <span className="text-xs text-slate-400 dark:text-slate-500">월 20만원 공제</span>
+                  <span className="text-xs text-slate-500 dark:text-slate-400">월 20만원 공제</span>
                 </span>
               </label>
             </div>
@@ -122,7 +122,7 @@ export default function SalaryPage() {
                 </div>
               </div>
               <div className="px-5 py-3 border-t border-slate-100 dark:border-slate-800">
-                <p className="text-xs text-slate-400 dark:text-slate-500">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   * 부양가족 {dependents}명 기본공제 적용
                   {mealExempt ? ' · 식대 비과세 20만원 적용' : ''}
                   {' · '}의료비·교육비 등 추가공제 미반영
@@ -153,7 +153,7 @@ function Row({ label, rate, value }: { label: string; rate: string; value: numbe
     <div className="flex justify-between items-center text-sm">
       <div className="flex items-center gap-2">
         <span className="text-slate-700 dark:text-slate-200">{label}</span>
-        <span className="text-xs text-slate-400 dark:text-slate-500 hidden sm:inline">{rate}</span>
+        <span className="text-xs text-slate-500 dark:text-slate-400 hidden sm:inline">{rate}</span>
       </div>
       <span className="font-semibold text-red-500">-{Math.round(value).toLocaleString()}원</span>
     </div>

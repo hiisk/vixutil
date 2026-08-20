@@ -34,7 +34,7 @@ const BIAS_STYLE: Record<Bias, { label: string; cls: string; emoji: string }> = 
   bearish: { label: 'Bearish', cls: 'bg-rose-500/15 text-rose-700 dark:text-rose-400', emoji: '🔴' },
   neutral: { label: 'Neutral', cls: 'bg-slate-500/15 text-slate-500 dark:text-slate-400', emoji: '⚪' },
 };
-const VOTE_CLR: Record<Bias, string> = { bullish: 'text-emerald-600 dark:text-emerald-400', bearish: 'text-rose-600 dark:text-rose-400', neutral: 'text-slate-400 dark:text-slate-500' };
+const VOTE_CLR: Record<Bias, string> = { bullish: 'text-emerald-600 dark:text-emerald-400', bearish: 'text-rose-600 dark:text-rose-400', neutral: 'text-slate-500 dark:text-slate-400' };
 
 type ListState = 'loading' | 'ready' | 'empty' | 'error';
 type SortKey = 'volume' | 'signal' | 'chg24h' | 'range24h';
@@ -98,8 +98,8 @@ function utcLabel(d: Date): string {
 function SortHint({ active, dir }: { active: boolean; dir: 'asc' | 'desc' }) {
   return (
     <span className="inline-flex flex-col leading-[0.55] text-[7px] ml-1">
-      <span className={active && dir === 'asc' ? 'text-amber-600 dark:text-amber-400' : 'text-slate-400 dark:text-slate-500'}>▲</span>
-      <span className={active && dir === 'desc' ? 'text-amber-600 dark:text-amber-400' : 'text-slate-400 dark:text-slate-500'}>▼</span>
+      <span className={active && dir === 'asc' ? 'text-amber-600 dark:text-amber-400' : 'text-slate-500 dark:text-slate-400'}>▲</span>
+      <span className={active && dir === 'desc' ? 'text-amber-600 dark:text-amber-400' : 'text-slate-500 dark:text-slate-400'}>▼</span>
     </span>
   );
 }
@@ -389,7 +389,7 @@ export default function SignalsPage() {
           <ToolIcon emoji="📈" className="w-9 h-9 mx-auto mb-2 text-slate-800 dark:text-slate-100" />
           <h1 className="page-h1">Crypto Signal Board</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">Consensus of 4 strategies (Trend · Bollinger · RSI · ATR) → direction, entry / TP / SL, live P&amp;L, and 3D–3Y price projections</p>
-          <p className="text-slate-400 dark:text-slate-500 text-xs mt-1.5">All times in UTC · strategy resets at <span className="text-amber-500/80 font-semibold tabular-nums">00:00 UTC</span>{resetIn ? <> · <span className="text-amber-500/80 font-semibold tabular-nums">{resetIn}</span> from now</> : null}</p>
+          <p className="text-slate-500 dark:text-slate-400 text-xs mt-1.5">All times in UTC · strategy resets at <span className="text-amber-500/80 font-semibold tabular-nums">00:00 UTC</span>{resetIn ? <> · <span className="text-amber-500/80 font-semibold tabular-nums">{resetIn}</span> from now</> : null}</p>
         </div>
 
         {/* Market summary strip + highlight cards */}
@@ -418,7 +418,7 @@ export default function SignalsPage() {
                   <span className="bg-rose-500 rounded-full" style={{ width: `${100 - stats.upShare}%` }} />
                 </span>
               </span>
-              <span className="text-slate-400 dark:text-slate-500">{tickers.length} USDT pairs</span>
+              <span className="text-slate-500 dark:text-slate-400">{tickers.length} USDT pairs</span>
             </div>
 
             <div className="grid md:grid-cols-3 gap-3 mb-5">
@@ -445,7 +445,7 @@ export default function SignalsPage() {
                       const meta = coinByBase(t.base);
                       const inner = (
                         <>
-                          <span className="text-slate-400 dark:text-slate-500 text-xs tabular-nums w-3 shrink-0">{i + 1}</span>
+                          <span className="text-slate-500 dark:text-slate-400 text-xs tabular-nums w-3 shrink-0">{i + 1}</span>
                           <CoinLogo base={t.base} size={20} />
                           <span className="font-bold text-slate-900 dark:text-white text-sm">{t.base}</span>
                           {meta && meta.name !== meta.base && <span className="text-slate-500 dark:text-slate-400 text-xs truncate">{meta.name}</span>}
@@ -497,7 +497,7 @@ export default function SignalsPage() {
 
         {/* Search */}
         <div className="relative mb-4">
-          <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 text-sm pointer-events-none">🔍</span>
+          <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 text-sm pointer-events-none">🔍</span>
           <input
             type="text"
             value={query}
@@ -506,7 +506,7 @@ export default function SignalsPage() {
             className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl pl-10 pr-9 py-2.5 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-300 focus:outline-none focus:border-amber-500/60 transition"
           />
           {query && (
-            <button onClick={() => changeQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors">✕</button>
+            <button onClick={() => changeQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors">✕</button>
           )}
         </div>
 
@@ -563,7 +563,7 @@ export default function SignalsPage() {
                       </th>
                       <th className="hidden sm:table-cell text-right font-semibold px-3 py-3 border-l border-slate-200/70 dark:border-slate-700/70">
                         Scenarios
-                        <span className="block text-[9px] font-normal text-slate-400 dark:text-slate-500 normal-case tracking-normal">30d simulated paths</span>
+                        <span className="block text-[9px] font-normal text-slate-500 dark:text-slate-400 normal-case tracking-normal">30d simulated paths</span>
                       </th>
                       {BOARD_HORIZONS.map((h, hi) => (
                         <th key={h.key} className={`${th} ${HORIZON_VIS[h.key] ?? ''} ${hi === 0 ? 'border-l border-slate-200/70 dark:border-slate-700/70' : ''}`}>
@@ -597,7 +597,7 @@ export default function SignalsPage() {
                       const coinInner = (
                         <>
                           <div className="flex items-center gap-2">
-                            <span className="text-slate-400 dark:text-slate-500 text-xs tabular-nums w-5 shrink-0">{(page - 1) * PER_PAGE + i + 1}</span>
+                            <span className="text-slate-500 dark:text-slate-400 text-xs tabular-nums w-5 shrink-0">{(page - 1) * PER_PAGE + i + 1}</span>
                             <CoinLogo base={t.base} />
                             <span className={`font-bold text-slate-900 dark:text-white ${meta ? 'group-hover:text-sec transition-colors' : ''}`}>{t.base}</span>
                             {c && market === 'futures' && (
@@ -644,7 +644,7 @@ export default function SignalsPage() {
                           <td className="px-2 py-3 text-right tabular-nums text-slate-900 dark:text-white">{formatPrice(t.lastPrice)}</td>
 
                           <td className="px-2 py-3 text-right tabular-nums">
-                            {isFinite(chg) ? <Pct value={chg} bold /> : <span className="text-slate-400 dark:text-slate-500">-</span>}
+                            {isFinite(chg) ? <Pct value={chg} bold /> : <span className="text-slate-500 dark:text-slate-400">-</span>}
                           </td>
 
                           {/*
@@ -676,7 +676,7 @@ export default function SignalsPage() {
                                   </span>
                                 )}
                               </div>
-                            ) : <span className="text-slate-400 dark:text-slate-500">{pending ? '…' : '-'}</span>}
+                            ) : <span className="text-slate-500 dark:text-slate-400">{pending ? '…' : '-'}</span>}
                           </td>
 
                           <td className="hidden sm:table-cell px-3 py-3 text-right border-l border-slate-200/40 dark:border-slate-700/40">
@@ -697,11 +697,11 @@ export default function SignalsPage() {
                                     <span className="text-[10px] text-amber-600 dark:text-amber-400/80 tabular-nums">+{p.peakPct.toFixed(1)}%</span>
                                   </div>
                                 ) : pending ? (
-                                  <span className="text-slate-400 dark:text-slate-500 text-xs">…</span>
+                                  <span className="text-slate-500 dark:text-slate-400 text-xs">…</span>
                                 ) : info && info.days > 0 ? (
-                                  <span className="text-slate-400 dark:text-slate-500 text-[10px]" title={`Needs ${MIN_SAMPLES + 1} daily closes, has ${info.days}`}>new · {info.days}d</span>
+                                  <span className="text-slate-500 dark:text-slate-400 text-[10px]" title={`Needs ${MIN_SAMPLES + 1} daily closes, has ${info.days}`}>new · {info.days}d</span>
                                 ) : (
-                                  <span className="text-slate-400 dark:text-slate-500 text-xs">-</span>
+                                  <span className="text-slate-500 dark:text-slate-400 text-xs">-</span>
                                 )}
                               </td>
                             );
@@ -720,10 +720,10 @@ export default function SignalsPage() {
                 </table>
               </div>
               <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-4 py-3 border-t border-slate-200 dark:border-slate-700 text-[11px] text-slate-500 dark:text-slate-400">
-                <span>Votes: <b className="text-slate-500 dark:text-slate-400">T</b> Trend · <b className="text-slate-500 dark:text-slate-400">B</b> Bollinger · <b className="text-slate-500 dark:text-slate-400">R</b> RSI · <b className="text-slate-500 dark:text-slate-400">A</b> ATR <span className="text-slate-400 dark:text-slate-500">(↑ bullish · ↓ bearish · · neutral)</span></span>
+                <span>Votes: <b className="text-slate-500 dark:text-slate-400">T</b> Trend · <b className="text-slate-500 dark:text-slate-400">B</b> Bollinger · <b className="text-slate-500 dark:text-slate-400">R</b> RSI · <b className="text-slate-500 dark:text-slate-400">A</b> ATR <span className="text-slate-500 dark:text-slate-400">(↑ bullish · ↓ bearish · · neutral)</span></span>
                 {updatedLabel && <span>🕒 {updatedLabel}</span>}
               </div>
-              <div className="px-4 pb-3 text-[11px] text-slate-400 dark:text-slate-500">
+              <div className="px-4 pb-3 text-[11px] text-slate-500 dark:text-slate-400">
                 {market === 'spot' ? 'Spot' : 'Futures'} · {query ? `${sortedTickers.length} / ` : ''}{tickers.length} coins ·{' '}
                 sorted by <b className="text-slate-500 dark:text-slate-400">{SORT_LABEL[sortKey]}</b> · TP {TP_MULT}×ATR · SL {SL_MULT}×ATR ·{' '}
 <b className="text-slate-500 dark:text-slate-400">ATR target</b> is a trade level (entry + {TP_MULT}×ATR), <b className="text-slate-500 dark:text-slate-400">not a forecast</b> — backtested over 8,552 setups it was reached the next day only 4.6% of the time · <b className="text-slate-500 dark:text-slate-400">1W–3Y</b> are the forecast: the typical peak, the price each coin touches at some point half the time. These match the coin page exactly.{pageComputing ? ' · calculating…' : ''}
@@ -773,7 +773,7 @@ export default function SignalsPage() {
           <p>Projections (3D–3Y) fit a geometric Brownian motion to {FORECAST_DAYS} days of log returns. The trend is split into a market component (beta to BTC) and a coin-specific alpha, each shrunk toward zero as a Bayesian posterior mean; no technical tilt is applied. Coins with under two years of history use a conservative prior, and the drift is capped at ±0.5 in annual log terms. Ranges use a fat-tailed Student-t whose degrees of freedom rise with the horizon, and each horizon uses its own measured blend of current and long-run volatility.</p>
         </div>
 
-        <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-6">Refresh to recalculate with the latest prices · Binance public market data</p>
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-6">Refresh to recalculate with the latest prices · Binance public market data</p>
       </div>
     </div>
   );

@@ -68,7 +68,7 @@ export default function CubeHubPage({ lang }: { lang: Lang }) {
 
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.notationTitle}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.notationNote}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.notationNote}</p>
           <dl className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
             {ui.notation.map(n => (
               <div key={n.token} className="flex items-baseline gap-3 px-4 py-2 bg-white dark:bg-slate-900">
@@ -83,9 +83,9 @@ export default function CubeHubPage({ lang }: { lang: Lang }) {
           <section key={step} className="mb-9">
             <h2 className="sec-h2-tight">
               {ui.stepLabel[step]}
-              <span className="ml-1.5 text-[11px] font-bold text-slate-400 dark:text-slate-500">{algsOfStep(step).length}</span>
+              <span className="ml-1.5 text-[11px] font-bold text-slate-500 dark:text-slate-400">{algsOfStep(step).length}</span>
             </h2>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.stepNote[step]}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.stepNote[step]}</p>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
               {algsOfStep(step).map(a => {
@@ -99,7 +99,7 @@ export default function CubeHubPage({ lang }: { lang: Lang }) {
                     <CubeTop state={diagram(f)} slot={step === 'f2l'} label={a.label} className="w-full max-w-[104px] mx-auto" />
                     <div className="mt-2 text-center">
                       <div className="text-xs font-bold text-slate-800 dark:text-slate-100">{a.label}</div>
-                      <div className="text-[10px] text-slate-400 dark:text-slate-500 font-mono truncate">{a.alg}</div>
+                      <div className="text-[10px] text-slate-500 dark:text-slate-400 font-mono truncate">{a.alg}</div>
                     </div>
                   </Link>
                 );

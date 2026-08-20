@@ -68,9 +68,9 @@ export default function KeycodeHubPage({ lang }: { lang: Lang }) {
           <section key={g} className="mb-8">
             <h2 className="sec-h2-tight">
               {ui.groupLabel[g]}
-              <span className="ml-1.5 text-[11px] font-bold text-slate-400 dark:text-slate-500">{keysOfGroup(g).length}</span>
+              <span className="ml-1.5 text-[11px] font-bold text-slate-500 dark:text-slate-400">{keysOfGroup(g).length}</span>
             </h2>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.groupNote[g]}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.groupNote[g]}</p>
             <div className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
               {keysOfGroup(g).map(x => {
                 const f = keyFacts(x);
@@ -81,7 +81,7 @@ export default function KeycodeHubPage({ lang }: { lang: Lang }) {
                     className="flex items-baseline gap-3 px-4 py-2 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
                     <span className="text-sm font-mono font-bold text-slate-700 dark:text-slate-200 shrink-0 w-[124px] truncate">{x.code}</span>
                     <span className="text-sm text-slate-500 dark:text-slate-400 truncate">{f.printable ? `"${f.label}"` : f.label}</span>
-                    <span className="ml-auto text-[11px] text-slate-400 dark:text-slate-500 tabular-nums shrink-0">{x.keyCode}</span>
+                    <span className="ml-auto text-[11px] text-slate-500 dark:text-slate-400 tabular-nums shrink-0">{x.keyCode}</span>
                   </span>
                 );
               })}

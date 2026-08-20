@@ -53,7 +53,7 @@ export default function DateAddTool({ lang = 'ko' }: { lang?: TimeLang } = {}) {
         {field(ui.month, months, setMonths)}
         {field(ui.year, years, setYears)}
       </div>
-      <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-1.5">{ui.negativeNote}</p>
+      <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1.5">{ui.negativeNote}</p>
 
       {result && (
         <>

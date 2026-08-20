@@ -126,11 +126,11 @@ export default function DataUsagePage() {
                 className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-4 text-2xl font-bold text-slate-900 dark:text-slate-100 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-violet-500 pr-16"
               />
             )}
-            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 font-bold">
+            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 font-bold">
               {mode === 'howlong' ? 'GB' : '시간'}
             </span>
           </div>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
             {a.label}은 한 시간에 약 {a.gbPerHour}GB를 씁니다
           </p>
         </Card>

@@ -93,14 +93,14 @@ export default function CarDepreciationPage() {
                     <span className="text-slate-600 dark:text-slate-300">
                       {r.year === 0 ? '산 날' : `${r.year}년째`}
                       {r.year > 0 && (
-                        <span className="ml-2 text-xs text-slate-400 dark:text-slate-500">
+                        <span className="ml-2 text-xs text-slate-500 dark:text-slate-400">
                           −{fmt(r.lost)}원
                         </span>
                       )}
                     </span>
                     <span className="font-semibold">
                       {fmt(r.value)}원
-                      <span className="ml-2 text-xs font-normal text-slate-400 dark:text-slate-500">
+                      <span className="ml-2 text-xs font-normal text-slate-500 dark:text-slate-400">
                         {Math.round(r.ratio * 100)}%
                       </span>
                     </span>
@@ -109,7 +109,7 @@ export default function CarDepreciationPage() {
               </div>
             </Card>
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 정률법으로 셈한 값입니다 · 실제 시세는 차종·주행거리·사고 이력에 따라 크게 다릅니다
               </p>
             </Card>

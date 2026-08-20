@@ -106,7 +106,7 @@ export default function FaviconTool({ lang = 'ko' }: { lang?: ImageLang } = {}) 
     <div>
       <div className="rounded-lg border chip-off p-5">
         <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-3">{ui.sizes}</p>
-        {busy && <p className="text-sm text-slate-400 dark:text-slate-500">{common.working}</p>}
+        {busy && <p className="text-sm text-slate-500 dark:text-slate-400">{common.working}</p>}
         <div className="flex flex-col gap-2">
           {made.map(m => (
             <button
@@ -120,13 +120,13 @@ export default function FaviconTool({ lang = 'ko' }: { lang?: ImageLang } = {}) 
               </span>
               <span className="min-w-0 flex-1">
                 <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">{m.size} × {m.size}</span>
-                <span className="block text-[11px] text-slate-400 dark:text-slate-500 truncate">{m.name} · {labelOf(m.use)}</span>
+                <span className="block text-[11px] text-slate-500 dark:text-slate-400 truncate">{m.name} · {labelOf(m.use)}</span>
               </span>
-              <span className="shrink-0 text-xs font-bold text-slate-300 dark:text-slate-600">{formatBytes(m.blob.size)}</span>
+              <span className="shrink-0 text-xs font-bold text-slate-500 dark:text-slate-400">{formatBytes(m.blob.size)}</span>
             </button>
           ))}
         </div>
-        <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-3">{ui.iconNote}</p>
+        <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-3">{ui.iconNote}</p>
       </div>
 
       <div className="mt-4 rounded-lg border chip-off p-5">

@@ -53,7 +53,7 @@ export default function FoodShell({
             홈
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link prefetch={false} href="/food" className="text-sm text-slate-400 dark:text-slate-500 hover:text-amber-600 transition-colors font-medium">
+          <Link prefetch={false} href="/food" className="text-sm text-slate-500 dark:text-slate-400 hover:text-amber-600 transition-colors font-medium">
             계량·요리
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
@@ -120,7 +120,7 @@ export default function FoodShell({
           </div>
         </section>
 
-        <p className="text-center text-xs text-slate-300 dark:text-slate-600 mt-9 leading-relaxed">
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-9 leading-relaxed">
           보관 기간과 굽기 온도는 일반적인 기준이며 재료 상태에 따라 달라집니다.
         </p>
       </main>

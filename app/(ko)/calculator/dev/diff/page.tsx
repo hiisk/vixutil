@@ -119,7 +119,7 @@ export default function DiffPage() {
           <Card className="p-4">
             <div className="flex justify-between items-center mb-2">
               <p className="label-caps">원본 (Original)</p>
-              <span className="text-xs text-slate-400 dark:text-slate-500">{original.split('\n').length}줄</span>
+              <span className="text-xs text-slate-500 dark:text-slate-400">{original.split('\n').length}줄</span>
             </div>
             <textarea
               value={original}
@@ -132,7 +132,7 @@ export default function DiffPage() {
           <Card className="p-4">
             <div className="flex justify-between items-center mb-2">
               <p className="label-caps">변경본 (Modified)</p>
-              <span className="text-xs text-slate-400 dark:text-slate-500">{modified.split('\n').length}줄</span>
+              <span className="text-xs text-slate-500 dark:text-slate-400">{modified.split('\n').length}줄</span>
             </div>
             <textarea
               value={modified}
@@ -160,7 +160,7 @@ export default function DiffPage() {
               </div>
               <div className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg p-4 text-center">
                 <p className="text-2xl font-bold text-slate-500 dark:text-slate-400">{stats.equal}</p>
-                <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">동일한 줄</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">동일한 줄</p>
               </div>
             </div>
 
@@ -176,10 +176,10 @@ export default function DiffPage() {
                   <table className="w-full text-xs font-mono">
                     <thead>
                       <tr className="border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950">
-                        <th className="w-10 py-2 px-2 text-center text-slate-400 dark:text-slate-500 font-semibold border-r border-slate-100 dark:border-slate-800">원본</th>
-                        <th className="w-10 py-2 px-2 text-center text-slate-400 dark:text-slate-500 font-semibold border-r border-slate-100 dark:border-slate-800">변경</th>
-                        <th className="w-8 py-2 px-2 text-center text-slate-400 dark:text-slate-500 font-semibold border-r border-slate-100 dark:border-slate-800"></th>
-                        <th className="py-2 px-3 text-left text-slate-400 dark:text-slate-500 font-semibold">내용</th>
+                        <th className="w-10 py-2 px-2 text-center text-slate-500 dark:text-slate-400 font-semibold border-r border-slate-100 dark:border-slate-800">원본</th>
+                        <th className="w-10 py-2 px-2 text-center text-slate-500 dark:text-slate-400 font-semibold border-r border-slate-100 dark:border-slate-800">변경</th>
+                        <th className="w-8 py-2 px-2 text-center text-slate-500 dark:text-slate-400 font-semibold border-r border-slate-100 dark:border-slate-800"></th>
+                        <th className="py-2 px-3 text-left text-slate-500 dark:text-slate-400 font-semibold">내용</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -201,14 +201,14 @@ export default function DiffPage() {
                           ? 'text-emerald-600 font-bold bg-emerald-100 dark:bg-emerald-950/40'
                           : isDelete
                           ? 'text-red-500 font-bold bg-red-100 dark:bg-red-950/40'
-                          : 'text-slate-300 dark:text-slate-600';
+                          : 'text-slate-500 dark:text-slate-400';
 
                         return (
                           <tr key={idx} className={`border-b border-slate-50 ${rowCls}`}>
-                            <td className="py-1 px-2 text-center text-slate-300 dark:text-slate-600 border-r border-slate-100 dark:border-slate-800 select-none">
+                            <td className="py-1 px-2 text-center text-slate-500 dark:text-slate-400 border-r border-slate-100 dark:border-slate-800 select-none">
                               {line.leftNo ?? ''}
                             </td>
-                            <td className="py-1 px-2 text-center text-slate-300 dark:text-slate-600 border-r border-slate-100 dark:border-slate-800 select-none">
+                            <td className="py-1 px-2 text-center text-slate-500 dark:text-slate-400 border-r border-slate-100 dark:border-slate-800 select-none">
                               {line.rightNo ?? ''}
                             </td>
                             <td className={`py-1 px-2 text-center border-r border-slate-100 dark:border-slate-800 select-none ${markerCls}`}>
@@ -223,7 +223,7 @@ export default function DiffPage() {
                     </tbody>
                   </table>
                 </div>
-                <div className="flex gap-4 mt-3 text-xs text-slate-400 dark:text-slate-500">
+                <div className="flex gap-4 mt-3 text-xs text-slate-500 dark:text-slate-400">
                   <span className="flex items-center gap-1">
                     <span className="w-3 h-3 rounded bg-emerald-200 inline-block" />
                     추가

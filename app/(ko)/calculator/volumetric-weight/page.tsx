@@ -132,7 +132,7 @@ export default function VolumetricWeightPage() {
               </Card>
             )}
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 계수와 세 변 합 제한은 업체마다 다릅니다 · 접수 전에 해당 업체 기준을 확인하세요
               </p>
             </Card>

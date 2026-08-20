@@ -162,7 +162,7 @@ export default function MonthlyRentDeductionPage() {
                   <span className="text-sm text-slate-700 dark:text-slate-200">{REQUIREMENT_LABEL[key]}</span>
                 </label>
                 {REQUIREMENT_HINT[key] && (
-                  <p className="mt-1 pl-6 text-xs text-slate-400 dark:text-slate-500">{REQUIREMENT_HINT[key]}</p>
+                  <p className="mt-1 pl-6 text-xs text-slate-500 dark:text-slate-400">{REQUIREMENT_HINT[key]}</p>
                 )}
               </div>
             ))}
@@ -247,7 +247,7 @@ export default function MonthlyRentDeductionPage() {
               </tbody>
             </table>
           </div>
-          <p className="mt-2 text-xs text-slate-400 dark:text-slate-500">
+          <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
             * 소득공제 갈래는 총급여 25% 문턱과 구간별 한도를 무시한 <strong>가장 좋은 경우</strong>입니다.
             실제로는 한 푼도 안 늘 수 있습니다. 소득공제로 실제 붙은 세율은{' '}
             {pct(r.incomeRouteMarginalRate)}입니다 — 산출세액이 줄면 근로소득세액공제도 함께 줄어들어
@@ -276,7 +276,7 @@ export default function MonthlyRentDeductionPage() {
               <MoneyInput value={totalIncome} onChange={setTotalIncome} placeholder="근로소득만 있으면 비움" />
             </div>
           </div>
-          <p className="mt-2 text-xs text-slate-400 dark:text-slate-500">
+          <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
             * 결정세액은 원천징수영수증(근로소득 지급명세서)의 <strong>결정세액</strong> 칸입니다.
             비워 두면 총급여·부양가족 수로 어림하는데, 실제 공제 항목을 모두 담지 못해 실제보다 크게
             나옵니다. 종합소득금액은 근로 말고 다른 소득이 있을 때만 넣으세요.
@@ -325,7 +325,7 @@ export default function MonthlyRentDeductionPage() {
                 className={inputCls} placeholder={`비우면 ${pct(second.rate)}`} />
             </div>
           </div>
-          <p className="mt-2 text-xs text-slate-400 dark:text-slate-500">
+          <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
             * 공제율·연 한도·총급여 상한은 조세특례제한법 개정으로 바뀌어 왔습니다(한도가 750만원이던
             해가 있고 총급여 상한이 7,000만원이던 해가 있습니다). 여기 적힌 값은{' '}
             <strong>확인된 값이 아닙니다</strong> —

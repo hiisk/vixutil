@@ -34,7 +34,7 @@ export default function AmountTool() {
             placeholder="3500000"
             className="w-full rounded-lg border chip-off px-4 py-3.5 pr-12 text-xl font-bold text-slate-800 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 tabular-nums focus:outline-none focus:border-indigo-400 transition-colors"
           />
-          <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-bold text-slate-400 dark:text-slate-500">원</span>
+          <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-bold text-slate-500 dark:text-slate-400">원</span>
         </div>
       </label>
 

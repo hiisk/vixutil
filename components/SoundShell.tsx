@@ -53,7 +53,7 @@ export default function SoundShell({
             홈
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link prefetch={false} href="/sound" className="text-sm text-slate-400 dark:text-slate-500 hover:text-violet-600 transition-colors font-medium">
+          <Link prefetch={false} href="/sound" className="text-sm text-slate-500 dark:text-slate-400 hover:text-violet-600 transition-colors font-medium">
             소리 도구
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
@@ -119,7 +119,7 @@ export default function SoundShell({
           </div>
         </section>
 
-        <p className="text-center text-xs text-slate-300 dark:text-slate-600 mt-9 leading-relaxed">
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-9 leading-relaxed">
           볼륨을 크게 올린 채 오래 듣지 마세요. 특히 고주파는 귀에 부담이 큽니다.
         </p>
       </main>

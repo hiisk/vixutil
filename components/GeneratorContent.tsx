@@ -96,7 +96,7 @@ export default function GeneratorContent({ gen }: { gen: Generator }) {
             <ul className="flex flex-col gap-3">
               {pools.map((pool, i) => (
                 <li key={i}>
-                  <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mb-1.5">
+                  <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">
                     {i + 1}번째 자리 · {pool.length}개
                   </p>
                   <ul className="flex flex-wrap gap-1.5">
@@ -116,7 +116,7 @@ export default function GeneratorContent({ gen }: { gen: Generator }) {
         )}
 
         {hasList && (
-          <p className="text-xs leading-relaxed text-slate-400 dark:text-slate-500 mt-4">
+          <p className="text-xs leading-relaxed text-slate-500 dark:text-slate-400 mt-4">
             모든 생성은 브라우저에서만 이루어지며 결과는 서버에 저장되지 않습니다.
           </p>
         )}

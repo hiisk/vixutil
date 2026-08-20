@@ -96,7 +96,7 @@ export default function MbtiPage() {
           <div>
             <div className="flex items-center gap-2 mb-4 text-xs text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2">
               <span className="font-semibold text-slate-700 dark:text-slate-200">{type.nickname}</span>
-              <span className="text-slate-300 dark:text-slate-600">·</span>
+              <span className="text-slate-500 dark:text-slate-400">·</span>
               <span>{type.trait}</span>
             </div>
             <FortuneDisplay
@@ -107,7 +107,7 @@ export default function MbtiPage() {
             />
           </div>
         ) : (
-          <div className="py-12 text-slate-300 dark:text-slate-600">
+          <div className="py-12 text-slate-500 dark:text-slate-400">
             <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">MBTI 유형을 선택하면 오늘의 운세를 볼 수 있습니다</p>
           </div>

@@ -67,7 +67,7 @@ export default function ImageDrop({
         <span className="text-sm font-bold text-slate-700 dark:text-slate-200">
           {multiple ? c.dropMany : c.dropOne}
         </span>
-        <span className="text-xs text-slate-400 dark:text-slate-500 text-center leading-relaxed">
+        <span className="text-xs text-slate-500 dark:text-slate-400 text-center leading-relaxed">
           {c.dropHow}{paste.before}<kbd className="font-sans">Ctrl</kbd>+<kbd className="font-sans">V</kbd>{paste.after}
           {hint && <><br />{hint}</>}
         </span>

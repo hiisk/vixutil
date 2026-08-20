@@ -103,7 +103,7 @@ export function QuizIntlHub({ lang }: { lang: QuizIntlLang }) {
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
         <span className="text-sm font-bold text-amber-600">vixutil</span>
-        <p className="text-xs text-slate-400 mt-1">{ui.foot}</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{ui.foot}</p>
       </footer>
     </div>
   );
@@ -160,7 +160,7 @@ export function QuizIntlDetail({ lang, quiz }: { lang: QuizIntlLang; quiz: Quiz 
       </div>
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
         <Link prefetch={false} href={`/${lang}/quiz`} className="text-sm font-bold text-amber-600">vixutil</Link>
-        <p className="text-xs text-slate-400 mt-1">{ui.foot}</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{ui.foot}</p>
       </footer>
     </>
   );

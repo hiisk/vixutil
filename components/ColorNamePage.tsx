@@ -113,7 +113,7 @@ export default function ColorNamePage({ color, lang, lead, nearby: nearbyProp, f
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link prefetch={false} href={`${prefix}/color`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
+          <Link prefetch={false} href={`${prefix}/color`} className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 transition-colors font-medium truncate">
             {ui.section}
           </Link>
           <div className="ml-auto shrink-0">
@@ -184,13 +184,13 @@ export default function ColorNamePage({ color, lang, lead, nearby: nearbyProp, f
         {f.chromatic && (
         <section className="mt-6">
           <h2 className="sec-h2">{ui.harmonyTitle}</h2>
-          <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mb-1.5">{ui.complementLabel}</p>
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">{ui.complementLabel}</p>
           <div className="grid grid-cols-4 gap-2 mb-3">{swatch(f.complement, f.complement.toUpperCase())}</div>
-          <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mb-1.5">{ui.analogousLabel}</p>
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">{ui.analogousLabel}</p>
           <div className="grid grid-cols-4 gap-2 mb-3">
             {f.analogous.map(h => swatch(h, h.toUpperCase()))}
           </div>
-          <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mb-1.5">{ui.triadLabel}</p>
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">{ui.triadLabel}</p>
           <div className="grid grid-cols-4 gap-2">{f.triad.map(h => swatch(h, h.toUpperCase()))}</div>
         </section>
         )}
@@ -234,7 +234,7 @@ export default function ColorNamePage({ color, lang, lead, nearby: nearbyProp, f
                 <span className="block h-12" style={{ background: n.hex }} />
                 <span className="block px-2 py-1.5 bg-white dark:bg-slate-900">
                   <span className="block text-xs font-bold text-slate-700 dark:text-slate-200 truncate">{n.name[lang]}</span>
-                  <span className="block text-[10px] text-slate-400 dark:text-slate-500 tabular-nums">{n.hex.toUpperCase()}</span>
+                  <span className="block text-[10px] text-slate-500 dark:text-slate-400 tabular-nums">{n.hex.toUpperCase()}</span>
                 </span>
               </Link>
             ))}

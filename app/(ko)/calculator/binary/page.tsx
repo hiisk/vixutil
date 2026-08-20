@@ -148,10 +148,10 @@ export default function BinaryPage() {
             <table className="w-full text-xs text-center">
               <thead>
                 <tr className="border-b border-slate-100 dark:border-slate-800">
-                  <th className="py-2 text-slate-400 dark:text-slate-500 font-semibold">DEC</th>
-                  <th className="py-2 text-slate-400 dark:text-slate-500 font-semibold">HEX</th>
-                  <th className="py-2 text-slate-400 dark:text-slate-500 font-semibold">OCT</th>
-                  <th className="py-2 text-slate-400 dark:text-slate-500 font-semibold">BIN</th>
+                  <th className="py-2 text-slate-500 dark:text-slate-400 font-semibold">DEC</th>
+                  <th className="py-2 text-slate-500 dark:text-slate-400 font-semibold">HEX</th>
+                  <th className="py-2 text-slate-500 dark:text-slate-400 font-semibold">OCT</th>
+                  <th className="py-2 text-slate-500 dark:text-slate-400 font-semibold">BIN</th>
                 </tr>
               </thead>
               <tbody>

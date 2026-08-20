@@ -63,7 +63,7 @@ export default function RiceTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
         <p className="mt-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           {ui.knuckle}
         </p>
-        <p className="mt-3 text-[11px] text-slate-400 dark:text-slate-500">
+        <p className="mt-3 text-[11px] text-slate-500 dark:text-slate-400">
           {ui.rinseNote}
         </p>
       </div>

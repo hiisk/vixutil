@@ -71,9 +71,9 @@ export default function ExtHubPage({ lang }: { lang: Lang }) {
           <section key={kind} className="mb-8">
             <h2 className="sec-h2-tight">
               {ui.kindLabel[kind]}
-              <span className="ml-1.5 text-xs font-medium text-slate-400 dark:text-slate-500">{extsOfKind(kind).length}</span>
+              <span className="ml-1.5 text-xs font-medium text-slate-500 dark:text-slate-400">{extsOfKind(kind).length}</span>
             </h2>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.kindNote[kind]}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.kindNote[kind]}</p>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
               {extsOfKind(kind).map(x => {
                 const f = extFacts(x);
@@ -84,7 +84,7 @@ export default function ExtHubPage({ lang }: { lang: Lang }) {
                     className="rounded-xl border chip-off px-3 py-2.5 hover:shadow-sm hover:-translate-y-0.5 transition-all"
                   >
                     <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">.{x.ext}</span>
-                    <span className="block text-[11px] text-slate-400 dark:text-slate-500 truncate">{f.mime}</span>
+                    <span className="block text-[11px] text-slate-500 dark:text-slate-400 truncate">{f.mime}</span>
                   </Link>
                 );
               })}

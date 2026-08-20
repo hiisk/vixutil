@@ -84,7 +84,7 @@ export default function FoodWeightPage({ ing, lang }: { ing: Ingredient; lang: L
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link prefetch={false} href={`${prefix}/food`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
+          <Link prefetch={false} href={`${prefix}/food`} className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 transition-colors font-medium truncate">
             {ui.section}
           </Link>
           <div className="ml-auto shrink-0">
@@ -144,7 +144,7 @@ export default function FoodWeightPage({ ing, lang }: { ing: Ingredient; lang: L
           <div className="grid grid-cols-5 gap-2">
             {f.cupTable.map(r => (
               <div key={r.label} className="rounded-xl border chip-off px-2 py-2.5 text-center">
-                <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500">{ui.cupOf(r.label)}</p>
+                <p className="text-[11px] font-bold text-slate-500 dark:text-slate-400">{ui.cupOf(r.label)}</p>
                 <p className="text-sm font-bold text-slate-800 dark:text-slate-100 tabular-nums mt-0.5">
                   {r.grams}{ui.gram}
                 </p>

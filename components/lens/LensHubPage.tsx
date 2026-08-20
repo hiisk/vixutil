@@ -75,7 +75,7 @@ export default function LensHubPage({ lang }: { lang: Lang }) {
         {SENSORS.map(s => (
           <section key={s.key} className="mb-9">
             <h2 className="sec-h2-tight">{s.name}</h2>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.sensorNote[s.key]}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.sensorNote[s.key]}</p>
 
             <SensorBox sensor={s.key} label={`${s.name} ${s.w}×${s.h}mm`} className="w-full max-w-[260px] mx-auto mb-3" />
 

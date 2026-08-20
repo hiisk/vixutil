@@ -212,7 +212,7 @@ export default function AnimalFace({ lang }: { lang: SnapIntlLang }) {
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5 flex items-center gap-3">
             <span className="text-3xl">{result.runnerUp.emoji}</span>
             <div className="flex-1">
-              <p className="text-xs text-slate-400 dark:text-slate-500">{c.runnerUp}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">{c.runnerUp}</p>
               <p className="text-base font-bold text-slate-800 dark:text-slate-100">{result.runnerUp.label}</p>
             </div>
             <span className="text-sm font-bold text-orange-600">{result.runnerUp.percent}%</span>

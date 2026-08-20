@@ -232,7 +232,7 @@ export default function FaceSymmetryPage() {
           >
             <ToolIcon emoji="📷" className="w-9 h-9 text-slate-800 dark:text-slate-100" />
             <span className="text-sm font-bold text-slate-600 dark:text-slate-300">사진을 선택해주세요</span>
-            <span className="text-xs text-slate-400 dark:text-slate-500">고개를 기울이지 않은 정면 사진일수록 정확해요</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">고개를 기울이지 않은 정면 사진일수록 정확해요</span>
           </button>
         )}
         <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={e => { const f = e.target.files?.[0]; if (f) handleFile(f); }} />
@@ -250,7 +250,7 @@ export default function FaceSymmetryPage() {
               )}
             </div>
             {!analyzing && (
-              <button onClick={() => fileInputRef.current?.click()} className="mt-3 mx-auto block text-xs font-semibold text-slate-400 dark:text-slate-500 hover:text-indigo-600 transition-colors">
+              <button onClick={() => fileInputRef.current?.click()} className="mt-3 mx-auto block text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-indigo-600 transition-colors">
                 다른 사진으로 다시 보기
               </button>
             )}
@@ -284,7 +284,7 @@ export default function FaceSymmetryPage() {
                   <div key={r.key}>
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-xs font-semibold text-slate-600 dark:text-slate-300">{r.label}</span>
-                      <span className="text-xs font-bold text-indigo-600">{r.percent}% <span className="text-slate-400 dark:text-slate-500 font-medium">· {r.comment}</span></span>
+                      <span className="text-xs font-bold text-indigo-600">{r.percent}% <span className="text-slate-500 dark:text-slate-400 font-medium">· {r.comment}</span></span>
                     </div>
                     <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                       <div className="h-full bg-sec rounded-full" style={{ width: `${r.percent}%` }} />
@@ -292,7 +292,7 @@ export default function FaceSymmetryPage() {
                   </div>
                 ))}
               </div>
-              <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-3">가장 대칭이 잘 맞는 부위는 <strong className="text-slate-500 dark:text-slate-400">{result.bestRegion}</strong>이에요.</p>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-3">가장 대칭이 잘 맞는 부위는 <strong className="text-slate-500 dark:text-slate-400">{result.bestRegion}</strong>이에요.</p>
             </div>
 
             <div className="bg-amber-50 border border-amber-100 dark:border-amber-900/40 rounded-lg p-5">
@@ -315,7 +315,7 @@ export default function FaceSymmetryPage() {
 
             <ShareButton title="얼굴 대칭 분석 결과" description={`대칭 지수 ${result.percent}% — ${result.text}`} type="fortune" />
 
-            <p className="text-center text-xs text-slate-300 dark:text-slate-600 pt-2">
+            <p className="text-center text-xs text-slate-500 dark:text-slate-400 pt-2">
               좌우 밸런스 측정은 실제로 이뤄지지만, 대칭 지수는 매력이나 아름다움과는 무관한 재미 지표입니다.
             </p>
           </div>

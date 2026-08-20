@@ -78,11 +78,11 @@ export default function StopwatchTool({ lang = 'ko' }: { lang?: TimeLang } = {})
                   key={i}
                   className="flex items-center gap-3 px-4 py-2.5 row-line bg-white dark:bg-slate-900"
                 >
-                  <span className="w-10 text-xs font-medium text-slate-400 dark:text-slate-500">#{i + 1}</span>
+                  <span className="w-10 text-xs font-medium text-slate-500 dark:text-slate-400">#{i + 1}</span>
                   <span className={`flex-1 text-sm font-mono font-bold tabular-nums ${tone}`}>
                     {formatDuration(seg, true)}
                   </span>
-                  <span className="text-xs font-mono text-slate-400 dark:text-slate-500 tabular-nums">
+                  <span className="text-xs font-mono text-slate-500 dark:text-slate-400 tabular-nums">
                     {ui.cumulative} {formatDuration(t, true)}
                   </span>
                 </div>

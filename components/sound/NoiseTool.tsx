@@ -100,7 +100,7 @@ export default function NoiseTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
           </button>
         ))}
       </div>
-      <p className="mt-2 text-[11px] text-slate-400 dark:text-slate-500 text-center">
+      <p className="mt-2 text-[11px] text-slate-500 dark:text-slate-400 text-center">
         {ui.kindHints[KINDS.findIndex(k => k.id === kind)]}
       </p>
 
@@ -131,7 +131,7 @@ export default function NoiseTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
         <PlayButton playing={playing} onToggle={() => (playing ? stop() : setPlaying(true))} label={c.play} lang={lang} />
       </div>
       {playing && timer > 0 && (
-        <p className="mt-2 text-center text-xs text-slate-400 dark:text-slate-500">{ui.stopsIn(left || timer)}</p>
+        <p className="mt-2 text-center text-xs text-slate-500 dark:text-slate-400">{ui.stopsIn(left || timer)}</p>
       )}
 
       <div className={`${CARD} mt-4`}>

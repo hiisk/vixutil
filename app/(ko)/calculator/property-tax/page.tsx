@@ -107,7 +107,7 @@ export default function PropertyTaxPage() {
               </div>
             </Card>
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">* 7월(건물분)·9월(토지분) 2회 납부 · 20만원 이하 일시납</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">* 7월(건물분)·9월(토지분) 2회 납부 · 20만원 이하 일시납</p>
             </Card>
           </>
         )}

@@ -99,7 +99,7 @@ export default function FormulaArticle({
             { k: ui.stepAnswer, v: answerLine(tool, lang) },
           ].map((s, i) => (
             <div key={s.k} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3">
-              <span className="shrink-0 text-[11px] font-bold text-slate-400 dark:text-slate-500 sm:w-28">{s.k}</span>
+              <span className="shrink-0 text-[11px] font-bold text-slate-500 dark:text-slate-400 sm:w-28">{s.k}</span>
               <span className={`text-sm font-mono tabular-nums leading-relaxed break-words ${i === 2 ? `font-bold ${section.textAccent}` : 'text-slate-700 dark:text-slate-200'}`}>
                 {s.v}
               </span>

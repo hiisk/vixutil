@@ -67,9 +67,9 @@ export default function CodeHubPage({ lang }: { lang: Lang }) {
           <section key={kind} className="mb-8">
             <h2 className="sec-h2-tight">
               {ui.kindLabel[kind]}
-              <span className="ml-1.5 text-[11px] font-bold text-slate-400 dark:text-slate-500">{charsOfKind(kind).length}</span>
+              <span className="ml-1.5 text-[11px] font-bold text-slate-500 dark:text-slate-400">{charsOfKind(kind).length}</span>
             </h2>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.kindNote[kind]}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.kindNote[kind]}</p>
             <div className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
               {charsOfKind(kind).map(x => {
                 const f = charFacts(x);
@@ -81,7 +81,7 @@ export default function CodeHubPage({ lang }: { lang: Lang }) {
                     <span className="text-sm font-bold text-slate-900 dark:text-slate-100 shrink-0 w-[20px]">{x.char}</span>
                     <span className="text-sm font-bold tracking-[0.2em] text-violet-700 dark:text-violet-400 shrink-0 w-[84px]">{x.morse}</span>
                     <span className="cell-cut">{x.nato ?? ''}</span>
-                    <span className="ml-auto text-[11px] text-slate-400 dark:text-slate-500 shrink-0">{f.braille ?? ''}</span>
+                    <span className="ml-auto text-[11px] text-slate-500 dark:text-slate-400 shrink-0">{f.braille ?? ''}</span>
                   </span>
                 );
               })}
@@ -98,7 +98,7 @@ export default function CodeHubPage({ lang }: { lang: Lang }) {
           <section key={n} className="mb-6">
             <h3 className="text-sm font-bold text-slate-700 dark:text-slate-200 mb-2">
               {ui.raisedGroup(n)}
-              <span className="ml-1.5 text-[11px] font-bold text-slate-400 dark:text-slate-500">{cellsOfRaised(n).length}</span>
+              <span className="ml-1.5 text-[11px] font-bold text-slate-500 dark:text-slate-400">{cellsOfRaised(n).length}</span>
             </h3>
             <div className="flex flex-wrap gap-1.5">
               {cellsOfRaised(n).map(m => (

@@ -29,7 +29,7 @@ export default function PastaTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
   return (
     <div>
       <NumberField label={ui.noodle} value={gram} onChange={setGram} unit="g" step={50} min={50} />
-      <p className="mt-1.5 text-[11px] text-slate-400 dark:text-slate-500">
+      <p className="mt-1.5 text-[11px] text-slate-500 dark:text-slate-400">
         {ui.servingNote}
       </p>
 
@@ -64,7 +64,7 @@ export default function PastaTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
         <input type="checkbox" checked={aldente} onChange={e => setAldente(e.target.checked)} className="w-4 h-4 accent-amber-500" />
         <span className="text-sm text-slate-700 dark:text-slate-200">
           {ui.alDente}
-          <span className="block text-[11px] text-slate-400 dark:text-slate-500">{ui.alDenteNote}</span>
+          <span className="block text-[11px] text-slate-500 dark:text-slate-400">{ui.alDenteNote}</span>
         </span>
       </label>
 

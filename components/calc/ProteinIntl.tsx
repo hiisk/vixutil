@@ -54,7 +54,7 @@ export default function ProteinIntl({ lang }: { lang: CalcLang }) {
                 }`}
               >
                 <span className="text-sm font-semibold">{labels[l.id][0]}</span>
-                <span className={`block text-xs ${level === l.id ? 'text-blue-100' : 'text-slate-400 dark:text-slate-500'}`}>
+                <span className={`block text-xs ${level === l.id ? 'text-blue-100' : 'text-slate-500 dark:text-slate-400'}`}>
                   {labels[l.id][1]}
                 </span>
               </button>
@@ -62,7 +62,7 @@ export default function ProteinIntl({ lang }: { lang: CalcLang }) {
           </div>
         </div>
         <div className="mt-4"><PrimaryBtn onClick={calculate}>{c.calc}</PrimaryBtn></div>
-        <p className="mt-3 text-xs text-slate-400 dark:text-slate-500">{c.note}</p>
+        <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">{c.note}</p>
       </Card>
 
       {result && (

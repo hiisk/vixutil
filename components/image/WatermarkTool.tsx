@@ -160,7 +160,7 @@ export default function WatermarkTool({ lang = 'ko' }: { lang?: ImageLang } = {}
           <input type="checkbox" checked={tile} onChange={e => setTile(e.target.checked)} className="mt-0.5 accent-violet-500 w-4 h-4" />
           <span>
             <span className="block text-sm font-bold text-slate-700 dark:text-slate-200">{ui.tile}</span>
-            <span className="block text-xs text-slate-400 dark:text-slate-500">{ui.tileHint}</span>
+            <span className="block text-xs text-slate-500 dark:text-slate-400">{ui.tileHint}</span>
           </span>
         </label>
       </div>

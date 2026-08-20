@@ -84,7 +84,7 @@ export default function DeviceHubPage() {
         <div className="flex flex-col gap-7">
           {grouped.map(g => (
             <section key={g.category} aria-label={g.category}>
-              <h2 className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
+              <h2 className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">
                 {g.category}
               </h2>
               <div className="grid sm:grid-cols-2 gap-3">
@@ -98,7 +98,7 @@ export default function DeviceHubPage() {
                       <div className="flex items-start justify-between mb-3">
                         <ToolIcon emoji={t.icon} color={t.og[0]} accent={t.og[1]} className="w-8 h-8" />
                         {t.needsPermission && (
-                          <span className="text-[10px] font-bold px-2 py-1 rounded-full bg-sky-50 dark:bg-sky-950/40 text-sky-600 border border-sky-100 dark:border-sky-900/50">
+                          <span className="text-[10px] font-bold px-2 py-1 rounded-full bg-sky-50 dark:bg-sky-950/40 text-sky-600 dark:text-sky-300 border border-sky-100 dark:border-sky-900/50">
                             권한 필요
                           </span>
                         )}
@@ -147,7 +147,7 @@ export default function DeviceHubPage() {
 
         <Faq items={SECTION_FAQ.device} />
 
-        <p className="text-center text-xs text-slate-300 dark:text-slate-600 mt-9">
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-9">
           측정값은 브라우저가 알려주는 값이라 실제 하드웨어 사양과 다를 수 있습니다
         </p>
       </main>

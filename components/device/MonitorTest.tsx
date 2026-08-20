@@ -120,7 +120,7 @@ export default function MonitorTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
           {ui.how}
           <br />
-          <span className="text-slate-400 dark:text-slate-500 text-xs">
+          <span className="text-slate-500 dark:text-slate-400 text-xs">
             {ui.keysHint}
           </span>
         </p>
@@ -167,7 +167,7 @@ export default function MonitorTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
             <b className="text-slate-800 dark:text-slate-100">{ui.patchTerm}</b>{ui.patchNote}
           </li>
         </ul>
-        <p className="mt-3 text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed">
+        <p className="mt-3 text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
           {ui.warrantyNote}
         </p>
       </div>

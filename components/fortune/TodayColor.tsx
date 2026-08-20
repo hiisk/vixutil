@@ -185,7 +185,7 @@ export default function TodayColor({ lang }: { lang: IntlLang }) {
             <div className="rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 p-5 flex items-center gap-3">
               <span className="w-10 h-10 rounded-full border-2 border-white shadow-sm shrink-0" style={{ background: result.avoid.hex }} />
               <div>
-                <div className="text-xs font-medium text-slate-400">{c.avoidLabel}</div>
+                <div className="text-xs font-medium text-slate-500 dark:text-slate-400">{c.avoidLabel}</div>
                 <div className="text-base font-bold text-slate-800 dark:text-slate-100">{result.avoid.name}</div>
               </div>
             </div>
@@ -194,7 +194,7 @@ export default function TodayColor({ lang }: { lang: IntlLang }) {
           </div>
         )}
 
-        <p className="text-center text-[11px] text-slate-400 dark:text-slate-500 mt-6">{c.note}</p>
+        <p className="text-center text-[11px] text-slate-500 dark:text-slate-400 mt-6">{c.note}</p>
       </div>
     </div>
   );

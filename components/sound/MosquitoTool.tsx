@@ -64,7 +64,7 @@ export default function MosquitoTool({ lang = 'ko' }: { lang?: SoundLang } = {})
             </button>
             <span className="hub-card-body">
               <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">{(s.hz / 1000).toFixed(0)}kHz</span>
-              <span className="block text-[11px] text-slate-400 dark:text-slate-500">{ui.ages[i]}</span>
+              <span className="block text-[11px] text-slate-500 dark:text-slate-400">{ui.ages[i]}</span>
             </span>
             <button
               onClick={() => toggleHeard(s.hz)}

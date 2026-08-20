@@ -26,7 +26,7 @@ export default function ExerciseLeaf({ slug, lang }: { slug: string; lang: AnyLo
       <header className="page-head">
         <div className="page-bar">
           <Link prefetch={false} href={localeHref(lang, '/')} className="page-back hover:text-emerald-600 shrink-0">←</Link>
-          <Link prefetch={false} href={`${prefix}/body`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-emerald-600 transition-colors font-medium truncate">Body</Link>
+          <Link prefetch={false} href={`${prefix}/body`} className="text-sm text-slate-500 dark:text-slate-400 hover:text-emerald-600 transition-colors font-medium truncate">Body</Link>
           <span className="ml-auto shrink-0"><LangPicker current={lang} route={`/body/exercise/${slug}`} /></span>
         </div>
       </header>

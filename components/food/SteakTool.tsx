@@ -32,11 +32,11 @@ export default function SteakTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
               <span className={`block text-sm font-bold ${pick === d.id ? 'text-red-700 dark:text-red-300' : 'text-slate-800 dark:text-slate-100'}`}>
                 {names[d.id].name}
               </span>
-              <span className="block text-[11px] text-slate-400 dark:text-slate-500">{names[d.id].desc}</span>
+              <span className="block text-[11px] text-slate-500 dark:text-slate-400">{names[d.id].desc}</span>
             </span>
             <span className="shrink-0 text-right">
               <span className="block text-lg font-bold text-slate-800 dark:text-slate-100 tabular-nums">{d.final}℃</span>
-              <span className="block text-[10px] text-slate-400 dark:text-slate-500">{ui.finalCenter}</span>
+              <span className="block text-[10px] text-slate-500 dark:text-slate-400">{ui.finalCenter}</span>
             </span>
           </button>
         ))}
@@ -63,7 +63,7 @@ export default function SteakTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           {ui.why}
         </p>
-        <p className="mt-3 text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed">
+        <p className="mt-3 text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
           {ui.note}
         </p>
       </div>

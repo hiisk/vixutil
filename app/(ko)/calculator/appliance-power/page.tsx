@@ -175,7 +175,7 @@ export default function AppliancePowerPage() {
               </Card>
             )}
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 주택용 저압 기준 · 부가세 10%와 전력산업기반기금 3.7% 포함 · 소비전력은 대표값이므로 제품 라벨을 확인하세요
               </p>
             </Card>

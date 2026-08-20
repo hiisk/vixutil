@@ -83,7 +83,7 @@ export default function MbtiMatchPage() {
           <button
             onClick={calculate}
             disabled={!me || !partner}
-            className="w-full rounded-xl bg-sec disabled:from-slate-200 disabled:to-slate-200 dark:disabled:from-slate-800 dark:disabled:to-slate-800 disabled:text-slate-400 text-sm font-bold py-3.5 transition-all active:scale-[0.99] shadow-sm shadow-violet-200 disabled:shadow-none"
+            className="w-full rounded-xl bg-sec disabled:from-slate-200 disabled:to-slate-200 dark:disabled:from-slate-800 dark:disabled:to-slate-800 disabled:text-slate-500 dark:text-slate-400 text-sm font-bold py-3.5 transition-all active:scale-[0.99] shadow-sm shadow-violet-200 disabled:shadow-none"
           >
             {!me || !partner ? '두 MBTI를 모두 골라주세요' : '궁합 보기 ✨'}
           </button>
@@ -100,7 +100,7 @@ export default function MbtiMatchPage() {
             shareDescription={`${result.info.label} — ${result.info.headline}`}
           />
         ) : (
-          <div className="py-10 text-slate-300 dark:text-slate-600">
+          <div className="py-10 text-slate-500 dark:text-slate-400">
             <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">두 사람의 MBTI를 골라 궁합을 확인해보세요</p>
           </div>

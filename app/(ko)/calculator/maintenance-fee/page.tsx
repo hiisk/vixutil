@@ -75,7 +75,7 @@ export default function MaintenanceFeePage() {
             min="0"
             className={inputCls}
           />
-          <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             공급면적(분양 평수)이 아니라 등기부·계약서의 전용면적을 넣어야 단가가 맞습니다
           </p>
         </Card>
@@ -139,7 +139,7 @@ export default function MaintenanceFeePage() {
                       <span className="text-slate-700 dark:text-slate-300">{item.label}</span>
                       <span className="text-slate-900 dark:text-slate-100 font-bold tabular-nums">
                         {w(item.amount)}원
-                        <span className="text-xs text-slate-400 dark:text-slate-500 ml-1.5 font-medium">
+                        <span className="text-xs text-slate-500 dark:text-slate-400 ml-1.5 font-medium">
                           {item.share.toFixed(1)}%
                         </span>
                       </span>

@@ -75,13 +75,13 @@ export default function OneRepMaxIntl({ lang }: { lang: CalcLang }) {
 
           <Card className="p-5">
             <p className="label-caps mb-1">{c.table}</p>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mb-3">{c.tableNote}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{c.tableNote}</p>
             <div className="kv-table">
               {ROWS.map(r => (
                 <div key={r.pct} className="kv-row">
                   <span>
                     {r.pct}%
-                    <span className="ml-2 text-xs text-slate-400 dark:text-slate-500">×{r.reps} · {c[r.use]}</span>
+                    <span className="ml-2 text-xs text-slate-500 dark:text-slate-400">×{r.reps} · {c[r.use]}</span>
                   </span>
                   <span className="tabular-nums font-bold">{plateRound(result.best * r.pct / 100)} kg</span>
                 </div>

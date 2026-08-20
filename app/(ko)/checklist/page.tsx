@@ -51,7 +51,7 @@ export default function ChecklistIndexPage() {
           <Link href="/" className="font-bold text-sky-600 text-lg shrink-0">vix.</Link>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">체크리스트</span>
           <span className="ml-auto flex items-center gap-3 shrink-0">
-            <span className="text-xs text-slate-400 dark:text-slate-500">{CHECKLISTS.length}개 · {totalItems}항목</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">{CHECKLISTS.length}개 · {totalItems}항목</span>
             <LangPicker current="ko" route="/checklist" />
           </span>
         </div>

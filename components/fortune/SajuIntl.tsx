@@ -64,8 +64,8 @@ function PillarCard({ label, p, stems, branches }: {
   if (!p) {
     return (
       <div className="rounded-xl border border-dashed border-slate-200 dark:border-slate-700 p-3 text-center">
-        <p className="text-[10px] text-slate-400 dark:text-slate-500 mb-1">{label}</p>
-        <p className="text-2xl text-slate-300 dark:text-slate-600">—</p>
+        <p className="text-[10px] text-slate-500 dark:text-slate-400 mb-1">{label}</p>
+        <p className="text-2xl text-slate-500 dark:text-slate-400">—</p>
       </div>
     );
   }
@@ -73,10 +73,10 @@ function PillarCard({ label, p, stems, branches }: {
   const branch = BRANCHES[p.branchIdx];
   return (
     <div className="rounded-xl border chip-off p-3 text-center">
-      <p className="text-[10px] text-slate-400 dark:text-slate-500 mb-1">{label}</p>
+      <p className="text-[10px] text-slate-500 dark:text-slate-400 mb-1">{label}</p>
       <p className="text-2xl font-bold leading-tight" style={{ color: ELEMENT_COLOR[stem.element] }}>{stem.hanja}</p>
       <p className="text-2xl font-bold leading-tight" style={{ color: ELEMENT_COLOR[branch.element] }}>{branch.hanja}</p>
-      <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-1">
+      <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-1">
         {stems[stem.hanja]?.kor} {branches[branch.hanja]?.kor}
       </p>
     </div>
@@ -289,9 +289,9 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
                     return (
                       <div key={label} className="rounded-xl bg-slate-50 dark:bg-slate-800/60 p-3">
                         <div className="flex items-center gap-2 mb-1">
-                          <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500">{label}</span>
+                          <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400">{label}</span>
                           <span className="text-xs font-bold text-indigo-600">{info.name}</span>
-                          <span className="text-[10px] text-slate-400 dark:text-slate-500">{info.summary}</span>
+                          <span className="text-[10px] text-slate-500 dark:text-slate-400">{info.summary}</span>
                         </div>
                         <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                           {gender === 'male' ? info.male : info.female}
@@ -310,7 +310,7 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
                   const b = BRANCHES[w.pillar.branchIdx];
                   return (
                     <div key={w.age} className="rounded-xl border border-slate-200 dark:border-slate-700 p-2 text-center">
-                      <p className="text-[10px] text-slate-400 dark:text-slate-500">{w.age}{''}</p>
+                      <p className="text-[10px] text-slate-500 dark:text-slate-400">{w.age}{''}</p>
                       <p className="text-base font-bold leading-tight" style={{ color: ELEMENT_COLOR[s.element] }}>{s.hanja}</p>
                       <p className="text-base font-bold leading-tight" style={{ color: ELEMENT_COLOR[b.element] }}>{b.hanja}</p>
                     </div>
@@ -335,7 +335,7 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
                       <span className="text-lg">{d.emoji}</span>
                       <span className="text-sm font-bold text-slate-800 dark:text-slate-100">{d.title}</span>
                       <span className="ml-auto flex items-center gap-1.5">
-                        <span className="text-[11px] font-bold text-slate-400 dark:text-slate-500 tabular-nums">{du.scoreOf(d.score)}</span>
+                        <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 tabular-nums">{du.scoreOf(d.score)}</span>
                         <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${
                           d.score >= 4
                             ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300'
@@ -348,11 +348,11 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
                       </span>
                     </div>
                     <p className="text-xs font-bold text-slate-600 dark:text-slate-300 leading-relaxed mb-2">{d.summary}</p>
-                    <p className="text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed mb-2">{d.intro}</p>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed mb-2">{d.intro}</p>
                     <ul className="flex flex-col gap-1.5 mb-2">
                       {d.points.map(pt => (
                         <li key={pt} className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed pl-3 relative">
-                          <span className="absolute left-0 text-slate-300 dark:text-slate-600">·</span>
+                          <span className="absolute left-0 text-slate-500 dark:text-slate-400">·</span>
                           {pt}
                         </li>
                       ))}
@@ -375,10 +375,10 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
             </div>
 
             <ReferralCards lang="en" placement="result" />
-            <p className="text-center text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed pt-2">{ui.disclaimer}</p>
+            <p className="text-center text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed pt-2">{ui.disclaimer}</p>
           </div>
         ) : (
-          <div className="py-10 text-slate-300 dark:text-slate-600">
+          <div className="py-10 text-slate-500 dark:text-slate-400">
             <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">{ui.empty}</p>
           </div>

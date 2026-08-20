@@ -466,7 +466,7 @@ export default function ChecklistEngine({ checklist, lang = 'ko', headerRight }:
       {/* 헤더 */}
       <header className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-lg mx-auto px-4 h-14 flex items-center gap-3">
-          <Link href={lang === 'ko' ? '/checklist' : `/${lang}/checklist`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-sky-600 flex items-center gap-1.5 font-medium shrink-0">
+          <Link href={lang === 'ko' ? '/checklist' : `/${lang}/checklist`} className="text-sm text-slate-500 dark:text-slate-400 hover:text-sky-600 flex items-center gap-1.5 font-medium shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -499,7 +499,7 @@ export default function ChecklistEngine({ checklist, lang = 'ko', headerRight }:
           <span className="bg-sec-soft mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg">
             <ToolIcon emoji={checklist.icon} className="h-5 w-5" />
           </span>
-          <span className="text-xs font-bold text-sky-600 bg-sky-50 dark:bg-sky-950/30 px-3 py-1 rounded-full">{checklist.category}</span>
+          <span className="text-xs font-bold text-sky-600 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/30 px-3 py-1 rounded-full">{checklist.category}</span>
           <div className="hero-band">
             <PageHero title={checklist.title} desc={checklist.desc} />
           </div>
@@ -510,7 +510,7 @@ export default function ChecklistEngine({ checklist, lang = 'ko', headerRight }:
               style={{ width: `${pct}%` }}
             />
           </div>
-          <div className="flex justify-between text-xs text-slate-400 dark:text-slate-500">
+          <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400">
             <span>{ui.doneCount(done)}</span>
             <span className={`font-bold ${isAllDone ? 'text-emerald-600' : 'text-sky-600'}`}>{pct}%</span>
           </div>
@@ -560,7 +560,7 @@ export default function ChecklistEngine({ checklist, lang = 'ko', headerRight }:
                   className="w-full flex items-center justify-between px-5 py-4 border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors text-left"
                 >
                   <div className="flex items-center gap-2">
-                    <ToolIcon emoji={section.icon} className="w-5 h-5 text-slate-400 dark:text-slate-500" />
+                    <ToolIcon emoji={section.icon} className="w-5 h-5 text-slate-500 dark:text-slate-400" />
                     <span className="font-bold text-slate-800 dark:text-slate-100 text-sm">{section.title}</span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -569,7 +569,7 @@ export default function ChecklistEngine({ checklist, lang = 'ko', headerRight }:
                     }`}>
                       {sectionDone}/{sectionIds.length}
                     </span>
-                    <span className="text-xs text-slate-400 dark:text-slate-500">
+                    <span className="text-xs text-slate-500 dark:text-slate-400">
                       {sectionAllDone ? ui.deselectAll : ui.selectAll}
                     </span>
                   </div>
@@ -595,12 +595,12 @@ export default function ChecklistEngine({ checklist, lang = 'ko', headerRight }:
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className={`text-sm leading-relaxed transition-colors ${
-                            isChecked ? 'line-through text-slate-400 dark:text-slate-500' : 'text-slate-700 dark:text-slate-200'
+                            isChecked ? 'line-through text-slate-500 dark:text-slate-400' : 'text-slate-700 dark:text-slate-200'
                           }`}>
                             {item.text}
                           </p>
                           {item.note && (
-                            <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5 leading-relaxed">{item.note}</p>
+                            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">{item.note}</p>
                           )}
                         </div>
                       </button>
@@ -642,7 +642,7 @@ export default function ChecklistEngine({ checklist, lang = 'ko', headerRight }:
           {done > 0 && (
             <button
               onClick={reset}
-              className="w-full py-3 text-sm text-slate-400 dark:text-slate-500 hover:text-red-500 border border-slate-200 dark:border-slate-700 hover:border-red-200 rounded-xl transition-colors"
+              className="w-full py-3 text-sm text-slate-500 dark:text-slate-400 hover:text-red-500 border border-slate-200 dark:border-slate-700 hover:border-red-200 rounded-xl transition-colors"
             >
               진행 상황 초기화
             </button>

@@ -668,7 +668,7 @@ export default function HubPage() {
             <span className="text-5xl sm:text-6xl font-bold text-blue-600 tracking-tighter">util</span>
             <span className="sr-only"> — 계산기·심리테스트·퀴즈·생성기·체크리스트·운세 모음</span>
           </h1>
-          <p className="text-slate-400 dark:text-slate-500 text-base">일상에 필요한 실용 도구 모음</p>
+          <p className="text-slate-500 dark:text-slate-400 text-base">일상에 필요한 실용 도구 모음</p>
         </div>
 
         {/*
@@ -687,13 +687,13 @@ export default function HubPage() {
           href="/search"
           className="group flex items-center gap-3 mb-10 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 rounded-lg px-4 py-3.5 shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition-all"
         >
-          <svg className="w-5 h-5 text-slate-400 dark:text-slate-500 group-hover:text-sec transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg className="w-5 h-5 text-slate-500 dark:text-slate-400 group-hover:text-sec transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
           </svg>
-          <span className="text-base text-slate-400 dark:text-slate-500 group-hover:text-slate-500 transition-colors">
+          <span className="text-base text-slate-500 dark:text-slate-400 group-hover:text-slate-500 transition-colors">
             실업급여, 전세, MBTI, 로또…
           </span>
-          <span className="ml-auto text-xs font-bold text-slate-300 dark:text-slate-600 group-hover:text-sec transition-colors shrink-0">
+          <span className="ml-auto text-xs font-bold text-slate-500 dark:text-slate-400 group-hover:text-sec transition-colors shrink-0">
             전체 검색
           </span>
         </Link>
@@ -731,14 +731,14 @@ export default function HubPage() {
                   <Image src={thumb} alt="" width={600} height={315} sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 22vw" className="home-thumb" />
                 ) : (
                   <span className="home-thumb flex items-center justify-center">
-                    <ToolIcon emoji={s.icon} className="w-7 h-7 text-slate-400 dark:text-slate-500" />
+                    <ToolIcon emoji={s.icon} className="w-7 h-7 text-slate-500 dark:text-slate-400" />
                   </span>
                 )}
                 <div className="home-card-body">
                   <div className="flex items-baseline justify-between gap-1.5">
                     <h2 className="home-card-title">{s.title}</h2>
                     {s.badge && (
-                      <span className="shrink-0 text-[10px] font-bold text-slate-400 dark:text-slate-500 tabular-nums">
+                      <span className="shrink-0 text-[10px] font-bold text-slate-500 dark:text-slate-400 tabular-nums">
                         {s.badge}
                       </span>
                     )}
@@ -762,14 +762,14 @@ export default function HubPage() {
           ].map(item => (
             <div key={item.label}>
               <p className="text-xl font-bold text-slate-900 dark:text-slate-100">{item.val}</p>
-              <p className="text-xs text-slate-400 dark:text-slate-500">{item.label}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">{item.label}</p>
             </div>
           ))}
         </div>
       </div>
 
       <footer className="text-center pb-8">
-        <p className="text-xs text-slate-300 dark:text-slate-600">vixutil.com — 2026</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400">vixutil.com — 2026</p>
       </footer>
     </div>
   );

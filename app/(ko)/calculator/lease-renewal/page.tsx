@@ -127,7 +127,7 @@ export default function LeaseRenewalPage() {
               </Card>
             )}
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 주택임대차보호법상 증액 청구 상한 · 합의로 더 낮출 수 있고, 법정 사유가 있으면 갱신이 거절될 수 있습니다
               </p>
             </Card>

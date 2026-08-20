@@ -66,7 +66,7 @@ export default function PetAgeIntl({ lang }: { lang: CalcLang }) {
               <span className={`block text-sm font-bold ${size === s.id ? 'text-blue-700 dark:text-blue-300' : 'text-slate-700 dark:text-slate-200'}`}>
                 {s.label}
               </span>
-              <span className="block text-xs text-slate-400 dark:text-slate-500 mt-0.5">{s.hint}</span>
+              <span className="block text-xs text-slate-500 dark:text-slate-400 mt-0.5">{s.hint}</span>
             </button>
           ))}
         </div>
@@ -112,7 +112,7 @@ export default function PetAgeIntl({ lang }: { lang: CalcLang }) {
                   }`}
                 >
                   <span className={`font-semibold ${n === y ? 'text-blue-700 dark:text-blue-300' : 'text-slate-700 dark:text-slate-200'}`}>{y}</span>
-                  <span className="text-slate-400 dark:text-slate-500 font-semibold">{Math.round(humanAge(y, perYear))}</span>
+                  <span className="text-slate-500 dark:text-slate-400 font-semibold">{Math.round(humanAge(y, perYear))}</span>
                 </button>
               ))}
             </div>

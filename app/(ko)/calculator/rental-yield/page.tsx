@@ -86,7 +86,7 @@ export default function RentalYieldPage() {
             <div>
               <Label>취득 부대비용 (원)</Label>
               <CommaInput value={acquisitionCost} onChange={setAcquisitionCost} placeholder="예: 10,000,000" />
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 취득세·중개수수료·법무비 등 살 때 든 비용
               </p>
             </div>
@@ -110,7 +110,7 @@ export default function RentalYieldPage() {
             <div className="col-span-2">
               <Label>월 보유비용 (원)</Label>
               <CommaInput value={monthlyCost} onChange={setMonthlyCost} placeholder="예: 100,000" />
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 관리비 부담분·수선충당 등 매달 나가는 비용 (없으면 0)
               </p>
             </div>
@@ -153,13 +153,13 @@ export default function RentalYieldPage() {
                   <span className="font-bold text-slate-900 dark:text-slate-100 tabular-nums">{w(result.annualRent)}원</span>
                 </div>
                 {result.annualCost > 0 && (
-                  <div className="flex justify-between text-xs text-slate-400 dark:text-slate-500">
+                  <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400">
                     <span>− 연 보유비용</span>
                     <span className="tabular-nums">−{w(result.annualCost)}원</span>
                   </div>
                 )}
                 {result.annualInterest > 0 && (
-                  <div className="flex justify-between text-xs text-slate-400 dark:text-slate-500">
+                  <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400">
                     <span>− 연 대출이자</span>
                     <span className="tabular-nums">−{w(result.annualInterest)}원</span>
                   </div>
@@ -175,7 +175,7 @@ export default function RentalYieldPage() {
                   <span className="text-slate-600 dark:text-slate-300">실투자금</span>
                   <span className="font-bold text-slate-900 dark:text-slate-100 tabular-nums">{w(result.actualInvestment)}원</span>
                 </div>
-                <div className="flex justify-between text-xs text-slate-400 dark:text-slate-500">
+                <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400">
                   <span>매매가 + 부대비용 − 보증금 − 대출</span>
                   <span className="tabular-nums">
                     {w(price)}+{w(acquisitionCost)}−{w(deposit)}−{w(loan)}

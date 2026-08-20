@@ -47,7 +47,7 @@ export default function QuizIndexPage() {
           <Link href="/" className="font-bold text-amber-600 text-lg shrink-0">vix.</Link>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">지식 퀴즈</span>
           <span className="ml-auto flex items-center gap-3 shrink-0">
-            <span className="text-xs text-slate-400 dark:text-slate-500">{QUIZZES.length}개</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">{QUIZZES.length}개</span>
             <LangPicker current="ko" route="/quiz" />
           </span>
         </div>

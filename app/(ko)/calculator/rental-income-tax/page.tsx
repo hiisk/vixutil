@@ -67,7 +67,7 @@ export default function RentalIncomeTaxPage() {
             <div>
               <Label>연 임대수입 (원)</Label>
               <CommaInput value={annualRent} onChange={setAnnualRent} placeholder="예: 12,000,000" />
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 월세 합계 기준 (월 100만원이면 1,200만원)
               </p>
             </div>
@@ -89,7 +89,7 @@ export default function RentalIncomeTaxPage() {
                     }`}
                   >
                     <p className={`text-sm font-bold ${registered === o.v ? 'text-blue-700 dark:text-blue-300' : 'text-slate-700 dark:text-slate-200'}`}>{o.label}</p>
-                    <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{o.sub}</p>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{o.sub}</p>
                   </button>
                 ))}
               </div>
@@ -112,11 +112,11 @@ export default function RentalIncomeTaxPage() {
                     }`}
                   >
                     <p className={`text-sm font-bold ${otherOver === o.v ? 'text-blue-700 dark:text-blue-300' : 'text-slate-700 dark:text-slate-200'}`}>{o.label}</p>
-                    <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{o.sub}</p>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{o.sub}</p>
                   </button>
                 ))}
               </div>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 근로·사업 등 임대소득을 뺀 다른 소득금액 기준
               </p>
             </div>
@@ -166,7 +166,7 @@ export default function RentalIncomeTaxPage() {
                   </span>
                 </div>
                 {!result.deductionApplied && (
-                  <p className="text-xs text-slate-400 dark:text-slate-500">
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
                     종합소득 2,000만원 초과라 기본공제가 적용되지 않았습니다.
                   </p>
                 )}

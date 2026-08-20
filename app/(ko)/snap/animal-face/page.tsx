@@ -247,7 +247,7 @@ export default function AnimalFacePage() {
           >
             <ToolIcon emoji="📷" className="w-9 h-9 text-slate-800 dark:text-slate-100" />
             <span className="text-sm font-bold text-slate-600 dark:text-slate-300">사진을 선택해주세요</span>
-            <span className="text-xs text-slate-400 dark:text-slate-500">얼굴이 잘 보이는 정면 사진일수록 좋아요</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">얼굴이 잘 보이는 정면 사진일수록 좋아요</span>
           </button>
         )}
         <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={e => { const f = e.target.files?.[0]; if (f) handleFile(f); }} />
@@ -265,7 +265,7 @@ export default function AnimalFacePage() {
               )}
             </div>
             {!analyzing && (
-              <button onClick={() => fileInputRef.current?.click()} className="mt-3 mx-auto block text-xs font-semibold text-slate-400 dark:text-slate-500 hover:text-orange-600 transition-colors">
+              <button onClick={() => fileInputRef.current?.click()} className="mt-3 mx-auto block text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-orange-600 transition-colors">
                 다른 사진으로 다시 보기
               </button>
             )}
@@ -298,7 +298,7 @@ export default function AnimalFacePage() {
 
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4 flex items-center justify-between">
               <p className="text-xs font-medium text-slate-500 dark:text-slate-400">두 번째로 가까운 상</p>
-              <p className="text-sm font-bold text-slate-700 dark:text-slate-200">{result.runnerUp.emoji} {result.runnerUp.label} <span className="text-slate-400 dark:text-slate-500 font-semibold">{result.runnerUp.percent}%</span></p>
+              <p className="text-sm font-bold text-slate-700 dark:text-slate-200">{result.runnerUp.emoji} {result.runnerUp.label} <span className="text-slate-500 dark:text-slate-400 font-semibold">{result.runnerUp.percent}%</span></p>
             </div>
 
             <div className="bg-amber-50 border border-amber-100 dark:border-amber-900/40 rounded-lg p-5">
@@ -321,7 +321,7 @@ export default function AnimalFacePage() {
 
             <ShareButton title="동물상 테스트 결과" description={`${result.label} (일치도 ${result.matchPercent}%) — ${result.text}`} type="fortune" />
 
-            <p className="text-center text-xs text-slate-300 dark:text-slate-600 pt-2">
+            <p className="text-center text-xs text-slate-500 dark:text-slate-400 pt-2">
               눈매·얼굴형 측정은 실제로 이뤄지지만, 동물상 해석은 참고용 오락 콘텐츠입니다.
             </p>
           </div>

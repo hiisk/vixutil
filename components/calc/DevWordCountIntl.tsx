@@ -35,7 +35,7 @@ export default function DevWordCountIntl({ lang }: { lang: CalcLang }) {
   return (
     <div className="flex flex-col gap-4">
       <Card className="p-5">
-        <Label>{c.text} <span className="font-normal text-slate-400 dark:text-slate-500">{c.live}</span></Label>
+        <Label>{c.text} <span className="font-normal text-slate-500 dark:text-slate-400">{c.live}</span></Label>
         <textarea
           value={text}
           onChange={e => setText(e.target.value)}
@@ -51,7 +51,7 @@ export default function DevWordCountIntl({ lang }: { lang: CalcLang }) {
             <div key={label} className="flex justify-between items-baseline gap-3 py-2.5">
               <span className="text-sm text-slate-500 dark:text-slate-400">
                 {label}
-                {note && <span className="ml-1.5 text-xs text-slate-400 dark:text-slate-500">{note}</span>}
+                {note && <span className="ml-1.5 text-xs text-slate-500 dark:text-slate-400">{note}</span>}
               </span>
               <span className="font-mono font-bold text-slate-900 dark:text-slate-100">{fmt(value)}</span>
             </div>

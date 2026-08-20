@@ -83,7 +83,7 @@ export default function SoundHubPage() {
         <div className="flex flex-col gap-7">
           {grouped.map(g => (
             <section key={g.category} aria-label={g.category}>
-              <h2 className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
+              <h2 className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">
                 {g.category}
               </h2>
               <div className="grid sm:grid-cols-2 gap-3">
@@ -137,7 +137,7 @@ export default function SoundHubPage() {
 
         <Faq items={SECTION_FAQ.sound} />
 
-        <p className="text-center text-xs text-slate-300 dark:text-slate-600 mt-9">
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-9">
 모든 소리는 브라우저에서 만들어집니다 · 무료 · 회원가입 없음
         </p>
       </main>

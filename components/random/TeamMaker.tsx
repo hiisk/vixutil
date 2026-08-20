@@ -45,7 +45,7 @@ export default function TeamMaker({ lang = 'ko' }: { lang?: RandomLang }) {
         placeholder={ui.listPlaceholder}
         className="fld w-full focus:ring-2 focus:ring-sky-400 resize-y"
       />
-      <div className="mt-2 mb-4 text-xs text-slate-400">{ui.peopleCount(members.length)}</div>
+      <div className="mt-2 mb-4 text-xs text-slate-500 dark:text-slate-400">{ui.peopleCount(members.length)}</div>
 
       <div className="flex items-center gap-2 mb-5">
         <span className="text-sm font-bold text-slate-500 dark:text-slate-400">{ui.teamCount}</span>

@@ -184,7 +184,7 @@ export default function NationalPensionPage() {
                     <div key={shift} className="px-5 py-3 flex justify-between text-sm">
                       <span className="text-slate-600 dark:text-slate-300">
                         {shift === 0 ? '정상 수령' : shift < 0 ? `${-shift}년 앞당김` : `${shift}년 미룸`}
-                        <span className="text-slate-400 text-xs ml-1">
+                        <span className="text-slate-500 dark:text-slate-400 text-xs ml-1">
                           {shift === 0 ? '' : shift < 0
                             ? `−${(EARLY_PENALTY * -shift * 100).toFixed(0)}%`
                             : `+${(DEFER_BONUS * shift * 100).toFixed(1)}%`}
@@ -210,7 +210,7 @@ export default function NationalPensionPage() {
             )}
 
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 국민연금법 기본연금액 식에 따른 추정치 · 상수 {pensionConstant(result.year).toFixed(3)}
                 {' '}({result.year}년) · 실제 금액은 재평가율과 부양가족 요건에 따라 달라집니다
               </p>

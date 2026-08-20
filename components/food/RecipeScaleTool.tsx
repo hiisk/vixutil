@@ -80,7 +80,7 @@ export default function RecipeScaleTool({ lang = 'ko' }: { lang?: FoodLang } = {
           </button>
         </div>
         <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-4 py-3 text-sm whitespace-pre-wrap leading-relaxed min-h-[8rem] text-slate-800 dark:text-slate-100">
-          {result || <span className="text-slate-300 dark:text-slate-600">{ui.empty}</span>}
+          {result || <span className="text-slate-500 dark:text-slate-400">{ui.empty}</span>}
         </div>
       </div>
 

@@ -137,7 +137,7 @@ export default function ParentalLeavePage() {
           <CommaInput value={salary} onChange={setSalary} placeholder="350" />
           <span className="text-sm text-slate-500 dark:text-slate-400 shrink-0">만원</span>
         </div>
-        <p className="text-xs text-slate-400 dark:text-slate-500 mt-1 mb-4">세전 월 통상임금 기준으로 입력하세요</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 mb-4">세전 월 통상임금 기준으로 입력하세요</p>
 
         <Label>육아휴직 기간</Label>
         <div className="flex gap-2 flex-wrap mb-5">
@@ -172,7 +172,7 @@ export default function ParentalLeavePage() {
               }`}
             >
               <div className="font-bold mb-0.5">{opt.label}</div>
-              <div className={`text-xs ${mode === opt.value ? 'text-violet-200' : 'text-slate-400 dark:text-slate-500'}`}>{opt.sub}</div>
+              <div className={`text-xs ${mode === opt.value ? 'text-violet-200' : 'text-slate-500 dark:text-slate-400'}`}>{opt.sub}</div>
             </button>
           ))}
         </div>
@@ -253,7 +253,7 @@ export default function ParentalLeavePage() {
                 </tbody>
               </table>
             </div>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mt-3">6+6 부모육아휴직제는 부부가 각각 첫 6개월 육아휴직 사용 시 적용됩니다.</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-3">6+6 부모육아휴직제는 부부가 각각 첫 6개월 육아휴직 사용 시 적용됩니다.</p>
           </Card>
 
           <Card>
@@ -272,7 +272,7 @@ export default function ParentalLeavePage() {
                 </li>
               ))}
             </ul>
-            <p className="mt-4 text-xs text-slate-400 dark:text-slate-500">
+            <p className="mt-4 text-xs text-slate-500 dark:text-slate-400">
               ※ 본 계산기는 참고용이며 실제 수급액은 사업장 규모와 고용센터 심사에 따라 달라질 수 있습니다.
             </p>
           </Card>

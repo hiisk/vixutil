@@ -109,7 +109,7 @@ export default function CompoundGoalIntl({ lang }: { lang: CalcLang }) {
             <div className="overflow-x-auto">
               <table className="w-full text-xs">
                 <thead>
-                  <tr className="text-slate-400 dark:text-slate-500 text-left">
+                  <tr className="text-slate-500 dark:text-slate-400 text-left">
                     <th className="py-1.5 font-semibold">{c.year}</th>
                     <th className="py-1.5 font-semibold text-right">{c.amount}</th>
                   </tr>

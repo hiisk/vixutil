@@ -27,7 +27,7 @@ export default function SajuTopicNav({ lang, current, query = '' }: {
   const c = TOPIC_L10N[lang];
   return (
     <nav aria-label={c.ui.otherTopics}>
-      <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
+      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">
         {c.ui.otherTopics}
       </p>
       <div className="flex flex-wrap gap-2">

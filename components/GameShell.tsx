@@ -53,7 +53,7 @@ export default function GameShell({
             홈
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link prefetch={false} href="/game" className="text-sm text-slate-400 dark:text-slate-500 hover:text-emerald-600 transition-colors font-medium">
+          <Link prefetch={false} href="/game" className="text-sm text-slate-500 dark:text-slate-400 hover:text-emerald-600 transition-colors font-medium">
             두뇌 게임
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
@@ -119,7 +119,7 @@ export default function GameShell({
           </div>
         </section>
 
-        <p className="text-center text-xs text-slate-300 dark:text-slate-600 mt-9 leading-relaxed">
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-9 leading-relaxed">
           모든 결과는 재미로 보는 값이며 의학적 검사가 아닙니다.
         </p>
       </main>

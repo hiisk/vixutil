@@ -209,7 +209,7 @@ export default function FirstImpressionPage() {
         {!result && (
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-6 shadow-sm">
             {modelState === 'loading' && (
-              <p className="text-center text-sm text-slate-400 dark:text-slate-500 py-8">
+              <p className="text-center text-sm text-slate-500 dark:text-slate-400 py-8">
                 얼굴 인식 모델을 불러오는 중이에요…
               </p>
             )}
@@ -240,7 +240,7 @@ export default function FirstImpressionPage() {
                   <label className="flex flex-col items-center gap-3 cursor-pointer py-6">
                     <ToolIcon emoji="📷" className="w-12 h-12 text-slate-800 dark:text-slate-100" />
                     <span className="text-sm font-bold text-slate-700 dark:text-slate-200">사진 올리기</span>
-                    <span className="text-xs text-slate-400 dark:text-slate-500 text-center leading-relaxed">
+                    <span className="text-xs text-slate-500 dark:text-slate-400 text-center leading-relaxed">
                       정면·밝은 곳에서 찍은 사진일수록 정확해요<br />
                       사진은 기기 밖으로 전송되지 않아요
                     </span>
@@ -276,7 +276,7 @@ export default function FirstImpressionPage() {
             </div>
 
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-5 shadow-sm">
-              <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">실제 측정값</p>
+              <p className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">실제 측정값</p>
               {[
                 { label: '눈의 또렷함', value: result.eyeScore },
                 { label: '얼굴선 (갸름함)', value: result.faceScore },
@@ -300,7 +300,7 @@ export default function FirstImpressionPage() {
             </div>
 
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-5 shadow-sm">
-              <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-1.5">오늘의 팁</p>
+              <p className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1.5">오늘의 팁</p>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.tip}</p>
             </div>
 
@@ -322,7 +322,7 @@ export default function FirstImpressionPage() {
           </div>
         )}
 
-        <p className="text-center text-xs text-slate-300 dark:text-slate-600 mt-8 leading-relaxed">
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-8 leading-relaxed">
           재미로 보는 콘텐츠예요. 얼굴로 사람을 평가할 수 있다는 뜻이 아닙니다.<br />
           첫인상은 얼굴보다 표정과 태도에서 훨씬 크게 결정됩니다.
         </p>

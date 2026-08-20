@@ -163,7 +163,7 @@ export default function KeyboardTest({ lang = 'ko' }: { lang?: DeviceLang } = {}
         </div>
       </div>
 
-      <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-3">
+      <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-3">
         {ui.how}
       </p>
 
@@ -175,7 +175,7 @@ export default function KeyboardTest({ lang = 'ko' }: { lang?: DeviceLang } = {}
         ].map(s => (
           <div key={s.label} className="rounded-xl border chip-off px-3 py-3 text-center">
             <p className={`text-lg font-bold ${s.accent}`}>{s.val}</p>
-            <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{s.label}</p>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{s.label}</p>
           </div>
         ))}
       </div>
@@ -183,7 +183,7 @@ export default function KeyboardTest({ lang = 'ko' }: { lang?: DeviceLang } = {}
       <div className="mt-4 rounded-xl border chip-off px-4 py-3.5">
         <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{ui.recentInput}</p>
         {log.length === 0 ? (
-          <p className="text-sm text-slate-400 dark:text-slate-500">{ui.noInput}</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400">{ui.noInput}</p>
         ) : (
           <div className="flex flex-wrap gap-1.5">
             {log.map((l, i) => (
@@ -211,7 +211,7 @@ export default function KeyboardTest({ lang = 'ko' }: { lang?: DeviceLang } = {}
           {untested.length === 0 ? (
             <p className="text-sm font-bold text-emerald-600">{ui.allGood}</p>
           ) : (
-            <p className="text-xs text-slate-400 dark:text-slate-500 font-mono leading-relaxed break-all">
+            <p className="text-xs text-slate-500 dark:text-slate-400 font-mono leading-relaxed break-all">
               {untested.join(' · ')}
             </p>
           )}

@@ -39,7 +39,7 @@ export default function CoffeeTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
               <span className={`block text-sm font-bold ${method === b.id ? 'text-amber-800 dark:text-amber-300' : 'text-slate-800 dark:text-slate-100'}`}>
                 {brews[b.id].name}
               </span>
-              <span className="block text-[11px] text-slate-400 dark:text-slate-500">{brews[b.id].note}</span>
+              <span className="block text-[11px] text-slate-500 dark:text-slate-400">{brews[b.id].note}</span>
             </span>
             <span className="shrink-0 text-sm font-bold text-slate-500 dark:text-slate-400 tabular-nums">1:{b.ratio}</span>
           </button>

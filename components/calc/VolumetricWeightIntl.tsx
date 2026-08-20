@@ -99,7 +99,7 @@ export default function VolumetricWeightIntl({ lang }: { lang: CalcLang }) {
             </Card>
           )}
           <Card className="p-4">
-            <p className="text-xs text-slate-400 dark:text-slate-500">{c.note}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">{c.note}</p>
           </Card>
         </>
       )}

@@ -85,7 +85,7 @@ export default function FoodHubPage() {
         <div className="flex flex-col gap-7">
           {grouped.map(g => (
             <section key={g.category} aria-label={g.category}>
-              <h2 className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
+              <h2 className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">
                 {g.category}
               </h2>
               <div className="grid sm:grid-cols-2 gap-3">
@@ -123,7 +123,7 @@ export default function FoodHubPage() {
           <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{FOOD_UI.ko.hubLead}</p>
           {FOOD_CATEGORIES.map(cat => (
             <div key={cat} className="mb-4">
-              <h3 className="text-xs font-medium text-slate-400 dark:text-slate-500 mb-1.5">
+              <h3 className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">
                 {FOOD_UI.ko.categoryLabel[cat]}
               </h3>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -156,7 +156,7 @@ export default function FoodHubPage() {
 
         <Faq items={SECTION_FAQ.food} />
 
-        <p className="text-center text-xs text-slate-300 dark:text-slate-600 mt-9">
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-9">
 보관 기간과 굽기 온도는 일반적인 기준이며 재료 상태에 따라 다릅니다 · 무료
         </p>
       </main>

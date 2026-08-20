@@ -173,7 +173,7 @@ export default function ComprehensiveTaxPage() {
               </div>
             </Card>
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">* 간이 계산 결과입니다. 세액공제(근로·자녀·연금 등) 미적용. 정확한 세액은 세무사 상담을 권장합니다.</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">* 간이 계산 결과입니다. 세액공제(근로·자녀·연금 등) 미적용. 정확한 세액은 세무사 상담을 권장합니다.</p>
             </Card>
           </>
         )}

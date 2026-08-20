@@ -73,13 +73,13 @@ export default function RandomHubIntl({ lang }: { lang: RandomLang }) {
             <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">{dice.hubTitle}</span>
             <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5">{dice.hubLead}</span>
           </span>
-          <span className="ml-auto text-[11px] font-bold text-slate-400 dark:text-slate-500 shrink-0">{ROLLS.length}</span>
+          <span className="ml-auto text-[11px] font-bold text-slate-500 dark:text-slate-400 shrink-0">{ROLLS.length}</span>
         </Link>
       </div>
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
         <span className="text-sm font-bold text-rose-600">vixutil</span>
-        <p className="text-xs text-slate-400 mt-1">{ui.hubFoot}</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{ui.hubFoot}</p>
       </footer>
     </div>
   );

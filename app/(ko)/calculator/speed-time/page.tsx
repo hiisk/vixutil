@@ -119,9 +119,9 @@ export default function SpeedTimePage() {
               <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">시간</label>
               <div className="flex gap-2 items-center">
                 <input type="number" value={h} onChange={e => setH(e.target.value)} placeholder="0" min={0} className={inputCls} />
-                <span className="text-sm font-bold text-slate-400 dark:text-slate-500 shrink-0">시간</span>
+                <span className="text-sm font-bold text-slate-500 dark:text-slate-400 shrink-0">시간</span>
                 <input type="number" value={m} onChange={e => setM(e.target.value)} placeholder="0" min={0} className={inputCls} />
-                <span className="text-sm font-bold text-slate-400 dark:text-slate-500 shrink-0">분</span>
+                <span className="text-sm font-bold text-slate-500 dark:text-slate-400 shrink-0">분</span>
               </div>
             </div>
           )}

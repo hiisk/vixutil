@@ -95,17 +95,17 @@ export default function RoundTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
           onChange={e => setRadius(Number(e.target.value))}
           className="w-full accent-violet-500" aria-label={ui.radius}
         />
-        <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-1">{ui.fullRound}</p>
+        <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">{ui.fullRound}</p>
 
         <label className="flex items-start gap-3 mt-4 cursor-pointer">
           <input type="checkbox" checked={square} onChange={e => setSquare(e.target.checked)} className="mt-0.5 accent-violet-500 w-4 h-4" />
           <span>
             <span className="block text-sm font-bold text-slate-700 dark:text-slate-200">{ui.square}</span>
-            <span className="block text-xs text-slate-400 dark:text-slate-500">{ui.squareHint}</span>
+            <span className="block text-xs text-slate-500 dark:text-slate-400">{ui.squareHint}</span>
           </span>
         </label>
 
-        <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-4">{ui.pngNote}</p>
+        <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-4">{ui.pngNote}</p>
       </div>
 
       <ResultActions

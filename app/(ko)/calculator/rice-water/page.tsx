@@ -72,7 +72,7 @@ export default function RiceWaterPage() {
               <span className={`block text-sm font-bold ${kind === x.id ? 'text-emerald-700 dark:text-emerald-300' : 'text-slate-700 dark:text-slate-200'}`}>
                 {x.label}
               </span>
-              <span className="block text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">×{x.mult}</span>
+              <span className="block text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">×{x.mult}</span>
             </button>
           ))}
         </div>
@@ -88,9 +88,9 @@ export default function RiceWaterPage() {
               step={0.5}
               className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-4 text-2xl font-bold text-slate-900 dark:text-slate-100 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 pr-16"
             />
-            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 font-bold">컵</span>
+            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 font-bold">컵</span>
           </div>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">밥솥 계량컵 1컵 = 180ml 기준</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">밥솥 계량컵 1컵 = 180ml 기준</p>
         </Card>
 
         {water !== null && (
@@ -126,7 +126,7 @@ export default function RiceWaterPage() {
                     <span className={`font-semibold ${c === n ? 'text-emerald-700 dark:text-emerald-300' : 'text-slate-700 dark:text-slate-200'}`}>
                       쌀 {n}컵
                     </span>
-                    <span className="text-slate-400 dark:text-slate-500">물 {Math.round(n * CUP_ML * r.mult)}ml</span>
+                    <span className="text-slate-500 dark:text-slate-400">물 {Math.round(n * CUP_ML * r.mult)}ml</span>
                   </button>
                 ))}
               </div>

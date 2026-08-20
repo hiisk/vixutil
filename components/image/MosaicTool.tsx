@@ -186,7 +186,7 @@ export default function MosaicTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
         />
       </div>
 
-      <p className="mt-2.5 text-center text-xs text-slate-400 dark:text-slate-500">
+      <p className="mt-2.5 text-center text-xs text-slate-500 dark:text-slate-400">
         {ui.how}
       </p>
 
@@ -208,7 +208,7 @@ export default function MosaicTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
               <span className={`block text-sm font-bold ${mode === b.m ? 'text-violet-700 dark:text-violet-300' : 'text-slate-700 dark:text-slate-200'}`}>
                 {ui.modes[i]}
               </span>
-              <span className="block text-[11px] text-slate-400 dark:text-slate-500">{ui.modeHints[i]}</span>
+              <span className="block text-[11px] text-slate-500 dark:text-slate-400">{ui.modeHints[i]}</span>
             </button>
           ))}
         </div>
@@ -234,7 +234,7 @@ export default function MosaicTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
               value={cell} onChange={e => setCell(Number(e.target.value))}
               className="w-full accent-violet-500" aria-label={ui.cellSize}
             />
-            <p className="mt-1.5 text-[11px] text-slate-400 dark:text-slate-500">
+            <p className="mt-1.5 text-[11px] text-slate-500 dark:text-slate-400">
               {ui.cellNote}
             </p>
           </>

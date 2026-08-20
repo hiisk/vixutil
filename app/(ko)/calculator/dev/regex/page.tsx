@@ -42,10 +42,10 @@ export default function RegexPage() {
         <Card className="p-4">
           <Label>정규식 패턴 (/ 없이 입력)</Label>
           <div className="flex items-center gap-2 mb-3">
-            <span className="text-slate-400 dark:text-slate-500 font-mono">/</span>
+            <span className="text-slate-500 dark:text-slate-400 font-mono">/</span>
             <input type="text" value={pattern} onChange={e => setPattern(e.target.value)}
               placeholder="예: \d{3}-\d{4}-\d{4}" className="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            <span className="text-slate-400 dark:text-slate-500 font-mono">/</span>
+            <span className="text-slate-500 dark:text-slate-400 font-mono">/</span>
             <div className="flex gap-1">
               {FLAGS.map(f => (
                 <button key={f} onClick={() => toggleFlag(f)}
@@ -86,7 +86,7 @@ export default function RegexPage() {
                       <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                         {result.matches.slice(0, 20).map((m, i) => (
                           <tr key={i}>
-                            <td className="px-3 py-2 text-slate-400 dark:text-slate-500">{i + 1}</td>
+                            <td className="px-3 py-2 text-slate-500 dark:text-slate-400">{i + 1}</td>
                             <td className="px-3 py-2 font-mono text-blue-600 font-bold">{m[0]}</td>
                             <td className="px-3 py-2 text-slate-500 dark:text-slate-400">{m.index}</td>
                             <td className="px-3 py-2 font-mono text-slate-500 dark:text-slate-400">
@@ -98,7 +98,7 @@ export default function RegexPage() {
                     </table>
                   </div>
                 ) : (
-                  <p className="text-slate-400 dark:text-slate-500 text-sm">매치 없음</p>
+                  <p className="text-slate-500 dark:text-slate-400 text-sm">매치 없음</p>
                 )}
               </>
             )}

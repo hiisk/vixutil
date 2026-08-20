@@ -116,7 +116,7 @@ export default function SurchargePage() {
                     <span>{y.year}년차</span>
                     <span className="tabular-nums font-bold">
                       {won(Math.round(y.premium / 10000))}만원
-                      <span className="ml-2 text-xs font-medium text-slate-400 dark:text-slate-500">
+                      <span className="ml-2 text-xs font-medium text-slate-500 dark:text-slate-400">
                         +{won(Math.round(y.extra / 10000))}만원
                       </span>
                     </span>

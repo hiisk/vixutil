@@ -37,7 +37,7 @@ export default function ScreenShape({
   return (
     <svg
       viewBox={vb}
-      className="w-full max-h-56 text-slate-300 dark:text-slate-600"
+      className="w-full max-h-56 text-slate-500 dark:text-slate-400"
       role="img"
       aria-label={`${widthLabel} × ${heightLabel}`}
     >

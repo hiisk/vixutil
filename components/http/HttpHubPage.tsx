@@ -73,9 +73,9 @@ export default function HttpHubPage({ lang }: { lang: Lang }) {
           <section key={c} className="mb-8">
             <h3 className="text-sm font-bold text-slate-700 dark:text-slate-200 mb-1">
               {ui.classLabel[c]}
-              <span className="ml-1.5 text-[11px] font-bold text-slate-400 dark:text-slate-500">{statusesOfClass(c).length}</span>
+              <span className="ml-1.5 text-[11px] font-bold text-slate-500 dark:text-slate-400">{statusesOfClass(c).length}</span>
             </h3>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.classNote[c]}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.classNote[c]}</p>
             <div className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
               {statusesOfClass(c).map(x => (
                 <Link prefetch={false}
@@ -96,9 +96,9 @@ export default function HttpHubPage({ lang }: { lang: Lang }) {
           <section key={s} className="mb-8">
             <h3 className="text-sm font-bold text-slate-700 dark:text-slate-200 mb-1">
               {ui.sideLabel[s]}
-              <span className="ml-1.5 text-[11px] font-bold text-slate-400 dark:text-slate-500">{headersOfSide(s).length}</span>
+              <span className="ml-1.5 text-[11px] font-bold text-slate-500 dark:text-slate-400">{headersOfSide(s).length}</span>
             </h3>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.sideNote[s]}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.sideNote[s]}</p>
             <div className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
               {headersOfSide(s).map(x => (
                 <Link prefetch={false}

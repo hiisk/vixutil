@@ -105,7 +105,7 @@ export default function DecibelTool({ lang = 'ko' }: { lang?: SoundLang } = {}) 
             </div>
           ))}
         </div>
-        <p className="mt-3 text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed">
+        <p className="mt-3 text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
           {ui.note}
         </p>
       </div>

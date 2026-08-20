@@ -64,7 +64,7 @@ export default function TextShell({
             홈
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link prefetch={false} href="/text" className="text-sm text-slate-400 dark:text-slate-500 hover:text-indigo-600 transition-colors font-medium">
+          <Link prefetch={false} href="/text" className="text-sm text-slate-500 dark:text-slate-400 hover:text-indigo-600 transition-colors font-medium">
             텍스트 도구
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
@@ -131,7 +131,7 @@ export default function TextShell({
           </div>
         </section>
 
-        <p className="text-center text-xs text-slate-300 dark:text-slate-600 mt-9 leading-relaxed">
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-9 leading-relaxed">
           아주 긴 글(수십만 자)은 브라우저에서 처리하므로 기기 성능에 따라 느려질 수 있습니다.
         </p>
       </main>

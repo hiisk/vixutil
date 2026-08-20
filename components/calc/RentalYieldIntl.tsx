@@ -49,12 +49,12 @@ export default function RentalYieldIntl({ lang }: { lang: CalcLang }) {
           <div>
             <Label>{c.acqCost}</Label>
             <input type="number" value={acqCost} onChange={e => setAcqCost(e.target.value)} className={inputCls} />
-            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">{c.acqHint}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{c.acqHint}</p>
           </div>
           <div>
             <Label>{c.deposit}</Label>
             <input type="number" value={deposit} onChange={e => setDeposit(e.target.value)} className={inputCls} />
-            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">{c.depositHint}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{c.depositHint}</p>
           </div>
         </div>
       </Card>
@@ -73,11 +73,11 @@ export default function RentalYieldIntl({ lang }: { lang: CalcLang }) {
           <div className="col-span-2">
             <Label>{c.monthlyCost}</Label>
             <input type="number" value={monthlyCost} onChange={e => setMonthlyCost(e.target.value)} className={inputCls} />
-            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">{c.costHint}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{c.costHint}</p>
           </div>
         </div>
         <div className="mt-4"><PrimaryBtn onClick={calculate}>{c.calc}</PrimaryBtn></div>
-        <p className="mt-3 text-xs text-slate-400 dark:text-slate-500">{c.note}</p>
+        <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">{c.note}</p>
       </Card>
 
       {result && (
@@ -112,13 +112,13 @@ export default function RentalYieldIntl({ lang }: { lang: CalcLang }) {
                 <span className="font-bold text-slate-900 dark:text-slate-100 tabular-nums">{fmt(result.annualRent)}</span>
               </div>
               {result.annualCost > 0 && (
-                <div className="flex justify-between text-xs text-slate-400 dark:text-slate-500">
+                <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400">
                   <span>{c.minusCosts}</span>
                   <span className="tabular-nums">−{fmt(result.annualCost)}</span>
                 </div>
               )}
               {result.annualInterest > 0 && (
-                <div className="flex justify-between text-xs text-slate-400 dark:text-slate-500">
+                <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400">
                   <span>{c.minusInterest}</span>
                   <span className="tabular-nums">−{fmt(result.annualInterest)}</span>
                 </div>
@@ -134,7 +134,7 @@ export default function RentalYieldIntl({ lang }: { lang: CalcLang }) {
                 <span className="text-slate-600 dark:text-slate-300">{c.invested}</span>
                 <span className="font-bold text-slate-900 dark:text-slate-100 tabular-nums">{fmt(result.actualInvestment)}</span>
               </div>
-              <p className="text-xs text-slate-400 dark:text-slate-500">{c.formula}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">{c.formula}</p>
             </div>
 
             <SummaryGrid>

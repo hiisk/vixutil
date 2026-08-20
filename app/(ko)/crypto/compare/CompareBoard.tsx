@@ -220,7 +220,7 @@ export default function CompareBoard() {
       <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5 mb-4">
         <div className="flex flex-wrap items-end gap-3">
           <CoinPicker label="First coin" id="cmp-a" coin={coinA} onPick={c => setSlugA(c.slug)} />
-          <span className="pb-3 text-sm font-bold text-slate-400 dark:text-slate-500">vs</span>
+          <span className="pb-3 text-sm font-bold text-slate-500 dark:text-slate-400">vs</span>
           <CoinPicker label="Second coin" id="cmp-b" coin={coinB} onPick={c => setSlugB(c.slug)} />
         </div>
       </div>

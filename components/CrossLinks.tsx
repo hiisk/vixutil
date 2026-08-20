@@ -39,7 +39,7 @@ export default function CrossLinks({ className = 'mt-8' }: { className?: string 
               </span>
               <span className="block text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-0.5">{l.why}</span>
             </span>
-            <svg className="w-4 h-4 text-slate-300 dark:text-slate-600 shrink-0 mt-2.5 group-hover:text-sec transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <svg className="w-4 h-4 text-slate-500 dark:text-slate-400 shrink-0 mt-2.5 group-hover:text-sec transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
             </svg>
           </Link>

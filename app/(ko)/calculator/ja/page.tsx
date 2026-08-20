@@ -252,7 +252,7 @@ export default function JaHome() {
                 <ToolIcon emoji={cat.icon} className="text-slate-800 dark:text-slate-100 w-7 h-7" />
                 <div>
                   <h2 className="font-bold text-slate-900 dark:text-slate-100 text-lg leading-tight">{cat.label}</h2>
-                  <p className="text-xs text-slate-400 dark:text-slate-500">{cat.desc}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">{cat.desc}</p>
                 </div>
                 <span className={`ml-auto shrink-0 text-xs font-bold px-2.5 py-1 rounded-full border ${cat.accent}`}>
                   {cat.calcs.length}個
@@ -272,7 +272,7 @@ export default function JaHome() {
                         {c.title}
                       </h3>
                       {(c as { hot?: boolean }).hot && (
-                        <span className="shrink-0 ml-1 text-xs font-bold text-red-500 bg-red-50 dark:bg-red-950/30 px-1.5 py-0.5 rounded-full">HOT</span>
+                        <span className="shrink-0 ml-1 text-xs font-bold text-red-500 dark:text-red-300 bg-red-50 dark:bg-red-950/30 px-1.5 py-0.5 rounded-full">HOT</span>
                       )}
                     </div>
                     <p className="note-xs">{c.desc}</p>
@@ -284,7 +284,7 @@ export default function JaHome() {
         </div>
 
         <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
-          <p className="text-xs text-slate-300 dark:text-slate-600">参考用計算機 · 2026年韓国基準</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400">参考用計算機 · 2026年韓国基準</p>
         </footer>
       </div>
     </div>

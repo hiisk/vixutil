@@ -32,7 +32,7 @@ const inputCls = 'dial-input';
 const labelCls = 'dial-k mb-1 block';
 
 function riskTone(pct: number): string {
-  if (!isFinite(pct)) return 'text-slate-400 dark:text-slate-500';
+  if (!isFinite(pct)) return 'text-slate-500 dark:text-slate-400';
   if (pct >= 60) return 'text-rose-600 dark:text-rose-400';
   if (pct >= 35) return 'text-orange-600 dark:text-orange-400';
   if (pct >= 15) return 'text-amber-600 dark:text-amber-400';

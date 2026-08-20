@@ -201,13 +201,13 @@ export default function LuckyNumbers({ lang }: { lang: IntlLang }) {
                     {n}
                   </span>
                 ))}
-                <span className="text-slate-300 dark:text-slate-600 font-bold px-1">+</span>
+                <span className="text-slate-500 dark:text-slate-400 font-bold px-1">+</span>
                 <span className="w-11 h-11 rounded-full flex items-center justify-center text-white text-base font-bold shadow-sm ring-2 ring-offset-2 ring-slate-300 dark:ring-offset-slate-900"
                   style={{ background: ballColor(result.bonus) }}>
                   {result.bonus}
                 </span>
               </div>
-              <p className="text-center text-[11px] text-slate-400 dark:text-slate-500 mt-3">{c.bonus}</p>
+              <p className="text-center text-[11px] text-slate-500 dark:text-slate-400 mt-3">{c.bonus}</p>
             </div>
 
             <div className="grid grid-cols-3 gap-3">
@@ -218,7 +218,7 @@ export default function LuckyNumbers({ lang }: { lang: IntlLang }) {
               ].map(item => (
                 <div key={item.label} className="rounded-lg border chip-off p-4 text-center">
                   <ToolIcon emoji={item.icon} className="text-slate-800 dark:text-slate-100 w-6 h-6 mx-auto mb-1" />
-                  <div className="text-[11px] text-slate-400 dark:text-slate-500">{item.label}</div>
+                  <div className="text-[11px] text-slate-500 dark:text-slate-400">{item.label}</div>
                   <div className="text-sm font-bold text-slate-700 dark:text-slate-200 mt-0.5">{item.value}</div>
                 </div>
               ))}
@@ -227,13 +227,13 @@ export default function LuckyNumbers({ lang }: { lang: IntlLang }) {
             <ReferralCards lang="en" placement="result" />
           </div>
         ) : (
-          <div className="py-12 text-slate-300 dark:text-slate-600">
+          <div className="py-12 text-slate-500 dark:text-slate-400">
             <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">{c.empty}</p>
           </div>
         )}
 
-        <p className="text-center text-[11px] text-slate-400 dark:text-slate-500 mt-6 leading-relaxed">{c.note}</p>
+        <p className="text-center text-[11px] text-slate-500 dark:text-slate-400 mt-6 leading-relaxed">{c.note}</p>
       </div>
     </div>
   );

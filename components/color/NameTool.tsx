@@ -38,13 +38,13 @@ export default function NameTool({ lang = 'ko' }: { lang?: ColorLang } = {}) {
       {info && (
         <>
           <div className="mt-4 rounded-lg border chip-off p-5 text-center">
-            <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mb-1">{ui.nearest}</p>
+            <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">{ui.nearest}</p>
             <p className="text-2xl font-bold text-slate-900 dark:text-slate-100">
-              {colorName(info.near, lang)} <span className="text-slate-400 dark:text-slate-500 font-mono text-lg">{info.near.name}</span>
+              {colorName(info.near, lang)} <span className="text-slate-500 dark:text-slate-400 font-mono text-lg">{info.near.name}</span>
             </p>
             <div className="flex items-center justify-center gap-2 mt-3">
               <span className="w-8 h-8 rounded-lg border border-slate-200 dark:border-slate-700" style={{ background: hex }} />
-              <span className="text-xs text-slate-400 dark:text-slate-500">↔</span>
+              <span className="text-xs text-slate-500 dark:text-slate-400">↔</span>
               <span className="w-8 h-8 rounded-lg border border-slate-200 dark:border-slate-700" style={{ background: info.near.hex }} />
             </div>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">

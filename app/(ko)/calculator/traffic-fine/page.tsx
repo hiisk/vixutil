@@ -144,7 +144,7 @@ export default function TrafficFinePage() {
                   <option key={v.id} value={v.id}>{v.label}</option>
                 ))}
               </select>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">{info.note}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{info.note}</p>
             </div>
 
             {info.tiered && (
@@ -154,7 +154,7 @@ export default function TrafficFinePage() {
                   type="number" value={overSpeed} onChange={e => setOverSpeed(e.target.value)}
                   placeholder="예: 25" className={inputCls} min="0" step="1"
                 />
-                <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                   구간: {SPEED_TIERS.map(t => t.label).join(' / ')} · 0이면 위반이 아닙니다
                 </p>
               </div>
@@ -184,7 +184,7 @@ export default function TrafficFinePage() {
                     className={inputCls} min="1" step="0.1"
                   />
                 </div>
-                <p className="col-span-2 text-xs text-slate-400 dark:text-slate-500 leading-relaxed">
+                <p className="col-span-2 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                   보호구역 위반은 가중되지만 <strong>배수로 딱 떨어지지 않는 별도의 표</strong>입니다.
                   그래서 배수를 코드에 넣지 않고 여기서 받습니다 — 확인된 값이 아닙니다.
                   1을 넣으면 평상시와 같아지고, 고지서가 있으면 아래에 금액을 직접 넣는 것이 정확합니다.
@@ -213,7 +213,7 @@ export default function TrafficFinePage() {
               />
             </div>
           </div>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mt-3 leading-relaxed">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-3 leading-relaxed">
             표의 금액은 승용차 기준이고 개정될 수 있습니다. <strong>고지서에 적힌 금액이 우선</strong>이니,
             받은 금액이 다르면 여기에 그대로 넣으세요.
           </p>
@@ -258,7 +258,7 @@ export default function TrafficFinePage() {
                 className={inputCls} min="0" step="1" />
             </div>
           </div>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mt-3 leading-relaxed">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-3 leading-relaxed">
             기간과 비율은 <strong>통지서에 적힌 값</strong>으로 바꿔 넣으세요 — 기본값은 확인된 값이
             아닙니다. 기간을 0으로 두면 감액도 가산금도 계산하지 않습니다.
           </p>
@@ -278,7 +278,7 @@ export default function TrafficFinePage() {
                 className={inputCls} min="0" step="1" />
             </div>
           </div>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mt-3 leading-relaxed">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-3 leading-relaxed">
             이 칸이 이 계산기의 핵심입니다. 같은 위반이라도 이미 쌓인 점수에 따라{' '}
             <strong>아무 일도 아닐 수도, 면허 정지일 수도</strong> 있습니다. 착한운전 마일리지처럼
             공제받을 점수가 있으면 공제 칸에 넣으세요.
@@ -341,7 +341,7 @@ export default function TrafficFinePage() {
                   <CardHeader title="두 선택지" sub="같은 위반, 다른 결과" />
                   <div className="grid grid-cols-2 divide-x divide-slate-100 dark:divide-slate-800">
                     <div className="p-5">
-                      <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">범칙금 (운전자)</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">범칙금 (운전자)</p>
                       <p className="text-xl font-bold text-slate-900 dark:text-slate-100">
                         {money(result.finePayable)}
                       </p>
@@ -350,7 +350,7 @@ export default function TrafficFinePage() {
                       </p>
                     </div>
                     <div className="p-5">
-                      <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">과태료 (차주)</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">과태료 (차주)</p>
                       <p className="text-xl font-bold text-slate-900 dark:text-slate-100">
                         {money(result.levyPayable)}
                       </p>
@@ -377,7 +377,7 @@ export default function TrafficFinePage() {
                         </div>
                       ))}
                     </div>
-                    <p className="px-5 py-3 text-xs text-slate-400 dark:text-slate-500 leading-relaxed">
+                    <p className="px-5 py-3 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                       {result.early
                         ? `사전납부 감액을 받으려면 ${result.earlyDaysLeft}일 남았습니다.`
                         : result.overdueDays > 0
@@ -407,7 +407,7 @@ export default function TrafficFinePage() {
                       </div>
                     ))}
                   </div>
-                  <p className="px-5 py-3 text-xs text-slate-400 dark:text-slate-500 leading-relaxed">
+                  <p className="px-5 py-3 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                     정지 기준은 1년 누산 {SUSPEND_POINTS}점이고, <strong>정지 일수는 누산 점수와
                     같습니다</strong>. 취소 기준은{' '}
                     {REVOKE_THRESHOLDS.map(t => `${t.years}년 ${t.points}점`).join(' · ')}입니다.
@@ -446,7 +446,7 @@ export default function TrafficFinePage() {
             )}
 
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed">
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                 * 표의 금액과 벌점은 승용차 기준이며 도로교통법 시행령·시행규칙 개정으로 바뀝니다.
                 <strong> 고지서에 적힌 금액이 이 계산보다 우선합니다.</strong> 이륜차·화물차는 금액이
                 다르고, 보호구역 가중과 사전납부 감액·가산금은 입력한 값으로 계산한 추정치입니다.

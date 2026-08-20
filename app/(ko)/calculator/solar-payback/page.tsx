@@ -243,7 +243,7 @@ export default function SolarPaybackPage() {
                           <td>{kwh(r.genKwh)}kWh</td>
                           <td className="text-emerald-700 dark:text-emerald-300 font-semibold">+{w(r.saving)}원</td>
                           <td className="font-bold text-slate-900 dark:text-slate-100">{w(r.cumulative)}원</td>
-                          <td className={done ? 'text-blue-700 dark:text-blue-300 font-semibold' : 'text-slate-400 dark:text-slate-500'}>
+                          <td className={done ? 'text-blue-700 dark:text-blue-300 font-semibold' : 'text-slate-500 dark:text-slate-400'}>
                             {((r.cumulative / installCost) * 100).toFixed(0)}%
                             {done && ' 회수'}
                           </td>

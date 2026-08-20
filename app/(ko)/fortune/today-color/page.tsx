@@ -91,7 +91,7 @@ export default function TodayColorPage() {
             <div className="rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 p-4 mb-6 flex items-center gap-3">
               <span className="w-8 h-8 rounded-full shrink-0 border border-slate-200 dark:border-slate-600" style={{ background: result.avoid.hex }} />
               <div>
-                <div className="text-xs font-medium text-slate-400">오늘 피하면 좋은 색</div>
+                <div className="text-xs font-medium text-slate-500 dark:text-slate-400">오늘 피하면 좋은 색</div>
                 <div className="text-sm font-bold text-slate-700 dark:text-slate-200">{result.avoid.name}</div>
               </div>
             </div>
@@ -108,7 +108,7 @@ export default function TodayColorPage() {
           </div>
         )}
 
-        <p className="text-center text-[11px] text-slate-400 dark:text-slate-500 mt-6">
+        <p className="text-center text-[11px] text-slate-500 dark:text-slate-400 mt-6">
           오늘의 행운 색은 재미로 보는 참고용입니다. 과학적 근거가 있는 예측이 아닙니다.
         </p>
 

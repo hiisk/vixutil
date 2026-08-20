@@ -237,7 +237,7 @@ export default function FourInsurancePage() {
                       <tr key={row.label}>
                         <td className="px-4 py-2.5 text-slate-700 dark:text-slate-200">
                           {row.label}
-                          {row.note && <span className="block text-xs text-slate-400 dark:text-slate-500">{row.note}</span>}
+                          {row.note && <span className="block text-xs text-slate-500 dark:text-slate-400">{row.note}</span>}
                         </td>
                         <td className="px-4 py-2.5 text-center text-slate-500 dark:text-slate-400 text-xs">{row.rate}</td>
                         <td className="px-4 py-2.5 text-right font-semibold text-slate-800 dark:text-slate-100">{fmt(row.amount)}원</td>

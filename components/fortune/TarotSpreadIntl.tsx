@@ -57,14 +57,14 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
 
       <header className="page-head">
         <div className="max-w-3xl mx-auto px-4 h-14 flex items-center gap-2">
-          <Link href={`/${lang}`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-violet-600 font-medium">
+          <Link href={`/${lang}`} className="text-sm text-slate-500 dark:text-slate-400 hover:text-violet-600 font-medium">
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link href={`/${lang}/fortune`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-violet-600 font-medium">
+          <Link href={`/${lang}/fortune`} className="text-sm text-slate-500 dark:text-slate-400 hover:text-violet-600 font-medium">
             {ui.section}
           </Link>
-          <span className="ml-auto flex items-center gap-2 text-xs font-medium text-slate-400">
+          <span className="ml-auto flex items-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400">
             <Link href="/fortune/tarot" className="hover:text-violet-600" hrefLang="ko">한국어</Link>
           </span>
           <span className="ml-auto shrink-0">
@@ -101,7 +101,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
 
         {tab === 'draw' ? (
           <>
-            <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">{ui.spreadTitle}</p>
+            <p className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2">{ui.spreadTitle}</p>
             <div className="grid grid-cols-2 gap-2 mb-5">
               {SPREAD_SHAPE.map(s => (
                 <button
@@ -114,7 +114,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
                   }`}
                 >
                   <span className="flex items-center gap-1.5">
-                    <ToolIcon emoji={s.icon} className="w-4 h-4 text-slate-400 dark:text-slate-500" />
+                    <ToolIcon emoji={s.icon} className="w-4 h-4 text-slate-500 dark:text-slate-400" />
                     <span className={`text-sm font-bold ${spreadId === s.id ? 'text-violet-700 dark:text-violet-300' : 'text-slate-700 dark:text-slate-200'}`}>
                       {spreads[s.id].label}
                     </span>
@@ -122,7 +122,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
                       {ui.cardCount(s.count)}
                     </span>
                   </span>
-                  <span className="block text-[11px] text-slate-400 dark:text-slate-500 mt-1">{spreads[s.id].desc}</span>
+                  <span className="block text-[11px] text-slate-500 dark:text-slate-400 mt-1">{spreads[s.id].desc}</span>
                 </button>
               ))}
             </div>
@@ -169,7 +169,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
                             <p className={`text-[11px] font-bold mt-0.5 ${d.reversed ? 'text-amber-600' : 'text-emerald-600'}`}>
                               {d.reversed ? ui.reversed : ui.upright}
                             </p>
-                            <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-2 leading-relaxed">{copy.posDesc[i]}</p>
+                            <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">{copy.posDesc[i]}</p>
                             <p className="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
                               {d.reversed ? reading.reversed : reading.upright}
                             </p>
@@ -189,7 +189,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
 
                 <div className="grid grid-cols-2 gap-2 mt-4">
                   {allShown ? (
-                    <p className="col-span-1 flex items-center justify-center text-xs font-medium text-slate-400 dark:text-slate-500">
+                    <p className="col-span-1 flex items-center justify-center text-xs font-medium text-slate-500 dark:text-slate-400">
                       {ui.revealed(shown.length, drawn.length)}
                     </p>
                   ) : (
@@ -210,7 +210,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
               </>
             )}
 
-            <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-6 leading-relaxed">{ui.privacy}</p>
+            <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-6 leading-relaxed">{ui.privacy}</p>
           </>
         ) : (
           <>
@@ -251,7 +251,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
           </>
         )}
 
-        <p className="text-center text-xs text-slate-300 dark:text-slate-600 mt-9 leading-relaxed">{ui.disclaimer}</p>
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-9 leading-relaxed">{ui.disclaimer}</p>
       </main>
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">

@@ -114,7 +114,7 @@ export default function ChargeTimePage() {
               <option value="Wh">Wh</option>
             </select>
           </div>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
             휴대전화는 보통 mAh, 노트북은 Wh로 적혀 있습니다
           </p>
 
@@ -170,7 +170,7 @@ export default function ChargeTimePage() {
                 <div className="px-5 py-3 flex justify-between text-sm">
                   <span className="text-slate-500 dark:text-slate-400">실제 들어가는 전력</span>
                   <span className="font-semibold text-slate-800 dark:text-slate-100">
-                    약 {result.effective.toFixed(1)} W <span className="text-slate-400">(정격의 {Math.round(eff * 100)}%)</span>
+                    약 {result.effective.toFixed(1)} W <span className="text-slate-500 dark:text-slate-400">(정격의 {Math.round(eff * 100)}%)</span>
                   </span>
                 </div>
                 <div className="px-5 py-3 flex justify-between text-sm">

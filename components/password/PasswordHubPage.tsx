@@ -91,7 +91,7 @@ export default function PasswordHubPage({ lang }: { lang: Lang }) {
           <section key={set.key} className="mb-6">
             <h3 className="text-sm font-bold text-slate-700 dark:text-slate-200 mb-2">
               {ui.charsetName(set.key)}
-              <span className="ml-2 text-xs font-normal text-slate-400 dark:text-slate-500 tabular-nums">
+              <span className="ml-2 text-xs font-normal text-slate-500 dark:text-slate-400 tabular-nums">
                 {ui.sizeLabel} {set.size}
               </span>
             </h3>

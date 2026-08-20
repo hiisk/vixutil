@@ -117,7 +117,7 @@ export default function UnemploymentPage() {
           <CommaInput value={salary} onChange={setSalary} placeholder="350" />
           <span className="text-sm text-slate-500 dark:text-slate-400 shrink-0">만원</span>
         </div>
-        <p className="text-xs text-slate-400 dark:text-slate-500 mt-1 mb-4">세전 월급 기준으로 입력하세요</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 mb-4">세전 월급 기준으로 입력하세요</p>
 
         <Label>고용보험 가입기간</Label>
         <div className="flex gap-2 mb-4">
@@ -130,7 +130,7 @@ export default function UnemploymentPage() {
                 placeholder="0"
                 className={inputCls}
               />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 dark:text-slate-500 pointer-events-none">년</span>
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-500 dark:text-slate-400 pointer-events-none">년</span>
             </div>
           </div>
           <div className="flex-1">
@@ -142,7 +142,7 @@ export default function UnemploymentPage() {
                 placeholder="0"
                 className={inputCls}
               />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 dark:text-slate-500 pointer-events-none">개월</span>
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-500 dark:text-slate-400 pointer-events-none">개월</span>
             </div>
           </div>
         </div>
@@ -249,7 +249,7 @@ export default function UnemploymentPage() {
                 </li>
               ))}
             </ul>
-            <p className="mt-4 text-xs text-slate-400 dark:text-slate-500">
+            <p className="mt-4 text-xs text-slate-500 dark:text-slate-400">
               ※ 본 계산기는 참고용이며 실제 수급액은 고용센터 심사에 따라 달라질 수 있습니다.
             </p>
           </Card>

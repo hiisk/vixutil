@@ -220,7 +220,7 @@ export default function StudentLoanPage() {
                     <span className="font-semibold text-right">{b}</span>
                   </div>
                 ))}
-                <div className="px-5 py-3 grid grid-cols-3 gap-2 text-xs text-slate-400 dark:text-slate-500">
+                <div className="px-5 py-3 grid grid-cols-3 gap-2 text-xs text-slate-500 dark:text-slate-400">
                   <span />
                   <span className="text-right">일반 상환</span>
                   <span className="text-right">취업 후 상환</span>
@@ -250,7 +250,7 @@ export default function StudentLoanPage() {
               <TableWrap>
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="text-xs text-slate-400 dark:text-slate-500 border-b border-slate-100 dark:border-slate-800">
+                    <tr className="text-xs text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800">
                       <th className="px-3 py-2 text-left font-medium">해</th>
                       <th className="px-3 py-2 text-right font-medium">연 소득</th>
                       <th className="px-3 py-2 text-right font-medium">상환액</th>
@@ -294,7 +294,7 @@ export default function StudentLoanPage() {
             </Card>
 
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 상환기준소득·상환율·금리는 해마다 고시로 바뀝니다 · 취업 후 상환을 연 단위로 굴린 추정치이며
                 자발적 상환·복무 중 유예·대출 종류별 특례는 담지 않았습니다
               </p>

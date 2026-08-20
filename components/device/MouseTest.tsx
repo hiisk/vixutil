@@ -110,10 +110,10 @@ export default function MouseTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
             ? ui.pressed(ui.buttons[BUTTONS.findIndex(b => b.id === active)] ?? ui.buttonN(active))
             : ui.hint}
         </p>
-        <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
           {pos ? ui.cursorAt(pos.x, pos.y) : ui.contextNote}
         </p>
-        <p className="absolute bottom-2.5 right-3 text-[11px] font-mono text-slate-300 dark:text-slate-600">
+        <p className="absolute bottom-2.5 right-3 text-[11px] font-mono text-slate-500 dark:text-slate-400">
           {ui.moveEvents(rate)}
         </p>
       </div>
@@ -137,9 +137,9 @@ export default function MouseTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
                 <span className="text-sm font-bold text-slate-700 dark:text-slate-200">
                   {hit ? '✅' : '⬜'} {ui.buttons[i]}
                 </span>
-                <span className="text-xs font-mono text-slate-400 dark:text-slate-500">{ui.timesSuffix(s?.count ?? 0)}</span>
+                <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{ui.timesSuffix(s?.count ?? 0)}</span>
               </div>
-              <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">
                 {s?.lastGap != null ? ui.lastGap(s.lastGap) : ui.noInputYet}
                 {s && s.chatter > 0 && (
                   <span className="text-rose-500 font-bold">{ui.chatterSuspect(s.chatter)}</span>
@@ -153,15 +153,15 @@ export default function MouseTest({ lang = 'ko' }: { lang?: DeviceLang } = {}) {
       <div className="grid grid-cols-3 gap-2 mt-4">
         <div className="rounded-xl border chip-off px-3 py-3 text-center">
           <p className="text-lg font-bold text-sky-600">{totalClicks}</p>
-          <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{ui.totalClicks}</p>
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{ui.totalClicks}</p>
         </div>
         <div className="rounded-xl border chip-off px-3 py-3 text-center">
           <p className={`text-lg font-bold ${totalChatter > 0 ? 'text-rose-500' : 'text-emerald-600'}`}>{totalChatter}</p>
-          <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{ui.chatterTotal}</p>
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{ui.chatterTotal}</p>
         </div>
         <div className="rounded-xl border chip-off px-3 py-3 text-center">
           <p className="text-lg font-bold text-indigo-600">{wheel?.count ?? 0}</p>
-          <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
             {ui.wheelWord} {wheel ? `${wheel.dir} ${wheel.delta}` : ui.scrollWord}
           </p>
         </div>

@@ -73,7 +73,7 @@ export default function SecretSanta({ lang = 'ko' }: { lang?: RandomLang }) {
             placeholder={ui.santaPlaceholder}
             className="fld w-full focus:ring-2 focus:ring-rose-400 resize-y"
           />
-          <div className="mt-2 mb-4 text-xs text-slate-400">{ui.peopleCount(names.length)}</div>
+          <div className="mt-2 mb-4 text-xs text-slate-500 dark:text-slate-400">{ui.peopleCount(names.length)}</div>
           {dupWarning && <p className="text-xs text-rose-500 mb-3">{ui.santaDuplicate}</p>}
           <button
             onClick={run}
@@ -82,7 +82,7 @@ export default function SecretSanta({ lang = 'ko' }: { lang?: RandomLang }) {
           >
             {ui.santaDraw}
           </button>
-          <p className="mt-3 text-center text-xs text-slate-400 dark:text-slate-500">
+          <p className="mt-3 text-center text-xs text-slate-500 dark:text-slate-400">
             {ui.santaHint}
           </p>
         </>
@@ -92,7 +92,7 @@ export default function SecretSanta({ lang = 'ko' }: { lang?: RandomLang }) {
         <>
           <div className="text-center mb-4">
             <div className="text-sm font-bold text-rose-600">{ui.santaMatched}</div>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">{ui.santaTapName}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{ui.santaTapName}</p>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-5">
@@ -130,7 +130,7 @@ export default function SecretSanta({ lang = 'ko' }: { lang?: RandomLang }) {
                 </button>
               ) : (
                 <>
-                  <div className="text-xs text-slate-400 mb-1">{ui.santaYourMatch}</div>
+                  <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">{ui.santaYourMatch}</div>
                   <div className="text-3xl font-bold text-rose-600 dark:text-rose-300 mb-4">{assign[openFor]}</div>
                   <button
                     onClick={close}

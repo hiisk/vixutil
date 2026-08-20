@@ -49,7 +49,7 @@ export default function GasCostIntl({ lang }: { lang: CalcLang }) {
           <span className="text-sm text-slate-700 dark:text-slate-200">{c.roundTrip}</span>
         </label>
         <div className="mt-4"><PrimaryBtn onClick={calculate}>{c.calc}</PrimaryBtn></div>
-        <p className="mt-3 text-xs text-slate-400 dark:text-slate-500">{c.note}</p>
+        <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">{c.note}</p>
       </Card>
 
       {result && (

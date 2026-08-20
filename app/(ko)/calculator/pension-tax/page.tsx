@@ -203,7 +203,7 @@ export default function PensionTaxPage() {
                     <div key={row.years} className="px-5 py-3 flex justify-between text-sm">
                       <span className="text-slate-600 dark:text-slate-300">
                         {row.years}년에 나눠
-                        <span className="text-slate-400 text-xs ml-1">
+                        <span className="text-slate-500 dark:text-slate-400 text-xs ml-1">
                           연 {man(row.perYear)} · {(row.rate * 100).toFixed(1)}%
                         </span>
                       </span>
@@ -211,14 +211,14 @@ export default function PensionTaxPage() {
                     </div>
                   ))}
                 </div>
-                <p className="px-5 pb-4 pt-1 text-xs text-slate-400 dark:text-slate-500">
+                <p className="px-5 pb-4 pt-1 text-xs text-slate-500 dark:text-slate-400">
                   해마다 한 살씩 먹는 것까지 반영했습니다 — 늦게 받는 몫은 더 낮은 세율을 만납니다
                 </p>
               </Card>
             )}
 
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 연금소득공제·저율 분리과세 세율은 법에 적힌 값입니다 · 1,500만원 초과분은 16.5%
                 분리과세로 잡았습니다 · 중도 인출은 셈이 다릅니다
               </p>

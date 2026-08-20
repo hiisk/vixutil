@@ -205,7 +205,7 @@ export default function HandwritingPage() {
           >
             <ToolIcon emoji="📝" className="w-9 h-9 text-slate-800 dark:text-slate-100" />
             <span className="text-sm font-bold text-slate-600 dark:text-slate-300">손글씨 사진을 선택해주세요</span>
-            <span className="text-xs text-slate-400 dark:text-slate-500">종이에 쓴 글씨가 또렷하게 나온 사진일수록 정확해요</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">종이에 쓴 글씨가 또렷하게 나온 사진일수록 정확해요</span>
           </button>
         )}
         <input
@@ -231,7 +231,7 @@ export default function HandwritingPage() {
             {!analyzing && (
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className="mt-3 mx-auto block text-xs font-semibold text-slate-400 dark:text-slate-500 hover:text-indigo-600 transition-colors"
+                className="mt-3 mx-auto block text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-indigo-600 transition-colors"
               >
                 다른 사진으로 다시 보기
               </button>
@@ -265,7 +265,7 @@ export default function HandwritingPage() {
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
               <div className="flex items-center justify-between mb-1.5">
                 <p className="label-caps">↔️ 기울기 지수</p>
-                <span className="text-[11px] font-bold text-indigo-600 bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 rounded-full px-2 py-0.5">
+                <span className="text-[11px] font-bold text-indigo-600 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 rounded-full px-2 py-0.5">
                   {result.slantPercent}%
                 </span>
               </div>
@@ -308,7 +308,7 @@ export default function HandwritingPage() {
 
             <ShareButton title="손글씨 심리 테스트 결과" description={`${result.slantText} ${result.pressureText}`} type="fortune" />
 
-            <p className="text-center text-xs text-slate-300 dark:text-slate-600 pt-2">
+            <p className="text-center text-xs text-slate-500 dark:text-slate-400 pt-2">
               기울기·필압 측정은 실제 이미지 분석 결과이며, 성격 해석은 필적학에 근거한 참고용 오락 콘텐츠입니다.
             </p>
           </div>

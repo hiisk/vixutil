@@ -109,7 +109,7 @@ export default function DischargePage() {
               </div>
             </Card>
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * {RANKS.map(r => `${r.name} ${r.months}개월`).join(' · ')} 기준 · 실제 진급일은 부대에 따라 다를 수 있습니다
               </p>
             </Card>

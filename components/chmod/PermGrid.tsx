@@ -21,7 +21,7 @@ export default function PermGrid({
     <div className="overflow-x-auto">
       <table className="w-full text-center text-sm">
         <thead>
-          <tr className="text-[11px] font-bold text-slate-400 dark:text-slate-500">
+          <tr className="text-[11px] font-bold text-slate-500 dark:text-slate-400">
             <th className="w-1/4 py-1 text-left" />
             {cols.map(c => <th key={c} className="py-1 font-bold">{c}</th>)}
           </tr>
@@ -33,7 +33,7 @@ export default function PermGrid({
               <tr key={who} className="border-t border-slate-100 dark:border-slate-800">
                 <th className="py-2 text-left text-xs font-bold text-slate-600 dark:text-slate-300">
                   {whoLabel[who]}
-                  <span className="ml-1.5 font-mono text-[11px] text-slate-400 dark:text-slate-500">{p.digit}</span>
+                  <span className="ml-1.5 font-mono text-[11px] text-slate-500 dark:text-slate-400">{p.digit}</span>
                 </th>
                 {[p.read, p.write, p.exec].map((on, i) => (
                   <td key={i} className="py-2">

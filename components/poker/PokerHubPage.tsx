@@ -79,7 +79,7 @@ export default function PokerHubPage({ lang }: { lang: Lang }) {
 
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.chart}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.chartNote}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.chartNote}</p>
           <HandGrid path={path} />
         </section>
 
@@ -108,9 +108,9 @@ export default function PokerHubPage({ lang }: { lang: Lang }) {
               <div key={tier} className="mb-7">
                 <div className="flex items-baseline gap-2 mb-1">
                   <h3 className="text-sm font-bold text-emerald-700 dark:text-emerald-400">{ui.tier[tier]}</h3>
-                  <span className="text-[11px] text-slate-400 dark:text-slate-500 tabular-nums">{tiers[tier]}</span>
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400 tabular-nums">{tiers[tier]}</span>
                 </div>
-                <p className="text-xs text-slate-400 dark:text-slate-500 mb-2 leading-relaxed">{ui.tierNote[tier]}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mb-2 leading-relaxed">{ui.tierNote[tier]}</p>
                 <div className="flex flex-wrap gap-1.5">
                   {rows.map(f => (
                     <Link prefetch={false}

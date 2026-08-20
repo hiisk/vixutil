@@ -216,7 +216,7 @@ export default function CondolenceMoneyPage() {
             <div>
               <Label>전에 받은 부조 (만원, 없으면 비움)</Label>
               <MoneyInput value={received} onChange={setReceived} placeholder="예: 10" />
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1.5">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5">
                 내 집안 일에 이 분이 부조를 해 주셨다면, 그만큼은 맞추는 것이 관습입니다
               </p>
             </div>
@@ -253,7 +253,7 @@ export default function CondolenceMoneyPage() {
               </span>
             ))}
           </div>
-          <p className="px-5 pb-4 text-xs text-slate-400 dark:text-slate-500">
+          <p className="px-5 pb-4 text-xs text-slate-500 dark:text-slate-400">
             홀수(3·5·7만원)나 10의 배수로 맞추고, 4가 들어간 금액(40만원 등)은 뺐습니다
           </p>
         </Card>
@@ -276,7 +276,7 @@ export default function CondolenceMoneyPage() {
               </div>
             )}
           </div>
-          <p className="px-5 py-3 text-xs text-slate-400 dark:text-slate-500 border-t border-slate-100 dark:border-slate-800">
+          <p className="px-5 py-3 text-xs text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800">
             {floorBinds
               ? `합계 ${man(s.center)}보다 전에 받은 부조가 커서, 그것을 하한으로 잡아 ${range(s.low, s.high)}이 됐습니다`
               : `합계 ${man(s.center)}을 관습 단위로 맞춰 ${range(s.low, s.high)} 범위를 냈습니다`}
@@ -294,7 +294,7 @@ export default function CondolenceMoneyPage() {
               ['전할 곳', '방명록을 쓰고 호상소 또는 부의함에'],
             ].map(([k, v]) => (
               <div key={k} className="px-5 py-3">
-                <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mb-0.5">{k}</p>
+                <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-0.5">{k}</p>
                 <p className="text-slate-700 dark:text-slate-200">{v}</p>
               </div>
             ))}

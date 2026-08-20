@@ -18,14 +18,14 @@ export default function QuizContent({ quiz }: { quiz: Quiz }) {
         <h2 className="sec-h2-tight">
           {quiz.title} 문항 · 정답 해설
         </h2>
-        <p className="text-xs text-slate-400 dark:text-slate-500 mb-3">
+        <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
           전체 {quiz.questions.length}문항의 정답과 해설입니다. 아직 풀지 않았다면 위에서 먼저 풀어보세요.
         </p>
 
         <details className="group border border-slate-200 dark:border-slate-700 rounded-xl [&_summary::-webkit-details-marker]:hidden">
           <summary className="flex items-center justify-between cursor-pointer text-sm font-bold text-slate-700 dark:text-slate-200 list-none px-4 py-3">
             <span className="flex-1 pr-2">정답 · 해설 전체 보기 (스포일러)</span>
-            <svg className="w-4 h-4 shrink-0 text-slate-400 dark:text-slate-500 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <svg className="w-4 h-4 shrink-0 text-slate-500 dark:text-slate-400 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
             </svg>
           </summary>

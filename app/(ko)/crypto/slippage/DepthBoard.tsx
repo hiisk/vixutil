@@ -297,7 +297,7 @@ export default function DepthBoard() {
                         {b.askValue != null ? money(b.askValue) : '—'}
                       </td>
                       <td className={`px-3 py-2.5 text-right tabular-nums border-l border-slate-200/40 dark:border-slate-700/40 ${
-                        b.imb == null ? 'text-slate-400 dark:text-slate-500'
+                        b.imb == null ? 'text-slate-500 dark:text-slate-400'
                           : b.imb > 0.1 ? 'text-emerald-600 dark:text-emerald-400'
                           : b.imb < -0.1 ? 'text-rose-600 dark:text-rose-400'
                           : 'text-slate-500 dark:text-slate-400'

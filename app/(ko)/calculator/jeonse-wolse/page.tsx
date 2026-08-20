@@ -98,7 +98,7 @@ export default function JeonseWolsePage() {
               type="number" value={rate} onChange={e => setRate(e.target.value)}
               step="0.1" min="0" className={inputCls}
             />
-            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
               전세대출 금리, 또는 내 돈이면 예금·투자 기회비용
             </p>
           </div>
@@ -133,7 +133,7 @@ export default function JeonseWolsePage() {
                   <span className="text-slate-600 dark:text-slate-300">전세 연 비용</span>
                   <span className="font-bold text-slate-900 dark:text-slate-100 tabular-nums">{w(result.jeonseAnnualCost)}원</span>
                 </div>
-                <div className="flex justify-between text-xs text-slate-400 dark:text-slate-500">
+                <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400">
                   <span>전세보증금 × 자금비용률</span>
                   <span className="tabular-nums">{w(jeonseDeposit)} × {rate}%</span>
                 </div>
@@ -141,7 +141,7 @@ export default function JeonseWolsePage() {
                   <span className="text-slate-600 dark:text-slate-300">월세 연 비용</span>
                   <span className="font-bold text-slate-900 dark:text-slate-100 tabular-nums">{w(result.wolseAnnualCost)}원</span>
                 </div>
-                <div className="flex justify-between text-xs text-slate-400 dark:text-slate-500">
+                <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400">
                   <span>월세×12 + 월세보증금 × 자금비용률</span>
                   <span className="tabular-nums">{w(monthlyRent * 12)} + {w(wolseDeposit)}×{rate}%</span>
                 </div>
@@ -159,7 +159,7 @@ export default function JeonseWolsePage() {
               </SummaryGrid>
 
               {result.breakevenRate !== null && (
-                <p className="text-xs text-slate-400 dark:text-slate-500 mt-3 leading-relaxed">
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-3 leading-relaxed">
                   내 돈이 연 {result.breakevenRate.toFixed(2)}%보다 높게 굴러가면 월세가, 낮으면 전세가 유리합니다.
                   지금 넣은 자금비용률은 {rate}%입니다.
                 </p>

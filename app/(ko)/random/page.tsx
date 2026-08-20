@@ -45,7 +45,7 @@ export default function RandomIndexPage() {
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center gap-4">
           <Link href="/" className="font-bold text-rose-600 text-lg shrink-0">vix.</Link>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">랜덤 뽑기</span>
-          <span className="ml-auto flex items-center gap-3 shrink-0 text-xs text-slate-400 dark:text-slate-500">
+          <span className="ml-auto flex items-center gap-3 shrink-0 text-xs text-slate-500 dark:text-slate-400">
             {RANDOM_TOOLS.length}개
             <LangPicker current="ko" route="/random" />
           </span>
@@ -69,7 +69,7 @@ export default function RandomIndexPage() {
               </span>
               <span className="hub-card-body">
                 <span className="hub-card-title group-hover:text-sec">{t.title}</span>
-                <span className="block truncate text-xs text-slate-400 dark:text-slate-500">{t.desc}</span>
+                <span className="block truncate text-xs text-slate-500 dark:text-slate-400">{t.desc}</span>
               </span>
             </Link>
           ))}
@@ -86,7 +86,7 @@ export default function RandomIndexPage() {
             <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">{DICE_UI.ko.hubTitle}</span>
             <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5">{DICE_UI.ko.hubLead}</span>
           </span>
-          <span className="ml-auto text-[11px] font-bold text-slate-400 dark:text-slate-500 shrink-0">{ROLLS.length}</span>
+          <span className="ml-auto text-[11px] font-bold text-slate-500 dark:text-slate-400 shrink-0">{ROLLS.length}</span>
         </Link>
 
         <Faq items={SECTION_FAQ.random} />

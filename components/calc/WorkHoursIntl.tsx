@@ -50,7 +50,7 @@ export default function WorkHoursIntl({ lang }: { lang: CalcLang }) {
           <Label>{c.breakMin}</Label>
           <input type="number" value={breakMin} onChange={e2 => setBreakMin(e2.target.value)} min={0} className={inputCls} />
         </div>
-        <p className="mt-3 text-xs text-slate-400 dark:text-slate-500">{c.note}</p>
+        <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">{c.note}</p>
       </Card>
 
       {result && (

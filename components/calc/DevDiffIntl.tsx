@@ -57,7 +57,7 @@ export default function DevDiffIntl({ lang }: { lang: CalcLang }) {
           </Card>
         ))}
       </div>
-      <p className="text-xs text-slate-400 dark:text-slate-500 text-center">{c.limit}</p>
+      <p className="text-xs text-slate-500 dark:text-slate-400 text-center">{c.limit}</p>
 
       <PrimaryBtn onClick={compare}>{c.compare}</PrimaryBtn>
 
@@ -66,7 +66,7 @@ export default function DevDiffIntl({ lang }: { lang: CalcLang }) {
           <div className="flex items-center gap-4 mb-3 text-xs font-bold">
             <span className="text-emerald-600">+ {counts.add} {c.added}</span>
             <span className="text-rose-600">− {counts.del} {c.removed}</span>
-            <span className="text-slate-400 dark:text-slate-500">{counts.same} {c.same}</span>
+            <span className="text-slate-500 dark:text-slate-400">{counts.same} {c.same}</span>
           </div>
           {counts.add === 0 && counts.del === 0 ? (
             <p className="text-sm text-slate-500 dark:text-slate-400">{c.identical}</p>

@@ -53,7 +53,7 @@ export default function FoodShellIntl({
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link href={`/${lang}/food`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-amber-600 transition-colors font-medium">
+          <Link href={`/${lang}/food`} className="text-sm text-slate-500 dark:text-slate-400 hover:text-amber-600 transition-colors font-medium">
             {ui.section}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
@@ -116,7 +116,7 @@ export default function FoodShellIntl({
           </div>
         </section>
 
-        <p className="text-center text-xs text-slate-300 dark:text-slate-600 mt-9 leading-relaxed">
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-9 leading-relaxed">
           {ui.footNote}
         </p>
       </main>

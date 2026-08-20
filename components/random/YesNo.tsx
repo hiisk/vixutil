@@ -53,7 +53,7 @@ export default function YesNo({ lang = 'ko' }: { lang?: RandomLang }) {
         ) : answer !== null ? (
           <div className="wc-pop text-center">
             {question.trim() && (
-              <p className="text-sm text-slate-400 dark:text-slate-500 mb-2 break-words">{question}</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400 mb-2 break-words">{question}</p>
             )}
             <p className={`text-6xl font-bold ${answer ? 'text-emerald-600' : 'text-rose-500'}`}>
               {answer ? ui.yes : ui.no}
@@ -62,7 +62,7 @@ export default function YesNo({ lang = 'ko' }: { lang?: RandomLang }) {
         ) : null}
       </div>
 
-      <p className="text-xs text-slate-400 dark:text-slate-500 mt-2 text-center">{ui.leanNote}</p>
+      <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 text-center">{ui.leanNote}</p>
 
       <style jsx>{`
         @keyframes wcSpin { 0% { transform: rotateY(0); } 100% { transform: rotateY(1080deg); } }

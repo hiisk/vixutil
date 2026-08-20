@@ -138,12 +138,12 @@ export default function ResizeTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
               className="fld text-left hover:border-slate-300 dark:hover:border-slate-700"
             >
               <span className="block text-sm font-bold text-slate-700 dark:text-slate-200">{ui.presets[i]}</span>
-              <span className="block text-[11px] text-slate-400 dark:text-slate-500 tabular-nums">{p.w} × {p.h}</span>
+              <span className="block text-[11px] text-slate-500 dark:text-slate-400 tabular-nums">{p.w} × {p.h}</span>
             </button>
           ))}
         </div>
 
-        <p className="mt-4 text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed">
+        <p className="mt-4 text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
           {ui.originalLabel} {img.width} × {img.height}px ({formatBytes(img.size)}) · {ui.note}
         </p>
       </div>

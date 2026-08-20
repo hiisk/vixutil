@@ -161,7 +161,7 @@ export default function SubjectFortune({ kind, lang }: { kind: SubjectKind; lang
               <div className="text-2xl mb-1">{s.emoji}</div>
               <p className={`text-xs font-bold leading-tight ${selected === s.id ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>{s.name}</p>
               {(s.period || s.nickname) && (
-                <p className={`text-[10px] mt-0.5 ${selected === s.id ? 'text-violet-200' : 'text-slate-400 dark:text-slate-500'}`}>
+                <p className={`text-[10px] mt-0.5 ${selected === s.id ? 'text-violet-200' : 'text-slate-500 dark:text-slate-400'}`}>
                   {s.period ?? s.nickname}
                 </p>
               )}
@@ -174,9 +174,9 @@ export default function SubjectFortune({ kind, lang }: { kind: SubjectKind; lang
             {(subject.element || subject.trait) && (
               <div className="flex flex-wrap items-center gap-2 mb-4 text-xs text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2">
                 {subject.element && <span>{subject.element}</span>}
-                {subject.ruling && <><span className="text-slate-300 dark:text-slate-600">·</span><span>{subject.ruling}</span></>}
+                {subject.ruling && <><span className="text-slate-500 dark:text-slate-400">·</span><span>{subject.ruling}</span></>}
                 {subject.trait && <span>{subject.trait}</span>}
-                {subject.period && <><span className="text-slate-300 dark:text-slate-600">·</span><span>{subject.period}</span></>}
+                {subject.period && <><span className="text-slate-500 dark:text-slate-400">·</span><span>{subject.period}</span></>}
               </div>
             )}
             <FortuneDisplayIntl
@@ -188,13 +188,13 @@ export default function SubjectFortune({ kind, lang }: { kind: SubjectKind; lang
             />
           </div>
         ) : (
-          <div className="text-center py-12 text-slate-300 dark:text-slate-600">
+          <div className="text-center py-12 text-slate-500 dark:text-slate-400">
             <ToolIcon emoji="☝️" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
             <p className="text-sm">{EMPTY[lang]}</p>
           </div>
         )}
 
-        <p className="text-center text-xs text-slate-300 dark:text-slate-600 mt-10">{t('disclaimer', lang)}</p>
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-10">{t('disclaimer', lang)}</p>
       </div>
     </div>
   );

@@ -66,7 +66,7 @@ export default function GlobalSearchIntl({ items, lang, empty }: { items: Search
   return (
     <div>
       <div className="relative">
-        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 dark:text-slate-600">
+        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400">
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
           </svg>
@@ -106,7 +106,7 @@ export default function GlobalSearchIntl({ items, lang, empty }: { items: Search
       <div className="mt-5">
         {!trimmed ? (
           <div>
-            <p className="mb-5 text-center text-sm text-slate-400 dark:text-slate-500">{ui.hint}</p>
+            <p className="mb-5 text-center text-sm text-slate-500 dark:text-slate-400">{ui.hint}</p>
             {empty}
           </div>
         ) : shown.length === 0 ? (
@@ -115,7 +115,7 @@ export default function GlobalSearchIntl({ items, lang, empty }: { items: Search
             <p className="text-sm text-slate-500 dark:text-slate-400">
               <span className="font-bold text-slate-700 dark:text-slate-200">&lsquo;{query.trim()}&rsquo;</span>
             </p>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1.5">{ui.noResult}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5">{ui.noResult}</p>
           </div>
         ) : (
           <div className="flex flex-col gap-2">

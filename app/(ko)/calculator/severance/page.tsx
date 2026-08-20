@@ -145,7 +145,7 @@ export default function SeverancePage() {
                 onChange={setSimpleWage}
                 placeholder="예: 3,000,000"
               />
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1.5">세전 급여 기준 (기본급 + 각종 수당 포함)</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5">세전 급여 기준 (기본급 + 각종 수당 포함)</p>
             </div>
           ) : (
             <div className="flex flex-col gap-3">
@@ -163,7 +163,7 @@ export default function SeverancePage() {
                   <CommaInput value={wage3} onChange={setWage3} placeholder="예: 3,000,000" />
                 </div>
               </div>
-              <p className="text-xs text-slate-400 dark:text-slate-500">기본급 + 제수당 포함, 퇴직 전 3개월간 실수령 세전 금액</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">기본급 + 제수당 포함, 퇴직 전 3개월간 실수령 세전 금액</p>
             </div>
           )}
 
@@ -172,7 +172,7 @@ export default function SeverancePage() {
             <div>
               <Label>연간 상여금 <span className="dial-opt">원, 선택</span></Label>
               <CommaInput value={annualBonus} onChange={setAnnualBonus} placeholder="예: 7,000,000" />
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">연간 정기 상여 합계</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">연간 정기 상여 합계</p>
             </div>
             <div>
               <Label>연간 연차미사용수당 <span className="dial-opt">원, 선택</span></Label>
@@ -184,14 +184,14 @@ export default function SeverancePage() {
           <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
             <Label>월 통상임금 <span className="dial-opt">원, 선택 — 평균임금과 비교</span></Label>
             <CommaInput value={monthlyStdWage} onChange={setMonthlyStdWage} placeholder="입력 시 평균임금과 비교해 높은 값 적용" />
-            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1.5">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5">
               통상임금이 평균임금보다 높으면 통상임금 기준으로 계산 (근로기준법 제2조)
             </p>
           </div>
         </Card>
 
         {error && (
-          <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-xl px-4 py-3 text-sm text-red-600">{error}</div>
+          <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-xl px-4 py-3 text-sm text-red-600 dark:text-red-300">{error}</div>
         )}
 
         <PrimaryBtn onClick={calculate}>퇴직금 계산하기</PrimaryBtn>

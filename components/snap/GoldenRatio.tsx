@@ -201,7 +201,7 @@ export default function GoldenRatio({ lang }: { lang: SnapIntlLang }) {
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5">
             <div className="flex items-baseline justify-between mb-3">
               <p className="label-caps">{c.breakdown}</p>
-              <p className="text-[11px] text-slate-400 dark:text-slate-500">{c.phiNote}</p>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">{c.phiNote}</p>
             </div>
             <div className="flex flex-col gap-3">
               {result.metrics.map(m => (
@@ -209,10 +209,10 @@ export default function GoldenRatio({ lang }: { lang: SnapIntlLang }) {
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-xs font-semibold text-slate-600 dark:text-slate-300">
                       {m.label}
-                      <span className="block text-[10px] font-normal text-slate-400 dark:text-slate-500">{m.desc}</span>
+                      <span className="block text-[10px] font-normal text-slate-500 dark:text-slate-400">{m.desc}</span>
                     </span>
                     <span className="text-xs font-bold text-amber-600 shrink-0 ml-2">
-                      {m.ratio.toFixed(2)} <span className="text-slate-400 dark:text-slate-500 font-medium">· {m.score}</span>
+                      {m.ratio.toFixed(2)} <span className="text-slate-500 dark:text-slate-400 font-medium">· {m.score}</span>
                     </span>
                   </div>
                   <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">

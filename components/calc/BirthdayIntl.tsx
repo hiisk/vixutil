@@ -70,7 +70,7 @@ export default function BirthdayIntl({ lang }: { lang: CalcLang }) {
           <input type="date" value={birthdate} onChange={e => setBirthdate(e.target.value)} className={inputCls} />
         </div>
         <div className="mt-4"><PrimaryBtn onClick={calculate}>{c.calc}</PrimaryBtn></div>
-        <p className="mt-3 text-xs text-slate-400 dark:text-slate-500">{c.note}</p>
+        <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">{c.note}</p>
       </Card>
 
       {result && (

@@ -99,7 +99,7 @@ export default function BrokerFeePage() {
                   <Label>월세 (원)</Label>
                   <MoneyInput value={monthly} onChange={setMonthly} placeholder="예: 800,000" />
                 </div>
-                <p className="text-xs text-slate-400 dark:text-slate-500">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   환산금액 = 보증금 + 월세 × 100 (그 값이 5,000만원 미만이면 월세 × 70)
                 </p>
               </>
@@ -135,7 +135,7 @@ export default function BrokerFeePage() {
               )}
             </div>
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">* 상한 요율 내에서 협의 가능 · 실제 요율은 중개인과 협의하여 결정</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">* 상한 요율 내에서 협의 가능 · 실제 요율은 중개인과 협의하여 결정</p>
             </Card>
           </>
         )}

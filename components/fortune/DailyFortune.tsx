@@ -190,7 +190,7 @@ export default function DailyFortune({ lang }: { lang: IntlLang }) {
           <div id="daily-result">
             <div className="flex items-center gap-2 mb-4 text-xs text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2">
               <span className="font-semibold text-slate-700 dark:text-slate-200">{c.bornOn(birth.y, birth.m, birth.d)}</span>
-              <span className="text-slate-300 dark:text-slate-600">·</span>
+              <span className="text-slate-500 dark:text-slate-400">·</span>
               <span>{c.basis}</span>
             </div>
             {/* subjectId는 한국어와 같은 형식이라 같은 생일이면 세 언어가 같은 운세 등급을 받는다 */}
@@ -203,7 +203,7 @@ export default function DailyFortune({ lang }: { lang: IntlLang }) {
             />
           </div>
         ) : (
-          <div className="text-center py-10 text-slate-300 dark:text-slate-600">
+          <div className="text-center py-10 text-slate-500 dark:text-slate-400">
             <ToolIcon emoji="☝️" className="w-12 h-12 mx-auto mb-3 text-slate-800 dark:text-slate-100" />
             <p className="text-sm">{c.empty}</p>
           </div>

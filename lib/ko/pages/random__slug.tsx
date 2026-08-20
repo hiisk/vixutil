@@ -90,7 +90,7 @@ export default async function RandomToolPage({ params }: { params: Promise<{ slu
           <ShareButton title={`${tool.title} — vixutil`} description={tool.desc} type="quiz" />
         </div>
 
-        <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-6">
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-6">
           결과는 브라우저에서 실시간 난수로 계산됩니다. 입력한 내용은 저장·전송되지 않습니다.
         </p>
 

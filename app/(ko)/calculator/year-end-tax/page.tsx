@@ -160,14 +160,14 @@ export default function YearEndTaxPage() {
             <div>
               <Label>소득공제 합계 (원)</Label>
               <MoneyInput value={otherIncomeDeduction} onChange={setOtherIncomeDeduction} placeholder="신용카드 등·주택자금·주택마련저축" />
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 과세표준을 줄이는 공제 — 신용카드 등 사용금액, 주택임차차입금 원리금, 장기주택저당차입금 이자, 주택마련저축
               </p>
             </div>
             <div>
               <Label>세액공제 합계 (원)</Label>
               <MoneyInput value={taxCredits} onChange={setTaxCredits} placeholder="보험료·의료비·교육비·기부금·연금계좌" />
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 세금에서 바로 빼는 공제 — 보장성보험료, 의료비, 교육비, 기부금, 연금계좌, 월세.{' '}
                 근로소득세액공제와 자녀세액공제는 아래에서 자동으로 계산합니다.
               </p>
@@ -229,7 +229,7 @@ export default function YearEndTaxPage() {
                 ))}
               </div>
               <div className="px-5 py-3 border-t border-slate-100 dark:border-slate-800">
-                <p className="text-xs text-slate-400 dark:text-slate-500">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   세액공제는 산출세액을 넘겨 받을 수 없습니다 — 넘는 몫은 그대로 사라집니다.
                   인적공제는 소득공제 합계에 들어가 있습니다 ({man(result.personalDeduction)}).
                 </p>
@@ -237,7 +237,7 @@ export default function YearEndTaxPage() {
             </Card>
 
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 실효세율 {result.effectiveRate.toFixed(2)}% (결정세액 ÷ 총급여) · 표준세액공제·월세
                 세액공제·중소기업 취업자 감면은 반영하지 않은 추정치입니다. 확정 금액은 홈택스에서 확인하세요.
               </p>

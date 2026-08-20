@@ -74,7 +74,7 @@ export default function AnimalPage() {
               >
                 <div className="text-2xl mb-1">{a.emoji}</div>
                 <p className={`text-xs font-bold leading-tight ${selected === a.id ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>{a.name}</p>
-                <p className={`text-[10px] mt-0.5 ${selected === a.id ? 'text-rose-200' : 'text-slate-400 dark:text-slate-500'}`}>{recentYear}년생~</p>
+                <p className={`text-[10px] mt-0.5 ${selected === a.id ? 'text-rose-200' : 'text-slate-500 dark:text-slate-400'}`}>{recentYear}년생~</p>
               </button>
             );
           })}
@@ -84,7 +84,7 @@ export default function AnimalPage() {
           <div>
             <div className="flex items-center gap-2 mb-4 text-xs text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 flex-wrap">
               <span className="font-semibold text-slate-700 dark:text-slate-200">주요 특성: {animal.trait}</span>
-              <span className="text-slate-300 dark:text-slate-600">·</span>
+              <span className="text-slate-500 dark:text-slate-400">·</span>
               <span>해당 연도: {animal.years.filter(y => y <= currentYear).slice(-4).join(', ')}</span>
             </div>
             <FortuneDisplay
@@ -95,7 +95,7 @@ export default function AnimalPage() {
             />
           </div>
         ) : (
-          <div className="py-12 text-slate-300 dark:text-slate-600">
+          <div className="py-12 text-slate-500 dark:text-slate-400">
             <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="☝️" className="h-6 w-6" /></span>
             <p className="text-sm">내 띠를 선택하면 오늘의 운세를 볼 수 있습니다</p>
           </div>

@@ -143,7 +143,7 @@ export default function StandardWagePage() {
                   { label: '휴일근로', rate: '×1.5', value: result.hourly * 1.5 },
                 ].map(item => (
                   <div key={item.label} className="bg-slate-50 dark:bg-slate-950 rounded-lg p-2">
-                    <p className="text-slate-400 dark:text-slate-500">{item.label} {item.rate}</p>
+                    <p className="text-slate-500 dark:text-slate-400">{item.label} {item.rate}</p>
                     <p className="font-bold text-slate-800 dark:text-slate-100">{fmt(item.value)}원/h</p>
                   </div>
                 ))}

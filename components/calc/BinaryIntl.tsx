@@ -77,7 +77,7 @@ export default function BinaryIntl({ lang }: { lang: CalcLang }) {
           </div>
           <div>
             <Label>
-              {c.input} <span className="font-normal text-slate-400 dark:text-slate-500">{c[BASES.find(b => b.value === base)!.hint]}</span>
+              {c.input} <span className="font-normal text-slate-500 dark:text-slate-400">{c[BASES.find(b => b.value === base)!.hint]}</span>
             </Label>
             <input type="text" inputMode="text" value={value} onChange={e => setValue(e.target.value)} className={inputCls} />
           </div>
@@ -112,9 +112,9 @@ export default function BinaryIntl({ lang }: { lang: CalcLang }) {
         <div className="grid grid-cols-4 gap-x-3 gap-y-1.5 text-xs font-mono">
           {Array.from({ length: 16 }, (_, i) => (
             <div key={i} className="flex justify-between text-slate-600 dark:text-slate-300">
-              <span className="text-slate-400 dark:text-slate-500">{i}</span>
+              <span className="text-slate-500 dark:text-slate-400">{i}</span>
               <span>{i.toString(2).padStart(4, '0')}</span>
-              <span className="text-slate-400 dark:text-slate-500">{i.toString(16).toUpperCase()}</span>
+              <span className="text-slate-500 dark:text-slate-400">{i.toString(16).toUpperCase()}</span>
             </div>
           ))}
         </div>

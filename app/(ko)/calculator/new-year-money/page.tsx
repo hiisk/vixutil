@@ -123,11 +123,11 @@ export default function NewYearMoneyPage() {
             {rows.map((r, i) => (
               <div key={r.key} className="px-5 py-4">
                 <div className="flex items-center justify-between mb-2">
-                  <p className="text-xs font-medium text-slate-400 dark:text-slate-500">{i + 1}번째 아이</p>
+                  <p className="text-xs font-medium text-slate-500 dark:text-slate-400">{i + 1}번째 아이</p>
                   <button
                     type="button"
                     onClick={() => setRows(rs => rs.filter(x => x.key !== r.key))}
-                    className="text-xs text-slate-400 hover:text-red-500 transition-colors"
+                    className="text-xs text-slate-500 dark:text-slate-400 hover:text-red-500 transition-colors"
                   >
                     삭제
                   </button>
@@ -161,18 +161,18 @@ export default function NewYearMoneyPage() {
               </div>
             ))}
             {rows.length === 0 && (
-              <p className="px-5 py-6 text-sm text-slate-400 dark:text-slate-500">아이를 추가하면 합계가 나옵니다.</p>
+              <p className="px-5 py-6 text-sm text-slate-500 dark:text-slate-400">아이를 추가하면 합계가 나옵니다.</p>
             )}
           </div>
           <div className="px-5 py-4 border-t border-slate-100 dark:border-slate-800">
             <button
               type="button"
               onClick={() => setRows(rs => [...rs, { key: Math.max(0, ...rs.map(r => r.key)) + 1, stage: 'upper', relation: 'nephew', house: '1' }])}
-              className="w-full py-2.5 text-sm text-blue-600 font-semibold border border-blue-200 dark:border-blue-900/50 rounded-xl bg-blue-50 dark:bg-blue-950/30 hover:bg-sec-soft transition-colors"
+              className="w-full py-2.5 text-sm text-blue-600 dark:text-blue-300 font-semibold border border-blue-200 dark:border-blue-900/50 rounded-xl bg-blue-50 dark:bg-blue-950/30 hover:bg-sec-soft transition-colors"
             >
               + 아이 추가
             </button>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
               같은 번호를 고른 아이들을 한 집 형제로 봅니다
             </p>
           </div>
@@ -198,7 +198,7 @@ export default function NewYearMoneyPage() {
                   </button>
                 ))}
               </div>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
                 {SIBLING_POLICIES.find(p => p.id === policy)!.desc} · 아래 아이를 올려서 맞춥니다
               </p>
             </div>
@@ -229,13 +229,13 @@ export default function NewYearMoneyPage() {
                   <div className="flex justify-between items-baseline gap-3">
                     <span className="text-sm text-slate-600 dark:text-slate-300">
                       {c.stage.label} · {c.relation.label}
-                      {c.house && <span className="text-slate-400 dark:text-slate-500"> · {c.house}번 집</span>}
+                      {c.house && <span className="text-slate-500 dark:text-slate-400"> · {c.house}번 집</span>}
                     </span>
                     <span className="font-semibold text-sm whitespace-nowrap">
                       {c.min === c.max ? unit(c.min) : `${unit(c.min)}~${unit(c.max)}`}
                     </span>
                   </div>
-                  <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                     나이 기준 {unit(unitAt(c.stage.rung))}~{unit(unitAt(c.stage.rung + 1))}
                     {c.reasons
                       .filter(r => r.steps !== 0)
@@ -273,7 +273,7 @@ export default function NewYearMoneyPage() {
                 </span>
               ))}
             </div>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mt-3 leading-relaxed">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-3 leading-relaxed">
               이 단위 말고는 내놓지 않습니다 — 7,000원 같은 금액은 봉투에 넣지 않기 때문입니다.
               4가 들어가는 금액(4만원)은 관례로 빼 두었고, 새 돈으로 주려면 미리 은행에서 바꿔 두세요.
             </p>
@@ -281,7 +281,7 @@ export default function NewYearMoneyPage() {
         </Card>
 
         <Card className="p-4">
-          <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed">
+          <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
             * 세뱃돈에는 법도 고시도 없습니다. 이 범위는 널리 쓰이는 단위와 이 계산기가 정한 축(나이·관계·
             형제·받은 것)으로 좁힌 <strong>어림</strong>이며, 집안·지역·형편에 따라 크게 달라집니다.
             금액이 크면 증여 문제가 걸릴 수 있으니{' '}

@@ -53,8 +53,8 @@ export default function CardDraw({ lang = 'ko' }: { lang?: RandomLang }) {
         </div>
       )}
 
-      <p className="text-xs text-slate-400 dark:text-slate-500 mt-6 text-center">{ui.deckNote}</p>
-      <p className="text-[11px] text-slate-300 dark:text-slate-600 mt-2 text-center">{common.privacyNote}</p>
+      <p className="text-xs text-slate-500 dark:text-slate-400 mt-6 text-center">{ui.deckNote}</p>
+      <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-2 text-center">{common.privacyNote}</p>
 
       <style jsx>{`
         @keyframes wcFlip { 0% { opacity: 0; transform: rotateY(90deg); } 100% { opacity: 1; transform: rotateY(0); } }

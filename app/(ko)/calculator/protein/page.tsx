@@ -89,13 +89,13 @@ export default function ProteinPage() {
 
             <Card className="p-5">
               <CardHeader title="이만큼이면 이런 음식으로" />
-              <p className="text-xs text-slate-400 dark:text-slate-500 mb-3">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
                 하루 {result.midGrams}g을 채우려면 (한 가지만 먹는다는 뜻은 아닙니다)
               </p>
               <div className="grid grid-cols-2 gap-2.5 text-sm">
                 {PROTEIN_FOODS.map(f => (
                   <div key={f.name} className="flex items-center justify-between rounded-xl bg-slate-50 dark:bg-slate-800/50 px-3 py-2">
-                    <span className="text-slate-600 dark:text-slate-300">{f.name} <span className="text-xs text-slate-400 dark:text-slate-500">({f.per})</span></span>
+                    <span className="text-slate-600 dark:text-slate-300">{f.name} <span className="text-xs text-slate-500 dark:text-slate-400">({f.per})</span></span>
                     <span className="font-bold text-slate-900 dark:text-slate-100 tabular-nums">
                       {Math.max(1, Math.round(result.midGrams / f.grams))}개분
                     </span>

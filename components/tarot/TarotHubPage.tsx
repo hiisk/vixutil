@@ -73,7 +73,7 @@ export default function TarotHubPage({ lang }: { lang: Lang }) {
 
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.majorTitle}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3">{ui.majorLead}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{ui.majorLead}</p>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {MAJORS.map(c => {
               const v = cardView(c.slug, lang)!;
@@ -96,11 +96,11 @@ export default function TarotHubPage({ lang }: { lang: Lang }) {
           <section key={suit} className="mb-8">
             <h3 className="text-sm font-bold text-slate-700 dark:text-slate-200 mb-1">
               {ui.suitLabel[suit]}
-              <span className="ml-1.5 text-[11px] font-bold text-slate-400 dark:text-slate-500">
+              <span className="ml-1.5 text-[11px] font-bold text-slate-500 dark:text-slate-400">
                 {ui.elementLabel[SUIT_ELEMENT[suit]]}
               </span>
             </h3>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.suitTheme[suit]}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.suitTheme[suit]}</p>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
               {cardsOfSuit(suit).map(c => (
                 <Link prefetch={false}

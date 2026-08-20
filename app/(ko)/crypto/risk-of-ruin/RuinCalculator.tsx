@@ -153,7 +153,7 @@ export default function RuinCalculator() {
                       <td className="px-3 py-2.5 text-right tabular-nums text-slate-600 dark:text-slate-300">
                         {row.losses >= 1 ? row.losses : '—'}
                       </td>
-                      <td className={`px-4 py-2.5 text-right tabular-nums border-l border-slate-200/40 dark:border-slate-700/40 ${row.ruin != null ? tone(row.ruin) : 'text-slate-400 dark:text-slate-500'}`}>
+                      <td className={`px-4 py-2.5 text-right tabular-nums border-l border-slate-200/40 dark:border-slate-700/40 ${row.ruin != null ? tone(row.ruin) : 'text-slate-500 dark:text-slate-400'}`}>
                         {row.ruin != null ? fmtPct(row.ruin) : 'one loss ends it'}
                       </td>
                     </tr>

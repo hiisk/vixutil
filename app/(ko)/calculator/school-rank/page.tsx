@@ -187,7 +187,7 @@ export default function SchoolRankPage() {
                         ranked && b.grade === ranked.grade
                           ? 'font-bold text-blue-600 dark:text-blue-400'
                           : b.count === 0
-                            ? 'text-slate-400 dark:text-slate-500'
+                            ? 'text-slate-500 dark:text-slate-400'
                             : ''
                       }
                     >
@@ -229,7 +229,7 @@ export default function SchoolRankPage() {
                 <button
                   type="button"
                   onClick={() => setRows(rs => (rs.length > 1 ? rs.filter(x => x.key !== r.key) : rs))}
-                  className="h-10 rounded-lg text-slate-400 hover:text-red-500"
+                  className="h-10 rounded-lg text-slate-500 dark:text-slate-400 hover:text-red-500"
                   aria-label={`${r.name || '과목'} 지우기`}
                 >
                   ×
@@ -250,9 +250,9 @@ export default function SchoolRankPage() {
           {avg && (
             <>
               <div className="mt-4 rounded-lg bg-slate-900 p-5 dark:bg-slate-800">
-                <p className="mb-1 text-xs text-slate-400">평균 등급 (이수단위 가중평균)</p>
+                <p className="mb-1 text-xs text-slate-500 dark:text-slate-400">평균 등급 (이수단위 가중평균)</p>
                 <p className="stat-value">{two(avg.average)}</p>
-                <p className="mt-1 text-sm text-slate-400">
+                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                   Σ(등급 × 단위) {avg.weightedSum} ÷ 단위 합 {avg.units}
                 </p>
               </div>
@@ -301,7 +301,7 @@ export default function SchoolRankPage() {
               </div>
             </div>
           )}
-          <p className="mt-3 text-xs text-slate-400 dark:text-slate-500">
+          <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
             * 점수 분포가 정규분포라고 가정한 어림입니다. 한 반의 분포는 정규분포가 아니고 동점자가 많으면
             크게 어긋나므로, 성적표에 석차가 적혀 있으면 위쪽 칸을 쓰세요.
           </p>

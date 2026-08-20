@@ -215,7 +215,7 @@ export default function PensionCatchupPage() {
                   <div key={row.months} className="px-5 py-3 flex justify-between text-sm">
                     <span className="text-slate-600 dark:text-slate-300">
                       {row.months}개월
-                      <span className="text-slate-400 text-xs ml-1">{man(row.totalPaid)}</span>
+                      <span className="text-slate-500 dark:text-slate-400 text-xs ml-1">{man(row.totalPaid)}</span>
                     </span>
                     <span className="font-semibold">
                       {row.paybackMonths === null
@@ -228,7 +228,7 @@ export default function PensionCatchupPage() {
             </Card>
 
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 보험료율 {CONTRIBUTION_RATE * 100}% · 물가에 따른 연금 인상과 납부금의 기회비용은
                 세지 않았습니다
               </p>

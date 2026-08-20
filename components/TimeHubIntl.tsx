@@ -81,7 +81,7 @@ export default function TimeHubIntl({ lang }: { lang: ToolIntlLang }) {
           <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{w.hubLead}</p>
           {TIME_REGIONS.map(region => (
             <div key={region} className="mb-4">
-              <h3 className="text-xs font-medium text-slate-400 dark:text-slate-500 mb-1.5">{w.regionLabel[region]}</h3>
+              <h3 className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">{w.regionLabel[region]}</h3>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                 {citiesOfRegion(region).map(city => (
                   <Link
@@ -100,12 +100,12 @@ export default function TimeHubIntl({ lang }: { lang: ToolIntlLang }) {
           ))}
         </section>
 
-        <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-6 leading-relaxed">{ui.notice}</p>
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-6 leading-relaxed">{ui.notice}</p>
       </div>
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
         <span className="text-sm font-bold text-cyan-600">vixutil</span>
-        <p className="text-xs text-slate-400 mt-1">{ui.hubFoot}</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{ui.hubFoot}</p>
       </footer>
     </div>
   );

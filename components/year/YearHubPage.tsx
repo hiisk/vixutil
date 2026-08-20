@@ -66,7 +66,7 @@ export default function YearHubPage({ lang }: { lang: Lang }) {
 
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.skippedTitle}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.skippedNote}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.skippedNote}</p>
           <div className="flex flex-wrap gap-2">
             {skipped().map(y => (
               <span
@@ -81,7 +81,7 @@ export default function YearHubPage({ lang }: { lang: Lang }) {
 
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.weekTitle}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.weekNote}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.weekNote}</p>
           <div className="flex flex-wrap gap-1.5">
             {longYears().map(y => (
               <span

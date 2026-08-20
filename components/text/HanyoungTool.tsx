@@ -55,7 +55,7 @@ export default function HanyoungTool() {
           </button>
         ))}
         {text && (
-          <span className="text-xs text-slate-400 dark:text-slate-500 ml-1">
+          <span className="text-xs text-slate-500 dark:text-slate-400 ml-1">
             지금 {dirLabel}로 바꾸는 중
           </span>
         )}
@@ -81,12 +81,12 @@ export default function HanyoungTool() {
               onClick={() => { setText(s.text); setManual('auto'); }}
               className="flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700 px-3.5 py-2.5 text-left hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
             >
-              <span className="text-[11px] font-bold text-slate-400 dark:text-slate-500 w-24 shrink-0">{s.label}</span>
+              <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 w-24 shrink-0">{s.label}</span>
               <span className="text-sm font-mono text-slate-700 dark:text-slate-200 truncate">{s.text}</span>
             </button>
           ))}
         </div>
-        <p className="mt-3 text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed">
+        <p className="mt-3 text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
           두벌식 표준 자판 기준입니다. 세벌식이나 다른 배열로 친 글자는 다르게 나옵니다.
         </p>
       </div>

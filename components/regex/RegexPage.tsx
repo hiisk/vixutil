@@ -134,7 +134,7 @@ export default function RegexPage({ slug, lang }: { slug: string; lang: Lang }) 
 
         <div className="rounded-lg border chip-off p-4 mb-8">
           <h2 className="sec-h2-tight">{ui.tryTitle}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.tryNote}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.tryNote}</p>
           <RegexTry
             re={x.re}
             flags={x.flags}

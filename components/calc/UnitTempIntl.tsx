@@ -93,9 +93,9 @@ export default function UnitTempIntl({ lang }: { lang: CalcLang }) {
         <>
           {band && (
             <div className="rounded-lg border px-5 py-4 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700">
-              <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">{c.feel}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">{c.feel}</p>
               <p className={`text-base font-bold ${band.color}`}>{c[band.key]}</p>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">{result.C.toFixed(2)} °C</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{result.C.toFixed(2)} °C</p>
             </div>
           )}
 

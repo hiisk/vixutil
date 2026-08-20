@@ -170,7 +170,7 @@ export default function RebalanceBoard() {
                 <tbody>
                   {results.map(({ label, interval, r }) => {
                     if (!r) return (
-                      <tr key={label}><td colSpan={6} className="px-4 py-3 text-slate-400 dark:text-slate-500">{label} — not enough data</td></tr>
+                      <tr key={label}><td colSpan={6} className="px-4 py-3 text-slate-500 dark:text-slate-400">{label} — not enough data</td></tr>
                     );
                     const isNever = interval === 0;
                     const val = isNever ? r.buyHoldMultiple : r.rebalancedMultiple;
@@ -184,7 +184,7 @@ export default function RebalanceBoard() {
                         </td>
                         <td className="px-3 py-2.5 text-right tabular-nums font-bold text-slate-900 dark:text-white">{mult(val)}</td>
                         <td className={`px-3 py-2.5 text-right tabular-nums border-l border-slate-200/40 dark:border-slate-700/40 ${
-                          isNever ? 'text-slate-400 dark:text-slate-500'
+                          isNever ? 'text-slate-500 dark:text-slate-400'
                           : edge > 0 ? 'text-emerald-600 dark:text-emerald-400 font-bold'
                           : 'text-rose-600 dark:text-rose-400 font-bold'
                         }`}>

@@ -168,7 +168,7 @@ export default function MovingCostPage() {
                   placeholder={unit === 'pyeong' ? '예: 25' : '예: 84'} className={inputCls} min="0" step="0.1" />
               </div>
               {unit === 'sqm' && Number(area) > 0 && (
-                <p className="text-xs text-slate-400 dark:text-slate-500 mt-1.5">
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5">
                   약 {pyeong.toFixed(1)}평으로 셉니다
                 </p>
               )}
@@ -177,7 +177,7 @@ export default function MovingCostPage() {
             <div>
               <Label>평당 단가 (원/평, 일반이사 기준)</Label>
               <MoneyInput value={perPyeong} onChange={setPerPyeong} placeholder="업체 견적에서 받은 값" />
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1.5">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5">
                 시세를 넣어 두지 않았습니다 — 견적 총액을 평수로 나눈 값을 넣으세요.
                 포장이사 견적이라면 종류를 &lsquo;일반이사&rsquo;로 두어야 두 번 세지 않습니다
               </p>
@@ -190,7 +190,7 @@ export default function MovingCostPage() {
                 value={moveType}
                 onChange={v => setMoveType(v as MoveType)}
               />
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1.5">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5">
                 {MOVE_TYPES.find(m => m.key === moveType)!.note}
               </p>
             </div>
@@ -265,7 +265,7 @@ export default function MovingCostPage() {
                 <MoneyInput value={ladderFee} onChange={setLadderFee} placeholder="견적에서 받은 값" />
               </div>
             </div>
-            <p className="text-xs text-slate-400 dark:text-slate-500">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               1층은 가산이 없고, 엘리베이터가 있으면 계단 이용료가 붙지 않습니다.
               사다리차를 쓰는 집은 계단으로 지지 않으므로 층수를 세지 않습니다
             </p>
@@ -278,7 +278,7 @@ export default function MovingCostPage() {
             <Label>손 없는 날·주말·월말 배수 (1이면 평상시)</Label>
             <input type="number" value={peak} onChange={e => setPeak(e.target.value)}
               placeholder="예: 1.2" className={inputCls} min="1" step="0.05" />
-            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1.5">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5">
               평상시 견적과 그날 견적을 나눠 보면 이 배수가 나옵니다. 사람과 차가 움직이는
               몫에만 걸리고, 아래 추가 항목에는 곱하지 않습니다
             </p>
@@ -336,7 +336,7 @@ export default function MovingCostPage() {
               <Label>협의 할인 (원)</Label>
               <MoneyInput value={discount} onChange={setDiscount} placeholder="깎은 금액" />
             </div>
-            <p className="text-xs text-slate-400 dark:text-slate-500">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               &ldquo;현금으로 하면 부가세 빼 준다&rdquo;는 세금계산서를 받지 않는다는 뜻입니다 —
               그때는 위 체크를 끄는 것이 맞습니다. 협의로 깎은 금액은 부가세를 계산한 뒤에 빼므로
               둘이 섞이지 않습니다
@@ -404,7 +404,7 @@ export default function MovingCostPage() {
         </Card>
 
         <Card className="p-4">
-          <p className="text-xs text-slate-400 dark:text-slate-500">
+          <p className="text-xs text-slate-500 dark:text-slate-400">
             * 이사비에는 법정 요금표가 없습니다 · 이 결과는 <strong>넣은 단가로 낸 합계</strong>이며
             시세가 아닙니다 · 실제 금액은 업체 셋 이상에서 방문 견적을 받아 비교하세요
           </p>

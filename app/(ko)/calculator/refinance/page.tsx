@@ -118,7 +118,7 @@ export default function RefinancePage() {
             <div>
               <Label>중도상환수수료 (원)</Label>
               <CommaInput value={prepaymentFee} onChange={setPrepaymentFee} placeholder="예: 1,200,000" />
-              <p className="mt-1.5 text-xs text-slate-400 dark:text-slate-500">
+              <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">
                 보통 실행 후 3년이 지나면 면제됩니다. 모르면 0으로 두세요.
               </p>
             </div>

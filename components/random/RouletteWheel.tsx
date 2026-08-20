@@ -172,7 +172,7 @@ export default function RouletteWheel({ lang = 'ko' }: { lang?: RandomLang }) {
             <button
               onClick={() => removeOpt(i)}
               disabled={options.length <= 2}
-              className="w-8 h-8 shrink-0 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-sec-soft disabled:opacity-30 transition-colors"
+              className="w-8 h-8 shrink-0 rounded-lg text-slate-500 dark:text-slate-400 hover:text-rose-500 hover:bg-sec-soft disabled:opacity-30 transition-colors"
               aria-label={ui.remove}
             >
               ✕
@@ -183,7 +183,7 @@ export default function RouletteWheel({ lang = 'ko' }: { lang?: RandomLang }) {
       <button
         onClick={addOpt}
         disabled={options.length >= 12}
-        className="mt-3 w-full rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 text-sm font-bold py-2.5 hover:border-slate-300 dark:hover:border-slate-700 hover:text-rose-500 disabled:opacity-40 transition-colors"
+        className="mt-3 w-full rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 text-sm font-bold py-2.5 hover:border-slate-300 dark:hover:border-slate-700 hover:text-rose-500 disabled:opacity-40 transition-colors"
       >
         {ui.addOption}
       </button>

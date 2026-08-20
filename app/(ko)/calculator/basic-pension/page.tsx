@@ -248,7 +248,7 @@ export default function BasicPensionPage() {
             </Card>
 
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 고시값은 입력한 것을 그대로 씁니다 · 국민연금 연계 감액은 반영하지 않았습니다 ·
                 실제 결정액은 국민연금공단 신청·조회로 확인하세요
               </p>

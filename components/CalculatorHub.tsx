@@ -74,7 +74,7 @@ export default function CalculatorHub() {
           </div>
           {/* 검색창 */}
           <div className="relative max-w-md">
-            <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 dark:text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
             </svg>
             <input
@@ -87,7 +87,7 @@ export default function CalculatorHub() {
             {query && (
               <button
                 onClick={() => setQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 hover:text-slate-600"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 hover:text-slate-600"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -96,7 +96,7 @@ export default function CalculatorHub() {
             )}
           </div>
           {isSearching && (
-            <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
               &ldquo;{query}&rdquo; 검색 결과: <strong className="text-slate-600 dark:text-slate-300">{searchTotal}개</strong>
             </p>
           )}
@@ -110,7 +110,7 @@ export default function CalculatorHub() {
                 <ToolIcon emoji={cat.icon} className="text-slate-800 dark:text-slate-100 w-7 h-7" />
                 <div>
                   <h2 className="font-bold text-slate-900 dark:text-slate-100 text-lg leading-tight">{cat.label} 계산기</h2>
-                  <p className="text-xs text-slate-400 dark:text-slate-500">{cat.desc}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">{cat.desc}</p>
                 </div>
                 <span className={`ml-auto shrink-0 text-xs font-bold px-2.5 py-1 rounded-full border ${cat.accent}`}>
                   {cat.calcs.length}개
@@ -129,7 +129,7 @@ export default function CalculatorHub() {
                         {c.title}
                       </h3>
                       {(c as { hot?: boolean }).hot && (
-                        <span className="shrink-0 ml-1 text-xs font-bold text-red-500 bg-red-50 dark:bg-red-950/30 px-1.5 py-0.5 rounded-full">HOT</span>
+                        <span className="shrink-0 ml-1 text-xs font-bold text-red-500 dark:text-red-300 bg-red-50 dark:bg-red-950/30 px-1.5 py-0.5 rounded-full">HOT</span>
                       )}
                     </div>
                     <p className="note-xs line-clamp-2">{c.desc}</p>
@@ -149,7 +149,7 @@ export default function CalculatorHub() {
         </div>
 
         <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
-          <p className="text-xs text-slate-300 dark:text-slate-600">2026년 기준 · 참고용 계산기입니다</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400">2026년 기준 · 참고용 계산기입니다</p>
         </footer>
 
         <Faq items={SECTION_FAQ.calculator} />

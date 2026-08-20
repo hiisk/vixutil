@@ -34,7 +34,7 @@ const SORTS: [SortKey, string][] = [
 
 /** 변동성 크기에 따라 강조 */
 function volCls(v: number | null): string {
-  if (v == null) return 'text-slate-400 dark:text-slate-500';
+  if (v == null) return 'text-slate-500 dark:text-slate-400';
   if (v >= 150) return 'text-rose-600 dark:text-rose-400 font-bold';
   if (v >= 100) return 'text-orange-600 dark:text-orange-400 font-bold';
   if (v >= 60) return 'text-amber-600 dark:text-amber-400';
@@ -207,7 +207,7 @@ export default function VolatilityBoard() {
                       </td>
                     ))}
                     <td className={`px-3 py-2.5 text-right tabular-nums border-l border-slate-200/40 dark:border-slate-700/40 ${
-                      q == null ? 'text-slate-400 dark:text-slate-500'
+                      q == null ? 'text-slate-500 dark:text-slate-400'
                       : q >= 1.5 ? 'text-rose-600 dark:text-rose-400 font-bold'
                       : q <= 0.67 ? 'text-emerald-600 dark:text-emerald-400 font-bold'
                       : 'text-slate-600 dark:text-slate-300'

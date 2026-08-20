@@ -85,7 +85,7 @@ export default function FormulaEngine({
               <span className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">
                 {term(f.term)}
                 {f.unit && f.unit !== 'none' && (
-                  <span className="ml-1 font-medium text-slate-400 dark:text-slate-500">
+                  <span className="ml-1 font-medium text-slate-500 dark:text-slate-400">
                     ({unitLabel(f.unit)})
                   </span>
                 )}
@@ -123,12 +123,12 @@ export default function FormulaEngine({
               key={o.term}
               className="rounded-xl border chip-off px-3 py-3 text-center"
             >
-              <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 mb-1 truncate">
+              <p className="text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1 truncate">
                 {term(o.term)}
               </p>
               <p className={`text-base font-bold tabular-nums ${section.textAccent}`}>
                 {groupNum(o.value, o.digits ?? 2)}
-                <span className="text-xs font-medium text-slate-400 dark:text-slate-500 ml-0.5">
+                <span className="text-xs font-medium text-slate-500 dark:text-slate-400 ml-0.5">
                   {unitLabel(o.unit ?? 'none')}
                 </span>
               </p>
@@ -139,13 +139,13 @@ export default function FormulaEngine({
 
       {verdict && (
         <div className="mt-3 rounded-lg border chip-off px-4 py-3.5">
-          <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 mb-1">{ui.interpret}</p>
+          <p className="text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1">{ui.interpret}</p>
           <p className={`text-sm font-bold leading-relaxed ${tone}`}>{verdictText(verdict, lang)}</p>
         </div>
       )}
 
       <div className="mt-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 px-4 py-3.5">
-        <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 mb-1.5">{ui.formula}</p>
+        <p className="text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1.5">{ui.formula}</p>
         <p className="text-sm font-mono font-bold text-slate-700 dark:text-slate-200 leading-relaxed break-words">
           {formulaText}
         </p>

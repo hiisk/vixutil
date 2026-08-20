@@ -223,7 +223,7 @@ export default function SmileScorePage() {
           >
             <ToolIcon emoji="📷" className="w-9 h-9 text-slate-800 dark:text-slate-100" />
             <span className="text-sm font-bold text-slate-600 dark:text-slate-300">사진을 선택해주세요</span>
-            <span className="text-xs text-slate-400 dark:text-slate-500">입이 잘 보이는 정면 사진일수록 정확해요</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">입이 잘 보이는 정면 사진일수록 정확해요</span>
           </button>
         )}
         <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={e => { const f = e.target.files?.[0]; if (f) handleFile(f); }} />
@@ -241,7 +241,7 @@ export default function SmileScorePage() {
               )}
             </div>
             {!analyzing && (
-              <button onClick={() => fileInputRef.current?.click()} className="mt-3 mx-auto block text-xs font-semibold text-slate-400 dark:text-slate-500 hover:text-orange-600 transition-colors">
+              <button onClick={() => fileInputRef.current?.click()} className="mt-3 mx-auto block text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-orange-600 transition-colors">
                 다른 사진으로 다시 보기
               </button>
             )}
@@ -275,7 +275,7 @@ export default function SmileScorePage() {
                   <div key={m.key}>
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-xs font-semibold text-slate-600 dark:text-slate-300">{m.label}</span>
-                      <span className="text-xs font-bold text-rose-500">{m.percent}% <span className="text-slate-400 dark:text-slate-500 font-medium">· {m.comment}</span></span>
+                      <span className="text-xs font-bold text-rose-500">{m.percent}% <span className="text-slate-500 dark:text-slate-400 font-medium">· {m.comment}</span></span>
                     </div>
                     <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                       <div className="h-full bg-sec rounded-full" style={{ width: `${m.percent}%` }} />
@@ -305,7 +305,7 @@ export default function SmileScorePage() {
 
             <ShareButton title="미소 지수 측정 결과" description={`미소 지수 ${result.percent}% — ${result.text}`} type="fortune" />
 
-            <p className="text-center text-xs text-slate-300 dark:text-slate-600 pt-2">
+            <p className="text-center text-xs text-slate-500 dark:text-slate-400 pt-2">
               입꼬리 위치 측정은 실제로 이뤄지지만, 표정 해석은 참고용 오락 콘텐츠입니다.
             </p>
           </div>

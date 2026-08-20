@@ -61,7 +61,7 @@ export default function RandomPicker({ lang = 'ko' }: { lang?: RandomLang }) {
         placeholder={ui.listPlaceholder}
         className="fld w-full focus:ring-2 focus:ring-amber-400 resize-y"
       />
-      <div className="flex items-center justify-between mt-2 mb-4 text-xs text-slate-400">
+      <div className="flex items-center justify-between mt-2 mb-4 text-xs text-slate-500 dark:text-slate-400">
         <span>{ui.pickLine(items.length, c)}</span>
       </div>
 

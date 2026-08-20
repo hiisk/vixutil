@@ -45,7 +45,7 @@ export default function GeneratorIndexPage() {
           <Link href="/" className="font-bold text-emerald-600 text-lg shrink-0">vix.</Link>
           <span className="text-sm font-bold text-slate-700 dark:text-slate-200">생성기</span>
           <span className="ml-auto flex items-center gap-3 shrink-0">
-            <span className="text-xs text-slate-400 dark:text-slate-500">{GENERATORS.length}개</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">{GENERATORS.length}개</span>
             <LangPicker current="ko" route="/generator" />
           </span>
         </div>

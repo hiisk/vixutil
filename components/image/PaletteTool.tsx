@@ -158,7 +158,7 @@ export default function PaletteTool({ lang = 'ko' }: { lang?: ImageLang } = {}) 
           className="w-full max-h-[24rem] object-contain cursor-crosshair"
         />
       </div>
-      <p className="mt-2.5 text-center text-xs text-slate-400 dark:text-slate-500">
+      <p className="mt-2.5 text-center text-xs text-slate-500 dark:text-slate-400">
         {ui.how}
       </p>
 
@@ -192,12 +192,12 @@ export default function PaletteTool({ lang = 'ko' }: { lang?: ImageLang } = {}) 
             />
             <span className="hub-card-body">
               <span className="block text-sm font-bold text-slate-800 dark:text-slate-100 font-mono uppercase">{s.hex}</span>
-              <span className="block text-[11px] text-slate-400 dark:text-slate-500 font-mono">
+              <span className="block text-[11px] text-slate-500 dark:text-slate-400 font-mono">
                 rgb({s.rgb.join(', ')})
                 {picked && i === 0 ? ui.pickedPoint : s.ratio > 0 ? ` · ${s.ratio}%` : ''}
               </span>
             </span>
-            <span className={`text-xs font-bold ${copied === s.hex ? 'text-emerald-600' : 'text-slate-300 dark:text-slate-600'}`}>
+            <span className={`text-xs font-bold ${copied === s.hex ? 'text-emerald-600' : 'text-slate-500 dark:text-slate-400'}`}>
               {copied === s.hex ? ui.copied : ui.copy}
             </span>
           </button>
@@ -205,7 +205,7 @@ export default function PaletteTool({ lang = 'ko' }: { lang?: ImageLang } = {}) 
       </div>
 
       {shown && (
-        <p className="mt-3 text-center text-xs text-slate-400 dark:text-slate-500">
+        <p className="mt-3 text-center text-xs text-slate-500 dark:text-slate-400">
           {ui.noteBefore}<span className="font-mono font-bold uppercase text-slate-500 dark:text-slate-400">{swatches[0]?.hex}</span>
           {ui.noteAfter}
         </p>

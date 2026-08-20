@@ -106,7 +106,7 @@ export default function MaternityLeavePage() {
               <Label>주 소정근로시간</Label>
               <input type="number" min="0" value={weeklyHours} onChange={e => setWeeklyHours(e.target.value)}
                 className={inputCls} />
-              <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
+              <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
                 하한액과 통상시급을 낼 때 씁니다. 단시간근로자는 하한도 함께 낮아집니다.
               </p>
             </div>
@@ -124,7 +124,7 @@ export default function MaternityLeavePage() {
                 <Label>임신기간 (주)</Label>
                 <input type="number" min="1" max="45" value={weeks} onChange={e => setWeeks(e.target.value)}
                   className={inputCls} />
-                <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
+                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
                   {MISCARRIAGE_LEAVE.map(m => (Number.isFinite(m.untilWeek)
                     ? `${m.untilWeek}주까지 ${m.days}일`
                     : `그 뒤 ${m.days}일`)).join(' · ')}
@@ -154,7 +154,7 @@ export default function MaternityLeavePage() {
               <SummaryCard label="1일 통상임금 (8시간)" value={`${fmt(spouse.dailyWage)}원`} />
             </div>
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 근로일로 세는 휴가라 월 통상임금 ÷ 30이 아니라 통상시급 × 8시간으로 셈합니다. 고용보험이
                 그중 얼마를 회사 대신 주는지는 지원 일수와 상한액이 개정을 거듭해 여기서 세지 않았습니다.
               </p>
@@ -196,7 +196,7 @@ export default function MaternityLeavePage() {
                       {leave.blocks.map(b => (
                         <tr key={b.label}>
                           <td className="py-1">
-                            {b.label} <span className="text-slate-400">{b.paid ? '유급' : '무급'}</span>
+                            {b.label} <span className="text-slate-500 dark:text-slate-400">{b.paid ? '유급' : '무급'}</span>
                           </td>
                           <td className="py-1 text-right">{fmt(b.ei)}원</td>
                           <td className="py-1 text-right">{fmt(b.employer)}원</td>
@@ -244,7 +244,7 @@ export default function MaternityLeavePage() {
                   <MoneyInput value={floor} onChange={setFloor} />
                 </div>
               </div>
-              <p className="mt-2 text-xs text-slate-400 dark:text-slate-500">
+              <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
                 * 상한·하한은 해마다 고시로 바뀝니다. 통지서나 고용보험 안내에 적힌 값이 다르면 그것이
                 맞습니다.
               </p>

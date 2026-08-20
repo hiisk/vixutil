@@ -97,7 +97,7 @@ export default function BinauralTool({ lang = 'ko' }: { lang?: SoundLang } = {})
               }`}
             >
               <span className="block text-sm font-bold text-slate-700 dark:text-slate-200">{ui.presets[i]}</span>
-              <span className="block text-[11px] text-slate-400 dark:text-slate-500">{ui.presetNotes[i]}</span>
+              <span className="block text-[11px] text-slate-500 dark:text-slate-400">{ui.presetNotes[i]}</span>
             </button>
           ))}
         </div>

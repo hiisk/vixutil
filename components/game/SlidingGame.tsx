@@ -124,7 +124,7 @@ export default function SlidingGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
           </button>
         ))}
       </div>
-      <p className="mt-1.5 text-center text-[11px] text-slate-400 dark:text-slate-500">{ui.size}</p>
+      <p className="mt-1.5 text-center text-[11px] text-slate-500 dark:text-slate-400">{ui.size}</p>
 
       <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4">
         <Stat label={ui.moves} value={game.moves} accent="text-indigo-600" />
@@ -189,7 +189,7 @@ export default function SlidingGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
       {/* 다 맞춘 뒤에는 두 값이 곧 성적이다 — 위 칸은 새 판을 누르면 지워지므로 여기 남긴다 */}
       {solved && <Grade text={`${ui.moves} ${game.moves} · ${ui.time} ${clock(sec)}`} tone="good" />}
 
-      <p className="mt-3 text-[11px] leading-relaxed text-slate-400 dark:text-slate-500">{ui.pushHint}</p>
+      <p className="mt-3 text-[11px] leading-relaxed text-slate-500 dark:text-slate-400">{ui.pushHint}</p>
 
       <div className={`${CARD} mt-4`}>
         <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">{ui.note}</p>

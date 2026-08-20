@@ -41,7 +41,7 @@ export default function ReplaceTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
         </div>
 
         {!regex && (
-          <p className="mt-2 text-[11px] text-slate-400 dark:text-slate-500">
+          <p className="mt-2 text-[11px] text-slate-500 dark:text-slate-400">
             {ui.escapeNoteBefore}<code className="font-mono">\n</code>{ui.escapeNoteMid}<code className="font-mono">\t</code>{ui.escapeNoteAfter}
           </p>
         )}
@@ -53,7 +53,7 @@ export default function ReplaceTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
         )}
 
         {find && !result.error && (
-          <p className={`mt-3 text-sm font-bold ${result.count > 0 ? 'text-indigo-600' : 'text-slate-400 dark:text-slate-500'}`}>
+          <p className={`mt-3 text-sm font-bold ${result.count > 0 ? 'text-indigo-600' : 'text-slate-500 dark:text-slate-400'}`}>
             {result.count > 0 ? ui.willChange(result.count) : ui.noMatch}
           </p>
         )}

@@ -108,7 +108,7 @@ export default function CryptoPage() {
           ))}
         </div>
 
-        <p className="text-xs text-slate-400 dark:text-slate-500 mt-10">Prices via Binance public API · all calculations are for reference only, not investment advice</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-10">Prices via Binance public API · all calculations are for reference only, not investment advice</p>
 
         <ReferralCards lang="en" heading="Exchange sign-up bonuses" />
 

@@ -82,7 +82,7 @@ export default function BirthStonePage() {
               <div className="flex items-center gap-3">
                 <ToolIcon emoji="🌸" className="w-9 h-9 text-slate-800 dark:text-slate-100" />
                 <div>
-                  <div className="text-xs font-medium text-slate-400">{result.month}월의 탄생화</div>
+                  <div className="text-xs font-medium text-slate-500 dark:text-slate-400">{result.month}월의 탄생화</div>
                   <div className="text-lg font-bold text-slate-800 dark:text-slate-100">{result.flower}</div>
                   <div className="text-sm text-fuchsia-600 dark:text-fuchsia-300 font-medium">꽃말 · {result.flowerMeaning}</div>
                 </div>
@@ -107,7 +107,7 @@ export default function BirthStonePage() {
           </div>
         )}
 
-        <p className="text-center text-[11px] text-slate-400 dark:text-slate-500 mt-6">
+        <p className="text-center text-[11px] text-slate-500 dark:text-slate-400 mt-6">
           탄생석·탄생화는 널리 알려진 정보이며, 성향 설명은 재미로 보는 참고용입니다.
         </p>
 

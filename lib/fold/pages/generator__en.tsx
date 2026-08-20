@@ -54,7 +54,7 @@ export function build(lang: FoldLang) {
                 </span>
                 <span className="hub-card-body">
                   <span className="hub-card-title group-hover:text-sec">{g.title.replace(' Generator', '')}</span>
-                  <span className="block truncate text-xs text-slate-400 dark:text-slate-500">{g.desc}</span>
+                  <span className="block truncate text-xs text-slate-500 dark:text-slate-400">{g.desc}</span>
                 </span>
               </Link>
             ))}

@@ -123,7 +123,7 @@ export default function LensPage({ slug, lang }: { slug: string; lang: Lang }) {
 
         <section className="mb-8">
           <h2 className="sec-h2-tight">{ui.sameFovTitle}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.sameFovNote}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.sameFovNote}</p>
           <div className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
             {sameFieldOfView(slug).map(o => {
               const of_ = lensFacts(o);
@@ -135,7 +135,7 @@ export default function LensPage({ slug, lang }: { slug: string; lang: Lang }) {
                 >
                   <span className="text-sm font-bold text-indigo-700 dark:text-indigo-400 font-mono shrink-0 tabular-nums w-[68px]">{of_.focal}mm</span>
                   <span className="text-sm text-slate-700 dark:text-slate-200 truncate">{of_.sensorName}</span>
-                  <span className="ml-auto text-[11px] text-slate-400 dark:text-slate-500 shrink-0 tabular-nums">{ui.degUnit(of_.diagonal)}</span>
+                  <span className="ml-auto text-[11px] text-slate-500 dark:text-slate-400 shrink-0 tabular-nums">{ui.degUnit(of_.diagonal)}</span>
                 </Link>
               );
             })}

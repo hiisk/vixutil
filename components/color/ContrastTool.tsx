@@ -63,10 +63,10 @@ export default function ContrastTool({ lang = 'ko' }: { lang?: ColorLang } = {})
       {verdict && (
         <>
           <div className="mt-4 rounded-lg border chip-off p-5 text-center">
-            <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mb-1">{ui.ratio}</p>
+            <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">{ui.ratio}</p>
             <p className={`text-5xl font-bold tabular-nums ${verdict.aaNormal ? 'text-emerald-600' : 'text-rose-500'}`}>
               {verdict.ratio}
-              <span className="text-2xl text-slate-400 dark:text-slate-500"> : 1</span>
+              <span className="text-2xl text-slate-500 dark:text-slate-400"> : 1</span>
             </p>
             <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
               {verdict.aaaNormal ? ui.verdictBest
@@ -90,7 +90,7 @@ export default function ContrastTool({ lang = 'ko' }: { lang?: ColorLang } = {})
                   {verdict[b.key] ? ui.pass : ui.fail}
                 </p>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{ui[b.labelKey as 'aaBody' | 'aaLarge' | 'aaaBody' | 'aaaLarge']}</p>
-                <p className="text-[10px] text-slate-400 dark:text-slate-500">{b.need}</p>
+                <p className="text-[10px] text-slate-500 dark:text-slate-400">{b.need}</p>
               </div>
             ))}
           </div>

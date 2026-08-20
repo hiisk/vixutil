@@ -86,7 +86,7 @@ export default function RegexTry({
           ),
         )}
       </div>
-      <p className={`mt-2 text-xs font-bold ${result.count ? 'text-sky-600 dark:text-sky-400' : 'text-slate-400 dark:text-slate-500'}`}>
+      <p className={`mt-2 text-xs font-bold ${result.count ? 'text-sky-600 dark:text-sky-400' : 'text-slate-500 dark:text-slate-400'}`}>
         {result.count === 0 ? missLabel : result.count === 1 ? hitOne : hitMany.replace('{n}', String(result.count))}
       </p>
     </div>

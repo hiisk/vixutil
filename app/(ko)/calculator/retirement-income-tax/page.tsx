@@ -63,7 +63,7 @@ export default function RetirementIncomeTaxPage() {
             <div>
               <Label>퇴직금 (원)</Label>
               <CommaInput value={payout} onChange={setPayout} placeholder="예: 50,000,000" />
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 비과세 항목을 뺀 퇴직소득금액 기준
               </p>
             </div>
@@ -85,7 +85,7 @@ export default function RetirementIncomeTaxPage() {
                   <span className="text-sm text-slate-500 dark:text-slate-400 shrink-0">개월</span>
                 </div>
               </div>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 1년 미만은 1년으로 올려 계산합니다 (예: 10년 3개월 → 11년)
               </p>
             </div>
@@ -123,7 +123,7 @@ export default function RetirementIncomeTaxPage() {
                   <span className="text-slate-600 dark:text-slate-300">환산급여</span>
                   <span className="font-bold text-slate-900 dark:text-slate-100 tabular-nums">{w(result.convertedSalary)}원</span>
                 </div>
-                <div className="flex justify-between text-xs text-slate-400 dark:text-slate-500">
+                <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400">
                   <span>환산급여공제</span>
                   <span className="tabular-nums">−{w(result.convertedDeduction)}원</span>
                 </div>

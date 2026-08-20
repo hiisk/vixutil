@@ -72,7 +72,7 @@ export default function EmojiPage({ slug, lang }: { slug: string; lang: Lang }) 
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link prefetch={false} href={`${prefix}/emoji`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
+          <Link prefetch={false} href={`${prefix}/emoji`} className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 transition-colors font-medium truncate">
             {ui.section}
           </Link>
           <div className="ml-auto shrink-0">
@@ -103,9 +103,9 @@ export default function EmojiPage({ slug, lang }: { slug: string; lang: Lang }) 
             <p className="label-caps mb-2">{ui.nameGapTitle}</p>
             <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-3">{ui.nameGapNote}</p>
             <dl className="text-sm">
-              <dt className="text-[11px] font-bold text-slate-400 dark:text-slate-500">{ui.officialLabel}</dt>
+              <dt className="text-[11px] font-bold text-slate-500 dark:text-slate-400">{ui.officialLabel}</dt>
               <dd className="mb-2 font-mono text-slate-700 dark:text-slate-200">{x.unicodeName}</dd>
-              <dt className="text-[11px] font-bold text-slate-400 dark:text-slate-500">{ui.commonLabel}</dt>
+              <dt className="text-[11px] font-bold text-slate-500 dark:text-slate-400">{ui.commonLabel}</dt>
               <dd className="font-bold text-slate-900 dark:text-slate-100">{x.common}</dd>
             </dl>
           </section>

@@ -79,7 +79,7 @@ export default function BreakevenIntl({ lang }: { lang: CalcLang }) {
                 <input type="number" step="0.01" value={txTax} onChange={e => setTxTax(e.target.value)} className={inputCls} />
               </div>
             </div>
-            <p className="text-xs text-slate-400 dark:text-slate-500">{c.note}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">{c.note}</p>
           </div>
         ) : (
           <div className="flex flex-col gap-3">

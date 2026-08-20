@@ -24,11 +24,22 @@ import { join } from 'node:path';
 
 const ROOTS = ['app', 'components'];
 
-/** 어두운 지면에서 그대로 두면 안 되는 유틸리티 */
-const NEEDS_PAIR = /\b(?:divide-slate-(?:50|100|200)|bg-white|bg-slate-50|border-slate-(?:100|200))\b/;
+/**
+ * 어두운 지면에서 그대로 두면 안 되는 유틸리티.
+ *
+ * 2026-08-20에 «글자색»을 더했다. 다크 모드 대비를 실제로 재 보니 작은 회색
+ * 글자가 3.0~3.2로 AA 기준(4.5)에 미달했는데, 원인이 둘이었다:
+ *   · text-slate-400 dark:text-slate-500 — 짝이 **뒤집혀** 있었다(1,065곳).
+ *     다크에서 오히려 어두워져서 라이트 2.8 · 다크 3.2로 양쪽 다 미달이었다.
+ *   · text-slate-400에 dark: 짝이 아예 없는 곳(74곳).
+ */
+const NEEDS_PAIR = /\b(?:divide-slate-(?:50|100|200)|bg-white|bg-slate-50|border-slate-(?:100|200)|text-slate-(?:400|500|600))\b/;
+
+/** 짝이 뒤집힌 것 — 다크에서 더 어두워진다 */
+const REVERSED = /\btext-slate-400 dark:text-slate-500\b|\btext-slate-300 dark:text-slate-600\b/;
 
 /** 짝이 이미 있는가 — 같은 className 안에 dark:가 있으면 됐다 */
-const HAS_DARK = /\bdark:(?:bg|border|divide)-/;
+const HAS_DARK = /\bdark:(?:bg|border|divide|text)-/;
 
 /** 진한 판 위에 얹는 것들 — 두 테마에서 같은 값이 맞다 */
 const EXEMPT = /\/\d{1,3}\b|from-|via-|\[/;
@@ -51,6 +62,7 @@ function offenders(): string[] {
       for (const m of src.matchAll(/className="([^"]*)"/g)) {
         const cls = m[1];
         if (!NEEDS_PAIR.test(cls)) continue;
+        if (REVERSED.test(cls)) { bad.push(`${file}: 짝이 뒤집혔다 — ${cls.slice(0, 60)}`); continue; }
         if (HAS_DARK.test(cls) || EXEMPT.test(cls)) continue;
         bad.push(`${file}: ${cls.slice(0, 70)}`);
       }
@@ -73,6 +85,11 @@ test('이 검사가 실제로 문다', () => {
   const sample = 'divide-y divide-slate-100';
   assert.ok(NEEDS_PAIR.test(sample), '규칙이 문제의 원본을 못 잡는다');
   assert.ok(!HAS_DARK.test(sample), '짝이 없는데 있다고 본다');
+
+  /* 뒤집힌 짝도 잡아야 한다 — dark:가 붙어 있어도 방향이 틀렸다 */
+  const flipped = 'text-xs text-slate-400 dark:text-slate-500';
+  assert.ok(REVERSED.test(flipped), '뒤집힌 짝을 못 잡는다');
+  assert.ok(!REVERSED.test('text-xs text-slate-500 dark:text-slate-400'), '바른 짝을 문제로 본다');
 
   const fixed = 'divide-y divide-slate-100 dark:divide-slate-800';
   assert.ok(HAS_DARK.test(fixed), '고친 것을 여전히 문제로 본다');

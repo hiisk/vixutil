@@ -111,7 +111,7 @@ export default function RecorderTool({ lang = 'ko' }: { lang?: SoundLang } = {})
             {ui.saveFile}
           </a>
         ) : (
-          <span className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 py-3.5 text-sm text-slate-300 dark:text-slate-600 flex items-center justify-center">
+          <span className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 py-3.5 text-sm text-slate-500 dark:text-slate-400 flex items-center justify-center">
             {ui.nothingToSave}
           </span>
         )}

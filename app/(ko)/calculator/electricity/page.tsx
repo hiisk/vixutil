@@ -74,7 +74,7 @@ export default function ElectricityPage() {
             ].map(t => (
               <div key={t.label} className="bg-slate-50 dark:bg-slate-950 rounded-lg p-2">
                 <p className="font-bold text-slate-600 dark:text-slate-300">{t.label}</p>
-                <p className="text-slate-400 dark:text-slate-500">{t.range}</p>
+                <p className="text-slate-500 dark:text-slate-400">{t.range}</p>
                 <p className="font-semibold text-slate-700 dark:text-slate-200">{t.rate}/kWh</p>
               </div>
             ))}

@@ -46,7 +46,7 @@ export default function WeightedDraw({ lang = 'ko' }: { lang?: RandomLang }) {
               onClick={() => setItems(prev => prev.filter((_, n) => n !== i))}
               disabled={items.length <= 2}
               aria-label={common.remove}
-              className="shrink-0 w-8 h-8 rounded-lg text-slate-300 dark:text-slate-600 hover:text-rose-500 disabled:opacity-30"
+              className="shrink-0 w-8 h-8 rounded-lg text-slate-500 dark:text-slate-400 hover:text-rose-500 disabled:opacity-30"
             >
               ✕
             </button>
@@ -56,7 +56,7 @@ export default function WeightedDraw({ lang = 'ko' }: { lang?: RandomLang }) {
 
       <button
         onClick={() => setItems(prev => [...prev, { label: '', weight: 1 }])}
-        className="w-full mt-2 rounded-xl border border-dashed border-slate-300 dark:border-slate-600 py-2.5 text-sm font-bold text-slate-400 dark:text-slate-500 hover:border-slate-300 dark:hover:border-slate-700 hover:text-rose-500 transition-colors"
+        className="w-full mt-2 rounded-xl border border-dashed border-slate-300 dark:border-slate-600 py-2.5 text-sm font-bold text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700 hover:text-rose-500 transition-colors"
       >
         {ui.addItem}
       </button>
@@ -71,7 +71,7 @@ export default function WeightedDraw({ lang = 'ko' }: { lang?: RandomLang }) {
         {ui.drawWeighted} 🎯
       </button>
 
-      <p className="text-xs text-slate-400 dark:text-slate-500 mt-4 text-center">{ui.weightNote}</p>
+      <p className="text-xs text-slate-500 dark:text-slate-400 mt-4 text-center">{ui.weightNote}</p>
     </div>
   );
 }

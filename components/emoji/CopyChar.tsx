@@ -37,7 +37,7 @@ export default function CopyChar({ char, label, copiedLabel }: { char: string; l
       >
         {char}
       </span>
-      <span className={`mt-4 inline-block text-xs font-bold transition-colors ${done ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400 dark:text-slate-500 group-hover:text-sec'}`}>
+      <span className={`mt-4 inline-block text-xs font-bold transition-colors ${done ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-500 dark:text-slate-400 group-hover:text-sec'}`}>
         {done ? copiedLabel : label}
       </span>
     </button>

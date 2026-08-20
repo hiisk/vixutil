@@ -231,9 +231,9 @@ export default function DtiPage() {
             </div>
 
             <div className="bg-slate-900 dark:bg-slate-800 rounded-lg p-5">
-              <p className="text-slate-400 text-xs mb-1">DTI {result.limitPercent}%에서 빌릴 수 있는 최대 원금</p>
+              <p className="text-slate-500 dark:text-slate-400 text-xs mb-1">DTI {result.limitPercent}%에서 빌릴 수 있는 최대 원금</p>
               <p className="text-white text-3xl font-bold">{man(result.max.principal)}</p>
-              <p className="text-slate-400 text-xs mt-1">
+              <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
                 {result.max.principal > 0
                   ? `월 상환액 ${fmt(result.max.monthly)}원 · ${years}년${Number(graceYears) > 0 ? ` (거치 ${graceYears}년)` : ''}`
                   : '기타 대출 이자가 한도를 다 먹어 남는 몫이 없습니다'}
@@ -281,14 +281,14 @@ export default function DtiPage() {
                     </div>
                   ))}
                 </div>
-                <p className="px-5 py-3 text-xs text-slate-400 dark:text-slate-500">
+                <p className="px-5 py-3 text-xs text-slate-500 dark:text-slate-400">
                   * 위 DTI는 무거운 쪽인 거치 후 상환액으로 셌습니다
                 </p>
               </Card>
             )}
 
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 기타 대출을 이자만 세는 DTI 기준 · 원금까지 세는{' '}
                 <Link href="/calculator/dsr" className="underline">DSR</Link>과 담보 기준{' '}
                 <Link href="/calculator/ltv" className="underline">LTV</Link>를 함께 보세요 ·

@@ -192,7 +192,7 @@ export default function CaloriesBurnPage() {
                   );
                 })}
               </div>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-3">* 100% = 해당 음식 칼로리와 동일, 그 이상은 더 많이 소모</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-3">* 100% = 해당 음식 칼로리와 동일, 그 이상은 더 많이 소모</p>
             </Card>
 
             {/* MET 설명 */}

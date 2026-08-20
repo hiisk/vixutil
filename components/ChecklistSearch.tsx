@@ -14,7 +14,7 @@ function ChecklistCard({ c }: { c: ChecklistCardItem }) {
       <div className="flex items-start justify-between gap-2">
         <ToolIcon emoji={c.icon} className="text-slate-800 dark:text-slate-100 w-7 h-7" />
         <div className="flex items-center gap-1.5 shrink-0">
-          <span className="text-xs font-bold text-sky-600 bg-sky-50 dark:bg-sky-950/30 px-2 py-0.5 rounded-full">
+          <span className="text-xs font-bold text-sky-600 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/30 px-2 py-0.5 rounded-full">
             {total}항목
           </span>
         </div>
@@ -45,7 +45,7 @@ export default function ChecklistSearch({ checklists }: { checklists: ChecklistC
   return (
     <>
       <div className="relative mb-10">
-        <svg className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400 dark:text-slate-500 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <svg className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-500 dark:text-slate-400 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
         </svg>
         <input
@@ -58,7 +58,7 @@ export default function ChecklistSearch({ checklists }: { checklists: ChecklistC
         {query && (
           <button
             onClick={() => setQuery('')}
-            className="absolute right-3.5 top-3.5 text-slate-400 dark:text-slate-500 hover:text-slate-600 transition-colors"
+            className="absolute right-3.5 top-3.5 text-slate-500 dark:text-slate-400 hover:text-slate-600 transition-colors"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -70,7 +70,7 @@ export default function ChecklistSearch({ checklists }: { checklists: ChecklistC
       {filtered !== null ? (
         filtered.length > 0 ? (
           <div>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mb-4">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
               <span className="text-sky-600 font-bold">{filtered.length}개</span> 검색 결과
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
@@ -78,7 +78,7 @@ export default function ChecklistSearch({ checklists }: { checklists: ChecklistC
             </div>
           </div>
         ) : (
-          <p className="text-sm text-slate-400 dark:text-slate-500 text-center py-20">
+          <p className="text-sm text-slate-500 dark:text-slate-400 text-center py-20">
             &apos;{trimmed}&apos;에 해당하는 체크리스트가 없어요.
           </p>
         )
@@ -88,7 +88,7 @@ export default function ChecklistSearch({ checklists }: { checklists: ChecklistC
             <section key={group.name}>
               <h2 className="text-sm font-bold text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-2">
                 {group.name}
-                <span className="text-xs font-bold text-sky-600 bg-sky-50 dark:bg-sky-950/30 px-2.5 py-0.5 rounded-full">{group.items.length}</span>
+                <span className="text-xs font-bold text-sky-600 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/30 px-2.5 py-0.5 rounded-full">{group.items.length}</span>
               </h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
                 {group.items.map(c => <ChecklistCard key={c.slug} c={c} />)}

@@ -83,7 +83,7 @@ export default function CityTimePage({ city, lang }: { city: TimeCity; lang: Lan
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link prefetch={false} href={`${prefix}/time`} className="text-sm text-slate-400 dark:text-slate-500 hover:text-slate-700 transition-colors font-medium truncate">
+          <Link prefetch={false} href={`${prefix}/time`} className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 transition-colors font-medium truncate">
             {ui.section}
           </Link>
           <div className="ml-auto shrink-0">
@@ -98,10 +98,10 @@ export default function CityTimePage({ city, lang }: { city: TimeCity; lang: Lan
             <ToolIcon emoji="🕰️" className="w-7 h-7" />
           </div>
           <h1 className="page-h1">{f.city}</h1>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-5">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-5">
             {country?.flag} {f.country} · UTC {f.standardLabel}
           </p>
-          <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mb-1">{ui.nowLabel}</p>
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">{ui.nowLabel}</p>
           <CityClock zone={city.zone} locale={langInfo(lang).htmlLang} />
         </div>
 
@@ -122,7 +122,7 @@ export default function CityTimePage({ city, lang }: { city: TimeCity; lang: Lan
 
         <section className="mt-6">
           <h2 className="sec-h2-tight">{ui.gapTitle}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3">{ui.gapNote}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{ui.gapNote}</p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {f.gaps.map(g => (
               <div key={g.city} className="rounded-xl border chip-off px-3 py-2.5 text-center">

@@ -47,7 +47,7 @@ export default function CmdHubPage({ lang }: { lang: Lang }) {
             {ui.home}
           </Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <span className="text-sm text-slate-400 dark:text-slate-500 font-medium truncate">{ui.section}</span>
+          <span className="text-sm text-slate-500 dark:text-slate-400 font-medium truncate">{ui.section}</span>
           <div className="ml-auto shrink-0">
             <LangPicker current={localeOfLang(lang)} route="/cmd" available={LOCALE_PATHS} />
           </div>
@@ -73,7 +73,7 @@ export default function CmdHubPage({ lang }: { lang: Lang }) {
             <section key={cat} className="mb-9">
               <h2 className="sec-h2 flex items-baseline gap-2">
                 {ui.catLabel[cat]}
-                <span className="text-xs font-medium text-slate-400 dark:text-slate-500">{list.length}</span>
+                <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{list.length}</span>
               </h2>
               <p className="mb-3 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{ui.catNote[cat]}</p>
               <div className="grid sm:grid-cols-2 gap-2">

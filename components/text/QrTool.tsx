@@ -318,7 +318,7 @@ export default function QrTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
             onChange={setEcl}
             cols="grid-cols-4"
           />
-          <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-2">
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-2">
             {ui.ecls[ECL_LIST.indexOf(ecl)]} · {ui.eclHint}
           </p>
         </div>
@@ -354,7 +354,7 @@ export default function QrTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
                   aria-label={label}
                 />
                 <span className="min-w-0">
-                  <span className="block text-[11px] text-slate-400 dark:text-slate-500">{label}</span>
+                  <span className="block text-[11px] text-slate-500 dark:text-slate-400">{label}</span>
                   <span className="block text-xs font-mono text-slate-600 dark:text-slate-300">{value}</span>
                 </span>
               </label>
@@ -413,7 +413,7 @@ export default function QrTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
             </button>
           </div>
 
-          <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-2 leading-relaxed">{ui.note}</p>
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">{ui.note}</p>
 
           <CopyBox
             value={payload}
@@ -426,7 +426,7 @@ export default function QrTool({ lang = 'ko' }: { lang?: TextLang } = {}) {
       )}
 
       {!made && (
-        <div className="mt-4 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-4 py-10 text-center text-sm text-slate-300 dark:text-slate-600">
+        <div className="mt-4 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-4 py-10 text-center text-sm text-slate-500 dark:text-slate-400">
           {ui.empty}
         </div>
       )}

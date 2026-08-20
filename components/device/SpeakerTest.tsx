@@ -131,19 +131,19 @@ export default function SpeakerTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
                   className={`w-24 h-24 sm:w-28 sm:h-28 rounded-lg flex items-center justify-center text-4xl transition-all duration-200 border-2 ${
                     on
                       ? 'bg-sec border-emerald-400 scale-105 shadow-sm animate-pulse'
-                      : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-300 dark:text-slate-600'
+                      : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400'
                   }`}
                 >
                   {s === 'left' ? '🔈' : '🔊'}
                 </div>
-                <span className={`text-sm font-bold ${on ? 'text-emerald-600' : 'text-slate-400 dark:text-slate-500'}`}>
+                <span className={`text-sm font-bold ${on ? 'text-emerald-600' : 'text-slate-500 dark:text-slate-400'}`}>
                   {s === 'left' ? ui.leftSide : ui.rightSide}
                 </span>
               </div>
             );
           })}
         </div>
-        <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-5 leading-relaxed">
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-5 leading-relaxed">
           {mode
             ? ui.playingNote
             : ui.idleNote}
@@ -218,7 +218,7 @@ export default function SpeakerTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
           className="w-full accent-emerald-500"
           aria-label={ui.volume}
         />
-        <p className="mt-2 text-[11px] text-slate-400 dark:text-slate-500">
+        <p className="mt-2 text-[11px] text-slate-500 dark:text-slate-400">
           {ui.hearingWarn}
         </p>
       </div>
@@ -237,7 +237,7 @@ export default function SpeakerTest({ lang = 'ko' }: { lang?: DeviceLang } = {})
                 onChange={e => setChecked(c => ({ ...c, [item]: e.target.checked }))}
                 className="w-4 h-4 accent-emerald-500"
               />
-              <span className={`text-sm ${checked[item] ? 'text-slate-400 dark:text-slate-500 line-through' : 'text-slate-600 dark:text-slate-300'}`}>
+              <span className={`text-sm ${checked[item] ? 'text-slate-500 dark:text-slate-400 line-through' : 'text-slate-600 dark:text-slate-300'}`}>
                 {item}
               </span>
             </label>

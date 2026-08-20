@@ -108,7 +108,7 @@ export function TestIntlHub({ lang }: { lang: TestIntlLang }) {
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
         <span className="text-sm font-bold text-violet-600">vixutil</span>
-        <p className="text-xs text-slate-400 mt-1">{ui.foot}</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{ui.foot}</p>
       </footer>
     </div>
   );
@@ -165,7 +165,7 @@ export function TestIntlDetail({ lang, test }: { lang: TestIntlLang; test: Test 
       </div>
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
         <Link prefetch={false} href={`/${lang}/test`} className="text-sm font-bold text-violet-600">vixutil</Link>
-        <p className="text-xs text-slate-400 mt-1">{ui.foot}</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{ui.foot}</p>
       </footer>
     </>
   );

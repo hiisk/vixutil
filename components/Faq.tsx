@@ -39,7 +39,7 @@ const TONE = {
     list: 'faq-list border-slate-800 bg-slate-900/50 divide-slate-800',
     question: 'text-slate-200',
     chevron: 'text-slate-500 dark:text-slate-400',
-    answer: 'text-slate-400 dark:text-slate-500',
+    answer: 'text-slate-500 dark:text-slate-400',
   },
 } as const;
 

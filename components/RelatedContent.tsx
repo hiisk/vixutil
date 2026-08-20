@@ -73,7 +73,7 @@ export default function RelatedContent({
                 <span className="hub-card-title block truncate">
                   {item.title}
                 </span>
-                <span className="block text-xs text-slate-400 dark:text-slate-500 truncate">{item.desc}</span>
+                <span className="block text-xs text-slate-500 dark:text-slate-400 truncate">{item.desc}</span>
               </span>
             </Link>
           ))}

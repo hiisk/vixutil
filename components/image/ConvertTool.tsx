@@ -78,7 +78,7 @@ export default function ConvertTool({ lang = 'ko' }: { lang?: ImageLang } = {}) 
       <div className="mt-4 rounded-lg border chip-off p-5">
         <div className="flex items-center justify-center gap-3 mb-5">
           <span className="rounded-xl bg-slate-100 dark:bg-slate-800 px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-300">{from}</span>
-          <span className="text-slate-300 dark:text-slate-600">→</span>
+          <span className="text-slate-500 dark:text-slate-400">→</span>
           <span className="rounded-xl bg-violet-100 dark:bg-violet-950/50 px-4 py-2 text-sm font-bold text-violet-700 dark:text-violet-300">
             {MIME_LABEL[mime]}
           </span>
@@ -142,13 +142,13 @@ export default function ConvertTool({ lang = 'ko' }: { lang?: ImageLang } = {}) 
                 className="w-9 h-9 rounded-lg border border-slate-200 dark:border-slate-700 bg-transparent cursor-pointer"
               />
             </div>
-            <p className="mt-2 text-[11px] text-slate-400 dark:text-slate-500">
+            <p className="mt-2 text-[11px] text-slate-500 dark:text-slate-400">
               {ui.note}
             </p>
           </>
         )}
 
-        <p className="mt-4 text-[11px] text-slate-400 dark:text-slate-500">
+        <p className="mt-4 text-[11px] text-slate-500 dark:text-slate-400">
           {img.width} × {img.height}px · {c2.original} {formatBytes(img.size)}
         </p>
       </div>

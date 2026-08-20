@@ -217,7 +217,7 @@ export default function TestEngine({ test, lang = 'ko', headerRight }: { test: T
       <div className="h-1 topbar" />
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-lg mx-auto px-4 h-14 flex items-center gap-2">
-          <Link href={hubHref} className="text-sm text-slate-400 dark:text-slate-500 hover:text-violet-600 flex items-center gap-1.5 font-medium">
+          <Link href={hubHref} className="text-sm text-slate-500 dark:text-slate-400 hover:text-violet-600 flex items-center gap-1.5 font-medium">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -241,7 +241,7 @@ export default function TestEngine({ test, lang = 'ko', headerRight }: { test: T
         <div className="hero-band">
             <PageHero title={test.title} desc={test.desc} />
           </div>
-        <p className="text-xs text-slate-400 dark:text-slate-500 mb-8">{ui.meta(test.questions.length)}</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mb-8">{ui.meta(test.questions.length)}</p>
         <button onClick={() => setPhase('question')}
           className="btn-pri">
           {ui.start}
@@ -261,17 +261,17 @@ export default function TestEngine({ test, lang = 'ko', headerRight }: { test: T
         <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800">
           <div className="max-w-lg mx-auto px-4 h-14 flex items-center justify-between">
             <span className="text-sm font-bold text-violet-600 truncate mr-2">{test.title}</span>
-            <span className="text-xs text-slate-400 dark:text-slate-500 shrink-0">{current + 1} / {test.questions.length}</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400 shrink-0">{current + 1} / {test.questions.length}</span>
           </div>
         </header>
         <div key={current} className="flex-1 px-4 py-10 max-w-lg mx-auto w-full te-fade">
-          <span className="inline-block text-xs font-bold text-violet-500 bg-violet-50 dark:bg-violet-950/40 px-2.5 py-1 rounded-full mb-4">Q{current + 1}</span>
+          <span className="inline-block text-xs font-bold text-violet-500 dark:text-violet-300 bg-violet-50 dark:bg-violet-950/40 px-2.5 py-1 rounded-full mb-4">Q{current + 1}</span>
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-8 leading-relaxed whitespace-pre-line tracking-tight">{q.q}</h2>
           <div className="flex flex-col gap-2.5">
             {q.opts.map((opt, i) => (
               <button key={i} onClick={() => pick(i)}
                 className="group w-full text-left flex items-center gap-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg pl-3 pr-4 py-3.5 text-sm font-medium text-slate-700 dark:text-slate-200 hover:border-violet-400 hover:bg-sec-soft hover:text-violet-700 hover:shadow-sm active:scale-[0.99] transition-all">
-                <span className="shrink-0 w-7 h-7 rounded-full border-2 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 text-xs font-medium flex items-center justify-center transition-colors group-hover:border-violet-500 group-hover:bg-violet-500 group-hover:text-white">
+                <span className="shrink-0 w-7 h-7 rounded-full border-2 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 text-xs font-medium flex items-center justify-center transition-colors group-hover:border-violet-500 group-hover:bg-violet-500 group-hover:text-white">
                   {['A', 'B', 'C', 'D', 'E'][i] ?? i + 1}
                 </span>
                 <span className="flex-1 leading-snug">{opt.text}</span>
@@ -296,7 +296,7 @@ export default function TestEngine({ test, lang = 'ko', headerRight }: { test: T
       <div className="h-1 topbar" />
       <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-lg mx-auto px-4 h-14 flex items-center">
-          <button onClick={restart} className="text-sm text-slate-400 dark:text-slate-500 hover:text-violet-600 flex items-center gap-1.5 font-medium">
+          <button onClick={restart} className="text-sm text-slate-500 dark:text-slate-400 hover:text-violet-600 flex items-center gap-1.5 font-medium">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -318,7 +318,7 @@ export default function TestEngine({ test, lang = 'ko', headerRight }: { test: T
         <div className="te-pop surface relative mb-6 overflow-hidden p-7 text-center">
           <span className="te-grade" aria-hidden="true" />
           <div className="te-pop-emoji mb-3 text-5xl">{result.emoji}</div>
-          <span className="text-[11px] font-medium text-slate-400 dark:text-slate-500">{ui.resultOf(test.category)}</span>
+          <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400">{ui.resultOf(test.category)}</span>
           {mbtiType && (
             <p className="mt-3 text-4xl font-bold tracking-widest text-slate-900 dark:text-white">{mbtiType}</p>
           )}

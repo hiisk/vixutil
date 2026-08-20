@@ -122,9 +122,9 @@ export default function UnitTempPage() {
             {/* 체감 설명 */}
             {descObj && (
               <div className={`rounded-lg border px-5 py-4 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700`}>
-                <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">체감 설명</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">체감 설명</p>
                 <p className={`text-base font-bold ${descObj.color}`}>{descObj.desc}</p>
-                <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">{result.C.toFixed(2)}°C 기준</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{result.C.toFixed(2)}°C 기준</p>
               </div>
             )}
 

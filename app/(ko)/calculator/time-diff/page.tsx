@@ -183,7 +183,7 @@ export default function TimeDiffPage() {
                       { label: '초', value: addSecs, set: setAddSecs },
                     ].map(field => (
                       <div key={field.label}>
-                        <p className="text-xs text-slate-400 dark:text-slate-500 text-center mb-1">{field.label}</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 text-center mb-1">{field.label}</p>
                         <input type="number" value={field.value}
                           onChange={e => field.set(e.target.value)}
                           min={0} className={inputCls} />

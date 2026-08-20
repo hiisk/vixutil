@@ -192,7 +192,7 @@ export default function InheritanceSharePage() {
                         className={inputCls} min="0" max="10" />
                     </div>
                   ))}
-                  <p className="text-xs text-slate-400 dark:text-slate-500">
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
                     손자녀는 그 자녀 한 명분을 나눠 받습니다. 0명이면 그 몫은 남은 상속인이 나눕니다.
                   </p>
                 </div>
@@ -219,7 +219,7 @@ export default function InheritanceSharePage() {
                 </select>
               </div>
             </div>
-            <p className="text-xs text-slate-400 dark:text-slate-500">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               부모·형제자매·방계혈족은 앞 순위가 없을 때만 상속인이 됩니다. 그래도 넣어 두면
               누가 순위에 막혔는지 아래에서 알려 줍니다.
             </p>
@@ -267,17 +267,17 @@ export default function InheritanceSharePage() {
                           <span className="text-slate-600 dark:text-slate-300">
                             {h.label}
                             {h.substituted && (
-                              <span className="text-slate-400 text-xs ml-1">대습상속</span>
+                              <span className="text-slate-500 dark:text-slate-400 text-xs ml-1">대습상속</span>
                             )}
                           </span>
                           <span className="font-semibold">
                             {pct(h.share)}
                             {result.d.estate > 0 && (
-                              <span className="text-slate-400 font-normal"> · {fmt(h.amount)}원</span>
+                              <span className="text-slate-500 dark:text-slate-400 font-normal"> · {fmt(h.amount)}원</span>
                             )}
                           </span>
                         </div>
-                        <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                           몫 단위 {unit(h.unit)} ÷ {unit(result.d.totalUnit)}
                           {' · 유류분 '}
                           {h.reserveRatio > 0
@@ -314,7 +314,7 @@ export default function InheritanceSharePage() {
                     ))}
                   </div>
                   <div className="px-5 py-3 border-t border-slate-100 dark:border-slate-800">
-                    <p className="text-xs text-slate-400 dark:text-slate-500">
+                    <p className="text-xs text-slate-500 dark:text-slate-400">
                       같은 순위끼리는 1씩 균등하게 세고 배우자만 1.5로 셉니다. 그 단위를 모두
                       더한 값으로 나눈 것이 각자의 법정상속분입니다.
                     </p>
@@ -334,7 +334,7 @@ export default function InheritanceSharePage() {
             )}
 
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed">
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                 * 유언이 없을 때 민법이 정한 법정상속분 계산이며 법률 상담이 아닙니다<br />
                 * 기여분·특별수익(생전 증여)·상속포기·한정승인·상속채무는 반영하지 않습니다<br />
                 * 형제자매의 유류분은 2024년 헌법재판소 위헌 결정으로 없어져 0으로 둡니다<br />

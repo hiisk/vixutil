@@ -73,7 +73,7 @@ export default function PensionCreditPage() {
             <div>
               <Label>{incomeLabel} (원)</Label>
               <CommaInput value={income} onChange={setIncome} placeholder={`예: ${w(cap)}`} />
-              <p className="mt-1.5 text-xs text-slate-400 dark:text-slate-500">
+              <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">
                 {man(cap)} 이하면 16.5%, 초과하면 13.2%가 적용됩니다.
               </p>
             </div>
@@ -81,7 +81,7 @@ export default function PensionCreditPage() {
             <div>
               <Label>연금저축 연간 납입액 (원)</Label>
               <CommaInput value={savings} onChange={setSavings} placeholder="예: 6,000,000" />
-              <p className="mt-1.5 text-xs text-slate-400 dark:text-slate-500">
+              <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">
                 연금저축은 {man(PENSION_RULES.savingsLimit)}까지만 공제 대상입니다.
               </p>
             </div>
@@ -89,7 +89,7 @@ export default function PensionCreditPage() {
             <div>
               <Label>IRP 연간 납입액 (원)</Label>
               <CommaInput value={irp} onChange={setIrp} placeholder="예: 3,000,000" />
-              <p className="mt-1.5 text-xs text-slate-400 dark:text-slate-500">
+              <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">
                 연금저축과 합쳐 {man(PENSION_RULES.totalLimit)}까지 공제받을 수 있습니다.
               </p>
             </div>

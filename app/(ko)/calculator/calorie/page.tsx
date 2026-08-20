@@ -119,7 +119,7 @@ export default function CaloriePage() {
                       className="accent-blue-600" />
                     <div>
                       <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{l.label}</p>
-                      <p className="text-xs text-slate-400 dark:text-slate-500">{l.sub}</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400">{l.sub}</p>
                     </div>
                   </label>
                 ))}

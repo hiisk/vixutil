@@ -62,9 +62,9 @@ export default function CidrHubPage({ lang }: { lang: Lang }) {
           <section key={family} className="mb-9">
             <h2 className="sec-h2-tight">
               {ui.familyLabel[family]}
-              <span className="ml-1.5 text-[11px] font-bold text-slate-400 dark:text-slate-500">{prefixesOf(family).length}</span>
+              <span className="ml-1.5 text-[11px] font-bold text-slate-500 dark:text-slate-400">{prefixesOf(family).length}</span>
             </h2>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.familyNote[family]}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.familyNote[family]}</p>
             <div className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
               {prefixesOf(family).map(p => {
                 const f = cidrFacts(p);
@@ -77,7 +77,7 @@ export default function CidrHubPage({ lang }: { lang: Lang }) {
                     <span className="text-sm font-bold text-cyan-700 dark:text-cyan-400 tabular-nums shrink-0 w-[44px] text-right">/{p.bits}</span>
                     <span className="text-xs font-mono text-slate-600 dark:text-slate-300 shrink-0 w-[124px] truncate">{f.mask ?? ''}</span>
                     <span className="cell-cut">{blocks.join(' · ')}</span>
-                    <span className="ml-auto text-[11px] text-slate-400 dark:text-slate-500 tabular-nums shrink-0">{ui.count(f.usable, f.hostBits)}</span>
+                    <span className="ml-auto text-[11px] text-slate-500 dark:text-slate-400 tabular-nums shrink-0">{ui.count(f.usable, f.hostBits)}</span>
                   </span>
                 );
               })}

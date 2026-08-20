@@ -118,7 +118,7 @@ export default function LoanMethodPage() {
               );
             })}
             <Card className="p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 * 고정금리·중도상환 없음을 가정한 값입니다 · 실제 상환액은 이자 계산일과 상환일에 따라 조금 다를 수 있습니다
               </p>
             </Card>

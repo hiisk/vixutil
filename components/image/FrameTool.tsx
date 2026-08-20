@@ -121,7 +121,7 @@ export default function FrameTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
             aria-label={common.pickBg}
             className="w-9 h-9 rounded-lg border border-slate-200 dark:border-slate-700 bg-transparent cursor-pointer"
           />
-          <span className="text-[11px] text-slate-400 dark:text-slate-500 ml-1">{ui.noUpscale}</span>
+          <span className="text-[11px] text-slate-500 dark:text-slate-400 ml-1">{ui.noUpscale}</span>
         </div>
       </div>
 

@@ -172,13 +172,13 @@ export default function SiteFooter({ lang = 'ko', referral = true, browse = true
           href={searchHref}
           className="group flex items-center gap-2.5 mb-8 rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-3 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-sec-soft transition-colors"
         >
-            <svg className="w-4 h-4 text-slate-400 dark:text-slate-500 group-hover:text-sec transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg className="w-4 h-4 text-slate-500 dark:text-slate-400 group-hover:text-sec transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
             </svg>
-            <span className="text-sm text-slate-400 dark:text-slate-500 group-hover:text-slate-600 transition-colors">
+            <span className="text-sm text-slate-500 dark:text-slate-400 group-hover:text-slate-600 transition-colors">
               {t.searchHint}
             </span>
-            <span className="ml-auto text-xs font-bold text-slate-300 dark:text-slate-600 group-hover:text-sec transition-colors">
+            <span className="ml-auto text-xs font-bold text-slate-500 dark:text-slate-400 group-hover:text-sec transition-colors">
               {t.searchCta}
             </span>
         </Link>
@@ -186,7 +186,7 @@ export default function SiteFooter({ lang = 'ko', referral = true, browse = true
         {/* 섹션 바로가기 — 통합 검색은 이 목록을 첫 화면 위쪽에 이미 그리므로 끈다 */}
         {browse && (
           <>
-            <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
+            <p className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">
               {t.browse}
             </p>
             <div className="mb-8">
@@ -196,7 +196,7 @@ export default function SiteFooter({ lang = 'ko', referral = true, browse = true
         )}
 
         {/* 인기 도구 */}
-        <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">
           {t.popular}
         </p>
         <div className="flex flex-wrap gap-2 mb-8">
@@ -227,12 +227,12 @@ export default function SiteFooter({ lang = 'ko', referral = true, browse = true
 
           링크는 그 언어의 주소로 간다 — 열 언어에 네 장이 다 있다.
         */}
-        <nav className="flex flex-wrap gap-x-4 gap-y-1.5 mb-6 text-xs font-medium text-slate-400 dark:text-slate-500">
+        <nav className="flex flex-wrap gap-x-4 gap-y-1.5 mb-6 text-xs font-medium text-slate-500 dark:text-slate-400">
           {LEGAL_KINDS.map((k) => (
             <Link prefetch={false}
               key={k}
               href={localeHref(lang, legalRoute(k))}
-              className="hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+              className="hover:text-slate-600 dark:text-slate-300 dark:hover:text-slate-300 transition-colors"
             >
               {legalNav[k]}
             </Link>
@@ -246,7 +246,7 @@ export default function SiteFooter({ lang = 'ko', referral = true, browse = true
             <span className="text-sm font-bold text-slate-800 dark:text-slate-100 tracking-tighter">vix</span>
             <span className="text-sm font-bold text-blue-600 tracking-tighter">util</span>
           </Link>
-          <p className="text-xs text-slate-300 dark:text-slate-600 hidden sm:block">{t.tagline}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">{t.tagline}</p>
           <ThemeToggle lang={lang} />
         </div>
       </div>

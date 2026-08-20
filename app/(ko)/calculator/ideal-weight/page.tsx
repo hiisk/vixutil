@@ -111,7 +111,7 @@ export default function IdealWeightPage() {
 
             <Card className="p-5">
               <CardHeader title="공식별 표준체중" />
-              <p className="text-xs text-slate-400 dark:text-slate-500 mb-3">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
                 넷이 서로 다릅니다 — 그 폭이 이 값의 정확도입니다
               </p>
               <div className="kv-table">

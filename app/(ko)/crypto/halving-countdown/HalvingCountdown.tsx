@@ -187,7 +187,7 @@ export default function HalvingCountdown() {
             return (
               <button key={k} type="button" disabled={!usable} aria-pressed={basis === k} onClick={() => setBasis(k)}
                 className={`text-left px-3 py-2 rounded-xl border transition-colors ${
-                  !usable ? 'border-slate-200 dark:border-slate-700 text-slate-300 dark:text-slate-600 cursor-not-allowed'
+                  !usable ? 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 cursor-not-allowed'
                   : basis === k ? 'bg-amber-500 border-amber-500 text-white'
                   : 'border-amber-500/30 bg-white/70 dark:bg-slate-900/60 text-amber-900 dark:text-amber-200 hover:border-amber-500/60'
                 }`}>

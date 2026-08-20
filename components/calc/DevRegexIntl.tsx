@@ -71,14 +71,14 @@ export default function DevRegexIntl({ lang }: { lang: CalcLang }) {
             {c.matches} {matches.length > 0 && `(${matches.length})`}
           </p>
           {matches.length === 0 ? (
-            <p className="text-sm text-slate-400 dark:text-slate-500">{c.noMatch}</p>
+            <p className="text-sm text-slate-500 dark:text-slate-400">{c.noMatch}</p>
           ) : (
             <div className="flex flex-col divide-y divide-slate-100 dark:divide-slate-800">
               {matches.slice(0, 100).map((m, i) => (
                 <div key={i} className="py-2.5">
                   <div className="flex justify-between items-baseline gap-3">
                     <span className="text-sm font-mono font-bold text-blue-600 break-all">{m[0]}</span>
-                    <span className="text-xs text-slate-400 dark:text-slate-500 shrink-0">{c.position} {m.index}</span>
+                    <span className="text-xs text-slate-500 dark:text-slate-400 shrink-0">{c.position} {m.index}</span>
                   </div>
                   {m.length > 1 && (
                     <div className="mt-1.5 flex flex-col gap-0.5">

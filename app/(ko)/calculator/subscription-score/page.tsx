@@ -147,9 +147,9 @@ function ScoreItem({ label, max, score, note, children }: {
         <div className="flex items-baseline gap-1.5 min-w-0">
           <p className="label-caps">{label}</p>
           {/* note는 지금까지 prop으로 받기만 하고 그리지 않아 화면에 나오지 않았다 */}
-          {note && <p className="text-xs text-slate-400 dark:text-slate-500 truncate">{note}</p>}
+          {note && <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{note}</p>}
         </div>
-        <span className="text-blue-600 font-bold text-sm shrink-0">{score}<span className="text-slate-300 dark:text-slate-600 font-normal">/{max}점</span></span>
+        <span className="text-blue-600 font-bold text-sm shrink-0">{score}<span className="text-slate-500 dark:text-slate-400 font-normal">/{max}점</span></span>
       </div>
       {children}
       <div className="mt-1.5 h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">

@@ -108,7 +108,7 @@ export default function MeasureTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
           {ui.why}
           {names[ingredient.id]?.note && <><br /><b className="text-slate-800 dark:text-slate-100">{names[ingredient.id].name}</b> — {names[ingredient.id].note}</>}
         </p>
-        <p className="mt-3 text-[11px] text-slate-400 dark:text-slate-500">
+        <p className="mt-3 text-[11px] text-slate-500 dark:text-slate-400">
           {ui.standardNote(cupMl)}
         </p>
       </div>

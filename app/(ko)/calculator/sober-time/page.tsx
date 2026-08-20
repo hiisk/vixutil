@@ -137,7 +137,7 @@ export default function SoberTimePage() {
                   <span className="text-slate-600 dark:text-slate-300">완전 분해(0%)까지</span>
                   <span className="font-bold text-slate-900 dark:text-slate-100 tabular-nums">{fmtHours(result.hoursToZero)}</span>
                 </div>
-                <div className="flex justify-between text-xs text-slate-400 dark:text-slate-500">
+                <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400">
                   <span>섭취한 순수 알코올</span>
                   <span className="tabular-nums">{result.alcoholGrams.toFixed(1)}g</span>
                 </div>
@@ -154,7 +154,7 @@ export default function SoberTimePage() {
                 <SummaryCard label="완전 분해까지" value={fmtHours(result.hoursToZero)} />
               </SummaryGrid>
 
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-3 leading-relaxed">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-3 leading-relaxed">
                 ⚠️ 소요 시간은 음주를 끝낸 시점부터 셉니다. 위드마크 공식의 평균 추정치일 뿐이며,
                 실제 농도는 이보다 높을 수 있습니다. 안전한 유일한 기준은 마셨으면 운전하지 않는 것입니다.
               </p>

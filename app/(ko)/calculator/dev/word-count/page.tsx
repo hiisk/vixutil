@@ -46,22 +46,22 @@ export default function WordCountPage() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {STAT_ITEMS.slice(0, 4).map(item => (
             <div key={item.key} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">{item.label}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">{item.label}</p>
               <p className={`text-2xl font-bold ${item.color}`}>
                 {stats[item.key].toLocaleString('ko-KR')}
               </p>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{item.sub}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{item.sub}</p>
             </div>
           ))}
         </div>
         <div className="grid grid-cols-3 gap-3">
           {STAT_ITEMS.slice(4).map(item => (
             <div key={item.key} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
-              <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">{item.label}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">{item.label}</p>
               <p className={`text-2xl font-bold ${item.color}`}>
                 {stats[item.key].toLocaleString('ko-KR')}
               </p>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{item.sub}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{item.sub}</p>
             </div>
           ))}
         </div>
@@ -73,7 +73,7 @@ export default function WordCountPage() {
             {text && (
               <button
                 onClick={() => setText('')}
-                className="text-xs text-slate-400 dark:text-slate-500 hover:text-red-500 transition-colors font-semibold"
+                className="text-xs text-slate-500 dark:text-slate-400 hover:text-red-500 transition-colors font-semibold"
               >
                 지우기
               </button>
@@ -86,7 +86,7 @@ export default function WordCountPage() {
             className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition resize-none"
             rows={12}
           />
-          <div className="flex justify-between items-center mt-2 text-xs text-slate-400 dark:text-slate-500">
+          <div className="flex justify-between items-center mt-2 text-xs text-slate-500 dark:text-slate-400">
             <span>실시간 카운트 · 입력 즉시 반영</span>
             <span>{stats.totalChars.toLocaleString('ko-KR')} 자</span>
           </div>
@@ -101,7 +101,7 @@ export default function WordCountPage() {
                 <div key={item.key} className="flex justify-between items-center py-2.5">
                   <div>
                     <span className="text-sm text-slate-700 dark:text-slate-200 font-semibold">{item.label}</span>
-                    <span className="text-xs text-slate-400 dark:text-slate-500 ml-2">{item.sub}</span>
+                    <span className="text-xs text-slate-500 dark:text-slate-400 ml-2">{item.sub}</span>
                   </div>
                   <span className={`text-base font-bold font-mono ${item.color}`}>
                     {stats[item.key].toLocaleString('ko-KR')}

@@ -85,7 +85,7 @@ export default function RunningPacePage() {
                 <input type="number" value={m} onChange={e => setM(e.target.value)} min="0" max="59" className={inputCls} aria-label="분" />
                 <input type="number" value={s} onChange={e => setS(e.target.value)} min="0" max="59" className={inputCls} aria-label="초" />
               </div>
-              <p className="mt-1.5 text-xs text-slate-400 dark:text-slate-500">시 · 분 · 초</p>
+              <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">시 · 분 · 초</p>
             </div>
           </div>
         </Card>
@@ -113,7 +113,7 @@ export default function RunningPacePage() {
 
             <Card className="p-5">
               <CardHeader title="구간 통과 시각" />
-              <p className="text-xs text-slate-400 dark:text-slate-500 mb-3">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
                 이 시각에 지나가고 있으면 목표대로 가는 중입니다
               </p>
               <div className="kv-table">
@@ -128,13 +128,13 @@ export default function RunningPacePage() {
 
             <Card className="p-5">
               <CardHeader title="같은 페이스로 달린다면" />
-              <p className="text-xs text-slate-400 dark:text-slate-500 mb-3">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
                 페이스를 그대로 늘린 값입니다 — 실제로는 거리가 길수록 느려집니다
               </p>
               <div className="kv-table">
                 {result.equivalents.map(e => (
                   <div key={e.label} className="kv-row">
-                    <span>{e.label} <span className="text-xs text-slate-400 dark:text-slate-500">{e.km}km</span></span>
+                    <span>{e.label} <span className="text-xs text-slate-500 dark:text-slate-400">{e.km}km</span></span>
                     <span className="tabular-nums font-bold">{fmtTime(e.sec)}</span>
                   </div>
                 ))}

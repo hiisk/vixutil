@@ -182,7 +182,7 @@ export default function ExpressionPage() {
           >
             <ToolIcon emoji="📷" className="w-9 h-9 text-slate-800 dark:text-slate-100" />
             <span className="text-sm font-bold text-slate-600 dark:text-slate-300">사진을 선택해주세요</span>
-            <span className="text-xs text-slate-400 dark:text-slate-500">표정이 잘 보이는 정면 사진일수록 정확해요</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">표정이 잘 보이는 정면 사진일수록 정확해요</span>
           </button>
         )}
         <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={e => { const f = e.target.files?.[0]; if (f) handleFile(f); }} />
@@ -200,7 +200,7 @@ export default function ExpressionPage() {
               )}
             </div>
             {!analyzing && (
-              <button onClick={() => fileInputRef.current?.click()} className="mt-3 mx-auto block text-xs font-semibold text-slate-400 dark:text-slate-500 hover:text-pink-600 transition-colors">
+              <button onClick={() => fileInputRef.current?.click()} className="mt-3 mx-auto block text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-pink-600 transition-colors">
                 다른 사진으로 다시 보기
               </button>
             )}
@@ -268,7 +268,7 @@ export default function ExpressionPage() {
 
             <ShareButton title="표정 감정 분석 결과" description={`${result.label} ${result.scores[0].percent}% — ${result.text}`} type="fortune" />
 
-            <p className="text-center text-xs text-slate-300 dark:text-slate-600 pt-2">
+            <p className="text-center text-xs text-slate-500 dark:text-slate-400 pt-2">
               감정 인식은 실제 AI 모델로 이뤄지지만, 결과 해석은 참고용 오락 콘텐츠입니다.
             </p>
           </div>

@@ -54,7 +54,7 @@ export default function StorageTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
             <div className="flex items-center gap-3">
               <span className="hub-card-body">
                 <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">{s.name}</span>
-                <span className="block text-[11px] text-slate-400 dark:text-slate-500">{s.category}</span>
+                <span className="block text-[11px] text-slate-500 dark:text-slate-400">{s.category}</span>
               </span>
               <span className="shrink-0 text-right">
                 <span className="block text-xs text-slate-500 dark:text-slate-400">{ui.fridge} <b className="text-cyan-600">{s.fridge}</b></span>
@@ -65,7 +65,7 @@ export default function StorageTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
           </div>
         ))}
         {items.length === 0 && (
-          <p className="py-10 text-center text-sm text-slate-400 dark:text-slate-500">{ui.notFound}</p>
+          <p className="py-10 text-center text-sm text-slate-500 dark:text-slate-400">{ui.notFound}</p>
         )}
       </div>
 
@@ -74,7 +74,7 @@ export default function StorageTool({ lang = 'ko' }: { lang?: FoodLang } = {}) {
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           {ui.note}<b className="text-slate-800 dark:text-slate-100">{ui.noteBold}</b>
         </p>
-        <p className="mt-3 text-[11px] text-slate-400 dark:text-slate-500">
+        <p className="mt-3 text-[11px] text-slate-500 dark:text-slate-400">
           {ui.refreeze}
         </p>
       </div>

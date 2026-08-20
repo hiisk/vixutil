@@ -74,7 +74,7 @@ export default function IdealWeightIntl({ lang }: { lang: CalcLang }) {
 
           <Card className="p-5">
             <p className="label-caps mb-1">{c.byFormula}</p>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mb-3">{c.byNote}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{c.byNote}</p>
             <div className="kv-table">
               {result.byFormula.map(f => (
                 <div key={f.id} className="kv-row">

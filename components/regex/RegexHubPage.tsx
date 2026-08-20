@@ -70,9 +70,9 @@ export default function RegexHubPage({ lang }: { lang: Lang }) {
           <section key={kind} className="mb-9">
             <h2 className="sec-h2-tight">
               {ui.kindLabel[kind]}
-              <span className="ml-1.5 text-[11px] font-bold text-slate-400 dark:text-slate-500">{patternsOfKind(kind).length}</span>
+              <span className="ml-1.5 text-[11px] font-bold text-slate-500 dark:text-slate-400">{patternsOfKind(kind).length}</span>
             </h2>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.kindNote[kind]}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.kindNote[kind]}</p>
 
             <div className="rounded-lg border border-slate-200 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">
               {patternsOfKind(kind).map(x => (

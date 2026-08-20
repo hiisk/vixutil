@@ -10,7 +10,7 @@ function CopyBtn({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
   return (
     <button onClick={() => { navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 2000); }}
-      className="text-xs px-3 py-1.5 rounded-lg bg-slate-700 text-slate-300 dark:text-slate-600 hover:bg-slate-600 transition-colors font-medium">
+      className="text-xs px-3 py-1.5 rounded-lg bg-slate-700 text-slate-500 dark:text-slate-400 hover:bg-slate-600 transition-colors font-medium">
       {copied ? '복사됨 ✓' : '복사'}
     </button>
   );
@@ -82,7 +82,7 @@ export default function JsonPage() {
             <div className="flex items-center justify-between mb-2">
               <span className="label-caps">결과</span>
               <div className="flex items-center gap-3">
-                {stats && <span className="text-xs text-slate-400 dark:text-slate-500">{stats.lines}줄 · {stats.bytes}bytes</span>}
+                {stats && <span className="text-xs text-slate-500 dark:text-slate-400">{stats.lines}줄 · {stats.bytes}bytes</span>}
                 <CopyBtn text={output} />
               </div>
             </div>

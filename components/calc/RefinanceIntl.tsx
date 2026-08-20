@@ -71,10 +71,10 @@ export default function RefinanceIntl({ lang }: { lang: CalcLang }) {
               <input type="number" value={costs} onChange={e => setCosts(e.target.value)} className={inputCls} />
             </div>
           </div>
-          <p className="text-xs text-slate-400 dark:text-slate-500">{c.feeHint}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400">{c.feeHint}</p>
         </div>
         <div className="mt-4"><PrimaryBtn onClick={calculate}>{c.calc}</PrimaryBtn></div>
-        <p className="mt-3 text-xs text-slate-400 dark:text-slate-500">{c.note}</p>
+        <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">{c.note}</p>
       </Card>
 
       {result && (

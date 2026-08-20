@@ -98,9 +98,9 @@ export function ChecklistIntlHub({ lang }: { lang: ChecklistIntlLang }) {
               </span>
               <span className="hub-card-body">
                 <span className="hub-card-title group-hover:text-sec">{shortTitle(c.title, ui.trim)}</span>
-                <span className="block truncate text-xs text-slate-400 dark:text-slate-500">{c.desc}</span>
+                <span className="block truncate text-xs text-slate-500 dark:text-slate-400">{c.desc}</span>
               </span>
-              <span className="shrink-0 text-[10px] font-bold text-slate-400 dark:text-slate-500">{countOf(c)}</span>
+              <span className="shrink-0 text-[10px] font-bold text-slate-500 dark:text-slate-400">{countOf(c)}</span>
             </Link>
           ))}
         </div>
@@ -112,7 +112,7 @@ export function ChecklistIntlHub({ lang }: { lang: ChecklistIntlLang }) {
 
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
         <span className="text-sm font-bold text-sky-600">vixutil</span>
-        <p className="text-xs text-slate-400 mt-1">{ui.foot}</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{ui.foot}</p>
       </footer>
     </div>
   );
@@ -170,7 +170,7 @@ export function ChecklistIntlDetail({ lang, checklist }: { lang: ChecklistIntlLa
       </div>
       <footer className="border-t border-slate-100 dark:border-slate-800 py-8 text-center">
         <Link prefetch={false} href={`/${lang}/checklist`} className="text-sm font-bold text-sky-600">vixutil</Link>
-        <p className="text-xs text-slate-400 mt-1">{ui.foot}</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{ui.foot}</p>
       </footer>
     </>
   );

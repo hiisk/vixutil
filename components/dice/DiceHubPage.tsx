@@ -75,9 +75,9 @@ export default function DiceHubPage({ lang }: { lang: Lang }) {
             <section key={d} className="mb-9">
               <h2 className="sec-h2-tight">
                 {ui.diceTitle(d)}
-                <span className="ml-1.5 text-[11px] font-bold text-slate-400 dark:text-slate-500">{rolls.length}</span>
+                <span className="ml-1.5 text-[11px] font-bold text-slate-500 dark:text-slate-400">{rolls.length}</span>
               </h2>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 leading-relaxed">{ui.diceNote(d)}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{ui.diceNote(d)}</p>
 
               <div className="rounded-lg border chip-off p-3 mb-3">
                 <SumBars curve={curve} label={`${ui.diceTitle(d)} ${ui.curveTitle}`} className="w-full" />

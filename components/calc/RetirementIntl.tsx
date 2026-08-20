@@ -103,7 +103,7 @@ export default function RetirementIntl({ lang }: { lang: CalcLang }) {
             <div className="overflow-x-auto">
               <table className="w-full text-xs">
                 <thead>
-                  <tr className="text-slate-400 dark:text-slate-500 text-left">
+                  <tr className="text-slate-500 dark:text-slate-400 text-left">
                     <th className="py-1.5 font-semibold">{c.age}</th>
                     <th className="py-1.5 font-semibold text-right">{c.start}</th>
                     <th className="py-1.5 font-semibold text-right">{c.added}</th>

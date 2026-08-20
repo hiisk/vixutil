@@ -38,7 +38,7 @@ export default function LoanLeaf({ principal, rate, term }: { principal: number;
         <div className="page-bar">
           <Link prefetch={false} href="/" className="page-back hover:text-emerald-600 shrink-0">홈</Link>
           <span className="text-slate-200 dark:text-slate-700">·</span>
-          <Link prefetch={false} href="/calculator/loan-method" className="text-sm text-slate-400 dark:text-slate-500 hover:text-emerald-600 transition-colors font-medium truncate">
+          <Link prefetch={false} href="/calculator/loan-method" className="text-sm text-slate-500 dark:text-slate-400 hover:text-emerald-600 transition-colors font-medium truncate">
             대출 상환방식 계산기
           </Link>
         </div>
