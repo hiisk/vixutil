@@ -114,8 +114,10 @@ test('카드 장수가 아는 수와 같다', () => {
  *   2,010  2026-08-20에 /fortune/saju-match를 냈다(+1). 궁합 도구가 다섯인데
  *          정작 그 갈래에서 제일 많이 치는 「사주 궁합」이 없었다. 한국어
  *          하나뿐이라 열 장이 아니라 한 장이다
+ *
+ *   2,011  같은 날 /fortune/samjae(+1). 연초마다 크게 검색되는 말인데 없었다
    */
-  const WANT = 2010;
+  const WANT = 2011;
   const total = LANG_CODES.reduce((n, l) => n + CARD_KEYS[l].length, 0);
   assert.equal(total, WANT);
   assert.equal(allCardParams().length, WANT);

@@ -166,6 +166,7 @@ function allEntries(): MetadataRoute.Sitemap {
     { url: `${BASE}/fortune/blood-type`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/fortune/biorhythm`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/fortune/saju-match`, changeFrequency: weekly, priority: 0.9 },
+    { url: `${BASE}/fortune/samjae`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/fortune/name-match`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/fortune/zodiac-match`, changeFrequency: weekly, priority: 0.9 },
     { url: `${BASE}/fortune/star-match`, changeFrequency: weekly, priority: 0.9 },

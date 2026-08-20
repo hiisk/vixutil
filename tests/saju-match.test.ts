@@ -2,6 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { matchSaju, matchGrade, MATCH_GRADES } from '../lib/saju-match.ts';
 import { BRANCHES, STEMS, buildChart } from '../lib/saju-data.ts';
+import { AA_LARGE, CARD_GROUNDS, contrast } from './contrast.ts';
 
 /**
  * 사주 궁합의 계산 규칙.
@@ -132,24 +133,13 @@ test('이 검사가 실제로 문다', () => {
 });
 
 test('등급 색이 두 테마의 결과판에서 다 읽힌다', () => {
-  /* 결과판 바탕이 라이트=흰색, 다크=slate-900이다. 색을 한 벌만 쓰므로 양쪽에서
-     다 통과해야 한다 — 처음 골랐던 #ca8a04는 흰 바탕에서 2.94로 미달이었고,
-     그건 다크에서 보고 라이트를 안 봤기 때문이다. */
-  const hex = (h: string) => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
-  const lum = (c: number[]) => {
-    const [r, g, b] = c.map(v => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; });
-    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-  };
-  const ratio = (a: number[], b: number[]) => {
-    const [hi, lo] = [lum(a), lum(b)].sort((x, y) => y - x);
-    return (hi + 0.05) / (lo + 0.05);
-  };
-  /* 60px 숫자라 WCAG 대형 글자 기준 3.0 */
-  const GROUNDS = { 라이트: [255, 255, 255], 다크: [15, 23, 42] };
+  /* 색을 한 벌만 쓰므로 라이트·다크 양쪽에서 다 통과해야 한다 — 처음 골랐던
+     #ca8a04는 흰 바탕에서 2.94로 미달이었고, 그건 다크에서 보고 라이트를 안
+     봤기 때문이다. 60px 숫자라 대형 글자 기준(3.0)이다. */
   for (const g of MATCH_GRADES) {
-    for (const [theme, bg] of Object.entries(GROUNDS)) {
-      const r = ratio(hex(g.color), bg);
-      assert.ok(r >= 3, `${theme}에서 «${g.label}» ${g.color}의 대비가 ${r.toFixed(2)} — 3.0 미달`);
+    for (const [theme, bg] of Object.entries(CARD_GROUNDS)) {
+      const r = contrast(g.color, bg);
+      assert.ok(r >= AA_LARGE, `${theme}에서 «${g.label}» ${g.color}의 대비가 ${r.toFixed(2)} — ${AA_LARGE} 미달`);
     }
   }
 });

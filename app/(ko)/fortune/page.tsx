@@ -31,6 +31,7 @@ const TYPES = [
   { href: '/fortune/mbti',   icon: '🧠', title: 'MBTI 운세',  desc: '16가지 성격 유형별 오늘의 운세',        badge: '16유형',   color: 'from-sky-500 to-blue-600' },
   { href: '/fortune/blood-type', icon: '🩸', title: '혈액형 운세', desc: 'A·B·O·AB형 오늘의 운세',            badge: '4가지',    color: 'from-rose-500 to-red-600' },
   { href: '/fortune/biorhythm',  icon: '📈', title: '바이오리듬',  desc: '신체·감성·지성 리듬을 그래프로',      badge: '그래프',   color: 'from-emerald-500 to-teal-600' },
+  { href: '/fortune/samjae',     icon: '🗓️', title: '삼재',       desc: '내 띠 삼재가 언제인지 세 해를 짚어줍니다', badge: '12년 주기', color: 'from-amber-500 to-orange-600' },
   { href: '/fortune/saju-match', icon: '💑', title: '사주 궁합',  desc: '일간·배우자궁·오행으로 보는 명리 궁합', badge: '명리',     color: 'from-indigo-500 to-violet-600' },
   { href: '/fortune/name-match', icon: '💕', title: '이름 궁합',   desc: '두 사람 이름 획수로 보는 궁합 점수',   badge: '궁합',     color: 'from-pink-500 to-rose-600' },
   { href: '/fortune/zodiac-match', icon: '🐲', title: '띠 궁합',    desc: '십이지 삼합·육합으로 보는 두 사람 궁합', badge: '12띠',    color: 'from-rose-500 to-red-600' },
