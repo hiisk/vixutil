@@ -179,14 +179,39 @@ test('빌드된 페이지에 제휴 링크가 실린다', { skip: built ? false 
     .filter(p => p.endsWith('.html'))
     .filter(p => !LOCALIZED_HUBS.includes(p.split('/').pop()!));
 
-  const withRef = calcPages.filter(p => readFileSync(p.startsWith('app/') ? appFile(p) : p, 'utf8').includes(host));
+  /*
+   * ── 2026-08-20: 한국어 계산기는 거래소가 아니라 쿠팡이다 ──────
+   * 전에는 «모든 계산기 HTML에 거래소 호스트가 있다»였다. 지금은 <Ad>가 언어를
+   * 보고 한국어면 쿠팡, 그 밖이면 거래소를 낸다. 그러니 한국어 계산기에서
+   * 거래소를 찾으면 당연히 0개다 — 검사가 볼 것이 바뀌었다.
+   */
   assert.ok(calcPages.length > 50, `계산기 페이지가 ${calcPages.length}개뿐 — 경로가 바뀌었나`);
-  assert.equal(withRef.length, calcPages.length,
-    `계산기 ${calcPages.length}개 중 ${withRef.length}개에만 제휴 링크가 있다`);
 
-  const chunks = walk(STATIC).filter(p => p.endsWith('.js'));
-  const inBundle = chunks.some(p => readFileSync(p.startsWith('app/') ? appFile(p) : p, 'utf8').includes(host));
-  assert.ok(inBundle, '결과 화면용 번들에 제휴 링크가 없다 — 결과 지점 노출이 통째로 빠졌다');
+  /*
+   * 정적 HTML에는 **고지문**이, 번들에는 **위젯 주소**가 실린다.
+   *
+   * 광고 iframe은 붙는 자리의 폭을 재서 만들기 때문에 서버 렌더 시점(폭 0)에는
+   * 안 그려진다. 그래서 HTML에서 위젯 주소를 찾으면 0개다 — 그게 정상이다.
+   * 대신 고지문은 서버에서 그려지므로 모든 계산기 HTML에 있어야 한다.
+   */
+  const withDisclosure = calcPages.filter(
+    p => readFileSync(p.startsWith('app/') ? appFile(p) : p, 'utf8').includes('쿠팡 파트너스 활동의 일환'),
+  );
+  assert.equal(withDisclosure.length, calcPages.length,
+    `한국어 계산기 ${calcPages.length}개 중 ${withDisclosure.length}개에만 대가성 표기가 있다`);
+
+  const bundles = walk(STATIC).filter(p => p.endsWith('.js'));
+  assert.ok(
+    bundles.some(p => readFileSync(p.startsWith('app/') ? appFile(p) : p, 'utf8').includes('ads-partners.coupang.com')),
+    '번들에 쿠팡 위젯 주소가 없다 — 한국어 광고가 통째로 빠졌다',
+  );
+
+  /*
+   * 거래소는 아홉 언어의 결과 화면에서 나간다 — 그쪽은 결과가 나온 뒤에 그리므로
+   * 정적 HTML이 아니라 JS 번들에 있다. 한쪽만 보면 반대쪽이 통째로 빠져도 통과한다.
+   */
+  const inBundle = bundles.some(p => readFileSync(p.startsWith('app/') ? appFile(p) : p, 'utf8').includes(host));
+  assert.ok(inBundle, '번들에 거래소 링크가 없다 — 아홉 언어의 결과 지점 노출이 통째로 빠졌다');
 });
 
 test('crypto 페이지가 모두 제휴 노출을 갖는다', () => {

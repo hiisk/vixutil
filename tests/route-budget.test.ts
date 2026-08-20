@@ -112,6 +112,17 @@
  *                         이유다 — 공식 하나로 뽑은 표라 그 주제를 하러 오는 사람이
  *                         없었다. 셋이 각각 국제 낱장 아홉을 물고 있어 −27,
  *                         한국어 허브 셋이라 −3이다. 빌드로 잰 값이다.
+ *
+ *   동적 205 / 정적 463   2026-08-20 — 위 403은 **한 번도 빌드로 확인되지 않은
+ *                         채 남아 있던 값이다.** 이 검사는 .next가 있어야 도는데
+ *                         빌드 산출물을 매번 지워 와서(10GB) 8월 15일 이후로 계속
+ *                         건너뛰어졌다. 그동안 값 격자 55개 갈래(8/15)와 일곱
+ *                         갈래(8/18)가 지워졌고, 그 갈래들이 물고 있던 언어별
+ *                         동적 라우트가 함께 사라졌다. 이번에 전체 빌드를 돌려
+ *                         실측했다.
+ *
+ *                         여유가 크게 늘었다 — 동적 205칸은 표에서 410칸을
+ *                         차지하고 정적 463과 합쳐 873으로, 한도 2,048의 43%다.
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -122,8 +133,8 @@ const ROOT = join(import.meta.dirname, '..');
 const MANIFEST = join(ROOT, '.next', 'routes-manifest.json');
 
 /** 배포에 성공한 상태에서 잰 수 */
-const EXPECT_DYNAMIC = 403;
-const EXPECT_STATIC = 461;
+const EXPECT_DYNAMIC = 205;
+const EXPECT_STATIC = 463;
 /**
  * 얼마까지 늘어도 넘기나.
  *

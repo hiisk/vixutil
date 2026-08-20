@@ -26,7 +26,12 @@ import { localesOfSection } from '../lib/i18n/lang.ts';
 const built = isBuilt();
 
 /** 여덟 언어 모두에 페이지가 있는 섹션 */
-const SECTIONS = ['convert', 'rate', 'body', 'geometry', 'country', 'hanja', 'color', 'image', 'sound', 'food', 'game', 'device', 'text', 'time'];
+/*
+ * 2026-08-20: country를 뺐다. 8월 18일에 country·html·css·error·music·metro·
+ * flight 일곱 갈래를 통째로 지웠는데 이 목록에 손으로 적힌 채 남아 있었다.
+ * 빌드가 있어야 도는 검사라 그동안 조용히 건너뛰어져 안 보였다.
+ */
+const SECTIONS = ['convert', 'rate', 'body', 'geometry', 'hanja', 'color', 'image', 'sound', 'food', 'game', 'device', 'text', 'time'];
 
 /** 그 언어의 그 경로에 해당하는 빌드 산출물. 안 구웠으면 null. */
 function pageFor(locale: (typeof ALL_LOCALES)[number], route: string): string | null {
