@@ -1,4 +1,5 @@
 import ToolIcon from '@/components/ToolIcon';
+import CoupangAd from '@/components/CoupangAd';
 import Link from 'next/link';
 import Image from 'next/image';
 import type { Metadata } from 'next';
@@ -768,7 +769,15 @@ export default function HubPage() {
         </div>
       </div>
 
-      <footer className="text-center pb-8">
+      {/*
+        홈은 SiteFooter가 아니라 이 작은 푸터를 쓴다 — 그래서 광고가 여기만
+        빠져 있었다. 본문 아래·저작권 줄 위가 자리다.
+      */}
+      <div className="max-w-5xl mx-auto px-4">
+        <CoupangAd />
+      </div>
+
+      <footer className="text-center pb-8 pt-8">
         <p className="text-xs text-slate-500 dark:text-slate-400">vixutil.com — 2026</p>
       </footer>
     </div>

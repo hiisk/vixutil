@@ -126,3 +126,33 @@ test('이 검사가 실제로 문다', () => {
   assert.ok(!'이 페이지는 쿠팡 파트너스'.includes('포스팅'));
   assert.ok('이 포스팅은 쿠팡 파트너스'.includes('포스팅'), '포스팅 규칙이 원본을 못 잡는다');
 });
+
+test('한 화면에 광고가 둘 뜨지 않는다', () => {
+  /*
+   * 코인 카드는 본문 하나 + 옆 레일 하나로 두 자리를 썼다. 레일을 걷어내면서
+   * 기계적으로 바꿨더니 **CalcShell에 CoupangAd가 둘** 남아, 계산기 화면마다
+   * 광고가 두 번 떴다(브라우저에서 세 보고 알았다).
+   *
+   * 한 파일 안의 개수만 본다. 페이지가 본문에 직접 넣을 때는 푸터 쪽을
+   * referral={false}로 끄는 규칙이 따로 있고, 그건 아래 검사가 본다.
+   */
+  const files = execSync("grep -rl '<CoupangAd' app components lib || true",
+    { cwd: ROOT, encoding: 'utf8' }).trim().split('\n').filter(Boolean);
+  const twice: string[] = [];
+  for (const f of files) {
+    const n = (readFileSync(join(ROOT, f), 'utf8').match(/<CoupangAd\b/g) ?? []).length;
+    if (n > 1) twice.push(`${f}: ${n}번`);
+  }
+  assert.deepEqual(twice, [], `한 파일에 광고가 두 번 들어갔다:\n  ${twice.join('\n  ')}`);
+});
+
+test('본문에 광고를 넣은 페이지는 푸터 쪽을 끈다', () => {
+  /* 안 끄면 본문 하나 + 푸터 하나로 한 화면에 둘이 된다 */
+  const files = execSync("grep -rl '<CoupangAd' app || true",
+    { cwd: ROOT, encoding: 'utf8' }).trim().split('\n').filter(Boolean);
+  const bad = files.filter(f => {
+    const src = readFileSync(join(ROOT, f), 'utf8');
+    return src.includes('<SiteFooter') && !src.includes('referral={false}');
+  });
+  assert.deepEqual(bad, [], `본문 광고와 푸터 광고가 겹친다:\n  ${bad.join('\n  ')}`);
+});

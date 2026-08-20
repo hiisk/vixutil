@@ -171,9 +171,6 @@ export default function CalcShellIntl({
               <Faq items={faq} lang={lang} />
             </main>
           </Column>
-
-          {/* 문구는 lang을 따라간다 — 안 넘기면 기본값이 'ko'라 독일어 화면에 한국어가 뜬다 */}
-          <CoupangAd lang={lang} />
         </div>
 
         <SiteFooter lang={lang} referral={false} />

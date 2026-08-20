@@ -1,6 +1,5 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
-import CoupangAd from '@/components/CoupangAd';
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -211,11 +210,9 @@ export default function BiorhythmPage() {
           </p>
         </div>
 
-        {result && <CoupangAd />}
-
         <Faq items={SECTION_FAQ['fortune/biorhythm']} />
       </div>
-      <SiteFooter referral={false} />
+      <SiteFooter />
     </div>
   );
 }

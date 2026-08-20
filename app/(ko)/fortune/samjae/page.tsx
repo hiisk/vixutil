@@ -1,6 +1,5 @@
 'use client';
 import { useState, useEffect } from 'react';
-import CoupangAd from '@/components/CoupangAd';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
@@ -235,8 +234,6 @@ export default function SamjaePage() {
               description="삼재가 드는 세 해와 지금이 어디인지 확인해보세요"
               type="fortune"
             />
-
-            <CoupangAd />
           </div>
         )}
 
@@ -264,7 +261,7 @@ export default function SamjaePage() {
 
         <Faq items={SECTION_FAQ['fortune/samjae']} />
       </div>
-      <SiteFooter referral={false} />
+      <SiteFooter />
     </div>
   );
 }

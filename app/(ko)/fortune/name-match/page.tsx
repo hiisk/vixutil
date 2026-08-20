@@ -1,6 +1,5 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
-import CoupangAd from '@/components/CoupangAd';
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -160,11 +159,9 @@ export default function NameMatchPage() {
           </p>
         </div>
 
-        {result && <CoupangAd />}
-
         <Faq items={SECTION_FAQ['fortune/name-match']} />
       </div>
-      <SiteFooter referral={false} />
+      <SiteFooter />
     </div>
   );
 }

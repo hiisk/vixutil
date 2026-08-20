@@ -1,6 +1,5 @@
 'use client';
 import { useState, useMemo } from 'react';
-import CoupangAd from '@/components/CoupangAd';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
@@ -245,8 +244,6 @@ export default function SajuMatchPage() {
               description="일간·배우자궁·오행·십성 네 자리로 본 두 사람의 궁합"
               type="fortune"
             />
-
-            <CoupangAd />
           </div>
         )}
 
@@ -277,7 +274,7 @@ export default function SajuMatchPage() {
 
         <Faq items={SECTION_FAQ['fortune/saju-match']} />
       </div>
-      <SiteFooter referral={false} />
+      <SiteFooter />
     </div>
   );
 }

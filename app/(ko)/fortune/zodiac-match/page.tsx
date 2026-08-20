@@ -1,6 +1,5 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
-import CoupangAd from '@/components/CoupangAd';
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -161,8 +160,6 @@ export default function ZodiacMatchPage() {
               description={`${result.info.label} — ${result.info.headline}`}
               type="fortune"
             />
-
-            <CoupangAd />
           </div>
         )}
 
@@ -190,7 +187,7 @@ export default function ZodiacMatchPage() {
 
         <Faq items={SECTION_FAQ['fortune/zodiac-match']} />
       </div>
-      <SiteFooter referral={false} />
+      <SiteFooter />
     </div>
   );
 }

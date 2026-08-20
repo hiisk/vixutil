@@ -158,9 +158,9 @@ export default function CalcShell({
                 카드는 첫 진입에 이미 보이고 있었으므로 감추는 쪽이 오히려 새 동작이다.
                 자리만 옮기고 조건은 더하지 않는다.
 
-                rail은 "이 화면에 옆 레일이 함께 뜬다"는 뜻이다. 그래야 xl 이상에서
-                본문 카드와 레일이 같은 거래소를 두 번 보여 주지 않는다.
-                section='calc' — sub-id에 섹션을 실어 계산기발 클릭을 갈라 본다 (ko-calc-result)
+                옆 레일은 없앴다(2026-08-20). 코인 거래소 카드를 걷어내면서
+                288px 레일을 쿠팡 캐러셀로 바꿀 까닭이 없어졌고, 레일을 그냥
+                두었더니 **한 화면에 광고가 둘** 떴다.
               */}
               <CoupangAd />
 
@@ -205,8 +205,6 @@ export default function CalcShell({
               </div>
             </main>
           </Column>
-
-          <CoupangAd />
         </div>
 
         <SiteFooter referral={false} />

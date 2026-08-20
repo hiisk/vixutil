@@ -1,6 +1,5 @@
 'use client';
 import { shareOne } from '@/lib/share/ui';
-import CoupangAd from '@/components/CoupangAd';
 import ToolIcon from '@/components/ToolIcon';
 import { useState, useEffect, useCallback, type ReactNode } from 'react';
 import Link from 'next/link';
@@ -927,7 +926,6 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
               공유 버튼보다 아래에 둔다. FortuneDisplay 안에 두면 "다음" 버튼 위에 끼어
               단계 이동을 방해했다(showReferral={false}로 끄고 여기로 옮김).
             */}
-            {currentStep?.key === 'ilju' && <CoupangAd />}
 
           </div>
         )}
@@ -944,7 +942,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
 
         <Faq items={faq ?? SECTION_FAQ['fortune/saju']} />
       </div>
-      <SiteFooter referral={false} />
+      <SiteFooter />
     </div>
   );
 }

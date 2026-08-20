@@ -1,6 +1,5 @@
 'use client';
 import { useState, useMemo } from 'react';
-import CoupangAd from '@/components/CoupangAd';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
@@ -192,8 +191,6 @@ export default function SinsalPage() {
               description={mine.map(s => s.alias ?? s.name).join(' · ')}
               type="fortune"
             />
-
-            <CoupangAd />
           </div>
         )}
 
@@ -259,7 +256,7 @@ export default function SinsalPage() {
 
         <Faq items={SECTION_FAQ['fortune/sinsal']} />
       </div>
-      <SiteFooter referral={false} />
+      <SiteFooter />
     </div>
   );
 }
