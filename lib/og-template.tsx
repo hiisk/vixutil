@@ -194,6 +194,155 @@ function sampleNumber(stops: [number, number][], t: number): number {
  * g transform·path·circle·rect까지는 통과하지만 filter·mask·use·clipPath는
  * 쓰지 않는다.
  */
+/**
+ * ── 카드가 전부 똑같아 보였다 (2026-08-20) ──────────────────
+ * 2,013장이 한 판을 썼다 — 남색 그라디언트, 왼쪽 글, 오른쪽 원궤도. 색 두 개와
+ * 아이콘만 달라서 목록에 늘어놓으면 하나로 뭉개졌다.
+ *
+ * 갈래마다 그림의 «짜임»을 바꾼다. 무작위가 아니라 갈래로 가른다 — 그래야
+ * 다름이 장식이 아니라 정보가 된다. 계산기는 모눈, 운세는 별자리, 테스트는
+ * 파문, 사진·색은 띠, 개발·문자는 격자다.
+ *
+ * 어떻게 갈래를 아는가: 카드를 그리는 함수는 열쇠를 안 받는다(2,013곳을 고칠
+ * 수 없다). 대신 lib/og-cards/render.ts가 그리기 **직전에** 여기 넣어 준다.
+ * make()는 JSX를 짓기만 하는 동기 함수라 넣고 읽는 사이에 끼어들 틈이 없다.
+ */
+export type CardConcept = 'grid' | 'star' | 'ripple' | 'band' | 'mono' | 'orbit';
+
+const CONCEPT_BY_SECTION: Record<string, CardConcept> = {
+  calculator: 'grid', rate: 'grid', percent: 'grid', number: 'grid', times: 'grid',
+  fraction: 'grid', sqrt: 'grid', geometry: 'grid', convert: 'grid', year: 'grid',
+  crypto: 'grid', body: 'grid',
+
+  fortune: 'star', quiz: 'star', hanja: 'star',
+
+  test: 'ripple', checklist: 'ripple', generator: 'ripple', random: 'ripple',
+
+  snap: 'band', image: 'band', color: 'band', craft: 'band', food: 'band',
+
+  text: 'mono', code: 'mono', http: 'mono', port: 'mono', ascii: 'mono',
+  keycode: 'mono', cidr: 'mono', chmod: 'mono', ext: 'mono', emoji: 'mono',
+  password: 'mono', shortcut: 'mono', cmd: 'mono',
+};
+
+let currentConcept: CardConcept = 'orbit';
+
+/** render.ts가 그리기 직전에 부른다 */
+export function setCardSection(key: string): void {
+  currentConcept = CONCEPT_BY_SECTION[key.split('/')[0]] ?? 'orbit';
+}
+
+
+/* ── 컨셉별 그림 ───────────────────────────────────────────────
+   전부 아이콘 자리(ART_X, ART_Y)를 중심으로 그린다. 아이콘은 이 위에 얹히므로
+   가운데는 비워 두고 둘레만 짠다. Satori가 받는 것만 쓴다 —
+   circle·rect·line·path·g/transform까지다(filter·mask·clipPath는 안 쓴다). */
+
+/** 궤도 — 원래 쓰던 것. 갈래를 못 알아보면 이것으로 돌아간다 */
+function artOrbit(to: string): ReactElement[] {
+  return [
+    <circle key="o1" cx={ART_X} cy={ART_Y} r={240} fill="none" stroke="#ffffff" strokeOpacity="0.13" strokeWidth={2} />,
+    <circle key="o2" cx={ART_X} cy={ART_Y} r={300} fill="none" stroke="#ffffff" strokeOpacity="0.06" strokeWidth={2} />,
+    <circle key="o3" cx={ART_X} cy={ART_Y - 240} r={8} fill={to} />,
+    <circle key="o4" cx={ART_X + 300} cy={ART_Y} r={5} fill="#ffffff" fillOpacity="0.45" />,
+  ];
+}
+
+/** 모눈 — 계산기·환율·단위. 방안지 위에 값을 적는 자리라는 뜻이다 */
+function artGrid(to: string): ReactElement[] {
+  const out: ReactElement[] = [];
+  const S = 42, N = 9;
+  const x0 = ART_X - (N * S) / 2, y0 = ART_Y - (N * S) / 2;
+  for (let i = 0; i <= N; i++) {
+    const o = i === Math.floor(N / 2) ? 0.20 : 0.055;
+    out.push(<rect key={`v${i}`} x={x0 + i * S} y={y0} width={1} height={N * S} fill="#ffffff" fillOpacity={o} />);
+    out.push(<rect key={`h${i}`} x={x0} y={y0 + i * S} width={N * S} height={1} fill="#ffffff" fillOpacity={o} />);
+  }
+  /* 값이 오르는 자리 — 세 칸만 채워 표가 살아 있게 한다 */
+  out.push(<rect key="b1" x={x0 + S * 1.15} y={ART_Y + S * 1.2} width={S * 0.7} height={S * 1.6} fill={to} fillOpacity="0.55" />);
+  out.push(<rect key="b2" x={x0 + S * 2.15} y={ART_Y + S * 0.2} width={S * 0.7} height={S * 2.6} fill={to} fillOpacity="0.75" />);
+  out.push(<rect key="b3" x={x0 + S * 3.15} y={ART_Y - S * 0.8} width={S * 0.7} height={S * 3.6} fill={to} />);
+  return out;
+}
+
+/** 별자리 — 운세·사주. 점을 선으로 이어 «읽는다»는 뜻을 준다 */
+function artStar(to: string): ReactElement[] {
+  const pts: [number, number][] = [
+    [-210, -140], [-70, -200], [90, -110], [180, 30], [60, 170], [-110, 150], [-230, 30],
+  ];
+  const out: ReactElement[] = [];
+  for (let i = 0; i < pts.length; i++) {
+    const [ax, ay] = pts[i];
+    const [bx, by] = pts[(i + 1) % pts.length];
+    const len = Math.hypot(bx - ax, by - ay);
+    const ang = (Math.atan2(by - ay, bx - ax) * 180) / Math.PI;
+    out.push(
+      <g key={`l${i}`} transform={`translate(${ART_X + ax} ${ART_Y + ay}) rotate(${ang})`}>
+        <rect x={0} y={-0.75} width={len} height={1.5} fill="#ffffff" fillOpacity="0.16" />
+      </g>,
+    );
+  }
+  pts.forEach(([x, y], i) => {
+    out.push(<circle key={`p${i}`} cx={ART_X + x} cy={ART_Y + y} r={i % 3 === 0 ? 7 : 4} fill={i % 3 === 0 ? to : '#ffffff'} fillOpacity={i % 3 === 0 ? 1 : 0.55} />);
+  });
+  out.push(<circle key="halo" cx={ART_X} cy={ART_Y} r={252} fill="none" stroke="#ffffff" strokeOpacity="0.07" strokeWidth={2} />);
+  return out;
+}
+
+/** 파문 — 테스트·체크리스트. 답이 퍼져 나가는 모양 */
+function artRipple(to: string): ReactElement[] {
+  const out: ReactElement[] = [];
+  for (let i = 0; i < 6; i++) {
+    const r = 120 + i * 42;
+    out.push(<circle key={`r${i}`} cx={ART_X - 20} cy={ART_Y + 14} r={r} fill="none" stroke={i % 2 ? '#ffffff' : to}
+      strokeOpacity={i % 2 ? 0.07 : 0.22 - i * 0.025} strokeWidth={i % 2 ? 2 : 3} />);
+  }
+  out.push(<circle key="dot" cx={ART_X - 20} cy={ART_Y + 14 - 288} r={9} fill={to} />);
+  return out;
+}
+
+/** 띠 — 사진·색·음식. 스펙트럼을 비스듬히 눕힌다 */
+function artBand(to: string): ReactElement[] {
+  const out: ReactElement[] = [];
+  for (let i = 0; i < 7; i++) {
+    out.push(
+      <g key={`b${i}`} transform={`translate(${ART_X - 300 + i * 74} ${ART_Y}) rotate(24)`}>
+        <rect x={-26} y={-300} width={52} height={600} rx={26}
+              fill={i % 2 ? '#ffffff' : to} fillOpacity={i % 2 ? 0.05 : 0.13 + (i / 7) * 0.14} />
+      </g>,
+    );
+  }
+  return out;
+}
+
+/** 격자 점 — 문자·개발. 단말기 화면의 도트 매트릭스 */
+function artMono(to: string): ReactElement[] {
+  const out: ReactElement[] = [];
+  const S = 34, N = 13;
+  const x0 = ART_X - ((N - 1) * S) / 2, y0 = ART_Y - ((N - 1) * S) / 2;
+  for (let r = 0; r < N; r++) {
+    for (let c = 0; c < N; c++) {
+      const d = Math.hypot(r - (N - 1) / 2, c - (N - 1) / 2);
+      if (d > 6.2) continue;
+      const lit = (r * 5 + c * 3) % 11 === 0;
+      out.push(<circle key={`d${r}-${c}`} cx={x0 + c * S} cy={y0 + r * S} r={lit ? 4 : 2.2}
+        fill={lit ? to : '#ffffff'} fillOpacity={lit ? 0.9 : 0.13} />);
+    }
+  }
+  return out;
+}
+
+function conceptArt(concept: CardConcept, to: string): ReactElement {
+  const parts =
+    concept === 'grid' ? artGrid(to)
+    : concept === 'star' ? artStar(to)
+    : concept === 'ripple' ? artRipple(to)
+    : concept === 'band' ? artBand(to)
+    : concept === 'mono' ? artMono(to)
+    : artOrbit(to);
+  return <g>{parts}</g>;
+}
+
 function artwork(glyph: ReactElement[] | null, from: string, to: string): ReactElement {
   const half = GLYPH / 2;
   return (
@@ -219,11 +368,7 @@ function artwork(glyph: ReactElement[] | null, from: string, to: string): ReactE
       <rect x={0} y={0} width={1200} height={630} fill="url(#sheet)" />
       <circle cx={ART_X} cy={ART_Y} r={320} fill="url(#spot)" />
 
-      {/* 궤도 — 아이콘을 감싸 시선을 모은다 */}
-      <circle cx={ART_X} cy={ART_Y} r={240} fill="none" stroke="#ffffff" strokeOpacity="0.13" strokeWidth={2} />
-      <circle cx={ART_X} cy={ART_Y} r={300} fill="none" stroke="#ffffff" strokeOpacity="0.06" strokeWidth={2} />
-      <circle cx={ART_X} cy={ART_Y - 240} r={8} fill={to} />
-      <circle cx={ART_X + 300} cy={ART_Y} r={5} fill="#ffffff" fillOpacity="0.45" />
+      {conceptArt(currentConcept, to)}
 
       {glyph && (
         <g

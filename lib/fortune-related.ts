@@ -24,6 +24,7 @@ import type { RelatedItem } from './related.ts';
 export const FORTUNE_RELATED: readonly RelatedItem[] = [
   { slug: 'saju', icon: '🔯', title: '사주 분석', desc: '생년월일로 사주 4주 분석 + 오행 균형', category: '사주·명리' },
   { slug: 'sinsal', icon: '🌸', title: '십이신살', desc: '도화살·역마살·화개살이 내 사주에 있는지', category: '사주·명리' },
+  { slug: 'unseong', icon: '🌿', title: '십이운성', desc: '장생·건록·제왕 — 일간이 어느 자리에서 힘이 센가', category: '사주·명리' },
   { slug: 'samjae', icon: '🗓️', title: '삼재', desc: '내 띠 삼재가 언제인지 세 해를 짚어줍니다', category: '사주·명리' },
 
   { slug: 'saju-match', icon: '💑', title: '사주 궁합', desc: '일간·배우자궁·오행으로 보는 명리 궁합', category: '궁합' },

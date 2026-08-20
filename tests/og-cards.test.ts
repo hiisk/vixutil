@@ -119,8 +119,10 @@ test('카드 장수가 아는 수와 같다', () => {
  *
  *   2,012  같은 날 /fortune/sinsal(+1). 도화살·역마살은 사주를 모르는 사람도
  *          아는 말인데, 내 사주에 있는지 볼 자리가 없었다
+ *
+ *   2,013  2026-08-20에 /fortune/unseong(+1). 십이신살과 짝이 되는 표다
    */
-  const WANT = 2012;
+  const WANT = 2013;
   const total = LANG_CODES.reduce((n, l) => n + CARD_KEYS[l].length, 0);
   assert.equal(total, WANT);
   assert.equal(allCardParams().length, WANT);

@@ -9,6 +9,7 @@ import type { ReactElement } from 'react';
 
 import type { Lang } from '../i18n/lang.ts';
 import { parseCardSlug } from './index.ts';
+import { setCardSection } from '../og-template.tsx';
 
 import { openingCard } from '../chess/route.ts';
 import { itemCard as cmdCard } from '../cmd/route.ts';
@@ -72,6 +73,12 @@ const DETAIL: Record<string, (lang: Lang, slug: string) => ReactElement> = {
 export function cardAt(slug: string[]): ReactElement | null {
   const at = parseCardSlug(slug);
   if (!at) return null;
+  /*
+    그리기 직전에 갈래를 넘긴다 — 카드 함수는 열쇠를 안 받고, 2,013곳을 고칠
+    수는 없다. make()는 JSX를 짓기만 하는 동기 함수라 넣고 읽는 사이에 다른
+    요청이 끼어들 틈이 없다(lib/og-template.tsx의 setCardSection 참고).
+  */
+  setCardSection(at.key);
   const make = CARD_SETS[at.lang][at.key];
   if (make) return make();
   /*
