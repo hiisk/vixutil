@@ -225,11 +225,143 @@ const CONCEPT_BY_SECTION: Record<string, CardConcept> = {
   password: 'mono', shortcut: 'mono', cmd: 'mono',
 };
 
+/**
+ * 컨셉마다 바탕 잉크가 다르다.
+ *
+ * 컨셉만 갈라 놓고 바탕을 그대로 두었더니 여전히 «전부 남색»이었다. 짜임보다
+ * 먼저 눈에 들어오는 것은 색이라, 톤이 같으면 다른 그림도 같은 카드로 읽힌다.
+ *
+ * 셋 다 어두운 잉크지만 계열이 다르다 — 계산기는 차가운 강청, 운세는 따뜻한
+ * 자두, 테스트는 보라, 색·사진은 거의 검정, 개발은 흑녹이다. 흰 글자가
+ * 얹히므로 어느 것도 밝게 가지 않는다.
+ */
+const GROUND: Record<CardConcept, [string, string, string]> = {
+  grid:   ['#0e1b33', '#050a14', '#08111f'],   // 강청 — 도면·수치
+  star:   ['#241428', '#0b060d', '#150a16'],   // 자두 — 밤하늘
+  ripple: ['#1b1636', '#080611', '#100c22'],   // 보라 — 마음
+  band:   ['#141018', '#050406', '#0b090e'],   // 먹 — 색이 주인공이라 바탕을 비운다
+  mono:   ['#0d1a17', '#040908', '#071210'],   // 흑녹 — 단말기
+  orbit:  ['#12142c', '#06070f', '#0a0b18'],   // 원래 쓰던 남색
+};
+
+
+/* ── 갈래별 장면 (2026-08-20) ──────────────────────────────────
+   아이콘 하나를 가운데 얹는 것으로는 «무슨 도구인지»만 말한다. 주요 갈래는
+   장면을 직접 그린다 — 운세는 밤 능선과 달, 계산기는 영수증과 막대, 테스트는
+   옆얼굴과 파문, 색은 겹친 색 견본이다.
+
+   장면이 있는 갈래는 무늬와 아이콘을 대신한다(둘 다 그리면 겹쳐서 지저분하다).
+   장면이 없는 갈래는 지금까지대로 무늬 + 아이콘이다.
+
+   좌표는 아이콘 자리(ART_X, ART_Y)를 원점으로 잡는다. Satori가 받는 것만
+   쓴다 — rect·circle·path·g/transform. */
+
+const W = '#ffffff';
+
+/** 운세 — 밤 능선 위로 달이 뜨고 별이 흩어진다 */
+function sceneFortune(to: string): ReactElement[] {
+  const stars: [number, number, number][] = [
+    [-240, -170, 3], [-160, -120, 2], [-90, -195, 4], [40, -160, 2.5],
+    [130, -205, 3], [210, -130, 2], [-210, -60, 2], [190, -40, 2.5],
+  ];
+  return [
+    /*
+      보름달이다. 초승달을 시도했다가 두 번 실패했다 —
+        원 두 개로 겹치면 «가린 쪽»을 바탕색으로 칠해야 하는데 바탕이
+        그라디언트라 어느 색으로도 안 맞아 검은 행성처럼 보였다.
+        호 두 개짜리 path는 두 원의 반지름이 달라 끝점이 안 만나 통째로
+        사라졌다(SVG가 그릴 수 없는 호다).
+      달무리 한 겹을 둘러 «밤»이라는 것은 그대로 전한다.
+    */
+    <circle key="halo" cx={ART_X + 70} cy={ART_Y - 110} r={104} fill={W} fillOpacity="0.06" />,
+    <circle key="moon" cx={ART_X + 70} cy={ART_Y - 110} r={78} fill={W} fillOpacity="0.94" />,
+    ...stars.map(([x, y, r], i) => (
+      <circle key={`s${i}`} cx={ART_X + x} cy={ART_Y + y} r={r} fill={i % 3 === 0 ? to : W} fillOpacity={i % 3 === 0 ? 1 : 0.7} />
+    )),
+    /* 능선 두 겹 — 뒤가 흐리고 앞이 진하다 */
+    <path key="ridge2" d={`M ${ART_X - 320} ${ART_Y + 210} L ${ART_X - 150} ${ART_Y + 70} L ${ART_X - 30} ${ART_Y + 160} L ${ART_X + 110} ${ART_Y + 40} L ${ART_X + 320} ${ART_Y + 210} Z`}
+      fill={to} fillOpacity="0.30" />,
+    <path key="ridge1" d={`M ${ART_X - 320} ${ART_Y + 230} L ${ART_X - 190} ${ART_Y + 140} L ${ART_X - 60} ${ART_Y + 205} L ${ART_X + 60} ${ART_Y + 120} L ${ART_X + 200} ${ART_Y + 200} L ${ART_X + 320} ${ART_Y + 150} L ${ART_X + 320} ${ART_Y + 230} Z`}
+      fill={W} fillOpacity="0.07" />,
+  ];
+}
+
+/** 계산기 — 영수증 한 장과 값이 오르는 막대 */
+function sceneCalc(to: string): ReactElement[] {
+  const x = ART_X - 150, y = ART_Y - 190;
+  /* 좌표는 그룹 안이라 0부터다. 처음에 x+26처럼 절대 좌표를 써서 두 번 밀렸고
+     줄이 화면 밖으로 나가 종이가 비어 보였다. */
+  const lines = [0, 1, 2, 3].map(i => (
+    <rect key={`ln${i}`} x={26} y={66 + i * 34} width={i === 3 ? 96 : 168} height={9} rx={4.5}
+      fill={W} fillOpacity={i === 3 ? 0.85 : 0.34} />
+  ));
+  return [
+    /* 영수증 — 아래를 톱니로 자르지 않고 살짝 기울여 종이임을 알린다 */
+    <g key="paper" transform={`translate(${x} ${y}) rotate(-4)`}>
+      <rect x={0} y={0} width={220} height={300} rx={10} fill={W} fillOpacity="0.10" />
+      <rect x={0} y={0} width={220} height={300} rx={10} fill="none" stroke={W} strokeOpacity="0.22" strokeWidth={2} />
+      <rect x={26} y={28} width={78} height={12} rx={6} fill={to} />
+    </g>,
+    <g key="paperlines" transform={`translate(${x} ${y}) rotate(-4)`}>{lines}</g>,
+    /* 막대 셋 — 오른쪽 아래에서 올라온다 */
+    <rect key="b1" x={ART_X + 60} y={ART_Y + 40} width={44} height={110} rx={8} fill={to} fillOpacity="0.45" />,
+    <rect key="b2" x={ART_X + 118} y={ART_Y - 30} width={44} height={180} rx={8} fill={to} fillOpacity="0.75" />,
+    <rect key="b3" x={ART_X + 176} y={ART_Y - 110} width={44} height={260} rx={8} fill={to} />,
+  ];
+}
+
+/** 테스트 — 옆얼굴 안에서 파문이 퍼진다 */
+function sceneTest(to: string): ReactElement[] {
+  const cx = ART_X - 10, cy = ART_Y;
+  const rings = [58, 100, 142, 184].map((r, i) => (
+    <circle key={`r${i}`} cx={cx + 18} cy={cy - 10} r={r} fill="none" stroke={i % 2 ? W : to}
+      strokeOpacity={i % 2 ? 0.10 : 0.45 - i * 0.08} strokeWidth={i % 2 ? 2 : 3} />
+  ));
+  return [
+    ...rings,
+    /* 옆얼굴 윤곽 — 한 획으로 이마·코·입·턱 */
+    <path key="face"
+      d={`M ${cx - 120} ${cy - 190}
+          C ${cx + 40} ${cy - 210}, ${cx + 108} ${cy - 96}, ${cx + 96} ${cy - 30}
+          C ${cx + 90} ${cy + 2}, ${cx + 128} ${cy + 18}, ${cx + 104} ${cy + 40}
+          C ${cx + 88} ${cy + 54}, ${cx + 96} ${cy + 64}, ${cx + 84} ${cy + 78}
+          C ${cx + 70} ${cy + 94}, ${cx + 76} ${cy + 140}, ${cx + 40} ${cy + 176}`}
+      fill="none" stroke={W} strokeOpacity="0.92" strokeWidth={7} strokeLinecap="round" />,
+    <circle key="dot" cx={cx + 18} cy={cy - 10} r={13} fill={to} />,
+  ];
+}
+
+/** 색 — 색 견본이 부채처럼 겹친다 */
+function sceneColor(to: string): ReactElement[] {
+  const tilts = [-24, -12, 0, 12, 24];
+  return tilts.map((t, i) => (
+    <g key={`sw${i}`} transform={`translate(${ART_X} ${ART_Y + 60}) rotate(${t})`}>
+      <rect x={-62} y={-250} width={124} height={230} rx={16}
+        fill={i === 2 ? to : W} fillOpacity={i === 2 ? 1 : 0.10 + Math.abs(2 - i) * 0.04} />
+      <rect x={-62} y={-250} width={124} height={230} rx={16}
+        fill="none" stroke={W} strokeOpacity="0.20" strokeWidth={2} />
+    </g>
+  ));
+}
+
+/** 갈래 → 장면. 없으면 무늬 + 아이콘으로 돌아간다 */
+const SCENE: Record<string, (to: string) => ReactElement[]> = {
+  fortune: sceneFortune,
+  calculator: sceneCalc,
+  test: sceneTest,
+  color: sceneColor,
+};
+
+let currentScene: ((to: string) => ReactElement[]) | null = null;
+
 let currentConcept: CardConcept = 'orbit';
 
 /** render.ts가 그리기 직전에 부른다 */
 export function setCardSection(key: string): void {
-  currentConcept = CONCEPT_BY_SECTION[key.split('/')[0]] ?? 'orbit';
+  const head = key.split('/')[0];
+  currentConcept = CONCEPT_BY_SECTION[head] ?? 'orbit';
+  /* 장면은 갈래 «허브»에만 준다 — 낱장까지 주면 백 장이 같은 그림이 된다 */
+  currentScene = key === head ? (SCENE[head] ?? null) : null;
 }
 
 
@@ -350,9 +482,9 @@ function artwork(glyph: ReactElement[] | null, from: string, to: string): ReactE
       <defs>
         <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
           {banded([
-            [0, '#12142c'],
-            [0.6, '#06070f'],
-            [1, '#0a0b18'],
+            [0, GROUND[currentConcept][0]],
+            [0.6, GROUND[currentConcept][1]],
+            [1, GROUND[currentConcept][2]],
           ])}
         </linearGradient>
         {/* 가로로 밝아지는 판. 왼쪽 끝을 완전 투명으로 둬야 이음선이 안 생긴다 */}
@@ -368,7 +500,8 @@ function artwork(glyph: ReactElement[] | null, from: string, to: string): ReactE
       <rect x={0} y={0} width={1200} height={630} fill="url(#sheet)" />
       <circle cx={ART_X} cy={ART_Y} r={320} fill="url(#spot)" />
 
-      {conceptArt(currentConcept, to)}
+      {/* 장면이 있으면 무늬 대신 그린다 — 둘 다 그리면 겹쳐서 지저분하다 */}
+      {currentScene ? <g>{currentScene(to)}</g> : conceptArt(currentConcept, to)}
 
       {glyph && (
         <g
@@ -411,7 +544,8 @@ export function ogCard({
   from: string;
   to: string;
 }): ReactElement {
-  const glyph = ogGlyph(icon, to);
+  /* 장면이 있는 갈래는 아이콘을 안 그린다 — 장면이 이미 무엇인지 말한다 */
+  const glyph = currentScene ? null : ogGlyph(icon, to);
   const headline = stripForCard(title);
   const sub = stripForCard(desc);
   return (
@@ -429,7 +563,7 @@ export function ogCard({
       </div>
 
       {/* 그린 아이콘이 없는 이모지는 그림 자리에 그대로 얹는다 */}
-      {!glyph && (
+      {!glyph && !currentScene && (
         <div
           style={{
             display: 'flex',
