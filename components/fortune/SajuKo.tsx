@@ -386,22 +386,28 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
         {/* 입력 폼 — components/fortune/SajuForm.tsx 하나를 세 화면이 함께 쓴다 */}
         <SajuForm
           lang="ko" value={form} onChange={setForm} onSubmit={handleCalc} error={error}
-          /* 컬러 이모지는 보라 단추 위에서 혼자 튄다 — 머리글과 같은 단색 아이콘을 쓴다 */
-          submitLabel={<span className="inline-flex items-center justify-center gap-2">
-            <ToolIcon emoji="🔯" className="w-4 h-4 text-white" />
-            사주 분석하기
-          </span>}
+          /* 단추 안 아이콘도 뺐다 — 글자가 이미 무엇을 하는지 말한다 */
+          submitLabel="사주 분석하기"
           /*
             보라 그라디언트 판이었다. 판 위 흰 글씨는 갈래마다 색이 다른 이
             사이트에서 여기만 튀었고, 제목 규격을 통일하면서 어두운 글자가 얹혀
             아예 안 읽히게 됐다. 지면 그대로 두고 아이콘만 갈래색 칩에 담는다 —
             운세라는 성격은 글리프가 내고 판이 낼 일이 아니다.
           */
+          /*
+            틴트 상자에 아이콘을 넣던 자리다. 옅은 판에 아이콘 하나를 얹는 꼴은
+            어느 AI가 만든 화면에나 있어서, 갈래가 달라도 전부 같아 보인다.
+            제목 위에 갈래 이름을 작은 글자로 올리는 쪽이 자리도 덜 먹고
+            «여기가 어디인지»를 더 정확히 말한다.
+
+            (주석을 header= 바로 뒤에 넣었다가 깨뜨렸다 — JSX 표현식 자리의
+            첫 자식으로 JSX 주석을 두면 컴파일이 안 된다. 밖으로 뺀다.
+            그리고 그 이야기를 적으며 JSX 주석 기호를 그대로 썼다가 블록 주석이
+            거기서 닫혀 또 깨뜨렸다. 주석 안에 닫는 기호를 쓰지 않는다.)
+          */
           header={
             <div className="border-b border-slate-200 dark:border-slate-800 px-5 py-6">
-              <span className="bg-sec-soft mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg">
-                <ToolIcon emoji="🔯" className="h-5 w-5" />
-              </span>
+              <p className="label-caps mb-1.5 text-sec">사주명리</p>
               {initialTopic
                 ? <p className="page-h1">사주 분석</p>
                 : <h1 className="page-h1">사주 분석</h1>}
@@ -667,20 +673,30 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                 {/* ── singang ── */}
                 {currentStep?.key === 'singang' && singang && (
                   <div className="p-5 space-y-4">
-                    <div className={`rounded-lg p-4 border-2 ${singang.strong ? 'border-rose-200 dark:border-rose-900/50 bg-rose-50 dark:bg-rose-950/30' : 'border-blue-200 dark:border-blue-900/50 bg-blue-50 dark:bg-blue-950/30'}`}>
-                      <div className="flex items-center gap-2 mb-3">
-                        <span className="text-2xl">{singang.strong ? '💪' : '🌱'}</span>
-                        <div>
-                          <p className={`text-xl font-bold ${singang.strong ? 'text-rose-700 dark:text-rose-300' : 'text-blue-700 dark:text-blue-300'}`}>{singang.label}</p>
-                          <p className={`text-xs font-bold ${singang.strong ? 'text-rose-500' : 'text-blue-500'}`}>강약 지수 {singang.score > 0 ? '+' : ''}{singang.score}</p>
-                        </div>
+                    {/*
+                      컬러 틴트 판에 굵은 테두리와 이모지를 얹던 자리다. 색이 판을
+                      통째로 칠하면 그 안의 글자까지 그 색에 묶여 읽기가 나빠지고,
+                      화면마다 다른 색 판이 이어져 정신없다. 판은 지면과 같은
+                      재료로 두고 **색은 위 실선 한 줄에만** 남긴다 — 강약이라는
+                      정보는 그 한 줄과 글자색이 이미 나른다.
+                    */}
+                    <div className="overflow-hidden rounded-xl bg-slate-50 dark:bg-slate-950">
+                      <div className={`h-1 ${singang.strong ? 'bg-rose-600 dark:bg-rose-400' : 'bg-blue-600 dark:bg-blue-400'}`} />
+                      <div className="p-4">
+                        <p className={`text-xl font-bold ${singang.strong ? 'text-rose-700 dark:text-rose-300' : 'text-blue-700 dark:text-blue-300'}`}>{singang.label}</p>
+                        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-0.5 tabular-nums">
+                          강약 지수 {singang.score > 0 ? '+' : ''}{singang.score}
+                        </p>
+                        <p className="mt-3 text-sm leading-[1.85] text-slate-700 dark:text-slate-200">{singang.desc}</p>
                       </div>
-                      <p className={`text-sm leading-[1.85] ${singang.strong ? 'text-rose-800 dark:text-rose-300' : 'text-blue-800 dark:text-blue-300'}`}>{singang.desc}</p>
                     </div>
-                    <div className="rounded-lg p-4 bg-amber-50 dark:bg-amber-950/30 border-2 border-amber-200 dark:border-amber-900/50">
-                      <p className="text-xs font-bold text-amber-700 dark:text-amber-300 mb-2">용신(用神) — 내가 취해야 할 기운</p>
-                      <p className="text-lg font-bold text-amber-800 dark:text-amber-200 mb-2">{singang.yongshin}</p>
-                      <p className="text-sm text-amber-700 dark:text-amber-300 leading-[1.85]">{singang.yongshinDesc}</p>
+                    <div className="overflow-hidden rounded-xl bg-slate-50 dark:bg-slate-950">
+                      <div className="h-1 bg-amber-600 dark:bg-amber-400" />
+                      <div className="p-4">
+                        <p className="text-xs font-bold text-amber-700 dark:text-amber-300 mb-1">용신(用神) — 내가 취해야 할 기운</p>
+                        <p className="text-lg font-bold text-slate-900 dark:text-white mb-2">{singang.yongshin}</p>
+                        <p className="text-sm text-slate-700 dark:text-slate-200 leading-[1.85]">{singang.yongshinDesc}</p>
+                      </div>
                     </div>
                     <div className="space-y-2">
                       <p className="text-xs font-medium text-slate-500 dark:text-slate-400">활용 방법</p>
@@ -905,9 +921,13 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                         ))}
                       </div>
                       {/* 조언 */}
-                      <div className={`rounded-lg p-4 border-2 ${c.bg} ${c.border}`}>
-                        <p className={`text-xs font-bold mb-2 ${c.accent}`}>핵심 조언</p>
-                        <p className="text-sm text-slate-700 dark:text-slate-200 leading-[1.85]">{d.advice}</p>
+                      {/* 영역색은 위 실선 한 줄로만 — 판을 통째로 칠하지 않는다 */}
+                      <div className="overflow-hidden rounded-xl bg-slate-50 dark:bg-slate-950">
+                        <div className={`h-1 ${c.dot}`} />
+                        <div className="p-4">
+                          <p className={`text-xs font-bold mb-2 ${c.accent}`}>핵심 조언</p>
+                          <p className="text-sm text-slate-700 dark:text-slate-200 leading-[1.85]">{d.advice}</p>
+                        </div>
                       </div>
                     </div>
                   );
