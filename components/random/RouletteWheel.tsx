@@ -12,9 +12,22 @@ const R = 150;
 const CX = 160;
 const CY = 160;
 
+/**
+ * 각도를 좌표로. **소수점 셋에서 끊는다** — 이게 없으면 하이드레이션이 어긋난다.
+ *
+ * Math.sin/cos의 마지막 비트는 구현마다 다를 수 있어서, Node가 그린 SVG와
+ * 브라우저가 그린 SVG의 d 속성이 갈렸다:
+ *   서버   … A 150 150 0 0 1 30.096189432334228 …
+ *   브라우저 … A 150 150 0 0 1 30.096189432334256 …
+ * React는 이 한 글자 차이로 「서버와 클라이언트가 다르다」를 띄우고 그 트리를
+ * 고치지 않는다. 320px 원판에 소수점 셋이면 화면에서 구분되지 않으므로,
+ * 정밀도를 버려서 두 쪽이 같은 문자열을 만들게 한다.
+ */
+const r3 = (n: number) => Math.round(n * 1000) / 1000;
+
 function pointFor(angleDeg: number, radius: number): [number, number] {
   const rad = (angleDeg * Math.PI) / 180;
-  return [CX + radius * Math.sin(rad), CY - radius * Math.cos(rad)];
+  return [r3(CX + radius * Math.sin(rad)), r3(CY - radius * Math.cos(rad))];
 }
 
 function clip(s: string): string {
