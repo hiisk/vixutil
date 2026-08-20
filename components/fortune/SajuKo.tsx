@@ -130,18 +130,25 @@ function DaewoonCard({ entry, isCurrent }: { entry: DaewoonEntry; isCurrent: boo
   const stemEl   = ELEMENT_INFO[stem.element];
   const branchEl = ELEMENT_INFO[branch.element];
   return (
-    <div className={`flex-shrink-0 w-[72px] rounded-xl border overflow-hidden text-center transition-all ${isCurrent ? 'border-indigo-400 shadow-sm shadow-indigo-100 scale-105' : 'border-slate-200 dark:border-slate-700'}`}>
+    <div className={`flex-shrink-0 w-[72px] rounded-xl border overflow-hidden text-center transition-all ${isCurrent ? 'is-now shadow-sm scale-105' : 'border-slate-200 dark:border-slate-700'}`}>
       {isCurrent && (
         <div className="bg-sec text-[8px] font-bold py-0.5">현재</div>
       )}
-      <div className="p-1.5 border-b border-slate-200 dark:border-slate-800" style={{ background: stemEl.bg }}>
-        <p className="text-xs font-bold" style={{ color:stemEl.color }}>{stem.hanja}</p>
-        <p className="text-[8px] font-bold" style={{ color:stemEl.color }}>{stem.kor}({stem.element})</p>
+      {/* 명식 표(.ms-*)와 같은 생각 — 판을 걷고 한자를 세운다. 오행은 점 하나다.
+          여기서만 판을 칠하면 같은 사주가 화면마다 다르게 생긴다. */}
+      <div className="border-b border-slate-100 dark:border-slate-800 px-1 py-2">
+        <p className="text-sm font-bold leading-none text-slate-900 dark:text-white">{stem.hanja}</p>
+        <p className="ms-sub mt-1 justify-center">
+          <i className="ms-dot" style={{ background: stemEl.color }} />
+          {stem.kor}
+        </p>
       </div>
-      <div className="p-1.5" style={{ background: branchEl.bg }}>
-        <p className="text-sm">{branch.emoji}</p>
-        <p className="text-xs font-bold" style={{ color:branchEl.color }}>{branch.hanja}</p>
-        <p className="text-[8px] font-bold" style={{ color:branchEl.color }}>{branch.kor}</p>
+      <div className="px-1 py-2">
+        <p className="text-sm font-bold leading-none text-slate-900 dark:text-white">{branch.hanja}</p>
+        <p className="ms-sub mt-1 justify-center">
+          <i className="ms-dot" style={{ background: branchEl.color }} />
+          {branch.kor}
+        </p>
       </div>
       <div className={`py-1 text-[8px] font-bold ${isCurrent?'bg-sec-soft text-sec':'bg-slate-50 dark:bg-slate-950 text-slate-400 dark:text-slate-500'}`}>
         {entry.startAge}~{entry.endAge}세
@@ -686,7 +693,10 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                   return (
                     <div className="p-5 space-y-4">
                       {/* 점수 */}
-                      <div className={`rounded-lg p-4 ${c.bg} border ${c.border}`}>
+                      {/* 판을 걷었다 (2026-08-20) — c.bg(옅은 판)에 c.accent(같은 계열
+                          진한 글자)를 얹어 보라 위 보라가 됐다. 영역 색은 점과 등급
+                          배지가 이미 나르므로 판은 중립으로 둔다. */}
+                      <div className="rounded-lg border border-slate-200 dark:border-slate-700 p-4">
                         <div className="flex items-center justify-between mb-3">
                           <div className="flex gap-1.5">
                             {[1,2,3,4,5].map(i => (
@@ -697,7 +707,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                           </div>
                           <span className={`text-sm font-bold px-3 py-1 rounded-full ${GRADE_BADGE[d.grade]}`}>{d.grade}</span>
                         </div>
-                        <p className={`text-sm font-bold leading-relaxed ${c.accent}`}>{d.summary}</p>
+                        <p className="text-sm font-semibold leading-relaxed text-slate-800 dark:text-slate-100">{d.summary}</p>
                       </div>
                       {/*
                         이 사주가 짚는 자리. 아래 intro는 그 영역이 명리에서 무엇을
@@ -756,14 +766,14 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                       </div>
                       {currentDaewoon && (
                         <div className="col-span-2 rounded-xl p-3 border bg-sec-soft">
-                          <p className="text-[10px] font-bold text-indigo-500 mb-1">현재 대운 ({currentAge}세)</p>
+                          <p className="text-[10px] font-bold text-sec mb-1">현재 대운 ({currentAge}세)</p>
                           <div className="flex items-center gap-2">
                             <span className="text-2xl font-bold" style={{ color:ELEMENT_INFO[STEMS[currentDaewoon.pillar.stemIdx].element].color }}>
                               {STEMS[currentDaewoon.pillar.stemIdx].hanja}{BRANCHES[currentDaewoon.pillar.branchIdx].hanja}
                             </span>
                             <div>
                               <p className="text-sm font-bold text-sec">{pillarHanja(currentDaewoon.pillar)} 대운</p>
-                              <p className="text-xs text-indigo-500">{currentDaewoon.startAge}~{currentDaewoon.endAge}세 · {currentDaewoon.endAge-currentAge+1}년 남음</p>
+                              <p className="text-xs text-sec">{currentDaewoon.startAge}~{currentDaewoon.endAge}세 · {currentDaewoon.endAge-currentAge+1}년 남음</p>
                             </div>
                           </div>
                         </div>
@@ -785,12 +795,12 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                         const ss = getSipseong(result.day.stemIdx, entry.pillar.stemIdx);
                         const ssInfo = SIPSEONG_INFO[ss];
                         return (
-                          <div key={i} className={`rounded-xl border overflow-hidden ${isCurrent?'border-indigo-300':'border-slate-100 dark:border-slate-800'}`}>
+                          <div key={i} className={`rounded-xl border overflow-hidden ${isCurrent?'is-now':'border-slate-100 dark:border-slate-800'}`}>
                             <div className={`flex items-center gap-2 px-3 py-2 ${isCurrent?'bg-sec-soft':'bg-slate-50 dark:bg-slate-950'}`}>
                               <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{s.hanja}{b.hanja}</span>
                               <span className="text-xs font-bold text-slate-600 dark:text-slate-300">{pillarHanja(entry.pillar)}</span>
                               <span className="text-[10px] text-slate-400 dark:text-slate-500">{entry.startAge}~{entry.endAge}세</span>
-                              {isCurrent && <span className="ml-auto text-[10px] font-bold text-sec bg-indigo-100 dark:bg-indigo-950/40 px-2 py-0.5 rounded-full">현재</span>}
+                              {isCurrent && <span className="ml-auto text-[10px] font-bold text-sec bg-sec-soft px-2 py-0.5 rounded-full">현재</span>}
                             </div>
                             <div className="px-3 py-2">
                               <div className="flex gap-1.5 flex-wrap text-[10px] mb-1.5">

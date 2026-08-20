@@ -1845,3 +1845,8 @@ body.is-dropping::after {
    허브 카드 제목만 낱말 안에서도 끊게 한다. 한국어·영어에서는 끊을 일이
    없으므로 보이는 것이 안 바뀐다. */
 .hub-tool-card :is(h3, span), .hub-tool-title { overflow-wrap: anywhere; }
+
+/* 대운 표에서 «지금 여기» 기둥 — 테두리를 갈래 색으로. 남색이 박혀 있던 자리다 */
+.is-now { border-color: var(--c-sec); }
+/* .ms-sub는 명식 표에서 왼쪽 정렬인데, 대운 기둥은 가운데다 */
+.ms-sub.justify-center { justify-content: center; }
