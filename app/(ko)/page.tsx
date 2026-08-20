@@ -655,9 +655,9 @@ export default function HubPage() {
       <PageGlow accent="indigo" />
       <div className="h-1 topbar" />
 
-      <div className="relative max-w-6xl mx-auto px-4 py-10 sm:py-20">
+      <div className="relative max-w-6xl mx-auto px-4 py-8 sm:py-14">
         {/* Brand */}
-        <div className="mb-8 sm:mb-14 text-center">
+        <div className="mb-6 sm:mb-8 text-center">
           {/*
             홈에 h1이 없었다. 브랜드가 span 두 개로만 그려져 있어서, 사이트에서
             권위가 가장 높은 페이지가 주제를 알리는 제목 없이 색인되고 있었다.
@@ -686,7 +686,12 @@ export default function HubPage() {
         <Link
           prefetch={false}
           href="/search"
-          className="group flex items-center gap-3 mb-10 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 rounded-lg px-4 py-3.5 shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition-all"
+          /*
+            검색은 카드가 아니라 «치는 자리»다. 떠 있는 흰 판으로 두면 아래
+            격자와 같은 재료라 무엇을 하는 것인지 생김새가 말해 주지 않는다.
+            들어간 재료(.fld)로 바꾼다 — globals.css의 «재료를 둘로 가른다».
+          */
+          className="fld group flex items-center gap-3 mb-8 rounded-xl px-4 py-3.5 transition-all"
         >
           <svg className="w-5 h-5 text-slate-500 dark:text-slate-400 group-hover:text-sec transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />

@@ -695,8 +695,23 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 .home-thumb {
   @apply block w-full aspect-[40/21] object-cover bg-slate-100 dark:bg-slate-800;
 }
+/*
+  ── 그림을 카드 안에 끼운다 (2026-08-20) ────────────────────
+  카드가 「어두운 그림 반 + 흰 판 반」이라 가운데에 이음매가 그어져 있었다.
+  두 재료가 맞붙어 싸우는 꼴이다.
+
+  그림 둘레에 여백을 두면 그림이 «카드의 윗절반»이 아니라 «카드에 끼운 판»이
+  된다. 안쪽 반지름은 바깥에서 여백만큼 뺀 값이라 곡선이 동심원으로 맞는다.
+*/
+.home-card { padding: 6px; }
+.home-thumb {
+  border-radius: calc(var(--radius-2xl) - 6px);
+  box-shadow: inset 0 0 0 1px rgb(30 27 22 / 0.06);
+}
+html.dark .home-thumb { box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.07); }
+
 .home-card-body {
-  @apply p-3 sm:p-4;
+  @apply px-2 pt-2.5 pb-1 sm:px-2.5 sm:pt-3 sm:pb-1.5;
 }
 .home-card-title {
   @apply text-sm sm:text-base font-semibold leading-tight text-balance
