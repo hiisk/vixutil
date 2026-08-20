@@ -22,6 +22,7 @@ import { ingredientCard } from '../food/route.ts';
 import { itemCard as httpCard } from '../http/route.ts';
 import { sizeCard } from '../imgsize/route.ts';
 import { lensCard } from '../lens/route.ts';
+import { iljuCard } from '../ilju-card.tsx';
 import { handCard } from '../poker/route.ts';
 import { patternCard } from '../regex/route.ts';
 import { freqCard } from '../sound/route.ts';
@@ -58,6 +59,7 @@ const DETAIL: Record<string, (lang: Lang, slug: string) => ReactElement> = {
   'ext': extCard,
   'food': ingredientCard,
   'fortune/card': tarotCard,
+  'fortune/ilju': iljuCard,
   'game/chess': openingCard,
   'game/cube': algCard,
   'game/poker': handCard,

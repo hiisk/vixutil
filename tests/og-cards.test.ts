@@ -5,6 +5,7 @@ import { join } from 'node:path';
 
 import { LANGS, LANG_CODES, type Lang } from '../lib/i18n/lang.ts';
 import { CARD_KEYS } from '../lib/og-cards/keys.ts';
+import { STATIC_ROUTES, SLUG_ROUTES } from '../lib/fold/registry.ts';
 import { DETAIL_SECTIONS, allCardParams, cardUrl, parseCardSlug } from '../lib/og-cards/index.ts';
 import { APP_DIR, foldHubs, stripGroups } from './app-path.ts';
 
@@ -186,12 +187,30 @@ test('낱장 카드: 섹션 카드가 열 언어에 다 있다', () => {
    * 낱장 카드는 그 섹션 카드가 있는 언어에서만 나간다(cardUrl이 조상을 찾은
    * 뒤에 판단한다). 어느 언어에서 섹션 카드가 빠지면 그 언어만 조용히 낱장
    * 카드를 잃으므로 — 「언어 하나만 빠지는 구멍」 — 여기서 가로질러 센다.
+   *
+   * ── «열 언어 다»가 아니다 (2026-08-21) ─────────────────────
+   * 전에는 무조건 열 언어를 요구했다. 그때는 낱장 카드를 그리는 갈래가 전부
+   * 열 언어였기 때문이지 규칙이라서가 아니었다. /fortune/ilju를 넣자 걸렸는데,
+   * 그쪽은 한국 명리라 **다른 언어에 장이 아예 없다**(/en/fortune/ilju는 404).
+   * 없는 장에 카드를 만들라는 것은 틀린 요구다.
+   *
+   * 그래서 «그 장을 내는 언어»를 기준으로 센다. 아홉 언어가 무엇을 내는지는
+   * 접기 등록부가 안다 — 거기 없으면 한국어 전용이다.
    */
+  const intl = (key: string) => key in STATIC_ROUTES || key in SLUG_ROUTES;
   const missing: string[] = [];
   for (const key of DETAIL_SECTIONS) {
-    for (const lang of LANG_CODES) if (!CARD_KEYS[lang].includes(key)) missing.push(`${lang}:${key}`);
+    const langs = intl(key) ? LANG_CODES : (['ko'] as typeof LANG_CODES);
+    for (const lang of langs) if (!CARD_KEYS[lang].includes(key)) missing.push(`${lang}:${key}`);
   }
   assert.deepStrictEqual(missing, []);
+
+  /* 한국어 전용이라고 적어 놓고 실은 아홉 언어에도 있는 경우를 막는다 */
+  for (const key of DETAIL_SECTIONS) {
+    if (intl(key)) continue;
+    const also = LANG_CODES.filter(l => l !== 'ko' && CARD_KEYS[l].includes(key));
+    assert.deepStrictEqual(also, [], `${key}는 등록부에 없는데 ${also.join('·')} 카드가 있다`);
+  }
 });
 
 test('낱장 카드: 낱장마다 주소가 다르다', () => {

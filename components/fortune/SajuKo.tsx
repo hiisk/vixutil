@@ -1,5 +1,6 @@
 'use client';
 import { shareOne } from '@/lib/share/ui';
+import { ILJU_MAP } from '@/lib/ilju';
 import RelatedContent from '@/components/RelatedContent';
 import { FORTUNE_RELATED } from '@/lib/fortune-related';
 import ToolIcon from '@/components/ToolIcon';
@@ -345,9 +346,24 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
   }
   async function handleShare() {
     if (!result||!dayStem) return;
-    const text=`나의 사주 일주: ${pillarHanja(result.day)} (${pillarLabel(result.day)} 일주)\n${result.inputYear}년 ${result.inputMonth}월 ${result.inputDay}일생 · ${dayStem.element}(${dayStem.yinyang}) 일간\nvixutil.com에서 무료 사주 분석 →`;
+    const text=`나의 사주 일주: ${pillarHanja(result.day)} (${pillarLabel(result.day)} 일주)\n${result.inputYear}년 ${result.inputMonth}월 ${result.inputDay}일생 · ${dayStem.element}(${dayStem.yinyang}) 일간`;
+    /*
+      ── 주소를 일주 낱장으로 보낸다 (2026-08-21) ────────────────
+      전에는 /fortune/saju를 그대로 보냈다. 그런데 그 주소의 공유 카드는
+      «사주 분석»이라는 아무나 똑같은 그림이라, 글에는 「丙子 (병자 일주)」가
+      찍히는데 그림은 남의 것처럼 보였다. 주소에 붙는 물음표는 카드를 못
+      바꾼다 — 바꾸려면 그 장을 요청 때마다 그려야 하고, 그러면 캐시가 없다.
+
+      일주 낱장은 예순 장이 저마다 카드를 갖는다(lib/ilju-card.tsx). 그래서
+      글과 그림이 맞고, 받은 사람은 «폼»이 아니라 «읽을거리»에 떨어진다.
+      생년월일은 그대로 실어 보내 그 장에서 한 번에 제 사주로 넘어갈 수 있게 한다.
+    */
+    const slug = ILJU_MAP.get(pillarLabel(result.day))?.slug;
+    const url = slug
+      ? `${location.origin}/fortune/ilju/${slug}${location.search}`
+      : location.href;
     // 글과 주소가 한 덩이로 — 일주가 text 안에 있어야 카톡에서 보인다
-    if (await shareOne(text)) { setCopied(true); setTimeout(()=>setCopied(false),2000); }
+    if (await shareOne(text, url)) { setCopied(true); setTimeout(()=>setCopied(false),2000); }
   }
 
   return (

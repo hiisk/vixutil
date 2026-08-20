@@ -5,6 +5,7 @@ import SiteFooter from '@/components/SiteFooter';
 import Ad from '@/components/Ad';
 import PageGlow from '@/components/PageGlow';
 import ToolIcon from '@/components/ToolIcon';
+import IljuFromShare from '@/components/fortune/IljuFromShare';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import { withCard } from '@/lib/og-cards';
 import { prerender } from '@/lib/prerender';
@@ -109,6 +110,9 @@ export default async function IljuPage({ params }: { params: Promise<{ gapja: st
             </span>
           </p>
         </div>
+
+        {/* 공유로 들어왔으면 그 생년월일의 전체 사주로 바로 넘어가게 한다 */}
+        <IljuFromShare label="이 생년월일로 전체 사주 보기" />
 
         <div className="mt-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
           <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-2">{i.key}일주의 성격</h2>

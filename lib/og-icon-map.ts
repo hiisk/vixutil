@@ -195,7 +195,7 @@ export const GROUPS: Record<string, string[]> = {
 
   crystalBall: ['🔮'],
   cards: ['🃏', '🎴'],
-  hexagram: ['🔯'],
+  fourPillars: ['🔯'],
   star: ['⭐', '🌟', '💫', '🌠'],
   sparkles: ['✨', '💄'],
   wizard: ['🧙', '🎩'],
