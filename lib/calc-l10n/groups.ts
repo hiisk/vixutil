@@ -22,7 +22,7 @@ export const CALC_GROUPS: { id: CalcGroupId; icon: string; slugs: string[] }[] =
   {
     id: 'money', icon: '📈',
     slugs: [
-      'tip', 'loan', 'loan-method', 'refinance', 'ltv', 'deposit', 'savings',
+      'discount', 'tip', 'loan', 'loan-method', 'refinance', 'ltv', 'deposit', 'savings',
       'compound-goal', 'dividend', 'inflation', 'retirement', 'breakeven',
       'avg-price', 'exchange', 'rental-yield',
     ],
@@ -43,7 +43,7 @@ export const CALC_GROUPS: { id: CalcGroupId; icon: string; slugs: string[] }[] =
   },
   {
     id: 'dates', icon: '📅',
-    slugs: ['dday', 'time-diff', 'birthday', 'ovulation', 'pregnancy', 'work-hours', 'overtime'],
+    slugs: ['age', 'dday', 'time-diff', 'birthday', 'ovulation', 'pregnancy', 'work-hours', 'overtime'],
   },
   {
     id: 'units', icon: '🔢',

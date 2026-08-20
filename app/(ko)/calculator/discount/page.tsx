@@ -1,5 +1,7 @@
 'use client';
 import { useState } from 'react';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 import CalcShell, { Card, Label, inputCls, PrimaryBtn, TabBar, SummaryGrid, SummaryCard } from '@/components/CalcShell';
 import CommaInput from '@/components/CommaInput';
 
@@ -56,6 +58,10 @@ export default function DiscountPage() {
       description="할인가 계산·할인율 계산·원가 역산 세 가지 모드를 지원합니다"
       intro={
         <>
+      {/* 아홉 언어판이 생겨 건너갈 길을 낸다 — 없으면 hreflang이 한쪽만 걸린다 */}
+      <div className="flex justify-end mb-4">
+        <LangPicker current="ko" route="/calculator/discount" available={ALL_LOCALES10} />
+      </div>
           <h2>연속 할인은 더하는 게 아닙니다</h2>
           <p>
             30% 할인에 추가 20% 할인이 붙으면 50%가 아닙니다. 30%를 뺀 <strong>70%에서 다시 20%를

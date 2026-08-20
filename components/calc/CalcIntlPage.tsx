@@ -36,6 +36,8 @@ import IdealWeightIntl from '@/components/calc/IdealWeightIntl';
 import BmiIntl from '@/components/calc/BmiIntl';
 import TipIntl from '@/components/calc/TipIntl';
 import SleepIntl from '@/components/calc/SleepIntl';
+import AgeIntl from '@/components/calc/AgeIntl';
+import DiscountIntl from '@/components/calc/DiscountIntl';
 import ChildHeightIntl from '@/components/calc/ChildHeightIntl';
 import BodyFatIntl from '@/components/calc/BodyFatIntl';
 import CaloriesBurnIntl from '@/components/calc/CaloriesBurnIntl';
@@ -76,6 +78,8 @@ import { withCard } from '@/lib/og-cards';
  * 합치려면 컴포넌트를 문자열로 들고 있어야 해서 타입이 풀린다.
  */
 const TOOLS: Record<string, (p: { lang: CalcLang }) => React.ReactNode> = {
+  'age': AgeIntl,
+  'discount': DiscountIntl,
   'shoe-size': ShoeSizeIntl,
   'pet-age': PetAgeIntl,
   'volumetric-weight': VolumetricWeightIntl,

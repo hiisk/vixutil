@@ -1,5 +1,7 @@
 'use client';
 import { useState } from 'react';
+import LangPicker from '@/components/LangPicker';
+import { ALL_LOCALES10 } from '@/lib/locales';
 import CalcShell, { Card, Label, inputCls, SummaryCard } from '@/components/CalcShell';
 
 const DAYS_OF_WEEK = ['일', '월', '화', '수', '목', '금', '토'];
@@ -35,6 +37,10 @@ export default function AgePage() {
 
   return (
     <CalcShell path="/calculator/age" title="나이 계산기" description="만 나이 · 한국 나이 · 연 나이 계산">
+      {/* 아홉 언어판이 생겨 건너갈 길을 낸다 — 없으면 hreflang이 한쪽만 걸린다 */}
+      <div className="flex justify-end mb-4">
+        <LangPicker current="ko" route="/calculator/age" available={ALL_LOCALES10} />
+      </div>
       <div className="flex flex-col gap-4">
         <Card className="p-5">
           <div className="flex flex-col gap-3">

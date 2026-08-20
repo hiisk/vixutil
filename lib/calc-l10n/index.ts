@@ -58,6 +58,7 @@ import { CALORIE } from './health2.ts';
 import { PROTEIN } from './health2.ts';
 import { RUNNING_PACE, ONE_REP_MAX, IDEAL_WEIGHT } from './fitness.ts';
 import { BMI, TIP, SLEEP } from './global.ts';
+import { AGE, DISCOUNT } from './age-discount.ts';
 import { CHILD_HEIGHT } from './child.ts';
 
 import { BODY_FAT } from './body-fat.ts';
@@ -101,6 +102,8 @@ import { AVERAGE, RENTAL_YIELD, APPLIANCE_POWER } from './daily.ts';
 import { SHOE_SIZE, PET_AGE, VOLUMETRIC_WEIGHT } from './sizes.ts';
 
 const TABLES: Record<string, CalcTable> = {
+  'age': AGE,
+  'discount': DISCOUNT,
   'shoe-size': SHOE_SIZE,
   'pet-age': PET_AGE,
   'volumetric-weight': VOLUMETRIC_WEIGHT,

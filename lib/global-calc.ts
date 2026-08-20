@@ -1,12 +1,17 @@
 /**
- * 나라를 안 타는 계산 셋 — BMI, 팁, 수면 사이클.
+ * 나라를 안 타는 계산 다섯 — BMI, 팁, 수면 사이클, 나이, 할인.
  *
- * 셋 다 아홉 언어로 낸다. 한국어판이 이미 있지만 **그대로 번역하면 틀린다**:
+ * 다 아홉 언어로 낸다. 한국어판이 이미 있지만 **그대로 번역하면 틀린다**:
  *  - BMI: 한국어판은 아시아·태평양 기준(25 이상 비만)을 쓴다. 세계 기준은 30이다.
  *    번역판에 25를 그대로 두면 유럽·미주 사용자에게 잘못된 판정을 내보낸다.
  *  - 팁: 한국에는 팁 문화가 없어 한국어판이 없다. 여기가 원본이다.
  *  - 수면: 90분 사이클은 어디서나 같다.
+ *  - 나이: 한국어판은 만 나이·세는 나이·연 나이를 나란히 낸다. 셋 다 한국
+ *    밖에서는 뜻이 없다 — 바깥에서 막히는 것은 2월 29일생과 «몇 년 몇 개월
+ *    며칠»이다.
+ *  - 할인: 계산 자체는 어디서나 같지만 한국어판에 없는 연속 할인을 넣었다.
  */
+import { span, addMonths, daysBetween } from './date-calc.ts';
 
 /* ── BMI ─────────────────────────────────────────────────────── */
 
@@ -124,4 +129,126 @@ export function sleepOptions(baseMin: number, mode: 'wake' | 'bed'): SleepOption
       : baseMin + FALL_ASLEEP_MIN + span;
     return { cycles, at: ((at % 1440) + 1440) % 1440, sleepMin: span };
   });
+}
+
+/* ── 나이 ────────────────────────────────────────────────────── */
+
+/**
+ * 'YYYY-MM-DD' → 그 지역 자정. 없는 날짜면 null.
+ *
+ * new Date('2026-02-31')은 던지지 않고 3월 3일로 조용히 넘어간다. 되짚어
+ * 확인하지 않으면 «2월 31일생»이 나이 계산에 그대로 들어간다.
+ */
+function parseDate(s: string): Date | null {
+  const m = /^(\d{4})-(\d{1,2})-(\d{1,2})$/.exec(s.trim());
+  if (!m) return null;
+  const [y, mo, d] = [Number(m[1]), Number(m[2]), Number(m[3])];
+  const dt = new Date(y, mo - 1, d);
+  if (dt.getFullYear() !== y || dt.getMonth() !== mo - 1 || dt.getDate() !== d) return null;
+  return dt;
+}
+
+export interface AgeResult {
+  /** 채운 나이 — 생일이 안 지났으면 해 차이보다 하나 적다 */
+  years: number;
+  months: number;
+  days: number;
+  totalMonths: number;
+  totalWeeks: number;
+  totalDays: number;
+  totalHours: number;
+  /** 다음 생일까지 남은 날. 오늘이 생일이면 다음 해까지 센다 */
+  toNextBirthday: number;
+  nextAge: number;
+  /** 태어난 날의 요일 (0=일요일) — 이름은 화면에서 그 언어로 짓는다 */
+  bornWeekday: number;
+  /** 2월 29일생인가 — 평년에 생일이 없어 화면에서 한 줄 덧붙인다 */
+  leapling: boolean;
+}
+
+/**
+ * 두 날짜 사이의 나이.
+ *
+ * 한국어판(app/(ko)/calculator/age)을 옮긴 것이 **아니다**. 저쪽은 만 나이·세는
+ * 나이·연 나이 셋을 나란히 내는데 그 셋은 한국 밖에서 뜻이 없다. 밖에서
+ * «age calculator»를 치는 사람이 막히는 자리는 다른 둘이다.
+ *
+ *  - 2월 29일생: 평년에 생일이 없다. addMonths가 2월 28일로 눌러 주는 규칙을
+ *    나이와 다음 생일 **양쪽에 같이** 쓴다. 한쪽만 다르게 잡으면 «생일이
+ *    지났는데 남은 날이 365»처럼 어긋난다.
+ *  - «몇 년 몇 개월 며칠»: 개월은 길이가 달라 일수를 나눠서는 못 구한다.
+ *    lib/date-calc.ts의 span이 그 자리를 이미 풀어 놓았으므로 그대로 쓴다.
+ */
+export function calcAge(birth: string, on: string): AgeResult | null {
+  const b = parseDate(birth);
+  const d = parseDate(on);
+  if (!b || !d || b > d) return null;
+
+  const s = span(b, d);
+  const next = addMonths(b, (s.years + 1) * 12);
+
+  return {
+    years: s.years,
+    months: s.months,
+    days: s.days,
+    totalMonths: s.years * 12 + s.months,
+    totalWeeks: s.weeks,
+    totalDays: s.totalDays,
+    totalHours: s.totalHours,
+    toNextBirthday: daysBetween(d, next),
+    nextAge: s.years + 1,
+    bornWeekday: b.getDay(),
+    leapling: b.getMonth() === 1 && b.getDate() === 29,
+  };
+}
+
+/* ── 할인 ────────────────────────────────────────────────────── */
+
+/**
+ * 정가·할인가·할인율 셋 중 둘을 알면 나머지가 나온다.
+ *
+ * 한국어판과 갈리는 곳은 연속 할인이다. «30% 뒤에 쿠폰 20%»는 50%가 아니라
+ * 44%인데, 그 자리를 계산기가 안 잡아 주면 사람이 더해 버린다. 통화 기호는
+ * 붙이지 않는다 — 나라마다 다르고, 하나를 고르면 나머지가 틀린다.
+ */
+export interface DiscountResult {
+  original: number;
+  final: number;
+  saved: number;
+  /** 실질 할인율(%) — 연속 할인이면 합이 아니라 곱의 결과가 온다 */
+  rate: number;
+}
+
+/* 금액도 비율도 소수 둘째 자리까지 — calcTip의 매개변수 pct와 헷갈리지 않게 이름을 나눈다 */
+const round2 = (n: number) => Math.round(n * 100) / 100;
+
+/** 연속 할인의 실질 할인율. 30% 뒤의 20%는 이미 깎인 값에 걸려 44%가 된다 */
+export function stackedRate(rates: number[]): number {
+  return round2((1 - rates.reduce((k, r) => k * (1 - r / 100), 1)) * 100);
+}
+
+/** 정가 + 할인율(연속이면 여럿) → 할인가 */
+export function discountFromRate(original: number, rates: number[]): DiscountResult | null {
+  if (!(original > 0) || !rates.length) return null;
+  if (rates.some(r => !(r >= 0) || r > 100)) return null;
+  /* 곱한 비율에서 바로 값을 낸다 — 실질 할인율을 먼저 반올림하면 금액이 어긋난다 */
+  const factor = rates.reduce((k, r) => k * (1 - r / 100), 1);
+  const final = original * factor;
+  return { original: round2(original), final: round2(final), saved: round2(original - final), rate: round2((1 - factor) * 100) };
+}
+
+/** 정가 + 할인가 → 할인율 */
+export function discountFromPrices(original: number, final: number): DiscountResult | null {
+  if (!(original > 0) || !(final >= 0) || final > original) return null;
+  return {
+    original: round2(original), final: round2(final),
+    saved: round2(original - final), rate: round2((1 - final / original) * 100),
+  };
+}
+
+/** 할인가 + 할인율 → 정가 역산. 100% 할인은 되짚을 수 없다(0으로 나눈다) */
+export function originalFromDiscount(final: number, rate: number): DiscountResult | null {
+  if (!(final > 0) || !(rate >= 0) || rate >= 100) return null;
+  const original = final / (1 - rate / 100);
+  return { original: round2(original), final: round2(final), saved: round2(original - final), rate: round2(rate) };
 }
