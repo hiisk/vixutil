@@ -58,6 +58,7 @@ export const KO_DEEP_LEAVES: Record<string, () => Promise<KoLeaf>> = {
   'body/exercise': () => import('./pages/body__exercise__slug'),
   'device/screen': () => import('./pages/device__screen__slug'),
   'fortune/card': () => import('./pages/fortune__card__slug'),
+  'fortune/mbti': () => import('./pages/fortune__mbti__slug'),
   'fortune/saju': () => import('./pages/fortune__saju__slug'),
   'game/chess': () => import('./pages/game__chess__slug'),
   'game/cube': () => import('./pages/game__cube__slug'),

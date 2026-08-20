@@ -81,7 +81,7 @@ const HAS = new Map<Lang, Set<string>>(
  */
 export const DETAIL_SECTIONS: readonly string[] = [
   'calculator', 'cmd', 'color', 'device/screen', 'ext', 'food', 'fortune/card',
-  'fortune/ilju',
+  'fortune/ilju', 'fortune/mbti',
   'game/chess', 'game/cube', 'game/poker', 'http', 'image/size',
   'snap/lens', 'sound/hz',
   'text/regex', 'time',

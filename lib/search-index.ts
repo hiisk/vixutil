@@ -72,6 +72,10 @@ import { freqFacts } from './sound/facts.ts';
 import { screenFacts } from './device/facts.ts';
 import { foodFacts } from './food/facts.ts';
 import { COUNTRIES, HOLIDAY_ICON } from './holidays/countries.ts';
+import { MBTI_TYPES } from './mbti-match.ts';
+import { PROFILES as MBTI_PROFILES } from './mbti/profiles.ts';
+import { functionStack as mbtiStack } from './mbti/functions.ts';
+import { MBTI_ICON } from './mbti/facts.ts';
 
 import { HOLIDAY_UI } from './holidays/ui-l10n.ts';
 
@@ -353,6 +357,13 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/game/chess', title: '체스 오프닝', desc: '오프닝 174가지의 수순과 판 그림', section: 'chess' as const, icon: CHESS_ICON },
   { href: '/number', title: '수 사전', desc: '1부터 200까지의 소인수분해·약수·진법·로마 숫자', section: 'number' as const, icon: NUMBER_ICON },
   { href: '/ascii', title: 'ASCII 코드표', desc: '128자의 진법·HTML 엔티티·Ctrl 조합', section: 'ascii' as const, icon: ASCII_ICON },
+  ...MBTI_TYPES.map(t => ({
+    href: `/fortune/mbti/${t.toLowerCase()}`,
+    title: `${t} 특징`,
+    desc: `${MBTI_PROFILES[t].line} · 인지기능 ${mbtiStack(t).join(' ')}`,
+    section: 'fortune' as const,
+    icon: MBTI_ICON,
+  })),
   { href: '/holidays', title: '나라별 공휴일', desc: '미국·영국·독일·프랑스·스페인·브라질·일본의 공휴일을 해마다', section: 'holidays' as const, icon: HOLIDAY_ICON },
   ...COUNTRIES.map(c => ({
     href: `/holidays/${c.code}`,

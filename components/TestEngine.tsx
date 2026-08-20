@@ -309,12 +309,35 @@ export default function TestEngine({ test, lang = 'ko', headerRight }: { test: T
           @keyframes tePopEmoji { 0% { opacity: 0; transform: scale(0.3); } 60% { transform: scale(1.15); } 100% { opacity: 1; transform: scale(1); } }
         `}</style>
 
+        {/*
+          MBTI 검사는 결과가 열여섯 유형 가운데 하나라, 그 유형을 다루는 낱장이
+          따로 있다. 검사를 막 마친 사람이 가장 궁금해하는 것이 «그래서 이게
+          뭔데»라, 그쪽으로 가는 길을 결과 바로 아래에 둔다. 한국어만이다 —
+          유형 낱장의 글이 한국어로만 있다.
+        */}
+        {mbtiType && lang === 'ko' && (
+          <Link
+            href={`/fortune/mbti/${mbtiType.toLowerCase()}`}
+            className="mb-6 flex items-center justify-between gap-3 rounded-xl bg-sec px-4 py-3.5 active:scale-[0.99] transition-transform"
+          >
+            <span className="min-w-0">
+              <span className="block text-[11px] font-medium text-white/75">인지기능 · 강점과 약점 · 궁합</span>
+              <span className="block text-sm font-bold text-white">{mbtiType} 특징 자세히 보기</span>
+            </span>
+            <svg className="h-4 w-4 shrink-0 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+          </Link>
+        )}
+
         {/* lang을 안 넘기면 ShareButton 기본값이 'ko'라 아홉 외국어 화면에 한국어 버튼이 붙는다 */}
         <ShareButton
           title={ui.shareTitle(test.title, `${mbtiType ? `${mbtiType} ` : ''}${result.emoji} ${result.title}`)}
           description={`${mbtiType ? `${ui.myMbti(mbtiType)}\n` : ''}${result.title}\n\n${stripEmphasis(result.desc)}`}
           type="test"
           lang={lang}
+          /* 유형 낱장은 저마다 공유 카드를 갖는다 — 주소가 이 장이면 그림이 하나다 */
+          url={mbtiType && lang === 'ko' ? `/fortune/mbti/${mbtiType.toLowerCase()}` : undefined}
         />
 
         {/* 링크만 나가면 SNS에서 안 보인다 — 결과를 정사각 이미지로도 내보낸다 */}

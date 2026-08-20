@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { GAPJA } from '@/lib/ilju';
 import { holidaySlugs } from "@/lib/holidays/route";
+import { MBTI_TYPES } from "@/lib/mbti-match";
 import { TESTS } from "@/lib/test-data";
 import { QUIZZES } from "@/lib/quiz-data";
 import { GENERATORS } from "@/lib/generator-data";
@@ -445,6 +446,12 @@ function allEntries(): MetadataRoute.Sitemap {
         priority: 0.8,
       })),
     ]),
+    // MBTI 열여섯 유형 — 한국어만이다(글이 한국어로만 있다)
+    ...MBTI_TYPES.map((t: string) => ({
+      url: `${BASE}/fortune/mbti/${t.toLowerCase()}`,
+      changeFrequency: monthly,
+      priority: 0.8,
+    })),
     // 공휴일 — 나라 일곱 × (개관 + 일곱 해), 열 언어. 규칙으로 푸니 해가 늘어도 그대로다
     ...LANGS.flatMap(({ prefix }: { prefix: string }) => [
       { url: `${BASE}${prefix}/holidays`, changeFrequency: weekly, priority: 0.85 },

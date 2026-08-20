@@ -121,6 +121,19 @@ export default function MbtiPage() {
               subjectEmoji={type.emoji}
               badge={type.nickname}
             />
+            {/* 오늘 운세만 보고 나가는 사람이 많다 — 그 유형의 «특징»으로 가는 길을 둔다 */}
+            <Link
+              href={`/fortune/mbti/${type.id.toLowerCase()}`}
+              className="mt-4 flex items-center justify-between gap-3 rounded-xl bg-sec px-4 py-3.5 active:scale-[0.99] transition-transform"
+            >
+              <span className="min-w-0">
+                <span className="block text-[11px] font-medium text-white/75">인지기능 · 강점과 약점 · 궁합</span>
+                <span className="block text-sm font-bold text-white">{type.id} 특징 자세히 보기</span>
+              </span>
+              <svg className="h-4 w-4 shrink-0 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </Link>
           </div>
         ) : (
           <div className="py-12 text-slate-500 dark:text-slate-400">
@@ -128,6 +141,19 @@ export default function MbtiPage() {
             <p className="text-sm">MBTI 유형을 선택하면 오늘의 운세를 볼 수 있습니다</p>
           </div>
         )}
+
+        {/* 유형 낱장 열여섯 — 「INFP 특징」으로 들어오는 사람이 닿는 자리다 */}
+        <section className="mt-8">
+          <p className="label-caps mb-3">유형별 특징</p>
+          <div className="grid grid-cols-4 gap-2">
+            {MBTI_TYPES.map(t => (
+              <Link key={t.id} prefetch={false} href={`/fortune/mbti/${t.id.toLowerCase()}`}
+                className="group rounded-xl border chip-off px-2 py-2.5 text-center hover:border-slate-300 dark:hover:border-slate-700 transition-all">
+                <span className="text-xs font-bold text-slate-800 dark:text-slate-100 group-hover:text-sec transition-colors">{t.id}</span>
+              </Link>
+            ))}
+          </div>
+        </section>
 
         <Faq items={SECTION_FAQ['fortune/mbti']} />
       </div>

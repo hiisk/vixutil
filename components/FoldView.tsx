@@ -287,6 +287,7 @@ const KO: Record<string, Loader> = {
   'http__slug': () => import('@/lib/ko/pages/http__slug'),
   'image__size__slug': () => import('@/lib/ko/pages/image__size__slug'),
   'holidays__slug': () => import('@/lib/ko/pages/holidays__slug'),
+  'fortune__mbti__slug': () => import('@/lib/ko/pages/fortune__mbti__slug'),
   'port__slug': () => import('@/lib/ko/pages/port__slug'),
   'quiz__slug': () => import('@/lib/ko/pages/quiz__slug'),
   'random__slug': () => import('@/lib/ko/pages/random__slug'),
