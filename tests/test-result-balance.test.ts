@@ -1,5 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { MBTI_THRESHOLD } from '../lib/test-score.ts';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { TESTS } from '../lib/test-data.ts';
@@ -78,7 +79,7 @@ function stateDist(t: Test, init: number[], step: (s: number[], oi: number, qi: 
 }
 
 /**
- * components/TestEngine.tsx의 byVotes와 같은 규칙 — 동점이면 마지막에 고른 쪽.
+ * lib/test-score.ts의 byVotes와 같은 규칙 — 동점이면 마지막에 고른 쪽.
  *
  * 상태의 앞 절반은 유형별 표, 뒷 절반은 "마지막으로 고른 순서"의 등수다(0이 가장 최근).
  * 몇 번째 문항에서 골랐는지가 아니라 등수만 있으면 동점 판정이 되므로,
@@ -111,7 +112,7 @@ function categoryShares(t: Test): number[] {
   return hit.map(c => c / total);
 }
 
-/** components/TestEngine.tsx의 byAxes와 같은 규칙 — 축 합이 0이면 '-' */
+/** lib/test-score.ts의 byAxes와 같은 규칙 — 축 합이 0이면 '-' */
 function quadrantShares(t: Test): number[] {
   const width = t.questions[0].opts[0].ax!.length;
   const d = stateDist(t, Array(width).fill(0), (v, oi, qi) =>
@@ -248,12 +249,16 @@ test('범주형·사분면도 어떤 결과가 12%~45% 안에 든다', () => {
   assert.deepEqual(bad, [], `치우친 결과:\n  ${bad.join('\n  ')}`);
 });
 
-test('TestEngine의 범주형·사분면 규칙이 이 검사와 같다', () => {
+test('채점 규칙이 이 검사가 베낀 것과 같다', () => {
   /*
-   * 위 두 함수는 엔진의 채점을 손으로 다시 적은 것이다. 엔진 쪽만 바뀌면
-   * 검사는 초록인 채로 실제 배분이 달라진다 — MBTI 임계값에 같은 장치가 있다.
+   * 위 두 함수는 채점 규칙을 손으로 다시 적은 것이다. 상태공간을 훑어 결과
+   * 배분을 재려면 규칙이 DP 안에 박혀야 해서 가져다 쓸 수가 없다. 그래서 진짜
+   * 쪽이 바뀌면 검사는 초록인 채로 실제 배분이 달라진다 — 그걸 여기서 막는다.
+   *
+   * 2026-08-20에 채점이 components/TestEngine.tsx에서 lib/test-score.ts로
+   * 옮겨졌다(결과 되짚기 층이 같은 계산을 써야 해서). 읽는 자리를 함께 옮긴다.
    */
-  const src = readFileSync(join(import.meta.dirname, '..', 'components', 'TestEngine.tsx'), 'utf8');
+  const src = readFileSync(join(import.meta.dirname, '..', 'lib', 'test-score.ts'), 'utf8');
   assert.match(src, /v > bv \|\| \(v === bv && \(last\[r\.k!\] \?\? -1\) > \(last\[best\.k!\] \?\? -1\)\)/,
     '범주형 동점 규칙(마지막에 고른 쪽이 이긴다)이 바뀌었다');
   assert.match(src, /sums\.map\(v => \(v > 0 \? '\+' : '-'\)\)/,
@@ -262,16 +267,17 @@ test('TestEngine의 범주형·사분면 규칙이 이 검사와 같다', () => 
 
 test('MBTI형은 축 임계값 8이 축 점수의 한가운데다', () => {
   /*
-   * TestEngine의 getMbtiType이 축 합계가 8 이상이면 E/S/T/J로 본다. 이 8은
+   * lib/test-score.ts의 getMbtiType이 축 합계가 8 이상이면 E/S/T/J로 본다. 이 8은
    * "축마다 3문항 × 1~4점"이라는 지금 데이터에만 맞는 숫자다. 축 문항을
    * 하나만 늘려도(합 4~16, 한가운데 10) 8은 한쪽으로 치우친 값이 된다 —
    * 그러면 거의 모두가 ESTJ가 된다. 데이터가 움직이면 여기서 걸린다.
    */
-  const THRESHOLD = 8; // components/TestEngine.tsx getMbtiType
-  const src = readFileSync(join(import.meta.dirname, '..', 'components', 'TestEngine.tsx'), 'utf8');
-  const found = [...src.matchAll(/>= (\d+) \? '/g)].map(m => Number(m[1]));
-  assert.ok(found.length === 4 && found.every(n => n === THRESHOLD),
-    `TestEngine의 축 임계값이 ${JSON.stringify(found)}로 바뀌었다 — 이 검사의 ${THRESHOLD}도 같이 봐야 한다`);
+  /* 상수를 베끼지 않고 가져온다 — 베끼면 한쪽만 바뀌는 그 병이 여기 생긴다 */
+  const THRESHOLD = MBTI_THRESHOLD;
+  assert.equal(THRESHOLD, 8, '축 임계값이 바뀌었다 — 아래 계산도 같이 봐야 한다');
+  const src = readFileSync(join(import.meta.dirname, '..', 'lib', 'test-score.ts'), 'utf8');
+  const found = [...src.matchAll(/>= MBTI_THRESHOLD \? '/g)].length;
+  assert.equal(found, 4, `축 넷이 모두 임계값을 쓰지 않는다(${found}개)`);
 
   const mbti = [...TESTS, ...Object.values(TESTS_INTL).flat()].filter(t => t.type === 'mbti');
   assert.ok(mbti.length > 0, 'MBTI형 테스트가 없다');

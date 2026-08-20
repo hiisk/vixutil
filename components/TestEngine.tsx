@@ -11,6 +11,13 @@ import SaveResultCard from './SaveResultCard';
 import PageGlow from './PageGlow';
 import { thumbSurface } from '@/lib/thumbnail';
 import { renderEmphasis, stripEmphasis } from '@/lib/emphasis';
+/*
+  채점은 lib/test-score.ts 한 곳에 있다. 결과를 되짚는 층(lib/test-why.ts)이
+  같은 계산을 해야 해서 화면 안에 두면 두 벌이 된다 — 곧 한쪽만 고쳐진다.
+*/
+import { byAxes, byVotes, getMbtiType } from '@/lib/test-score';
+import { explainTest } from '@/lib/test-why';
+import TestWhy from '@/components/TestWhy';
 
 /*
  * 결과 이미지의 배경색.
@@ -21,50 +28,6 @@ import { renderEmphasis, stripEmphasis } from '@/lib/emphasis';
  */
 const CARD_FROM = '#8b5cf6';
 const CARD_TO = '#db2777';
-
-function getMbtiType(scores: Record<string, number>): string {
-  const e = (scores.EI ?? 0) >= 8 ? 'E' : 'I';
-  const s = (scores.SN ?? 0) >= 8 ? 'S' : 'N';
-  const t = (scores.TF ?? 0) >= 8 ? 'T' : 'F';
-  const j = (scores.JP ?? 0) >= 8 ? 'J' : 'P';
-  return e + s + t + j;
-}
-
-/*
- * 채점 방식 네 가지.
- *
- * 점수합 → 구간(기본)은 결과에 순서가 있을 때만 맞는다. "언어형/봉사형/선물형/
- * 스킨십형"처럼 순서가 없는 넷을 한 줄에 세우면 "말 → 시간 → 행동 → 선물"이라는
- * 뜻 없는 순서가 생기고, 가운데 유형은 답이 섞이기만 해도 나와버린다.
- * 그래서 결과의 생김새에 맞는 채점을 골라 쓴다. 데이터에 type이 없으면
- * 예전 그대로 점수합이다 — 263종 중 259종이 그 길로 간다.
- */
-
-/**
- * 범주형: 표를 가장 많이 받은 유형.
- *
- * 동점이면 그중 마지막에 고른 쪽이 이긴다. results에 먼저 적은 쪽으로 붙이면
- * 순서가 곧 가중치가 되어 맨 앞 결과가 34%·맨 뒤가 18%로 갈렸다. 마지막 선택을
- * 보면 넷이 25%씩으로 고르고, "표가 같으면 최근에 기운 쪽"이라는 뜻도 선다.
- */
-function byVotes(results: TestResult[], chosen: TestOpt[]): TestResult | undefined {
-  const votes: Record<string, number> = {};
-  const last: Record<string, number> = {};
-  chosen.forEach((o, i) => { if (o.k) { votes[o.k] = (votes[o.k] ?? 0) + 1; last[o.k] = i; } });
-  return results.reduce((best, r) => {
-    const v = votes[r.k!] ?? 0, bv = votes[best.k!] ?? 0;
-    return v > bv || (v === bv && (last[r.k!] ?? -1) > (last[best.k!] ?? -1)) ? r : best;
-  }, results[0]);
-}
-
-/** 사분면: 축마다 합을 내고 부호를 이어 붙인 열쇠('+-' 등)로 결과를 찾는다 */
-function byAxes(results: TestResult[], chosen: TestOpt[]): TestResult | undefined {
-  const sums: number[] = [];
-  for (const o of chosen) (o.ax ?? []).forEach((v, i) => { sums[i] = (sums[i] ?? 0) + v; });
-  // 합이 0이면 '-'다. 그 몫까지 합쳐 tests/test-result-balance.test.ts가 결과 배분을 잰다
-  const key = sums.map(v => (v > 0 ? '+' : '-')).join('');
-  return results.find(r => r.k === key);
-}
 
 export type TestLang = AnyLocale10;
 
@@ -207,6 +170,8 @@ export default function TestEngine({ test, lang = 'ko', headerRight }: { test: T
     : test.results.find(r => total >= r.min && total <= r.max)
   ) ?? test.results[test.results.length - 1];
   const progress = Math.round((current / test.questions.length) * 100);
+  /* 문항을 다 풀기 전에는 null이다 */
+  const why = phase === 'result' ? explainTest(test, picks) : null;
 
   /* ── START ── */
   if (phase === 'start') return (
@@ -375,6 +340,17 @@ export default function TestEngine({ test, lang = 'ko', headerRight }: { test: T
           자연스럽게 눈에 들어오되, 결과 자체를 가리지는 않는 위치다.
         */}
         {/* lang을 안 넘기면 기본값 'ko'라 아홉 외국어 결과 화면에 한국어 카드가 붙는다 */}
+        {/*
+          「왜 이 결과인가」. 유형 이름만 받으면 내 답에서 나온 것인지 알 길이
+          없다. 채점에 쓴 재료를 그대로 되짚는다 — 데이터를 안 늘리므로 288종
+          전부에 붙는다. 문구가 한국어라 한국어에서만 낸다.
+        */}
+        {lang === 'ko' && why && (
+          <div className="mt-6">
+            <TestWhy why={why} />
+          </div>
+        )}
+
         <Ad lang={lang} placement="result" />
 
         <div className="mt-6 flex flex-col gap-3">
