@@ -1,5 +1,7 @@
 'use client';
 import { useState } from 'react';
+import RelatedContent from '@/components/RelatedContent';
+import { FORTUNE_RELATED } from '@/lib/fortune-related';
 import CoupangAd from '@/components/CoupangAd';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -161,6 +163,7 @@ export default function TarotYesNoPage() {
 
         <Faq items={SECTION_FAQ['fortune/tarot-yesno']} />
       </div>
+      <RelatedContent items={FORTUNE_RELATED} currentSlug="tarot-yesno" basePath="/fortune" accent="violet" bg="" />
       <SiteFooter referral={false} />
 
       <style jsx>{`

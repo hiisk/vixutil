@@ -1,5 +1,7 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import RelatedContent from '@/components/RelatedContent';
+import { FORTUNE_RELATED } from '@/lib/fortune-related';
 import CoupangAd from '@/components/CoupangAd';
 import { useState } from 'react';
 import Link from 'next/link';
@@ -143,6 +145,7 @@ export default function LuckyLottoPage() {
 
         <Faq items={SECTION_FAQ['fortune/lucky-lotto']} />
       </div>
+      <RelatedContent items={FORTUNE_RELATED} currentSlug="lucky-lotto" basePath="/fortune" accent="violet" bg="" />
       <SiteFooter referral={false} />
 
       <style jsx>{`

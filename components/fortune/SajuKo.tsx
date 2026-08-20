@@ -1,5 +1,7 @@
 'use client';
 import { shareOne } from '@/lib/share/ui';
+import RelatedContent from '@/components/RelatedContent';
+import { FORTUNE_RELATED } from '@/lib/fortune-related';
 import ToolIcon from '@/components/ToolIcon';
 import { useState, useEffect, useCallback, type ReactNode } from 'react';
 import Link from 'next/link';
@@ -942,6 +944,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
 
         <Faq items={faq ?? SECTION_FAQ['fortune/saju']} />
       </div>
+      <RelatedContent items={FORTUNE_RELATED} currentSlug="saju" basePath="/fortune" accent="violet" bg="" />
       <SiteFooter />
     </div>
   );

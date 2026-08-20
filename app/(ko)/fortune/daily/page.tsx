@@ -1,5 +1,7 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import RelatedContent from '@/components/RelatedContent';
+import { FORTUNE_RELATED } from '@/lib/fortune-related';
 import { useState } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -111,6 +113,7 @@ export default function DailyFortunePage() {
 
         <Faq items={SECTION_FAQ['fortune/daily']} />
       </div>
+      <RelatedContent items={FORTUNE_RELATED} currentSlug="daily" basePath="/fortune" accent="violet" bg="" />
       <SiteFooter />
     </div>
   );

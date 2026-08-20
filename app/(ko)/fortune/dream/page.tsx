@@ -1,5 +1,7 @@
 'use client';
 import { shareOne } from '@/lib/share/ui';
+import RelatedContent from '@/components/RelatedContent';
+import { FORTUNE_RELATED } from '@/lib/fortune-related';
 import CoupangAd from '@/components/CoupangAd';
 import ToolIcon from '@/components/ToolIcon';
 import { useState, useMemo } from 'react';
@@ -283,6 +285,7 @@ export default function DreamPage() {
           </div>
         </div>
       )}
+      <RelatedContent items={FORTUNE_RELATED} currentSlug="dream" basePath="/fortune" accent="violet" bg="" />
       <SiteFooter referral={false} />
     </div>
   );

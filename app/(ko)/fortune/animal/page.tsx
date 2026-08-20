@@ -1,5 +1,7 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import RelatedContent from '@/components/RelatedContent';
+import { FORTUNE_RELATED } from '@/lib/fortune-related';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -103,6 +105,7 @@ export default function AnimalPage() {
 
         <Faq items={SECTION_FAQ['fortune/animal']} />
       </div>
+      <RelatedContent items={FORTUNE_RELATED} currentSlug="animal" basePath="/fortune" accent="violet" bg="" />
       <SiteFooter />
     </div>
   );

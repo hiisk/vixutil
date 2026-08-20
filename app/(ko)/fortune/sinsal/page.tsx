@@ -1,5 +1,7 @@
 'use client';
 import { useState, useMemo } from 'react';
+import RelatedContent from '@/components/RelatedContent';
+import { FORTUNE_RELATED } from '@/lib/fortune-related';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
@@ -256,6 +258,7 @@ export default function SinsalPage() {
 
         <Faq items={SECTION_FAQ['fortune/sinsal']} />
       </div>
+      <RelatedContent items={FORTUNE_RELATED} currentSlug="sinsal" basePath="/fortune" accent="violet" bg="" />
       <SiteFooter />
     </div>
   );

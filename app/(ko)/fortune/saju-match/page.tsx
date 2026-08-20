@@ -1,5 +1,7 @@
 'use client';
 import { useState, useMemo } from 'react';
+import RelatedContent from '@/components/RelatedContent';
+import { FORTUNE_RELATED } from '@/lib/fortune-related';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
@@ -274,6 +276,7 @@ export default function SajuMatchPage() {
 
         <Faq items={SECTION_FAQ['fortune/saju-match']} />
       </div>
+      <RelatedContent items={FORTUNE_RELATED} currentSlug="saju-match" basePath="/fortune" accent="violet" bg="" />
       <SiteFooter />
     </div>
   );

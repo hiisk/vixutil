@@ -1,5 +1,7 @@
 'use client';
 import { shareOne } from '@/lib/share/ui';
+import RelatedContent from '@/components/RelatedContent';
+import { FORTUNE_RELATED } from '@/lib/fortune-related';
 import CoupangAd from '@/components/CoupangAd';
 import ToolIcon from '@/components/ToolIcon';
 import { useState, useCallback, useRef } from 'react';
@@ -623,6 +625,7 @@ export default function TarotPage() {
 
         <Faq items={SECTION_FAQ['fortune/tarot']} />
       </div>
+      <RelatedContent items={FORTUNE_RELATED} currentSlug="tarot" basePath="/fortune" accent="violet" bg="" />
       <SiteFooter referral={false} />
     </div>
   );

@@ -70,7 +70,16 @@ export default function CoupangAd({ lang = 'ko', className = '' }: { lang?: stri
         높이를 미리 잡는다. 광고가 늦게 떠서 아래 내용을 밀면 그게 CLS다.
         폭을 재기 전(width 0)에도 이 상자는 자리를 지킨다.
       */}
-      <div ref={slot} className="mt-3 overflow-hidden" style={{ minHeight: COUPANG.height }}>
+      {/*
+        테두리로 감싸는 까닭 — 쿠팡 iframe은 어느 테마에서나 흰 판이다. 어두운
+        지면에 테두리 없이 놓으면 판이 아니라 «구멍»으로 보인다. 색은 못 바꾸니
+        모서리와 실선으로 카드처럼 앉힌다.
+      */}
+      <div
+        ref={slot}
+        className="mt-3 overflow-hidden rounded-xl ring-1 ring-slate-200 dark:ring-slate-700"
+        style={{ minHeight: COUPANG.height }}
+      >
         {width >= COUPANG_MIN_WIDTH && (
           <iframe
             key={width}

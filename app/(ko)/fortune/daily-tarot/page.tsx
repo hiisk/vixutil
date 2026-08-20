@@ -1,5 +1,7 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import RelatedContent from '@/components/RelatedContent';
+import { FORTUNE_RELATED } from '@/lib/fortune-related';
 import CoupangAd from '@/components/CoupangAd';
 import { useSyncExternalStore } from 'react';
 import Link from 'next/link';
@@ -139,6 +141,7 @@ export default function DailyTarotPage() {
 
         <Faq items={SECTION_FAQ['fortune/daily-tarot']} />
       </div>
+      <RelatedContent items={FORTUNE_RELATED} currentSlug="daily-tarot" basePath="/fortune" accent="violet" bg="" />
       <SiteFooter referral={false} />
 
       <style jsx>{`

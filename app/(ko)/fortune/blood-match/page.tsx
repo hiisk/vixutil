@@ -1,5 +1,7 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import RelatedContent from '@/components/RelatedContent';
+import { FORTUNE_RELATED } from '@/lib/fortune-related';
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -123,6 +125,7 @@ export default function BloodMatchPage() {
 
         <Faq items={SECTION_FAQ['fortune/blood-match']} />
       </div>
+      <RelatedContent items={FORTUNE_RELATED} currentSlug="blood-match" basePath="/fortune" accent="violet" bg="" />
       <SiteFooter />
     </div>
   );

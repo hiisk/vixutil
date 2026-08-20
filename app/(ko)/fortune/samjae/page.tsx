@@ -1,5 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
+import RelatedContent from '@/components/RelatedContent';
+import { FORTUNE_RELATED } from '@/lib/fortune-related';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
@@ -261,6 +263,7 @@ export default function SamjaePage() {
 
         <Faq items={SECTION_FAQ['fortune/samjae']} />
       </div>
+      <RelatedContent items={FORTUNE_RELATED} currentSlug="samjae" basePath="/fortune" accent="violet" bg="" />
       <SiteFooter />
     </div>
   );

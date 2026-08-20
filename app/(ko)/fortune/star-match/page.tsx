@@ -1,5 +1,7 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import RelatedContent from '@/components/RelatedContent';
+import { FORTUNE_RELATED } from '@/lib/fortune-related';
 import CoupangAd from '@/components/CoupangAd';
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
@@ -177,6 +179,7 @@ export default function StarMatchPage() {
 
         <Faq items={SECTION_FAQ['fortune/star-match']} />
       </div>
+      <RelatedContent items={FORTUNE_RELATED} currentSlug="star-match" basePath="/fortune" accent="violet" bg="" />
       <SiteFooter referral={false} />
     </div>
   );
