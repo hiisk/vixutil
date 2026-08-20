@@ -36,6 +36,7 @@ import IdealWeightIntl from '@/components/calc/IdealWeightIntl';
 import BmiIntl from '@/components/calc/BmiIntl';
 import TipIntl from '@/components/calc/TipIntl';
 import SleepIntl from '@/components/calc/SleepIntl';
+import ChildHeightIntl from '@/components/calc/ChildHeightIntl';
 import BodyFatIntl from '@/components/calc/BodyFatIntl';
 import CaloriesBurnIntl from '@/components/calc/CaloriesBurnIntl';
 import CaffeineIntl from '@/components/calc/CaffeineIntl';
@@ -108,6 +109,7 @@ const TOOLS: Record<string, (p: { lang: CalcLang }) => React.ReactNode> = {
   'bmi': BmiIntl,
   'tip': TipIntl,
   'sleep': SleepIntl,
+  'child-height': ChildHeightIntl,
   'calorie': CalorieIntl,
   'exchange': ExchangeIntl,
   'retirement': RetirementIntl,

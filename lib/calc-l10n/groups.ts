@@ -38,7 +38,7 @@ export const CALC_GROUPS: { id: CalcGroupId; icon: string; slugs: string[] }[] =
     id: 'health', icon: '🫀',
     slugs: [
       'calorie', 'protein', 'body-fat', 'calories-burn', 'caffeine', 'blood-pressure',
-      'bmi', 'ideal-weight', 'one-rep-max', 'running-pace', 'sleep',
+      'bmi', 'child-height', 'ideal-weight', 'one-rep-max', 'running-pace', 'sleep',
     ],
   },
   {

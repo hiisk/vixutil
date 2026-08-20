@@ -44,6 +44,7 @@ export const CATS: CalcCategory[] = [
     calcs: [
       { href:'/calculator/year-end-tax',      title:'연말정산 환급액 계산기', desc:'총급여·공제 → 결정세액과 환급·추가납부', hot:true },
       { href:'/calculator/eitc',           title:'근로장려금 계산기',     desc:'가구 유형·소득 → 근로·자녀장려금 지급액', hot:true },
+      { href:'/calculator/health-insurance-dependent', title:'건강보험 피부양자 자격 계산기', desc:'소득·재산·사업자등록 → 자격 유지 여부', hot:true },
       { href:'/calculator/health-insurance-local', title:'지역가입자 건강보험료 계산기', desc:'소득·재산 → 지역 보험료와 직장가입자 비교', hot:true },
       { href:'/calculator/card-deduction',   title:'신용카드 소득공제 계산기', desc:'총급여 25% 문턱 → 공제액과 줄어드는 세금', hot:true },
       { href:'/calculator/monthly-rent-deduction', title:'월세 세액공제 계산기', desc:'월세·총급여 → 공제액과 결정세액 한도·소멸액', hot:true },
@@ -146,6 +147,7 @@ export const CATS: CalcCategory[] = [
       { href:'/calculator/water',          title:'물 섭취량 계산기',   desc:'체중 기준 권장 수분 섭취량' },
       { href:'/calculator/protein',        title:'단백질 섭취량 계산기', desc:'체중·활동량 → 하루 권장 단백질' },
       { href:'/calculator/ideal-weight',   title:'표준체중 계산기',      desc:'키·성별 → 표준체중과 정상 BMI 체중 범위' },
+      { href:'/calculator/child-height',   title:'자녀 예상 키 계산기',  desc:'부모 키 → 중간부모키와 예상 성인 키 범위', hot:true },
       { href:'/calculator/one-rep-max',    title:'1RM 계산기',           desc:'든 무게·횟수 → 1회 최대 중량과 강도별 무게', hot:true },
       { href:'/calculator/running-pace',   title:'러닝 페이스 계산기',   desc:'목표 기록 → km당 페이스·구간 통과 시각', hot:true },
       { href:'/calculator/sober-time',     title:'음주 후 운전 가능 시간 계산기', desc:'혈중알코올농도·분해 시간 추정', hot:true },
@@ -180,6 +182,7 @@ export const CATS: CalcCategory[] = [
     desc: '자동차 관련 계산기',
     accent: 'bg-orange-50 text-orange-700 border-orange-200',
     calcs: [
+      { href:'/calculator/car-insurance-surcharge', title:'자동차 보험 할증 계산기', desc:'사고 유형·무사고 햇수 → 3년 추가 보험료와 자비 비교', hot:true },
       { href:'/calculator/car-installment', title:'자동차 할부 계산기',  desc:'차량가·금리·기간 → 월 할부금' },
       { href:'/calculator/car-cost',        title:'차량 유지비 계산기', desc:'연간 유지비와 1km당 비용' },
       { href:'/calculator/car-depreciation', title:'자동차 감가상각 계산기', desc:'연식별 잔존가치와 반감기' },

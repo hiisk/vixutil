@@ -58,6 +58,7 @@ import { CALORIE } from './health2.ts';
 import { PROTEIN } from './health2.ts';
 import { RUNNING_PACE, ONE_REP_MAX, IDEAL_WEIGHT } from './fitness.ts';
 import { BMI, TIP, SLEEP } from './global.ts';
+import { CHILD_HEIGHT } from './child.ts';
 
 import { BODY_FAT } from './body-fat.ts';
 
@@ -133,6 +134,7 @@ const TABLES: Record<string, CalcTable> = {
   'bmi': BMI,
   'tip': TIP,
   'sleep': SLEEP,
+  'child-height': CHILD_HEIGHT,
   'calorie': CALORIE,
   'exchange': EXCHANGE,
   'retirement': RETIREMENT,
