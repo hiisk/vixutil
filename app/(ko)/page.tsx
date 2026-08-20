@@ -676,7 +676,14 @@ export default function HubPage() {
           있는지 모르면 찾을 수 없었다. 인덱스 자체는 /search에만 싣는다 —
           랜딩 페이지에 600여 개 항목을 직렬화하면 무거워진다.
         */}
+        {/*
+          prefetch를 끈다 (2026-08-20). 바로 위 주석대로 «인덱스는 /search에만
+          싣는다»고 해 놓고, 이 링크의 기본 프리페치가 그 인덱스를 홈으로 도로
+          끌고 오고 있었다. 홈에서 /search?_rsc= 294KB를 받고 2.3MB짜리 검색
+          청크까지 물려 왔다 — 검색을 안 하는 사람도 전부.
+        */}
         <Link
+          prefetch={false}
           href="/search"
           className="group flex items-center gap-3 mb-10 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 rounded-lg px-4 py-3.5 shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition-all"
         >

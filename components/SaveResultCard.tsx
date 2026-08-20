@@ -92,8 +92,8 @@ export default function SaveResultCard({
       <button
         onClick={handleSave}
         disabled={state === 'saving'}
-        className="w-full py-3.5 rounded-lg font-bold text-sm text-white transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
-        style={{ background: `linear-gradient(135deg, ${from} 0%, ${to} 100%)` }}
+        /* 부 동작이라 테두리만 — 까닭은 globals.css의 .sh-go 머리말 */
+        className="sh-alt disabled:opacity-60"
       >
         {state === 'saving' ? ui.cardSaving : state === 'done' ? ui.cardDone : ui.cardSave}
       </button>

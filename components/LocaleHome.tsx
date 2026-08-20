@@ -39,9 +39,11 @@ export default function LocaleHome({ lang }: { lang: Exclude<AnyLocale10, 'ko'> 
           </div>
         </div>
 
-        {/* 통합 검색 진입점 — 어느 섹션에 있는지 몰라도 찾을 수 있게 한다 */}
+        {/* 통합 검색 진입점 — 어느 섹션에 있는지 몰라도 찾을 수 있게 한다.
+            prefetch를 끈 까닭은 app/(ko)/page.tsx의 같은 링크에 적었다 */}
         {ui.search && (
           <Link
+            prefetch={false}
             href={localeHref(lang, '/search')}
             className="group flex items-center gap-3 mb-6 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 rounded-lg px-4 py-3.5 shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition-all"
           >

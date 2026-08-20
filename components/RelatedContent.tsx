@@ -48,7 +48,13 @@ export default function RelatedContent({
         </h2>
         <div className="grid sm:grid-cols-2 gap-2">
           {picked.map(item => (
+            /*
+              prefetch를 끈다 (2026-08-20). 이 격자는 여섯 개가 깔리는데 눌리는
+              것은 많아야 하나다. 기본 프리페치는 여섯 개의 라우트 짐을 전부
+              미리 받아 온다 — 테스트 낱장에서 그렇게 딸려 온 청크가 729KB였다.
+            */
             <Link
+              prefetch={false}
               key={item.slug}
               href={`${basePath}/${item.slug}`}
               /*

@@ -41,7 +41,7 @@ export default function PageHero({
       )}
       <div className="hero-in">
         <h1 className="hero-title">{title}</h1>
-        {desc && <p className="hero-desc">{desc}</p>}
+        {desc && <p className="page-lede">{desc}</p>}
         {children}
       </div>
     </div>

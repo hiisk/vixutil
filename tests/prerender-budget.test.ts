@@ -237,7 +237,11 @@ test('사이트맵이 내거는 양을 알고 있다', { skip: sitemapRoutes() ?
    * 늘어난 것을 모르고 배포하는 일을 막으려는 원래 뜻은 그대로다.
    */
   const urls = sitemapRoutes()!;
-  assert.ok(urls.length > 120_000, `사이트맵이 ${urls.length}개뿐 — 줄었다면 왜인지 확인하라`);
+  /* 2026-08-20: 문턱을 지금 수 바로 아래로 내렸다. 2026-08-15에 검색 수요가
+     없는 참조표 갈래 55개를 통째로 지우면서 주소가 16만 → 5만7천이 됐는데,
+     이 검사는 «빌드가 있을 때만» 도는 종류라 아무도 못 보고 지나갔다.
+     여기서 지키려는 것은 «세는 방식이 깨졌나»이지 «사이트가 줄었나»가 아니다. */
+  assert.ok(urls.length > 50_000, `사이트맵이 ${urls.length}개뿐 — 줄었다면 왜인지 확인하라`);
 
   const INTL = new Set(['en', 'es', 'pt-br', 'ja', 'de', 'fr', 'hi', 'zh-hans', 'zh-hant']);
   const perLang = new Map<string, number>();

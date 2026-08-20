@@ -10,8 +10,8 @@ import SaveResultCard from './SaveResultCard';
 import PageGlow from './PageGlow';
 import ReferralCards from './ReferralCards';
 import { thumbSurface } from '@/lib/thumbnail';
+import { renderEmphasis, stripEmphasis } from '@/lib/emphasis';
 
-const DEFAULT_GRADIENT = 'from-violet-500 to-pink-600';
 
 /*
  * 결과 이미지의 배경색.
@@ -209,7 +209,6 @@ export default function TestEngine({ test, lang = 'ko', headerRight }: { test: T
     : test.results.find(r => total >= r.min && total <= r.max)
   ) ?? test.results[test.results.length - 1];
   const progress = Math.round((current / test.questions.length) * 100);
-  const grad = result?.color ?? DEFAULT_GRADIENT;
 
   /* ── START ── */
   if (phase === 'start') return (
@@ -306,16 +305,25 @@ export default function TestEngine({ test, lang = 'ko', headerRight }: { test: T
         </div>
       </header>
       <div className="flex-1 px-4 py-8 max-w-lg mx-auto w-full">
-        {/* Result hero card */}
-        <div className={`te-pop relative overflow-hidden rounded-xl bg-gradient-to-br ${grad} p-8 text-white text-center mb-6 shadow-sm`}>
-          {/* main emoji */}
-          <div className="te-pop-emoji text-7xl mb-4 filter drop-shadow-sm relative z-10">{result.emoji}</div>
-          <span className="relative z-10 text-xs font-bold bg-white/20 dark:bg-slate-900/20 px-3 py-1 rounded-full">{ui.resultOf(test.category)}</span>
+        {/*
+          ── 결과 카드 (2026-08-20) ────────────────────────────────
+          단계마다 다른 그라디언트 판에 흰 글자와 7xl 이모지를 얹고 있었다.
+          결과 문장이 대여섯 줄인데 색 판 위의 흰 글자는 읽기가 눈에 띄게
+          힘들고, 그 꼴 자체가 어느 템플릿에나 있다.
+
+          판을 흰 종이로 되돌리고 **등급 색은 위쪽 굵은 선 하나**로 남긴다 —
+          결과 등급은 정보라 색을 버리지 않되, 면적을 안 먹게 한다. 이모지도
+          한 급 줄여 제목이 화면의 주인이 되게 했다.
+        */}
+        <div className="te-pop surface relative mb-6 overflow-hidden p-7 text-center">
+          <span className="te-grade" aria-hidden="true" />
+          <div className="te-pop-emoji mb-3 text-5xl">{result.emoji}</div>
+          <span className="text-[11px] font-medium text-slate-400 dark:text-slate-500">{ui.resultOf(test.category)}</span>
           {mbtiType && (
-            <p className="relative z-10 text-4xl font-bold mt-4 tracking-widest">{mbtiType}</p>
+            <p className="mt-3 text-4xl font-bold tracking-widest text-slate-900 dark:text-white">{mbtiType}</p>
           )}
-          <h2 className="relative z-10 text-2xl font-bold mt-2 mb-3">{result.title}</h2>
-          <p className="relative z-10 text-sm leading-relaxed opacity-90">{result.desc}</p>
+          <h2 className="mt-1.5 mb-3 text-[1.625rem] font-bold leading-tight tracking-[-0.03em] text-balance text-slate-900 dark:text-white">{result.title}</h2>
+          <p className="text-[15px] leading-relaxed text-slate-600 dark:text-slate-300 text-pretty">{renderEmphasis(result.desc)}</p>
         </div>
 
         {/* Traits */}
@@ -341,7 +349,7 @@ export default function TestEngine({ test, lang = 'ko', headerRight }: { test: T
         {/* lang을 안 넘기면 ShareButton 기본값이 'ko'라 아홉 외국어 화면에 한국어 버튼이 붙는다 */}
         <ShareButton
           title={ui.shareTitle(test.title, `${mbtiType ? `${mbtiType} ` : ''}${result.emoji} ${result.title}`)}
-          description={`${mbtiType ? `${ui.myMbti(mbtiType)}\n` : ''}${result.title}\n\n${result.desc}`}
+          description={`${mbtiType ? `${ui.myMbti(mbtiType)}\n` : ''}${result.title}\n\n${stripEmphasis(result.desc)}`}
           type="test"
           lang={lang}
         />
@@ -352,7 +360,7 @@ export default function TestEngine({ test, lang = 'ko', headerRight }: { test: T
             emoji={result.emoji}
             title={`${mbtiType ? `${mbtiType} · ` : ''}${result.title}`}
             subtitle={ui.resultOf(test.category)}
-            body={result.desc}
+            body={stripEmphasis(result.desc)}
             from={CARD_FROM}
             to={CARD_TO}
             fileName={`vixutil-${test.slug}`}

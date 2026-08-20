@@ -539,10 +539,23 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
    낱장 124장이 저마다 h1 클래스를 적고 있었다(«text-2xl font-black …» 다섯 종).
    같은 사이트에서 제목 크기가 갈래마다 다르면 «다른 사이트»로 읽힌다.
    흩어진 것을 이 하나로 모으고, 값은 PageHero의 .hero-title과 맞춘다. */
+/* ── 낱장의 제목 (2026-08-20) ────────────────────────────────────
+   22px는 «작은 제목»이지 이 화면의 주인이 아니었다. 낱장은 검색으로 들어온
+   사람이 처음 닿는 곳이고, 여기서 «내가 찾던 그것이 맞다»가 한눈에 서야 한다.
+
+   크기를 화면 폭에 따라 28→38px로 늘리고 자간을 조인다. 큰 글자는 기본 자간이
+   벌어져 보이므로 −0.035em까지 당겨야 덩어리로 읽힌다. 줄간도 1.12로 좁혀
+   두 줄짜리 제목이 한 덩이가 되게 한다. */
 .page-h1 {
-  @apply text-[1.375rem] sm:text-[1.75rem] font-bold leading-snug
-         text-slate-900 dark:text-slate-50 text-balance mb-2;
-  letter-spacing: -0.028em;
+  @apply font-bold text-slate-900 dark:text-slate-50 text-balance mb-2.5;
+  font-size: clamp(1.75rem, 5.6vw, 2.375rem);
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+}
+/* 제목 아래 한 줄 — 읽는 줄은 46자 언저리에서 끊어야 눈이 안 헤맨다 */
+.page-lede {
+  @apply text-[15px] leading-relaxed text-slate-500 dark:text-slate-400 text-pretty;
+  max-width: 46ch;
 }
 /* 흰 카드가 흰 바탕에 놓여 테두리 1px만으로 떠 있었다 — 아주 옅은 그림자로 띄운다 */
 .list-card {
@@ -681,14 +694,21 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
    95px, 설명이 두 줄이라 264개인 /test가 모바일에서 28,587px이었다 — 손가락으로
    서른네 화면이다. 모바일에서는 띠를 64px로 줄이고 설명을 한 줄로 자른다.
    sm 위로는 예전 그대로다(넓은 화면에서는 그림이 넓을수록 고르기 쉽다). */
+/* ── 허브 카드의 아이콘 (2026-08-20) ─────────────────────────────
+   카드마다 파스텔 판이 가로로 깔려 있었다. 판 색이 슬러그마다 달라서 격자를
+   보면 무지개가 되고, 그 꼴은 어느 템플릿에나 있다. 게다가 카드 높이의 절반을
+   장식이 먹어 제목이 아래로 밀렸다.
+
+   판을 걷고 아이콘을 **본문 안의 작은 표식**으로 내린다. 색은 판이 아니라
+   아이콘 자신이 갖는다 — 색이 정보를 나르되 면적을 안 먹는다. */
 .card-thumb {
-  @apply relative overflow-hidden flex items-center justify-center h-16 sm:h-auto sm:aspect-video;
+  @apply relative inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg;
 }
 /* 아이콘 색은 판이 정한다(lib/thumbnail.ts가 판·글자색을 한 벌로 낸다).
    판이 진한 그라디언트였을 때는 흰색이 맞았지만, 옅은 단색이 된 뒤로는
    흰 아이콘이 판에 묻혀 사라진다. drop-shadow도 같은 이유로 뺐다. */
 .card-thumb-icon {
-  @apply w-8 h-8 sm:w-14 sm:h-14 transition-transform duration-300 group-hover:scale-110;
+  @apply h-[18px] w-[18px] transition-transform duration-300 group-hover:scale-110;
 }
 
 /* 갈래 머리 — 허브마다 대여섯 번 나온다 */
@@ -1007,21 +1027,19 @@ html.dark .row-pair.row-now {
    (기둥 밖에 두면 옆 레일 자리만큼 오른쪽으로 밀린다 — 실제로 그렇게 밀렸다).
    기둥 안에 있으면서 선만 화면을 가로지르게 하려고, 선을 ::before로 그리고
    100vw로 편다. */
+/* ── 머리 (2026-08-20) ────────────────────────────────────────────
+   화면을 가로지르는 실선을 걷었다. 지면이 옅은 회색이고 바로 아래 도구가 흰
+   판이라 **경계는 이미 판의 가장자리가 만든다** — 거기에 실선을 하나 더 그으면
+   머리가 «남은 띠»로 읽혔다. 실선과 판 사이의 60px도 그래서 죽은 회색이었다.
+
+   대신 위쪽 여백을 늘리고 아래를 좁힌다. 제목이 지면 위에 여유 있게 앉고,
+   도구는 제목에 바짝 붙어 «이 제목의 도구»로 묶인다. */
 .hero-band {
   position: relative;
-  padding-bottom: 1.5rem;
-  margin-bottom: 1.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 1.25rem;
+  margin-bottom: 0;
 }
-.hero-band::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100vw;
-  bottom: 0;
-  border-bottom: 1px solid var(--color-slate-200);
-}
-html.dark .hero-band::before { border-bottom-color: var(--color-slate-800); }
 
 /* .hero가 이미 판을 안 그린다 — 남은 것은 좌우 여백을 지우는 일뿐이다 */
 .hero.hero-flat { padding: 0; }
@@ -1215,6 +1233,8 @@ html.dark .btn-pri-knob { background: rgb(0 0 0 / 0.14); }
          transition-colors;
 }
 .dial-input:focus { border-color: var(--c-sec); }
+/* 초점이 간 칸은 밑줄이 두꺼워진다 — 지금 어디를 치고 있는지가 색보다 빨리 읽힌다 */
+.dial-input:focus { border-bottom-width: 2px; padding-bottom: calc(var(--dial-pb, 0.5rem) - 1px); }
 /* «지금 고치고 있는 쪽» — 두 칸이 마주 보는 변환기에서 어느 쪽을 치고 있는지 */
 .dial-input-on { border-color: var(--c-sec); }
 /* 돈 칸 아래 한글 단위 — «300,000,000»이 3억인지 30억인지 한 박자 걸린다.
@@ -1465,14 +1485,20 @@ html.dark .stat-pri {
 
    제목이 작아진 만큼 답이 화면에서 유일하게 큰 글자가 된다. 위계는 크기 차이로
    생기지 두 개를 다 키운다고 생기지 않는다. */
+/* PageHero의 제목 — 사이트 대부분의 낱장이 이것을 쓴다.
+   .page-h1과 값이 갈려 있었다(22px vs 새 clamp). 둘이 같은 일을 하므로
+   여기서 .page-h1을 그대로 물려받게 한다 — 한쪽만 고치면 또 갈린다. */
+/* PageHero의 제목 — 사이트 대부분의 낱장이 이것을 쓴다.
+   .page-h1과 값이 갈려 있었다(22px vs clamp). 같은 일을 하는 둘이므로 값을
+   맞춘다. @apply page-h1로 물려받으려 했더니 Tailwind v4는 @utility로 선언한
+   것만 @apply할 수 있어서 규칙이 통째로 깨졌다 — 값을 그대로 적는다. */
 .hero-title {
-  @apply text-[1.375rem] sm:text-[1.75rem] font-bold leading-snug
-         text-slate-900 dark:text-slate-50 text-balance;
+  @apply font-bold text-slate-900 dark:text-slate-50 text-balance;
+  font-size: clamp(1.75rem, 5.6vw, 2.375rem);
+  line-height: 1.12;
+  letter-spacing: -0.035em;
 }
-.hero-desc {
-  @apply mt-1.5 text-sm leading-relaxed text-slate-500 dark:text-slate-400;
-  max-width: 60ch;
-}
+/* .hero-desc는 .page-lede로 합쳤다 — 쓰는 곳이 PageHero 하나뿐이었다 */
 /* 바탕 그림 — 크게 깔고 오른쪽으로 흘려보낸다. 가장자리가 잘려 화면 밖으로
    이어지는 느낌을 만든다. 96px짜리가 넓은 어둠에 혼자 떠 있으면 구성이 아니라
    그냥 빈자리다. 좁은 화면에서는 글이 설 자리를 뺏으므로 안 그린다. */
@@ -1532,12 +1558,33 @@ html.dark .chip-now { color: #0f172a; }
 }
 /* 결과 밑의 큰 공유 버튼. hover:scale는 뺐다 — 눌리는 느낌(active)만 남긴다.
    그라디언트는 @apply로 못 넣어서 한 줄로 적는다(fuchsia-500·pink-500·orange-400). */
+/* ── 공유 버튼 (2026-08-20) ──────────────────────────────────────
+   자홍→분홍→주황 그라디언트에 분홍 그림자였다. 결과 화면 맨 아래에 그런 버튼이
+   둘 나란히 서 있어서, 정작 결과보다 버튼이 먼저 눈에 들어왔다.
+
+   갈래 색 하나로 채운다. 그리고 둘 사이에 위계를 준다 — 공유가 주 동작이고
+   이미지 저장은 그다음이다. 둘 다 꽉 찬 색이면 어느 쪽도 주가 아니다. */
 .sh-go {
-  @apply w-full h-14 flex items-center justify-center gap-2.5 rounded-2xl
-         text-[15px] font-bold text-white shadow-lg shadow-pink-200 dark:shadow-none
-         transition-transform active:scale-[0.97];
-  background-image: linear-gradient(90deg, #d946ef, #ec4899, #fb923c);
+  background: var(--c-sec);
+  @apply w-full h-14 flex items-center justify-center gap-2.5 rounded-full
+         text-[15px] font-bold text-white;
+  box-shadow: var(--sh-rest);
+  transition: filter 350ms var(--ease-physical), transform 350ms var(--ease-physical);
 }
+@media (hover: hover) { .sh-go:hover { filter: brightness(1.06); } }
+.sh-go:active { transform: scale(0.98); }
+html.dark .sh-go { color: #0b1220; }
+
+/* 부 동작 — 테두리만. 주 동작 옆에서 «두 번째»로 읽힌다 */
+.sh-alt {
+  color: var(--c-sec);
+  border-color: rgb(var(--c-sec-rgb) / 0.35);
+  @apply w-full h-12 flex items-center justify-center gap-2 rounded-full border
+         text-sm font-semibold bg-transparent;
+  transition: background-color 350ms var(--ease-physical), transform 350ms var(--ease-physical);
+}
+@media (hover: hover) { .sh-alt:hover { background: rgb(var(--c-sec-rgb) / 0.08); } }
+.sh-alt:active { transform: scale(0.98); }
 /* 그 버튼 위 한 줄 — 실제로 나갈 문구의 첫 줄이 여기 그대로 보인다 */
 .sh-peek {
   @apply mb-3 truncate text-center text-xs font-semibold text-slate-400 dark:text-slate-500;
@@ -1720,3 +1767,12 @@ body.is-dropping::after {
   border-left: 3px solid var(--color-amber-500);
 }
 .note-warn strong, .note-warn b { @apply font-bold text-slate-800 dark:text-slate-100; }
+
+/* 결과 카드 위의 등급 띠 — 등급 색은 정보라 남기되 면적을 안 먹게 선 하나로.
+   색은 페이지의 갈래 색을 쓴다(PageGlow가 테스트마다 다르게 깐다). */
+.te-grade {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: var(--c-sec);
+}

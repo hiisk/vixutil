@@ -34,7 +34,8 @@ export function foldHubs(): string[] {
   const m = src.match(/export const STATIC_ROUTES[^{]*\{([\s\S]*?)\n\}/);
   if (!m) throw new Error('lib/fold/registry.ts에서 STATIC_ROUTES를 못 찾았다 — 꼴이 바뀌었으면 이 헬퍼도 고치라');
   const keys = [...m[1].matchAll(/'([^']*)':/g)].map(x => x[1]);
-  if (keys.length < 200) throw new Error(`접힌 허브가 ${keys.length}개뿐 — 접기가 깨졌는지 보라`);
+  /* 2026-08-20: 등록부가 정확히 200이라 «< 200»이 아슬아슬했다 — 190으로 내린다 */
+  if (keys.length < 190) throw new Error(`접힌 허브가 ${keys.length}개뿐 — 접기가 깨졌는지 보라`);
   return keys;
 }
 

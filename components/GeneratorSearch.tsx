@@ -24,16 +24,19 @@ function GenCard({ g }: { g: CardItem }) {
       href={`/generator/${g.slug}`}
       className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden hover:border-slate-300 dark:hover:border-slate-700 transition-all"
     >
-      {/* OG 이미지를 썸네일로 쓰던 자리 — TestSearch와 같은 이유로 그라데이션+이모지로 대체했다. */}
-      <div className={`card-thumb ${thumbSurface(g.slug, 'generator')}`}>
-        <ToolIconRef
-          emoji={g.icon}
-          className="card-thumb-icon"
-        />
-      </div>
-      <div className="p-2.5 sm:p-3">
+      {/*
+        파스텔 띠를 걷고 아이콘을 본문 안으로 내렸다 (2026-08-20). 까닭은
+        globals.css의 .card-thumb 머리말 — 판 색이 슬러그마다 달라 격자가
+        무지개가 됐고, 카드 높이의 절반을 장식이 먹고 있었다.
+      */}
+      <div className="flex items-start gap-2.5 p-3 sm:p-3.5">
+        <span className={`card-thumb ${thumbSurface(g.slug, 'generator')}`}>
+          <ToolIconRef emoji={g.icon} className="card-thumb-icon" />
+        </span>
+        <div className="min-w-0 flex-1">
         <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight group-hover:text-sec transition-colors mb-1">{g.title}</h3>
-        <p className="note-xs line-clamp-1 sm:line-clamp-2">{g.desc}</p>
+          <p className="note-xs line-clamp-1 sm:line-clamp-2">{g.desc}</p>
+        </div>
       </div>
     </Link>
   );

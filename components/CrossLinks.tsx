@@ -22,8 +22,10 @@ export default function CrossLinks({ className = 'mt-8' }: { className?: string 
     <section className={className} aria-label="함께 보면 좋은 콘텐츠">
       <h2 className="sec-h2">함께 보면 좋아요</h2>
       <div className="flex flex-col gap-2">
+        {/* prefetch를 끈다 — 까닭은 RelatedContent의 같은 자리에 적었다 */}
         {links.map(l => (
           <Link
+            prefetch={false}
             key={l.href}
             href={l.href}
             className="group flex items-start gap-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 transition-all hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm"

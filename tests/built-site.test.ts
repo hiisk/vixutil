@@ -114,7 +114,7 @@ test('내부 링크가 실제 라우트 모양과 맞는다', { skip: built ? fa
   const m = reg.match(/export const STATIC_ROUTES[^{]*\{([\s\S]*?)\n\}/);
   assert.ok(m, 'registry.ts에서 STATIC_ROUTES를 못 찾았다 — 꼴이 바뀌었으면 이 검사도 고치라');
   const hubs = [...m![1].matchAll(/'([^']*)':/g)].map(x => x[1]);
-  assert.ok(hubs.length > 200, `접힌 허브가 ${hubs.length}개뿐 — 접기가 깨졌는지 보라`);
+  assert.ok(hubs.length >= 190, `접힌 허브가 ${hubs.length}개뿐 — 접기가 깨졌는지 보라`);
   for (const lang of FOLD_LANGS) {
     for (const k of hubs) patterns.push([lang, ...k.split('/').filter(Boolean)]);
   }

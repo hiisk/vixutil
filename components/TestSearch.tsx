@@ -12,20 +12,18 @@ function TestCard({ t }: { t: CardItem }) {
     <Link href={`/test/${t.slug}`}
       className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden hover:border-slate-300 dark:hover:border-slate-700 transition-all">
       {/*
-        예전에는 여기서 OG 이미지(1200×630 PNG, 개당 ~90KB)를 썸네일로 썼다.
-        200px로 줄여 보여주니 이미지 안의 글씨는 어차피 안 읽히고, 제목·설명은
-        바로 아래 텍스트로 또 나온다 — 순수 장식에 194개 × 90KB를 쓰고 있었다.
-        그라데이션과 이모지로 대체해 이미지 요청을 0으로 만든다.
+        파스텔 띠를 걷고 아이콘을 본문 안으로 내렸다 (2026-08-20). 까닭은
+        globals.css의 .card-thumb 머리말 — 판 색이 슬러그마다 달라 격자가
+        무지개가 됐고, 카드 높이의 절반을 장식이 먹고 있었다.
       */}
-      <div className={`card-thumb ${thumbSurface(t.slug, 'test')}`}>
-        <ToolIconRef
-          emoji={t.icon}
-          className="card-thumb-icon"
-        />
-      </div>
-      <div className="p-2.5 sm:p-3">
+      <div className="flex items-start gap-2.5 p-3 sm:p-3.5">
+        <span className={`card-thumb ${thumbSurface(t.slug, 'test')}`}>
+          <ToolIconRef emoji={t.icon} className="card-thumb-icon" />
+        </span>
+        <div className="min-w-0 flex-1">
         <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight group-hover:text-sec transition-colors mb-1">{t.title}</h3>
-        <p className="note-xs line-clamp-1 sm:line-clamp-2">{t.desc}</p>
+          <p className="note-xs line-clamp-1 sm:line-clamp-2">{t.desc}</p>
+        </div>
       </div>
     </Link>
   );

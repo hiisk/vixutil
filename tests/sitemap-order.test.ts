@@ -90,7 +90,9 @@ test('/sitemap.xml이 한국어다', { skip }, () => {
   assert.deepEqual([...langsIn(built[0])], ['ko'], '/sitemap.xml이 한국어가 아니다');
 
   const koTotal = flat.filter(p => langOf(p) === 'ko').length;
-  assert.ok(koTotal > 15_000, `한국어 주소가 ${koTotal}개뿐 — 세는 방식이 깨졌다`);
+  /* 2026-08-20: 15,000 → 6,000. 2026-08-15에 참조표 갈래 55개를 지우면서
+     한국어 주소가 7,554로 줄었다. 여기서 지키려는 것은 «세는 방식이 깨졌나»다. */
+  assert.ok(koTotal > 6_000, `한국어 주소가 ${koTotal}개뿐 — 세는 방식이 깨졌다`);
   assert.equal(built[0].urls.length, koTotal, `한국어 ${koTotal}개 중 /sitemap.xml에 ${built[0].urls.length}개만 들어갔다`);
 });
 
