@@ -489,6 +489,14 @@ export const CARDS: Record<string, () => ReactElement> = {
     from: '#8b5cf6',
     to: '#4f46e5',
   }),
+  'fortune/saju-match': () => ogCard({
+    icon: '💑',
+    eyebrow: '사주 궁합',
+    title: '사주 궁합',
+    desc: '일간·배우자궁·오행으로 보는 명리 궁합',
+    from: '#6366f1',
+    to: '#7c3aed',
+  }),
   'fortune/name-match': () => ogCard({
     icon: '💕',
     eyebrow: '이름 궁합',

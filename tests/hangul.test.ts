@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  splitSyllable, joinSyllable, toJamo, koToEn, enToKo, initials, guessDirection, isSyllable,
+  splitSyllable, joinSyllable, toJamo, koToEn, enToKo, initials, guessDirection, isSyllable, josa,
 } from '../lib/hangul.ts';
 
 /**
@@ -82,4 +82,23 @@ test('한글 음절 범위를 판정한다', () => {
 test('한글이 아닌 문자는 그대로 통과한다', () => {
   assert.equal(enToKo('abc 123 !@#'.replace(/[a-z]/g, '')), ' 123 !@#');
   assert.equal(koToEn('안녕 123!'), 'dkssud 123!');
+});
+
+test('조사가 앞 낱말의 받침을 따라간다', () => {
+  /* 사주 궁합에서 「금·수을 갖고 있습니다」가 나왔다 — 수는 받침이 없으니 «를»이다 */
+  assert.equal(josa('금', '을'), '을');
+  assert.equal(josa('수', '을'), '를');
+  assert.equal(josa('금·수', '을'), '를', '목록의 마지막 낱말이 정한다');
+  assert.equal(josa('목·화', '을'), '를');
+
+  assert.equal(josa('금', '은'), '은');
+  assert.equal(josa('수', '은'), '는');
+  assert.equal(josa('정관', '이'), '이');
+  assert.equal(josa('정재', '이'), '가');
+  assert.equal(josa('금', '와'), '과');
+  assert.equal(josa('수', '와'), '와');
+
+  /* 한글이 아니면 판단할 근거가 없다 — 받침 없는 쪽으로 둔다 */
+  assert.equal(josa('A', '을'), '를');
+  assert.equal(josa('', '을'), '를');
 });

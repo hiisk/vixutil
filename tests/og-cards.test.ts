@@ -110,8 +110,12 @@ test('카드 장수가 아는 수와 같다', () => {
  *   2,009  2026-08-18에 country·html·css·error·music·metro·flight 일곱 갈래를
  *          통째로 지움(−70). 손으로 쓴 자료지만 위키·MDN·스택오버플로에 밀려
  *          들어오는 사람이 없다고 봤다
+ *
+ *   2,010  2026-08-20에 /fortune/saju-match를 냈다(+1). 궁합 도구가 다섯인데
+ *          정작 그 갈래에서 제일 많이 치는 「사주 궁합」이 없었다. 한국어
+ *          하나뿐이라 열 장이 아니라 한 장이다
    */
-  const WANT = 2009;
+  const WANT = 2010;
   const total = LANG_CODES.reduce((n, l) => n + CARD_KEYS[l].length, 0);
   assert.equal(total, WANT);
   assert.equal(allCardParams().length, WANT);

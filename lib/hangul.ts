@@ -73,6 +73,27 @@ export function joinSyllable(cho: string, jung: string, jong = ''): string | nul
 }
 
 /** 문자열 전체를 자모 배열로 편다. 한글이 아닌 문자는 그대로 남는다. */
+/**
+ * 앞 낱말의 받침에 맞는 조사를 붙인다 — 을/를, 은/는, 이/가, 와/과.
+ *
+ * 목록을 이어 붙여 문장을 만들 때 조사가 앞 낱말에 따라 갈린다. 사주 궁합에서
+ * 「금·수을 갖고 있습니다」가 나왔는데, 수는 받침이 없으니 «를»이어야 했다.
+ * 문장을 짜맞추는 쪽에서 하나를 못 박아 두면 값이 바뀔 때마다 틀린다.
+ *
+ * 받침 여부는 음절 코드의 나머지로 안다 — (code - 0xAC00) % 28 이 0이면 없다.
+ */
+const JOSA: Record<string, [string, string]> = {
+  /* [받침 있을 때, 없을 때] */
+  '을': ['을', '를'], '은': ['은', '는'], '이': ['이', '가'], '와': ['과', '와'],
+};
+
+export function josa(word: string, kind: '을' | '은' | '이' | '와'): string {
+  const [withJong, without] = JOSA[kind];
+  const last = word.at(-1) ?? '';
+  if (!isSyllable(last)) return without;   /* 한글이 아니면 판단할 근거가 없다 */
+  return (last.charCodeAt(0) - BASE) % 28 !== 0 ? withJong : without;
+}
+
 export function toJamo(text: string): string[] {
   const out: string[] = [];
   for (const ch of text) {

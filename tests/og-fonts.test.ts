@@ -145,7 +145,8 @@ test('공유 카드가 ImageResponse를 직접 부르지 않는다', () => {
    */
   // 2026-08-15: craft를 되살렸다(+10) — 잘못 지웠던 것이다
   // 2026-08-18: 갈래 일곱을 통째로 지웠다(−70)
-  assert.equal(cards.length, 2009, `공유 카드가 ${cards.length}장`);
+  // 2026-08-20: /fortune/saju-match 한 장(+1) — 한국어만이라 열 장이 아니다
+  assert.equal(cards.length, 2010, `공유 카드가 ${cards.length}장`);
   const bad = files.filter(f => readFileSync(join(dir, f), 'utf8').includes('new ImageResponse'));
   assert.deepStrictEqual(bad, []);
 });
