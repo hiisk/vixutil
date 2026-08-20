@@ -116,8 +116,11 @@ test('카드 장수가 아는 수와 같다', () => {
  *          하나뿐이라 열 장이 아니라 한 장이다
  *
  *   2,011  같은 날 /fortune/samjae(+1). 연초마다 크게 검색되는 말인데 없었다
+ *
+ *   2,012  같은 날 /fortune/sinsal(+1). 도화살·역마살은 사주를 모르는 사람도
+ *          아는 말인데, 내 사주에 있는지 볼 자리가 없었다
    */
-  const WANT = 2011;
+  const WANT = 2012;
   const total = LANG_CODES.reduce((n, l) => n + CARD_KEYS[l].length, 0);
   assert.equal(total, WANT);
   assert.equal(allCardParams().length, WANT);

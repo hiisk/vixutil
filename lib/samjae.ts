@@ -25,19 +25,7 @@
  * 규칙은 tests/samjae.test.ts가 붙든다.
  */
 
-/**
- * 삼합 무리 — 생(生)·왕(旺)·묘(墓) 차례로 적는다. 세 번째가 묘고다.
- *
- * lib/saju-match.ts에도 같은 표가 있지만 그쪽은 «두 지지가 한 무리인가»만
- * 보면 되는 집합이라 순서를 안 쓴다. 여기서는 세 번째 자리가 답을 정하므로
- * 순서가 곧 규칙이다 — 합치면 한쪽의 순서가 조용히 무너진다.
- */
-const SAMHAP_ORDERED: [number, number, number][] = [
-  [8, 0, 4],   // 신자진 → 묘고 진(4)
-  [2, 6, 10],  // 인오술 → 묘고 술(10)
-  [11, 3, 7],  // 해묘미 → 묘고 미(7)
-  [5, 9, 1],   // 사유축 → 묘고 축(1)
-];
+import { SAMHAP, samhapOf } from './saju-data.ts';
 
 /**
  * 판정 색 — 삼재인가 아닌가 두 가지뿐이다.
@@ -65,13 +53,9 @@ function latestYearOf(branchIdx: number, atMost: number): number {
   return atMost - ((((atMost - (branchIdx + 4)) % 12) + 12) % 12);
 }
 
-/** 띠(지지 인덱스)가 속한 삼합 무리 */
-const groupOf = (branchIdx: number) =>
-  SAMHAP_ORDERED.find(g => g.includes(branchIdx))!;
-
 /** 그 띠의 삼재 세 해의 지지 — 묘고에서 끝나는 연속 셋 */
 export function samjaeBranches(branchIdx: number): [number, number, number] {
-  const tomb = groupOf(branchIdx)[2];
+  const tomb = samhapOf(branchIdx)[2];
   return [(tomb + 10) % 12, (tomb + 11) % 12, tomb];
 }
 
@@ -123,7 +107,7 @@ export function samjaeFor(animalIdx: number, thisYear: number): SamjaeResult {
 /** 그 해에 삼재가 드는 띠 셋 — 어느 해든 정확히 셋이다 */
 export function animalsInSamjae(year: number): { animalIdx: number; phase: SamjaePhase }[] {
   const b = branchOfYear(year);
-  const group = SAMHAP_ORDERED.find(g => samjaeBranches(g[0]).includes(b))!;
+  const group = SAMHAP.find(g => samjaeBranches(g[0]).includes(b))!;
   const phase = PHASES[samjaeBranches(group[0]).indexOf(b)];
   return group.map(animalIdx => ({ animalIdx, phase }));
 }

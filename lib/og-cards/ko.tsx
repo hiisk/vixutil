@@ -489,6 +489,14 @@ export const CARDS: Record<string, () => ReactElement> = {
     from: '#8b5cf6',
     to: '#4f46e5',
   }),
+  'fortune/sinsal': () => ogCard({
+    icon: '🌸',
+    eyebrow: '십이신살',
+    title: '십이신살',
+    desc: '도화살·역마살·화개살이 내 사주에 있는지',
+    from: '#8b5cf6',
+    to: '#6d28d9',
+  }),
   'fortune/samjae': () => ogCard({
     icon: '🗓️',
     eyebrow: '삼재',

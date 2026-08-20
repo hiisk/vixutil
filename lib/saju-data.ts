@@ -356,6 +356,27 @@ export const ILJU_READINGS: Record<string, string> = {
 };
 
 // ─── 기둥 계산 ────────────────────────────────────────────────────────────────
+/**
+ * 삼합(三合) — 지지 셋이 모여 한 오행을 이루는 무리.
+ *
+ * **생(生)·왕(旺)·묘(墓) 차례로 적는다.** 이 순서가 곧 규칙인 쓰임이 있다 —
+ * 삼재는 묘고(셋째)에서 끝나는 세 해이고, 십이신살은 생지(첫째)를 지살로
+ * 삼아 열둘을 돌린다. 정렬을 바꾸면 그 둘이 조용히 틀린다.
+ *
+ * 셋이 여기 흩어져 있던 것을 모았다 — 궁합(집합으로만 씀)·삼재·십이신살.
+ * 표가 갈라져 있으면 한 곳만 고쳐진 채로 남는다.
+ */
+export const SAMHAP: readonly (readonly [number, number, number])[] = [
+  [8, 0, 4],   // 신자진 — 수국(水局)
+  [2, 6, 10],  // 인오술 — 화국(火局)
+  [11, 3, 7],  // 해묘미 — 목국(木局)
+  [5, 9, 1],   // 사유축 — 금국(金局)
+] as const;
+
+/** 그 지지가 속한 삼합 무리 */
+export const samhapOf = (branchIdx: number) =>
+  SAMHAP.find(g => g.includes(branchIdx))!;
+
 export interface Pillar { stemIdx: number; branchIdx: number }
 
 const DEG = Math.PI / 180;

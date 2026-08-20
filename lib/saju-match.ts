@@ -1,6 +1,6 @@
 import {
   BRANCHES, BRANCH_ELEMENTS, STEMS, STEM_ELEMENTS,
-  buildChart, countElements, getSipseong,
+  buildChart, countElements, getSipseong, SAMHAP,
   type Birth, type Chart, type Element, type Pillar,
 } from './saju-data.ts';
 import { josa } from './hangul.ts';
@@ -36,10 +36,6 @@ const YUKHAP: [number, number][] = [
 ];
 /** 지지 충 — 정면으로 부딪히는 짝(여섯 쌍, 6칸 차이) */
 const isChung = (a: number, b: number) => Math.abs(a - b) === 6;
-/** 삼합 — 셋이 모여 한 오행을 이룬다. 둘만 있어도 «반합»으로 본다 */
-const SAMHAP: number[][] = [
-  [8, 0, 4], [2, 6, 10], [11, 3, 7], [5, 9, 1],
-];
 
 /** 오행 상생 고리: 목→화→토→금→수→목 */
 const SAENG: Record<Element, Element> = { 목: '화', 화: '토', 토: '금', 금: '수', 수: '목' };
