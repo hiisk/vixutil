@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import CoupangAd from '@/components/CoupangAd';
+import Ad from '@/components/Ad';
 import PageHero from '@/components/PageHero';
 import CalcShareBtn from './CalcShareBtn';
 import SiteFooter from './SiteFooter';
@@ -130,7 +130,7 @@ export default function CalcShellIntl({
                 rail — 옆 레일이 함께 뜨는 화면에서는 본문 카드가 1위만 남긴다.
                 section='calc' — 한국어 껍데기와 같은 이름을 쓴다, 언어만 갈린다.
               */}
-              <CoupangAd lang={lang} />
+              <Ad lang={lang} />
 
               {intro && intro.length > 0 && (
                 <div className="mt-8 text-sm leading-relaxed text-slate-600 dark:text-slate-300 space-y-3">

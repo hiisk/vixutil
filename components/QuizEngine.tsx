@@ -1,6 +1,6 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
-import CoupangAd from '@/components/CoupangAd';
+import Ad from '@/components/Ad';
 import PageHero from '@/components/PageHero';
 import { useState } from 'react';
 import Link from 'next/link';
@@ -366,7 +366,7 @@ export default function QuizEngine({ quiz, lang = 'ko', headerRight }: { quiz: Q
         </div>
 
         {/* 결과 화면 노출 — 위치 선정 근거는 TestEngine의 같은 자리에 적어두었다. */}
-        <CoupangAd lang={lang} />
+        <Ad lang={lang} placement="result" />
 
         <div className="mt-6 flex flex-col gap-3">
           <button onClick={restart} className="w-full bg-amber-500 hover:bg-amber-600 text-amber-950 rounded-xl py-3.5 font-bold text-sm transition-colors">

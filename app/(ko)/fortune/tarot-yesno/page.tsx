@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import RelatedContent from '@/components/RelatedContent';
 import { FORTUNE_RELATED } from '@/lib/fortune-related';
-import CoupangAd from '@/components/CoupangAd';
+import Ad from '@/components/Ad';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
@@ -153,7 +153,7 @@ export default function TarotYesNoPage() {
               />
             </div>
 
-            <CoupangAd />
+            <Ad />
           </>
         )}
 

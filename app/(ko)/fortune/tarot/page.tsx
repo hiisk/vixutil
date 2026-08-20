@@ -2,7 +2,7 @@
 import { shareOne } from '@/lib/share/ui';
 import RelatedContent from '@/components/RelatedContent';
 import { FORTUNE_RELATED } from '@/lib/fortune-related';
-import CoupangAd from '@/components/CoupangAd';
+import Ad from '@/components/Ad';
 import ToolIcon from '@/components/ToolIcon';
 import { useState, useCallback, useRef } from 'react';
 import Link from 'next/link';
@@ -621,7 +621,7 @@ export default function TarotPage() {
         {tab === 'catalog' && <CatalogTab />}
 
         {/* 카드를 전부 뒤집어 해설까지 본 뒤에만 */}
-        {drawn && allRevealed && <CoupangAd />}
+        {drawn && allRevealed && <Ad />}
 
         <Faq items={SECTION_FAQ['fortune/tarot']} />
       </div>

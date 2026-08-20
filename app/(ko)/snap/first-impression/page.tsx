@@ -1,6 +1,6 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
-import CoupangAd from '@/components/CoupangAd';
+import Ad from '@/components/Ad';
 import { useState, useRef, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -311,7 +311,7 @@ export default function FirstImpressionPage() {
             />
 
             {/* 스냅 11개 중 이 페이지만 SaveResultCard를 안 쓴다 — 그래서 여기만 직접 붙인다 */}
-            <CoupangAd />
+            <Ad />
 
             <button
               onClick={handleReset}

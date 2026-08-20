@@ -1,5 +1,6 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import Ad from '@/components/Ad';
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -265,6 +266,7 @@ export default function AtrTpslPage() {
 
         <Faq items={SECTION_FAQ['crypto/atr-tpsl']} lang="en" />
       </div>
+      <Ad lang="en" placement="result" />
       <SiteFooter lang="en" referral={false} />
     </div>
   );

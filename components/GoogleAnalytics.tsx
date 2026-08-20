@@ -20,12 +20,23 @@ export default function GoogleAnalytics({ gaId }: { gaId: string }) {
           gtag('config', '${gaId}');
 
           /*
-            ── 제휴 클릭 추적을 지웠다 (2026-08-20) ──────────────
-            코인 거래소 제휴를 걷어내면서 data-ref-sub를 남기던 카드가 없어졌다.
-            지금 광고는 쿠팡 파트너스 캐러셀 하나뿐이고, 그쪽은 iframe 안이라
-            우리 쪽에서 클릭을 볼 수 없다 — 실적은 쿠팡 파트너스 대시보드에서
-            본다. 남겨 두면 아무 <a>에도 안 걸리는 리스너만 매 화면에 붙는다.
+            제휴 클릭에 sub-id를 실어 보낸다 (2026-08-15).
+            2026-08-20에 한국어를 쿠팡으로 바꾸면서 잠깐 지웠다가 되살렸다 —
+            거래소 카드는 아홉 언어에 그대로 남아 있고, 쿠팡 쪽은 iframe이라
+            우리가 클릭을 못 본다(실적은 파트너스 대시보드에서 본다).
+            거래소 두 곳 다 링크에 붙이는 sub-id 파라미터를 지원하지 않는다
+            (까닭은 lib/referral.ts의 각 거래소 주석). 그래서 어느 언어·어느
+            섹션이 클릭을 만드는지는 우리 GA에서 본다 — 카드가 <a>에 남긴
+            data-ref-sub를 읽어 referral_click 이벤트 하나로 보낸다.
+            위임 리스너 하나뿐이라 카드가 몇 장이든 붙는 것이 없다.
           */
+          document.addEventListener('click', function (e) {
+            var a = e.target && e.target.closest ? e.target.closest('a[data-ref-sub]') : null;
+            if (!a) return;
+            gtag('event', 'referral_click', {
+              referral_id: a.getAttribute('data-ref-id'),
+              sub_id: a.getAttribute('data-ref-sub'),
+            });
           });
         `}
       </Script>

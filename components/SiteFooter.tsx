@@ -1,5 +1,5 @@
 import { localeHref, type AnyLocale10 } from '@/lib/locales';
-import CoupangAd from '@/components/CoupangAd';
+import Ad from '@/components/Ad';
 import { langOfLocale } from '@/lib/i18n/lang';
 /* common만 본다 — lib/legal의 입구는 withCard를 끌고 오고, 푸터는 모든 페이지에 있다 */
 import { LEGAL_CHROME, LEGAL_KINDS, legalRoute } from '@/lib/legal/common';
@@ -158,7 +158,7 @@ export default function SiteFooter({ lang = 'ko', referral = true, browse = true
         */}
         {referral && (
           <div className="mb-8">
-            <CoupangAd lang={lang} />
+            <Ad lang={lang} />
           </div>
         )}
 

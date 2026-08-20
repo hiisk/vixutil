@@ -1,4 +1,5 @@
 import ToolIcon from '@/components/ToolIcon';
+import Ad from '@/components/Ad';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -95,6 +96,7 @@ export default function CorrelationPage() {
 
         <Faq items={SECTION_FAQ['crypto/correlation']} lang="en" />
       </div>
+      <Ad lang="en" placement="result" />
       <SiteFooter lang="en" referral={false} />
     </div>
   );

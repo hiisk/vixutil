@@ -1,5 +1,6 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import Ad from '@/components/Ad';
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { formatPrice, type Direction } from '@/lib/atr';
@@ -762,6 +763,12 @@ export default function SignalsPage() {
             lives in the range, not in the forecast. Click a coin for its <b className="text-slate-700 dark:text-slate-200">typical peak</b> (the level it touches at some point in half
             of all paths), the ranges, and the probability of reaching any target.
           </p>
+        </div>
+
+        <div className="mb-6">
+
+          <Ad lang="en" placement="result" />
+
         </div>
 
         <Faq items={SECTION_FAQ['crypto/signals']} className="mt-8" lang="en" />

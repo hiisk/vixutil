@@ -1,6 +1,6 @@
 'use client';
 import { useRef, useState, useCallback } from 'react';
-import CoupangAd from '@/components/CoupangAd';
+import Ad from '@/components/Ad';
 import { drawResultCard, canvasToBlob } from '@/lib/canvas-result-card';
 import { langOfLocale } from '@/lib/i18n/lang';
 import type { AnyLocale10 } from '@/lib/locales';
@@ -106,7 +106,7 @@ export default function SaveResultCard({
         그쪽은 이미 결과 카드를 따로 붙여둬서 두 번 나온다. 그 셋이 이 버튼을
         쓸 때는 referral={false}로 여기 것을 끈다.)
       */}
-      {referral && <CoupangAd lang={lang} />}
+      {referral && <Ad lang={lang} />}
     </div>
   );
 }

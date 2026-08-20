@@ -1,6 +1,6 @@
 'use client';
 import { shareOne } from '@/lib/share/ui';
-import CoupangAd from '@/components/CoupangAd';
+import Ad from '@/components/Ad';
 import PageHero from '@/components/PageHero';
 import ToolIcon from '@/components/ToolIcon';
 import { useState, useEffect } from 'react';
@@ -649,7 +649,7 @@ export default function ChecklistEngine({ checklist, lang = 'ko', headerRight }:
           )}
 
           {/* 하나라도 체크한 뒤에 — 목록만 훑고 지나가는 사람에게는 띄우지 않는다 */}
-          {done > 0 && <CoupangAd lang={lang} />}
+          {done > 0 && <Ad lang={lang} />}
         </div>
       </div>
 

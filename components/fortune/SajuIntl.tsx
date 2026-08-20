@@ -1,5 +1,6 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import Ad from '@/components/Ad';
 import PageHero from '@/components/PageHero';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
@@ -372,6 +373,7 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
               <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{ui.originNote}</p>
             </div>
 
+            <Ad lang="en" placement="result" />
             <p className="text-center text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed pt-2">{ui.disclaimer}</p>
           </div>
         ) : (

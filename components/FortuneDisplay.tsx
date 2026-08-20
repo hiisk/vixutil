@@ -1,6 +1,6 @@
 'use client';
 import { shareOne } from '@/lib/share/ui';
-import CoupangAd from '@/components/CoupangAd';
+import Ad from '@/components/Ad';
 import { useMemo, useState, useCallback } from 'react';
 import { getTodayFortune } from '@/lib/fortune-data';
 import ShareButton from './ShareButton';
@@ -179,7 +179,7 @@ export default function FortuneDisplay({ subjectId, subjectName, subjectEmoji, b
       {/* 운세를 다 읽은 직후 — 별자리·띠·MBTI·혈액형 페이지가 모두 이 컴포넌트를 쓴다.
           사주처럼 "다음" 단계 버튼 위에 끼는 흐름에서는 페이지가 이 카드를 끄고
           다음 버튼 아래에 직접 배치한다(showReferral={false}). */}
-      {showReferral && <CoupangAd />}
+      {showReferral && <Ad />}
     </div>
   );
 }

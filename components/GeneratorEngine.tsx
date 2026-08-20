@@ -1,6 +1,6 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
-import CoupangAd from '@/components/CoupangAd';
+import Ad from '@/components/Ad';
 import PageHero from '@/components/PageHero';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -232,7 +232,7 @@ export default function GeneratorEngine({ gen, headerRight }: { gen: Generator; 
         )}
 
         {/* 생성 버튼을 눌러 결과가 나온 뒤에만 — 빈 화면에 광고부터 띄우지 않는다 */}
-        {hasResults && <CoupangAd />}
+        {hasResults && <Ad />}
       </div>
 
       <style jsx global>{`

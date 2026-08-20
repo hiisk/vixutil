@@ -97,18 +97,27 @@ test('한국어가 아니면 아예 안 그린다', () => {
  * 활동을 한다»이고, 그건 광고가 안 떠도 참이다.
  */
 
-test('코인 거래소 제휴가 남김없이 걷혔다', () => {
+test('광고는 <Ad> 한 곳을 거쳐 나간다', () => {
   /*
-   * 제휴 카드가 붙은 화면이 일흔 곳인데 내주는 것은 코인 선물 거래소 둘뿐이라,
-   * BMI·사주·실수령액을 보러 온 사람에게 엉뚱한 것을 내밀고 있었다. 걷어냈다.
-   * 한 곳이라도 남으면 지운 lib/referral.ts를 찾다가 빌드가 죽는다.
+   * 한국은 쿠팡, 나머지 아홉 언어는 코인 거래소 카드다. 화면마다
+   * `lang === 'ko' ? … : …`를 적으면 서른 곳이 되고 곧 몇 곳만 고쳐진 채 남는다.
+   * 부르는 쪽은 <Ad lang={lang} /> 하나만 알아야 한다.
+   *
+   * (한 번 거래소를 통째로 걷었다가 되살렸다. 그때 crypto 서른 곳과 결과
+   * 엔진 둘의 광고가 같이 사라졌는데, 복원해 둔 검사가 그것을 잡았다.)
    */
-  /* import와 JSX만 본다 — 주석에 남은 옛 이름은 잔재가 아니라 내력이다 */
-  const left = execSync(
-    "grep -rln \"from '.*Referral\\|<ReferralCards\\|<ReferralAside\\|from '@/lib/referral\" app components lib || true",
+  const direct = execSync(
+    "grep -rln '<ReferralCards\\|<CoupangAd' app components lib || true",
     { cwd: ROOT, encoding: 'utf8' },
-  ).trim().split('\n').filter(Boolean);
-  assert.deepEqual(left, [], `제휴 잔재가 남았다:\n  ${left.join('\n  ')}`);
+  ).trim().split('\n').filter(Boolean).filter(f => f !== 'components/Ad.tsx');
+  assert.deepEqual(direct, [], `<Ad>를 안 거치고 직접 부른다:\n  ${direct.join('\n  ')}`);
+});
+
+test('언어가 무엇을 낼지 정한다', () => {
+  const ad = readFileSync(join(ROOT, 'components', 'Ad.tsx'), 'utf8');
+  assert.match(ad, /lang === 'ko'/, '언어를 안 가린다');
+  assert.match(ad, /CoupangAd/, '한국어에 쿠팡을 안 낸다');
+  assert.match(ad, /ReferralCards/, '그 밖의 언어에 거래소를 안 낸다');
 });
 
 test('이 검사가 실제로 문다', () => {

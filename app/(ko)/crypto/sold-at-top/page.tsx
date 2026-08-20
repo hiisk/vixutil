@@ -1,4 +1,5 @@
 import ToolIcon from '@/components/ToolIcon';
+import Ad from '@/components/Ad';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -93,6 +94,7 @@ export default function SoldAtTopPage() {
 
         <Faq items={SECTION_FAQ['crypto/sold-at-top']} lang="en" />
       </div>
+      <Ad lang="en" placement="result" />
       <SiteFooter lang="en" referral={false} />
     </div>
   );

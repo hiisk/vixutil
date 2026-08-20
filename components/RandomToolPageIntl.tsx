@@ -16,7 +16,7 @@
  * 실측: /laundry 낱장이 gzip 27.8KB → 14.0KB (RSC 61% → 17%).
  */
 import ToolIcon from '@/components/ToolIcon';
-import CoupangAd from '@/components/CoupangAd';
+import Ad from '@/components/Ad';
 import Link from 'next/link';
 import { RANDOM_TOOLS, RANDOM_TOOLS_MAP } from '@/lib/random-tools';
 import RandomToolShell from '@/components/random/RandomToolShell';
@@ -107,7 +107,7 @@ export default function RandomToolPageIntl({ slug, lang }: { slug: string; lang:
         </div>
         {/* 쿠팡은 한국에서만 산다 — CoupangAd가 lang을 보고 한국어에서만 그린다 */}
         <div className="mt-8">
-          <CoupangAd lang={lang} />
+          <Ad lang={lang} />
         </div>
       </RandomToolShell>
 

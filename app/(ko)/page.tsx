@@ -1,5 +1,5 @@
 import ToolIcon from '@/components/ToolIcon';
-import CoupangAd from '@/components/CoupangAd';
+import Ad from '@/components/Ad';
 import Link from 'next/link';
 import Image from 'next/image';
 import type { Metadata } from 'next';
@@ -774,7 +774,7 @@ export default function HubPage() {
         빠져 있었다. 본문 아래·저작권 줄 위가 자리다.
       */}
       <div className="max-w-5xl mx-auto px-4">
-        <CoupangAd />
+        <Ad />
       </div>
 
       <footer className="text-center pb-8 pt-8">

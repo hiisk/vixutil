@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import Ad from '@/components/Ad';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd, { webAppJsonLd, breadcrumbJsonLd, faqJsonLd } from '@/components/JsonLd';
@@ -169,6 +170,8 @@ export default async function CoinPredictionPage({ params }: { params: Promise<{
           </Link>
         </div>
       </div>
+
+      <Ad lang="en" placement="result" />
 
       <SiteFooter lang="en" referral={false} />
     </div>

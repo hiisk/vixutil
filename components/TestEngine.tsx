@@ -1,6 +1,6 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
-import CoupangAd from '@/components/CoupangAd';
+import Ad from '@/components/Ad';
 import PageHero from '@/components/PageHero';
 import { useState } from 'react';
 import Link from 'next/link';
@@ -375,7 +375,7 @@ export default function TestEngine({ test, lang = 'ko', headerRight }: { test: T
           자연스럽게 눈에 들어오되, 결과 자체를 가리지는 않는 위치다.
         */}
         {/* lang을 안 넘기면 기본값 'ko'라 아홉 외국어 결과 화면에 한국어 카드가 붙는다 */}
-        <CoupangAd lang={lang} />
+        <Ad lang={lang} placement="result" />
 
         <div className="mt-6 flex flex-col gap-3">
           <button onClick={restart}

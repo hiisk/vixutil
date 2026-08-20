@@ -2,7 +2,7 @@
 import ToolIcon from '@/components/ToolIcon';
 import RelatedContent from '@/components/RelatedContent';
 import { FORTUNE_RELATED } from '@/lib/fortune-related';
-import CoupangAd from '@/components/CoupangAd';
+import Ad from '@/components/Ad';
 import { useState } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -105,7 +105,7 @@ export default function BirthStonePage() {
               />
             </div>
 
-            <CoupangAd />
+            <Ad />
           </div>
         )}
 

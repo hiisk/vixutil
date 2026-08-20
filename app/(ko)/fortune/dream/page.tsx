@@ -2,7 +2,7 @@
 import { shareOne } from '@/lib/share/ui';
 import RelatedContent from '@/components/RelatedContent';
 import { FORTUNE_RELATED } from '@/lib/fortune-related';
-import CoupangAd from '@/components/CoupangAd';
+import Ad from '@/components/Ad';
 import ToolIcon from '@/components/ToolIcon';
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
@@ -182,7 +182,7 @@ export default function DreamPage() {
         )}
 
         {/* 해몽 결과는 fixed 바텀시트라 그 안에 넣으면 오버레이 광고가 된다. 본문 쪽에 둔다. */}
-        <CoupangAd />
+        <Ad />
 
         <Faq items={SECTION_FAQ['fortune/dream']} />
       </div>

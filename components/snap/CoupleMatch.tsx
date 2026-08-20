@@ -1,5 +1,6 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import Ad from '@/components/Ad';
 import PageHero from '@/components/PageHero';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
@@ -287,6 +288,7 @@ export default function CoupleMatch({ lang }: { lang: SnapIntlLang }) {
               {ui.reset}
             </button>
 
+            <Ad lang="en" placement="result" />
             <p className="text-center text-xs text-slate-500 dark:text-slate-400 pt-2">{ui.disclaimer}</p>
           </div>
         ) : (

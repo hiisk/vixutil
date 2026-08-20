@@ -1,5 +1,5 @@
 import { UI } from '@/lib/meta/generator-hub-ui';
-import CoupangAd from '@/components/CoupangAd';
+import Ad from '@/components/Ad';
 import PageHero from '@/components/PageHero';
 import ToolIcon from '@/components/ToolIcon';
 import Link from 'next/link';
@@ -110,7 +110,7 @@ export function GeneratorIntlDetail({ lang, gen }: { lang: GeneratorIntlLang; ge
 
       <div className="max-w-lg mx-auto px-4 w-full pb-12">
         <div className="mb-8">
-          <CoupangAd lang={lang} />
+          <Ad lang={lang} />
         </div>
 
         <section className="prose-sm text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-8">

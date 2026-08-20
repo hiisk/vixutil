@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import CoupangAd from '@/components/CoupangAd';
+import Ad from '@/components/Ad';
 import Link from 'next/link';
 import CalcShareBtn from './CalcShareBtn';
 import SiteFooter from './SiteFooter';
@@ -162,7 +162,7 @@ export default function CalcShell({
                 288px 레일을 쿠팡 캐러셀로 바꿀 까닭이 없어졌고, 레일을 그냥
                 두었더니 **한 화면에 광고가 둘** 떴다.
               */}
-              <CoupangAd />
+              <Ad />
 
               {intro && (
                 <div className="mt-8 text-sm leading-relaxed text-slate-600 dark:text-slate-300 space-y-3 [&_h2]:text-base [&_h2]:font-bold [&_h2]:text-slate-800 dark:[&_h2]:text-slate-100 [&_strong]:text-slate-800 dark:[&_strong]:text-slate-100">
