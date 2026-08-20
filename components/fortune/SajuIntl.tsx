@@ -99,7 +99,7 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
   const branches = BRANCHES_INTL[lang];
   const elements = ELEMENT_INTL[lang];
 
-  const [form, setForm] = useState<SajuFormValue>({ year: '', month: '', day: '', hour: '', gender: 'male' });
+  const [form, setForm] = useState<SajuFormValue>({ year: '', month: '', day: '', hour: '12:00', gender: 'male' });
   const [allDomains, setAllDomains] = useState(false);
   /* 주제로 들어왔으면 그 영역이 넷 밖에 있을 수 있다 — 접힌 채로 두면 안 보인다 */
   const openTopic = initialTopic ? TOPIC_DOMAIN[initialTopic] : null;

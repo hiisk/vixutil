@@ -25,7 +25,7 @@ import {
  */
 
 export default function UnseongPage() {
-  const [form, setForm] = useState<SajuFormValue>({ year: '', month: '', day: '', hour: '', gender: 'male' });
+  const [form, setForm] = useState<SajuFormValue>({ year: '', month: '', day: '', hour: '12:00', gender: 'male' });
   const [submitted, setSubmitted] = useState<SajuFormValue | null>(null);
   const [error, setError] = useState('');
   const [open, setOpen] = useState<string | null>(null);

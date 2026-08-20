@@ -67,7 +67,7 @@ function ReadingCard({ reading, note }: { reading: SinsalReading; note: string }
 }
 
 export default function SinsalPage() {
-  const [form, setForm] = useState<SajuFormValue>({ year: '', month: '', day: '', hour: '', gender: 'male' });
+  const [form, setForm] = useState<SajuFormValue>({ year: '', month: '', day: '', hour: '12:00', gender: 'male' });
   const [submitted, setSubmitted] = useState<SajuFormValue | null>(null);
   const [error, setError] = useState('');
   /* 열두 이름 가운데 펼쳐 본 것 — 한 번에 하나만 */

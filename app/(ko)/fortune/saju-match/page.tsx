@@ -96,7 +96,7 @@ interface PersonInputValue {
   year: string; month: string; day: string; hour: string; gender: 'male' | 'female';
 }
 
-const EMPTY: PersonInputValue = { year: '', month: '', day: '', hour: '', gender: 'male' };
+const EMPTY: PersonInputValue = { year: '', month: '', day: '', hour: '12:00', gender: 'male' };
 
 /** 일주 한 칸 — 명식 전체가 아니라 궁합이 실제로 보는 자리만 낸다 */
 function DayPillar({ name, p }: { name: string; p: Pillar }) {

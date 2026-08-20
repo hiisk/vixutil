@@ -6,6 +6,7 @@ import ToolIcon from '@/components/ToolIcon';
 import { useState, useEffect, useCallback, type ReactNode } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
+import Ad from '@/components/Ad';
 import {
   STEMS, BRANCHES, ELEMENT_INFO, ELEMENT_SHORTAGE, ILJU_READINGS,
   SIPSEONG_INFO, JIJANGGAN,
@@ -24,6 +25,12 @@ import SajuEvidence from '@/components/fortune/SajuEvidence';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
+/* 새 관점 셋 — 이미 만들어 둔 계산을 자리만 내주어 쓴다 */
+import { readSinsal } from '@/lib/sinsal';
+import { readUnseong, unseongPower } from '@/lib/unseong';
+import { samjaeFor } from '@/lib/samjae';
+import { gongmang } from '@/lib/ilju';
+import { ANIMALS } from '@/lib/fortune-data';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
 
@@ -187,7 +194,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
   /** 자주 묻는 질문을 갈아끼운다 — 주제 낱장은 제 것을 쓴다 */
   faq?: { q: string; a: string }[];
 } = {}) {
-  const [form, setForm]     = useState<FormState>({ year:'', month:'', day:'', hour:'', gender:'male' });
+  const [form, setForm]     = useState<FormState>({ year:'', month:'', day:'', hour:'12:00', gender:'male' });
   const [result, setResult] = useState<SajuResult|null>(null);
   const [error, setError]   = useState('');
   const [copied, setCopied] = useState(false);
@@ -231,6 +238,13 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
   const singang  = result ? getSingang(result.day.stemIdx, pillars) : null;
   const subjectId = result ? `saju-${result.inputYear}-${result.inputMonth}-${result.inputDay}` : '';
   const dominantEl = (Object.entries(counts) as [Element,number][]).sort((a,b)=>b[1]-a[1])[0]?.[0];
+
+  /* 새 관점 셋 — 결과가 있을 때만 센다 */
+  const unseongHits = result ? readUnseong(result) : [];
+  const unseongTotal = unseongPower(unseongHits);
+  const gongmangPair = result
+    ? gongmang(result.day.stemIdx, result.day.branchIdx).map(b => BRANCHES[b].kor)
+    : [];
   const missingEls = (Object.entries(counts) as [Element,number][]).filter(([,c])=>c===0).map(([e])=>e);
 
   /* 대운 */
@@ -242,6 +256,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
 
   /* 세운(歲運) — 올해부터 3년간의 연간 운세 */
   const thisYear = new Date().getFullYear();
+  const samjae = result ? samjaeFor(result.year.branchIdx, thisYear) : null;
   const seunYears = result
     ? Array.from({ length: 3 }, (_, i) => {
         const y = thisYear + i;
@@ -275,11 +290,25 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
   const DOMAIN_STEPS: StepType[] = fortuneDomains.map(d => ({
     key: `domain-${d.id}`, title: d.title, subtitle: `${d.grade} · ${d.score}점`,
   }));
+  /*
+    ── 관점을 늘렸다 (2026-08-20) ──────────────────────────────
+    영역별 「○○운 N점」이 여덟 개 이어져서 읽는 사람에게는 같은 카드가 여덟 번
+    지나가는 것으로 보였다. 점수라는 한 가지 자로만 재고 있었던 것이다.
+
+    자를 바꾼다. 신살은 «어떤 성격의 일이 붙는가», 운성은 «내 힘이 어느 자리에서
+    센가», 삼재는 «지금이 어떤 때인가»다. 셋 다 이미 만들어 둔 계산이라
+    (lib/sinsal.ts·unseong.ts·samjae.ts) 데이터가 아니라 자리만 내주면 된다.
+  */
+  const LENS_STEPS: StepType[] = [
+    { key:'sinsal',  title:'십이신살',   subtitle:'도화·역마·화개 — 어떤 성격의 일이 붙는가' },
+    { key:'unseong', title:'십이운성',   subtitle:'장생·건록·제왕 — 어느 자리에서 힘이 센가' },
+  ];
   const TAIL_STEPS: StepType[] = [
     { key:'daewoon', title:'대운(大運) 흐름', subtitle:'10년 단위 인생의 큰 흐름' },
     { key:'seun', title:'세운(歲運) 연간 운세', subtitle:`${thisYear}년부터 3년간의 흐름` },
+    { key:'samjae', title:'삼재', subtitle:'열두 해에 세 해 — 지금이 그 안인가' },
   ];
-  const allSteps = [...STATIC_STEPS, ...DOMAIN_STEPS, ...TAIL_STEPS];
+  const allSteps = [...STATIC_STEPS, ...LENS_STEPS, ...DOMAIN_STEPS, ...TAIL_STEPS];
 
   /*
    * 주제 낱장(/fortune/saju/<주제>)으로 들어왔으면 그 영역을 열고 시작한다.
@@ -382,6 +411,13 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
         >
           {formExtra}
         </SajuForm>
+
+        {/*
+          광고는 입력 카드 바로 아래다. 푸터에 두었더니 이 화면은 결과가 길어
+          3,500px 아래였다 — 거기까지 내려가는 사람은 없다. 다른 운세 낱장과
+          같은 자리다.
+        */}
+        <Ad />
 
         {/* ══════════════ 결과 ══════════════ */}
         {result && dayStem && (
@@ -508,6 +544,123 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                         showReferral={false}
                       />
                     </div>
+                  </div>
+                )}
+
+                {/* ── 십이신살 ── */}
+                {currentStep?.key === 'sinsal' && (
+                  <div className="p-5 space-y-4">
+                    <p className="note-sm">
+                      신살은 삼합 무리가 정합니다. 연지로 보느냐 일지로 보느냐는 책과 유파에 따라
+                      갈리므로 둘 다 냅니다 — 결과가 다른 것은 오류가 아닙니다.
+                    </p>
+                    {(['연지', '일지'] as const).map(base => {
+                      const r = readSinsal(result, base);
+                      return (
+                        <div key={base} className="rounded-xl bg-slate-50 dark:bg-slate-950 p-4">
+                          <div className="flex items-baseline justify-between gap-3 mb-2">
+                            <p className="text-sm font-bold text-slate-900 dark:text-white">{base} 기준</p>
+                            <span className="text-xs font-bold text-sec">{BRANCHES[r.baseBranch].kor}</span>
+                          </div>
+                          <div className="kv-table">
+                            {r.hits.map(h => (
+                              <div key={h.pillar} className="kv-row">
+                                <span className="flex items-center gap-2 min-w-0">
+                                  <span className="font-bold text-slate-900 dark:text-white">{h.pillar}</span>
+                                  <span className="text-slate-500 dark:text-slate-400">{BRANCHES[h.branchIdx].kor}</span>
+                                </span>
+                                <span className="shrink-0">
+                                  {h.sinsal.name}
+                                  {h.sinsal.alias && <span className="text-sec font-bold"> · {h.sinsal.alias}</span>}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      );
+                    })}
+                    <div className="rounded-xl bg-slate-50 dark:bg-slate-950 p-4">
+                      <p className="text-sm font-bold text-slate-900 dark:text-white mb-1">공망 {gongmangPair.join('·')}</p>
+                      <p className="note-sm">
+                        일주가 속한 순(旬)에서 비는 지지입니다. 「있어도 없는 것처럼」 보는 자리로,
+                        그 자리가 뜻하는 것에 매이지 않는다는 뜻으로도 읽습니다.
+                      </p>
+                    </div>
+                    <p className="note-xs">
+                      「살」이라는 말이 무섭게 들리지만 본디 뜻은 기운의 성격입니다 — 도화살은 사람 눈을 끄는
+                      매력이고 역마살은 움직임입니다.
+                    </p>
+                  </div>
+                )}
+
+                {/* ── 십이운성 ── */}
+                {currentStep?.key === 'unseong' && (
+                  <div className="p-5 space-y-4">
+                    <p className="note-sm">
+                      일간이 각 지지에서 갖는 기운의 세기입니다. {dayStem.kor}은 {dayStem.idx % 2 === 0 ? '양간이라 순행' : '음간이라 역행'}합니다 —
+                      같은 오행이어도 음양에 따라 방향이 반대입니다.
+                    </p>
+                    <div className="rounded-xl bg-slate-50 dark:bg-slate-950 p-4">
+                      <div className="kv-table">
+                        {unseongHits.map(h => (
+                          <div key={h.pillar} className="kv-row">
+                            <span className="flex items-center gap-2 min-w-0">
+                              <span className="font-bold text-slate-900 dark:text-white">{h.pillar}</span>
+                              <span className="text-slate-500 dark:text-slate-400">{BRANCHES[h.branchIdx].kor}</span>
+                            </span>
+                            <span className="shrink-0 flex items-center gap-2">
+                              <span className="inline-flex gap-0.5" aria-hidden>
+                                {[1, 2, 3, 4, 5].map(n => (
+                                  <i key={n} className={`inline-block h-1.5 w-1.5 rounded-full ${
+                                    n <= h.unseong.power ? 'bg-sec' : 'bg-slate-200 dark:bg-slate-700'}`} />
+                                ))}
+                              </span>
+                              {h.unseong.name}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                      <p className="mt-3 text-sm text-slate-700 dark:text-slate-200">
+                        네 기둥 세기 <strong className="text-slate-900 dark:text-white">{unseongTotal.total} / {unseongTotal.max}</strong>
+                        {' — '}{unseongTotal.label}
+                      </p>
+                    </div>
+                    {[...new Map(unseongHits.map(h => [h.unseong.name, h])).values()].map(h => (
+                      <div key={h.unseong.name} className="rounded-xl bg-slate-50 dark:bg-slate-950 p-4">
+                        <p className="text-sm font-bold text-slate-900 dark:text-white mb-1">
+                          {h.unseong.name} <span className="text-slate-500 dark:text-slate-400 font-medium">{h.unseong.hanja}</span>
+                        </p>
+                        <p className="text-sm text-slate-700 dark:text-slate-200 leading-[1.85]">{h.unseong.body}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* ── 삼재 ── */}
+                {currentStep?.key === 'samjae' && samjae && (
+                  <div className="p-5 space-y-4">
+                    <div className="rounded-xl bg-slate-50 dark:bg-slate-950 p-4">
+                      <p className="text-lg font-bold text-slate-900 dark:text-white">
+                        {samjae.current ? `${samjae.current.year}년 ${samjae.current.phase}` : `지금은 삼재가 아닙니다`}
+                      </p>
+                      <p className="note-sm mt-1">
+                        {samjae.current
+                          ? `${ANIMALS[result.year.branchIdx].name}는 ${samjae.block[0].year}~${samjae.block[2].year}년이 삼재입니다.`
+                          : `다음 삼재는 ${samjae.block[0].year}년 — ${samjae.yearsUntil}해 뒤입니다.`}
+                      </p>
+                    </div>
+                    <div className="kv-table">
+                      {samjae.block.map(b => (
+                        <div key={b.year} className={`kv-row ${b.year === thisYear ? 'is-now' : ''}`}>
+                          <span className="tabular-nums font-bold text-slate-900 dark:text-white">{b.year}</span>
+                          <span>{b.phase}{b.year === thisYear && <span className="text-sec font-bold"> ← 올해</span>}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <p className="note-xs">
+                      삼재의 「삼」은 세 해가 아니라 세 가지 재앙 — 불·물·바람입니다. 열두 해 가운데 세 해쯤은
+                      조심해서 지내자고 정해 둔 달력에 가깝습니다.
+                    </p>
                   </div>
                 )}
 
@@ -953,7 +1106,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
         <Faq items={faq ?? SECTION_FAQ['fortune/saju']} />
       </div>
       <RelatedContent items={FORTUNE_RELATED} currentSlug="saju" basePath="/fortune" accent="violet" bg="" />
-      <SiteFooter />
+      <SiteFooter referral={false} />
     </div>
   );
 }
