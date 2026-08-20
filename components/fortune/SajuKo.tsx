@@ -132,7 +132,7 @@ function DaewoonCard({ entry, isCurrent }: { entry: DaewoonEntry; isCurrent: boo
   return (
     <div className={`flex-shrink-0 w-[72px] rounded-xl border overflow-hidden text-center transition-all ${isCurrent ? 'border-indigo-400 shadow-sm shadow-indigo-100 scale-105' : 'border-slate-200 dark:border-slate-700'}`}>
       {isCurrent && (
-        <div className="bg-indigo-500 text-white text-[8px] font-bold py-0.5">현재</div>
+        <div className="bg-sec text-[8px] font-bold py-0.5">현재</div>
       )}
       <div className="p-1.5 border-b border-slate-200 dark:border-slate-800" style={{ background: stemEl.bg }}>
         <p className="text-xs font-bold" style={{ color:stemEl.color }}>{stem.hanja}</p>
@@ -371,17 +371,16 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
         {result && dayStem && (
           <div id="saju-result">
 
-            {/* ── 스텝 목차 (미니) ── */}
-            <div className="flex items-center justify-between mb-3">
-              <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
-                {safeStep + 1} <span className="text-slate-300 dark:text-slate-600">/ {allSteps.length}</span>
-              </p>
+            {/* ── 스텝 목차 (미니) ──
+                «4 / 18» 글자를 뺐다 — 바로 아래 카드의 막대가 같은 말을 한다.
+                점은 누르면 그 단계로 가는 항해 장치라 남긴다. */}
+            <div className="flex items-center justify-end mb-3">
               <div className="flex gap-1 overflow-hidden max-w-[200px]">
                 {allSteps.map((s, i) => (
                   <button
                     key={s.key}
                     onClick={() => goStep(i)}
-                    className={`h-1.5 rounded-full transition-all flex-shrink-0 ${ i === safeStep ? 'w-5 bg-indigo-500' : 'w-1.5 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300' }`}
+                    className={`h-1.5 rounded-full transition-all flex-shrink-0 ${ i === safeStep ? 'w-5 bg-sec' : 'w-1.5 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300' }`}
                   />
                 ))}
               </div>
@@ -534,12 +533,20 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                 {/* ── ohaeng ── */}
                 {currentStep?.key === 'ohaeng' && (
                   <div className="p-5 space-y-4">
+                    {/*
+                      오행 판을 걷었다 (2026-08-20). 판·테두리·글자를 전부 그 오행
+                      색으로 칠하고 있어서 초록 판 위 초록 글자가 되어 본문이 잘 안
+                      읽혔다. 색은 왼쪽 굵은 선 하나로 남기고 글자는 잉크로 되돌린다.
+                    */}
                     {dominantEl && (
-                      <div className="rounded-lg p-4 border-2" style={{ background:ELEMENT_INFO[dominantEl].bg, borderColor:ELEMENT_INFO[dominantEl].border }}>
-                        <p className="text-xs font-bold mb-2" style={{ color:ELEMENT_INFO[dominantEl].color }}>
-                          {ELEMENT_INFO[dominantEl].emoji} {ELEMENT_INFO[dominantEl].label} 기운이 가장 강합니다
+                      <div
+                        className="rounded-lg border border-slate-200 dark:border-slate-700 p-4"
+                        style={{ borderLeft: `3px solid ${ELEMENT_INFO[dominantEl].color}` }}
+                      >
+                        <p className="mb-2 text-sm font-bold text-slate-900 dark:text-white">
+                          {ELEMENT_INFO[dominantEl].label} 기운이 가장 강합니다
                         </p>
-                        <p className="text-sm leading-[1.85]" style={{ color:ELEMENT_INFO[dominantEl].color+'dd' }}>{ELEMENT_INFO[dominantEl].advice}</p>
+                        <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">{ELEMENT_INFO[dominantEl].advice}</p>
                       </div>
                     )}
                     <ElementBar counts={counts} total={total} />
