@@ -37,7 +37,7 @@ function ShareBtn({ name, lang }: { name: string; lang: Lang }) {
 
   const handleShare = useCallback(async () => {
     // 문구와 주소가 한 덩이로 — 예전엔 title 칸이라 카톡이 통째로 버렸다
-    if (await shareOne(`${name} — ${formatToday(lang)} · vixutil.com`)) {
+    if (await shareOne(`${name} — ${formatToday(lang)}`)) {
       setState('copied');
       setTimeout(() => setState('idle'), 2000);
     }

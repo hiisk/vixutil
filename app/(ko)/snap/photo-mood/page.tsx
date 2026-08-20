@@ -100,7 +100,7 @@ function ShareBtn() {
 
   const handleShare = useCallback(async () => {
     // 문구와 주소가 한 덩이로 나간다 — 예전엔 title 칸이라 카톡이 통째로 버렸다
-    if (await shareOne('사진 한 장으로 보는 내 감성 타입 분석 — vixutil.com')) {
+    if (await shareOne('사진 한 장으로 보는 내 감성 타입 분석')) {
       setState('copied');
       setTimeout(() => setState('idle'), 2000);
     }

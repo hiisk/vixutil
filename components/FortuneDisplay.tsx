@@ -44,7 +44,7 @@ function ShareBtn({ name }: { name: string }) {
     const today = new Date();
     const dateStr = `${today.getMonth()+1}월 ${today.getDate()}일`;
     // 문구와 주소가 한 덩이로 — 예전엔 title 칸이라 카톡이 통째로 버렸다
-    if (await shareOne(`${name} ${dateStr} 운세 — vixutil.com`)) {
+    if (await shareOne(`${name} ${dateStr} 운세`)) {
       setState('copied');
       setTimeout(() => setState('idle'), 2000);
     }

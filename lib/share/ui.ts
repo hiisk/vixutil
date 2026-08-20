@@ -188,7 +188,19 @@ export const SHARE_UI: L<ShareCopy> = Object.fromEntries(
  * @returns 클립보드로 떨어졌으면 true — 부르는 쪽이 "복사됨"을 띄운다.
  */
 export async function shareOne(text: string, url: string = location.href): Promise<boolean> {
-  const one = text ? `${text}\n${url}` : url;
+  /*
+    주소는 반드시 절대 주소로 나간다.
+
+    부르는 쪽이 `/fortune/card/the-world`처럼 상대 경로를 넘기면 메시지에
+    그대로 붙어 아무 데도 안 닿는다. 실제로 오늘의 타로가 그렇게 나갔다 —
+    화면에서는 멀쩡해 보이고 카톡에 붙여 넣어야 안다. 여기서 한 번 세운다.
+
+    브라우저가 아닌 데서도 불린다(검사가 그렇다) — 그때는 기준 삼을 주소가
+    없으므로 받은 것을 그대로 쓴다.
+  */
+  const base = typeof location === 'undefined' ? undefined : location.href;
+  const abs = base ? new URL(url, base).toString() : url;
+  const one = text ? `${text}\n${abs}` : abs;
   if (typeof navigator !== 'undefined' && navigator.share) {
     try {
       await navigator.share({ text: one });

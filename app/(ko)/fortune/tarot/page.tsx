@@ -1,5 +1,6 @@
 'use client';
 import { shareOne } from '@/lib/share/ui';
+import { tarotSlugOfId } from '@/lib/tarot/deck';
 import RelatedContent from '@/components/RelatedContent';
 import { FORTUNE_RELATED } from '@/lib/fortune-related';
 import Ad from '@/components/Ad';
@@ -479,9 +480,29 @@ export default function TarotPage() {
     setRevealed([]);
   }, []);
 
+  /**
+   * 공유 — 뽑은 카드가 글에도 그림에도 들어가야 한다.
+   *
+   * 전에는 「타로 카드 뽑기 — vixutil.com」 한 줄이 전부였다. 무엇을 뽑았는지
+   * 글에 없고, 주소가 이 장이라 공유 카드도 아무나 똑같았다. 받는 쪽에서는
+   * 광고와 구별이 안 된다.
+   *
+   * 자리마다 무엇이 나왔는지 적고, 주소는 **첫 장의 사전 낱장**으로 보낸다.
+   * 사전 78장은 저마다 공유 카드를 갖고 있어(lib/tarot/route.ts) 그림과 글이
+   * 맞물린다. 여러 장 뽑았어도 머리에 오는 것은 첫 자리라 그것을 얼굴로 쓰고,
+   * 나머지는 글이 받는다.
+   */
   async function handleShare() {
+    const shown = drawn?.filter((_, i) => revealed[i]) ?? [];
+    const lines = shown.map((d, i) =>
+      `${spread.positions[drawn!.indexOf(d)] ?? `#${i + 1}`}: ${d.card.name} (${d.reversed ? '역방향' : '정방향'})`);
+    const text = lines.length
+      ? `[타로 ${spread.label}]\n${lines.join('\n')}`
+      : '타로 카드 뽑기';
+    const head = shown[0] && tarotSlugOfId(shown[0].card.id);
+    const url = head ? `${location.origin}/fortune/card/${head}` : location.href;
     // 문구와 주소가 한 덩이로 — 예전엔 title 칸이라 카톡이 통째로 버렸다
-    if (await shareOne('타로 카드 뽑기 — vixutil.com')) { setCopied(true); setTimeout(() => setCopied(false), 2000); }
+    if (await shareOne(text, url)) { setCopied(true); setTimeout(() => setCopied(false), 2000); }
   }
 
   return (

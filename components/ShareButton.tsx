@@ -17,6 +17,14 @@ interface Props {
   type?: CTAType;
   /** 안 넘기면 한국어다 — 한국어 전용 페이지 스물일곱 장이 그대로 쓴다 */
   lang?: AnyLocale10;
+  /**
+   * 공유할 주소 — 안 넘기면 지금 보고 있는 장이다.
+   *
+   * 결과에 해당하는 «낱장»이 따로 있으면 그쪽을 넘긴다. 공유 카드는 주소가
+   * 정하므로, 지금 장을 그대로 보내면 결과가 무엇이든 그림이 하나다.
+   * 물음표를 붙여도 카드는 안 바뀐다 — 자세한 까닭은 lib/ilju-card.tsx.
+   */
+  url?: string;
 }
 
 function ShareIcon() {
@@ -29,7 +37,7 @@ function ShareIcon() {
   );
 }
 
-export default function ShareButton({ title, description, type = 'test', lang = 'ko' }: Props) {
+export default function ShareButton({ title, description, type = 'test', lang = 'ko', url }: Props) {
   const ui = SHARE_UI[langOfLocale(lang)];
   const [copied, setCopied] = useState(false);
 
@@ -54,7 +62,7 @@ export default function ShareButton({ title, description, type = 'test', lang = 
   const msg = description ? `${title}\n${description}` : title;
 
   async function share() {
-    if (await shareOne(msg)) {
+    if (await shareOne(msg, url ?? location.href)) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2500);
     }

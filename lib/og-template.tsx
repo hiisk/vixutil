@@ -1,5 +1,6 @@
 import type { ReactElement } from 'react';
 import { ogGlyph } from './og-icons';
+import { glyphAccent } from './og-accent.ts';
 
 /** 공유(OG) 이미지 공통 규격·템플릿 — next/og(Satori)로 렌더 */
 import { OG_SIZE } from './og-size.ts';
@@ -884,7 +885,7 @@ export function ogCard({
   to: string;
 }): ReactElement {
   /* 장면이 있는 갈래는 아이콘을 안 그린다 — 장면이 이미 무엇인지 말한다 */
-  const glyph = currentScene ? null : ogGlyph(icon, to);
+  const glyph = currentScene ? null : ogGlyph(icon, glyphAccent(from, to));
   const headline = stripForCard(title);
   const sub = stripForCard(desc);
   return (

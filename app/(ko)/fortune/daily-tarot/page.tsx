@@ -8,6 +8,7 @@ import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
 import ShareButton from '@/components/ShareButton';
+import { tarotSlugOfId } from '@/lib/tarot/deck';
 import PageGlow from '@/components/PageGlow';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import { TAROT_CARDS, LUCKY_COLORS, LUCKY_DIRECTIONS, seededInt } from '@/lib/fortune-data';
@@ -46,6 +47,12 @@ function getClientDaily(): DailyCard {
   return cachedDaily;
 }
 const emptySubscribe = () => () => {};
+
+/** 뽑힌 카드의 사전 낱장 — 못 찾으면 지금 장을 그대로 쓴다 */
+function cardHref(id: number): string | undefined {
+  const slug = tarotSlugOfId(id);
+  return slug ? `/fortune/card/${slug}` : undefined;
+}
 
 export default function DailyTarotPage() {
   // 빌드(서버) 시점과 열람(클라이언트) 시점의 날짜가 다를 수 있다. useSyncExternalStore로
@@ -124,10 +131,17 @@ export default function DailyTarotPage() {
             </div>
 
             <div className="mb-6">
+              {/*
+                주소를 뽑힌 카드의 사전 낱장으로 보낸다. 이 장을 그대로 보내면
+                공유 카드가 «오늘의 타로»라는 아무나 똑같은 그림이라, 글에는
+                카드 이름이 찍히는데 그림이 안 맞는다. 사전 78장은 저마다
+                카드를 갖고 있다(lib/tarot/route.ts의 tarotCard).
+              */}
               <ShareButton
                 title={`오늘의 타로: ${daily.card.name} (${daily.reversed ? '역방향' : '정방향'})`}
                 description="오늘 나를 위한 타로 카드 한 장 — 당신의 카드는?"
                 type="fortune"
+                url={cardHref(daily.card.id)}
               />
             </div>
 

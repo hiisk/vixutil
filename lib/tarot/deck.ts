@@ -85,3 +85,20 @@ export const SUIT_ELEMENT: Record<Suit, 'fire' | 'water' | 'air' | 'earth'> = {
 
 /** 목록과 공유 카드가 같은 그림을 쓴다 — 이 이모지가 카드 아이콘으로 그려진다 */
 export const TAROT_ICON = '🃏';
+
+/**
+ * 덱에서의 자리(id) → 사전 주소.
+ *
+ * ── 왜 필요한가 ────────────────────────────────────────────
+ * 이 저장소에는 타로 덱이 **두 벌** 있다. 뽑기 화면은 lib/fortune-data.ts의
+ * 덱(한국어 해석이 붙은 것)을, 사전 78장은 이 파일의 덱(주소가 붙은 것)을
+ * 쓴다. 뽑은 카드를 사전 낱장으로 이어 주려면 둘을 맞물려야 하고, 맞물리는
+ * 것은 «덱에서의 자리»뿐이다 — 메이저 0~21, 마이너 22~77.
+ *
+ * 이 맞물림은 어느 한쪽 순서가 바뀌면 **조용히 엉뚱한 카드**를 가리킨다.
+ * 화면은 멀쩡하고 주소만 남의 것이 된다. tests/tarot-decks.test.ts가
+ * 일흔여덟 자리를 전부 대조한다.
+ */
+const SLUG_BY_ID = new Map(CARDS.map(c => [c.id, c.slug]));
+
+export const tarotSlugOfId = (id: number): string | undefined => SLUG_BY_ID.get(id);
