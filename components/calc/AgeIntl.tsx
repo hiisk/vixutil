@@ -22,7 +22,12 @@ export default function AgeIntl({ lang }: { lang: CalcLang }) {
   const [on, setOn] = useState('');
   const [result, setResult] = useState<AgeResult | null>(null);
 
-  /* 기준일의 «오늘»은 첫 그림 뒤에 넣는다 — 서버가 UTC라 렌더에서 부르면 날짜가 하루 어긋난다 */
+  /*
+    기준일의 «오늘»은 첫 그림 뒤에 넣는다 — 서버가 UTC라 렌더에서 부르면 보는
+    사람의 표준시에서 날짜가 하루 어긋나고, 프리렌더한 HTML에는 «구운 날»이
+    박힌다. 그래서 붙은 뒤에 한 번 읽는다.
+  */
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setOn(isoToday()), []);
 
   const fmt = (n: number) => n.toLocaleString(tag);
