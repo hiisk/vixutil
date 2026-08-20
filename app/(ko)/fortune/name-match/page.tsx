@@ -1,10 +1,10 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import CoupangAd from '@/components/CoupangAd';
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
-import ReferralCards from '@/components/ReferralCards';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import { matchNames, verdictFor, type MatchResult } from '@/lib/name-match';
@@ -160,7 +160,7 @@ export default function NameMatchPage() {
           </p>
         </div>
 
-        {result && <ReferralCards placement="result" />}
+        {result && <CoupangAd />}
 
         <Faq items={SECTION_FAQ['fortune/name-match']} />
       </div>

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import CoupangAd from '@/components/CoupangAd';
 import Link from 'next/link';
 import CalcShareBtn from './CalcShareBtn';
 import SiteFooter from './SiteFooter';
@@ -9,8 +10,6 @@ import PageHero from './PageHero';
 import CalcFaq from './CalcFaq';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from './JsonLd';
 import type { FaqItem } from '@/lib/calc-faq';
-import ReferralCards from './ReferralCards';
-import ReferralAside, { RAIL_WRAP } from './ReferralAside';
 
 // 각 페이지에서 export const metadata 설정을 위한 헬퍼
 export function makeMetadata(title: string, description: string): Metadata {
@@ -25,7 +24,7 @@ export function makeMetadata(title: string, description: string): Metadata {
  * 렌더 밖에 두는 것은 안에서 만들면 렌더마다 새 컴포넌트가 되기 때문이다.
  */
 function Column({ width, children }: { width: string; children: React.ReactNode }) {
-  return <div className={`${width} mx-auto w-full min-w-0 xl:mx-0`}>{children}</div>;
+  return <div className={`${width} mx-auto w-full min-w-0`}>{children}</div>;
 }
 
 export default function CalcShell({
@@ -128,7 +127,7 @@ export default function CalcShell({
           왼쪽으로 160px쯤 붙는다("기둥 + 레일" 묶음이 가운데다). 레일이 없는
           화면은 예전처럼 가운데다.
         */}
-        <div className={wide ? RAIL_WRAP.wide : RAIL_WRAP.narrow}>
+        <div className="mx-auto w-full">
           <Column width={width}>
             {/* 본문 — 머리 띠는 이 기둥 밖에서 화면을 가로지른다(아래 Column 참고) */}
             {/* 머리 — 기둥 안에 있고 실선만 화면 폭으로 나간다(globals.css .hero-band) */}
@@ -163,7 +162,7 @@ export default function CalcShell({
                 본문 카드와 레일이 같은 거래소를 두 번 보여 주지 않는다.
                 section='calc' — sub-id에 섹션을 실어 계산기발 클릭을 갈라 본다 (ko-calc-result)
               */}
-              <ReferralCards placement="result" rail section="calc" />
+              <CoupangAd />
 
               {intro && (
                 <div className="mt-8 text-sm leading-relaxed text-slate-600 dark:text-slate-300 space-y-3 [&_h2]:text-base [&_h2]:font-bold [&_h2]:text-slate-800 dark:[&_h2]:text-slate-100 [&_strong]:text-slate-800 dark:[&_strong]:text-slate-100">
@@ -207,7 +206,7 @@ export default function CalcShell({
             </main>
           </Column>
 
-          <ReferralAside section="calc" />
+          <CoupangAd />
         </div>
 
         <SiteFooter referral={false} />

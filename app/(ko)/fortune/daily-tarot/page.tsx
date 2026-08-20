@@ -1,10 +1,10 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import CoupangAd from '@/components/CoupangAd';
 import { useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
-import ReferralCards from '@/components/ReferralCards';
 import ShareButton from '@/components/ShareButton';
 import PageGlow from '@/components/PageGlow';
 import { SECTION_FAQ } from '@/lib/section-faq';
@@ -129,7 +129,7 @@ export default function DailyTarotPage() {
               />
             </div>
 
-            <ReferralCards placement="result" />
+            <CoupangAd />
           </>
         )}
 

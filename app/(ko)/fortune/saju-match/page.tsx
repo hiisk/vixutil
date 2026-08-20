@@ -1,12 +1,12 @@
 'use client';
 import { useState, useMemo } from 'react';
+import CoupangAd from '@/components/CoupangAd';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import ShareButton from '@/components/ShareButton';
-import ReferralCards from '@/components/ReferralCards';
 import ToolIcon from '@/components/ToolIcon';
 import { matchSaju, matchGrade, type MatchAxis } from '@/lib/saju-match';
 import { ELEMENT_INFO, STEMS, BRANCHES, type Pillar } from '@/lib/saju-data';
@@ -246,7 +246,7 @@ export default function SajuMatchPage() {
               type="fortune"
             />
 
-            <ReferralCards placement="result" />
+            <CoupangAd />
           </div>
         )}
 

@@ -16,6 +16,7 @@
  * 실측: /laundry 낱장이 gzip 27.8KB → 14.0KB (RSC 61% → 17%).
  */
 import ToolIcon from '@/components/ToolIcon';
+import CoupangAd from '@/components/CoupangAd';
 import Link from 'next/link';
 import { RANDOM_TOOLS, RANDOM_TOOLS_MAP } from '@/lib/random-tools';
 import RandomToolShell from '@/components/random/RandomToolShell';
@@ -34,7 +35,6 @@ import YesNo from '@/components/random/YesNo';
 import OrderShuffler from '@/components/random/OrderShuffler';
 import SecretSanta from '@/components/random/SecretSanta';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
-import ReferralCards from '@/components/ReferralCards';
 import { RANDOM_UI, randomL10n, type RandomLang } from '@/lib/random-ui-intl';
 import { localeHref } from '@/lib/locales';
 
@@ -105,9 +105,9 @@ export default function RandomToolPageIntl({ slug, lang }: { slug: string; lang:
             ))}
           </div>
         </div>
-        {/* 제휴 문구가 열 언어를 갖춘 뒤로 영어에만 낼 까닭이 없어졌다 (lib/referral.ts) */}
+        {/* 쿠팡은 한국에서만 산다 — CoupangAd가 lang을 보고 한국어에서만 그린다 */}
         <div className="mt-8">
-          <ReferralCards lang={lang} placement="result" />
+          <CoupangAd lang={lang} />
         </div>
       </RandomToolShell>
 

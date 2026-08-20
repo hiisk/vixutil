@@ -1,11 +1,11 @@
 'use client';
 import { shareOne } from '@/lib/share/ui';
+import CoupangAd from '@/components/CoupangAd';
 import ToolIcon from '@/components/ToolIcon';
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
-import ReferralCards from '@/components/ReferralCards';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
@@ -180,7 +180,7 @@ export default function DreamPage() {
         )}
 
         {/* 해몽 결과는 fixed 바텀시트라 그 안에 넣으면 오버레이 광고가 된다. 본문 쪽에 둔다. */}
-        <ReferralCards placement="result" />
+        <CoupangAd />
 
         <Faq items={SECTION_FAQ['fortune/dream']} />
       </div>

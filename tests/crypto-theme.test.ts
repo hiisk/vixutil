@@ -81,30 +81,14 @@ test('크립토에 흰 글씨가 일반 배경 위에 남아 있지 않다', () 
   assert.deepEqual(bad, [], `일반 배경 위의 흰 글씨:\n  ${bad.join('\n  ')}`);
 });
 
-test('가입 배너의 금액이 라이트에서 진하게 나온다', () => {
-  // 배너의 주인공은 금액이다. 브랜드 컬러(밝은 노랑)를 글자에 그대로 쓰면
-  // 흰 배경에서 안 읽힌다 — 색은 배경 틴트·테두리·CTA 버튼에만 쓴다.
-  //
-  // 금액 문자열은 이제 lib/referral.ts에서 오므로 페이지에 하드코딩돼 있지 않다.
-  // 대신 금액을 렌더하는 공용 카드의 className을 본다.
-  const src = readFileSync(join(ROOT, 'components', 'ReferralCards.tsx'), 'utf8');
+/*
+ * ── 「가입 배너의 금액」 검사를 지웠다 (2026-08-20) ──────────
+ * 코인 거래소 제휴를 걷어내면서 components/ReferralCards.tsx가 없어졌다.
+ * 그 검사는 그 파일 하나를 읽어 금액 글자색을 보던 것이라, 지킬 대상이
+ * 사라진 검사다. 남겨 두면 파일 없음으로 늘 실패한다.
+ *
+ * 지금 광고는 components/CoupangAd.tsx 하나뿐이고 금액을 우리가 그리지
+ * 않는다 — 쿠팡 위젯이 iframe 안에서 그린다. 우리가 지킬 것은 대가성 표기와
+ * 폭이고, 그쪽은 tests/coupang.test.ts가 본다.
+ */
 
-  const cls = src.match(/className=\{`([^`]*)`\}[\s\S]{0,60}?\{copy\.bonus\}/)?.[1];
-  assert.ok(cls, '배너 금액을 렌더하는 요소를 찾지 못함');
-
-  /*
-    ── «어느 단계를 써라»에서 «안 읽히는 단계를 쓰지 마라»로 (2026-08-19) ──
-    전에는 라이트에서 600·700단계만 허용했다. 그런데 지키려던 것은 그 단계가
-    아니라 «흰 판에서 읽히는가»다. 금액을 near-black(slate-900)으로 두는 편이
-    더 잘 읽히는데도 검사가 깨졌다 — 규칙이 답을 하나로 못 박고 있었다.
-
-    그래서 금지 쪽을 잰다. 라이트에서 옅은 단계, 다크에서 짙은 단계를 막는다.
-    처음 이 검사를 세우게 한 고장(흰 판에 amber-400 글자)은 그대로 걸린다.
-  */
-  const light = cls.match(/(?:^|\s)text-\w+-(\d{2,3})\b/)?.[1];
-  const dark = cls.match(/dark:text-\w+-(\d{2,3})\b/)?.[1];
-  assert.ok(light, `라이트 글자색이 없다 — ${cls}`);
-  assert.ok(dark, `다크 대응이 없다 — ${cls}`);
-  assert.ok(Number(light) >= 600, `라이트에서 흐린 색을 쓰고 있다(${light}) — ${cls}`);
-  assert.ok(Number(dark) <= 300, `다크에서 짙은 색을 쓰고 있다(${dark}) — ${cls}`);
-});

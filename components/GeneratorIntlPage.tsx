@@ -1,11 +1,11 @@
 import { UI } from '@/lib/meta/generator-hub-ui';
+import CoupangAd from '@/components/CoupangAd';
 import PageHero from '@/components/PageHero';
 import ToolIcon from '@/components/ToolIcon';
 import Link from 'next/link';
 import LangPicker from '@/components/LangPicker';
 import PageGlow from '@/components/PageGlow';
 import EnGeneratorEngine from '@/components/EnGeneratorEngine';
-import ReferralCards from '@/components/ReferralCards';
 import Faq from '@/components/Faq';
 import JsonLd, { breadcrumbJsonLd, itemListJsonLd } from '@/components/JsonLd';
 import { thumbSurface } from '@/lib/thumbnail';
@@ -23,7 +23,6 @@ import { withCard } from '@/lib/og-cards';
  */
 
 /* UI 표는 lib/meta/generator-hub-ui.ts로 옮겼다 — 허브 메타와 같이 쓴다 */
-
 
 /**
  * 여덟 언어 + 영어가 같은 스무 종을 가진다. 한국어는 이백 종이 넘고 그 스무 개를
@@ -111,7 +110,7 @@ export function GeneratorIntlDetail({ lang, gen }: { lang: GeneratorIntlLang; ge
 
       <div className="max-w-lg mx-auto px-4 w-full pb-12">
         <div className="mb-8">
-          <ReferralCards lang={lang} placement="result" />
+          <CoupangAd lang={lang} />
         </div>
 
         <section className="prose-sm text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-8">

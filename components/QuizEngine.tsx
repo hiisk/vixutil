@@ -1,5 +1,6 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import CoupangAd from '@/components/CoupangAd';
 import PageHero from '@/components/PageHero';
 import { useState } from 'react';
 import Link from 'next/link';
@@ -8,7 +9,6 @@ import type { AnyLocale10 } from '@/lib/locales';
 import ShareButton from './ShareButton';
 import SaveResultCard from './SaveResultCard';
 import PageGlow from './PageGlow';
-import ReferralCards from './ReferralCards';
 import { thumbSurface } from '@/lib/thumbnail';
 import { gradeVar } from '@/lib/grade-color';
 
@@ -145,7 +145,6 @@ const UI: Record<QuizLang, {
     shareDesc: (c, t) => `${t}題答對${c}題`,
   },
 };
-
 
 function medal(pct: number) {
   if (pct === 100) return '🏆';
@@ -367,7 +366,7 @@ export default function QuizEngine({ quiz, lang = 'ko', headerRight }: { quiz: Q
         </div>
 
         {/* 결과 화면 노출 — 위치 선정 근거는 TestEngine의 같은 자리에 적어두었다. */}
-        <ReferralCards lang={lang} placement="result" />
+        <CoupangAd lang={lang} />
 
         <div className="mt-6 flex flex-col gap-3">
           <button onClick={restart} className="w-full bg-amber-500 hover:bg-amber-600 text-amber-950 rounded-xl py-3.5 font-bold text-sm transition-colors">

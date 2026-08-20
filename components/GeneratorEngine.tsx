@@ -1,5 +1,6 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import CoupangAd from '@/components/CoupangAd';
 import PageHero from '@/components/PageHero';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -8,7 +9,6 @@ import type { Generator } from '@/lib/types';
 import { makeOne, makeBatch } from '@/lib/generate';
 import PageGlow from './PageGlow';
 import { thumbSurface } from '@/lib/thumbnail';
-import ReferralCards from './ReferralCards';
 
 function CopyBtn({ text }: { text: string }) {
   const [ok, setOk] = useState(false);
@@ -232,7 +232,7 @@ export default function GeneratorEngine({ gen, headerRight }: { gen: Generator; 
         )}
 
         {/* 생성 버튼을 눌러 결과가 나온 뒤에만 — 빈 화면에 광고부터 띄우지 않는다 */}
-        {hasResults && <ReferralCards placement="result" />}
+        {hasResults && <CoupangAd />}
       </div>
 
       <style jsx global>{`

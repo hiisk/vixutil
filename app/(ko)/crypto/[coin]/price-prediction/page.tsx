@@ -6,7 +6,6 @@ import SiteFooter from '@/components/SiteFooter';
 import { COINS, coinBySlug } from '@/lib/coins';
 import CoinPrediction from './CoinPrediction';
 import PageGlow from '@/components/PageGlow';
-import ReferralCards from '@/components/ReferralCards';
 import { prerender } from '@/lib/prerender';
 import { withCard } from '@/lib/og-cards';
 
@@ -163,7 +162,6 @@ export default async function CoinPredictionPage({ params }: { params: Promise<{
         {/* 폭을 잡는 컨테이너 **안**에 둔다. 밖에 있으면 max-w도 좌우 여백도 안 걸려
             카드가 화면 끝까지 늘어난다 — 코인 낱장만 그랬다(다른 crypto 페이지는
             전부 안에 있다). 2026-08-13에 눈으로 보고 고쳤다. */}
-        <ReferralCards lang="en" heading="Exchange sign-up bonuses" />
 
         <div className="mt-8 text-center">
           <Link href="/crypto/signals" className="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-amber-400 transition-colors">

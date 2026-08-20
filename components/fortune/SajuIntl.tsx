@@ -6,7 +6,6 @@ import { ALL_LOCALES10 } from '@/lib/locales';
 import { useState, useEffect, useCallback, type ReactNode } from 'react';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
-import ReferralCards from '@/components/ReferralCards';
 import { analyzeFortuneIntl, DOMAIN_UI } from '@/lib/saju-fortune-intl';
 import SajuTopicNav from '@/components/fortune/SajuTopicNav';
 import SajuForm, { type SajuFormValue } from '@/components/fortune/SajuForm';
@@ -139,7 +138,6 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
     });
     setTimeout(() => document.getElementById('saju-result')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
   }, [ui]);
-
 
   /* 주제 낱장에서 값을 달고 돌아오면(?y=&m=&d=&h=&g=) 다시 안 넣어도 되게 푼다 */
   useEffect(() => {
@@ -374,7 +372,6 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
               <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{ui.originNote}</p>
             </div>
 
-            <ReferralCards lang="en" placement="result" />
             <p className="text-center text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed pt-2">{ui.disclaimer}</p>
           </div>
         ) : (

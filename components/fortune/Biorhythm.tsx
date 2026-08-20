@@ -6,7 +6,6 @@ import { ALL_LOCALES10 } from '@/lib/locales';
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
-import ReferralCards from '@/components/ReferralCards';
 import {
   getBiorhythm, getChartSeries,
   type BiorhythmResult, type ChartPoint, type Phase,
@@ -388,7 +387,7 @@ export default function Biorhythm({ lang }: { lang: IntlLang }) {
           <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{c.scienceA}</p>
         </div>
 
-        {result && <div className="mt-4"><ReferralCards lang="en" placement="result" /></div>}
+        {result && <div className="mt-4"></div>}
       </div>
     </div>
   );

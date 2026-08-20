@@ -6,7 +6,6 @@ import { ALL_LOCALES10 } from '@/lib/locales';
 import { useState } from 'react';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
-import ReferralCards from '@/components/ReferralCards';
 import { ymdOf } from '@/lib/lucky-color';
 import { t, luckyColorInfo, type Lang } from '@/lib/fortune-intl';
 import type { ColorInfo as LuckyColorInfo } from '@/lib/fortune-l10n/index';
@@ -190,7 +189,6 @@ export default function TodayColor({ lang }: { lang: IntlLang }) {
               </div>
             </div>
 
-            <ReferralCards lang="en" placement="result" />
           </div>
         )}
 

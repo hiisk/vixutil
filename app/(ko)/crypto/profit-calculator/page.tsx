@@ -6,7 +6,6 @@ import JsonLd, { webAppJsonLd, breadcrumbJsonLd } from '@/components/JsonLd';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
-import ReferralCards from '@/components/ReferralCards';
 import ProfitCalculator from './ProfitCalculator';
 import { withCard } from '@/lib/og-cards';
 
@@ -60,8 +59,6 @@ export default function ProfitCalculatorPage() {
         </div>
 
         <ProfitCalculator />
-
-        <ReferralCards lang="en" placement="result" />
 
         {/*
           아래는 서버에서 정적으로 렌더된다. 위 계산기는 브라우저에서 동작하므로

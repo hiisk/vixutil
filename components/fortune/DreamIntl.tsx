@@ -6,7 +6,6 @@ import { ALL_LOCALES10 } from '@/lib/locales';
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
-import ReferralCards from '@/components/ReferralCards';
 import type { DreamEntry } from '@/lib/dream-data';
 import { DREAM_DATA_EN, DREAM_CATEGORIES_EN } from '@/lib/dream-en';
 import { dreamDataOf, dreamCategoriesOf, spreadDream } from '@/lib/dream-l10n/index';
@@ -153,7 +152,7 @@ export default function DreamIntl({ lang }: { lang: IntlLang }) {
         )}
 
         <div className="mt-8">
-          <ReferralCards lang="en" placement="result" />
+          
         </div>
 
         <p className="text-center text-[11px] text-slate-500 dark:text-slate-400 mt-6 leading-relaxed">{c.note}</p>

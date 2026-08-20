@@ -8,7 +8,6 @@ import { fetchTopSymbols, fetchDailyCandles, mapWithConcurrency } from '@/lib/bi
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
-import ReferralCards from '@/components/ReferralCards';
 
 interface Row {
   rank: number;
@@ -263,8 +262,6 @@ export default function AtrTpslPage() {
             </p>
           </div>
         )}
-
-        <ReferralCards lang="en" placement="result" />
 
         <Faq items={SECTION_FAQ['crypto/atr-tpsl']} lang="en" />
       </div>

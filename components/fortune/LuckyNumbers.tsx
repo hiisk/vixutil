@@ -6,7 +6,6 @@ import { ALL_LOCALES10 } from '@/lib/locales';
 import { useState } from 'react';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
-import ReferralCards from '@/components/ReferralCards';
 import { getLuckyLotto, ballColor, ymdOf } from '@/lib/lucky-lotto';
 import { DATE_FORM, type DateForm } from '@/lib/fortune-form-intl';
 import { t, lottoLabels, type Lang } from '@/lib/fortune-intl';
@@ -224,7 +223,6 @@ export default function LuckyNumbers({ lang }: { lang: IntlLang }) {
               ))}
             </div>
 
-            <ReferralCards lang="en" placement="result" />
           </div>
         ) : (
           <div className="py-12 text-slate-500 dark:text-slate-400">

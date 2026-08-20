@@ -6,7 +6,6 @@ import { ALL_LOCALES10 } from '@/lib/locales';
 import { useState } from 'react';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
-import ReferralCards from '@/components/ReferralCards';
 import { calcZodiacMatch } from '@/lib/zodiac-match';
 import { calcStarMatch, SIGNS } from '@/lib/star-match';
 import { calcMbtiMatch, MBTI_TYPES, type MbtiType } from '@/lib/mbti-match';
@@ -270,7 +269,6 @@ export default function MatchFortune({ kind, lang }: { kind: MatchKind; lang: In
               {ui.reset}
             </button>
 
-            <ReferralCards lang="en" placement="result" />
           </div>
         ) : (
           <div className="py-12 text-slate-500 dark:text-slate-400">

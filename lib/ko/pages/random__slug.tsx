@@ -1,6 +1,7 @@
 /* 한국어 낱장 — 라우트가 아니라 모듈이다. app/(ko)/[section]/[slug]가 부른다.
    옮기기만 했다: 그리는 것도 generateStaticParams도 그대로다. 까닭은 lib/ko/registry.ts. */
 import ToolIcon from '@/components/ToolIcon';
+import CoupangAd from '@/components/CoupangAd';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { alternateLanguages10 } from '@/lib/locales';
@@ -22,7 +23,6 @@ import YesNo from '@/components/random/YesNo';
 import OrderShuffler from '@/components/random/OrderShuffler';
 import SecretSanta from '@/components/random/SecretSanta';
 import ShareButton from '@/components/ShareButton';
-import ReferralCards from '@/components/ReferralCards';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
@@ -113,7 +113,7 @@ export default async function RandomToolPage({ params }: { params: Promise<{ slu
         </div>
 
         <div className="mt-8">
-          <ReferralCards placement="result" />
+          <CoupangAd />
         </div>
       </RandomToolShell>
       <SiteFooter referral={false} />

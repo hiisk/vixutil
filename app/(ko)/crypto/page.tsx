@@ -6,7 +6,6 @@ import JsonLd, { webAppJsonLd, breadcrumbJsonLd } from '@/components/JsonLd';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
-import ReferralCards from '@/components/ReferralCards';
 import { withCard } from '@/lib/og-cards';
 
 export const metadata: Metadata = withCard({
@@ -109,8 +108,6 @@ export default function CryptoPage() {
         </div>
 
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-10">Prices via Binance public API · all calculations are for reference only, not investment advice</p>
-
-        <ReferralCards lang="en" heading="Exchange sign-up bonuses" />
 
         <Faq items={SECTION_FAQ.crypto} lang="en" />
       </div>

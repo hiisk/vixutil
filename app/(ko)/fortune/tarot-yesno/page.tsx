@@ -1,9 +1,9 @@
 'use client';
 import { useState } from 'react';
+import CoupangAd from '@/components/CoupangAd';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
-import ReferralCards from '@/components/ReferralCards';
 import ShareButton from '@/components/ShareButton';
 import PageGlow from '@/components/PageGlow';
 import { SECTION_FAQ } from '@/lib/section-faq';
@@ -151,7 +151,7 @@ export default function TarotYesNoPage() {
               />
             </div>
 
-            <ReferralCards placement="result" />
+            <CoupangAd />
           </>
         )}
 

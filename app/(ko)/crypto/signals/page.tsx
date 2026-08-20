@@ -10,7 +10,6 @@ import { coinByBase } from '@/lib/coins';
 import { CoinLogo, Sparkline, Pct, MiniPaths, formatVolume } from '@/components/crypto/ui';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
-import ReferralCards from '@/components/ReferralCards';
 import PageGlow from '@/components/PageGlow';
 import Scorecard from './Scorecard';
 
@@ -382,7 +381,7 @@ export default function SignalsPage() {
           고치면 두 화면이 다른 금액을 말하게 되는 구조였다. 공용 컴포넌트로 합쳤다.
         */}
         <div className="mb-6">
-          <ReferralCards lang="en" heading="New-user bonuses" />
+          
         </div>
 
         <div className="hero-band ">

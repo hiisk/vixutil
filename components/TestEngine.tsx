@@ -1,5 +1,6 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import CoupangAd from '@/components/CoupangAd';
 import PageHero from '@/components/PageHero';
 import { useState } from 'react';
 import Link from 'next/link';
@@ -8,10 +9,8 @@ import type { AnyLocale10 } from '@/lib/locales';
 import ShareButton from './ShareButton';
 import SaveResultCard from './SaveResultCard';
 import PageGlow from './PageGlow';
-import ReferralCards from './ReferralCards';
 import { thumbSurface } from '@/lib/thumbnail';
 import { renderEmphasis, stripEmphasis } from '@/lib/emphasis';
-
 
 /*
  * 결과 이미지의 배경색.
@@ -66,7 +65,6 @@ function byAxes(results: TestResult[], chosen: TestOpt[]): TestResult | undefine
   const key = sums.map(v => (v > 0 ? '+' : '-')).join('');
   return results.find(r => r.k === key);
 }
-
 
 export type TestLang = AnyLocale10;
 
@@ -377,7 +375,7 @@ export default function TestEngine({ test, lang = 'ko', headerRight }: { test: T
           자연스럽게 눈에 들어오되, 결과 자체를 가리지는 않는 위치다.
         */}
         {/* lang을 안 넘기면 기본값 'ko'라 아홉 외국어 결과 화면에 한국어 카드가 붙는다 */}
-        <ReferralCards lang={lang} placement="result" />
+        <CoupangAd lang={lang} />
 
         <div className="mt-6 flex flex-col gap-3">
           <button onClick={restart}

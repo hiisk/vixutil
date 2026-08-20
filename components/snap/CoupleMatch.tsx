@@ -7,7 +7,6 @@ import { snapHubCopy } from '@/lib/snap-tools-intl';
 import { useState, useRef, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
-import ReferralCards from '@/components/ReferralCards';
 import { getCoupleMatch, type FaceVector, type CoupleMatchResult } from '@/lib/couple-match-data';
 import { COUPLE_LABELS_INTL, COUPLE_POOL_INTL, COUPLE_COMMENT_INTL, COUPLE_UI, type SnapIntlLang } from '@/lib/snap-intl';
 import { hashString, mix32, pick } from '@/lib/ratio-pick';
@@ -288,7 +287,6 @@ export default function CoupleMatch({ lang }: { lang: SnapIntlLang }) {
               {ui.reset}
             </button>
 
-            <ReferralCards lang="en" placement="result" />
             <p className="text-center text-xs text-slate-500 dark:text-slate-400 pt-2">{ui.disclaimer}</p>
           </div>
         ) : (

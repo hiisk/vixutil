@@ -1,12 +1,12 @@
 'use client';
 import { useState, useMemo } from 'react';
+import CoupangAd from '@/components/CoupangAd';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import ShareButton from '@/components/ShareButton';
-import ReferralCards from '@/components/ReferralCards';
 import ToolIcon from '@/components/ToolIcon';
 import SajuForm, { type SajuFormValue } from '@/components/fortune/SajuForm';
 import { buildChart, BRANCHES, STEMS } from '@/lib/saju-data';
@@ -193,7 +193,7 @@ export default function SinsalPage() {
               type="fortune"
             />
 
-            <ReferralCards placement="result" />
+            <CoupangAd />
           </div>
         )}
 

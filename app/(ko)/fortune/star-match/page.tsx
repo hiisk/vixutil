@@ -1,5 +1,6 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import CoupangAd from '@/components/CoupangAd';
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -7,7 +8,6 @@ import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import ShareButton from '@/components/ShareButton';
-import ReferralCards from '@/components/ReferralCards';
 import { SIGNS, ELEMENT_LABEL, calcStarMatch } from '@/lib/star-match';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
@@ -152,7 +152,7 @@ export default function StarMatchPage() {
               type="fortune"
             />
 
-            <ReferralCards placement="result" />
+            <CoupangAd />
           </div>
         )}
 

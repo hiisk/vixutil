@@ -6,7 +6,6 @@ import JsonLd, { webAppJsonLd, breadcrumbJsonLd } from '@/components/JsonLd';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
-import ReferralCards from '@/components/ReferralCards';
 import GoldBoard from './GoldBoard';
 import { withCard } from '@/lib/og-cards';
 
@@ -60,8 +59,6 @@ export default function BitcoinVsGoldPage() {
         </div>
 
         <GoldBoard />
-
-        <ReferralCards lang="en" placement="result" />
 
         {/*
           정적 렌더 영역. 위 보드는 브라우저에서 두 이력을 받아 맞춰 계산하므로

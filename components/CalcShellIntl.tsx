@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import CoupangAd from '@/components/CoupangAd';
 import PageHero from '@/components/PageHero';
 import CalcShareBtn from './CalcShareBtn';
 import SiteFooter from './SiteFooter';
@@ -6,8 +7,6 @@ import PageGlow from './PageGlow';
 import Faq from './Faq';
 import LangPicker from './LangPicker';
 import JsonLd, { breadcrumbJsonLd, webAppJsonLd } from './JsonLd';
-import ReferralCards from './ReferralCards';
-import ReferralAside, { RAIL_WRAP } from './ReferralAside';
 import { CALC_SHELL } from '@/lib/calc-l10n/shell';
 import type { CalcLang } from '@/lib/calc-l10n/types';
 import { localeHref } from '@/lib/locales';
@@ -25,7 +24,7 @@ import { localeHref } from '@/lib/locales';
  * 빠져 있었는데, 이제 문구가 lib/share/ui.ts에서 열 언어로 나오므로 되살렸다
  * (2026-08-15). 국제 계산기 158장에 공유 경로가 아예 없던 상태였다.
  *
- * SiteFooter·ReferralCards·CalcShareBtn은 lang을 받으므로 넘겨 준다 — 안 넘기면
+ * SiteFooter·CoupangAd·CalcShareBtn은 lang을 받으므로 넘겨 준다 — 안 넘기면
  * 기본값이 'ko'라 조용히 한국어가 나온다. 실제로 처음에 그렇게 나왔다.
  */
 /**
@@ -36,7 +35,7 @@ import { localeHref } from '@/lib/locales';
  * 렌더 밖에 두는 것은 안에서 만들면 렌더마다 새 컴포넌트가 되기 때문이다.
  */
 function Column({ width, children }: { width: string; children: React.ReactNode }) {
-  return <div className={`${width} mx-auto w-full min-w-0 xl:mx-0`}>{children}</div>;
+  return <div className={`${width} mx-auto w-full min-w-0`}>{children}</div>;
 }
 
 export default function CalcShellIntl({
@@ -71,7 +70,6 @@ export default function CalcShellIntl({
     sm 이하는 한 픽셀도 그대로다. 머리글과 본문이 이 값을 함께 쓴다.
   */
   const width = wide ? 'max-w-3xl lg:max-w-4xl' : 'max-w-xl lg:max-w-2xl';
-
 
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950">
@@ -116,7 +114,7 @@ export default function CalcShellIntl({
           </div>
         </header>
 
-        <div className={wide ? RAIL_WRAP.wide : RAIL_WRAP.narrow}>
+        <div className="mx-auto w-full">
           <Column width={width}>
             {/* 머리 — 기둥 안에 있고 실선만 화면 폭으로 나간다(globals.css .hero-band) */}
             <div className="hero-band px-4">
@@ -132,7 +130,7 @@ export default function CalcShellIntl({
                 rail — 옆 레일이 함께 뜨는 화면에서는 본문 카드가 1위만 남긴다.
                 section='calc' — 한국어 껍데기와 같은 이름을 쓴다, 언어만 갈린다.
               */}
-              <ReferralCards lang={lang} placement="result" rail section="calc" />
+              <CoupangAd lang={lang} />
 
               {intro && intro.length > 0 && (
                 <div className="mt-8 text-sm leading-relaxed text-slate-600 dark:text-slate-300 space-y-3">
@@ -175,7 +173,7 @@ export default function CalcShellIntl({
           </Column>
 
           {/* 문구는 lang을 따라간다 — 안 넘기면 기본값이 'ko'라 독일어 화면에 한국어가 뜬다 */}
-          <ReferralAside lang={lang} section="calc" />
+          <CoupangAd lang={lang} />
         </div>
 
         <SiteFooter lang={lang} referral={false} />

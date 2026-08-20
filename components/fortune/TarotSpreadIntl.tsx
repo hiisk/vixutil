@@ -16,7 +16,7 @@ import { SPREADS_INTL, SPREAD_SHAPE, SPREAD_UI, SUIT_INTL, type TarotSpreadLang 
  * 뽑기·섞기·역방향 확률은 한국어와 같은 drawCards를 쓴다. 그래야 같은 스프레드가
  * 세 언어에서 같은 성질로 돌아간다 — 여기서 갈리는 건 문구뿐이다.
  *
- * 한국어 /fortune/tarot은 SECTION_FAQ·ReferralCards·SiteFooter에 묶여 있어
+ * 한국어 /fortune/tarot은 SECTION_FAQ·CoupangAd·SiteFooter에 묶여 있어
  * 그대로 재사용할 수 없다. 다른 섹션의 ShellIntl과 같은 이유로 별도 파일이다.
  */
 type Drawn = { card: AnyTarotCard; reversed: boolean }[];

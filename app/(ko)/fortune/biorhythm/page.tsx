@@ -1,10 +1,10 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import CoupangAd from '@/components/CoupangAd';
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
-import ReferralCards from '@/components/ReferralCards';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import LangPicker from '@/components/LangPicker';
@@ -211,7 +211,7 @@ export default function BiorhythmPage() {
           </p>
         </div>
 
-        {result && <ReferralCards placement="result" />}
+        {result && <CoupangAd />}
 
         <Faq items={SECTION_FAQ['fortune/biorhythm']} />
       </div>

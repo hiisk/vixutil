@@ -1,11 +1,11 @@
 import { localeHref, type AnyLocale10 } from '@/lib/locales';
+import CoupangAd from '@/components/CoupangAd';
 import { langOfLocale } from '@/lib/i18n/lang';
 /* common만 본다 — lib/legal의 입구는 withCard를 끌고 오고, 푸터는 모든 페이지에 있다 */
 import { LEGAL_CHROME, LEGAL_KINDS, legalRoute } from '@/lib/legal/common';
 import SectionShortcuts from '@/components/SectionShortcuts';
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
-import ReferralCards from '@/components/ReferralCards';
 
 /**
  * 사이트 전역 푸터 — 섹션 간 이동 동선 + 내부링크(SEO) + 인기 도구 노출.
@@ -38,8 +38,6 @@ const POPULAR_EN: { href: string; label: string }[] = [
   { href: "/crypto/dca-calculator", label: "DCA Calculator" },
   { href: "/crypto/atr-tpsl", label: "ATR TP/SL" },
 ];
-
-
 
 const COPY: Record<Lang, {
   searchHint: string; searchCta: string; browse: string; popular: string; tagline: string;
@@ -160,7 +158,7 @@ export default function SiteFooter({ lang = 'ko', referral = true, browse = true
         */}
         {referral && (
           <div className="mb-8">
-            <ReferralCards lang={lang} />
+            <CoupangAd lang={lang} />
           </div>
         )}
 
@@ -214,7 +212,7 @@ export default function SiteFooter({ lang = 'ko', referral = true, browse = true
         {/*
           제휴 링크는 한때 이 자리에 있다가 빠졌고, 여기 "푸터에 두지 않는다"는
           설명이 한동안 남아 있었다. 지금은 다시 둔다 — 자리는 여기가 아니라
-          푸터 맨 위이고(위 ReferralCards), 끄는 손잡이는 referral={false}다.
+          푸터 맨 위이고(위 CoupangAd), 끄는 손잡이는 referral={false}다.
           되돌린 까닭은 기록에 없어 적지 않는다.
         */}
         {/*

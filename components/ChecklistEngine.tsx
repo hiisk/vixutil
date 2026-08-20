@@ -1,5 +1,6 @@
 'use client';
 import { shareOne } from '@/lib/share/ui';
+import CoupangAd from '@/components/CoupangAd';
 import PageHero from '@/components/PageHero';
 import ToolIcon from '@/components/ToolIcon';
 import { useState, useEffect } from 'react';
@@ -8,7 +9,6 @@ import type { Checklist } from '@/lib/types';
 import type { AnyLocale10 } from '@/lib/locales';
 import PageGlow from './PageGlow';
 import { thumbSurface } from '@/lib/thumbnail';
-import ReferralCards from './ReferralCards';
 
 // Korean-aware text wrapping (splits by character since Korean has no spaces between words)
 function wrapText(ctx: CanvasRenderingContext2D, text: string, maxWidth: number, maxLines = 999): string[] {
@@ -649,7 +649,7 @@ export default function ChecklistEngine({ checklist, lang = 'ko', headerRight }:
           )}
 
           {/* 하나라도 체크한 뒤에 — 목록만 훑고 지나가는 사람에게는 띄우지 않는다 */}
-          {done > 0 && <ReferralCards lang={lang} placement="result" />}
+          {done > 0 && <CoupangAd lang={lang} />}
         </div>
       </div>
 

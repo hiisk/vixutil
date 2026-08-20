@@ -6,7 +6,6 @@ import { ALL_LOCALES10 } from '@/lib/locales';
 import { useState, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
-import ReferralCards from '@/components/ReferralCards';
 import { TAROT_CARDS } from '@/lib/fortune-data';
 import {
   TAROT_READINGS, TAROT_NAMES, TAROT_UI, dailyTarot, ymdOf,
@@ -242,7 +241,6 @@ export default function TarotIntl({ mode, lang }: { mode: Mode; lang: TarotIntlL
               </button>
             )}
 
-            <ReferralCards lang="en" placement="result" />
           </div>
         )}
 

@@ -6,7 +6,6 @@ import JsonLd, { webAppJsonLd, breadcrumbJsonLd } from '@/components/JsonLd';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
-import ReferralCards from '@/components/ReferralCards';
 import HalvingCountdown from './HalvingCountdown';
 import { withCard } from '@/lib/og-cards';
 
@@ -60,8 +59,6 @@ export default function HalvingCountdownPage() {
         </div>
 
         <HalvingCountdown />
-
-        <ReferralCards lang="en" placement="result" />
 
         {/*
           아래는 서버에서 정적으로 렌더된다. 위 카운트다운은 브라우저에서 체인 높이를

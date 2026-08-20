@@ -6,7 +6,6 @@ import JsonLd, { webAppJsonLd, breadcrumbJsonLd } from '@/components/JsonLd';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
-import ReferralCards from '@/components/ReferralCards';
 import IlCalculator from './IlCalculator';
 import { withCard } from '@/lib/og-cards';
 
@@ -60,8 +59,6 @@ export default function ImpermanentLossPage() {
         </div>
 
         <IlCalculator />
-
-        <ReferralCards lang="en" placement="result" />
 
         {/*
           정적 렌더 영역. 위 계산기는 클라이언트 상태에 의존하므로

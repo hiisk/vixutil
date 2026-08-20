@@ -1,6 +1,6 @@
 import ToolIcon from '@/components/ToolIcon';
+import CoupangAd from '@/components/CoupangAd';
 import ShareButton from './ShareButton';
-import ReferralCards from './ReferralCards';
 import { gradeVar } from '@/lib/grade-color';
 
 /**
@@ -91,7 +91,7 @@ export default function MatchResultCard({
 
       <ShareButton title={shareTitle} description={shareDescription} type="fortune" />
 
-      <ReferralCards placement="result" />
+      <CoupangAd />
 
       <style>{`
         .mr-pop { animation: mrPop 0.4s cubic-bezier(0.22, 1, 0.36, 1); }

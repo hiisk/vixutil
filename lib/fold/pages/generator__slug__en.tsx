@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { GENERATORS_EN, GENERATORS_EN_MAP } from '@/lib/generator-en';
 import { prerender } from '@/lib/prerender';
 import EnGeneratorEngine from '@/components/EnGeneratorEngine';
-import ReferralCards from '@/components/ReferralCards';
 import JsonLd, { breadcrumbJsonLd } from '@/components/JsonLd';
 import LangPicker from '@/components/LangPicker';
 import { GENERATOR_LANGS } from '@/components/GeneratorIntlPage';
@@ -53,7 +52,7 @@ export function build(lang: FoldLang) {
 
         <div className="max-w-lg mx-auto px-4 w-full pb-12">
           <div className="mb-8">
-            <ReferralCards lang="en" placement="result" />
+            
           </div>
 
           {/* Simple English SEO copy */}

@@ -6,7 +6,6 @@ import JsonLd, { webAppJsonLd, breadcrumbJsonLd } from '@/components/JsonLd';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
-import ReferralCards from '@/components/ReferralCards';
 import RuinCalculator from './RuinCalculator';
 import { withCard } from '@/lib/og-cards';
 
@@ -60,8 +59,6 @@ export default function RiskOfRuinPage() {
         </div>
 
         <RuinCalculator />
-
-        <ReferralCards lang="en" placement="result" />
 
         {/*
           이 페이지는 순수 계산이라 서버에서 그려도 되지만, 입력 상호작용이 필요해

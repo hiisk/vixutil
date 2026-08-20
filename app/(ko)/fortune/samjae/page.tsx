@@ -1,12 +1,12 @@
 'use client';
 import { useState, useEffect } from 'react';
+import CoupangAd from '@/components/CoupangAd';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import PageGlow from '@/components/PageGlow';
 import ShareButton from '@/components/ShareButton';
-import ReferralCards from '@/components/ReferralCards';
 import ToolIcon from '@/components/ToolIcon';
 import { ANIMALS } from '@/lib/fortune-data';
 import { animalsInSamjae, samjaeFor, SAMJAE_COLORS, type SamjaePhase } from '@/lib/samjae';
@@ -236,7 +236,7 @@ export default function SamjaePage() {
               type="fortune"
             />
 
-            <ReferralCards placement="result" />
+            <CoupangAd />
           </div>
         )}
 

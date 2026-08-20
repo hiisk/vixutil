@@ -1,8 +1,8 @@
 'use client';
 import { shareOne } from '@/lib/share/ui';
+import CoupangAd from '@/components/CoupangAd';
 import { useMemo, useState, useCallback } from 'react';
 import { getTodayFortuneIntl, formatToday, t, type Lang } from '@/lib/fortune-intl';
-import ReferralCards from '@/components/ReferralCards';
 import SaveResultCard from '@/components/SaveResultCard';
 
 /**
@@ -182,7 +182,7 @@ export default function FortuneDisplayIntl({ subjectId, subjectName, subjectEmoj
       />
 
       {/* Lang은 AnyLocale10과 같은 열 언어다 — ko/en 이분법은 나머지 여덟에 영어를 붙였다 */}
-      <ReferralCards lang={lang} placement="result" />
+      <CoupangAd lang={lang} />
     </div>
   );
 }

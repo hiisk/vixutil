@@ -1,4 +1,5 @@
 import ToolIcon from '@/components/ToolIcon';
+import CoupangAd from '@/components/CoupangAd';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd, { webAppJsonLd, breadcrumbJsonLd } from '@/components/JsonLd';
@@ -7,7 +8,6 @@ import PageGlow from '@/components/PageGlow';
 import Faq from '@/components/Faq';
 import { SECTION_FAQ } from '@/lib/section-faq';
 import KimchiBoard from './KimchiBoard';
-import ReferralCards from '@/components/ReferralCards';
 import { withCard } from '@/lib/og-cards';
 
 /**
@@ -69,7 +69,7 @@ export default function KimchiPremiumPage() {
 
         <KimchiBoard />
 
-        <ReferralCards lang="ko" placement="result" />
+        <CoupangAd lang="ko" />
 
         {/* 서버에서 정적으로 렌더된다 — 위 보드는 브라우저에서 시세를 받아 그리므로
             자바스크립트를 실행하지 않는 크롤러에게는 빈 껍데기로 보인다. */}

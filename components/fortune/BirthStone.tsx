@@ -6,11 +6,9 @@ import { ALL_LOCALES10 } from '@/lib/locales';
 import { useState } from 'react';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
-import ReferralCards from '@/components/ReferralCards';
 import { t, birthInfo, type Lang } from '@/lib/fortune-intl';
 import type { BirthInfo } from '@/lib/fortune-l10n/index';
 import { MONTHS, MONTHS_SHORT } from '@/lib/fortune-form-intl';
-
 
 type IntlLang = Exclude<Lang, 'ko'>;
 
@@ -118,7 +116,6 @@ const COPY: Record<IntlLang, {
 /** 탄생석 데이터의 모양 — 원래 fortune-zh.ts에서 가져오던 타입을 여기 둔다 */
 type Info = BirthInfo;
 
-
 export default function BirthStone({ lang }: { lang: Exclude<Lang, 'ko'> }) {
   const [result, setResult] = useState<Info | null>(null);
   const data: readonly Info[] = birthInfo(lang);
@@ -203,7 +200,6 @@ export default function BirthStone({ lang }: { lang: Exclude<Lang, 'ko'> }) {
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.blurb}</p>
             </div>
 
-            <ReferralCards lang="en" placement="result" />
           </div>
         )}
 
