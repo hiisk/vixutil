@@ -1,4 +1,5 @@
 import ToolIcon from '@/components/ToolIcon';
+import Ad from '@/components/Ad';
 import { alternateLanguages10 } from '@/lib/locales';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -85,6 +86,11 @@ export default function GameHubPage() {
         </div>
 
         <div className="flex flex-col gap-7">
+          {/*
+            광고를 목록 앞에 둔다. 푸터에 두었더니 이 허브에서 스크롤 깊이가
+            71~92%였다 — 서너 화면에서 열세 화면 아래라 대부분 못 본다.
+          */}
+          <Ad />
           {grouped.map(g => (
             <section key={g.category} aria-label={g.category}>
               <h2 className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">
@@ -174,7 +180,7 @@ export default function GameHubPage() {
         </p>
       </main>
 
-      <SiteFooter />
+      <SiteFooter referral={false} />
     </div>
   );
 }

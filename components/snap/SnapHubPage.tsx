@@ -1,4 +1,5 @@
 import ToolIcon from '@/components/ToolIcon';
+import Ad from '@/components/Ad';
 import PageHero from '@/components/PageHero';
 import Link from 'next/link';
 import PageGlow from '@/components/PageGlow';
@@ -50,6 +51,12 @@ export default function SnapHubPage({ lang }: { lang: SnapIntlLang }) {
         </div>
 
         <div className="grid sm:grid-cols-2 gap-2">
+          {/*
+            광고를 목록 앞에 둔다. 푸터에 두었더니 이 허브에서 스크롤 깊이가
+            80~97%였다 — 예닐곱 화면 아래라 대부분 못 본다. 허브에는 누르는
+            버튼이 없어 «결과 직후»라는 자리가 없다.
+          */}
+          <Ad lang={lang} />
           {cards.map(t => (
             <Link prefetch={false} key={t.href} href={t.href} className="hub-card group">
               <span className="bg-sec-soft inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg">

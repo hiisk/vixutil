@@ -1,5 +1,6 @@
 'use client';
 import { ToolIconDefs, ToolIconRef } from '@/components/ToolIconSprite';
+import Ad from '@/components/Ad';
 import { useState } from 'react';
 import Link from 'next/link';
 import type { CardItem } from '@/lib/card';
@@ -89,16 +90,24 @@ export default function TestSearch({ tests }: { tests: CardItem[] }) {
         )
       ) : (
         <div className="flex flex-col gap-12">
-          {grouped.map(group => (
-            <section key={group.name}>
-              <h2 className="text-sm font-bold text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-2">
-                {group.name}
-                <span className="text-xs font-bold text-violet-700 dark:text-violet-300 bg-violet-50 dark:bg-violet-950/30 px-2.5 py-0.5 rounded-full">{group.items.length}</span>
-              </h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
-                {group.items.map(t => <TestCard key={t.slug} t={t} />)}
-              </div>
-            </section>
+          {grouped.map((group, gi) => (
+            <div key={group.name}>
+              {/*
+                이 허브만 광고를 첫 분류 «앞»에 둔다. 다른 허브는 첫 분류를 다 본
+                자리에 두는데, 여기는 첫 분류 하나가 일곱 화면이라 그 뒤에 두면
+                결국 아무도 못 본다(푸터에 있을 때 93%였다).
+              */}
+              {gi === 0 && <Ad />}
+              <section>
+                <h2 className="text-sm font-bold text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-2">
+                  {group.name}
+                  <span className="text-xs font-bold text-violet-700 dark:text-violet-300 bg-violet-50 dark:bg-violet-950/30 px-2.5 py-0.5 rounded-full">{group.items.length}</span>
+                </h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
+                  {group.items.map(t => <TestCard key={t.slug} t={t} />)}
+                </div>
+              </section>
+            </div>
           ))}
           {uncategorized.length > 0 && (
             <section>

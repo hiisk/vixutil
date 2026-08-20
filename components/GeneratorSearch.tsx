@@ -1,5 +1,6 @@
 'use client';
 import { ToolIconDefs, ToolIconRef } from '@/components/ToolIconSprite';
+import Ad from '@/components/Ad';
 import ToolIcon from '@/components/ToolIcon';
 import { useState } from 'react';
 import Link from 'next/link';
@@ -84,6 +85,12 @@ export default function GeneratorSearch({ generators }: { generators: CardItem[]
 
       {/* 카테고리 필터 */}
       <div className="flex gap-2 overflow-x-auto pb-1 mb-6" style={{ scrollbarWidth: 'none' }}>
+        {/*
+          광고를 목록 앞에 둔다. 푸터에 두었더니 이 허브에서 스크롤 깊이가
+          80~97%였다 — 예닐곱 화면 아래라 대부분 못 본다. 허브에는 누르는
+          버튼이 없어 «결과 직후»라는 자리가 없다.
+        */}
+        <Ad />
         {cats.map(cat => (
           <button
             key={cat}

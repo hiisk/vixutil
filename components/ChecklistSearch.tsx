@@ -1,5 +1,6 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import Ad from '@/components/Ad';
 import { useState } from 'react';
 import Link from 'next/link';
 import type { ChecklistCardItem } from '@/lib/card';
@@ -84,7 +85,7 @@ export default function ChecklistSearch({ checklists }: { checklists: ChecklistC
         )
       ) : (
         <div className="flex flex-col gap-10">
-          {grouped.map(group => (
+          {grouped.map((group, gi) => (
             <section key={group.name}>
               <h2 className="text-sm font-bold text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-2">
                 {group.name}
@@ -93,6 +94,13 @@ export default function ChecklistSearch({ checklists }: { checklists: ChecklistC
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
                 {group.items.map(c => <ChecklistCard key={c.slug} c={c} />)}
               </div>
+              {/*
+                광고는 첫 분류 뒤다. 푸터에 두었더니 이 허브에서 스크롤 깊이가
+                90%를 넘었다 — 스무 화면 아래라 아무도 못 본다. 허브에는 누르는
+                버튼이 없어 «결과 직후»라는 자리가 없으므로, 목록 첫 덩이를
+                다 본 자리에 둔다.
+              */}
+              {gi === 0 && <Ad />}
             </section>
           ))}
         </div>

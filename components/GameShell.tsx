@@ -1,4 +1,5 @@
 import ToolIcon from '@/components/ToolIcon';
+import Ad from '@/components/Ad';
 import PageHero from '@/components/PageHero';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -77,6 +78,19 @@ export default function GameShell({
 
         {children}
 
+
+        {/*
+
+          도구 바로 뒤가 광고 자리다. 푸터에 두었더니 이 껍데기를 쓰는
+
+          화면에서 스크롤 깊이가 88~92%였다 — 여덟 화면 아래라 못 본다.
+
+          도구를 다 쓴 직후이고, 도구를 가리지도 않는다.
+
+        */}
+
+        <Ad />
+
         <section className="mt-8" aria-label="기능">
           <h2 className="sec-h2">이 게임에서 재는 것</h2>
           <ul className="grid sm:grid-cols-2 gap-2">
@@ -124,7 +138,7 @@ export default function GameShell({
         </p>
       </main>
 
-      <SiteFooter />
+      <SiteFooter referral={false} />
     </div>
   );
 }

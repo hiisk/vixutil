@@ -1,5 +1,6 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import Ad from '@/components/Ad';
 import RelatedContent from '@/components/RelatedContent';
 import { FORTUNE_RELATED } from '@/lib/fortune-related';
 import { useState } from 'react';
@@ -79,6 +80,18 @@ export default function DailyFortunePage() {
           </button>
         </form>
 
+        {/*
+
+          고르개 바로 아래가 광고 자리다. 결과 블록 «안»에 두면 고르기 전에
+
+          광고가 아예 없고, FortuneDisplay 안쪽 것과 겹치면 고른 뒤 둘이 된다.
+
+          안쪽은 showReferral={false}로 끄고 여기 하나만 둔다.
+
+        */}
+
+        <Ad />
+
         {birth ? (
           <div id="daily-result">
             <div className="flex items-center gap-2 mb-4 text-xs text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2">
@@ -87,6 +100,7 @@ export default function DailyFortunePage() {
               <span>오늘 기준 운세</span>
             </div>
             <FortuneDisplay
+              showReferral={false}
               subjectId={`daily-${birth.y}-${birth.m}-${birth.d}`}
               subjectName={`${birth.y}년 ${birth.m}월 ${birth.d}일생`}
               subjectEmoji="🔮"
@@ -114,7 +128,7 @@ export default function DailyFortunePage() {
         <Faq items={SECTION_FAQ['fortune/daily']} />
       </div>
       <RelatedContent items={FORTUNE_RELATED} currentSlug="daily" basePath="/fortune" accent="violet" bg="" />
-      <SiteFooter />
+      <SiteFooter referral={false} />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import Ad from '@/components/Ad';
 import PageHero from '@/components/PageHero';
 import Link from 'next/link';
 import LangPicker from '@/components/LangPicker';
@@ -104,7 +105,7 @@ export default function CalculatorHub() {
 
         {/* 카테고리별 섹션 */}
         <div className="py-8 flex flex-col gap-9 sm:gap-14">
-          {filtered.map(cat => (
+          {filtered.map((cat, catIndex) => (
             <section key={cat.id} id={cat.id}>
               <div className="flex items-center gap-3 mb-5">
                 <ToolIcon emoji={cat.icon} className="text-slate-800 dark:text-slate-100 w-7 h-7" />
@@ -156,6 +157,14 @@ export default function CalculatorHub() {
                   </svg>
                 </Link>
               )}
+
+              {/*
+                광고는 첫 분류 바로 뒤다. 푸터에 두었더니 이 허브에서 스크롤
+                깊이가 90%(16화면)였다 — 거기까지 내려가는 사람은 없다. 허브는
+                누르는 버튼이 없으니 «결과 직후»라는 자리도 없어서, 목록 첫
+                덩이를 다 본 자리에 둔다.
+              */}
+              {catIndex === 0 && <Ad />}
             </section>
           ))}
 
@@ -174,7 +183,7 @@ export default function CalculatorHub() {
 
         <Faq items={SECTION_FAQ.calculator} />
       </div>
-      <SiteFooter />
+      <SiteFooter referral={false} />
     </div>
   );
 }

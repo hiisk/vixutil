@@ -70,7 +70,7 @@ export default function ChecklistIndexPage() {
 
         <Faq items={SECTION_FAQ.checklist} />
       </div>
-      <SiteFooter />
+      <SiteFooter referral={false} />
     </div>
   );
 }

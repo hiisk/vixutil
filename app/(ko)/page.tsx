@@ -709,6 +709,13 @@ export default function HubPage() {
           loading="lazy"라 첫 화면에 든 서너 장만 받는다. 폭·높이를 박아 두어
           그림이 늦게 와도 격자가 안 밀린다.
         */}
+        {/*
+          광고는 격자 앞이다. 저작권 줄 위에 두었더니 스크롤 깊이 97%(17화면)로
+          아무도 못 보는 자리였다. 홈은 누르는 버튼이 없는 목록이라 «결과 직후»가
+          없으므로, 무엇이 있는 사이트인지 알린 다음·목록 앞에 둔다.
+        */}
+        <Ad className="mb-8" />
+
         <div className="home-grid">
           {SECTIONS.map((s) => {
             const thumb = thumbUrl(s.href);
@@ -767,14 +774,6 @@ export default function HubPage() {
             </div>
           ))}
         </div>
-      </div>
-
-      {/*
-        홈은 SiteFooter가 아니라 이 작은 푸터를 쓴다 — 그래서 광고가 여기만
-        빠져 있었다. 본문 아래·저작권 줄 위가 자리다.
-      */}
-      <div className="max-w-5xl mx-auto px-4">
-        <Ad />
       </div>
 
       <footer className="text-center pb-8 pt-8">

@@ -104,6 +104,8 @@ test('중국어 페이지를 그리는 컴포넌트가 lang을 그대로 넘긴�
       !body.includes("lang === 'ko' ? 'ko' : 'en'"),
       `${f}가 중국어를 영어로 깎아서 넘긴다`,
     );
-    assert.match(body, /<SiteFooter lang=\{lang\} \/>/, `${f}가 lang을 넘기지 않는다`);
+    /* referral={false}가 붙어도 lang은 그대로여야 한다 — 광고 자리를 본문으로
+       옮긴 화면들이 그 꼴이다(2026-08-20) */
+    assert.match(body, /<SiteFooter lang=\{lang\}( referral=\{false\})? \/>/, `${f}가 lang을 넘기지 않는다`);
   }
 });

@@ -66,7 +66,7 @@ export default function QuizIndexPage() {
 
         <Faq items={SECTION_FAQ.quiz} />
       </div>
-      <SiteFooter />
+      <SiteFooter referral={false} />
     </div>
   );
 }

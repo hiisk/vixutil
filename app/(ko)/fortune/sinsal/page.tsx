@@ -1,5 +1,6 @@
 'use client';
 import { useState, useMemo } from 'react';
+import Ad from '@/components/Ad';
 import RelatedContent from '@/components/RelatedContent';
 import { FORTUNE_RELATED } from '@/lib/fortune-related';
 import Link from 'next/link';
@@ -128,6 +129,14 @@ export default function SinsalPage() {
           lang="ko" value={form} onChange={setForm} onSubmit={calculate}
           submitLabel="신살 보기" error={error}
         />
+        {/*
+          광고는 «누른 직후»에 둔다. 푸터에 두었더니 낱장에서 스크롤 깊이
+          68~76%였다 — 서너 화면 아래라 대부분 못 본다. 입력 카드 바로 밑이면
+          첫 화면에서 보이고, 결과는 그 아래에 나오면서 스크롤이 결과로
+          옮겨가니 도구를 가리지도 않는다.
+        */}
+
+        <Ad />
 
         {chart && byYear && byDay && (
           <div id="sinsal-result" className="flex flex-col gap-4">
@@ -259,7 +268,7 @@ export default function SinsalPage() {
         <Faq items={SECTION_FAQ['fortune/sinsal']} />
       </div>
       <RelatedContent items={FORTUNE_RELATED} currentSlug="sinsal" basePath="/fortune" accent="violet" bg="" />
-      <SiteFooter />
+      <SiteFooter referral={false} />
     </div>
   );
 }

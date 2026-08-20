@@ -40,6 +40,27 @@ function tsxFiles(dir: string, out: string[] = []): string[] {
   "푸터를 껐는데 카드가 없는 화면"으로 잡혔다.
 */
 const CARD_DEFS = ['SiteFooter.tsx', 'ReferralCards.tsx', 'CoupangAd.tsx', 'Ad.tsx'];
+
+/**
+ * 페이지가 부르는 «허브 컴포넌트»가 광고를 그리는가 — 한 겹만 따라간다.
+ *
+ * 허브 넷(test·quiz·checklist·generator)은 목록을 *Search 컴포넌트에 맡기고
+ * 광고도 그쪽이 그린다. 페이지 파일만 보면 «광고가 없다»고 잘못 읽는다.
+ *
+ * **허브·검색 컴포넌트만 센다.** 아무 import나 따라가면 SaveResultCard처럼
+ * «결과가 있을 때만» 광고를 내는 것까지 세어, 멀쩡한 스냅 낱장 여덟이 걸렸다.
+ */
+function delegatesAd(src: string): boolean {
+  for (const m of src.matchAll(/from '@\/components\/([\w/]+)'/g)) {
+    const name = m[1].split('/').pop()!;
+    if (!/(Search|Hub)$/.test(name)) continue;
+    try {
+      if (readFileSync(join(ROOT, 'components', `${m[1]}.tsx`), 'utf8').includes('<Ad')) return true;
+    } catch { /* 없는 경로는 넘긴다 */ }
+  }
+  return false;
+}
+
 const files = [...tsxFiles(join(ROOT, 'app')), ...tsxFiles(join(ROOT, 'components'))]
   .filter(f => !CARD_DEFS.some(d => f.endsWith(d)));
 
@@ -48,7 +69,12 @@ test('푸터 카드를 끈 화면은 자기 카드를 세운다', () => {
   for (const f of files) {
     const src = readFileSync(f, 'utf8');
     if (!src.includes('referral={false}')) continue;
-    if (!src.includes('<Ad')) bad.push(relative(ROOT, f));
+    /*
+       광고를 페이지가 아니라 그 페이지가 부르는 컴포넌트가 그리는 경우가 있다
+       (허브 넷이 *Search 컴포넌트에 맡긴다). 페이지 파일만 보면 «광고가 없다»고
+       잘못 읽는다 — 부르는 컴포넌트까지 한 겹 따라간다.
+    */
+    if (!src.includes('<Ad') && !delegatesAd(src)) bad.push(relative(ROOT, f));
   }
   assert.deepEqual(bad, [], `푸터 카드를 껐는데 대신 세운 카드가 없다 — 이 화면엔 제휴 카드가 아예 없다:\n  ${bad.join('\n  ')}`);
 });
@@ -57,7 +83,7 @@ test('늘 보이는 자기 카드를 세운 화면은 푸터 카드를 끈다', 
   const bad: string[] = [];
   for (const f of files) {
     const src = readFileSync(f, 'utf8');
-    if (!src.includes('<Ad') || !src.includes('<SiteFooter')) continue;
+    if ((!src.includes('<Ad') && !delegatesAd(src)) || !src.includes('<SiteFooter')) continue;
     if (src.includes('referral={false}')) continue;
     // 조건부로만 뜨는 카드는 푸터 것을 남겨 두는 것이 맞다.
     // 여는 중괄호 안에서 &&로 걸려 있거나, 반환문 최상단이 아닌 깊은 자리에 있으면 조건부로 본다.

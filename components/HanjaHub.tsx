@@ -1,4 +1,5 @@
 import ToolIcon from '@/components/ToolIcon';
+import Ad from '@/components/Ad';
 import PageHero from '@/components/PageHero';
 import Link from 'next/link';
 import { idiomText } from '@/lib/hanja/types';
@@ -53,6 +54,9 @@ export default function HanjaHub({ lang }: { lang: FormulaLang }) {
           </p>
         </div>
 
+        {/* 푸터에 두었더니 스크롤 깊이 90%(11화면)였다 — 목록 앞으로 올린다 */}
+        <Ad lang={lang} />
+
         {s.categories.map(cat => {
           const list = s.idioms.filter(i => i.category === cat);
           if (list.length === 0) return null;
@@ -87,7 +91,7 @@ export default function HanjaHub({ lang }: { lang: FormulaLang }) {
         <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-4 leading-relaxed">{ui.footNote}</p>
       </main>
 
-      <SiteFooter lang={lang} />
+      <SiteFooter lang={lang} referral={false} />
     </div>
   );
 }

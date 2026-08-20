@@ -66,7 +66,7 @@ export default function TestIndexPage() {
 
         <Faq items={SECTION_FAQ.test} />
       </div>
-      <SiteFooter />
+      <SiteFooter referral={false} />
     </div>
   );
 }

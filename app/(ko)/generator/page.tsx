@@ -64,7 +64,7 @@ export default function GeneratorIndexPage() {
 
         <Faq items={SECTION_FAQ.generator} />
       </div>
-      <SiteFooter />
+      <SiteFooter referral={false} />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 'use client';
 import ToolIcon from '@/components/ToolIcon';
+import Ad from '@/components/Ad';
 import RelatedContent from '@/components/RelatedContent';
 import { FORTUNE_RELATED } from '@/lib/fortune-related';
 import { useState, useEffect } from 'react';
@@ -77,6 +78,18 @@ export default function BloodTypePage() {
           ))}
         </div>
 
+        {/*
+
+          고르개 바로 아래가 광고 자리다. 결과 블록 «안»에 두면 고르기 전에
+
+          광고가 아예 없고, FortuneDisplay 안쪽 것과 겹치면 고른 뒤 둘이 된다.
+
+          안쪽은 showReferral={false}로 끄고 여기 하나만 둔다.
+
+        */}
+
+        <Ad />
+
         {type ? (
           <div>
             <div className="flex items-center gap-2 mb-4 text-xs text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2">
@@ -85,6 +98,7 @@ export default function BloodTypePage() {
               <span>{type.trait}</span>
             </div>
             <FortuneDisplay
+              showReferral={false}
               subjectId={`blood-${type.id}`}
               subjectName={type.name}
               subjectEmoji={type.emoji}
@@ -117,7 +131,7 @@ export default function BloodTypePage() {
         <Faq items={SECTION_FAQ['fortune/blood-type']} />
       </div>
       <RelatedContent items={FORTUNE_RELATED} currentSlug="blood-type" basePath="/fortune" accent="violet" bg="" />
-      <SiteFooter />
+      <SiteFooter referral={false} />
     </div>
   );
 }

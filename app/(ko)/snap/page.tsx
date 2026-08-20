@@ -1,4 +1,5 @@
 import { alternateLanguages10 } from '@/lib/locales';
+import Ad from '@/components/Ad';
 import ToolIcon from '@/components/ToolIcon';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -100,6 +101,11 @@ export default function SnapPage() {
         </div>
 
         <div className="grid sm:grid-cols-2 gap-4">
+          {/*
+            광고를 목록 앞에 둔다. 푸터에 두었더니 스크롤 깊이 80%(7화면)라
+            대부분 못 봤다. 허브에는 누르는 버튼이 없어 «결과 직후»가 없다.
+          */}
+          <Ad />
           {TYPES.map(t => (
             <Link key={t.href} href={t.href}
               className="hub-tool-card group relative overflow-hidden rounded-lg border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 hover:border-slate-300 dark:hover:border-slate-700 hover:border-fuchsia-200 transition-all">
@@ -139,7 +145,7 @@ export default function SnapPage() {
 
         <Faq items={SECTION_FAQ.snap} />
       </div>
-      <SiteFooter />
+      <SiteFooter referral={false} />
     </div>
   );
 }

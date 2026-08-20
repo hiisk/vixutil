@@ -1,4 +1,5 @@
 import ToolIcon from '@/components/ToolIcon';
+import Ad from '@/components/Ad';
 import PageHero from '@/components/PageHero';
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
@@ -83,6 +84,19 @@ export default function DeviceShell({
 
         {children}
 
+
+        {/*
+
+          도구 바로 뒤가 광고 자리다. 푸터에 두었더니 이 껍데기를 쓰는
+
+          화면에서 스크롤 깊이가 88~92%였다 — 여덟 화면 아래라 못 본다.
+
+          도구를 다 쓴 직후이고, 도구를 가리지도 않는다.
+
+        */}
+
+        <Ad />
+
         {/* 무엇을 재는 도구인지 — 검색으로 들어온 사람이 3초 안에 판단할 근거 */}
         <section className="mt-8" aria-label="점검 항목">
           <h2 className="sec-h2">이 테스트로 확인하는 것</h2>
@@ -134,7 +148,7 @@ export default function DeviceShell({
         </p>
       </main>
 
-      <SiteFooter />
+      <SiteFooter referral={false} />
     </div>
   );
 }

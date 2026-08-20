@@ -1,4 +1,5 @@
 import { alternateLanguages10 } from '@/lib/locales';
+import Ad from '@/components/Ad';
 import ToolIcon from '@/components/ToolIcon';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -103,6 +104,12 @@ export default function FortunePage() {
           아이콘은 갈래색 칩에 담는다 — 색이 카드마다 정보를 나른다.
         */}
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {/*
+            광고를 목록 앞에 둔다. 푸터에 두었더니 이 허브에서 스크롤 깊이가
+            80~97%였다 — 예닐곱 화면 아래라 대부분 못 본다. 허브에는 누르는
+            버튼이 없어 «결과 직후»라는 자리가 없다.
+          */}
+          <Ad />
           {TYPES.map(t => (
             <Link key={t.href} href={t.href}
               className="group rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 transition-colors hover:border-slate-300 dark:hover:border-slate-700">
@@ -154,7 +161,7 @@ export default function FortunePage() {
 
         <Faq items={SECTION_FAQ.fortune} />
       </div>
-      <SiteFooter />
+      <SiteFooter referral={false} />
     </div>
   );
 }
