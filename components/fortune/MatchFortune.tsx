@@ -16,6 +16,7 @@ import {
   ZODIAC_MATCH_TEXT, STAR_MATCH_TEXT, MBTI_MATCH_TEXT, MBTI_AXIS_TEXT, BLOOD_MATCH_TEXT, MATCH_UI,
   type IntlLang,
 } from '@/lib/match-intl';
+import { gradeVar } from '@/lib/grade-color';
 
 export type MatchKind = 'zodiac' | 'star' | 'mbti' | 'blood';
 
@@ -237,17 +238,17 @@ export default function MatchFortune({ kind, lang }: { kind: MatchKind; lang: In
 
         {result ? (
           <div className="space-y-4">
-            <div className={`rounded-xl bg-gradient-to-br ${scoreColor(result.score)} text-white p-8 text-center`}>
+            <div className="result-card p-8" style={gradeVar(scoreColor(result.score))}>
               <div className="text-5xl mb-2">{result.emoji}</div>
-              <div className="flex items-center justify-center gap-2 text-sm font-bold text-white/85 mb-2">
+              <div className="flex items-center justify-center gap-2 text-sm font-bold text-slate-500 dark:text-slate-400 mb-2">
                 <span>{options[a!].emoji} {options[a!].name}</span>
                 <span>×</span>
                 <span>{options[b!].emoji} {options[b!].name}</span>
               </div>
               <div className="text-5xl font-bold drop-shadow">{result.score}</div>
-              <div className="text-xs font-bold text-white/85 mb-3">{ui.score}</div>
+              <div className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3">{ui.score}</div>
               <div className="inline-block text-xs font-bold bg-white dark:bg-slate-900/25 rounded-full px-4 py-1.5">{result.label}</div>
-              <p className="text-sm text-white/90 mt-3">{result.headline}</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400 mt-3">{result.headline}</p>
             </div>
 
             {[

@@ -1,6 +1,7 @@
 import ToolIcon from '@/components/ToolIcon';
 import ShareButton from './ShareButton';
 import ReferralCards from './ReferralCards';
+import { gradeVar } from '@/lib/grade-color';
 
 /**
  * 궁합 결과 카드 — 띠·별자리·혈액형·MBTI 궁합이 공유한다.
@@ -45,21 +46,20 @@ export default function MatchResultCard({
   return (
     <div id="match-result" className="space-y-4">
       {/* 히어로 */}
-      <div className={`mr-pop relative overflow-hidden rounded-xl bg-gradient-to-br ${heroGradient} p-6 text-white text-center shadow-sm`}>
-        <span className="absolute -top-6 -right-4 text-[110px] opacity-15 select-none">{result.emoji}</span>
-        <span aria-hidden className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 w-40 h-40 rounded-full bg-white dark:bg-slate-900/20 blur-3xl" />
-        <div className="relative">
+      <div className="mr-pop result-card p-6" style={gradeVar(heroGradient)}>
+        <span className="absolute -top-6 -right-4 text-[110px] opacity-[0.06] select-none">{result.emoji}</span>
+                <div className="relative">
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="flex flex-col items-center">
               <span className="text-4xl">{a.emoji}</span>
               <span className="text-[11px] font-bold mt-1">{a.name}</span>
-              {a.sub && <span className="text-[9px] opacity-80">{a.sub}</span>}
+              {a.sub && <span className="text-[9px] opacity-60">{a.sub}</span>}
             </div>
-            <ToolIcon emoji="💗" className="w-7 h-7 opacity-80 text-slate-800 dark:text-slate-100" />
+            <ToolIcon emoji="💗" className="w-7 h-7 opacity-60 text-slate-800 dark:text-slate-100" />
             <div className="flex flex-col items-center">
               <span className="text-4xl">{b.emoji}</span>
               <span className="text-[11px] font-bold mt-1">{b.name}</span>
-              {b.sub && <span className="text-[9px] opacity-80">{b.sub}</span>}
+              {b.sub && <span className="text-[9px] opacity-60">{b.sub}</span>}
             </div>
           </div>
           <p className="text-6xl font-bold leading-none tracking-tight">{result.score}<span className="text-2xl">점</span></p>
@@ -67,7 +67,7 @@ export default function MatchResultCard({
             <div className="absolute inset-y-0 left-0 rounded-full bg-white dark:bg-slate-900/90 transition-all duration-700" style={{ width: `${result.score}%` }} />
           </div>
           <p className="text-base font-bold mt-4">{result.emoji} {result.label}</p>
-          <p className="text-sm text-white/90 mt-1">{result.headline}</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{result.headline}</p>
         </div>
       </div>
 

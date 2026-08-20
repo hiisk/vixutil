@@ -13,6 +13,7 @@ import {
   type TarotIntlLang, type DailyTarot,
 } from '@/lib/tarot-intl';
 import { t, formatToday } from '@/lib/fortune-intl';
+import { gradeVar } from '@/lib/grade-color';
 
 /**
  * 오늘의 타로 / 타로 예스·노 — 번역판.
@@ -195,7 +196,7 @@ export default function TarotIntl({ mode, lang }: { mode: Mode; lang: TarotIntlL
         {card && shown && reading && (
           <div className="space-y-4">
             {verdict && (
-              <div className={`rounded-lg bg-gradient-to-br ${VERDICT_STYLE[verdict].gradient} p-6 text-white text-center`}>
+              <div className="result-card p-6" style={gradeVar(VERDICT_STYLE[verdict].gradient)}>
                 <div className="text-5xl mb-2">{VERDICT_STYLE[verdict].emoji}</div>
                 <p className="text-2xl font-bold mb-2">{VERDICT_LABEL[lang][verdict]}</p>
                 <p className="text-sm">{VERDICT_NOTE[lang][verdict]}</p>
@@ -203,7 +204,7 @@ export default function TarotIntl({ mode, lang }: { mode: Mode; lang: TarotIntlL
             )}
 
             <div className="rounded-lg p-6 text-white text-center" style={{ background: `linear-gradient(135deg, ${card.color}, ${card.color}bb)` }}>
-              <p className="text-xs font-bold text-white/80 mb-2">{ui.drawn}</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">{ui.drawn}</p>
               <div className={`text-6xl mb-3 ${shown.reversed ? 'rotate-180' : ''} inline-block transition-transform`}>{card.emoji}</div>
               <p className="text-2xl font-bold mb-1">{cardName(shown.id, lang)}</p>
               <span className="inline-block text-xs font-bold bg-white dark:bg-slate-900/25 rounded-full px-4 py-1.5">

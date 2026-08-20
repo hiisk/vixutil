@@ -10,6 +10,7 @@ import { SECTION_FAQ } from '@/lib/section-faq';
 import { TAROT_CARDS } from '@/lib/fortune-data';
 import LangPicker from '@/components/LangPicker';
 import { ALL_LOCALES10 } from '@/lib/locales';
+import { gradeVar } from '@/lib/grade-color';
 
 type Verdict = 'yes' | 'no' | 'maybe';
 
@@ -122,10 +123,10 @@ export default function TarotYesNoPage() {
               <p className="text-center text-sm text-slate-500 dark:text-slate-400 italic mb-3">“{question.trim()}”</p>
             )}
             {/* 판정 히어로 */}
-            <div className={`dt-flip rounded-xl bg-gradient-to-br ${v.gradient} text-white p-8 text-center mb-4`}>
+            <div className="dt-flip result-card mb-4 p-8" style={gradeVar(v.gradient)}>
               <div className="text-6xl mb-2">{v.emoji}</div>
               <div className="text-3xl font-bold drop-shadow">{v.label}</div>
-              <p className="text-sm text-white/90 mt-2">{v.note}</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">{v.note}</p>
             </div>
 
             {/* 근거 카드 */}

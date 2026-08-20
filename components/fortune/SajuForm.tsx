@@ -40,7 +40,7 @@ export interface SajuFormValue {
 }
 
 export default function SajuForm({
-  lang, value, onChange, onSubmit, submitLabel, submitClass, error, header, children,
+  lang, value, onChange, onSubmit, submitLabel, error, header, children,
 }: {
   lang: AnyLocale10;
   value: SajuFormValue;
@@ -48,7 +48,6 @@ export default function SajuForm({
   onSubmit: () => void;
   submitLabel: ReactNode;
   /** 단추 그라데이션 — 주제 낱장은 주제색을 쓴다 */
-  submitClass?: string;
   error?: string;
   /** 카드 맨 위에 여백 없이 들어가는 머리글 — 한국어 통합 화면이 쓴다 */
   header?: ReactNode;
@@ -135,7 +134,7 @@ export default function SajuForm({
 
       {error && <p className="text-xs text-rose-600 dark:text-rose-400 mb-2">{error}</p>}
       <button type="submit"
-        className={`w-full rounded-xl bg-gradient-to-r ${submitClass ?? 'from-indigo-600 to-violet-600'} text-white text-sm font-bold py-3.5 hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all`}>
+        className={`w-full rounded-full bg-sec text-white text-sm font-bold py-3.5 hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all`}>
         {submitLabel}
       </button>
       </div>

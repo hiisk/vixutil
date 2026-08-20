@@ -2,7 +2,9 @@
 import { useState } from 'react';
 import { RANDOM_UI, type RandomLang } from '@/lib/random-ui-intl';
 
-const TEAM_COLORS = ['from-rose-500 to-pink-600', 'from-sky-500 to-blue-600', 'from-emerald-400 to-teal-600', 'from-amber-400 to-orange-500', 'from-violet-500 to-purple-600', 'from-fuchsia-500 to-rose-500'];
+/* 팀 색 — 여기서는 색이 «몇 팀인가»를 나르므로 갈래 색 하나로 합칠 수 없다.
+   그라디언트만 걷고 단색으로 둔다. */
+const TEAM_COLORS = ['#e11d48', '#0284c7', '#059669', '#d97706', '#7c3aed', '#c026d3'];
 
 function parse(text: string): string[] {
   return text.split(/[\n,]/).map(s => s.trim()).filter(Boolean);
@@ -65,7 +67,9 @@ export default function TeamMaker({ lang = 'ko' }: { lang?: RandomLang }) {
       {teams && (
         <div className="grid grid-cols-2 gap-3">
           {teams.map((team, i) => (
-            <div key={i} className={`wc-pop rounded-lg bg-gradient-to-br ${TEAM_COLORS[i % TEAM_COLORS.length]} text-white p-4`} style={{ animationDelay: `${i * 70}ms` }}>
+            <div key={i}
+              className="wc-pop rounded-lg p-4 text-white"
+              style={{ background: TEAM_COLORS[i % TEAM_COLORS.length], animationDelay: `${i * 70}ms` }}>
               <div className="text-xs font-bold text-white/80 mb-2">{ui.teamLabel(i + 1, team.length)}</div>
               <div className="flex flex-wrap gap-1.5">
                 {team.map((m, j) => (

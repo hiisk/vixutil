@@ -14,6 +14,7 @@ import { ALL_LOCALES10 } from '@/lib/locales';
 import { pickBackend } from '@/lib/snap/backend';
 import { detectFace } from '@/lib/snap/detect';
 import { useDropPaste } from '@/lib/snap/useDropPaste';
+import { gradeVar } from '@/lib/grade-color';
 
 type FaceApiModule = typeof import('@vladmandic/face-api');
 
@@ -260,7 +261,7 @@ export default function FirstImpressionPage() {
         {/* 결과 */}
         {result && (
           <div id="impression-result" className="flex flex-col gap-4">
-            <div className={`rounded-xl bg-gradient-to-br ${result.type.color} p-6 text-white text-center shadow-sm`}>
+            <div className="result-card p-6" style={gradeVar(result.type.color)}>
               <p className="text-6xl mb-3">{result.type.emoji}</p>
               <h2 className="text-2xl font-bold mb-2">{result.type.label}</h2>
               <div className="flex flex-wrap justify-center gap-1.5 mt-3">

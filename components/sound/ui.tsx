@@ -38,16 +38,16 @@ export function Slider({
 }
 
 export function PlayButton({
-  playing, onToggle, gradient = 'from-indigo-500 to-violet-600', label, lang = 'ko',
+  playing, onToggle, label, lang = 'ko',
 }: {
-  playing: boolean; onToggle: () => void; gradient?: string; label?: string; lang?: SoundLang;
+  playing: boolean; onToggle: () => void; label?: string; lang?: SoundLang;
 }) {
   const c = SOUND_COMMON[lang];
   return (
     <button
       onClick={onToggle}
       className={`w-full rounded-xl font-bold py-3.5 text-sm shadow-sm text-white transition-opacity hover:opacity-90 ${
-        playing ? 'bg-slate-700' : `bg-gradient-to-r ${gradient}`
+        playing ? 'bg-slate-700' : 'bg-sec'
       }`}
     >
       {playing ? c.stop : `▶ ${label ?? c.play}`}
@@ -106,9 +106,9 @@ export function useMicAnalyser(active: boolean, fftSize = 2048, lang: SoundLang 
 
 /** 마이크가 필요할 때 먼저 보여주는 시작 화면 */
 export function MicGate({
-  onStart, error, icon, gradient, children, lang = 'ko',
+  onStart, error, icon, children, lang = 'ko',
 }: {
-  onStart: () => void; error?: string; icon: string; gradient: string; children: React.ReactNode; lang?: SoundLang;
+  onStart: () => void; error?: string; icon: string; children: React.ReactNode; lang?: SoundLang;
 }) {
   return (
     <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-5 py-10 text-center">
@@ -116,7 +116,7 @@ export function MicGate({
       <p className="text-sm text-slate-500 dark:text-slate-400 mb-5 leading-relaxed">{children}</p>
       <button
         onClick={onStart}
-        className={`rounded-xl bg-gradient-to-r ${gradient} text-white font-bold px-7 py-3 text-sm shadow-sm hover:opacity-90 transition-opacity`}
+        className={`rounded-full bg-sec font-bold px-7 py-3 text-sm shadow-sm hover:opacity-90 transition-opacity`}
       >
         {SOUND_COMMON[lang].micStart}
       </button>

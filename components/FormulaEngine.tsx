@@ -4,6 +4,7 @@ import type { FormulaTool } from '@/lib/formula/types';
 import type { FormulaLang } from '@/lib/formula/terms';
 import { verdictText } from '@/lib/formula/types';
 import { FORMULA_UI, groupNum } from '@/lib/formula/ui';
+import { gradeVar } from '@/lib/grade-color';
 
 /**
  * 공식 계산 엔진 — 육백 페이지가 이 컴포넌트 하나를 쓴다.
@@ -104,7 +105,7 @@ export default function FormulaEngine({
         </div>
       </div>
 
-      <div className={`mt-3 rounded-lg bg-gradient-to-br ${section.grad} text-white px-6 py-7 text-center shadow-sm`}>
+      <div className="result-card mt-3 px-6 py-7" style={gradeVar(section.grad)}>
         <p className="text-sm text-white/75 mb-1">{term(primary.term)}</p>
         <p data-formula-result className="text-3xl sm:text-4xl font-bold tabular-nums break-all">{primaryText}</p>
         <button

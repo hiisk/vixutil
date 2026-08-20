@@ -1232,9 +1232,14 @@ html.dark .btn-pri-knob { background: rgb(0 0 0 / 0.14); }
          border-0 border-b border-slate-200 dark:border-slate-800 rounded-none
          transition-colors;
 }
-.dial-input:focus { border-color: var(--c-sec); }
-/* 초점이 간 칸은 밑줄이 두꺼워진다 — 지금 어디를 치고 있는지가 색보다 빨리 읽힌다 */
-.dial-input:focus { border-bottom-width: 2px; padding-bottom: calc(var(--dial-pb, 0.5rem) - 1px); }
+/* 초점이 간 칸은 밑줄이 두꺼워진다 — 지금 어디를 치고 있는지가 색보다 빨리 읽힌다.
+   두꺼워진 1px만큼 아래 여백을 줄여야 글자가 안 튄다. 기본 여백은 pb-2.5(10px)라
+   9px가 맞다. (처음에 정의한 적 없는 --dial-pb를 참조해서 3px씩 튀고 있었다.) */
+.dial-input:focus {
+  border-color: var(--c-sec);
+  border-bottom-width: 2px;
+  padding-bottom: 9px;
+}
 /* «지금 고치고 있는 쪽» — 두 칸이 마주 보는 변환기에서 어느 쪽을 치고 있는지 */
 .dial-input-on { border-color: var(--c-sec); }
 /* 돈 칸 아래 한글 단위 — «300,000,000»이 3억인지 30억인지 한 박자 걸린다.
@@ -1776,3 +1781,28 @@ body.is-dropping::after {
   height: 4px;
   background: var(--c-sec);
 }
+
+/* ── 결과판 한 규격 (2026-08-20) ────────────────────────────────
+   퀴즈 등급, 궁합 점수, 관상, 타로, 한자 급수… 결과를 내는 화면이 저마다
+   그라디언트 판에 흰 글자를 쓰고 있었다. 결과 문장이 여러 줄인 자리에서 색 판
+   위의 흰 글자는 읽기가 눈에 띄게 힘들고, 그 꼴은 어느 템플릿에나 있다.
+
+   테스트 결과에서 쓴 규격을 그대로 쓴다 — 흰 종이에 **위쪽 4px 띠**로 등급 색만
+   남긴다. 색이 정보를 나르되 면적을 안 먹는다.
+
+   띠 색은 부르는 쪽이 --grade로 넘긴다. 안 넘기면 페이지의 갈래 색이다. */
+.result-card {
+  @apply relative overflow-hidden rounded-xl bg-white dark:bg-slate-900 p-6 text-center;
+  box-shadow: var(--sh-hair), var(--sh-rest);
+}
+.result-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: var(--grade, var(--c-sec));
+}
+/* 결과판 안의 글자 — 판이 흰색이 됐으므로 흰 글자를 잉크로 되돌린다 */
+.result-card :where(h2, h3, p, span, div) { color: inherit; }
+.result-card { @apply text-slate-700 dark:text-slate-200; }
+.result-card :where(h2, h3) { @apply text-slate-900 dark:text-white; }

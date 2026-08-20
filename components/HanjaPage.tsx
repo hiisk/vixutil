@@ -28,6 +28,7 @@ import type { FormulaLang } from '@/lib/formula/terms';
 import { HANJA_UI, hanjaCategories, HANJA_SECTION, hanjaFaq, idiomHeading, HANJA_LANGS } from '@/lib/hanja-ui';
 import LangPicker from '@/components/LangPicker';
 import { relatedIdioms } from '@/lib/hanja-tools';
+import { gradeVar } from '@/lib/grade-color';
 
 /**
  * 사자성어 상세 — 세 언어가 이 컴포넌트 하나를 쓴다.
@@ -94,7 +95,7 @@ export default function HanjaPage({ idiom: i, lang }: { idiom: Idiom; lang: Form
           <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mb-3">
             {hanjaCategories(lang)[i.category] ?? i.category}
           </p>
-          <div className={`rounded-lg bg-gradient-to-br ${s.grad} text-white px-6 py-7`}>
+          <div className="result-card px-6 py-7" style={gradeVar(s.grad)}>
             <p className="text-4xl sm:text-5xl font-bold tracking-[0.15em]">{i.hanja}</p>
             <p className="text-base font-bold text-white/85 mt-3">{i.reading}</p>
             <p className="text-xs text-white/65 mt-1">{i.pinyin}</p>

@@ -10,6 +10,7 @@ import SaveResultCard from './SaveResultCard';
 import PageGlow from './PageGlow';
 import ReferralCards from './ReferralCards';
 import { thumbSurface } from '@/lib/thumbnail';
+import { gradeVar } from '@/lib/grade-color';
 
 type Phase = 'start' | 'question' | 'answer' | 'result';
 
@@ -322,7 +323,7 @@ export default function QuizEngine({ quiz, lang = 'ko', headerRight }: { quiz: Q
       <div className="h-1 topbar" />
       <div className="flex-1 px-4 py-8 max-w-lg mx-auto w-full">
         {/* Score hero card */}
-        <div className={`relative overflow-hidden rounded-xl bg-gradient-to-br ${g.color} p-8 text-white text-center mb-6 shadow-sm`}>
+        <div className="result-card mb-6 p-8" style={gradeVar(g.color)}>
           <div className="text-7xl mb-3 filter drop-shadow-sm">{medal(pct)}</div>
           <div className="text-5xl font-bold mb-1">{correct}<span className="text-2xl font-normal opacity-70"> / {total}</span></div>
           <div className={`text-2xl font-bold ${g.textColor} mb-2`}>{ui.score(pct)} · {g.label}</div>

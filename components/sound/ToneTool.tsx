@@ -135,7 +135,7 @@ export default function ToneTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
       </div>
 
       <div className="mt-4">
-        <PlayButton playing={playing} onToggle={() => setPlaying(p => !p)} gradient="from-slate-600 to-sky-600" label={ui.playLabel} lang={lang} />
+        <PlayButton playing={playing} onToggle={() => setPlaying(p => !p)} label={ui.playLabel} lang={lang} />
       </div>
 
       <div className={`${CARD} mt-4`}>

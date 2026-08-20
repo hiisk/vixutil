@@ -104,7 +104,7 @@ export default function BinauralTool({ lang = 'ko' }: { lang?: SoundLang } = {})
       </div>
 
       <div className="mt-4">
-        <PlayButton playing={playing} onToggle={() => setPlaying(p => !p)} gradient="from-teal-500 to-indigo-600" label={c.play} lang={lang} />
+        <PlayButton playing={playing} onToggle={() => setPlaying(p => !p)} label={c.play} lang={lang} />
       </div>
 
       <div className={`${CARD} mt-4`}>

@@ -56,7 +56,7 @@ export default function TunerTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
 
   if (!on) {
     return (
-      <MicGate onStart={() => setOn(true)} error={error} icon="🎸" gradient="from-emerald-500 to-teal-600" lang={lang}>
+      <MicGate onStart={() => setOn(true)} error={error} icon="🎸" lang={lang}>
         {ui.gate}
         <br />
         {ui.gateNote}

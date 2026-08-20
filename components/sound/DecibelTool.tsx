@@ -54,7 +54,7 @@ export default function DecibelTool({ lang = 'ko' }: { lang?: SoundLang } = {}) 
 
   if (!on) {
     return (
-      <MicGate onStart={() => setOn(true)} error={error} icon="📢" gradient="from-rose-500 to-orange-500" lang={lang}>
+      <MicGate onStart={() => setOn(true)} error={error} icon="📢" lang={lang}>
         {ui.gate}
         <br />
         {ui.gateNote}

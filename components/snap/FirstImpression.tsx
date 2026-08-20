@@ -5,6 +5,7 @@ import {
   IMPRESSION_TYPES_INTL, IMPRESSION_TIPS_INTL,
   type ImpressionIdIntl, type SnapIntlLang,
 } from '@/lib/snap-intl';
+import { gradeVar } from '@/lib/grade-color';
 
 /** 유형 판정 규칙과 측정식은 한국어 페이지·lib과 동일하다 */
 const THEME: SnapTheme = {
@@ -200,8 +201,8 @@ export default function FirstImpression({ lang }: { lang: SnapIntlLang }) {
     >
       {result => (
         <>
-          <div className={`bg-gradient-to-br ${result.color} rounded-lg p-6 text-white text-center`}>
-            <p className="text-sm font-semibold text-white/80 mb-2">{c.result}</p>
+          <div className="result-card p-6" style={gradeVar(result.color)}>
+            <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 mb-2">{c.result}</p>
             <div className="text-5xl mb-2">{result.emoji}</div>
             <p className="text-2xl font-bold mb-3">{result.label}</p>
             <p className="text-sm leading-relaxed">{result.desc}</p>

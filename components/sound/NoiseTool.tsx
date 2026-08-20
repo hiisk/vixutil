@@ -128,7 +128,7 @@ export default function NoiseTool({ lang = 'ko' }: { lang?: SoundLang } = {}) {
       </div>
 
       <div className="mt-4">
-        <PlayButton playing={playing} onToggle={() => (playing ? stop() : setPlaying(true))} gradient="from-sky-500 to-cyan-600" label={c.play} lang={lang} />
+        <PlayButton playing={playing} onToggle={() => (playing ? stop() : setPlaying(true))} label={c.play} lang={lang} />
       </div>
       {playing && timer > 0 && (
         <p className="mt-2 text-center text-xs text-slate-400 dark:text-slate-500">{ui.stopsIn(left || timer)}</p>

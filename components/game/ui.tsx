@@ -48,19 +48,17 @@ export function Stat({ label, value, accent }: { label: string; value: string | 
 export function PlayButton({
   onClick,
   children,
-  gradient = 'from-emerald-500 to-teal-600',
   disabled,
 }: {
   onClick: () => void;
   children: React.ReactNode;
-  gradient?: string;
   disabled?: boolean;
 }) {
   return (
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`w-full rounded-xl bg-gradient-to-r ${gradient} text-white font-bold py-3.5 text-sm shadow-sm hover:opacity-90 disabled:opacity-50 transition-opacity`}
+      className={`w-full rounded-full bg-sec font-bold py-3.5 text-sm shadow-sm hover:opacity-90 disabled:opacity-50 transition-opacity`}
     >
       {children}
     </button>

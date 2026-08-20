@@ -342,7 +342,7 @@ export default function MeasuredTest({ lang, slug }: { lang: SnapLang; slug: New
                     </span>
                   </div>
                   <div className="h-2 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
-                    <div className={`h-full rounded-full bg-gradient-to-r ${s.bar}`} style={{ width: `${x.percent}%` }} />
+                    <div className="h-full rounded-full bg-sec" style={{ width: `${x.percent}%` }} />
                   </div>
                 </li>
               ))}
