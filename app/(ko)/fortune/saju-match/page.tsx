@@ -52,10 +52,8 @@ function PersonInput({
         {(['male', 'female'] as const).map(g => (
           <button
             key={g} type="button" onClick={() => set({ gender: g })} aria-pressed={value.gender === g}
-            className={`rounded-xl py-2.5 text-sm font-bold border transition-colors ${
-              value.gender === g
-                ? 'bg-indigo-600 border-indigo-600 text-white'
-                : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300'
+            className={`rounded-xl py-2.5 text-sm font-bold transition-all ${
+              value.gender === g ? 'pick-on text-sec' : 'pick-off text-slate-600 dark:text-slate-300'
             }`}
           >
             {g === 'male' ? '♂ 남자' : '♀ 여자'}

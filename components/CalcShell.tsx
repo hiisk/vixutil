@@ -135,7 +135,7 @@ export default function CalcShell({
               <PageHero className="hero-flat" title={title} desc={description} icon="🧮" />
             </div>
 
-            <main className="tool-body tool-lift px-4 pb-8">
+            <main id="main" className="tool-body tool-lift px-4 pb-8">
               {children}
 
               {/*

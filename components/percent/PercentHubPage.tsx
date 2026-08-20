@@ -45,7 +45,7 @@ export default function PercentHubPage({ lang }: { lang: Lang }) {
         </div>
       </header>
 
-      <main className="relative max-w-2xl mx-auto px-4 py-8">
+      <main id="main" className="relative max-w-2xl mx-auto px-4 py-8">
         <h1 className="page-h1">{ui.hubTitle}</h1>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{ui.hubLead}</p>
 

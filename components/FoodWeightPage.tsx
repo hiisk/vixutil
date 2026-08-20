@@ -93,7 +93,7 @@ export default function FoodWeightPage({ ing, lang }: { ing: Ingredient; lang: L
         </div>
       </header>
 
-      <main className="relative max-w-2xl mx-auto px-4 py-8">
+      <main id="main" className="relative max-w-2xl mx-auto px-4 py-8">
         {/* 찾으러 온 숫자를 맨 위에 — 미국 컵과 한국 컵을 나란히 둔다 */}
         <div className="text-center mb-6">
           {/* 다른 상세 화면과 같은 배지 — 가는 선이 작게 흐려지지 않게 흰색으로 얹는다 */}

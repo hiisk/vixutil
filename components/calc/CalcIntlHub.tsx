@@ -51,7 +51,7 @@ export default function CalcIntlHub({ lang }: { lang: CalcLang }) {
           </div>
         </header>
 
-        <main className="max-w-2xl mx-auto px-4 py-10">
+        <main id="main" className="max-w-2xl mx-auto px-4 py-10">
           <div className="hero-band">
             <PageHero title={ui.hubTitle} desc={ui.hubLead} />
           </div>

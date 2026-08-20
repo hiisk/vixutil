@@ -70,7 +70,7 @@ export default function ColorShell({
         <div className="max-w-2xl mx-auto px-4"><PageHero className="hero-flat" title={tool.title} desc={tool.long} icon={tool.icon} /></div>
       </div>
 
-      <main className="relative max-w-2xl mx-auto px-4 pb-10 tool-lift">
+      <main id="main" className="relative max-w-2xl mx-auto px-4 pb-10 tool-lift">
 
 
         <div className="note mb-5 ">계산은 전부 브라우저 안에서 끝납니다. 저장도 전송도 없습니다.

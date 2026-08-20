@@ -92,7 +92,7 @@ export default function RegexPage({ slug, lang }: { slug: string; lang: Lang }) 
         </div>
       </header>
 
-      <main className="relative max-w-2xl mx-auto px-4 py-8">
+      <main id="main" className="relative max-w-2xl mx-auto px-4 py-8">
         <div className="hero-band ">
           <span className="bg-sec-soft inline-flex h-10 w-10 items-center justify-center rounded-lg"><ToolIcon emoji={REGEX_ICON} className="h-5 w-5" /></span>
           <h1 className="page-h1">{what}</h1>

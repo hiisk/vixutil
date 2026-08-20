@@ -34,7 +34,7 @@ export default function SeveranceLeaf({ wage, years }: { wage: number; years: nu
         </div>
       </header>
 
-      <main className="page-main">
+      <main id="main" className="page-main">
         <h1 className="page-h1">
           월급 {wage}만원 · 근속 {years}년 퇴직금
         </h1>

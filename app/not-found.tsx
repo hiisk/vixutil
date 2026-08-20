@@ -52,7 +52,7 @@ export default function NotFound() {
     <div className="hero-band page-wrap flex flex-col">
       <div className="h-1 topbar" />
 
-      <main className="flex-1 max-w-2xl mx-auto px-4 py-14 w-full">
+      <main id="main" className="flex-1 max-w-2xl mx-auto px-4 py-14 w-full">
         <p className="text-6xl font-bold tabular-nums text-slate-200 dark:text-slate-700 mb-3">404</p>
         {/* 두 언어를 한 줄에 두면 좁은 화면에서 «없습 / 니다»처럼 낱말 가운데가
             꺾인다. 줄을 나눠 각 언어가 제 줄에 서게 한다. */}

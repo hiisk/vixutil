@@ -75,9 +75,10 @@ export default function SajuForm({
           {(['male', 'female'] as const).map(g => (
             <button key={g} type="button" onClick={() => set({ gender: g })}
               aria-pressed={value.gender === g}
-              className={`rounded-xl py-2.5 text-sm font-bold border transition-colors ${value.gender === g
-                ? 'bg-indigo-600 border-indigo-600 text-white'
-                : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300'}`}>
+              /* 고른 것은 떠오르고 안 고른 것은 들어가 있다 — 색 말고 높이로도 읽힌다 */
+              className={`rounded-xl py-2.5 text-sm font-bold border transition-all ${value.gender === g
+                ? 'pick-on text-sec'
+                : 'pick-off text-slate-600 dark:text-slate-300'}`}>
               {g === 'male' ? `♂ ${fc.male}` : `♀ ${fc.female}`}
             </button>
           ))}

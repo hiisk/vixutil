@@ -112,7 +112,7 @@ export default function ChessPage({ slug, lang }: { slug: string; lang: Lang }) 
         </div>
       </header>
 
-      <main className="relative max-w-2xl mx-auto px-4 py-8">
+      <main id="main" className="relative max-w-2xl mx-auto px-4 py-8">
         <div className="hero-band ">
           <p className="text-xs font-bold text-violet-700 dark:text-violet-400 mb-1">{ui.group[f.group]}</p>
           <h1 className="page-h1">{name}</h1>

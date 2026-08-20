@@ -70,7 +70,7 @@ export default function GameShell({
         <div className="max-w-2xl mx-auto px-4"><PageHero className="hero-flat" title={tool.title} desc={tool.long} icon={tool.icon} /></div>
       </div>
 
-      <main className="relative max-w-2xl mx-auto px-4 pb-10 tool-lift">
+      <main id="main" className="relative max-w-2xl mx-auto px-4 pb-10 tool-lift">
 
 
         <div className="note mb-5 ">기록은 이 브라우저에만 저장됩니다. 회원가입도, 순위표 등록도 없습니다.

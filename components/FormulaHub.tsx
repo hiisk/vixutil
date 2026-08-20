@@ -50,7 +50,7 @@ export default function FormulaHub({ lang, section }: { lang: FormulaLang; secti
         </div>
       </header>
 
-      <main className="relative max-w-3xl mx-auto px-4 py-9">
+      <main id="main" className="relative max-w-3xl mx-auto px-4 py-9">
         <div className="mb-8">
           <div className="hero-band">
             <PageHero title={meta.hubTitle} desc={meta.hubLead} />

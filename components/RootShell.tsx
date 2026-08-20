@@ -80,6 +80,12 @@ export default function RootShell({ lang, children }: { lang: string; children: 
         />
       </head>
       <body className="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
+        {/*
+          건너뛰기 링크 — 키보드로 들어온 사람이 머리글·검색·언어 고르개를
+          하나씩 지나지 않고 본문으로 바로 간다. 평소에는 화면 밖에 있다가
+          탭을 누르면 나타난다(globals.css의 .skip-link).
+        */}
+        <a href="#main" className="skip-link">본문으로 건너뛰기</a>
         <JsonLd data={websiteJsonLd} />
         <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
         {children}

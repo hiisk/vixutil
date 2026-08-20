@@ -92,7 +92,7 @@ export default function CityTimePage({ city, lang }: { city: TimeCity; lang: Lan
         </div>
       </header>
 
-      <main className="relative max-w-2xl mx-auto px-4 py-8">
+      <main id="main" className="relative max-w-2xl mx-auto px-4 py-8">
         <div className="hero-band ">
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-lg mb-3 shadow-sm bg-sec-soft">
             <ToolIcon emoji="🕰️" className="w-7 h-7" />

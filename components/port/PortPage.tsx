@@ -86,7 +86,7 @@ export default function PortPage({ slug, lang }: { slug: string; lang: Lang }) {
         </div>
       </header>
 
-      <main className="relative max-w-2xl mx-auto px-4 py-8">
+      <main id="main" className="relative max-w-2xl mx-auto px-4 py-8">
         <div className="mx-auto mb-5 w-52 rounded-lg border-2 border-fuchsia-400 dark:border-fuchsia-700 bg-fuchsia-50 dark:bg-fuchsia-950/40 px-4 py-4 text-center shadow-sm">
           <div className="text-5xl font-bold text-slate-900 dark:text-slate-100 leading-tight tabular-nums">{x.port}</div>
           <div className="mt-1 text-sm font-bold text-fuchsia-700 dark:text-fuchsia-300 font-mono">{f.name}</div>

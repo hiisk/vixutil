@@ -96,7 +96,7 @@ export default function PokerHandPage({ slug, lang }: { slug: string; lang: Lang
         </div>
       </header>
 
-      <main className="relative max-w-2xl mx-auto px-4 py-8">
+      <main id="main" className="relative max-w-2xl mx-auto px-4 py-8">
         <div className="mb-5">
           <Cards cards={f.cards} kind={f.kind} />
         </div>

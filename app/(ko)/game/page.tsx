@@ -72,7 +72,7 @@ export default function GameHubPage() {
         </div>
       </header>
 
-      <main className="relative max-w-2xl mx-auto px-4 py-10">
+      <main id="main" className="relative max-w-2xl mx-auto px-4 py-10">
         <div className="hero-band ">
           <span className="bg-sec-soft mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg"><ToolIcon emoji="🕹️" className="h-6 w-6" /></span>
           <h1 className="page-h1">두뇌 게임</h1>

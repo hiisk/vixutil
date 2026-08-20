@@ -81,7 +81,7 @@ export default function EmojiPage({ slug, lang }: { slug: string; lang: Lang }) 
         </div>
       </header>
 
-      <main className="relative max-w-2xl mx-auto px-4 py-8">
+      <main id="main" className="relative max-w-2xl mx-auto px-4 py-8">
         {/* 글자가 먼저다 — 눌러서 복사하러 온 사람이 절반이다 */}
         <CopyChar char={x.char} label={ui.copyLabel} copiedLabel={ui.copiedLabel} />
 

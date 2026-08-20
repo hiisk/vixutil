@@ -78,7 +78,7 @@ export default function ChessHubPage({ lang }: { lang: Lang }) {
         </div>
       </header>
 
-      <main className="relative max-w-2xl mx-auto px-4 py-8">
+      <main id="main" className="relative max-w-2xl mx-auto px-4 py-8">
         <div className="hero-band ">
           <h1 className="page-h1">
             {fill(ui.hubTitle, { n })}

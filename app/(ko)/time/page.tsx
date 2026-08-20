@@ -68,7 +68,7 @@ export default function TimeHubPage() {
         </div>
       </header>
 
-      <main className="relative max-w-2xl mx-auto px-4 py-10">
+      <main id="main" className="relative max-w-2xl mx-auto px-4 py-10">
         <div className="hero-band ">
           <ToolIcon emoji="⏰" title="시간 도구" color="#0ea5e9" accent="#f43f5e" className="w-14 h-14 mx-auto mb-4" />
           <h1 className="page-h1">시간 도구</h1>

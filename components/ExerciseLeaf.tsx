@@ -31,7 +31,7 @@ export default function ExerciseLeaf({ slug, lang }: { slug: string; lang: AnyLo
         </div>
       </header>
 
-      <main className="page-main">
+      <main id="main" className="page-main">
         <h1 className="page-h1">{t.h1(name)}</h1>
 
         <div className="mt-4 rounded-lg bg-sec p-6 ">

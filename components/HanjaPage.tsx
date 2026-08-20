@@ -90,7 +90,7 @@ export default function HanjaPage({ idiom: i, lang }: { idiom: Idiom; lang: Form
         </div>
       </header>
 
-      <main className="relative max-w-2xl mx-auto px-4 py-8">
+      <main id="main" className="relative max-w-2xl mx-auto px-4 py-8">
         <div className="text-center mb-6">
           <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-3">
             {hanjaCategories(lang)[i.category] ?? i.category}

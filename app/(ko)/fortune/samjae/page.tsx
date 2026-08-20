@@ -52,14 +52,12 @@ function AnimalPicker({ value, onChange }: { value: number | null; onChange: (i:
         return (
           <button
             key={a.id} type="button" onClick={() => onChange(i)} aria-pressed={on}
-            className={`aspect-square rounded-xl transition-all border flex flex-col items-center justify-center ${
-              on
-                ? 'bg-sec border-transparent text-white shadow-sm scale-105'
-                : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600'
+            className={`aspect-square rounded-xl transition-all flex flex-col items-center justify-center ${
+              on ? 'pick-on' : 'pick-off'
             }`}
           >
             <span className="text-lg leading-none">{a.emoji}</span>
-            <span className={`text-[9px] font-bold mt-0.5 ${on ? 'text-white' : 'text-slate-500 dark:text-slate-400'}`}>
+            <span className={`text-[9px] font-bold mt-0.5 ${on ? 'text-sec' : 'text-slate-500 dark:text-slate-400'}`}>
               {a.name.replace('띠', '')}
             </span>
           </button>

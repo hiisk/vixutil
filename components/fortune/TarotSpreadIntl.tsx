@@ -73,7 +73,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
         </div>
       </header>
 
-      <main className="relative max-w-3xl mx-auto px-4 py-8">
+      <main id="main" className="relative max-w-3xl mx-auto px-4 py-8">
         <div className="text-center mb-7">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-lg mb-4 text-3xl bg-sec-soft shadow-sm">
             <span>🃏</span>

@@ -33,7 +33,7 @@ export default function SalaryLeaf({ manwon }: { manwon: number }) {
         </div>
       </header>
 
-      <main className="page-main">
+      <main id="main" className="page-main">
         <h1 className="page-h1">
           연봉 {won(manwon)}만원 실수령액
         </h1>

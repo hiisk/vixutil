@@ -69,7 +69,7 @@ export default function ImageShellIntl({
         <div className="max-w-2xl mx-auto px-4"><PageHero className="hero-flat" title={tool.title} desc={tool.long} icon={tool.icon} /></div>
       </div>
 
-      <main className="relative max-w-2xl mx-auto px-4 pb-10 tool-lift">
+      <main id="main" className="relative max-w-2xl mx-auto px-4 pb-10 tool-lift">
 
 
         <div className="note mb-5 ">

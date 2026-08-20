@@ -44,7 +44,7 @@ export default function LoanLeaf({ principal, rate, term }: { principal: number;
         </div>
       </header>
 
-      <main className="page-main">
+      <main id="main" className="page-main">
         <h1 className="page-h1">
           {label} 연 {rate}% {term}년 대출
         </h1>

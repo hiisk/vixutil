@@ -63,7 +63,7 @@ export default function LegalPage({ kind, locale }: { kind: LegalKind; locale: A
         </div>
       </header>
 
-      <main className="relative max-w-3xl mx-auto px-4 py-9">
+      <main id="main" className="relative max-w-3xl mx-auto px-4 py-9">
         <h1 className="page-h1">{copy.h1}</h1>
         <p className="note-sm mb-8">{copy.lead}</p>
 
