@@ -25,7 +25,7 @@ import type { CountryDef } from './engine.ts';
  * ── 주말과 겹치면 ──────────────────────────────────────────
  * 그냥 사라진다. 프랑스에는 대체공휴일(jour de remplacement)이 없다.
  */
-export const fr: CountryDef = {
+export const FR: CountryDef = {
   code: 'fr',
   observance: 'none',
   holidays: [

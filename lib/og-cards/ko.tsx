@@ -44,6 +44,7 @@ import { intlOg } from '@/lib/og-intl';
 import { ogCard } from '@/lib/og-template';
 import { hubCard as pokerHub } from '@/lib/poker/route';
 import { hubCard as portHub } from '@/lib/port/route';
+import { hubCard as holidaysHub } from '@/lib/holidays/route';
 import { RATE_SECTION } from '@/lib/rate-section';
 import { hubCard as regexHub } from '@/lib/regex/route';
 import { hubCard as remHub } from '@/lib/rem/route';
@@ -920,6 +921,7 @@ export const CARDS: Record<string, () => ReactElement> = {
   'image/size': () => imgsizeHub('ko'),
   'keycode': () => keycodeHub('ko'),
   'number': () => numberHub('ko'),
+  'holidays': () => holidaysHub('ko'),
   'port': () => portHub('ko'),
   'quiz': () => ogCard({
     icon: '🏆',

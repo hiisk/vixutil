@@ -71,6 +71,11 @@ import { extFacts } from './ext/facts.ts';
 import { freqFacts } from './sound/facts.ts';
 import { screenFacts } from './device/facts.ts';
 import { foodFacts } from './food/facts.ts';
+import { COUNTRIES, HOLIDAY_ICON } from './holidays/countries.ts';
+
+import { HOLIDAY_UI } from './holidays/ui-l10n.ts';
+
+const HOLIDAY_UI_KO = HOLIDAY_UI.ko;
 
 /**
  * 사이트 전체 검색 인덱스.
@@ -81,7 +86,7 @@ import { foodFacts } from './food/facts.ts';
  *
  * 검색 페이지에서만 쓴다 — 홈에 실으면 랜딩 페이지가 무거워진다.
  */
-export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'craft' | 'hanja' | 'ext' | 'http' | 'cmd' | 'shortcut' | 'emoji' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'times' | 'sqrt' | 'roman' | 'year' | 'rem' | 'password' | 'percent';
+export type Section = 'calculator' | 'test' | 'quiz' | 'generator' | 'checklist' | 'fortune' | 'snap' | 'random' | 'device' | 'image' | 'text' | 'game' | 'color' | 'time' | 'sound' | 'food' | 'convert' | 'rate' | 'body' | 'geometry' | 'craft' | 'hanja' | 'ext' | 'http' | 'cmd' | 'shortcut' | 'emoji' | 'chess' | 'poker' | 'number' | 'ascii' | 'port' | 'chmod' | 'fraction' | 'keycode' | 'cidr' | 'code' | 'times' | 'sqrt' | 'roman' | 'year' | 'rem' | 'password' | 'percent' | 'holidays';
 
 export interface SearchItem {
   href: string;
@@ -97,6 +102,7 @@ export const SECTION_META: Record<Section, { label: string; icon: string; accent
   quiz:       { label: '퀴즈',       icon: '🏆', accent: 'bg-amber-50 text-amber-700 border-amber-200' },
   generator:  { label: '생성기',     icon: '✨', accent: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
   checklist:  { label: '체크리스트',  icon: '✅', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
+  holidays:   { label: '공휴일',     icon: '📅', accent: 'bg-sky-50 text-sky-700 border-sky-200' },
   fortune:    { label: '운세',       icon: '🔮', accent: 'bg-purple-50 text-purple-700 border-purple-200' },
   snap:       { label: '스냅테스트',  icon: '📸', accent: 'bg-fuchsia-50 text-fuchsia-700 border-fuchsia-200' },
   random:     { label: '랜덤 뽑기',   icon: '🎲', accent: 'bg-rose-50 text-rose-700 border-rose-200' },
@@ -347,6 +353,14 @@ export const SEARCH_INDEX: SearchItem[] = [
   { href: '/game/chess', title: '체스 오프닝', desc: '오프닝 174가지의 수순과 판 그림', section: 'chess' as const, icon: CHESS_ICON },
   { href: '/number', title: '수 사전', desc: '1부터 200까지의 소인수분해·약수·진법·로마 숫자', section: 'number' as const, icon: NUMBER_ICON },
   { href: '/ascii', title: 'ASCII 코드표', desc: '128자의 진법·HTML 엔티티·Ctrl 조합', section: 'ascii' as const, icon: ASCII_ICON },
+  { href: '/holidays', title: '나라별 공휴일', desc: '미국·영국·독일·프랑스·스페인·브라질·일본의 공휴일을 해마다', section: 'holidays' as const, icon: HOLIDAY_ICON },
+  ...COUNTRIES.map(c => ({
+    href: `/holidays/${c.code}`,
+    title: `${HOLIDAY_UI_KO.countries[c.code]} 공휴일`,
+    desc: `${c.nativeWord} · 연도별로 날짜·요일·대체 여부까지`,
+    section: 'holidays' as const,
+    icon: HOLIDAY_ICON,
+  })),
   { href: '/port', title: '포트 번호 사전', desc: '22·80·443·3306 등 포트 127개의 서비스와 구간', section: 'port' as const, icon: PORT_ICON },
   { href: '/chmod', title: 'chmod 권한표', desc: '755·644가 여는 것과 umask까지 125가지', section: 'chmod' as const, icon: CHMOD_ICON },
   { href: '/fraction', title: '분수를 소수로', desc: '분모 20까지 기약분수 127가지의 소수·퍼센트', section: 'fraction' as const, icon: FRACTION_ICON },

@@ -124,8 +124,12 @@ test('카드 장수가 아는 수와 같다', () => {
  *
  *   2,014  같은 날 /fortune/ilju(+1) — 일주 예순 장의 허브. 낱장 예순은
  *          허브 카드를 함께 쓰므로 카드가 늘지 않는다
+ *
+ *   2,024  2026-08-21에 /holidays(+10, 열 언어 전부). 「Feiertage 2027」·
+ *          「feriados 2027」은 나라마다 해마다 되풀이되는 최상위 질의다.
+ *          나라 일곱과 해마다의 낱장은 이 허브 카드를 함께 쓴다
    */
-  const WANT = 2014;
+  const WANT = 2024;
   const total = LANG_CODES.reduce((n, l) => n + CARD_KEYS[l].length, 0);
   assert.equal(total, WANT);
   assert.equal(allCardParams().length, WANT);

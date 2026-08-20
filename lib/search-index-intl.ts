@@ -1,4 +1,7 @@
 import { colorToolsIntl } from './color-tools-intl.ts';
+import { COUNTRIES, HOLIDAY_ICON } from './holidays/countries.ts';
+import { uiOf } from './holidays/ui-l10n.ts';
+
 import { timeToolsIntl } from './time-tools-intl.ts';
 import { imageToolsIntl } from './image-tools-intl.ts';
 import { soundToolsIntl } from './sound-tools-intl.ts';
@@ -166,6 +169,21 @@ function cmdEntries(lang: SearchIntlLang): Entry[] {
 }
 
 /** 언어별 검색 목록 — 실제로 그 언어에 있는 페이지만 담는다 */
+/** 공휴일 — 갈래 머리 하나와 나라 일곱 */
+function holidayEntries(lang: SearchIntlLang) {
+  const ui = uiOf(lang);
+  return [
+    { href: localeHref(lang, '/holidays'), title: ui.hubTitle, desc: ui.hubLede, section: 'holidays', icon: HOLIDAY_ICON },
+    ...COUNTRIES.map(c => ({
+      href: localeHref(lang, `/holidays/${c.code}`),
+      title: ui.overviewTitle(ui.countries[c.code] ?? c.en),
+      desc: c.nativeWord,
+      section: 'holidays',
+      icon: HOLIDAY_ICON,
+    })),
+  ];
+}
+
 export function searchIndexIntl(lang: SearchIntlLang): SearchIntlItem[] {
   const tools = (sec: string, list: Entry[] = []) =>
     list.map(t => ({
@@ -203,6 +221,9 @@ export function searchIndexIntl(lang: SearchIntlLang): SearchIntlItem[] {
     ...tools('test', TESTS_INTL[lang]),
     ...tools('fortune', FORTUNE_INTL[lang]),
     ...tools('snap', SNAP_INTL[lang]),
+    /* 공휴일 — 나라 일곱과 갈래 머리. 연도 낱장(49장)은 안 싣는다:
+       검색 짐이 언어마다 490줄 늘어나고, 사람은 나라를 먼저 고른다 */
+    ...holidayEntries(lang),
   ];
 }
 

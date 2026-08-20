@@ -1,4 +1,6 @@
 import type { AnyLocale10 } from './locales';
+import { INTL_LOCALES10 } from './locales.ts';
+import { HOLIDAY_UI } from './holidays/ui-l10n.ts';
 
 /**
  * 언어별 첫 화면에 무엇을 싣는지 한 곳에 모은다.
@@ -30,6 +32,13 @@ export type HomeSection = {
   /** 이 섹션이 있는 언어만 적는다 */
   copy: Partial<Record<AnyLocale10, Copy>>;
 };
+
+/** 공휴일 카드의 글월 — 갈래 머리에서 그대로 가져온다 */
+function holidayCopy(): Partial<Record<AnyLocale10, Copy>> {
+  const out: Partial<Record<AnyLocale10, Copy>> = {};
+  for (const l of INTL_LOCALES10) out[l] = { title: HOLIDAY_UI[l].hubTitle, desc: HOLIDAY_UI[l].hubLede };
+  return out;
+}
 
 const SECTIONS: HomeSection[] = [
   {
@@ -587,6 +596,16 @@ const SECTIONS: HomeSection[] = [
       'zh-hans': { title: 'chmod 权限', desc: '125 种模式的 rwx、ls -l、umask 与谁能做什么' },
       'zh-hant': { title: 'chmod 權限', desc: '125 種模式的 rwx、ls -l、umask 與誰能做什麼' },
     },
+  },
+  {
+    /*
+      글월을 여기 다시 안 적는다 — 갈래 머리(lib/holidays/ui-l10n.ts)에 열 언어가
+      이미 있고, 두 곳에 적으면 한쪽만 고쳐진 채로 남는다. 카드에 쓰는 것은
+      허브 제목과 머리글 그대로다.
+    */
+    route: '/holidays', icon: '📅', color: 'from-sky-600 to-cyan-500',
+    accent: 'text-sky-700 dark:text-sky-300', border: 'border-sky-200 dark:border-sky-900/50', bg: 'bg-sky-50 dark:bg-sky-950/30',
+    copy: holidayCopy(),
   },
   {
     route: '/port', icon: '🔌', color: 'from-fuchsia-600 to-purple-500',

@@ -45,6 +45,7 @@ import { colorOg, deviceOg, foodOg, gameOg, imageOg, intlOg, soundOg, textOg, ti
 import { ogCard } from '@/lib/og-template';
 import { hubCard as pokerHub } from '@/lib/poker/route';
 import { hubCard as portHub } from '@/lib/port/route';
+import { hubCard as holidaysHub } from '@/lib/holidays/route';
 import { RATE_SECTION } from '@/lib/rate-section';
 import { hubCard as regexHub } from '@/lib/regex/route';
 import { hubCard as remHub } from '@/lib/rem/route';
@@ -231,6 +232,7 @@ export const CARDS: Record<string, () => ReactElement> = {
   'image/size': () => imgsizeHub('pt'),
   'keycode': () => keycodeHub('pt'),
   'number': () => numberHub('pt'),
+  'holidays': () => holidaysHub('pt'),
   'port': () => portHub('pt'),
   'quiz': () => intlOg('quiz/pt-br'),
   'random': () => intlOg('random/pt-br'),

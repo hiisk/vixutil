@@ -1,10 +1,10 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { easter, holidaysOf, type CountryDef } from '../lib/holidays/engine.ts';
-import { de } from '../lib/holidays/de.ts';
-import { fr } from '../lib/holidays/fr.ts';
-import { es } from '../lib/holidays/es.ts';
-import { br } from '../lib/holidays/br.ts';
+import { DE } from '../lib/holidays/de.ts';
+import { FR } from '../lib/holidays/fr.ts';
+import { ES } from '../lib/holidays/es.ts';
+import { BR } from '../lib/holidays/br.ts';
 
 /**
  * 나라별 공휴일 표 — 독일·프랑스·스페인·브라질.
@@ -22,7 +22,7 @@ const list = (c: CountryDef, y: number): Row[] =>
 
 /* ── 독일 ── 전국 공휴일 아홉 ─────────────────────────────── */
 
-const DE: Record<number, Row[]> = {
+const WANT_DE: Record<number, Row[]> = {
   2025: [
     ['neujahr', '2025-01-01'],
     ['karfreitag', '2025-04-18'],
@@ -60,7 +60,7 @@ const DE: Record<number, Row[]> = {
 
 /* ── 프랑스 ── 본토 법정 공휴일 열하나 ────────────────────── */
 
-const FR: Record<number, Row[]> = {
+const WANT_FR: Record<number, Row[]> = {
   2025: [
     ['jour-de-l-an', '2025-01-01'],
     ['lundi-de-paques', '2025-04-21'],
@@ -105,7 +105,7 @@ const FR: Record<number, Row[]> = {
 
 /* ── 스페인 ── 전국 공휴일 열 ─────────────────────────────── */
 
-const ES: Record<number, Row[]> = {
+const WANT_ES: Record<number, Row[]> = {
   2025: [
     ['ano-nuevo', '2025-01-01'],
     ['epifania-del-senor', '2025-01-06'],
@@ -146,7 +146,7 @@ const ES: Record<number, Row[]> = {
 
 /* ── 브라질 ── 연방 공휴일 열 (2024년부터) ────────────────── */
 
-const BR: Record<number, Row[]> = {
+const WANT_BR: Record<number, Row[]> = {
   2025: [
     ['confraternizacao-universal', '2025-01-01'],
     ['sexta-feira-santa', '2025-04-18'],
@@ -186,10 +186,10 @@ const BR: Record<number, Row[]> = {
 };
 
 const TABLES: [string, CountryDef, Record<number, Row[]>][] = [
-  ['독일', de, DE],
-  ['프랑스', fr, FR],
-  ['스페인', es, ES],
-  ['브라질', br, BR],
+  ['독일', DE, WANT_DE],
+  ['프랑스', FR, WANT_FR],
+  ['스페인', ES, WANT_ES],
+  ['브라질', BR, WANT_BR],
 ];
 
 for (const [name, country, want] of TABLES) {
@@ -203,7 +203,7 @@ for (const [name, country, want] of TABLES) {
 test('공휴일 개수가 그 나라의 알려진 개수와 같다', () => {
   /* 독일 9(전국) · 프랑스 11(본토) · 스페인 10(전국) · 브라질 10(2024~) */
   const COUNT: [string, CountryDef, number][] = [
-    ['독일', de, 9], ['프랑스', fr, 11], ['스페인', es, 10], ['브라질', br, 10],
+    ['독일', DE, 9], ['프랑스', FR, 11], ['스페인', ES, 10], ['브라질', BR, 10],
   ];
   for (const [name, c, n] of COUNT) {
     assert.equal(c.holidays.length, n, `${name} 정의가 ${c.holidays.length}개다`);
@@ -216,11 +216,11 @@ test('공휴일 개수가 그 나라의 알려진 개수와 같다', () => {
 test('부활절 파생일이 그 해 부활절과 맞물린다', () => {
   /* offset을 나라 파일이 아니라 여기서 다시 적어 대조한다 — 양쪽이 같이 틀리기 어렵게 */
   const DERIVED: [CountryDef, string, number][] = [
-    [de, 'karfreitag', -2], [de, 'ostermontag', 1],
-    [de, 'christi-himmelfahrt', 39], [de, 'pfingstmontag', 50],
-    [fr, 'lundi-de-paques', 1], [fr, 'ascension', 39], [fr, 'lundi-de-pentecote', 50],
-    [es, 'viernes-santo', -2],
-    [br, 'sexta-feira-santa', -2],
+    [DE, 'karfreitag', -2], [DE, 'ostermontag', 1],
+    [DE, 'christi-himmelfahrt', 39], [DE, 'pfingstmontag', 50],
+    [FR, 'lundi-de-paques', 1], [FR, 'ascension', 39], [FR, 'lundi-de-pentecote', 50],
+    [ES, 'viernes-santo', -2],
+    [BR, 'sexta-feira-santa', -2],
   ];
   for (const y of [2025, 2026, 2027]) {
     const e = easter(y).getTime();
@@ -237,14 +237,14 @@ test('프랑스에는 성금요일이 없고 독일·스페인·브라질에는 
   /* 알자스-모젤을 뺀 본토 기준. 이 셋이 갈리는 지점이라 따로 못 박는다 */
   for (const y of [2025, 2026, 2027]) {
     const good = (c: CountryDef) => holidaysOf(c, y).some(h => h.date === toIso(easter(y), -2));
-    assert.equal(good(fr), false, `${y} 프랑스에 성금요일이 들어갔다`);
-    assert.equal(good(de), true);
-    assert.equal(good(es), true);
-    assert.equal(good(br), true);
+    assert.equal(good(FR), false, `${y} 프랑스에 성금요일이 들어갔다`);
+    assert.equal(good(DE), true);
+    assert.equal(good(ES), true);
+    assert.equal(good(BR), true);
   }
   /* 성체축일(+60)은 네 나라 전국 목록 어디에도 없다 — 독일은 주별, 브라질은 재량일 */
   for (const y of [2025, 2026, 2027]) {
-    for (const c of [de, fr, es, br]) {
+    for (const c of [DE, FR, ES, BR]) {
       assert.ok(
         !holidaysOf(c, y).some(h => h.date === toIso(easter(y), 60)),
         `${c.code} ${y}에 성체축일이 들어갔다`,
@@ -258,7 +258,7 @@ function toIso(base: Date, offset: number): string {
 }
 
 test('네 나라 모두 주말과 겹쳐도 옮기지 않는다', () => {
-  for (const c of [de, fr, es, br]) {
+  for (const c of [DE, FR, ES, BR]) {
     for (let y = 2020; y <= 2035; y++) {
       for (const h of holidaysOf(c, y)) {
         assert.equal(h.moved, false, `${c.code} ${y} ${h.slug}이 ${h.observed}로 옮겨졌다`);
@@ -270,45 +270,45 @@ test('네 나라 모두 주말과 겹쳐도 옮기지 않는다', () => {
 
 test('브라질 흑인 의식의 날은 2024년부터다', () => {
   /* Lei 14.759/2023 — 그전에는 연방 공휴일이 아니었다(일부 주·시만) */
-  const has = (y: number) => holidaysOf(br, y).some(h => h.slug === 'consciencia-negra');
+  const has = (y: number) => holidaysOf(BR, y).some(h => h.slug === 'consciencia-negra');
   assert.equal(has(2023), false);
   assert.equal(has(2024), true);
-  assert.equal(holidaysOf(br, 2023).length, 9);
-  assert.equal(holidaysOf(br, 2024).length, 10);
+  assert.equal(holidaysOf(BR, 2023).length, 9);
+  assert.equal(holidaysOf(BR, 2024).length, 10);
   /* 2023년 목록에 11월 20일이 아예 없어야 한다 */
-  assert.ok(!holidaysOf(br, 2023).some(h => h.observed === '2023-11-20'));
+  assert.ok(!holidaysOf(BR, 2023).some(h => h.observed === '2023-11-20'));
 });
 
 test('독일 통일의 날은 1990년부터다', () => {
-  assert.equal(holidaysOf(de, 1989).length, 8);
-  assert.equal(holidaysOf(de, 1990).length, 9);
+  assert.equal(holidaysOf(DE, 1989).length, 8);
+  assert.equal(holidaysOf(DE, 1990).length, 9);
 });
 
 test('나라마다 slug가 겹치지 않고 코드가 맞다', () => {
-  for (const [name, c] of [['독일', de], ['프랑스', fr], ['스페인', es], ['브라질', br]] as const) {
+  for (const [name, c] of [['독일', DE], ['프랑스', FR], ['스페인', ES], ['브라질', BR]] as const) {
     assert.equal(new Set(c.holidays.map(h => h.slug)).size, c.holidays.length, `${name} slug 중복`);
     for (const h of c.holidays) assert.match(h.slug, /^[a-z][a-z0-9-]*[a-z0-9]$/, `${name} ${h.slug}`);
   }
-  assert.deepEqual([de.code, fr.code, es.code, br.code], ['de', 'fr', 'es', 'br']);
+  assert.deepEqual([DE.code, FR.code, ES.code, BR.code], ['de', 'fr', 'es', 'br']);
 });
 
 test('이 검사가 실제로 문다', () => {
   /* 규칙을 하루 밀면 위의 표와 어긋나야 한다 */
   const shifted: CountryDef = {
-    ...de,
-    holidays: de.holidays.map(h =>
+    ...DE,
+    holidays: DE.holidays.map(h =>
       h.slug === 'karfreitag' ? { ...h, rule: { kind: 'easter' as const, offset: -1 } } : h,
     ),
   };
-  assert.notDeepEqual(list(shifted, 2026), DE[2026]);
+  assert.notDeepEqual(list(shifted, 2026), WANT_DE[2026]);
   /* 고정일도 마찬가지 — 프랑스 혁명 기념일을 7월 15일로 밀면 어긋난다 */
   const fr15: CountryDef = {
-    ...fr,
-    holidays: fr.holidays.map(h =>
+    ...FR,
+    holidays: FR.holidays.map(h =>
       h.slug === 'fete-nationale' ? { ...h, rule: { kind: 'fixed' as const, month: 7, day: 15 } } : h,
     ),
   };
-  assert.notDeepEqual(list(fr15, 2026), FR[2026]);
+  assert.notDeepEqual(list(fr15, 2026), WANT_FR[2026]);
   /* 하나를 빼면 개수 검사가 걸려야 한다 */
-  assert.notEqual(holidaysOf({ ...es, holidays: es.holidays.slice(1) }, 2026).length, 10);
+  assert.notEqual(holidaysOf({ ...ES, holidays: ES.holidays.slice(1) }, 2026).length, 10);
 });

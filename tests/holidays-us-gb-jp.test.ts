@@ -169,3 +169,28 @@ test('설날이 토요일이면 미국은 전해 12월 31일에 쉰다', () => {
   /* 해를 넘는 것은 미국뿐이다 — 영국은 다음 평일로 미므로 앞으로만 간다 */
   assert.equal(holidaysOf(GB, 2028).every(h => h.observed >= '2028-01-01'), true);
 });
+
+test('공휴일마다 이름이 있다', async () => {
+  const { COUNTRIES } = await import('../lib/holidays/countries.ts');
+  const { HOLIDAY_NAMES } = await import('../lib/holidays/names.ts');
+  /*
+    nameOf에 폴백이 있어 이름이 빠져도 화면은 안 깨진다 — 슬러그가 그대로
+    제목에 나갈 뿐이다. 그래서 사전을 직접 센다. 실제로 스페인의
+    «asuncion-de-la-virgen»이 «asuncion»으로 적혀 조용히 빠져 있었다.
+  */
+  const keys = new Set<string>();
+  for (const c of COUNTRIES) {
+    for (const h of c.def.holidays) {
+      const k = `${c.code}:${h.slug}`;
+      keys.add(k);
+      assert.ok(HOLIDAY_NAMES[k], `${k} 이름이 없다`);
+      assert.ok(HOLIDAY_NAMES[k].native.length > 1, `${k} 현지어 이름이 비었다`);
+      assert.ok(HOLIDAY_NAMES[k].en.length > 1, `${k} 영어 이름이 비었다`);
+    }
+  }
+  /* 반대쪽도 — 안 쓰는 이름이 남아 있으면 슬러그를 고치다 흘린 것이다 */
+  for (const k of Object.keys(HOLIDAY_NAMES)) {
+    assert.ok(keys.has(k), `${k}는 어느 나라에도 없다`);
+  }
+  assert.equal(keys.size, 75, `공휴일이 ${keys.size}개다`);
+});

@@ -1,4 +1,5 @@
 import type { SearchIntlLang } from './search-index-intl.ts';
+import { HOLIDAY_UI } from './holidays/ui-l10n.ts';
 
 /**
  * 번역 언어 통합 검색의 섹션 이름표.
@@ -21,7 +22,8 @@ export const SECTION_LABEL: Record<SearchIntlLang, Record<string, string>> = {
     calculator: 'Calculators', rate: 'Percent', body: 'Body', geometry: 'Geometry',
     convert: 'Convert', color: 'Colour', time: 'Time', image: 'Image', sound: 'Sound', food: 'Cooking',
     game: 'Games', device: 'Device', text: 'Text', checklist: 'Checklist',
-    quiz: 'Quiz', test: 'Test', generator: 'Generators', fortune: 'Fortune', snap: 'Snap',
+    quiz: 'Quiz', test: 'Test', generator: 'Generators', fortune: 'Fortune', holidays: HOLIDAY_UI['en'].section,
+    snap: 'Snap',
   },
   es: {
     cmd: 'Comandos',
@@ -32,7 +34,8 @@ export const SECTION_LABEL: Record<SearchIntlLang, Record<string, string>> = {
     calculator: 'Calculadoras', rate: 'Porcentajes', body: 'Cuerpo', geometry: 'Geometría',
     convert: 'Unidades', color: 'Color', time: 'Tiempo', image: 'Imagen', sound: 'Sonido', food: 'Cocina',
     game: 'Juegos', device: 'Aparatos', text: 'Texto',
-    test: 'Tests', quiz: 'Test', checklist: 'Listas', generator: 'Generadores', fortune: 'Horóscopo', snap: 'Foto',
+    test: 'Tests', quiz: 'Test', checklist: 'Listas', generator: 'Generadores', fortune: 'Horóscopo', holidays: HOLIDAY_UI['es'].section,
+    snap: 'Foto',
   },
   'pt-br': {
     cmd: 'Comandos',
@@ -43,7 +46,8 @@ export const SECTION_LABEL: Record<SearchIntlLang, Record<string, string>> = {
     calculator: 'Calculadoras', rate: 'Porcentagens', body: 'Corpo', geometry: 'Geometria',
     convert: 'Unidades', color: 'Cor', time: 'Tempo', image: 'Imagem', sound: 'Som', food: 'Cozinha',
     game: 'Jogos', device: 'Aparelhos', text: 'Texto',
-    test: 'Testes', quiz: 'Quiz', checklist: 'Checklist', generator: 'Geradores', fortune: 'Horóscopo', snap: 'Foto',
+    test: 'Testes', quiz: 'Quiz', checklist: 'Checklist', generator: 'Geradores', fortune: 'Horóscopo', holidays: HOLIDAY_UI['pt-br'].section,
+    snap: 'Foto',
   },
   ja: {
     cmd: 'コマンド',
@@ -54,7 +58,8 @@ export const SECTION_LABEL: Record<SearchIntlLang, Record<string, string>> = {
     calculator: '計算機', rate: '割合', body: '体', geometry: '図形',
     convert: '単位', color: '配色', time: '時間', image: '画像', sound: '音', food: '料理',
     game: 'ゲーム', device: '端末', text: 'テキスト',
-    test: '心理テスト', quiz: 'クイズ', checklist: 'チェックリスト', generator: 'ジェネレーター', fortune: '占い', snap: '写真診断',
+    test: '心理テスト', quiz: 'クイズ', checklist: 'チェックリスト', generator: 'ジェネレーター', fortune: '占い', holidays: HOLIDAY_UI['ja'].section,
+    snap: '写真診断',
   },
   de: {
     cmd: 'Befehle',
@@ -65,7 +70,8 @@ export const SECTION_LABEL: Record<SearchIntlLang, Record<string, string>> = {
     calculator: 'Rechner', rate: 'Prozent', body: 'Körper', geometry: 'Geometrie',
     convert: 'Einheiten', color: 'Farbe', time: 'Zeit', image: 'Bild', sound: 'Klang', food: 'Küche',
     game: 'Spiele', device: 'Geräte', text: 'Text',
-    test: 'Tests', quiz: 'Quiz', checklist: 'Checkliste', generator: 'Generatoren', fortune: 'Horoskop', snap: 'Foto',
+    test: 'Tests', quiz: 'Quiz', checklist: 'Checkliste', generator: 'Generatoren', fortune: 'Horoskop', holidays: HOLIDAY_UI['de'].section,
+    snap: 'Foto',
   },
   fr: {
     cmd: 'Commandes',
@@ -76,7 +82,8 @@ export const SECTION_LABEL: Record<SearchIntlLang, Record<string, string>> = {
     calculator: 'Calculatrices', rate: 'Pourcentages', body: 'Corps', geometry: 'Géométrie',
     convert: 'Unités', color: 'Couleur', time: 'Temps', image: 'Image', sound: 'Son', food: 'Cuisine',
     game: 'Jeux', device: 'Appareils', text: 'Texte',
-    test: 'Tests', quiz: 'Quiz', checklist: 'Checklist', generator: 'Générateurs', fortune: 'Horoscope', snap: 'Photo',
+    test: 'Tests', quiz: 'Quiz', checklist: 'Checklist', generator: 'Générateurs', fortune: 'Horoscope', holidays: HOLIDAY_UI['fr'].section,
+    snap: 'Photo',
   },
   hi: {
     cmd: 'कमांड',
@@ -87,7 +94,8 @@ export const SECTION_LABEL: Record<SearchIntlLang, Record<string, string>> = {
     calculator: 'कैलकुलेटर', rate: 'प्रतिशत', body: 'शरीर', geometry: 'ज्यामिति',
     convert: 'इकाई', color: 'रंग', time: 'समय', image: 'इमेज', sound: 'ध्वनि', food: 'रसोई',
     game: 'खेल', device: 'उपकरण', text: 'टेक्स्ट',
-    test: 'टेस्ट', quiz: 'क्विज़', checklist: 'चेकलिस्ट', generator: 'जनरेटर', fortune: 'राशिफल', snap: 'फ़ोटो',
+    test: 'टेस्ट', quiz: 'क्विज़', checklist: 'चेकलिस्ट', generator: 'जनरेटर', fortune: 'राशिफल', holidays: HOLIDAY_UI['hi'].section,
+    snap: 'फ़ोटो',
   },
   'zh-hans': {
     cmd: '命令',
@@ -98,7 +106,8 @@ export const SECTION_LABEL: Record<SearchIntlLang, Record<string, string>> = {
     calculator: '计算器', rate: '百分比', body: '身体', geometry: '几何',
     convert: '换算', color: '颜色', time: '时间', image: '图片', sound: '声音', food: '烹饪',
     game: '游戏', device: '设备', text: '文本', checklist: '清单',
-    quiz: '测验', test: '测试', generator: '生成器', fortune: '运势', snap: '拍照',
+    quiz: '测验', test: '测试', generator: '生成器', fortune: '运势', holidays: HOLIDAY_UI['zh-hans'].section,
+    snap: '拍照',
   },
   'zh-hant': {
     cmd: '命令',
@@ -109,8 +118,9 @@ export const SECTION_LABEL: Record<SearchIntlLang, Record<string, string>> = {
     calculator: '計算機', rate: '百分比', body: '身體', geometry: '幾何',
     convert: '換算', color: '顏色', time: '時間', image: '圖片', sound: '聲音', food: '烹飪',
     game: '遊戲', device: '裝置', text: '文字', checklist: '清單',
-    quiz: '測驗', test: '測試', generator: '產生器', fortune: '運勢', snap: '拍照',
+    quiz: '測驗', test: '測試', generator: '產生器', fortune: '運勢', holidays: HOLIDAY_UI['zh-hant'].section,
+    snap: '拍照',
   },
 };
 
-export const SECTION_ORDER = ['calculator', 'rate', 'body', 'geometry', 'craft', 'cmd', 'shortcut', 'emoji', 'error', 'convert', 'color', 'time', 'image', 'sound', 'food', 'game', 'device', 'text', 'checklist', 'quiz', 'test', 'generator', 'fortune', 'snap'];
+export const SECTION_ORDER = ['calculator', 'rate', 'body', 'geometry', 'craft', 'cmd', 'shortcut', 'emoji', 'error', 'convert', 'color', 'time', 'image', 'sound', 'food', 'game', 'device', 'text', 'checklist', 'quiz', 'test', 'generator', 'fortune', 'snap', 'holidays'];

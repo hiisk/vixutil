@@ -216,6 +216,9 @@ const CONCEPT_BY_SECTION: Record<string, CardConcept> = {
 
   fortune: 'star', quiz: 'star', hanja: 'star',
 
+  /* 달력은 칸이다 — 격자 계열에 붙인다 */
+  holidays: 'grid',
+
   test: 'ripple', checklist: 'ripple', generator: 'ripple', random: 'ripple',
 
   snap: 'band', image: 'band', color: 'band', craft: 'band', food: 'band',

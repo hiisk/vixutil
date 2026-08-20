@@ -20,7 +20,7 @@ import type { CountryDef } from './engine.ts';
  * 하나로 못 박을 수 없어 여기서는 «사라진다(none)»로 두고 원래 날짜만 낸다.
  * 자치주별 표를 낼 때 sundayNext를 주 단위로 다시 봐야 한다.
  */
-export const es: CountryDef = {
+export const ES: CountryDef = {
   code: 'es',
   observance: 'none',
   holidays: [

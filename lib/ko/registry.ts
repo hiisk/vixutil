@@ -39,6 +39,7 @@ export const KO_LEAVES: Record<string, () => Promise<KoLeaf>> = {
   'generator': () => import('./pages/generator__slug'),
   'geometry': () => import('./pages/geometry__slug'),
   'hanja': () => import('./pages/hanja__slug'),
+  'holidays': () => import('./pages/holidays__slug'),
   'http': () => import('./pages/http__slug'),
   'port': () => import('./pages/port__slug'),
   'quiz': () => import('./pages/quiz__slug'),

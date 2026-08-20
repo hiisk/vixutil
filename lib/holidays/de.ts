@@ -22,7 +22,7 @@ import type { CountryDef } from './engine.ts';
  * ── 주말과 겹치면 ──────────────────────────────────────────
  * 그냥 사라진다. 독일에는 대체공휴일이 없다.
  */
-export const de: CountryDef = {
+export const DE: CountryDef = {
   code: 'de',
   observance: 'none',
   holidays: [

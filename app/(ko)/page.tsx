@@ -12,6 +12,7 @@ import { PATTERNS } from '@/lib/regex/list';
 import { NUMBERS } from '@/lib/number/list';
 import { CODES } from '@/lib/ascii/list';
 import { PORTS } from '@/lib/port/list';
+import { COUNTRIES } from '@/lib/holidays/countries';
 import { MODES as CHMOD_MODES } from '@/lib/chmod/list';
 import { FRACTIONS } from '@/lib/fraction/list';
 import { KEYS } from '@/lib/keycode/list';
@@ -508,6 +509,18 @@ const SECTIONS = [
     textAccent: 'text-orange-700 dark:text-orange-300',
     borderAccent: 'border-orange-200 dark:border-orange-900/50',
     shadow: 'shadow-orange-100',
+  },
+  {
+    href: '/holidays',
+    icon: '📅',
+    title: '나라별 공휴일',
+    desc: '미국·영국·독일·프랑스·스페인·브라질·일본 — 해마다 계산해서 냅니다',
+    badge: `${COUNTRIES.length}개국`,
+    color: 'from-sky-600 to-cyan-500',
+    bgLight: 'bg-sky-50 dark:bg-sky-950/30',
+    textAccent: 'text-sky-700 dark:text-sky-300',
+    borderAccent: 'border-sky-200 dark:border-sky-900/50',
+    shadow: 'shadow-sky-100',
   },
   {
     href: '/port',
