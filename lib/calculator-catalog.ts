@@ -9,6 +9,14 @@ export type CalcCategory = {
   desc: string;
   accent: string;
   calcs: CalcItem[];
+  /**
+   * 이 분류가 이어지는 다른 섹션.
+   *
+   * 단위변환이 그렇다 — 여기 여섯 개뿐인데 /convert에 138종이 있다. 그런데
+   * /calculator에서 /convert로 가는 링크가 **하나도 없었다.** 사이트에서
+   * 가장 큰 허브가 두 번째로 큰 도구 묶음을 안 가리키고 있었던 것이다.
+   */
+  more?: { href: string; label: string };
 };
 
 export const CATS: CalcCategory[] = [
@@ -214,7 +222,8 @@ export const CATS: CalcCategory[] = [
     ],
   },
   {
-    id: 'math', label: '단위변환', icon: '🔢',
+    id: 'math', label: '단위변환',
+    more: { href: '/convert', label: '단위 변환기 138종 전체 보기' }, icon: '🔢',
     desc: '길이·무게·온도·진수 변환',
     accent: 'bg-indigo-50 text-indigo-700 border-indigo-200',
     calcs: [

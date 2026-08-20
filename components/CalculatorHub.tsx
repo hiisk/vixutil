@@ -136,6 +136,26 @@ export default function CalculatorHub() {
                   </Link>
                 ))}
               </div>
+
+              {/*
+                분류가 다른 섹션으로 이어질 때만 뜬다. 단위변환이 그렇다 —
+                여기 여섯 개뿐인데 /convert에 138종이 있는데도 가는 길이
+                없었다(lib/calculator-catalog.ts의 more 참고).
+              */}
+              {cat.more && (
+                <Link
+                  href={cat.more.href}
+                  className="group mt-3 flex items-center justify-between gap-2 rounded-xl border chip-off px-4 py-3 hover:border-slate-300 dark:hover:border-slate-700 transition-all"
+                >
+                  <span className="text-sm font-bold text-slate-800 dark:text-slate-100 group-hover:text-sec transition-colors">
+                    {cat.more.label}
+                  </span>
+                  <svg className="w-4 h-4 shrink-0 text-slate-500 dark:text-slate-400 group-hover:translate-x-0.5 transition-transform"
+                       fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
+                </Link>
+              )}
             </section>
           ))}
 
