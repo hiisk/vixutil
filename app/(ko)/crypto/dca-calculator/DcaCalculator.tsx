@@ -156,7 +156,7 @@ export default function DcaCalculator() {
               {(Object.keys(FREQ_DAYS) as Frequency[]).map(f => (
                 <button key={f} type="button" aria-pressed={freq === f} onClick={() => setFreq(f)}
                   className={`flex-1 px-2 py-1.5 text-[11px] font-bold rounded-lg transition-colors ${
-                    freq === f ? 'bg-amber-500 text-white' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
+                    freq === f ? 'bg-amber-500 text-amber-950' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
                   }`}>
                   {FREQ_LABEL[f]}
                 </button>
@@ -169,7 +169,7 @@ export default function DcaCalculator() {
               {PERIODS.map(([label, d]) => (
                 <button key={d} type="button" aria-pressed={days === d} onClick={() => setDays(d)}
                   className={`flex-1 px-1.5 py-1.5 text-[11px] font-bold rounded-lg transition-colors ${
-                    days === d ? 'bg-amber-500 text-white' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
+                    days === d ? 'bg-amber-500 text-amber-950' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
                   }`}>
                   {label}
                 </button>

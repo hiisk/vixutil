@@ -97,7 +97,7 @@ export default function DepegBoard() {
         <span aria-hidden="true" className="text-3xl">⚠️</span>
         <span className="text-sm font-bold text-rose-600 dark:text-rose-400">Couldn&apos;t load stablecoin prices</span>
         <button type="button" onClick={() => { setState('loading'); setReloadKey(k => k + 1); }}
-          className="mt-2 text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2 transition-colors">Retry</button>
+          className="mt-2 text-sm font-bold text-amber-950 bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2 transition-colors">Retry</button>
       </div>
     );
   }

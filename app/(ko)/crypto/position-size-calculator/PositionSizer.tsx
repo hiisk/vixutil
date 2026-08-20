@@ -219,7 +219,7 @@ export default function PositionSizer() {
                 <button key={v} type="button" aria-pressed={Number(riskPct) === v} onClick={() => setRiskPct(String(v))}
                   className={`px-2.5 py-1 text-[11px] font-bold rounded-lg border transition-colors ${
                     Number(riskPct) === v
-                      ? 'bg-amber-500 border-amber-500 text-white'
+                      ? 'bg-amber-500 border-amber-500 text-amber-950'
                       : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600'
                   }`}>
                   {v}%

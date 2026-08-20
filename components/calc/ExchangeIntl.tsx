@@ -82,7 +82,7 @@ export default function ExchangeIntl({ lang }: { lang: CalcLang }) {
         <Card className="p-6 text-center text-slate-500 dark:text-slate-400 text-sm">{c.loading}</Card>
       )}
       {state === 'failed' && (
-        <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-lg px-4 py-3 text-red-600 dark:text-red-300 text-sm">
+        <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-lg px-4 py-3 text-red-700 dark:text-red-300 text-sm">
           {c.failed}
         </div>
       )}

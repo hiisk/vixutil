@@ -191,7 +191,7 @@ export default function SeverancePage() {
         </Card>
 
         {error && (
-          <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-xl px-4 py-3 text-sm text-red-600 dark:text-red-300">{error}</div>
+          <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-xl px-4 py-3 text-sm text-red-700 dark:text-red-300">{error}</div>
         )}
 
         <PrimaryBtn onClick={calculate}>퇴직금 계산하기</PrimaryBtn>

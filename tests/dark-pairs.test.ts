@@ -35,6 +35,18 @@ const ROOTS = ['app', 'components'];
  */
 const NEEDS_PAIR = /\b(?:divide-slate-(?:50|100|200)|bg-white|bg-slate-50|border-slate-(?:100|200)|text-slate-(?:400|500|600))\b/;
 
+/**
+ * 색 있는 옅은 바탕도 짝이 있어야 한다 — bg-fuchsia-50 같은 것.
+ *
+ * 2026-08-20에 /fortune의 스냅 안내 카드가 다크에서 **밝은 분홍 판** 그대로
+ * 남아 있는 것을 찾았다. 카드가 bg-fuchsia-50인데 dark: 짝이 없어서, 그 위의
+ * dark:text-fuchsia-300 글자가 1.52로 사실상 안 보였다. 23곳이 그랬다.
+ *
+ * 위 NEEDS_PAIR가 bg-white·bg-slate-50만 보고 있어서 색 있는 쪽이 통째로
+ * 빠져 있었다.
+ */
+const TINTED_BG = /\bbg-(?:red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-50\b/;
+
 /** 짝이 뒤집힌 것 — 다크에서 더 어두워진다 */
 const REVERSED = /\btext-slate-400 dark:text-slate-500\b|\btext-slate-300 dark:text-slate-600\b/;
 
@@ -61,6 +73,10 @@ function offenders(): string[] {
       const src = readFileSync(file, 'utf8');
       for (const m of src.matchAll(/className="([^"]*)"/g)) {
         const cls = m[1];
+        if (TINTED_BG.test(cls) && !/\bdark:bg-/.test(cls) && !/from-|via-|to-/.test(cls)) {
+          bad.push(`${file}: 색 있는 옅은 바탕에 dark: 짝이 없다 — ${cls.slice(0, 60)}`);
+          continue;
+        }
         if (!NEEDS_PAIR.test(cls)) continue;
         if (REVERSED.test(cls)) { bad.push(`${file}: 짝이 뒤집혔다 — ${cls.slice(0, 60)}`); continue; }
         if (HAS_DARK.test(cls) || EXEMPT.test(cls)) continue;
@@ -95,6 +111,62 @@ test('이 검사가 실제로 문다', () => {
   assert.ok(HAS_DARK.test(fixed), '고친 것을 여전히 문제로 본다');
 
   /* 실제로 훑는 파일이 있어야 한다 — 경로가 틀리면 빈 목록으로 늘 통과한다 */
+  const n = ROOTS.reduce((s, r) => s + tsxFiles(r).length, 0);
+  assert.ok(n > 300, `훑은 파일이 ${n}개뿐이다 — 경로가 틀렸다`);
+});
+
+/**
+ * 밝은 노랑 위의 흰 글자 — 두 테마 모두에서 안 읽힌다.
+ *
+ * 2026-08-20에 «작은 글자»의 실제 대비를 브라우저에서 재다가 찾았다.
+ * /fortune/tarot의 고른 칸이 bg-amber-500 위에 text-white라 **2.13**이었다
+ * (본문 기준 4.5). 노란 계열은 밝아서 흰 글자를 못 받친다 — 1.51~2.15로,
+ * 필요한 값의 절반도 안 된다. 사이트 전체에 52곳이 있었다.
+ *
+ * 이건 다크·라이트 문제가 아니라 «색 자체» 문제라 dark: 짝을 붙여도 안 낫는다.
+ * 색조는 그대로 두고 잉크를 어둡게 한다(text-amber-950 → 7.0).
+ *
+ * ── 이 검사가 못 잡는 것 ───────────────────────────────────
+ * 바탕과 글자가 **다른 요소**에 있으면 못 본다. 실제로 타로에서 그랬다 —
+ * 칸에 bg-amber-500 text-amber-950을 줬는데 자식 <span>이 text-white로
+ * 덮어써서 여전히 2.13이었다. 그쪽은 브라우저에서 실제로 재야 나온다.
+ */
+const BRIGHT_YELLOW = /\bbg-(?:amber|yellow|lime)-(?:400|500)\b/;
+const WHITE_INK = /\btext-white\b|\btext-(?:amber|yellow|lime)-100\b/;
+
+function yellowOffenders(): string[] {
+  const bad: string[] = [];
+  for (const root of ROOTS) {
+    for (const file of tsxFiles(root)) {
+      const src = readFileSync(file, 'utf8');
+      /* 한 줄 안의 따옴표 문자열 단위로 본다 — 삼항의 각 갈래가 따로 잡힌다 */
+      for (const m of src.matchAll(/'[^'\n]*'|"[^"\n]*"/g)) {
+        const lit = m[0];
+        if (BRIGHT_YELLOW.test(lit) && WHITE_INK.test(lit)) bad.push(`${file}: ${lit.slice(0, 70)}`);
+      }
+    }
+  }
+  return bad;
+}
+
+test('밝은 노랑 위에 흰 글자를 두지 않는다', () => {
+  const bad = yellowOffenders();
+  assert.deepEqual(
+    bad, [],
+    `대비가 2.1 안팎이라 두 테마 모두에서 안 읽힌다 — 잉크를 어둡게 하라(text-amber-950):\n  ${bad.slice(0, 12).join('\n  ')}`,
+  );
+});
+
+test('노랑 검사가 실제로 문다', () => {
+  /* 고쳐 놓은 뒤에는 걸릴 것이 없으니, 규칙 자체를 표본으로 확인한다 */
+  assert.ok(BRIGHT_YELLOW.test('bg-amber-500 text-white'), '문제의 원본을 못 잡는다');
+  assert.ok(WHITE_INK.test('bg-amber-500 text-white'), '흰 글자를 못 잡는다');
+  assert.ok(WHITE_INK.test('bg-amber-500 text-amber-100'), '옅은 잉크를 못 잡는다');
+  /* 고친 꼴은 통과해야 한다 */
+  assert.ok(!WHITE_INK.test('bg-amber-500 text-amber-950'), '고친 것을 여전히 문제로 본다');
+  /* 진한 노랑(600 이상)은 이 규칙 밖이다 — 거기는 흰 글자가 설 수 있다 */
+  assert.ok(!BRIGHT_YELLOW.test('bg-amber-700 text-white'), '진한 바탕까지 잡는다');
+
   const n = ROOTS.reduce((s, r) => s + tsxFiles(r).length, 0);
   assert.ok(n > 300, `훑은 파일이 ${n}개뿐이다 — 경로가 틀렸다`);
 });

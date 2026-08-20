@@ -303,7 +303,7 @@ export default function CoupleMatchPage() {
               </div>
             </div>
 
-            <div className="bg-amber-50 border border-amber-100 dark:border-amber-900/40 rounded-lg p-5">
+            <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900/40 rounded-lg p-5">
               <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">오늘의 커플 팁</p>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.comment}</p>
             </div>

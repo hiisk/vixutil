@@ -89,7 +89,7 @@ export default function RebalanceBoard() {
       <div role="alert" className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
         <span aria-hidden="true" className="text-3xl">⚠️</span>
         <span className="text-sm font-bold text-rose-600 dark:text-rose-400">Couldn&apos;t load market data</span>
-        <button type="button" onClick={load} className="mt-2 text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2 transition-colors">Retry</button>
+        <button type="button" onClick={load} className="mt-2 text-sm font-bold text-amber-950 bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2 transition-colors">Retry</button>
       </div>
     );
   }
@@ -106,7 +106,7 @@ export default function RebalanceBoard() {
             return (
               <button key={b} type="button" aria-pressed={on} onClick={() => toggle(b)}
                 className={`flex items-center gap-1.5 px-3 py-2 rounded-xl border text-xs font-bold transition-colors ${
-                  on ? 'bg-amber-500 border-amber-500 text-white'
+                  on ? 'bg-amber-500 border-amber-500 text-amber-950'
                      : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600'
                 }`}>
                 <CoinLogo base={b} size={16} />{b}
@@ -121,7 +121,7 @@ export default function RebalanceBoard() {
               {PERIODS.map(([label, d]) => (
                 <button key={d} type="button" aria-pressed={days === d} onClick={() => setDays(d)}
                   className={`px-4 py-1.5 text-xs font-bold rounded-lg transition-colors ${
-                    days === d ? 'bg-amber-500 text-white' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
+                    days === d ? 'bg-amber-500 text-amber-950' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
                   }`}>
                   {label}
                 </button>

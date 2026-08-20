@@ -241,7 +241,7 @@ export default function QuizEngine({ quiz, lang = 'ko', headerRight }: { quiz: Q
           </div>
         <p className="text-xs text-slate-500 dark:text-slate-400 mb-8">{ui.meta(quiz.questions.length)}</p>
         <button onClick={() => setPhase('question')}
-          className="w-full max-w-xs bg-amber-500 hover:bg-amber-600 text-white font-bold py-4 rounded-lg text-base transition-colors shadow-sm shadow-amber-200">
+          className="w-full max-w-xs bg-amber-500 hover:bg-amber-600 text-amber-950 font-bold py-4 rounded-lg text-base transition-colors shadow-sm shadow-amber-200">
           {ui.start}
         </button>
       </div>
@@ -262,9 +262,9 @@ export default function QuizEngine({ quiz, lang = 'ko', headerRight }: { quiz: Q
       </header>
       <div key={current} className="flex-1 px-4 py-8 max-w-lg mx-auto w-full qz-fade">
         <div className="flex items-center gap-2 mb-5">
-          <span className="text-xs font-bold text-amber-500 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/30 px-2.5 py-1 rounded-full">Q{current + 1}</span>
+          <span className="text-xs font-bold text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/30 px-2.5 py-1 rounded-full">Q{current + 1}</span>
           {phase === 'answer' && (
-            <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${isCorrect ? 'bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600' : 'bg-red-50 dark:bg-red-950/30 text-red-500'}`}>
+            <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${isCorrect ? 'bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700' : 'bg-red-50 dark:bg-red-950/30 text-red-700'}`}>
               {isCorrect ? ui.correct : ui.wrong}
             </span>
           )}
@@ -283,7 +283,7 @@ export default function QuizEngine({ quiz, lang = 'ko', headerRight }: { quiz: Q
               else { cls += 'bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400'; badgeCls += 'border-2 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400'; }
             } else {
               cls += 'bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-amber-400 hover:bg-sec-soft hover:shadow-sm active:scale-[0.99] cursor-pointer';
-              badgeCls += 'border-2 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 group-hover:border-amber-500 group-hover:bg-amber-500 group-hover:text-white';
+              badgeCls += 'border-2 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 group-hover:border-amber-500 group-hover:bg-amber-500 group-hover:text-amber-950';
             }
             return (
               <button key={i} className={cls} onClick={() => phase === 'question' && handleAnswer(i)} disabled={answered}>
@@ -304,7 +304,7 @@ export default function QuizEngine({ quiz, lang = 'ko', headerRight }: { quiz: Q
               </div>
             )}
             <button onClick={next}
-              className="w-full bg-amber-500 hover:bg-amber-600 text-white rounded-xl py-3.5 font-bold text-sm transition-colors">
+              className="w-full bg-amber-500 hover:bg-amber-600 text-amber-950 rounded-xl py-3.5 font-bold text-sm transition-colors">
               {current + 1 >= total ? ui.seeResult : ui.next}
             </button>
           </div>
@@ -370,7 +370,7 @@ export default function QuizEngine({ quiz, lang = 'ko', headerRight }: { quiz: Q
         <ReferralCards lang={lang} placement="result" />
 
         <div className="mt-6 flex flex-col gap-3">
-          <button onClick={restart} className="w-full bg-amber-500 hover:bg-amber-600 text-white rounded-xl py-3.5 font-bold text-sm transition-colors">
+          <button onClick={restart} className="w-full bg-amber-500 hover:bg-amber-600 text-amber-950 rounded-xl py-3.5 font-bold text-sm transition-colors">
             {ui.retry}
           </button>
           <Link href={hubHref} className="w-full block text-center bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 rounded-xl py-3.5 font-bold text-sm transition-colors">

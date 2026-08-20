@@ -267,7 +267,7 @@ function CelticLayout({ drawn, revealed, spread, onReveal }: LayoutProps) {
         {spread.positions.map((pos, i) => (
           <div key={i} className="flex items-center gap-1.5">
             <span className={`text-[10px] font-bold w-4 h-4 rounded flex items-center justify-center flex-shrink-0 ${
-              revealed[i] ? 'bg-amber-400 text-white' : 'bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400'
+              revealed[i] ? 'bg-amber-400 text-amber-950' : 'bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400'
             }`}>{i + 1}</span>
             <span className="text-[10px] text-slate-500 dark:text-slate-400 truncate">{pos}</span>
           </div>
@@ -311,7 +311,7 @@ function CardInterpretation({ drawn, spread }: { drawn: DrawnSet; spread: Spread
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
                 <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400">#{i + 1} {spread.positions[i]}</span>
-                <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${item.reversed ? 'bg-rose-50 dark:bg-rose-950/30 text-rose-500' : 'bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600'}`}>
+                <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${item.reversed ? 'bg-rose-50 dark:bg-rose-950/30 text-rose-700' : 'bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700'}`}>
                   {item.reversed ? '역방향' : '정방향'}
                 </span>
               </div>
@@ -421,8 +421,8 @@ function CatalogTab() {
           </div>
           <div className="px-4 pb-4 space-y-2">
             <div className="flex gap-2">
-              <span className="text-xs bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-300 font-bold px-2 py-1 rounded-lg">정방향</span>
-              <span className="text-xs bg-rose-50 dark:bg-rose-950/30 text-rose-500 dark:text-rose-300 font-bold px-2 py-1 rounded-lg">⚠️ 역방향</span>
+              <span className="text-xs bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300 font-bold px-2 py-1 rounded-lg">정방향</span>
+              <span className="text-xs bg-rose-50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-300 font-bold px-2 py-1 rounded-lg">⚠️ 역방향</span>
             </div>
             <p className="text-sm text-slate-700 dark:text-slate-200">{selected.upright}</p>
             <p className="text-sm text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-2">{selected.reversed}</p>
@@ -541,15 +541,19 @@ export default function TarotPage() {
                   <button key={s.id} onClick={() => handleSpreadChange(s.id)}
                     className={`rounded-xl p-3 text-left transition-all border ${
                       spreadId === s.id
-                        ? 'bg-amber-500 border-amber-500 text-white'
+                        ? 'bg-amber-500 border-amber-500 text-amber-950'
                         : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-700 text-slate-700 dark:text-slate-200'
                     }`}>
+                    {/*
+                      고른 칸은 bg-amber-500이다. 노랑은 밝아서 흰 글자를 못 받친다 —
+                      전에 여기가 2.13이었다(본문 기준 4.5). 잉크를 어둡게 둔다.
+                    */}
                     <div className="flex items-center gap-2 mb-1">
-                      <ToolIcon emoji={s.icon} className="w-4 h-4 text-slate-500 dark:text-slate-400" />
-                      <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${spreadId === s.id ? 'bg-white/25 dark:bg-slate-900/25 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'}`}>{s.count}장</span>
+                      <ToolIcon emoji={s.icon} className={`w-4 h-4 ${spreadId === s.id ? 'text-amber-950' : 'text-slate-500 dark:text-slate-400'}`} />
+                      <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${spreadId === s.id ? 'bg-amber-950/15 text-amber-950' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}`}>{s.count}장</span>
                     </div>
-                    <p className={`text-xs font-bold leading-tight ${spreadId === s.id ? 'text-white' : 'text-slate-800 dark:text-slate-100'}`}>{s.label}</p>
-                    <p className={`text-[10px] mt-0.5 leading-tight ${spreadId === s.id ? 'text-amber-100' : 'text-slate-500 dark:text-slate-400'}`}>{s.desc}</p>
+                    <p className={`text-xs font-bold leading-tight ${spreadId === s.id ? 'text-amber-950' : 'text-slate-800 dark:text-slate-100'}`}>{s.label}</p>
+                    <p className={`text-[10px] mt-0.5 leading-tight ${spreadId === s.id ? 'text-amber-950' : 'text-slate-500 dark:text-slate-400'}`}>{s.desc}</p>
                   </button>
                 ))}
               </div>
@@ -562,7 +566,7 @@ export default function TarotPage() {
                 {([false, true] as const).map(isFull => (
                   <button key={String(isFull)} onClick={() => { setFullDeck(isFull); handleReset(); }}
                     className={`text-xs font-bold px-3 py-1.5 rounded-lg border transition-all ${
-                      fullDeck === isFull ? 'bg-amber-500 border-amber-500 text-white' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
+                      fullDeck === isFull ? 'bg-amber-500 border-amber-500 text-amber-950' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
                     }`}>
                     {isFull ? '전체 78장' : '메이저 22장'}
                   </button>
@@ -585,13 +589,13 @@ export default function TarotPage() {
                   <div className="flex gap-2">
                     {!allRevealed && anyRevealed && (
                       <button onClick={handleRevealAll}
-                        className="flex-1 py-3 text-sm font-bold text-amber-600 dark:text-amber-300 border border-amber-300 rounded-xl bg-amber-50 dark:bg-amber-950/30 hover:bg-sec-soft transition-colors">
+                        className="flex-1 py-3 text-sm font-bold text-amber-700 dark:text-amber-300 border border-amber-300 rounded-xl bg-amber-50 dark:bg-amber-950/30 hover:bg-sec-soft transition-colors">
                         모두 공개
                       </button>
                     )}
                     {!allRevealed && !anyRevealed && (
                       <button onClick={handleRevealAll}
-                        className="flex-1 py-3 text-sm font-bold text-amber-600 dark:text-amber-300 border border-amber-300 rounded-xl bg-amber-50 dark:bg-amber-950/30 hover:bg-sec-soft transition-colors">
+                        className="flex-1 py-3 text-sm font-bold text-amber-700 dark:text-amber-300 border border-amber-300 rounded-xl bg-amber-50 dark:bg-amber-950/30 hover:bg-sec-soft transition-colors">
                         한 번에 모두 공개
                       </button>
                     )}

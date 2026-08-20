@@ -118,7 +118,7 @@ const CATS = [
   {
     id: 'utility', label: 'Utilities', icon: '💡',
     desc: 'Electricity, gas & water bill calculators',
-    accent: 'bg-yellow-50 text-yellow-700 border-yellow-200',
+    accent: 'bg-yellow-50 dark:bg-yellow-950/30 text-yellow-700 border-yellow-200',
     calcs: [
       { href: '/calculator/electricity', title: 'Electricity Bill', desc: 'Progressive rate calculation based on kWh' },
       { href: '/calculator/gas-bill',    title: 'Gas Bill',         desc: 'City gas bill based on usage' },
@@ -272,7 +272,7 @@ export default function EnHome() {
                         {c.title}
                       </h3>
                       {(c as { hot?: boolean }).hot && (
-                        <span className="shrink-0 ml-1 text-xs font-bold text-red-500 dark:text-red-300 bg-red-50 dark:bg-red-950/30 px-1.5 py-0.5 rounded-full">HOT</span>
+                        <span className="shrink-0 ml-1 text-xs font-bold text-red-700 dark:text-red-300 bg-red-50 dark:bg-red-950/30 px-1.5 py-0.5 rounded-full">HOT</span>
                       )}
                     </div>
                     <p className="note-xs">{c.desc}</p>

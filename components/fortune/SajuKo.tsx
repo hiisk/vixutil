@@ -833,7 +833,7 @@ export default function SajuKo({ initialTopic, formExtra, topicHead, topicTail, 
                       const isThisYear = i === 0;
                       return (
                         <div key={year} className={`rounded-xl border overflow-hidden ${isThisYear?'border-cyan-300':'border-slate-100 dark:border-slate-800'}`}>
-                          <div className={`flex items-center gap-2 px-3 py-2.5 ${isThisYear?'bg-cyan-50':'bg-slate-50 dark:bg-slate-950'}`}>
+                          <div className={`flex items-center gap-2 px-3 py-2.5 ${isThisYear?'bg-cyan-50 dark:bg-cyan-950/30':'bg-slate-50 dark:bg-slate-950'}`}>
                             <span className="text-lg font-bold" style={{ color: se.color }}>{s.hanja}{b.hanja}</span>
                             <div>
                               <p className="text-sm font-bold text-slate-800 dark:text-slate-100">{year}년 · {pillarHanja(pillar)} 세운</p>

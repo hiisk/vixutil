@@ -189,7 +189,7 @@ export default function ReferralCards({ lang = 'ko', heading, placement = 'secti
     >
       <div className="flex items-center gap-2 mb-1.5">
         {/* "광고" 표기를 눈에 띄게 둔다. 숨기면 당장 클릭이 늘어도 신뢰를 잃는다. */}
-        <span className="shrink-0 rounded bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">
+        <span className="shrink-0 rounded bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-slate-600 dark:text-slate-300">
           {t.ad}
         </span>
         {/* 제목을 한 단계 키웠다. text-sm은 본문 글씨와 같아서 머리글로 안 읽혔다. */}

@@ -118,7 +118,7 @@ const CATS = [
   {
     id: 'utility', label: '光熱費', icon: '💡',
     desc: '電気・ガス・水道料金計算機',
-    accent: 'bg-yellow-50 text-yellow-700 border-yellow-200',
+    accent: 'bg-yellow-50 dark:bg-yellow-950/30 text-yellow-700 border-yellow-200',
     calcs: [
       { href: '/calculator/electricity', title: '電気料金計算機', desc: 'kWh基準の累進料金計算' },
       { href: '/calculator/gas-bill',    title: 'ガス料金計算機', desc: '使用量基準の都市ガス料金' },
@@ -272,7 +272,7 @@ export default function JaHome() {
                         {c.title}
                       </h3>
                       {(c as { hot?: boolean }).hot && (
-                        <span className="shrink-0 ml-1 text-xs font-bold text-red-500 dark:text-red-300 bg-red-50 dark:bg-red-950/30 px-1.5 py-0.5 rounded-full">HOT</span>
+                        <span className="shrink-0 ml-1 text-xs font-bold text-red-700 dark:text-red-300 bg-red-50 dark:bg-red-950/30 px-1.5 py-0.5 rounded-full">HOT</span>
                       )}
                     </div>
                     <p className="note-xs">{c.desc}</p>

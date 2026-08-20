@@ -251,7 +251,7 @@ export default function SmileScorePage() {
         {faceError && !analyzing && (
           <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 rounded-lg p-5 mb-6 text-center">
             <p className="text-sm font-bold text-amber-700 dark:text-amber-300 mb-3">🙈 {faceError}</p>
-            <button onClick={() => fileInputRef.current?.click()} className="text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2.5 transition-colors">
+            <button onClick={() => fileInputRef.current?.click()} className="text-sm font-bold text-amber-950 bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2.5 transition-colors">
               다른 사진 선택하기
             </button>
           </div>
@@ -285,7 +285,7 @@ export default function SmileScorePage() {
               </div>
             </div>
 
-            <div className="bg-amber-50 border border-amber-100 dark:border-amber-900/40 rounded-lg p-5">
+            <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900/40 rounded-lg p-5">
               <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">표정 팁</p>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.tip}</p>
             </div>

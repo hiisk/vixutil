@@ -49,7 +49,7 @@ export default function RegexPage() {
             <div className="flex gap-1">
               {FLAGS.map(f => (
                 <button key={f} onClick={() => toggleFlag(f)}
-                  className={`w-8 h-8 rounded-lg text-sm font-mono font-bold transition-colors ${flags.has(f) ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'}`}>
+                  className={`w-8 h-8 rounded-lg text-sm font-mono font-bold transition-colors ${flags.has(f) ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}`}>
                   {f}
                 </button>
               ))}
@@ -68,7 +68,7 @@ export default function RegexPage() {
               <>
                 <div className="flex items-center justify-between mb-3">
                   <p className="label-caps">매치 결과</p>
-                  <span className={`text-xs font-bold px-2 py-1 rounded-full ${result.matches.length > 0 ? 'bg-blue-100 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'}`}>
+                  <span className={`text-xs font-bold px-2 py-1 rounded-full ${result.matches.length > 0 ? 'bg-blue-100 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}`}>
                     {result.matches.length}개 매치
                   </span>
                 </div>

@@ -17,7 +17,7 @@ const THEME: SnapTheme = {
   hover: 'hover:text-orange-600',
   notice: 'bg-orange-50 dark:bg-orange-950/30 border border-orange-100 dark:border-orange-900/40 text-orange-800 dark:text-orange-300',
   spinner: 'border-t-orange-500',
-  dropHover: 'hover:border-orange-400 hover:bg-orange-50/50 dark:hover:bg-orange-950/40',
+  dropHover: 'hover:border-orange-400 hover:bg-orange-50 dark:bg-orange-950/30/50 dark:hover:bg-orange-950/40',
   resetHover: 'hover:border-slate-300 dark:hover:border-slate-700 hover:text-orange-600',
 };
 

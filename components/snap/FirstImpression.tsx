@@ -12,7 +12,7 @@ const THEME: SnapTheme = {
   hover: 'hover:text-fuchsia-600',
   notice: 'bg-fuchsia-50 dark:bg-fuchsia-950/30 border border-fuchsia-100 dark:border-fuchsia-900/40 text-fuchsia-800 dark:text-fuchsia-300',
   spinner: 'border-t-fuchsia-500',
-  dropHover: 'hover:border-fuchsia-400 hover:bg-fuchsia-50/50 dark:hover:bg-fuchsia-950/40',
+  dropHover: 'hover:border-fuchsia-400 hover:bg-fuchsia-50 dark:bg-fuchsia-950/30/50 dark:hover:bg-fuchsia-950/40',
   resetHover: 'hover:border-fuchsia-300 hover:text-fuchsia-600',
 };
 

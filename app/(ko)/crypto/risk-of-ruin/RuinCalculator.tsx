@@ -93,7 +93,7 @@ export default function RuinCalculator() {
               {THRESHOLDS.map(([label, v]) => (
                 <button key={v} type="button" aria-pressed={ruinThresholdPct === v} onClick={() => setRuinThresholdPct(v)}
                   className={`px-4 py-1.5 text-xs font-bold rounded-lg transition-colors ${
-                    ruinThresholdPct === v ? 'bg-amber-500 text-white' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
+                    ruinThresholdPct === v ? 'bg-amber-500 text-amber-950' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
                   }`}>
                   {label}
                 </button>

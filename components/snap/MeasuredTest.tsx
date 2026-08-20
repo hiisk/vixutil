@@ -92,7 +92,7 @@ const THEMES: Record<NewSnapSlug, { icon: string; bar: string; glow: SnapTheme e
       hover: 'hover:text-lime-600',
       notice: 'bg-lime-50 dark:bg-lime-950/30 border border-lime-100 dark:border-lime-900/40 text-lime-800 dark:text-lime-300',
       spinner: 'border-t-lime-500',
-      dropHover: 'hover:border-lime-400 hover:bg-lime-50/50 dark:hover:bg-lime-950/40',
+      dropHover: 'hover:border-lime-400 hover:bg-lime-50 dark:bg-lime-950/30/50 dark:hover:bg-lime-950/40',
       resetHover: 'hover:border-lime-300 hover:text-lime-600',
     },
   },

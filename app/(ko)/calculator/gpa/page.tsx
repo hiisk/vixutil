@@ -342,7 +342,7 @@ export default function GpaPage() {
                       </td>
                       <td>
                         {c.isPf
-                          ? <span className="text-xs text-teal-600 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/30 px-2 py-0.5 rounded-full">GPA 제외</span>
+                          ? <span className="text-xs text-teal-700 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/30 px-2 py-0.5 rounded-full">GPA 제외</span>
                           : point?.toFixed(1)}
                       </td>
                       <td className="font-semibold text-slate-700 dark:text-slate-200">

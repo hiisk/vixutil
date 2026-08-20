@@ -125,7 +125,7 @@ export default function BeatGame({ lang = 'ko' }: { lang?: GameLang } = {}) {
         onClick={tap}
         disabled={phase !== 'tap'}
         className={`${CARD} w-full min-h-[14rem] flex items-center justify-center transition-colors ${
-          phase === 'tap' ? '!border-amber-300 active:!bg-amber-50 dark:active:!bg-amber-950/40' : ''
+          phase === 'tap' ? '!border-amber-300 active:!bg-amber-50 dark:bg-amber-950/30 dark:active:!bg-amber-950/40' : ''
         }`}
       >
         {phase === 'done' && result ? (

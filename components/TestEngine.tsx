@@ -265,7 +265,7 @@ export default function TestEngine({ test, lang = 'ko', headerRight }: { test: T
           </div>
         </header>
         <div key={current} className="flex-1 px-4 py-10 max-w-lg mx-auto w-full te-fade">
-          <span className="inline-block text-xs font-bold text-violet-500 dark:text-violet-300 bg-violet-50 dark:bg-violet-950/40 px-2.5 py-1 rounded-full mb-4">Q{current + 1}</span>
+          <span className="inline-block text-xs font-bold text-violet-700 dark:text-violet-300 bg-violet-50 dark:bg-violet-950/40 px-2.5 py-1 rounded-full mb-4">Q{current + 1}</span>
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-8 leading-relaxed whitespace-pre-line tracking-tight">{q.q}</h2>
           <div className="flex flex-col gap-2.5">
             {q.opts.map((opt, i) => (

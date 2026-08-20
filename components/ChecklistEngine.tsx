@@ -499,7 +499,7 @@ export default function ChecklistEngine({ checklist, lang = 'ko', headerRight }:
           <span className="bg-sec-soft mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg">
             <ToolIcon emoji={checklist.icon} className="h-5 w-5" />
           </span>
-          <span className="text-xs font-bold text-sky-600 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/30 px-3 py-1 rounded-full">{checklist.category}</span>
+          <span className="text-xs font-bold text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/30 px-3 py-1 rounded-full">{checklist.category}</span>
           <div className="hero-band">
             <PageHero title={checklist.title} desc={checklist.desc} />
           </div>
@@ -565,7 +565,7 @@ export default function ChecklistEngine({ checklist, lang = 'ko', headerRight }:
                   </div>
                   <div className="flex items-center gap-2">
                     <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${
-                      sectionAllDone ? 'bg-emerald-100 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300' : 'bg-sky-50 dark:bg-sky-950/30 text-sky-600'
+                      sectionAllDone ? 'bg-emerald-100 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300' : 'bg-sky-50 dark:bg-sky-950/30 text-sky-700'
                     }`}>
                       {sectionDone}/{sectionIds.length}
                     </span>

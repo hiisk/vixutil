@@ -340,7 +340,7 @@ export default function SajuIntl({ lang, initialTopic, formExtra, topicHead, top
                           d.score >= 4
                             ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300'
                             : d.score === 3
-                              ? 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
+                              ? 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'
                               : 'bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300'
                         }`}>
                           {d.grade}

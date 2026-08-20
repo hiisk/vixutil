@@ -329,7 +329,7 @@ export default function FaceReadingPage() {
             <p className="text-sm font-bold text-amber-700 dark:text-amber-300 mb-3">🙈 {faceError}</p>
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2.5 transition-colors"
+              className="text-sm font-bold text-amber-950 bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2.5 transition-colors"
             >
               다른 사진 선택하기
             </button>
@@ -352,7 +352,7 @@ export default function FaceReadingPage() {
                 <div key={f.key} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
                   <div className="flex items-center justify-between mb-1.5">
                     <p className="label-caps">{f.icon} {f.label}</p>
-                    <span className="text-[11px] font-bold text-teal-600 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/30 border border-teal-100 dark:border-teal-900/40 rounded-full px-2 py-0.5">
+                    <span className="text-[11px] font-bold text-teal-700 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/30 border border-teal-100 dark:border-teal-900/40 rounded-full px-2 py-0.5">
                       측정값 {f.percent}%
                     </span>
                   </div>
@@ -364,7 +364,7 @@ export default function FaceReadingPage() {
               ))}
             </div>
 
-            <div className="bg-amber-50 border border-amber-100 dark:border-amber-900/40 rounded-lg p-5">
+            <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900/40 rounded-lg p-5">
               <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">오늘의 관상운</p>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.todayLuck}</p>
             </div>

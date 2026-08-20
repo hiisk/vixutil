@@ -122,7 +122,7 @@ export default function HalvingCountdown() {
       <div role="alert" className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
         <span aria-hidden="true" className="text-3xl">⚠️</span>
         <span className="text-sm font-bold text-rose-600 dark:text-rose-400">Couldn&apos;t reach the block explorer</span>
-        <button type="button" onClick={load} className="mt-2 text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2 transition-colors">Retry</button>
+        <button type="button" onClick={load} className="mt-2 text-sm font-bold text-amber-950 bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2 transition-colors">Retry</button>
       </div>
     );
   }
@@ -188,7 +188,7 @@ export default function HalvingCountdown() {
               <button key={k} type="button" disabled={!usable} aria-pressed={basis === k} onClick={() => setBasis(k)}
                 className={`text-left px-3 py-2 rounded-xl border transition-colors ${
                   !usable ? 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 cursor-not-allowed'
-                  : basis === k ? 'bg-amber-500 border-amber-500 text-white'
+                  : basis === k ? 'bg-amber-500 border-amber-500 text-amber-950'
                   : 'border-amber-500/30 bg-white/70 dark:bg-slate-900/60 text-amber-900 dark:text-amber-200 hover:border-amber-500/60'
                 }`}>
                 <span className="block text-[11px] font-bold">{BASIS_LABEL[k]}</span>

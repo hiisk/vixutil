@@ -11,7 +11,7 @@ import { asciiFacts, kindOf, type Kind } from '@/lib/ascii/facts';
  * 좁은 화면에서는 여덟 칸이 감당되지 않으므로 가로로 밀어 볼 수 있게 한다.
  */
 const COLOUR: Record<Kind, string> = {
-  control: 'bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-600 text-slate-500 dark:text-slate-400',
+  control: 'bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300',
   space: 'bg-amber-100 dark:bg-amber-900/50 border-amber-300 dark:border-amber-700 text-amber-800 dark:text-amber-200',
   digit: 'bg-emerald-100 dark:bg-emerald-900/50 border-emerald-300 dark:border-emerald-700 text-emerald-800 dark:text-emerald-200',
   upper: 'bg-teal-100 dark:bg-teal-900/50 border-teal-300 dark:border-teal-700 text-teal-800 dark:text-teal-200',

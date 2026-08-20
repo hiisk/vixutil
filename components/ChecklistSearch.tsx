@@ -14,7 +14,7 @@ function ChecklistCard({ c }: { c: ChecklistCardItem }) {
       <div className="flex items-start justify-between gap-2">
         <ToolIcon emoji={c.icon} className="text-slate-800 dark:text-slate-100 w-7 h-7" />
         <div className="flex items-center gap-1.5 shrink-0">
-          <span className="text-xs font-bold text-sky-600 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/30 px-2 py-0.5 rounded-full">
+          <span className="text-xs font-bold text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/30 px-2 py-0.5 rounded-full">
             {total}항목
           </span>
         </div>
@@ -88,7 +88,7 @@ export default function ChecklistSearch({ checklists }: { checklists: ChecklistC
             <section key={group.name}>
               <h2 className="text-sm font-bold text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-2">
                 {group.name}
-                <span className="text-xs font-bold text-sky-600 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/30 px-2.5 py-0.5 rounded-full">{group.items.length}</span>
+                <span className="text-xs font-bold text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/30 px-2.5 py-0.5 rounded-full">{group.items.length}</span>
               </h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
                 {group.items.map(c => <ChecklistCard key={c.slug} c={c} />)}

@@ -234,7 +234,7 @@ export default function PregnancyPage() {
                   return (
                     <div key={m.week} className={`flex items-start gap-3 py-3 ${isPast ? 'opacity-50' : ''}`}>
                       <div className={`mt-0.5 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
-                        isCurrent ? 'bg-rose-500 text-white' : isPast ? 'bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
+                        isCurrent ? 'bg-rose-500 text-white' : isPast ? 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'
                       }`}>
                         {m.week}
                       </div>

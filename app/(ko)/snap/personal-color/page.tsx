@@ -375,7 +375,7 @@ export default function PersonalColorPage() {
             <p className="text-sm font-bold text-amber-700 dark:text-amber-300 mb-3">🙈 {faceError}</p>
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2.5 transition-colors"
+              className="text-sm font-bold text-amber-950 bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2.5 transition-colors"
             >
               다른 사진 선택하기
             </button>
@@ -400,7 +400,7 @@ export default function PersonalColorPage() {
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
               <div className="flex items-center justify-between mb-1.5">
                 <p className="label-caps">🌡️ 웜/쿨 지수</p>
-                <span className="text-[11px] font-bold text-orange-600 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/30 border border-orange-100 dark:border-orange-900/40 rounded-full px-2 py-0.5">
+                <span className="text-[11px] font-bold text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/30 border border-orange-100 dark:border-orange-900/40 rounded-full px-2 py-0.5">
                   {result.warmthPercent}% {result.warmthPercent >= 50 ? '웜' : '쿨'}
                 </span>
               </div>
@@ -415,7 +415,7 @@ export default function PersonalColorPage() {
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
               <div className="flex items-center justify-between mb-1.5">
                 <p className="label-caps">선명도 지수</p>
-                <span className="text-[11px] font-bold text-rose-600 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/40 rounded-full px-2 py-0.5">
+                <span className="text-[11px] font-bold text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/40 rounded-full px-2 py-0.5">
                   {result.clarityPercent}% {result.clarityPercent >= 50 ? '클리어' : '뮤트'}
                 </span>
               </div>
@@ -427,7 +427,7 @@ export default function PersonalColorPage() {
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
               <div className="flex items-center justify-between mb-1.5">
                 <p className="label-caps">☀️ 명도 지수</p>
-                <span className="text-[11px] font-bold text-amber-600 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900/40 rounded-full px-2 py-0.5">
+                <span className="text-[11px] font-bold text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900/40 rounded-full px-2 py-0.5">
                   {result.valuePercent}% {result.valuePercent >= 50 ? '라이트' : '딥'}
                 </span>
               </div>
@@ -460,7 +460,7 @@ export default function PersonalColorPage() {
               </div>
             </div>
 
-            <div className="bg-amber-50 border border-amber-100 dark:border-amber-900/40 rounded-lg p-5">
+            <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900/40 rounded-lg p-5">
               <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">오늘의 스타일 팁</p>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.styleTip}</p>
             </div>

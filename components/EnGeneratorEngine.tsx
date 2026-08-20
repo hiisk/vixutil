@@ -115,7 +115,7 @@ export default function EnGeneratorEngine({ gen, lang = 'en' }: { gen: Generator
           <span className="bg-sec-soft mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg">
             <ToolIcon emoji={gen.icon} className="h-5 w-5" />
           </span>
-          <span className="text-xs font-bold text-emerald-600 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/30 px-3 py-1 rounded-full">{gen.category}</span>
+          <span className="text-xs font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/30 px-3 py-1 rounded-full">{gen.category}</span>
           <div className="hero-band">
             <PageHero title={gen.title} desc={gen.desc} />
           </div>

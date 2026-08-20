@@ -10,9 +10,11 @@ type SortKey = 'volume' | 'premium' | 'spread';
 /** 프리미엄 값 색상 — 색만으로 방향을 전달하지 않도록 부호도 항상 함께 쓴다 */
 const TONE_CLS: Record<ReturnType<typeof premiumTone>, string> = {
   high: 'text-rose-600 dark:text-rose-400 font-bold',
-  up: 'text-rose-600/80 dark:text-rose-400/80',
+  /* 가운데 두 단계는 옅게 두려고 /80을 걸었는데, 그 알파가 대비를 3.75까지
+     끌어내렸다(작은 글자 기준 4.5). 굵기로 이미 단계가 갈리므로 알파를 뺀다. */
+  up: 'text-rose-600 dark:text-rose-400',
   flat: 'text-slate-500 dark:text-slate-400',
-  down: 'text-blue-600/80 dark:text-blue-400/80',
+  down: 'text-blue-600 dark:text-blue-400',
   low: 'text-blue-600 dark:text-blue-400 font-bold',
   none: 'text-slate-500 dark:text-slate-400',
 };
@@ -151,7 +153,7 @@ export default function KimchiBoard() {
           거래소 API가 일시적으로 막혔거나, 접속 지역에서 차단됐을 수 있습니다.
           업비트·빗썸 중 한 곳만 살아 있어도 화면은 정상 동작합니다.
         </span>
-        <button onClick={() => { setState('loading'); setReloadKey(k => k + 1); }} className="mt-2 text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2 transition-colors">
+        <button onClick={() => { setState('loading'); setReloadKey(k => k + 1); }} className="mt-2 text-sm font-bold text-amber-950 bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2 transition-colors">
           다시 시도
         </button>
       </div>
@@ -200,7 +202,7 @@ export default function KimchiBoard() {
                   title={usable ? undefined : '이 기준에 필요한 데이터를 받지 못했습니다'}
                   className={`px-4 py-2 text-sm font-bold rounded-lg transition-colors ${
                     !usable ? 'text-slate-500 dark:text-slate-400 cursor-not-allowed'
-                    : basis === k ? 'bg-amber-500 text-white'
+                    : basis === k ? 'bg-amber-500 text-amber-950'
                     : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
                   }`}
                 >
@@ -278,7 +280,7 @@ export default function KimchiBoard() {
               key={k}
               onClick={() => setSortKey(k)}
               className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors ${
-                sortKey === k ? 'bg-amber-500 text-white' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
+                sortKey === k ? 'bg-amber-500 text-amber-950' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
               }`}
             >
               {label}

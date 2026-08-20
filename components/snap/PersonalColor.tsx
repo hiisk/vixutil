@@ -22,7 +22,7 @@ const THEME: SnapTheme = {
   hover: 'hover:text-pink-600',
   notice: 'bg-pink-50 dark:bg-pink-950/30 border border-pink-100 dark:border-pink-900/40 text-pink-800 dark:text-pink-300',
   spinner: 'border-t-pink-500',
-  dropHover: 'hover:border-pink-400 hover:bg-pink-50/50 dark:hover:bg-pink-950/40',
+  dropHover: 'hover:border-pink-400 hover:bg-pink-50 dark:bg-pink-950/30/50 dark:hover:bg-pink-950/40',
   resetHover: 'hover:border-slate-300 dark:hover:border-slate-700 hover:text-pink-600',
 };
 

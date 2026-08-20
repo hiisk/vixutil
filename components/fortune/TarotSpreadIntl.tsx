@@ -118,7 +118,7 @@ export default function TarotSpreadIntl({ lang }: { lang: TarotSpreadLang }) {
                     <span className={`text-sm font-bold ${spreadId === s.id ? 'text-violet-700 dark:text-violet-300' : 'text-slate-700 dark:text-slate-200'}`}>
                       {spreads[s.id].label}
                     </span>
-                    <span className="ml-auto text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400">
+                    <span className="ml-auto text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
                       {ui.cardCount(s.count)}
                     </span>
                   </span>

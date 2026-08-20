@@ -58,7 +58,7 @@ export default function ExchangePage() {
           </Card>
         )}
         {error && (
-          <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-lg px-4 py-3 text-red-600 dark:text-red-300 text-sm">{error}</div>
+          <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-lg px-4 py-3 text-red-700 dark:text-red-300 text-sm">{error}</div>
         )}
 
         {rates && (

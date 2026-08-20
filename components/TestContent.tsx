@@ -42,7 +42,7 @@ export default function TestContent({ test }: { test: Test }) {
                   {r.traits.map(t => (
                     <li
                       key={t}
-                      className="text-xs font-semibold text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-950/30 px-2 py-0.5 rounded-full"
+                      className="text-xs font-semibold text-violet-700 dark:text-violet-400 bg-violet-50 dark:bg-violet-950/30 px-2 py-0.5 rounded-full"
                     >
                       {t}
                     </li>

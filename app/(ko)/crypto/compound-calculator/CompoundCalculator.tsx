@@ -138,7 +138,7 @@ export default function CompoundCalculator() {
               {(['apr', 'apy'] as const).map(k => (
                 <button key={k} type="button" aria-pressed={rateKind === k} onClick={() => setRateKind(k)}
                   className={`px-3 py-1 text-[11px] font-bold rounded-md uppercase transition-colors ${
-                    rateKind === k ? 'bg-amber-500 text-white' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
+                    rateKind === k ? 'bg-amber-500 text-amber-950' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
                   }`}>
                   {k}
                 </button>

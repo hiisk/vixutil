@@ -209,7 +209,7 @@ export default function CoupleMatch({ lang }: { lang: SnapIntlLang }) {
         </div>
 
         {modelState === 'error' && (
-          <div role="alert" className="rounded-lg border-2 border-dashed border-rose-200 dark:border-rose-900/50 bg-rose-50 dark:bg-rose-950/30 py-10 text-center text-sm font-bold text-rose-600 dark:text-rose-300 mb-6">
+          <div role="alert" className="rounded-lg border-2 border-dashed border-rose-200 dark:border-rose-900/50 bg-rose-50 dark:bg-rose-950/30 py-10 text-center text-sm font-bold text-rose-700 dark:text-rose-300 mb-6">
             {lang === 'en' ? 'Could not load the face detection model' : '人脸识别模型加载失败'}
           </div>
         )}

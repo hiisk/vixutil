@@ -78,7 +78,7 @@ export default function ReferralAside({ lang = 'ko', section }: { lang?: AnyLoca
     <aside className={RAIL} aria-label={t.rail}>
       <div className="mb-1.5 flex items-center gap-1.5">
         {/* "광고" 표기는 여기서도 빼지 않는다 — 크게 노출할수록 더 필요하다 */}
-        <span className="shrink-0 rounded bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">
+        <span className="shrink-0 rounded bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-slate-600 dark:text-slate-300">
           {t.ad}
         </span>
         <p className="text-[13px] font-bold text-slate-800 dark:text-slate-100">{t.rail}</p>

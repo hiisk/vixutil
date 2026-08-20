@@ -98,7 +98,7 @@ export default function DeviceHubPage() {
                       <div className="flex items-start justify-between mb-3">
                         <ToolIcon emoji={t.icon} color={t.og[0]} accent={t.og[1]} className="w-8 h-8" />
                         {t.needsPermission && (
-                          <span className="text-[10px] font-bold px-2 py-1 rounded-full bg-sky-50 dark:bg-sky-950/40 text-sky-600 dark:text-sky-300 border border-sky-100 dark:border-sky-900/50">
+                          <span className="text-[10px] font-bold px-2 py-1 rounded-full bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 border border-sky-100 dark:border-sky-900/50">
                             권한 필요
                           </span>
                         )}

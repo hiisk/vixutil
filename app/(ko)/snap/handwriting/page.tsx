@@ -244,7 +244,7 @@ export default function HandwritingPage() {
             <p className="text-sm font-bold text-amber-700 dark:text-amber-300 mb-3">🙈 {imgError}</p>
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2.5 transition-colors"
+              className="text-sm font-bold text-amber-950 bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2.5 transition-colors"
             >
               다른 사진 선택하기
             </button>
@@ -265,7 +265,7 @@ export default function HandwritingPage() {
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
               <div className="flex items-center justify-between mb-1.5">
                 <p className="label-caps">↔️ 기울기 지수</p>
-                <span className="text-[11px] font-bold text-indigo-600 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 rounded-full px-2 py-0.5">
+                <span className="text-[11px] font-bold text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 rounded-full px-2 py-0.5">
                   {result.slantPercent}%
                 </span>
               </div>
@@ -285,7 +285,7 @@ export default function HandwritingPage() {
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{result.pressureText}</p>
             </div>
 
-            <div className="bg-amber-50 border border-amber-100 dark:border-amber-900/40 rounded-lg p-5">
+            <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900/40 rounded-lg p-5">
               <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">오늘의 표현 팁</p>
               <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed font-medium">{result.tip}</p>
             </div>

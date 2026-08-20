@@ -168,7 +168,7 @@ export default function NewYearMoneyPage() {
             <button
               type="button"
               onClick={() => setRows(rs => [...rs, { key: Math.max(0, ...rs.map(r => r.key)) + 1, stage: 'upper', relation: 'nephew', house: '1' }])}
-              className="w-full py-2.5 text-sm text-blue-600 dark:text-blue-300 font-semibold border border-blue-200 dark:border-blue-900/50 rounded-xl bg-blue-50 dark:bg-blue-950/30 hover:bg-sec-soft transition-colors"
+              className="w-full py-2.5 text-sm text-blue-700 dark:text-blue-300 font-semibold border border-blue-200 dark:border-blue-900/50 rounded-xl bg-blue-50 dark:bg-blue-950/30 hover:bg-sec-soft transition-colors"
             >
               + 아이 추가
             </button>

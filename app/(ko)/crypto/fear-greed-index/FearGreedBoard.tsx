@@ -112,7 +112,7 @@ export default function FearGreedBoard() {
       <div role="alert" className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-24 flex flex-col items-center gap-3">
         <span aria-hidden="true" className="text-3xl">⚠️</span>
         <span className="text-sm font-bold text-rose-600 dark:text-rose-400">Couldn&apos;t load the index</span>
-        <button type="button" onClick={load} className="mt-2 text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2 transition-colors">Retry</button>
+        <button type="button" onClick={load} className="mt-2 text-sm font-bold text-amber-950 bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2 transition-colors">Retry</button>
       </div>
     );
   }
@@ -157,7 +157,7 @@ export default function FearGreedBoard() {
             {HORIZONS.map(h => (
               <button key={h} type="button" aria-pressed={horizon === h} onClick={() => setHorizon(h)}
                 className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors ${
-                  horizon === h ? 'bg-amber-500 text-white' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
+                  horizon === h ? 'bg-amber-500 text-amber-950' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
                 }`}>
                 {h}d
               </button>

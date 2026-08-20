@@ -104,7 +104,7 @@ export default function ResizeTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
             title={lock ? ui.lockOn : ui.lockOff}
             className={`shrink-0 mb-1 w-10 h-10 rounded-xl border text-lg transition-colors ${
               lock
-                ? 'border-violet-300 bg-violet-50 dark:bg-violet-950/40 text-violet-600'
+                ? 'border-violet-300 bg-violet-50 dark:bg-violet-950/40 text-violet-700'
                 : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-400'
             }`}
           >

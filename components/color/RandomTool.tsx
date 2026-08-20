@@ -59,7 +59,7 @@ export default function RandomTool({ lang = 'ko' }: { lang?: ColorLang } = {}) {
               onClick={() => setLocked(prev => prev.map((v, k) => (k === i ? !v : v)))}
               className={`rounded-lg py-1.5 text-xs font-bold border transition-colors ${
                 locked[i]
-                  ? 'border-rose-300 bg-rose-50 dark:bg-rose-950/40 text-rose-600'
+                  ? 'border-rose-300 bg-rose-50 dark:bg-rose-950/40 text-rose-700'
                   : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-400'
               }`}
             >

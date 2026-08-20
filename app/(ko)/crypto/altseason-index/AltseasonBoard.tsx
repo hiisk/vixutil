@@ -87,7 +87,7 @@ export default function AltseasonBoard() {
         <span aria-hidden="true" className="text-3xl">⚠️</span>
         <span className="text-sm font-bold text-rose-600 dark:text-rose-400">Couldn&apos;t load market data</span>
         <span className="text-xs text-slate-500 dark:text-slate-400">Binance may be restricted in your region</span>
-        <button type="button" onClick={load} className="mt-2 text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2 transition-colors">Retry</button>
+        <button type="button" onClick={load} className="mt-2 text-sm font-bold text-amber-950 bg-amber-500 hover:bg-amber-600 rounded-xl px-4 py-2 transition-colors">Retry</button>
       </div>
     );
   }
@@ -102,7 +102,7 @@ export default function AltseasonBoard() {
           {PERIODS.map(([label, d]) => (
             <button key={d} type="button" aria-pressed={days === d} onClick={() => setDays(d)}
               className={`px-4 py-1.5 text-xs font-bold rounded-lg transition-colors ${
-                days === d ? 'bg-amber-500 text-white' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
+                days === d ? 'bg-amber-500 text-amber-950' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
               }`}>
               {label}
             </button>

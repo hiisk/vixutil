@@ -94,13 +94,13 @@ export default function RotateTool({ lang = 'ko' }: { lang?: ImageLang } = {}) {
           <button onClick={() => turn(90)} className={btn}>{ui.right}</button>
           <button
             onClick={() => setFlipX(v => !v)}
-            className={`${btn} ${flipX ? '!border-violet-300 !bg-violet-50 dark:!bg-violet-950/40 !text-violet-700' : ''}`}
+            className={`${btn} ${flipX ? '!border-violet-300 !bg-violet-50 dark:bg-violet-950/30 dark:!bg-violet-950/40 !text-violet-700' : ''}`}
           >
             {ui.flipH}
           </button>
           <button
             onClick={() => setFlipY(v => !v)}
-            className={`${btn} ${flipY ? '!border-violet-300 !bg-violet-50 dark:!bg-violet-950/40 !text-violet-700' : ''}`}
+            className={`${btn} ${flipY ? '!border-violet-300 !bg-violet-50 dark:bg-violet-950/30 dark:!bg-violet-950/40 !text-violet-700' : ''}`}
           >
             {ui.flipV}
           </button>

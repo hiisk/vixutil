@@ -93,7 +93,7 @@ export default function TestSearch({ tests }: { tests: CardItem[] }) {
             <section key={group.name}>
               <h2 className="text-sm font-bold text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-2">
                 {group.name}
-                <span className="text-xs font-bold text-violet-500 dark:text-violet-300 bg-violet-50 dark:bg-violet-950/30 px-2.5 py-0.5 rounded-full">{group.items.length}</span>
+                <span className="text-xs font-bold text-violet-700 dark:text-violet-300 bg-violet-50 dark:bg-violet-950/30 px-2.5 py-0.5 rounded-full">{group.items.length}</span>
               </h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
                 {group.items.map(t => <TestCard key={t.slug} t={t} />)}
