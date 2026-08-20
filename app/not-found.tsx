@@ -54,7 +54,12 @@ export default function NotFound() {
 
       <main className="flex-1 max-w-2xl mx-auto px-4 py-14 w-full">
         <p className="text-6xl font-bold tabular-nums text-slate-200 dark:text-slate-700 mb-3">404</p>
-        <h1 className="page-h1">페이지를 찾을 수 없습니다 · Page not found</h1>
+        {/* 두 언어를 한 줄에 두면 좁은 화면에서 «없습 / 니다»처럼 낱말 가운데가
+            꺾인다. 줄을 나눠 각 언어가 제 줄에 서게 한다. */}
+        <h1 className="page-h1">
+          <span className="block">페이지를 찾을 수 없습니다</span>
+          <span className="block">Page not found</span>
+        </h1>
         <p className="note-sm">주소가 바뀌었거나 지워진 페이지입니다. 아래에서 찾아보세요.</p>
         <p className="note-sm mb-10">This page doesn’t exist — it may have moved or been removed.</p>
 

@@ -135,9 +135,9 @@ export default function GeneratorEngine({ gen, headerRight }: { gen: Generator; 
         {/* 생성 버튼 */}
         <button
           onClick={generate}
-          className="w-full bg-emerald-500 hover:bg-emerald-600 active:scale-[0.98] text-white rounded-lg py-4 font-bold text-base transition-all shadow-sm shadow-emerald-200 mb-5"
+          className="btn-pri !py-4 !text-base"
         >
-          {hasResults ? '🔄 다시 생성하기' : `✨ ${gen.title} 시작`}
+          {hasResults ? '다시 생성하기' : `${gen.title} 시작`}
         </button>
 
         {/* 결과 리스트 */}

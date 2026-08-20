@@ -552,10 +552,20 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
   line-height: 1.12;
   letter-spacing: -0.035em;
 }
-/* 제목 아래 한 줄 — 읽는 줄은 46자 언저리에서 끊어야 눈이 안 헤맨다 */
+/* 제목 아래 한 줄 — 읽는 줄은 46자 언저리에서 끊어야 눈이 안 헤맨다.
+   좁은 화면에서는 세 줄로 접는다. 어떤 낱장은 이 자리에 메타 설명 길이의
+   글이 들어가는데(텍스트 도구가 다섯 줄이었다) 그러면 도구가 아래로 밀린다.
+   전체 글은 <meta>에 그대로 있으므로 검색에서 잃는 것이 없다. */
 .page-lede {
   @apply text-[15px] leading-relaxed text-slate-500 dark:text-slate-400 text-pretty;
   max-width: 46ch;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+@media (min-width: 640px) {
+  .page-lede { display: block; overflow: visible; }
 }
 /* 흰 카드가 흰 바탕에 놓여 테두리 1px만으로 떠 있었다 — 아주 옅은 그림자로 띄운다 */
 .list-card {

@@ -473,9 +473,11 @@ export default function ChecklistEngine({ checklist, lang = 'ko', headerRight }:
             {ui.allLists}
           </Link>
           <span className="flex-1" />
-          <span className={`text-sm font-bold tabular-nums ${isAllDone ? 'text-emerald-600' : 'text-sky-600'}`}>
-            {done} / {total}
-          </span>
+          {/*
+            머리의 «0 / 27»을 뺐다 (2026-08-20). 바로 아래 진행바가 같은 수를
+            «0개 완료 · 0%»로 이미 말하고, 390px 화면에서는 뒤로가기·숫자·공유·
+            언어 넷이 한 줄에 안 들어가 숫자가 두 줄로 접혔다.
+          */}
           <button
             onClick={handleShare}
             className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-sky-600 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-700 rounded-xl px-3 py-1.5 transition-all"
